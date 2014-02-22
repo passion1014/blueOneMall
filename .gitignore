@@ -215,3 +215,10 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+/target
+
+.springBeans
+target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
+target/m2e-wtp/web-resources/META-INF/maven/com.blueone/mall/pom.properties
+target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
+target/m2e-wtp/web-resources/META-INF/maven/com.blueone/mall/pom.properties
