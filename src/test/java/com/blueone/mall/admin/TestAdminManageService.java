@@ -1,37 +1,28 @@
 package com.blueone.mall.admin;
 
+import static org.springframework.test.web.server.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.server.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.server.result.MockMvcResultHandlers.*;
+
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.http.MediaType;
 
 import com.blueone.admin.domain.AdminInfo;
-import com.blueone.admin.service.IAdminManageService;
-import com.blueone.controller.AdminController;
+import com.blueone.common.util.TestUtil;
+import com.blueone.mall.BlueoneTestCase;
+import com.google.gson.Gson;
 
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={
-		"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml"
-		,"file:src/main/webapp/WEB-INF/spring/root-context.xml"
-		})
+public class TestAdminManageService extends BlueoneTestCase {
 
-public class TestAdmin {
-
-	@Autowired
-	AdminController adminController;
-	
-	@Autowired
-	IAdminManageService adminManageService;
-	
 	/**
 	 * 아래 클래스/함수를 테스트 한다.
 	 * adminManageService.registAdmin
 	 */
 	@Test
-	public void testInsertAdmin() {
+	public void testInsertAdmin() throws Exception {
 		
+		// 입력할 관리자 정보를 셋팅한다.
 		AdminInfo adminInfo = new AdminInfo();
 		adminInfo.setStatus("Y");
 		adminInfo.setId("id2");
@@ -44,7 +35,14 @@ public class TestAdmin {
 		adminInfo.setHit(1);
 		adminInfo.setComment("comment");
 		
-		adminManageService.registAdminInf(adminInfo);
+		String adminJson = convertJsonTypeStr(adminInfo);
+		
+		// Spring MVC Test!
+		mockMvc.perform(post("/admin/registAdminInf.do").contentType(TestUtil.APPLICATION_JSON_UTF8)
+//				.body(TestUtil.convertObjectToJsonBytes(adminInfo)))
+				.requestAttr("AdminInfo", adminInfo))
+		.andExpect(status().isOk())
+		.andDo(print());
 		
 	}
 	
@@ -65,8 +63,6 @@ public class TestAdmin {
 		adminInfo.setGrade("grade");
 		adminInfo.setHit(1);
 		adminInfo.setComment("comment");
-		
-		adminManageService.editAdminInf(adminInfo);
 		
 	}
 }

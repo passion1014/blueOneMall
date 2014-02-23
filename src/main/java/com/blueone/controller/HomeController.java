@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Handles requests for the application home page.
@@ -26,14 +27,29 @@ public class HomeController {
 	private SqlSession sqlSession;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
+	public ModelAndView home(Locale locale, Model model) {
 		// 로그정보 출력
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
 		List<String> list = sqlSession.selectList("myBatis.test.getTest");
 		
-		model.addAttribute("msg", list.toString() );
-		return "home";
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("home");
+		mav.addObject("msg", list.toString() );
+		return mav;
 	}
+	
+//	@RequestMapping(value = "/", method = RequestMethod.GET)
+//	public String home(Locale locale, Model model) {
+//		// 로그정보 출력
+//		logger.info("Welcome home! The client locale is {}.", locale);
+//		
+//		List<String> list = sqlSession.selectList("myBatis.test.getTest");
+//		
+//		model.addAttribute("msg", list.toString() );
+//		return "home";
+//	}
+
+	
 	
 }

@@ -7,8 +7,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.blueone.admin.domain.AdminInfo;
 import com.blueone.admin.service.IAdminManageService;
 
 @Controller
@@ -23,9 +27,9 @@ public class AdminController {
 	/**
 	 * 관리자 등록
 	 */
-	@RequestMapping(value = "/registAdminInf.do")
-	public void registAdminInfo(Locale locale, Model model) {
-//		adminManageService.registAdmin(adminInfo);
+	@RequestMapping(value = "/registAdminInf.do", method = RequestMethod.POST)
+	public void registAdminInfo(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
+		adminManageService.registAdminInf(adminInfo);
 	}
 	
 	
