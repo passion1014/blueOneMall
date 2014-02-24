@@ -7,6 +7,11 @@ import org.springframework.test.web.server.setup.MockMvcBuilders;
 
 import com.google.gson.Gson;
 
+/**
+ * Spring Test MVC를 사용하여 테스트 한다.
+ * 
+ * @author daniel
+ */
 public abstract class BlueoneTestCase extends TestCase {
 	public MockMvc mockMvc;
 	

@@ -28,33 +28,41 @@ public class AdminController {
 	 * 관리자 등록
 	 */
 	@RequestMapping(value = "/registAdminInf.do", method = RequestMethod.POST)
-	public void registAdminInfo(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
+	public String registAdminInfo(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
 		adminManageService.registAdminInf(adminInfo);
+		
+		return "admin/result";
 	}
 	
 	
 	/**
 	 * 관리자 수정
 	 */
-	@RequestMapping(value = "/editAdminInf.do")
-	public void editAdminInfo(Locale locale, Model model) {
+	@RequestMapping(value = "/editAdminInf.do", method = RequestMethod.POST)
+	public String editAdminInfo(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
+		adminManageService.editAdminInf(adminInfo);
 		
+		return "admin/result";
 	}
 
 	/**
 	 * 관리자 목록 조회
 	 */
-	@RequestMapping(value = "/getAdminListdo")
-	public void getAdminInfoList(Locale locale, Model model) {
+	@RequestMapping(value = "/getAdminList.do", method = RequestMethod.GET)
+	public String getAdminInfoList(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
+		adminManageService.getAdminInfList(adminInfo);
 		
+		return "admin/result";
 	}
 
 	/**
 	 * 관리자 상세 조회
 	 */
-	@RequestMapping(value = "/getAdminDetailInf.do")
-	public void getAdminDetailInfo(Locale locale, Model model) {
+	@RequestMapping(value = "/getAdminDetailInf.do", method = RequestMethod.GET)
+	public String getAdminDetailInfo(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
+		adminManageService.getAdminInfDetail(adminInfo);
 		
+		return "admin/result";
 	}
 
 }

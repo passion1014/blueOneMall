@@ -1,8 +1,13 @@
 package com.blueone.admin.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,21 +17,30 @@ import com.blueone.common.util.MsgEnum;
 @Service
 public class AdminManageServiceImpl implements IAdminManageService {
 
+//	@Autowired
+//	private SqlSession sqlSession;
+	
 	@Autowired
-	private SqlSession sqlSession;
+	private SqlSessionFactory sqlSessionFactory;
 
 	@Override
 	public int registAdminInf(AdminInfo adminInfo) {
 
-		// -----------------------------------------------
-		// 입력된 AdminInfo가 제대로 된 정보인지 확인한다.
-		// -----------------------------------------------
-		checkAdminInfo(adminInfo);
-		
-		// -----------------------------------------------
-		// DB에 해당 정보를 입력한다.
-		// -----------------------------------------------
-		int rst = sqlSession.insert("admin.insertBomAdminTb0001", adminInfo);
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			// -----------------------------------------------
+			// 입력된 AdminInfo가 제대로 된 정보인지 확인한다.
+			// -----------------------------------------------
+			checkAdminInfo(adminInfo);
+			
+			// -----------------------------------------------
+			// DB에 해당 정보를 입력한다.
+			// -----------------------------------------------
+			int rst = sqlSession.insert("admin.insertBomAdminTb0001", adminInfo);
+			
+		} finally {
+			sqlSession.close();
+		}
 		
  		return MsgEnum.MsgEnum_SUCCESS.value();
 	}
@@ -49,11 +63,34 @@ public class AdminManageServiceImpl implements IAdminManageService {
 		// 2. 입력된 id값으로 현재 존재하는지 확인한다.
 		//    - 조회 결과가 없을 경우 "해당 고객이 존재하지 않습니다." 리턴
 		// -----------------------------------------------
+		AdminInfo beforeAdminInfo = null;
+		try {
+			beforeAdminInfo = getAdminInfDetail(adminInfo);
+		} catch (Exception e) {
+			System.out.println("입력하신 고객ID에 해당하는 정보가 존재하지 않습니다.");
+		}
 		
+		// 입력한 ID로 조회한 결과가 있는지 확인한다.
+		if (beforeAdminInfo == null) {
+			System.out.println("입력하신 고객ID에 해당하는 정보가 존재하지 않습니다.");
+			return 0;
+		}
 		
 		// -----------------------------------------------
 		// 3. 입력된 관리자정보 값으로 update 한다.
 		// -----------------------------------------------
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		
+		try {
+			Map<String, AdminInfo> sqlParams = new HashMap<String, AdminInfo>();
+			sqlParams.put("adminInfo", adminInfo);
+			
+			adminInfo = sqlSession.selectOne("admin.updateBomAdminTb0001", sqlParams);
+			
+		} finally {
+			sqlSession.close();
+		}
+
 		
 		return 0;
 	}
@@ -64,7 +101,21 @@ public class AdminManageServiceImpl implements IAdminManageService {
 	 */
 	@Override
 	public List<AdminInfo> getAdminInfList(AdminInfo adminInfo) {
-		return null;
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		
+		List<AdminInfo> adminInfoList = new ArrayList<AdminInfo>();
+		try {
+			Map<String, AdminInfo> sqlParams = new HashMap<String, AdminInfo>();
+//			sqlParams.put("adminInfo", adminInfo);
+			
+			adminInfoList = sqlSession.selectList("admin.selectListBomAdminTb0001", sqlParams);
+			
+		} finally {
+			sqlSession.close();
+		}
+
+		return adminInfoList;
 	}
 
 	/* 
@@ -73,7 +124,19 @@ public class AdminManageServiceImpl implements IAdminManageService {
 	 */
 	@Override
 	public AdminInfo getAdminInfDetail(AdminInfo adminInfo) {
-		return null;
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		
+		try {
+			Map<String, AdminInfo> sqlParams = new HashMap<String, AdminInfo>();
+			sqlParams.put("adminInfo", adminInfo);
+			
+			adminInfo = sqlSession.selectOne("admin.selectDtlBomAdminTb0001", sqlParams);
+			
+		} finally {
+			sqlSession.close();
+		}
+
+		return adminInfo;
 	}
 	
 	/**
