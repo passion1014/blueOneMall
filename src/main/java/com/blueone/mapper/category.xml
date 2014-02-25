@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="category">
+	<resultMap id="CategoryInfoMap" type="com.blueone.category.domain.CategoryInfo">
+		<id property="idx" column="IDX" javaType="int"/>
+		<result property="ctgPCode" column="CTG_P_CODE" javaType="java.lang.String"/>
+		<result property="ctgCodeType" column="CTG_CODE_TYPE" javaType="java.lang.String"/>
+		<result property="ctgCode" column="CTG_CODE" javaType="java.lang.String"/>
+		<result property="ctgName" column="CTG_NAME" javaType="java.lang.String"/>
+		<result property="ctgDesc" column="CTG_DESC" javaType="java.lang.String"/>
+		<result property="fromDate" column="FROM_DATE" javaType="java.lang.String"/>
+		<result property="toDate" column="TO_DATE" javaType="java.lang.String"/>
+		<result property="regDate" column="REG_DATE" javaType="java.lang.String"/>
+		<result property="lastDate" column="LAST_DATE" javaType="java.lang.String"/>
+	</resultMap>
+
+	<insert id="insertBomCategoryTb0001" parameterType="com.blueone.category.domain.CategoryInfo">
+		INSERT BOM_CATEGORY_TB
+			(`CTG_P_CODE`,`CTG_CODE_TYPE`,`CTG_CODE`,`CTG_NAME`
+				,`CTG_DESC`,`FROM_DATE`,`TO_DATE`,`REG_DATE`,`LAST_DATE`)
+			VALUES
+			(#{ctgPCode}, #{ctgCodeType}, #{ctgCode}, #{ctgName}, #{ctgDesc}
+			  , #{fromDate}, #{toDate}, sysdate(), sysdate())
+	</insert>
+
+</mapper>

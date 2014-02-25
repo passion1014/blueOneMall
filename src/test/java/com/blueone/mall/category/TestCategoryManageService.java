@@ -16,11 +16,21 @@ public class TestCategoryManageService extends BlueoneTestCase {
 	 */
 	@Test
 	public void testRegistCategory() throws Exception {
-		String url = "/category/registCategory.do";
 		
-//		mockMvc.perform(put(url).with(convertPar))
-//		.andExpect(status().isOk())
-//		.andExpect(model().attributeExists("msg"))
-//		.andDo(print());
+		// Spring MVC Test!
+		mockMvc.perform(post("/category/registCategoryInf.do")
+//				.contentType(TestUtil.APPLICATION_JSON_UTF8)
+				.param("ctgPCode", "Y")
+				.param("ctgCodeType", "id5")
+				.param("ctgCode", "password1")
+				.param("ctgName", "Àü¼ºÈ£")
+				.param("ctgDesc", "010-1234-1111")
+//				.param("fromDate", "mobile")
+//				.param("toDate", "email")
+//				.param("regDate", "grade")
+//				.param("lastDate", "1")
+				.param("comment", "comment"))
+		.andExpect(status().isOk())
+		.andDo(print());
 	}
 }

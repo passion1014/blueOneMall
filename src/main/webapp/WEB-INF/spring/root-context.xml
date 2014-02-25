@@ -27,6 +27,20 @@
         <!-- <property name="typeAliasesPackage" value="com.blueone.model"/> -->
         <property name="mapperLocations" value="classpath*:com/blueone/mapper/*.xml"/>
     </bean>
+
+	<!-- 메세지 사용 -->
+<!--     <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basenames" value="HelloWorld" />
+		<property name="basenames">
+			<value>HelloWorld</value>
+		</property>
+    </bean>
+	<bean id="messageSourceAccessor" class="org.springframework.context.support.MessageSourceAccessor">
+		<constructor-arg>
+			<ref local="messageSource" />
+		</constructor-arg>
+	</bean>
+     -->
    
     <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
         <constructor-arg index="0" ref="sqlSessionFactory"/>
