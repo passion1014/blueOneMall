@@ -37,11 +37,9 @@
 		</beans:constructor-arg>
 	</beans:bean>
     
-	
+	<!-- 컴포넌트 빈으로 등록 -->
 	<context:component-scan base-package="com.blueone.controller" /> <!-- 컨트롤러들을 등록-->
 	<context:component-scan base-package="com.blueone.admin" /> <!-- Admin Service 등록-->
 	<context:component-scan base-package="com.blueone.category" /> <!-- Category Service 등록-->
-	
-	
 	
 </beans:beans>
