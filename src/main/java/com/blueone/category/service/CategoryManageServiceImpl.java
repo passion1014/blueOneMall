@@ -1,6 +1,8 @@
 package com.blueone.category.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.session.SqlSession;
@@ -8,6 +10,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.blueone.admin.domain.AdminInfo;
 import com.blueone.category.domain.CategoryInfo;
 import com.blueone.common.domain.ResultInfo;
 import com.blueone.common.util.MsgEnum;
@@ -77,14 +80,33 @@ public class CategoryManageServiceImpl implements ICategoryManageService {
 		return null;
 	}
 
+	/*
+	 * Category 상세조회 
+	 */
 	@Override
 	public CategoryInfo getCategoryInfDetail(CategoryInfo categoryInfo) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		CategoryInfo rstInfo = new CategoryInfo();
+		// -----------------------------------------------
+		// 해당 정보를 조회한다.
+		// -----------------------------------------------
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			Map<String, CategoryInfo> sqlParams = new HashMap<String, CategoryInfo>();
+			sqlParams.put("categoryInfo", categoryInfo);
+			
+			rstInfo = sqlSession.selectOne("category.selectDtlBomCategoryTb0001", sqlParams);
+		} finally {
+			sqlSession.close();
+		}
+		
+		return rstInfo;
 	}
 
 	private ResultInfo checkCategoryInfo(CategoryInfo categoryInfo) {
 		ResultInfo rstInfo = new ResultInfo();
+		rstInfo.setRstCd("1");
+		
 		return rstInfo;
 	}
 	

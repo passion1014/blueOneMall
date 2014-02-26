@@ -20,7 +20,7 @@ public class ResultInfo {
 	}
 	
 	public boolean isOk() {
-		return rstCd.equals("1");
+		return "1".equals(rstCd);
 	}
 	
 	public String getRstCd() {
