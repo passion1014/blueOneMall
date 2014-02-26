@@ -93,7 +93,7 @@
 		<ul>
 			<h2>운영자 관리</h2>
 			<li><a href="getAdminList.do">운영자 목록</a></li>
-			<li><a href="registAdminInf.do">운영자 등록</a></li>
+			<li><a href="registAdminForm.do">운영자 등록</a></li>
 		</ul>
 	</div>
 

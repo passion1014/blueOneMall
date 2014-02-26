@@ -31,12 +31,20 @@ public class AdminController {
 		return "admin/admin_main";
 	}
 	
-	@RequestMapping(value = "/registAdminInf.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/registAdminInf.do")
 	public String registAdminInfo(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
 		adminManageService.registAdminInf(adminInfo);
 		
 		return "admin/admin_conf2";
 	}
+	
+	@RequestMapping(value = "/registAdminForm.do", method = RequestMethod.GET)
+	public String registAdminForm() {
+		
+		
+		return "admin/admin_conf2";
+	}
+	
 	
 	@RequestMapping(value = "/editAdminInf.do", method = RequestMethod.POST)
 	public String editAdminInfo(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
