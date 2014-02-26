@@ -89,6 +89,8 @@ public class CategoryManageServiceImpl implements ICategoryManageService {
 	@Override
 	public List<CategoryInfo> getCategoryInfList(CategoryInfo categoryInfo) {
 		// TODO Auto-generated method stub
+//		selectListBomCategoryTb0001
+		
 		return null;
 	}
 

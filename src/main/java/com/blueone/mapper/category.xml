@@ -17,6 +17,16 @@
 		<result property="lastDate" column="LAST_DATE" javaType="java.lang.String"/>
 	</resultMap>
 	
+	<select id="selectListBomCategoryTb0001" resultType="com.blueone.category.domain.CategoryInfo" resultMap="CategoryInfoMap">
+		SELECT
+			IDX, CTG_P_CODE, CTG_CODE_TYPE, CTG_CODE, CTG_NAME, CTG_DESC
+			, FROM_DATE, TO_DATE, REG_DATE, LAST_DATE, MODIFY_USER_ID
+		FROM
+			BOM_CATEGORY_TB
+		ORDER BY
+			CTG_CODE_TYPE ASC, CTG_P_CODE ASC
+	</select >
+	
 	<select id="selectDtlBomCategoryTb0001" parameterType="hashmap" resultType="com.blueone.category.domain.CategoryInfo" resultMap="CategoryInfoMap">
 		SELECT  `IDX`,`CTG_P_CODE`,`CTG_CODE_TYPE`,`CTG_CODE`,`CTG_NAME`
 				,`CTG_DESC`,`FROM_DATE`,`TO_DATE`,`REG_DATE`,`LAST_DATE`
