@@ -28,14 +28,10 @@ public class AdminManageServiceImpl implements IAdminManageService {
 
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
-			// -----------------------------------------------
-			// ÀÔ·ÂµÈ AdminInfo°¡ Á¦´ë·Î µÈ Á¤º¸ÀÎÁö È®ÀÎÇÑ´Ù.
-			// -----------------------------------------------
+		
 			checkAdminInfo(adminInfo);
 			
-			// -----------------------------------------------
-			// DB¿¡ ÇØ´ç Á¤º¸¸¦ ÀÔ·ÂÇÑ´Ù.
-			// -----------------------------------------------
+		
 			int rst = sqlSession.insert("admin.insertBomAdminTb0001", adminInfo);
 			
 		} finally {
@@ -46,38 +42,33 @@ public class AdminManageServiceImpl implements IAdminManageService {
 	}
 
 	/* 
-	 * °ü¸®ÀÚ Á¤º¸ ¼öÁ¤
+	 * ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	 * @see com.blueone.admin.service.IAdminManageService#editAdminInf(com.blueone.admin.domain.AdminInfo)
 	 */
 	@Override
 	public int editAdminInf(AdminInfo adminInfo) {
 		
-		// -----------------------------------------------
-		// 1. ÀÔ·ÂµÈ °ü¸®ÀÚÁ¤º¸ Ã¼Å©
-		// -----------------------------------------------
+	
 		if ( !checkAdminInfo(adminInfo) ) {
 			return MsgEnum.MsgEnum_FAIL.value();
 		}
 		
-		// -----------------------------------------------
-		// 2. ÀÔ·ÂµÈ id°ªÀ¸·Î ÇöÀç Á¸ÀçÇÏ´ÂÁö È®ÀÎÇÑ´Ù.
-		//    - Á¶È¸ °á°ú°¡ ¾øÀ» °æ¿ì "ÇØ´ç °í°´ÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù." ¸®ÅÏ
-		// -----------------------------------------------
+	
 		AdminInfo beforeAdminInfo = null;
 		try {
 			beforeAdminInfo = getAdminInfDetail(adminInfo);
 		} catch (Exception e) {
-			System.out.println("ÀÔ·ÂÇÏ½Å °í°´ID¿¡ ÇØ´çÇÏ´Â Á¤º¸°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+			System.out.println("ï¿½Ô·ï¿½ï¿½Ï½ï¿½ ï¿½?IDï¿½ï¿½ ï¿½Ø´ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê½ï¿½ï¿½Ï´ï¿½.");
 		}
 		
-		// ÀÔ·ÂÇÑ ID·Î Á¶È¸ÇÑ °á°ú°¡ ÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
+		// ï¿½Ô·ï¿½ï¿½ï¿½ IDï¿½ï¿½ ï¿½ï¿½È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ñ´ï¿½.
 		if (beforeAdminInfo == null) {
-			System.out.println("ÀÔ·ÂÇÏ½Å °í°´ID¿¡ ÇØ´çÇÏ´Â Á¤º¸°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+			System.out.println("ï¿½Ô·ï¿½ï¿½Ï½ï¿½ ï¿½?IDï¿½ï¿½ ï¿½Ø´ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê½ï¿½ï¿½Ï´ï¿½.");
 			return 0;
 		}
 		
 		// -----------------------------------------------
-		// 3. ÀÔ·ÂµÈ °ü¸®ÀÚÁ¤º¸ °ªÀ¸·Î update ÇÑ´Ù.
+		// 3. ï¿½Ô·Âµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ update ï¿½Ñ´ï¿½.
 		// -----------------------------------------------
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		
@@ -96,7 +87,7 @@ public class AdminManageServiceImpl implements IAdminManageService {
 	}
 
 	/* 
-	 * °ü¸®ÀÚ ¸ñ·Ï Á¶È¸
+	 * ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
 	 * @see com.blueone.admin.service.IAdminManageService#getAdminInfList(com.blueone.admin.domain.AdminInfo)
 	 */
 	@Override
@@ -119,7 +110,7 @@ public class AdminManageServiceImpl implements IAdminManageService {
 	}
 
 	/* 
-	 * °ü¸®ÀÚ »ó¼¼Á¤º¸ Á¶È¸
+	 * ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
 	 * @see com.blueone.admin.service.IAdminManageService#getAdminInfDetail(com.blueone.admin.domain.AdminInfo)
 	 */
 	@Override
@@ -140,7 +131,7 @@ public class AdminManageServiceImpl implements IAdminManageService {
 	}
 	
 	/**
-	 * µî·Ï/¼öÁ¤½Ã ÇÊ¿äÇÑ Á¤º¸°¡ ÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
+	 * ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ñ´ï¿½.
 	 * @param adminInfo
 	 * @return
 	 */

@@ -23,10 +23,14 @@ public class AdminController {
 	
 	@Autowired
 	IAdminManageService adminManageService;
+
+	@RequestMapping(value = "/adminMain.do", method = RequestMethod.GET)
+	public String mainAdminInfo(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
+		
+		return "admin/admin_main";
+	}
+
 	
-	/**
-	 * 관리자 등록
-	 */
 	@RequestMapping(value = "/registAdminInf.do", method = RequestMethod.POST)
 	public String registAdminInfo(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
 		adminManageService.registAdminInf(adminInfo);
@@ -35,9 +39,6 @@ public class AdminController {
 	}
 	
 	
-	/**
-	 * 관리자 수정
-	 */
 	@RequestMapping(value = "/editAdminInf.do", method = RequestMethod.POST)
 	public String editAdminInfo(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
 		adminManageService.editAdminInf(adminInfo);
@@ -45,9 +46,7 @@ public class AdminController {
 		return "admin/result";
 	}
 
-	/**
-	 * 관리자 목록 조회
-	 */
+	
 	@RequestMapping(value = "/getAdminList.do", method = RequestMethod.GET)
 	public String getAdminInfoList(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
 		adminManageService.getAdminInfList(adminInfo);
@@ -55,9 +54,7 @@ public class AdminController {
 		return "admin/result";
 	}
 
-	/**
-	 * 관리자 상세 조회
-	 */
+	
 	@RequestMapping(value = "/getAdminDetailInf.do", method = RequestMethod.GET)
 	public String getAdminDetailInfo(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
 		adminManageService.getAdminInfDetail(adminInfo);
