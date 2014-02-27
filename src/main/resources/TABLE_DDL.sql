@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS `BOM_ADMIN_TB` (
   `ADMIN_CMT` TEXT,
   `REG_DATE` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
   `LAST_DATE` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`IDX`)
+  PRIMARY KEY (`ADMIN_ID`)
 ) ENGINE=MyISAM ;
 
 CREATE TABLE IF NOT EXISTS `BOM_CATEGORY_TB` (
@@ -28,7 +28,53 @@ CREATE TABLE IF NOT EXISTS `BOM_CATEGORY_TB` (
   `TO_DATE` DATETIME NOT NULL DEFAULT '9999-12-31 00:00:00',
   `REG_DATE` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
   `LAST_DATE` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`IDX`)
+  PRIMARY KEY (`CTG_CODE`)
 ) ENGINE=MyISAM ;
 
 
+[상품TBL]
+	IDX
+	상품코드(PK)
+	상품명
+	상품설명
+	상품HTML
+	카테고리대분류
+	카테고리중분류
+	카테고리소분류
+	
+[고객TBL]	
+	IDX
+	고객ID(PK)
+	고객명
+	
+	
+[고객접촉정보TBL]
+	IDX
+	고객ID(PK)(FK)
+	접촉정보번호(PK)
+	접촉정보구분코드 - 집,회사,기타
+	접촉정보명 - 기타일 경우 입력
+	우편번호1
+	우편번호2
+	주소
+	주소상세
+	핸드폰번호1
+	핸드폰번호2
+	핸드폰번호3
+	전화번호1
+	전화번호2
+	전화번호3
+PRIMARY KEY (`고객ID`, `접촉정보번호`)
+
+[주문TBL]
+	IDX
+	주문번호(PK)
+	고객ID(FK)
+	접촉정보번호(FK)
+
+[주문/상품]
+	IDX
+	주문ID(FK)
+	상품ID(FK)
+
+	
