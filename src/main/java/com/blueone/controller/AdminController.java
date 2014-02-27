@@ -29,6 +29,8 @@ public class AdminController {
 		
 		return "admin/admin_main";
 	}
+	
+	
 
 	
 	@RequestMapping(value = "/registAdminInf.do", method = RequestMethod.POST)
@@ -51,7 +53,7 @@ public class AdminController {
 	public String getAdminInfoList(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
 		adminManageService.getAdminInfList(adminInfo);
 		
-		return "admin/result";
+		return "admin/admin_conf1";
 	}
 
 	

@@ -10,8 +10,8 @@
 <meta name="apple-touch-fullscreen" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>:: ADMIN ::</title>
-<link rel="stylesheet" href="../css/basic.css" />
-<link rel="stylesheet" href="../css/admin.css" />
+<link rel="stylesheet" href="../../css/admin/basic.css" />
+<link rel="stylesheet" href="../../css/admin/admin.css" />
 <script language="javascript" type="text/javascript" src="../js/js_ajax.js"> </script>
 <script language="javascript" type="text/javascript" src="../js/js_common.js"> </script>
 <script language="javascript" type="text/javascript" src="../js/js_admin.js"> </script>

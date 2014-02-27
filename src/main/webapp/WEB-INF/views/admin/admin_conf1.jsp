@@ -142,7 +142,7 @@
 			<th>林巩包府</th>
 			<th>目孤聪萍</th>
 		</tr>
-      <c:forEach items="${adminInfoList}" var="infoList">
+      <c:forEach items="${getAdminInfoList}" var="infoList">
 		<tr onClick="line_detail('1')" style="cursor:pointer;">
 			<td><b>${infoList.idx}</b></td>
 			<td>${infoList.status}</td>
