@@ -103,15 +103,6 @@
 <!-- admin.lnb_none.html end -->
 
 
-
-
-
-
-
-
-
-
-
 <div id="Contents">
 	<h1>환경설정 &gt; 운영자관리 &gt; <strong>운영자등록</strong></h1>
 
@@ -197,21 +188,6 @@
 	</form>
 
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <!-- admin.bottom.html start-->
 </div>

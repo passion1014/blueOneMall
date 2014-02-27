@@ -223,8 +223,7 @@
 		</tr>
 
 
-		
-		
+
 	</table>
 
 	<div id="Paser"> 1 | 2 | 3</div>
@@ -247,7 +246,7 @@
 
 
 
-
 </div>
 </body>
 </html>
+

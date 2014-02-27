@@ -23,8 +23,7 @@ public class AdminController {
 	
 	@Autowired
 	IAdminManageService adminManageService;
-	
-     
+
 	@RequestMapping(value = "/adminMain.do", method = RequestMethod.GET)
 	public String mainAdminInfo(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
 		
@@ -40,7 +39,6 @@ public class AdminController {
 	
 	@RequestMapping(value = "/registAdminForm.do", method = RequestMethod.GET)
 	public String registAdminForm() {
-		
 		
 		return "admin/admin_conf2";
 	}
