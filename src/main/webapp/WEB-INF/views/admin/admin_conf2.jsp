@@ -11,11 +11,12 @@
 <meta name="apple-touch-fullscreen" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>:: ADMIN ::</title>
-<link rel="stylesheet" href="../css/basic.css" />
-<link rel="stylesheet" href="../css/admin.css" />
-<script language="javascript" type="text/javascript" src="../js/js_ajax.js"> </script>
-<script language="javascript" type="text/javascript" src="../js/js_common.js"> </script>
-<script language="javascript" type="text/javascript" src="../js/js_admin.js"> </script>
+<link type="text/css" rel="stylesheet" href="<c:url value='/resources/css/admin/basic.css'/>" />
+<link type="text/css" rel="stylesheet" href="<c:url value='/resources/css/admin/admin.css'/>" />
+
+<script type="text/javascript" src="<c:url value='/resources/js/admin/js_ajax.js'/>"> </script>
+<script type="text/javascript" src="<c:url value='/resources/js/admin/js_common.js'/>"> </script>
+<script type="text/javascript" src="<c:url value='/resources/js/admin/js_admin.js'/>"> </script>
 <!--[if lt IE 9]>
 <script src="js/jquery_html5shiv.js"></script>
 <![endif]-->
@@ -110,7 +111,7 @@
 
 
 
-<!-- ./conf/conf.admin_register.html start -->
+
 <div id="Contents">
 	<h1>환경설정 &gt; 운영자관리 &gt; <strong>운영자등록</strong></h1>
 
@@ -196,7 +197,7 @@
 	</form>
 
 </div>
-<!-- ./conf/conf.admin_register.html end -->
+
 
 
 
