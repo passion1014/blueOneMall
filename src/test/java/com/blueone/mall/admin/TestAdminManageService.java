@@ -46,7 +46,7 @@ public class TestAdminManageService extends BlueoneTestCase {
 		mockMvc.perform(post("/admin/editAdminInf.do")
 //				.contentType(TestUtil.APPLICATION_JSON_UTF8)
 				.param("status", "Y")
-				.param("id", "id2")
+				.param("id", "id5")
 				.param("password", "password")
 				.param("name", "newName")
 				.param("phone", "phone")
@@ -64,7 +64,7 @@ public class TestAdminManageService extends BlueoneTestCase {
 		// Spring MVC Test!
 		mockMvc.perform(get("/admin/getAdminDetailInf.do")
 //				.contentType(TestUtil.APPLICATION_JSON_UTF8)
-				.param("id", "id2"))
+				.param("id", "id5"))
 		.andExpect(status().isOk())
 		.andDo(print());
 		

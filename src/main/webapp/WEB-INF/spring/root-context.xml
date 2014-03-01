@@ -16,16 +16,10 @@
         <property name="username" value="${jdbc.user}"/>
         <property name="password" value="${jdbc.password}"/> -->
         
-       <!--  <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+       <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://test1.czbiogvx6rse.us-west-2.rds.amazonaws.com:3306/BLUEONEMALL1"/>
         <property name="username" value="test1"/>
-        <property name="password" value="elaia79!1"/> -->
-        <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-            <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
-            <property name="url" value="jdbc:oracle:thin:@localhost:1521:ORCL" />
-            <property name="username" value="blueone"/>
-            <property name="password" value="blueone" />
-        </bean>
+        <property name="password" value="elaia79!1"/>
     </bean>
  
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
