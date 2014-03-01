@@ -20,5 +20,7 @@ public class TestSimpleEtc {
 		System.out.println("cnvt=" + NumberUtils.toInt("01"));
 		System.out.println("cnvt=" + NumberUtils.toInt("03"));
 		System.out.println("cnvt=" + NumberUtils.toInt("12"));
+		
+		System.out.println("cnvt=" + NumberUtils.toInt(null, -1));
 	}
 }

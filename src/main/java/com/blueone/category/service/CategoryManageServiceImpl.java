@@ -50,8 +50,17 @@ public class CategoryManageServiceImpl implements ICategoryManageService {
 			}
 			
 			// 2) 부모코드의 타입이 상위 타입인지 확인 (대분류타입= 01, 중분류=02, 소분류=03)
-			String pTypeCd = pCategoryInfo.getCtgPCode();
-			int iPTypeCd = NumberUtils.toInt(pTypeCd);
+			int iPTypeCd = NumberUtils.toInt(pCategoryInfo.getCtgCodeType(), -1);	// 부모카테고리 구분코드
+			int iCTypeCd = NumberUtils.toInt(categoryInfo.getCtgCodeType(), -1);	// 자식카테고리 구분코드
+			
+			if (iPTypeCd >= iCTypeCd) {
+				rstInfo = new ResultInfo();
+				rstInfo.setRstCd("0");
+				rstInfo.setRstMsgCd("srch.category.parent.fail");
+				
+				return rstInfo;
+			}
+			
 		}
 		
 		// -----------------------------------------------

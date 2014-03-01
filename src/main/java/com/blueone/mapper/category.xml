@@ -28,10 +28,10 @@
 	<insert id="insertBomCategoryTb0001" parameterType="com.blueone.category.domain.CategoryInfo">
 		INSERT BOM_CATEGORY_TB
 			(`CTG_P_CODE`,`CTG_CODE_TYPE`,`CTG_CODE`,`CTG_NAME`
-				,`CTG_DESC`,`FROM_DATE`,`TO_DATE`,`REG_DATE`,`LAST_DATE`)
+				,`CTG_DESC`,`FROM_DATE`,`TO_DATE`,`REG_DATE`,`LAST_DATE`, `MODIFY_USER_ID`)
 			VALUES
 			(#{ctgPCode}, #{ctgCodeType}, #{ctgCode}, #{ctgName}, #{ctgDesc}
-			  , #{fromDate}, #{toDate}, sysdate(), sysdate())
+			  , #{fromDate}, #{toDate}, sysdate(), sysdate(), 'default')
 	</insert>
 	
 	<update id="updateBomAdminTb0001" parameterType="com.blueone.admin.domain.AdminInfo">
