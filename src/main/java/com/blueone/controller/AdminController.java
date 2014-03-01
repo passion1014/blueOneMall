@@ -34,7 +34,7 @@ public class AdminController {
 	
 
 	
-	@RequestMapping(value = "/registAdminInf.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/registAdminInf.do", method = RequestMethod.GET)
 	public String registAdminInfo(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
 		adminManageService.registAdminInf(adminInfo);
 		

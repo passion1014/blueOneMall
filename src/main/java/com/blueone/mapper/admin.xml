@@ -39,7 +39,7 @@
 	
 
 	<insert id="insertBomAdminTb0001" parameterType="com.blueone.admin.domain.AdminInfo">
-		INSERT BOM_ADMIN_TB
+		INSERT  BOM_ADMIN_TB
 			(`ADMIN_STATUS`,`ADMIN_ID`,`ADMIN_PASS`,`ADMIN_NAME`
 				,`ADMIN_PHONE`,`ADMIN_MOBILE`,`ADMIN_EMAIL`,`ADMIN_GRADE`
 				,`ADMIN_HIT`,`ADMIN_CMT`,`REG_DATE`,`LAST_DATE`)
