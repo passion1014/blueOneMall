@@ -6,9 +6,12 @@ import com.blueone.admin.domain.AdminInfo;
 
 public interface IAdminManageService {
 
-	public int registAdminInf(AdminInfo adminInfo); /* °ü¸®ÀÚ ½Å±Ôµî·Ï */
-	public int editAdminInf(AdminInfo adminInfo); /* °ü¸®ÀÚ ¼öÁ¤ */
-	public List<AdminInfo> getAdminInfList(AdminInfo adminInfo); /* °ü¸®ÀÚ ¸ñ·Ï Á¶È¸ */
-	public AdminInfo getAdminInfDetail(AdminInfo adminInfo); /* °ü¸®ÀÚ »ó¼¼ Á¶È¸ */
+	public int registAdminInf(AdminInfo adminInfo); /*ìš´ì˜ìë“±ë¡*/
+	public int editAdminInf(AdminInfo adminInfo); /*ìš´ì˜ììˆ˜ì •*/
+	public List<AdminInfo> getAdminInfList(AdminInfo adminInfo); /*ìš´ì˜ìëª©ë¡*/
+	public AdminInfo getAdminInfDetail(AdminInfo adminInfo); /*ìš´ì˜ì ìƒì„¸ì •ë³´*/
+	
+	
+	
 	
 }

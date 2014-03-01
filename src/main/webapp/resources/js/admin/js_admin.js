@@ -43,7 +43,7 @@ function chk_double_admin_id() {
  *****************************************************************************/
 function chk_admin_form(f){
 	if(chkForm(f)){
-		if(f.admin_pass.value != f.re_pass.value){
+		if(f.password.value != f.re_pass.value){
 			alert("비밀번호가 일치하지 않습니다.");
 			f.re_pass.value = "" ;
 			f.re_pass.focus();
