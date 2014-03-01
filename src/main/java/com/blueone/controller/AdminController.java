@@ -24,7 +24,7 @@ public class AdminController {
 	@Autowired
 	IAdminManageService adminManageService;
 	
-     //mainpage
+     
 	@RequestMapping(value = "/adminMain.do", method = RequestMethod.GET)
 	public String mainAdminInfo(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
 		
