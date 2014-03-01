@@ -11,10 +11,8 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.blueone.admin.domain.AdminInfo;
 import com.blueone.category.domain.CategoryInfo;
 import com.blueone.common.domain.ResultInfo;
-import com.blueone.common.util.MsgEnum;
 
 @Service
 public class CategoryManageServiceImpl implements ICategoryManageService {
@@ -27,20 +25,20 @@ public class CategoryManageServiceImpl implements ICategoryManageService {
 		ResultInfo rstInfo = new ResultInfo(ResultInfo.OK);
 		
 		// -----------------------------------------------
-		// ÀÔ·ÂµÈ CategoryInfo°¡ Á¦´ë·Î µÈ Á¤º¸ÀÎÁö È®ÀÎÇÑ´Ù.
+		// ì²´í¬ë¡œì§
 		// -----------------------------------------------
 		rstInfo = checkCategoryInfo(categoryInfo);
 		if (!rstInfo.isOk()) return rstInfo;
 		
 		// -----------------------------------------------
-		// ctgPCode°¡ ÀÖÀ» °æ¿ì 
-		//   1) ÇØ´ç ºÎ¸ğÄÚµå°¡ Á¸ÀçÇÏ´ÂÁö È®ÀÎ
-		//   2) ºÎ¸ğÄÚµåÀÇ Å¸ÀÔÀÌ »óÀ§ Å¸ÀÔÀÎÁö È®ÀÎ
+		// ctgPCodeê°€ ìˆì„ ê²½ìš° 
+		//   1) ë¶€ëª¨ ì¹´í…Œê³ ë¦¬ê°€ ì¡´ì¬í•˜ëŠ”ì§€ í™•ì¸
+		//   2) êµ¬ë¶„ì½”ë“œê°€ ìƒìœ„ êµ¬ë¶„ì½”ë“œì¸ì§€ í™•ì¸
 		// -----------------------------------------------
 		if (StringUtils.isNotEmpty(categoryInfo.getCtgPCode())) {
 			CategoryInfo pCategoryInfo = getCategoryInfDetail(categoryInfo);
 			
-			// 1) ÇØ´ç ºÎ¸ğÄÚµå°¡ Á¸ÀçÇÏ´ÂÁö È®ÀÎ
+			// 1) ë¶€ëª¨ ì¹´í…Œê³ ë¦¬ê°€ ì¡´ì¬í•˜ëŠ”ì§€ í™•ì¸
 			if (pCategoryInfo == null) {
 				rstInfo = new ResultInfo();
 				rstInfo.setRstCd("0");
@@ -49,9 +47,9 @@ public class CategoryManageServiceImpl implements ICategoryManageService {
 				return rstInfo;
 			}
 			
-			// 2) ºÎ¸ğÄÚµåÀÇ Å¸ÀÔÀÌ »óÀ§ Å¸ÀÔÀÎÁö È®ÀÎ (´ëºĞ·ùÅ¸ÀÔ= 01, ÁßºĞ·ù=02, ¼ÒºĞ·ù=03)
-			int iPTypeCd = NumberUtils.toInt(pCategoryInfo.getCtgCodeType(), -1);	// ºÎ¸ğÄ«Å×°í¸® ±¸ºĞÄÚµå
-			int iCTypeCd = NumberUtils.toInt(categoryInfo.getCtgCodeType(), -1);	// ÀÚ½ÄÄ«Å×°í¸® ±¸ºĞÄÚµå
+			// 2) ë¶„ë¥˜ì½”ë“œê°€ ìƒìœ„ì½”ë“œì¸ì§€ í™•ì¸ (ëŒ€ë¶„ë¥˜= 01, ì¤‘ë¶„ë¥˜=02, ì†Œë¶„ë¥˜=03)
+			int iPTypeCd = NumberUtils.toInt(pCategoryInfo.getCtgCodeType(), -1);	// ë¶€ëª¨ êµ¬ë¶„ì½”ë“œ
+			int iCTypeCd = NumberUtils.toInt(categoryInfo.getCtgCodeType(), -1);	// ìì‹ êµ¬ë¶„ì½”ë“œ
 			
 			if (iPTypeCd >= iCTypeCd) {
 				rstInfo = new ResultInfo();
@@ -64,14 +62,14 @@ public class CategoryManageServiceImpl implements ICategoryManageService {
 		}
 		
 		// -----------------------------------------------
-		// DB¿¡ ÇØ´ç Á¤º¸¸¦ ÀÔ·ÂÇÑ´Ù.
+		// DB Insert ìˆ˜í–‰
 		// -----------------------------------------------
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
-			// fromDate, toDate ºó°ª Ã¼Å©ÇÏ¿© ±âº»°ª ¼¼ÆÃ
+			// fromDate, toDate ì—†ì„ê²½ìš°, ê¸°ë³¸ê°’ ì…‹íŒ…
 			setDefaultDate(categoryInfo);
 			
-			// DB ÀúÀå
+			// DB ìˆ˜í–‰
 			int rst = sqlSession.insert("category.insertBomCategoryTb0001", categoryInfo);
 		} finally {
 			sqlSession.close();
@@ -95,14 +93,14 @@ public class CategoryManageServiceImpl implements ICategoryManageService {
 	}
 
 	/*
-	 * Category »ó¼¼Á¶È¸ 
+	 * Category ì¡°íšŒ 
 	 */
 	@Override
 	public CategoryInfo getCategoryInfDetail(CategoryInfo categoryInfo) {
 		
 		CategoryInfo rstInfo = new CategoryInfo();
 		// -----------------------------------------------
-		// ÇØ´ç Á¤º¸¸¦ Á¶È¸ÇÑ´Ù.
+		// ì¡°íšŒ
 		// -----------------------------------------------
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
@@ -128,12 +126,12 @@ public class CategoryManageServiceImpl implements ICategoryManageService {
 	
 	private void setDefaultDate(CategoryInfo categoryInfo) {
 		
-		// fromDate ºó°ªÀÏ°æ¿ì "0001-01-01" ¼ÂÆÃ
+		// fromDate "0001-01-01"
 		if (StringUtils.isEmpty(categoryInfo.getFromDate())) {
 			categoryInfo.setFromDate("0001-01-01");
 		}
 		
-		// toDate ºó°ª ÀÏ°æ¿ì "9999-12-31" ¼ÂÆÃ
+		// toDate "9999-12-31"
 		if (StringUtils.isEmpty(categoryInfo.getToDate())) {
 			categoryInfo.setToDate("9999-12-31");
 		}
