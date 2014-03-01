@@ -27,7 +27,7 @@ public class CategoryManageServiceImpl implements ICategoryManageService {
 		ResultInfo rstInfo = new ResultInfo(ResultInfo.OK);
 		
 		// -----------------------------------------------
-		// 입력된 AdminInfo가 제대로 된 정보인지 확인한다.
+		// 입력된 CategoryInfo가 제대로 된 정보인지 확인한다.
 		// -----------------------------------------------
 		rstInfo = checkCategoryInfo(categoryInfo);
 		if (!rstInfo.isOk()) return rstInfo;
