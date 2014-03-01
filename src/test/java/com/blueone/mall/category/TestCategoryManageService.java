@@ -10,6 +10,20 @@ import com.blueone.mall.BlueoneTestCase;
 
 public class TestCategoryManageService extends BlueoneTestCase {
 
+	@Test
+	public void testGetCategoryList() throws Exception {
+		// LV101
+		mockMvc.perform(get("/category/getCategoryList.do")
+				.param("ctgPCode", "")
+				.param("ctgCodeType", "01")
+				.param("ctgCode", "LV101")
+				.param("ctgName", "MAIN_CATEGORY_1")
+				.param("ctgDesc", "THIS IS MAIN CATEGORY!")
+				.param("comment", "comment"))
+		.andExpect(status().isOk())
+		.andDo(print());
+	}
+	
 	/**
 	 * "/category/registCategory.do"
 	 * @throws Exception
@@ -17,7 +31,7 @@ public class TestCategoryManageService extends BlueoneTestCase {
 	@Test
 	public void testRegistCategory() throws Exception {
 		
-/*		// 대분류 등록 (LV101)
+		// LV101
 		mockMvc.perform(post("/category/registCategoryInf.do")
 				.param("ctgPCode", "")
 				.param("ctgCodeType", "01")
@@ -28,7 +42,7 @@ public class TestCategoryManageService extends BlueoneTestCase {
 		.andExpect(status().isOk())
 		.andDo(print());
 
-		// 대분류 등록 (LV102)
+		// LV102
 		mockMvc.perform(post("/category/registCategoryInf.do")
 				.param("ctgPCode", "")
 				.param("ctgCodeType", "01")
@@ -37,9 +51,9 @@ public class TestCategoryManageService extends BlueoneTestCase {
 				.param("ctgDesc", "THIS IS MAIN CATEGORY!")
 				.param("comment", "comment"))
 		.andExpect(status().isOk())
-		.andDo(print());*/
+		.andDo(print());
 		
-		// 중분류 등록 (LV201)
+		// LV201
 		mockMvc.perform(post("/category/registCategoryInf.do")
 				.param("ctgPCode", "LV101")
 				.param("ctgCodeType", "02")
@@ -50,7 +64,7 @@ public class TestCategoryManageService extends BlueoneTestCase {
 		.andExpect(status().isOk())
 		.andDo(print());
 
-		// 중분류 등록 (LV202)
+		// LV202
 		mockMvc.perform(post("/category/registCategoryInf.do")
 				.param("ctgPCode", "LV101")
 				.param("ctgCodeType", "02")
@@ -61,7 +75,7 @@ public class TestCategoryManageService extends BlueoneTestCase {
 		.andExpect(status().isOk())
 		.andDo(print());
 
-		// 중분류 등록 (LV203)
+		// LV203
 		mockMvc.perform(post("/category/registCategoryInf.do")
 				.param("ctgPCode", "LV102")
 				.param("ctgCodeType", "02")
@@ -72,7 +86,7 @@ public class TestCategoryManageService extends BlueoneTestCase {
 		.andExpect(status().isOk())
 		.andDo(print());
 		
-		// 중분류 등록 (LV204)
+		// LV204
 		mockMvc.perform(post("/category/registCategoryInf.do")
 				.param("ctgPCode", "LV102")
 				.param("ctgCodeType", "02")
@@ -83,7 +97,7 @@ public class TestCategoryManageService extends BlueoneTestCase {
 		.andExpect(status().isOk())
 		.andDo(print());
 		
-		// 중분류 등록 (LV205)
+		// LV205
 		mockMvc.perform(post("/category/registCategoryInf.do")
 				.param("ctgPCode", "LV102")
 				.param("ctgCodeType", "02")
@@ -93,7 +107,5 @@ public class TestCategoryManageService extends BlueoneTestCase {
 				.param("comment", "comment"))
 		.andExpect(status().isOk())
 		.andDo(print());
-
-		
 	}
 }
