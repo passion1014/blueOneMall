@@ -55,7 +55,7 @@
 <!-- admin.gnb.html start -->
 	<div id="GNB">
 		<ul>
-			<li><a href="./admin.conf1.html?slot=conf&type=admin_list">환경설정</a></li>
+			<li><a href="getAdminList.do">환경설정</a></li>
 			<li><a href="#">회원관리</a></li>
 			<li><a href="#">상품관리</a></li>
 			<li><a href="#">주문관리</a></li>
@@ -91,8 +91,8 @@
 		</ul>
 		<ul>
 			<h2>운영자 관리</h2>
-			<li><a href="./admin.conf1.html?slot=conf&type=admin_list">운영자 목록</a></li>
-			<li><a href="./admin.conf2.html?slot=conf&type=admin_register">운영자 등록</a></li>
+			<li><a href="getAdminList.do">운영자 목록</a></li>
+			<li><a href="registAdminInf.do">운영자 등록</a></li>
 		</ul>
 	</div>
 
@@ -114,7 +114,7 @@
 <div id="Contents">
 	<h1>환경설정 &gt; 운영자관리 &gt; <strong>운영자등록</strong></h1>
 
-	<form name="frm" method="post" action="./_action/conf.do.php" onSubmit="return chk_admin_form(this);" style="display:inline;" target="actionForm">
+	<form name="frm" method="post" action="registAdminInf.do" onSubmit="return chk_admin_form(this);" style="display:inline;" target="actionForm">
 	<input type="hidden" id="Mode" name="Mode" value="admin_add">
 	<input type="hidden" id="chk_id" name="chk_id" value="" required hname="아이디 중복찾기를 하여 주십시오!">
 	<table>
