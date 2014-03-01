@@ -100,6 +100,8 @@ public class CategoryManageServiceImpl implements ICategoryManageService {
 			sqlSession.close();
 		}
 		
+		System.out.println("a");
+		
 		return rstInfo;
 	}
 
