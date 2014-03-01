@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!-- admin.top.html start -->
 
 <!doctype html>
@@ -10,11 +12,13 @@
 <meta name="apple-touch-fullscreen" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>:: ADMIN ::</title>
-<link rel="stylesheet" href="../../css/admin/basic.css" />
-<link rel="stylesheet" href="../../css/admin/admin.css" />
-<script language="javascript" type="text/javascript" src="../js/js_ajax.js"> </script>
-<script language="javascript" type="text/javascript" src="../js/js_common.js"> </script>
-<script language="javascript" type="text/javascript" src="../js/js_admin.js"> </script>
+<link type="text/css" rel="stylesheet" href="<c:url value='/resources/css/admin/basic.css'/>" />
+<link type="text/css" rel="stylesheet" href="<c:url value='/resources/css/admin/admin.css'/>" />
+
+<script type="text/javascript" src="<c:url value='/resources/js/admin/js_ajax.js'/>"> </script>
+<script type="text/javascript" src="<c:url value='/resources/js/admin/js_common.js'/>"> </script>
+<script type="text/javascript" src="<c:url value='/resources/js/admin/js_admin.js'/>"> </script>
+
 
 
 
@@ -44,7 +48,7 @@
 <!-- admin.gnb.html start -->
 	<div id="GNB">
 		<ul>
-			<li><a href="./admin.conf1.html?slot=conf&type=admin_list">환경설정</a></li>
+			<li><a href="getAdminList.do">환경설정</a></li>
 			<li><a href="#">회원관리</a></li>
 			<li><a href="#">상품관리</a></li>
 			<li><a href="#">주문관리</a></li>
