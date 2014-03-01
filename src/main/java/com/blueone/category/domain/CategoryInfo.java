@@ -2,7 +2,7 @@ package com.blueone.category.domain;
 
 /**
  * 카테고리 정보
- * 	대분류타입= 1, 중분류=2, 소분류=3
+ * 	대분류타입= 01, 중분류=02, 소분류=03
  * @author daniel
  *
  */

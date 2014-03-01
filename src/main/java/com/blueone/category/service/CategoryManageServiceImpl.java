@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.math.NumberUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +49,9 @@ public class CategoryManageServiceImpl implements ICategoryManageService {
 				return rstInfo;
 			}
 			
-			// 2) 부모코드의 타입이 상위 타입인지 확인
+			// 2) 부모코드의 타입이 상위 타입인지 확인 (대분류타입= 01, 중분류=02, 소분류=03)
+			String pTypeCd = pCategoryInfo.getCtgPCode();
+			int iPTypeCd = NumberUtils.toInt(pTypeCd);
 		}
 		
 		// -----------------------------------------------
