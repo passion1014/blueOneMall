@@ -31,6 +31,10 @@ local.properties
 .buildpath
 
 
+MANIFEST.MF
+pom.properties
+
+
 #################
 ## Visual Studio
 #################
@@ -218,5 +222,3 @@ pip-log.txt
 /target
 
 .springBeans
-MANIFEST.MF
-pom.properties
