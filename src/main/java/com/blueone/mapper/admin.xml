@@ -42,10 +42,10 @@
 		INSERT  BOM_ADMIN_TB
 			(`ADMIN_STATUS`,`ADMIN_ID`,`ADMIN_PASS`,`ADMIN_NAME`
 				,`ADMIN_PHONE`,`ADMIN_MOBILE`,`ADMIN_EMAIL`,`ADMIN_GRADE`
-				,`ADMIN_HIT`,`ADMIN_CMT`,`REG_DATE`,`LAST_DATE`)
+				,`ADMIN_HIT`,`ADMIN_CMT`,`REG_DATE`,`LAST_DATE`,`MODIFY_USER_ID`)
 			VALUES
 			(#{status}, #{id}, #{password}, #{name}, #{phone}, #{mobile}
-				, #{email}, #{grade}, #{hit}, #{comment}, sysdate(), sysdate())
+				, #{email}, #{grade}, #{hit}, #{comment}, sysdate(), sysdate(), 'default')
 	</insert>
 
 	<update id="updateBomAdminTb0001" parameterType="com.blueone.admin.domain.AdminInfo">
