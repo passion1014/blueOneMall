@@ -1,5 +1,6 @@
 package com.blueone.category.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -84,12 +85,24 @@ public class CategoryManageServiceImpl implements ICategoryManageService {
 		return 0;
 	}
 
+	/* 
+	 * 카테고리 목록 조회
+	 */
 	@Override
 	public List<CategoryInfo> getCategoryInfList(CategoryInfo categoryInfo) {
-		// TODO Auto-generated method stub
-//		selectListBomCategoryTb0001
+		List<CategoryInfo> rstList = new ArrayList<CategoryInfo>();
+		// -----------------------------------------------
+		// DB Insert 수행
+		// -----------------------------------------------
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			// DB 수행
+			rstList = sqlSession.selectList("category.selectListBomCategoryTb0001");
+		} finally {
+			sqlSession.close();
+		}
 		
-		return null;
+		return rstList;
 	}
 
 	/*
