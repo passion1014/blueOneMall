@@ -220,6 +220,7 @@ pip-log.txt
 .springBeans
 target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
 target/m2e-wtp/web-resources/META-INF/maven/com.blueone/mall/pom.properties
+<<<<<<< HEAD
 hzi3psdn.kdf.txt
 src/main/webapp/WEB-INF/views/admin/admin_conf1.jsp
 src/main/webapp/WEB-INF/views/admin/admin_conf2.jsp
@@ -235,4 +236,7 @@ src/main/java/com/blueone/controller/AdminController.java
 src/main/webapp/WEB-INF/views/admin/admin_conf1.jsp
 src/main/webapp/WEB-INF/views/admin/admin_conf2.jsp
 kdjr2eey.22d.txt
+=======
+target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
+>>>>>>> fc8d43764b0baa1e3eabbdabbdcdb04e69cbe1c4
 target/m2e-wtp/web-resources/META-INF/maven/com.blueone/mall/pom.properties
