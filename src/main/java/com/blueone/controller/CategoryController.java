@@ -23,11 +23,22 @@ public class CategoryController {
 	ICategoryManageService categoryManageService;
 	
 	/**
-	 * ∞¸∏Æ¿⁄ µÓ∑œ
+	 * Ïπ¥ÌÖåÍ≥†Î¶¨ Îì±Î°ù
 	 */
 	@RequestMapping(value = "/registCategoryInf.do", method = RequestMethod.POST)
-	public String registAdminInfo(@ModelAttribute("CategoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model) {
+	public String registCategoryInfo(@ModelAttribute("CategoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model) {
 		categoryManageService.registCategoryInf(categoryInfo);
+		
+		return "category/result";
+	}
+	
+	
+	/**
+	 * Ïπ¥ÌÖåÍ≥†Î¶¨Î™©Î°ù Ï°∞Ìöå
+	 */
+	@RequestMapping(value = "/getCategoryList.do", method = RequestMethod.GET)
+	public String getListCategoryInfo(@ModelAttribute("CategoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model) {
+		categoryManageService.getCategoryInfList(categoryInfo);
 		
 		return "category/result";
 	}

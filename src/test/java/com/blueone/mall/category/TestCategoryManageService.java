@@ -10,6 +10,20 @@ import com.blueone.mall.BlueoneTestCase;
 
 public class TestCategoryManageService extends BlueoneTestCase {
 
+	@Test
+	public void testGetCategoryList() throws Exception {
+		// LV101
+		mockMvc.perform(get("/category/getCategoryList.do")
+				.param("ctgPCode", "")
+				.param("ctgCodeType", "01")
+				.param("ctgCode", "LV101")
+				.param("ctgName", "MAIN_CATEGORY_1")
+				.param("ctgDesc", "THIS IS MAIN CATEGORY!")
+				.param("comment", "comment"))
+		.andExpect(status().isOk())
+		.andDo(print());
+	}
+	
 	/**
 	 * "/category/registCategory.do"
 	 * @throws Exception
@@ -17,18 +31,79 @@ public class TestCategoryManageService extends BlueoneTestCase {
 	@Test
 	public void testRegistCategory() throws Exception {
 		
-		// Spring MVC Test!
+		// LV101
 		mockMvc.perform(post("/category/registCategoryInf.do")
-//				.contentType(TestUtil.APPLICATION_JSON_UTF8)
-				.param("ctgPCode", "MC01")
+				.param("ctgPCode", "")
+				.param("ctgCodeType", "01")
+				.param("ctgCode", "LV101")
+				.param("ctgName", "MAIN_CATEGORY_1")
+				.param("ctgDesc", "THIS IS MAIN CATEGORY!")
+				.param("comment", "comment"))
+		.andExpect(status().isOk())
+		.andDo(print());
+
+		// LV102
+		mockMvc.perform(post("/category/registCategoryInf.do")
+				.param("ctgPCode", "")
+				.param("ctgCodeType", "01")
+				.param("ctgCode", "LV102")
+				.param("ctgName", "Main_CATEGORY_2")
+				.param("ctgDesc", "THIS IS MAIN CATEGORY!")
+				.param("comment", "comment"))
+		.andExpect(status().isOk())
+		.andDo(print());
+		
+		// LV201
+		mockMvc.perform(post("/category/registCategoryInf.do")
+				.param("ctgPCode", "LV101")
 				.param("ctgCodeType", "02")
-				.param("ctgCode", "B02")
-				.param("ctgName", "SUB_CATEGORY_2")
-				.param("ctgDesc", "THIS IS SUB CATEGORY!")
-//				.param("fromDate", "mobile")
-//				.param("toDate", "email")
-//				.param("regDate", "grade")
-//				.param("lastDate", "1")
+				.param("ctgCode", "LV201")
+				.param("ctgName", "name")
+				.param("ctgDesc", "desc")
+				.param("comment", "comment"))
+		.andExpect(status().isOk())
+		.andDo(print());
+
+		// LV202
+		mockMvc.perform(post("/category/registCategoryInf.do")
+				.param("ctgPCode", "LV101")
+				.param("ctgCodeType", "02")
+				.param("ctgCode", "LV202")
+				.param("ctgName", "name")
+				.param("ctgDesc", "desc")
+				.param("comment", "comment"))
+		.andExpect(status().isOk())
+		.andDo(print());
+
+		// LV203
+		mockMvc.perform(post("/category/registCategoryInf.do")
+				.param("ctgPCode", "LV102")
+				.param("ctgCodeType", "02")
+				.param("ctgCode", "LV203")
+				.param("ctgName", "name")
+				.param("ctgDesc", "desc")
+				.param("comment", "comment"))
+		.andExpect(status().isOk())
+		.andDo(print());
+		
+		// LV204
+		mockMvc.perform(post("/category/registCategoryInf.do")
+				.param("ctgPCode", "LV102")
+				.param("ctgCodeType", "02")
+				.param("ctgCode", "LV204")
+				.param("ctgName", "name")
+				.param("ctgDesc", "desc")
+				.param("comment", "comment"))
+		.andExpect(status().isOk())
+		.andDo(print());
+		
+		// LV205
+		mockMvc.perform(post("/category/registCategoryInf.do")
+				.param("ctgPCode", "LV102")
+				.param("ctgCodeType", "02")
+				.param("ctgCode", "LV205")
+				.param("ctgName", "name")
+				.param("ctgDesc", "desc")
 				.param("comment", "comment"))
 		.andExpect(status().isOk())
 		.andDo(print());
