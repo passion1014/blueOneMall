@@ -98,6 +98,7 @@ public class CategoryManageServiceImpl implements ICategoryManageService {
 		try {
 			// DB 수행
 			rstList = sqlSession.selectList("category.selectListBomCategoryTb0001");
+			
 		} finally {
 			sqlSession.close();
 		}

@@ -1,7 +1,6 @@
 package com.blueone.common.domain;
 
 /**
- * ¼­ºñ½º ½ÇÇà°á°ú¸¦ ´ã´Â Á¤º¸
  * @author daniel
  *
  */
@@ -10,9 +9,9 @@ public class ResultInfo {
 	public static final String OK = "1";
 	public static final String FAIL = "0";
 	
-	private String rstCd;		// °á°ú ÄÚµå (1:¼º°ø, 0:½ÇÆÐ)
-	private String rstMsgCd;	// °á°ú ¸Þ¼¼Áö ÄÚµå
-	private String rstMsg;		// °á°ú ¸Þ¼¼Áö
+	private String rstCd;		// 1:OK, 0:FAIL
+	private String rstMsgCd;	// ë©”ì„¸ì§€ì½”ë“œ
+	private String rstMsg;		// ë©”ì„¸ì§€ë‚´ìš©
 	
 	public ResultInfo(){}
 	public ResultInfo(String rstCd){
