@@ -175,15 +175,15 @@
 						</tr>
 						<tr>
 							<th>관리자 정보</th>
-							<td class="left"><?=$_row["admin_name"]?> ( ID : )&nbsp;&nbsp;</td>
+							<td class="left"><?=$_row["name"]?> ( ID : )&nbsp;&nbsp;</td>
 							<th>PASS</th>
-							<td class="left"><?=$_row["admin_pass"]?></td>
+							<td class="left"><?=$_row["password"]?></td>
 						</tr>
 						<tr>
 							<th>연락처</th>
-							<td class="left"><?=stripslashes($_row["admin_phone"])?></td>
+							<td class="left"><?=stripslashes($_row["phone"])?></td>
 							<th>핸드폰</th>
-							<td class="left"><?=stripslashes($_row["admin_mobile"])?></td>
+							<td class="left"><?=stripslashes($_row["mobile"])?></td>
 						</tr>
 						<tr>
 							<th>Email</th>

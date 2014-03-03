@@ -93,7 +93,7 @@
 		<ul>
 			<h2>운영자 관리</h2>
 			<li><a href="getAdminList.do">운영자 목록</a></li>
-			<li><a href="registAdminInf.do">운영자 등록</a></li>
+			<li><a href="registAdminForm.do">운영자 등록</a></li>
 		</ul>
 	</div>
 
@@ -119,17 +119,17 @@
 		<tr>
 			<th>ID</th>
 			<td class="left">
-				<input type="text" id="admin_id" name="admin_id" value="" class="Text Eng" style="width:120px;" required hname="아이디를 등록하여 주십시오" option="regId"> <input type="button" value="중복찾기" class="button_green button_small" onClick="chk_double_admin_id();">
+				<input type="text" id="admin_id" name="id" value="" class="Text Eng" style="width:120px;" required hname="아이디를 등록하여 주십시오" option="regId"> <input type="button" value="중복찾기" class="button_green button_small" onClick="chk_double_admin_id();">
 			</td>
 			<th>이름</th>
 			<td class="left">
-				<input type="text" id="admin_name" name="admin_name" value="" class="Text Kor" style="width:200px;" required hname="이름를 입력하여 주십시오">
+				<input type="text" id="admin_name" name="name" value="" class="Text Kor" style="width:200px;" required hname="이름를 입력하여 주십시오">
 			</td>
 		</tr>
 		<tr>
 			<th>비밀번호</th>
 			<td class="left">
-				<input type="password" id="admin_pass" name="admin_pass" value="" class="Text Eng" style="width:100px;" maxlength="15"  required hname="비밀번호를 입력하여 주십시오"  option="regPass"> ( 4 ~ 16자 )
+				<input type="password" id="admin_pass" name="password" value="" class="Text Eng" style="width:100px;" maxlength="15"  required hname="비밀번호를 입력하여 주십시오"  option="regPass"> ( 4 ~ 16자 )
 			</td>
 			<th>비밀번호확인</th>
 			<td class="left">
@@ -139,36 +139,36 @@
 		<tr>
 			<th>연락처</th>
 			<td class="left">
-				<input type="text" id="Phone1" name="Phone1" value="" class="Text Eng" style="width:50px;"> -
-				<input type="text" id="Phone2" name="Phone2" value="" class="Text Eng" style="width:50px;"> -
-				<input type="text" id="Phone3" name="Phone3" value="" class="Text Eng" style="width:50px;">
+				<input type="text" id="Phone1" name="Phone" value="" class="Text Eng" style="width:50px;"> -
+				<input type="text" id="Phone2" name="Phone" value="" class="Text Eng" style="width:50px;"> -
+				<input type="text" id="Phone3" name="Phone" value="" class="Text Eng" style="width:50px;">
 			</td>
 			<th>핸드폰</th>
 			<td class="left">
-				<input type="text" id="Mobile1" name="Mobile1" value="" class="Text Eng" style="width:50px;"> -
-				<input type="text" id="Mobile2" name="Mobile2" value="" class="Text Eng" style="width:50px;"> -
-				<input type="text" id="Mobile3" name="Mobile3" value="" class="Text Eng" style="width:50px;">
+				<input type="text" id="Mobile1" name="Mobile" value="" class="Text Eng" style="width:50px;"> -
+				<input type="text" id="Mobile2" name="Mobile" value="" class="Text Eng" style="width:50px;"> -
+				<input type="text" id="Mobile3" name="Mobile" value="" class="Text Eng" style="width:50px;">
 			</td>
 		</tr>
 		<tr>
 			<th>EMAIL</th>
 			<td colspan="3" class="left">
-				<input id="emailID" name="emailID" type="text" class="Text Eng" style="width:250px;" /> @
+				<input id="emailID" name="email" type="text" class="Text Eng" style="width:250px;" /> @
 				<select id="selectDomin" name="selectDomin" onChange="document.getElementById('emailDomain').value = this.value; ">
 					<option value="">직접입력</option>
 					<option value="naver.com">naver.com</option>
 					<option value="yahoo.co.kr">yahoo.co.kr</option>
 					<option value="gmail.com">gmail.com</option>
 				</select>
-				<input id="emailDomain" name="emailDomain" type="text" class="Text Eng" style="width:250px;" /> 
+				<input id="emailDomain" name="email" type="text" class="Text Eng" style="width:250px;" /> 
 			</td>
 		</tr>
 		<tr>
 			<th>관리등급</th>
 			<td colspan="3" style="padding:5px 5px 5px 10px;" class="left">
-				<input type="checkbox" id="g1" name="g1" value="Y" /> 환경설정
-				<input type="checkbox" id="g2" name="g2" value="Y" /> 회원관리
-				<input type="checkbox" id="g3" name="g3" value="Y" /> 상품관리
+				<input type="checkbox" id="g1" name="g1" value="y" /> 환경설정
+				<input type="checkbox" id="g2" name="g2" value="y" /> 회원관리
+				<input type="checkbox" id="g3" name="g3" value="y" /> 상품관리
 				<input type="checkbox" id="g4" name="g4" value="Y" /> 주문관리
 				<input type="checkbox" id="g5" name="g5" value="Y" /> 커뮤니티
 			</td>
@@ -176,7 +176,7 @@
 		<tr>
 			<th>추가관리정보</th>
 			<td colspan="3" class="left">
-				<textarea id="admin_cmt" name="admin_cmt" class="Text Kor" style="width:97%;height:80pt;padding:3px;"></textarea>
+				<textarea id="admin_cmt" name="comment" class="Text Kor" style="width:97%;height:80pt;padding:3px;"></textarea>
 			</td>
 		</tr>
 	</table>
