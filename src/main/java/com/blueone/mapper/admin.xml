@@ -33,7 +33,7 @@
 		SELECT  `IDX`,`ADMIN_STATUS`,`ADMIN_ID`,`ADMIN_PASS`,`ADMIN_NAME`
 				,`ADMIN_PHONE`,`ADMIN_MOBILE`,`ADMIN_EMAIL`,`ADMIN_GRADE`
 				,`ADMIN_HIT`,`ADMIN_CMT`,`REG_DATE`,`LAST_DATE`
-		FROM BOM_ADMIN_TB
+		FROM BOM_ADMIN_TB  
 	</select >
 	
 	
@@ -45,7 +45,7 @@
 				,`ADMIN_HIT`,`ADMIN_CMT`,`REG_DATE`,`LAST_DATE`,`MODIFY_USER_ID`)
 			VALUES
 			(#{id}, #{password}, #{name}, #{phone}, #{mobile}
-				, #{email}, #{hit}, #{comment}, sysdate(), sysdate(), 'default')
+				, #{email}, '0', #{comment}, sysdate(), sysdate(), 'default')
 	</insert>
 
 	<update id="updateBomAdminTb0001" parameterType="com.blueone.admin.domain.AdminInfo">

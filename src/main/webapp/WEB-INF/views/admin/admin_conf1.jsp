@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c_rt"%> 
+<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
 <!-- admin.top.html start -->
 
 <!doctype html>
@@ -144,12 +146,12 @@
 			<th>林巩包府</th>
 			<th>目孤聪萍</th>
 		</tr>
-      <c:forEach items="${getAdminInfoList}" var="infoList">
+    <c:forEach items="${list}" var="info">
 		<tr onClick="line_detail('1')" style="cursor:pointer;">
-			<td><b>${infoList.idx}</b></td>
-			<td>${infoList.status}</td>
-			<td>${infoList.id}</td>
-			<td>${infoList.name}</td>
+			<td><b>${info.idx}</b></td>
+			<td>0</td>
+			<td>0</td>
+			<td>0</td>
 			<td>≯</td>
 			<td>≯</td>
 			<td>≯</td>

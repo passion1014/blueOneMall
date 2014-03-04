@@ -103,10 +103,12 @@
 <!-- admin.lnb_none.html end -->
 
 
+<!-- target="actionForm" -->
+
 <div id="Contents">
 	<h1>환경설정 &gt; 운영자관리 &gt; <strong>운영자등록</strong></h1>
 
-	<form name="frm" method="post" action="registAdminInf.do" onSubmit="return chk_admin_form(this);" style="display:inline;" target="actionForm">
+	<form name="frm" method="post" action="registAdminInf.do" onSubmit="return chk_admin_form(this);" style="display:inline;" >
 	<input type="hidden" id="Mode" name="Mode" value="admin_add">
 	<input type="hidden" id="chk_id" name="chk_id" value="" required hname="아이디 중복찾기를 하여 주십시오!">
 	<table>
