@@ -1,8 +1,8 @@
 package com.blueone.category.domain;
 
 /**
- * Ä«Å×°í¸® Á¤º¸
- * 	´ëºÐ·ùÅ¸ÀÔ= 01, ÁßºÐ·ù=02, ¼ÒºÐ·ù=03
+ * ì¹´í…Œê³ ë¦¬ì •ë³´
+ * 	ëŒ€ë¶„ë¥˜= 01, ì¤‘ë¶„ë¥˜=02, ì†Œë¶„ë¥˜=03
  * @author daniel
  *
  */
@@ -14,6 +14,7 @@ public class CategoryInfo {
 	private String ctgCode;
 	private String ctgName;
 	private String ctgDesc;
+	private int ctgOrder;
 	private String fromDate;
 	private String toDate;
 	private String regDate;
@@ -78,6 +79,12 @@ public class CategoryInfo {
 	}
 	public void setCtgPCode(String ctgPCode) {
 		this.ctgPCode = ctgPCode;
+	}
+	public int getCtgOrder() {
+		return ctgOrder;
+	}
+	public void setCtgOrder(int ctgOrder) {
+		this.ctgOrder = ctgOrder;
 	}
 	
 }

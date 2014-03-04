@@ -37,7 +37,7 @@ public class CategoryManageServiceImpl implements ICategoryManageService {
 		//   2) 구분코드가 상위 구분코드인지 확인
 		// -----------------------------------------------
 		if (StringUtils.isNotEmpty(categoryInfo.getCtgPCode())) {
-			CategoryInfo pCategoryInfo = getCategoryInfDetail(categoryInfo);
+			CategoryInfo pCategoryInfo = getCategoryInfDetail(categoryInfo.getCtgPCode());
 			
 			// 1) 부모 카테고리가 존재하는지 확인
 			if (pCategoryInfo == null) {
@@ -81,8 +81,28 @@ public class CategoryManageServiceImpl implements ICategoryManageService {
 
 	@Override
 	public int editCategoryInf(CategoryInfo categoryInfo) {
-		// TODO Auto-generated method stub
-		return 0;
+		int rst = -1;
+		
+		// -----------------------------------------------
+		// 해당하는 카테고리 데이터가 있는지 확인
+		// -----------------------------------------------
+		CategoryInfo searchRstInf = getCategoryInfDetail(categoryInfo);
+		
+		// -----------------------------------------------
+		// 조회한 결과값이 있으면 DB업데이트
+		// -----------------------------------------------
+		if (searchRstInf != null && StringUtils.isNotEmpty(searchRstInf.getCtgCode())) {
+			SqlSession sqlSession = sqlSessionFactory.openSession();
+			try {
+				// DB 수행
+				rst = sqlSession.update("category.updateBomCategoryTb0001", categoryInfo);
+				
+			} finally {
+				sqlSession.close();
+			}
+		}
+		
+		return rst;
 	}
 
 	/* 
@@ -118,17 +138,23 @@ public class CategoryManageServiceImpl implements ICategoryManageService {
 		// -----------------------------------------------
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
-			Map<String, CategoryInfo> sqlParams = new HashMap<String, CategoryInfo>();
-			sqlParams.put("categoryInfo", categoryInfo);
-			
-			rstInfo = sqlSession.selectOne("category.selectDtlBomCategoryTb0001", sqlParams);
+			rstInfo = sqlSession.selectOne("category.selectDtlBomCategoryTb0001", categoryInfo);
 		} finally {
 			sqlSession.close();
 		}
 		
-		System.out.println("a");
-		
 		return rstInfo;
+	}
+	
+	/*
+	 * Category 조회 
+	 */
+	private CategoryInfo getCategoryInfDetail(String ctgCode) {
+		
+		CategoryInfo categoryInfo = new CategoryInfo();
+		categoryInfo.setCtgCode(ctgCode);
+		
+		return getCategoryInfDetail(categoryInfo);
 	}
 
 	private ResultInfo checkCategoryInfo(CategoryInfo categoryInfo) {

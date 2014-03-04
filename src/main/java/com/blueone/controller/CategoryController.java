@@ -31,7 +31,17 @@ public class CategoryController {
 		
 		return "category/result";
 	}
-	
+
+	/**
+	 * 카테고리 수정
+	 */
+	@RequestMapping(value = "/editCategoryInf.do", method = RequestMethod.POST)
+	public String editCategoryInfo(@ModelAttribute("CategoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model) {
+		categoryManageService.editCategoryInf(categoryInfo);
+		
+		return "category/result";
+	}
+
 	
 	/**
 	 * 카테고리목록 조회
