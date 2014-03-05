@@ -149,16 +149,16 @@
     <c:forEach items="${list}" var="info">
 		<tr onClick="line_detail('1')" style="cursor:pointer;">
 			<td><b>${info.idx}</b></td>
-			<td>0</td>
-			<td>0</td>
-			<td>0</td>
+			<td>${info.status}</td>
+			<td>${info.id}</td>
+			<td>${info.name}</td>
 			<td>¡Û</td>
 			<td>¡Û</td>
 			<td>¡Û</td>
 			<td>¡Û</td>
 			<td>¡Û</td>
 			<td>212</td>
-			<td>2014.02.15</td>
+			<td>${info.regDate}</td>
 		</tr>
 		</c:forEach>
 		<tr id="line_1" style="display:none;">
