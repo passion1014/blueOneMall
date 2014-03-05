@@ -11,8 +11,4 @@ public interface IAdminManageService {
 	public int editAdminInf(AdminInfo adminInfo); /*운영자수정*/
 	public List<AdminInfo> getAdminInfList(AdminInfo adminInfo); /*운영자목록*/
 	public AdminInfo getAdminInfDetail(AdminInfo adminInfo); /*운영자 상세정보*/
-	
-	
-	
-	
 }
