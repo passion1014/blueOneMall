@@ -63,7 +63,7 @@ public class AdminManageServiceImpl implements IAdminManageService {
 		}
 		
 		// -----------------------------------------------
-		// 3. 데이터 수정
+		// 데이터 조회
 		// -----------------------------------------------
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		
