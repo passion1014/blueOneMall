@@ -93,4 +93,19 @@ public class AdminInfo {
 	public void setLastDate(String lastDate) {
 		this.lastDate = lastDate;
 	}
+	
+	
+	
+	
+	
+	@Override
+	public String toString(){
+		
+		return "AdminInfo [idx="+idx+", id="+id+", password="+password+", name="+name+","
+				+ "phone="+phone+", mobile="+mobile+", email="+email+", grade="+grade+","
+				+ "hit="+hit+",comment="+comment+", regDate="+regDate+", lastDate="+lastDate+",]";
+		
+		
+		
+	}
 }

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c_rt"%> 
+<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
 <!-- admin.top.html start -->
 
 <!doctype html>
@@ -144,19 +146,19 @@
 			<th>주문관리</th>
 			<th>커뮤니티</th>
 		</tr>
-      <c:forEach items="${getAdminInfoList}" var="infoList">
+    <c:forEach items="${list}" var="info">
 		<tr onClick="line_detail('1')" style="cursor:pointer;">
-			<td><b>${infoList.idx}</b></td>
-			<td>${infoList.status}</td>
-			<td>${infoList.id}</td>
-			<td>${infoList.name}</td>
+			<td><b>${info.idx}</b></td>
+			<td>${info.status}</td>
+			<td>${info.id}</td>
+			<td>${info.name}</td>
 			<td>○</td>
 			<td>○</td>
 			<td>○</td>
 			<td>○</td>
 			<td>○</td>
 			<td>212</td>
-			<td>2014.02.15</td>
+			<td>${info.regDate}</td>
 		</tr>
 		</c:forEach>
 		<tr id="line_1" style="display:none;">
@@ -175,15 +177,15 @@
 						</tr>
 						<tr>
 							<th>관리자 정보</th>
-							<td class="left"><?=$_row["admin_name"]?> ( ID : )&nbsp;&nbsp;</td>
+							<td class="left"><?=$_row["name"]?> ( ID : )&nbsp;&nbsp;</td>
 							<th>PASS</th>
-							<td class="left"><?=$_row["admin_pass"]?></td>
+							<td class="left"><?=$_row["password"]?></td>
 						</tr>
 						<tr>
 							<th>연락처</th>
-							<td class="left"><?=stripslashes($_row["admin_phone"])?></td>
+							<td class="left"><?=stripslashes($_row["phone"])?></td>
 							<th>핸드폰</th>
-							<td class="left"><?=stripslashes($_row["admin_mobile"])?></td>
+							<td class="left"><?=stripslashes($_row["mobile"])?></td>
 						</tr>
 						<tr>
 							<th>Email</th>

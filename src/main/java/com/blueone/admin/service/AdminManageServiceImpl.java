@@ -90,18 +90,20 @@ public class AdminManageServiceImpl implements IAdminManageService {
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		
-		List<AdminInfo> adminInfoList = new ArrayList<AdminInfo>();
+		List<AdminInfo> list = new ArrayList<AdminInfo>();
+		
 		try {
 			Map<String, AdminInfo> sqlParams = new HashMap<String, AdminInfo>();
-//			sqlParams.put("adminInfo", adminInfo);
+
 			
-			adminInfoList = sqlSession.selectList("admin.selectListBomAdminTb0001", sqlParams);
+		    list = sqlSession.selectList("admin.selectListBomAdminTb0001",sqlParams);
 			
 		} finally {
 			sqlSession.close();
 		}
 
-		return adminInfoList;
+		
+		return  list;
 	}
 
 	/* 

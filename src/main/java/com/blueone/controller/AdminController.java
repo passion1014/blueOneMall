@@ -1,5 +1,6 @@
 package com.blueone.controller;
 
+import java.util.List;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -11,6 +12,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+
+
+
+
 
 import com.blueone.admin.domain.AdminInfo;
 import com.blueone.admin.service.IAdminManageService;
@@ -34,15 +40,14 @@ public class AdminController {
 	public String registAdminInfo(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
 		adminManageService.registAdminInf(adminInfo);
 		
-		return "admin/admin_conf2";
+		return "redirecr:/admin/getAdminList.do";
 	}
 	
-	@RequestMapping(value = "/registAdminForm.do", method = RequestMethod.GET)
+	@RequestMapping("/registAdminForm.do")
 	public String registAdminForm() {
 		
 		return "admin/admin_conf2";
 	}
-	
 	
 	@RequestMapping(value = "/editAdminInf.do", method = RequestMethod.POST)
 	public String editAdminInfo(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
@@ -54,8 +59,10 @@ public class AdminController {
 	
 	@RequestMapping(value = "/getAdminList.do", method = RequestMethod.GET)
 	public String getAdminInfoList(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
-		adminManageService.getAdminInfList(adminInfo);
+		List<AdminInfo> list = adminManageService.getAdminInfList(adminInfo);
 		
+	    model.addAttribute("list", list);
+	    
 		return "admin/admin_conf1";
 	}
 
