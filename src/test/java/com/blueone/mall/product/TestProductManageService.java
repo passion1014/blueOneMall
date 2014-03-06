@@ -11,20 +11,35 @@ import com.blueone.mall.BlueoneTestCase;
 public class TestProductManageService extends BlueoneTestCase {
 
 	@Test
+	public void testRegistCategoryList() throws Exception {
+		
+		// 상품등록
+		for (int idx=1; idx <= 20; idx++) {
+			mockMvc.perform(get("/product/registProductInfo.do")
+					.param("prdCd", "prdCd"+idx)
+					.param("prdNm", "Product Nm"+idx)
+					.param("prdDesc", "desc"+idx)
+					.param("prdDescHtml", "desc html"+idx)
+					.param("prdCtgL", "")
+					.param("prdCtgM", "")
+					.param("prdCtgS", "")
+					.param("fromDate", "")
+					.param("toDate", "")
+					.param("modifyUserId", "admin"))
+			.andExpect(status().isOk())
+			.andDo(print());
+		}
+	}
+	
+	@Test
 	public void testGetCategoryList() throws Exception {
-		mockMvc.perform(get("/product/registProductInfo.do")
-				.param("prdCd", "prd_cd1")
+		
+		// 상품조회
+		mockMvc.perform(get("/product/searchProductList.do")
 				.param("prdNm", "Product Nm")
-				.param("prdDesc", "desc")
-				.param("prdDescHtml", "desc html")
-				.param("prdCtgL", "LV101")
+				.param("prdCtgL", "")
 				.param("prdCtgM", "")
-				.param("prdCtgS", "")
-				.param("fromDate", "")
-				.param("toDate", "")
-//				.param("regDate", "THIS IS MAIN CATEGORY!")
-//				.param("lastDate", "THIS IS MAIN CATEGORY!")
-				.param("modifyUserId", "admin"))
+				.param("prdCtgS", ""))
 		.andExpect(status().isOk())
 		.andDo(print());
 	}

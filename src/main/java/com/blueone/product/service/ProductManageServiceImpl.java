@@ -26,10 +26,10 @@ public class ProductManageServiceImpl implements IProductManageService {
 		
 		List<ProductInfo> productList = new ArrayList<ProductInfo>();
 		
-		String srchSqlTp = "";
-		if (StringUtils.isNotEmpty(searchProdInfo.getProdNm())) {
-			
-		}
+//		String srchSqlTp = "";
+//		if (StringUtils.isNotEmpty(searchProdInfo.getProdNm())) {
+//			
+//		}
 		
 		// -----------------------------------------------
 		// DB Insert 수행
@@ -38,7 +38,7 @@ public class ProductManageServiceImpl implements IProductManageService {
 		try {
 			
 			// DB 수행
-//			int rst = sqlSession.selectList(, arg1);
+			productList = sqlSession.selectList("product.selectListBomProductTb0001", searchProdInfo);
 		} finally {
 			sqlSession.close();
 		}

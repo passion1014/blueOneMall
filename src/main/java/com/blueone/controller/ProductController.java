@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.blueone.admin.domain.AdminInfo;
 import com.blueone.product.domain.ProductInfo;
+import com.blueone.product.domain.SearchProdInfo;
 import com.blueone.product.service.IProductManageService;
 
 @Controller
@@ -33,13 +34,13 @@ public class ProductController {
 		return "product/result";
 	}
 
-	@RequestMapping(value = "/getAdminList.do", method = RequestMethod.GET)
-	public String getAdminInfoList(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
-//		productManageService.
-		
-//	    model.addAttribute("list", list);
+	@RequestMapping(value = "/searchProductList.do", method = RequestMethod.GET)
+	public String getAdminInfoList(@ModelAttribute("searchProdInfo") SearchProdInfo searchProdInfo, BindingResult result, Model model) {
+
+		List<ProductInfo> list = productManageService.getProductList(searchProdInfo);
+	    model.addAttribute("list", list);
 	    
-		return "admin/admin_conf1";
+		return "product/result";
 	}
 	
 }
