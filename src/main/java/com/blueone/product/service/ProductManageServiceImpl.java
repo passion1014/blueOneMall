@@ -71,11 +71,19 @@ public class ProductManageServiceImpl implements IProductManageService {
 			
 			// DB 수행
 			int rst = sqlSession.insert("product.insertBomProductTb0001", productInfo);
+			
+			// 결과 메세지 셋팅
+			if (rst == 1) {
+				rstInfo.ok();
+			} else {
+				rstInfo.fail();
+				rstInfo.setRstMsgCd("");
+			}
 		} finally {
 			sqlSession.close();
 		}
 		
-		return null;
+		return rstInfo;
 	}
 
 	@Override

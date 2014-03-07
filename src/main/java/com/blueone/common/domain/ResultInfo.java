@@ -22,6 +22,14 @@ public class ResultInfo {
 		return "1".equals(rstCd);
 	}
 	
+	public void ok() {
+		this.rstCd = this.OK;
+	}
+	
+	public void fail() {
+		this.rstCd = this.FAIL;
+	}
+	
 	public String getRstCd() {
 		return rstCd;
 	}
@@ -40,6 +48,5 @@ public class ResultInfo {
 	public void setRstMsg(String rstMsg) {
 		this.rstMsg = rstMsg;
 	}
-	
 	
 }

@@ -32,6 +32,25 @@ public class TestProductManageService extends BlueoneTestCase {
 	}
 	
 	@Test
+	public void testRegistCategory() throws Exception {
+		
+		// 상품등록
+		mockMvc.perform(get("/product/registProductInfo.do")
+				.param("prdCd", "prdCd_A")
+				.param("prdNm", "Product Nm")
+				.param("prdDesc", "desc")
+				.param("prdDescHtml", "desc html")
+				.param("prdCtgL", "")
+				.param("prdCtgM", "")
+				.param("prdCtgS", "")
+				.param("fromDate", "")
+				.param("toDate", "")
+				.param("modifyUserId", "admin"))
+		.andExpect(status().isOk())
+		.andDo(print());
+	}
+	
+	@Test
 	public void testGetCategoryList() throws Exception {
 		
 		// 상품조회
