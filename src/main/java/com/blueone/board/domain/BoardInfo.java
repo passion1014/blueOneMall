@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
-public class BoardModel {
+public class BoardInfo {
 	private long brdSeq;		// 게시물일련번호
 	private int brdTyp;			// 게시판유형(FK)
 	private int srchBrdTyp;		// 게시판유형(FK)

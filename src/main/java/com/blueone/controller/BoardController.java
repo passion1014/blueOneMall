@@ -18,7 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.blueone.board.domain.BoardAttachFileModel;
 import com.blueone.board.domain.BoardCommentModel;
-import com.blueone.board.domain.BoardModel;
+import com.blueone.board.domain.BoardInfo;
 import com.blueone.board.domain.BoardSrchModel;
 import com.blueone.board.service.BoardService;
 import com.blueone.board.service.BoardTypService;
@@ -40,8 +40,8 @@ public class BoardController {
 	@RequestMapping("/list.do")
 	public ModelAndView boardList(@ModelAttribute("BoardSrchModel") BoardSrchModel boardSrchModel, HttpServletRequest request, HttpServletResponse response) {
 		long[] noticeBrdSeq = {};
-		List<BoardModel> noticeList = null;
-		List<BoardModel> boardList = null;
+		List<BoardInfo> noticeList = null;
+		List<BoardInfo> boardList = null;
 		if (boardSrchModel.getSrchBrdTyp() > 0) {
 			noticeList = boardService.getBrdTypNoticeList(boardSrchModel);
 			if (noticeList != null && noticeList.size() > 0) {
@@ -73,7 +73,7 @@ public class BoardController {
 		String srchBrdTyp = request.getParameter("srchBrdTyp");
 		int brdTyp = Integer.parseInt((Utility.isEmpty(srchBrdTyp) ? "0" : srchBrdTyp));
 		
-		BoardModel boardModal = new BoardModel();
+		BoardInfo boardModal = new BoardInfo();
 		boardModal.setRootSeq(0);
 		boardModal.setRefSeq(1);
 		boardModal.setDepth(0);
@@ -88,7 +88,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/add.do", method = RequestMethod.POST)
-	public ModelAndView add(@ModelAttribute("BoardModel") BoardModel boardModel, BindingResult result, HttpSession session) {
+	public ModelAndView add(@ModelAttribute("BoardModel") BoardInfo boardModel, BindingResult result, HttpSession session) {
 		
 		ModelAndView mav = new ModelAndView();
 		LoginSessionModel userInfo = (LoginSessionModel) session.getAttribute("userInfo");
@@ -160,7 +160,7 @@ public class BoardController {
 		
 		// 조회
 		long brdSeq = Long.parseLong(srchBrdSeq);		
-		BoardModel board = boardService.selectTBL010102(brdSeq);
+		BoardInfo board = boardService.selectTBL010102(brdSeq);
 		List<BoardAttachFileModel> attaFileList = boardService.selectTBL010103(brdSeq);
 		//List<BoardCommentModel> commentList = boardService.selectTBL010104(brdSeq);
 		
@@ -177,7 +177,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/edit.do", method = RequestMethod.POST)
-	public ModelAndView edit(@ModelAttribute("BoardModel") BoardModel boardModel, BindingResult result, HttpSession session) {
+	public ModelAndView edit(@ModelAttribute("BoardModel") BoardInfo boardModel, BindingResult result, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		LoginSessionModel userInfo = (LoginSessionModel) session.getAttribute("userInfo");
 		if (userInfo == null) {
@@ -230,7 +230,7 @@ public class BoardController {
 		
 		// 조회
 		long brdSeq = getBrdSeq(request);		
-		BoardModel board = boardService.selectTBL010102(brdSeq);
+		BoardInfo board = boardService.selectTBL010102(brdSeq);
 		List<BoardAttachFileModel> attaFileList = boardService.selectTBL010103(brdSeq);
 		List<BoardCommentModel> commentList = boardService.selectTBL010104(brdSeq);
 		

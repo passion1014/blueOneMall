@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.blueone.board.domain.BoardAttachFileModel;
 import com.blueone.board.domain.BoardCommentModel;
-import com.blueone.board.domain.BoardModel;
+import com.blueone.board.domain.BoardInfo;
 import com.blueone.board.domain.BoardSrchModel;
 import com.blueone.common.domain.FileModel;
 import com.blueone.common.util.FileUploadUtility;
@@ -24,9 +24,9 @@ public class BoardService implements IBoardService {
 	private SqlSessionFactory sqlSessionFactory;
 
 	@Override
-	public List<BoardModel> getBrdTypBoardList(BoardSrchModel boardSrchModel) {
-		List<BoardModel> boards = new ArrayList<BoardModel>();
-		BoardModel board = null;
+	public List<BoardInfo> getBrdTypBoardList(BoardSrchModel boardSrchModel) {
+		List<BoardInfo> boards = new ArrayList<BoardInfo>();
+		BoardInfo board = null;
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
@@ -62,11 +62,11 @@ public class BoardService implements IBoardService {
 	}
 	
 	@Override
-	public List<BoardModel> getBoardLastList(int[] brdTyps, int size) {
+	public List<BoardInfo> getBoardLastList(int[] brdTyps, int size) {
 		valueMap.put("brdTyps", brdTyps);
 		valueMap.put("size", size);
 		
-		List<BoardModel> boardInfoList = new ArrayList<BoardModel>();
+		List<BoardInfo> boardInfoList = new ArrayList<BoardInfo>();
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
@@ -80,15 +80,15 @@ public class BoardService implements IBoardService {
 	}
 	
 	@Override
-	public List<BoardModel> getBrdTypNoticeList(BoardSrchModel boardSrchModel) {
-		List<BoardModel> boardList = new ArrayList<BoardModel>();
+	public List<BoardInfo> getBrdTypNoticeList(BoardSrchModel boardSrchModel) {
+		List<BoardInfo> boardList = new ArrayList<BoardInfo>();
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
 			boardList = sqlSession.selectList("board.getBrdTypNoticeList", boardSrchModel);
 			if (boardList != null && boardList.size() > 0) {
 				for (int i = 0; i < boardList.size(); i++) {
-					BoardModel board = boardList.get(i);
+					BoardInfo board = boardList.get(i);
 					board.setAttachFiles(selectTBL010103(board.getBrdSeq()));
 				}
 			}
@@ -100,7 +100,7 @@ public class BoardService implements IBoardService {
 	}
 	
 	@Override
-	public boolean insertBoard(BoardModel boardModel) {
+	public boolean insertBoard(BoardInfo boardModel) {
 		
 		FileModel imgFile = null;
 		ArrayList<FileModel> uploadFileList = null;
@@ -233,7 +233,7 @@ public class BoardService implements IBoardService {
 	}
 	
 	@Override
-	public boolean updateBoard(BoardModel boardModel) {
+	public boolean updateBoard(BoardInfo boardModel) {
 		
 		FileModel imgFile = null;
 		ArrayList<FileModel> uploadFileList = null;
@@ -372,9 +372,9 @@ public class BoardService implements IBoardService {
 	}
 	
 	@Override
-	public BoardModel selectTBL010102(long srchBrdSeq) {
+	public BoardInfo selectTBL010102(long srchBrdSeq) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		return (BoardModel) sqlSession.selectOne("board.selectTBL010102", srchBrdSeq);
+		return (BoardInfo) sqlSession.selectOne("board.selectTBL010102", srchBrdSeq);
 	}
 	
 	@Override
