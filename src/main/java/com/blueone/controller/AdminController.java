@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 
 
+import org.springframework.web.servlet.ModelAndView;
+
 import com.blueone.admin.domain.AdminInfo;
 import com.blueone.admin.service.IAdminManageService;
 
@@ -48,14 +50,18 @@ public class AdminController {
 		
 		return "admin/admin_conf2";
 	}
-	
+	//=====================
 	@RequestMapping(value = "/editAdminInf.do", method = RequestMethod.POST)
 	public String editAdminInfo(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
 		adminManageService.editAdminInf(adminInfo);
 		
+		
+		
+		
+		
 		return "admin/result";
 	}
-
+    //===========================
 	
 	@RequestMapping(value = "/getAdminList.do", method = RequestMethod.GET)
 	public String getAdminInfoList(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
@@ -69,7 +75,8 @@ public class AdminController {
 	
 	@RequestMapping(value = "/getAdminDetailInf.do", method = RequestMethod.GET)
 	public String getAdminDetailInfo(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
-		adminManageService.getAdminInfDetail(adminInfo);
+		
+		    adminManageService.getAdminInfDetail(adminInfo);
 		
 		return "admin/result";
 	}
