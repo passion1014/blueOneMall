@@ -1,31 +1,30 @@
 package com.blueone.common.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import klac.etc.dao.SmsDao;
-import klac.etc.model.SmsModel;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import com.blueone.common.domain.SmsModel;
 
-import org.springframework.orm.ibatis.SqlMapClientTemplate;
-
-import com.ibatis.sqlmap.client.SqlMapClient;
-
-
+@Service
 public class SmsService implements ISmsService {
-	private SqlMapClient sqlMapClient;
-	private SqlMapClientTemplate sqlMapClientTemplate;
+
+	@Autowired
+	private SqlSessionFactory sqlSessionFactory;
+
 	private HashMap<String, Object> valueMap = new HashMap<String, Object>();
-	
-	public void setSqlMapClientTemplate(SqlMapClientTemplate sqlMapClientTemplate) {
-		this.sqlMapClientTemplate = sqlMapClientTemplate;
-		this.sqlMapClient = sqlMapClientTemplate.getSqlMapClient();
-	}
 	
 	@Override
 	public String getCheckHpNo(SmsModel smsModel) {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		
 		StringBuffer hpNoInfo = new StringBuffer();
-		List<SmsModel> smsList = sqlMapClientTemplate.queryForList("sms.getCheckHpNo", smsModel);
+		List<SmsModel> smsList = sqlSession.selectList("sms.getCheckHpNo", smsModel);
 		if (smsList != null && smsList.size() > 0) {
 			for (int i = 0; i < smsList.size(); i++) {
 				if (i>0) hpNoInfo.append(",");
@@ -40,30 +39,30 @@ public class SmsService implements ISmsService {
 	public boolean insertArreoSms(SmsModel smsModel) {
 		String tmpRcvPhnId = smsModel.getRcvPhnId();
 		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
-			
 			String[] rcvPhnId = splitPhoneNumber(new String[] {smsModel.getRcvPhnId()});
 			
 			// SMS추가(트렌젝션 처리)
-			sqlMapClient.startTransaction();
+//			sqlMapClient.startTransaction();
 			
 			if (rcvPhnId != null && rcvPhnId.length > 0) {
 				for (int i = 0; i < rcvPhnId.length; i++) {
 					smsModel.setRcvPhnId(rcvPhnId[i]);
-					Object cmpMsgId = sqlMapClient.insert("sms.insertARREO_SMS", smsModel);
+					Object cmpMsgId = sqlSession.insert("sms.insertARREO_SMS", smsModel);
 					if (cmpMsgId == null) return false;
 				}
 			}
 			
-			sqlMapClient.commitTransaction();
-			sqlMapClient.getCurrentConnection().commit();
+//			sqlMapClient.commitTransaction();
+//			sqlMapClient.getCurrentConnection().commit();
 			
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			return false;
 		} finally {
 			smsModel.setRcvPhnId(tmpRcvPhnId);
-			try { if (sqlMapClient != null) sqlMapClient.endTransaction(); } catch (Exception e) {};
+			sqlSession.close();
 		}
 
 		return true;
@@ -71,12 +70,31 @@ public class SmsService implements ISmsService {
 	
 	@Override
 	public List<SmsModel> getSmsList(SmsModel smsModel) {
-		return sqlMapClientTemplate.queryForList("sms.getSmsList", smsModel);
+		List<SmsModel> smsList = new ArrayList<SmsModel>();
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			smsList= sqlSession.selectList("sms.getSmsList", smsModel);
+		} finally {
+			sqlSession.close();
+		}
+		
+		return smsList;
+//		return sqlMapClientTemplate.queryForList("sms.getSmsList", smsModel);
 	}
 	
 	@Override
 	public int getSmsTotalCount(SmsModel smsModel) {
-		return (Integer) sqlMapClientTemplate.queryForObject("sms.getSmsTotalCount", smsModel);
+		Integer rst = 0;
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			rst = sqlSession.selectOne("sms.getSmsTotalCount", smsModel);
+		} finally {
+			sqlSession.close();
+		}
+		
+		return rst;
 	}
 	
 	/**

@@ -3,41 +3,46 @@ package com.blueone.common.service;
 import java.util.HashMap;
 import java.util.List;
 
-import klac.etc.dao.ZipDao;
-import klac.etc.model.ZipModel;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import com.blueone.common.domain.ZipModel;
 
-import org.springframework.orm.ibatis.SqlMapClientTemplate;
-
-
+@Service
 public class ZipService implements IZipService {
-	private SqlMapClientTemplate sqlMapClientTemplate;
+
+	@Autowired
+	private SqlSessionFactory sqlSessionFactory;
 	private HashMap<String, Object> valueMap = new HashMap<String, Object>();
 	
-	public void setSqlMapClientTemplate(SqlMapClientTemplate sqlMapClientTemplate) {
-		this.sqlMapClientTemplate = sqlMapClientTemplate;
-	}
-
 	@Override
 	public List<ZipModel> getZipList(ZipModel zipModel) {
-		return sqlMapClientTemplate.queryForList("zip.getZipList", zipModel);
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		return sqlSession.selectList("zip.getZipList", zipModel);
 	}
 	
 	@Override
 	public List<ZipModel> getGiBunList(ZipModel zipModel) {
-		return sqlMapClientTemplate.queryForList("zip.getGiBunList", zipModel);
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		return sqlSession.selectList("zip.getGiBunList", zipModel);
 	}
 	
 	@Override
 	public List<ZipModel> getRoadNmList(ZipModel zipModel) {
-		return sqlMapClientTemplate.queryForList("zip.getRoadNmList", zipModel);
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		return sqlSession.selectList("zip.getRoadNmList", zipModel);
 	}
 	
 	@Override
 	public HashMap<String, Object> makeRoadAddr(String oldAddr) {
 		valueMap.put("avGb", "1");
 		valueMap.put("avOldAddr", oldAddr);
-		sqlMapClientTemplate.queryForList("zip.callSpNewAddrMake", valueMap);
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		sqlSession.selectList("zip.callSpNewAddrMake", valueMap);
+		
 		return valueMap;
 	}
 	

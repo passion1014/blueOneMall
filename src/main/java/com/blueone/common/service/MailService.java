@@ -9,6 +9,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.blueone.common.domain.MailModel;
@@ -18,14 +21,22 @@ import com.blueone.customer.domain.MemberInfo;
 
 @Service
 public class MailService implements IMailService {
+
+	@Autowired
+	private SqlSessionFactory sqlSessionFactory;
+	
 	private HashMap<String, Object> valueMap = new HashMap<String, Object>();
 	private final String webmasterName = Configuration.getInstance().getProperty("mail.webmaster.name");
 	private final String webmasterEmail = Configuration.getInstance().getProperty("mail.webmaster.email");
 	
 	@Override
 	public String getCheckEmail(MailModel mailModel) {
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		
 		StringBuffer eMailInfo = new StringBuffer();
-		List<MemberInfo> memberList = sqlMapClientTemplate.queryForList("mail.getCheckEmail", mailModel);
+		List<MemberInfo> memberList = sqlSession.selectList("mail.getCheckEmail", mailModel);
+		
 		if (memberList != null && memberList.size() > 0) {
 			for (int i = 0; i < memberList.size(); i++) {
 				if (i>0) eMailInfo.append(";");
@@ -39,15 +50,15 @@ public class MailService implements IMailService {
 	@Override
 	public boolean sentMail(MailModel mailModel) {
 		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
-			
 			// 메일추가(트렌젝션 처리)
-			sqlMapClient.startTransaction();
-			Object mailSeq = sqlMapClient.insert("mail.insertTBL090810", mailModel);
-			if (mailSeq == null) return false;
+//			sqlMapClient.startTransaction();
+			int rst = sqlSession.insert("mail.insertTBL090810", mailModel);
+			if (0 == rst) return false;
 			
-			sqlMapClient.commitTransaction();
-			sqlMapClient.getCurrentConnection().commit();
+//			sqlMapClient.commitTransaction();
+//			sqlMapClient.getCurrentConnection().commit();
 			
 			// 메일발송
 //			MailSender mailSender = new MailSender();
@@ -57,7 +68,7 @@ public class MailService implements IMailService {
 			ex.printStackTrace();
 			return false;
 		} finally {
-			try { if (sqlMapClient != null) sqlMapClient.endTransaction(); } catch (Exception e) {};
+			sqlSession.close();
 		}
 
 		return true;
@@ -80,26 +91,26 @@ public class MailService implements IMailService {
 		mailModel.setCont(cont);
 		mailModel.setInsUser("admin");
 		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
-			
 			// 메일추가(트렌젝션 처리)
-			sqlMapClient.startTransaction();
+//			sqlMapClient.startTransaction();
 			
-			Object mailSeq = sqlMapClient.insert("mail.insertTBL090810", mailModel);
-			if (mailSeq == null) return false;
+			int rst = sqlSession.insert("mail.insertTBL090810", mailModel);
+			if (0 == rst) return false;
 			
-			sqlMapClient.commitTransaction();
-			sqlMapClient.getCurrentConnection().commit();
+//			sqlMapClient.commitTransaction();
+//			sqlMapClient.getCurrentConnection().commit();
 			
 			// 메일발송
-			MailSender mailSender = new MailSender();
-			mailSender.sent(mailModel);
+//			MailSender mailSender = new MailSender();
+//			mailSender.sent(mailModel);
 			
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			return false;
 		} finally {
-			try { if (sqlMapClient != null) sqlMapClient.endTransaction(); } catch (Exception e) {};
+			sqlSession.close();
 		}
 
 		return true;
@@ -108,16 +119,16 @@ public class MailService implements IMailService {
 	@Override
 	public boolean sentMailPasswd(MemberInfo member) {
 		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
-			
 			// 메일추가(트렌젝션 처리)
-			sqlMapClient.startTransaction();
+//			sqlMapClient.startTransaction();
 			
 			// 비밀번호 업데이트
 			String newPasswd = Long.toString(Math.round(Math.random() * 1000000));
 			member.setPasswd(newPasswd);
 			member.setUpdUser("admin");
-			sqlMapClient.insert("member.updateTBL020210Passwd", member);
+			sqlSession.insert("member.updateTBL020210Passwd", member);
 			
 			// 내용
 			HashMap<String, String> hm = new HashMap<String, String>();
@@ -133,21 +144,21 @@ public class MailService implements IMailService {
 			mailModel.setCont(cont);
 			mailModel.setInsUser("admin");
 			
-			Object mailSeq = sqlMapClient.insert("mail.insertTBL090810", mailModel);
-			if (mailSeq == null) return false;
+			int rst = sqlSession.insert("mail.insertTBL090810", mailModel);
+			if (0 == rst) return false;
 			
-			sqlMapClient.commitTransaction();
-			sqlMapClient.getCurrentConnection().commit();
+//			sqlMapClient.commitTransaction();
+//			sqlMapClient.getCurrentConnection().commit();
 			
 			// 메일발송
-			MailSender mailSender = new MailSender();
-			mailSender.sent(mailModel);
+//			MailSender mailSender = new MailSender();
+//			mailSender.sent(mailModel);
 			
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			return false;
 		} finally {
-			try { if (sqlMapClient != null) sqlMapClient.endTransaction(); } catch (Exception e) {};
+			sqlSession.close();
 		}
 
 		return true;
@@ -156,16 +167,16 @@ public class MailService implements IMailService {
 	@Override
 	public boolean sentMailUserInfo(MemberInfo member) {
 		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
-			
 			// 메일추가(트렌젝션 처리)
-			sqlMapClient.startTransaction();
+//			sqlMapClient.startTransaction();
 			
 			// 비밀번호 업데이트
 			String newPasswd = Long.toString(Math.round(Math.random() * 1000000));
 			member.setPasswd(newPasswd);
 			member.setUpdUser("admin");
-			sqlMapClient.insert("member.updateTBL020210Passwd", member);
+			sqlSession.insert("member.updateTBL020210Passwd", member);
 			
 			
 			// 내용
@@ -183,21 +194,21 @@ public class MailService implements IMailService {
 			mailModel.setInsUser("admin");
 			
 			
-			Object mailSeq = sqlMapClient.insert("mail.insertTBL090810", mailModel);
-			if (mailSeq == null) return false;
+			int rst = sqlSession.insert("mail.insertTBL090810", mailModel);
+			if (0 == rst) return false;
 			
-			sqlMapClient.commitTransaction();
-			sqlMapClient.getCurrentConnection().commit();
+//			sqlMapClient.commitTransaction();
+//			sqlMapClient.getCurrentConnection().commit();
 			
 			// 메일발송
-			MailSender mailSender = new MailSender();
-			mailSender.sent(mailModel);
+//			MailSender mailSender = new MailSender();
+//			mailSender.sent(mailModel);
 			
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			return false;
 		} finally {
-			try { if (sqlMapClient != null) sqlMapClient.endTransaction(); } catch (Exception e) {};
+			sqlSession.close();
 		}
 
 		return true;
@@ -205,17 +216,20 @@ public class MailService implements IMailService {
 	
 	@Override
 	public List<MailModel> getList(MailModel mailModel) {
-		return sqlMapClientTemplate.queryForList("mail.getList", mailModel);
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		return sqlSession.selectList("mail.getList", mailModel);
 	}
 	
 	@Override
 	public int getTotalCount(MailModel mailModel) {
-		return (Integer) sqlMapClientTemplate.queryForObject("mail.getTotalCount", mailModel);
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		return (Integer) sqlSession.selectOne("mail.getTotalCount", mailModel);
 	}
 	
 	@Override
 	public MailModel selectTBL090810(long mailSeq) {
-		return (MailModel) sqlMapClientTemplate.queryForObject("mail.selectTBL090810", mailSeq);
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		return (MailModel) sqlSession.selectOne("mail.selectTBL090810", mailSeq);
 	}
 	
 	/**

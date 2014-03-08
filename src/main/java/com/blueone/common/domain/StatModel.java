@@ -1,7 +1,5 @@
 package com.blueone.common.domain;
 
-import klac.common.BaseModel;
-
 public class StatModel extends BaseModel {
 	private int srchTarSeq;
 	private int srchSubSeq;

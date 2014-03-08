@@ -1,6 +1,5 @@
 package com.blueone.common.domain;
 
-import klac.common.BaseModel;
 
 public class MailModel extends BaseModel {
 	private long mailSeq;		// 메일일련번호

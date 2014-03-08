@@ -1,6 +1,7 @@
 package com.blueone.common.domain;
 
-import klac.common.Utility;
+import com.blueone.common.util.Utility;
+
 
 public class AttachFileModel {
 	private int flNo;				// 파일번호

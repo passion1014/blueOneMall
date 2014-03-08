@@ -24,12 +24,8 @@ public class AdminManageServiceImpl implements IAdminManageService {
 
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
-		
 			checkAdminInfo(adminInfo);
-			
-		
 			int rst = sqlSession.insert("admin.insertBomAdminTb0001", adminInfo);
-			
 		} finally {
 			sqlSession.close();
 		}

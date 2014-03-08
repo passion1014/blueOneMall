@@ -1,7 +1,5 @@
 package com.blueone.common.domain;
 
-import klac.common.BaseModel;
-
 public class SmsModel extends BaseModel {
 	private String cmpMsgId;	//to_char(sysdateyyyymmddhh24miss)+5자리숫자
 	private String cmpUsrId;	//00000

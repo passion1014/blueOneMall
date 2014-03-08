@@ -30,6 +30,4 @@ public interface IBoardMngService {
 	boolean updateTBL010102Del(BoardModel boardModel);
 	boolean updateTBL010102Del(BoardSrchModel boardSrchModel);
 	boolean updateTBL010102BrdTyp(BoardSrchModel boardSrchModel);
-	
-	
 }

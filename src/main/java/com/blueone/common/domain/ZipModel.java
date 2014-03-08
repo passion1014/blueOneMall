@@ -1,7 +1,5 @@
 package com.blueone.common.domain;
 
-import klac.common.BaseModel;
-
 public class ZipModel extends BaseModel {
 	private int zipSeq;			//우편일련번호
 	private String zipCd;		//우편번호

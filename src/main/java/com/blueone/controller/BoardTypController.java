@@ -6,12 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import klac.board.model.BoardTypModel;
-import klac.board.service.BoardTypService;
-import klac.board.service.BoardTypValidatior;
-import klac.etc.service.CodeService;
-
-
 import org.apache.commons.lang.StringUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -21,6 +15,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.blueone.board.domain.BoardTypModel;
+import com.blueone.board.service.BoardTypService;
+import com.blueone.board.service.BoardTypValidatior;
+import com.blueone.common.service.CodeService;
 
 @Controller
 @RequestMapping("/boardTypMng")

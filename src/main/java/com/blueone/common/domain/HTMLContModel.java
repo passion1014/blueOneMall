@@ -1,6 +1,7 @@
 package com.blueone.common.domain;
 
-import klac.common.Utility;
+import com.blueone.common.util.Utility;
+
 
 public class HTMLContModel {
 	private int htmlSeq;			// HTML일련번호

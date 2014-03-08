@@ -4,85 +4,152 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import klac.board.dao.BoardMngDao;
-import klac.board.model.BoardAttachFileModel;
-import klac.board.model.BoardCommentModel;
-import klac.board.model.BoardModel;
-import klac.board.model.BoardSrchModel;
-import klac.board.model.BoardStatModel;
-import klac.common.FileUploadUtility;
-import klac.common.model.FileModel;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import com.blueone.board.domain.BoardAttachFileModel;
+import com.blueone.board.domain.BoardCommentModel;
+import com.blueone.board.domain.BoardModel;
+import com.blueone.board.domain.BoardSrchModel;
+import com.blueone.board.domain.BoardStatModel;
+import com.blueone.common.domain.FileModel;
+import com.blueone.common.util.FileUploadUtility;
 
-import org.springframework.orm.ibatis.SqlMapClientTemplate;
-
-import com.ibatis.sqlmap.client.SqlMapClient;
-
+@Service
 public class BoardMngService implements IBoardMngService {
-	private SqlMapClient sqlMapClient;
-	private SqlMapClientTemplate sqlMapClientTemplate;
+	@Autowired
+	private SqlSessionFactory sqlSessionFactory;
+
 	private HashMap<String, Object> valueMap = new HashMap<String, Object>();
 		
-
-	public void setSqlMapClientTemplate(SqlMapClientTemplate sqlMapClientTemplate) {
-		this.sqlMapClientTemplate = sqlMapClientTemplate;
-		this.sqlMapClient = sqlMapClientTemplate.getSqlMapClient();
-	}
-	
 	@Override
 	public List<BoardModel> getBoardList(BoardSrchModel boardSrchModel) {
-		return sqlMapClientTemplate.queryForList("boardMng.getBoardList", boardSrchModel);
+		
+		List<BoardModel> boardInfoList = new ArrayList<BoardModel>();
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			boardInfoList = sqlSession.selectList("boardMng.getBoardList", boardSrchModel);
+		} finally {
+			sqlSession.close();
+		}
+
+		return boardInfoList;
+//		return sqlMapClientTemplate.queryForList("boardMng.getBoardList", boardSrchModel);
 	}
 	
 	@Override
 	public int getBoardTotalCount(BoardSrchModel boardSrchModel) {
-		return (Integer) sqlMapClientTemplate.queryForObject("boardMng.getBoardTotalCount", boardSrchModel);
+		int rst = 0;
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			rst = sqlSession.selectOne("boardMng.getBoardTotalCount", boardSrchModel);
+		} finally {
+			sqlSession.close();
+		}
+
+		return rst;
+//		return (Integer) sqlMapClientTemplate.queryForObject("boardMng.getBoardTotalCount", boardSrchModel);
 	}
 	
 	@Override
 	public BoardStatModel getTodayTotalCount(BoardSrchModel boardSrchModel) {
-		return (BoardStatModel) sqlMapClientTemplate.queryForObject("boardMng.getTodayTotalCount", boardSrchModel);
+		BoardStatModel boardStatInfo = new BoardStatModel();
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			boardStatInfo = sqlSession.selectOne("boardMng.getTodayTotalCount", boardSrchModel);
+		} finally {
+			sqlSession.close();
+		}
+		
+		return boardStatInfo;
+//		return (BoardStatModel) sqlMapClientTemplate.queryForObject("boardMng.getTodayTotalCount", boardSrchModel);
 	}
 	
 	@Override
 	public List<BoardModel> getNoticeList(BoardSrchModel boardSrchModel) {
-		return sqlMapClientTemplate.queryForList("boardMng.getNoticeList", boardSrchModel);
+		List<BoardModel> boardInfoList = new ArrayList<BoardModel>();
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			boardInfoList = sqlSession.selectList("boardMng.getNoticeList", boardSrchModel);
+		} finally {
+			sqlSession.close();
+		}
+		
+		return boardInfoList;
+//		return sqlMapClientTemplate.queryForList("boardMng.getNoticeList", boardSrchModel);
 	}
 	
 	@Override
 	public BoardModel getBoard(long brdSeq) {
-		return (BoardModel) sqlMapClientTemplate.queryForObject("boardMng.getBoard", brdSeq);
+		BoardModel boardInfo = new BoardModel();
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			boardInfo = sqlSession.selectOne("boardMng.getBoard", brdSeq);
+		} finally {
+			sqlSession.close();
+		}
+		
+		return boardInfo;
+//		return (BoardModel) sqlMapClientTemplate.queryForObject("boardMng.getBoard", brdSeq);
 	}
 	
 	@Override
 	public List<BoardAttachFileModel> selectTBL010103(long brdSeq) {
-		return sqlMapClientTemplate.queryForList("boardMng.selectTBL010103", brdSeq);
+		List<BoardAttachFileModel> boardAttachFileList = new ArrayList<BoardAttachFileModel>();
+
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			boardAttachFileList = sqlSession.selectList("boardMng.selectTBL010103", brdSeq);
+		} finally {
+			sqlSession.close();
+		}
+		
+		return boardAttachFileList;
+//		return sqlMapClientTemplate.queryForList("boardMng.selectTBL010103", brdSeq);
 	}
 	
 	@Override
 	public List<BoardCommentModel> selectTBL010104(long brdSeq) {
-		return sqlMapClientTemplate.queryForList("boardMng.selectTBL010104", brdSeq);
+
+		List<BoardCommentModel> boardAttachFileList = new ArrayList<BoardCommentModel>();
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			boardAttachFileList = sqlSession.selectList("boardMng.selectTBL010104", brdSeq);
+		} finally {
+			sqlSession.close();
+		}
+
+		return boardAttachFileList;
+//		return sqlMapClientTemplate.queryForList("boardMng.selectTBL010104", brdSeq);
 	}
 	
 	@Override
 	public boolean insertBoard(BoardModel boardModel) {
 		
 		ArrayList<FileModel> uploadFileList = null;
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
 			uploadFileList = FileUploadUtility.doFileUpload(FileUploadUtility.UPLOAD_TYP_BOARD, boardModel.getUploadFile(), false);
 			
-			// 게시물추가(트렌젝션 처리)
-			sqlMapClient.startTransaction();
-			
-			Object brdSeq = sqlMapClient.insert("boardMng.insertTBL010102", boardModel);
-			if (brdSeq == null) return false;
+//			Object brdSeq = sqlMapClient.insert("boardMng.insertTBL010102", boardModel);
+			int rst = sqlSession.insert("boardMng.insertTBL010102", boardModel);
+			long brdSeq = boardModel.getBrdSeq();
 			
 			// 첨부파일정보 추가
 			FileModel fileModel = null;
 			BoardAttachFileModel boardAttachFileModel = new BoardAttachFileModel();
 			
 			if (uploadFileList != null && uploadFileList.size() > 0) {
-				sqlMapClient.startBatch();
+//				sqlMapClient.startBatch();
 				for (int i = 0; i < uploadFileList.size(); i++) {
 					fileModel = uploadFileList.get(i);
 					boardAttachFileModel.setBrdSeq((Long)brdSeq);
@@ -93,19 +160,16 @@ public class BoardMngService implements IBoardMngService {
 					boardAttachFileModel.setFilesize(fileModel.getFilesize());
 					boardAttachFileModel.setFileExt(fileModel.getFileExt());
 					
-					sqlMapClient.insert("boardMng.insertTBL010103", boardAttachFileModel);
+//					sqlMapClient.insert("boardMng.insertTBL010103", boardAttachFileModel);
+					sqlSession.insert("boardMng.insertTBL010103", boardAttachFileModel);
 				}
-				sqlMapClient.executeBatch();
+//				sqlMapClient.executeBatch();
 			}
-			
-			sqlMapClient.commitTransaction();
-			sqlMapClient.getCurrentConnection().commit();
-			
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			return false;
 		} finally {
-			try { if (sqlMapClient != null) sqlMapClient.endTransaction(); } catch (Exception e) {};
+			sqlSession.close();
 		}
 
 		return true;
@@ -113,30 +177,49 @@ public class BoardMngService implements IBoardMngService {
 	
 	@Override
 	public Object insertTBL010102(BoardModel boardModel) {
-		return sqlMapClientTemplate.insert("boardMng.insertTBL010102", boardModel);
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			int rst = sqlSession.insert("boardMng.insertTBL010102", boardModel);
+		} finally {
+			sqlSession.close();
+		}
+
+		return boardModel;
+//		return sqlMapClientTemplate.insert("boardMng.insertTBL010102", boardModel);
 	}
 	
 	@Override
 	public boolean insertTBL010103(BoardAttachFileModel boardAttachFileModel) {
-		sqlMapClientTemplate.insert("boardMng.insertTBL010103", boardAttachFileModel);		
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			int rst = sqlSession.insert("boardMng.insertTBL010103", boardAttachFileModel);
+		} finally {
+			sqlSession.close();
+		}
+
+//		sqlMapClientTemplate.insert("boardMng.insertTBL010103", boardAttachFileModel);		
 		return true;
 	}
 	
 	@Override
 	public boolean insertTBL010104(BoardCommentModel boardCommentModel) {
 		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
+//			sqlMapClient.startTransaction();
+//			sqlMapClient.insert("boardMng.insertTBL010104", boardCommentModel);
+//			sqlMapClient.commitTransaction();
+//			sqlMapClient.getCurrentConnection().commit();
 			
-			sqlMapClient.startTransaction();
-			sqlMapClient.insert("boardMng.insertTBL010104", boardCommentModel);
-			sqlMapClient.commitTransaction();
-			sqlMapClient.getCurrentConnection().commit();
+			sqlSession.insert("boardMng.insertTBL010104", boardCommentModel);
 			
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			return false;
 		} finally {
-			try { if (sqlMapClient != null) sqlMapClient.endTransaction(); } catch (Exception e) {};
+			sqlSession.close();
 		}
 		
 		return true;
@@ -144,25 +227,38 @@ public class BoardMngService implements IBoardMngService {
 	
 	@Override
 	public boolean updateTBL010102(BoardModel boardModel) {
-		sqlMapClientTemplate.update("boardMng.updateTBL010102", boardModel);
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			sqlSession.update("boardMng.updateTBL010102", boardModel);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return false;
+		} finally {
+			sqlSession.close();
+		}
+		
+//		sqlMapClientTemplate.update("boardMng.updateTBL010102", boardModel);
 		return true;
 	}
 	
 	@Override
 	public boolean updateTBL010102Del(BoardSrchModel boardSrchModel) {
 		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
+//			sqlMapClient.startTransaction();
+//			sqlMapClient.update("boardMng.updateTBL010102Del", boardSrchModel);
+//			sqlMapClient.commitTransaction();
+//			sqlMapClient.getCurrentConnection().commit();
 			
-			sqlMapClient.startTransaction();
-			sqlMapClient.update("boardMng.updateTBL010102Del", boardSrchModel);
-			sqlMapClient.commitTransaction();
-			sqlMapClient.getCurrentConnection().commit();
+			sqlSession.update("boardMng.updateTBL010102Del", boardSrchModel);
 			
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			return false;
 		} finally {
-			try { if (sqlMapClient != null) sqlMapClient.endTransaction(); } catch (Exception e) {};
+			sqlSession.close();
 		}
 		
 		return true;
@@ -171,18 +267,20 @@ public class BoardMngService implements IBoardMngService {
 	@Override
 	public boolean updateTBL010102BrdTyp(BoardSrchModel boardSrchModel) {
 		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
+//			sqlMapClient.startTransaction();
+//			sqlMapClient.update("boardMng.updateTBL010102BrdTyp", boardSrchModel);
+//			sqlMapClient.commitTransaction();
+//			sqlMapClient.getCurrentConnection().commit();
 			
-			sqlMapClient.startTransaction();
-			sqlMapClient.update("boardMng.updateTBL010102BrdTyp", boardSrchModel);
-			sqlMapClient.commitTransaction();
-			sqlMapClient.getCurrentConnection().commit();
+			sqlSession.update("boardMng.updateTBL010102BrdTyp", boardSrchModel);
 			
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			return false;
 		} finally {
-			try { if (sqlMapClient != null) sqlMapClient.endTransaction(); } catch (Exception e) {};
+			sqlSession.close();
 		}
 		
 		return true;
@@ -190,7 +288,18 @@ public class BoardMngService implements IBoardMngService {
 	
 	@Override
 	public boolean updateTBL010102Del(BoardModel boardModel) {
-		sqlMapClientTemplate.update("boardMng.updateTBL010102", boardModel);
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			sqlSession.update("boardMng.updateTBL010102", boardModel);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return false;
+		} finally {
+			sqlSession.close();
+		}
+		
+//		sqlMapClientTemplate.update("boardMng.updateTBL010102", boardModel);
 		return true;
 	}
 
