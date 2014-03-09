@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.blueone.board.domain.BoardTypModel;
+import com.blueone.board.domain.BoardTypInfo;
 import com.blueone.board.service.BoardTypService;
 import com.blueone.board.service.BoardTypValidatior;
 import com.blueone.common.service.CodeService;
@@ -38,7 +38,7 @@ public class BoardTypController {
 	}
 	
 	@RequestMapping(value="/add.do", method = RequestMethod.POST)
-	public ModelAndView add(@ModelAttribute("BoardTypModel") BoardTypModel boardTypModel, BindingResult result, HttpSession session) {
+	public ModelAndView add(@ModelAttribute("BoardTypModel") BoardTypInfo boardTypModel, BindingResult result, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		new BoardTypValidatior().validate(boardTypModel, result);
 		if(result.hasErrors()){
@@ -69,7 +69,7 @@ public class BoardTypController {
 	@RequestMapping("/edit.do")
 	public ModelAndView edit(HttpServletRequest request, HttpSession session){
 		int brdTyp = Integer.parseInt(request.getParameter("brdTyp"));
-		BoardTypModel boardTyp = boardTypService.getBoardTyp(brdTyp); // get selected article model
+		BoardTypInfo boardTyp = boardTypService.getBoardTyp(brdTyp); // get selected article model
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("boardTyp", boardTyp);
@@ -79,7 +79,7 @@ public class BoardTypController {
 	}
 	
 	@RequestMapping(value="/edit.do", method = RequestMethod.POST)
-	public ModelAndView edit(@ModelAttribute("BoardTypModel") BoardTypModel boardTypModel, BindingResult result, HttpSession session) {
+	public ModelAndView edit(@ModelAttribute("BoardTypModel") BoardTypInfo boardTypModel, BindingResult result, HttpSession session) {
 		
 		ModelAndView mav = new ModelAndView();
 		new BoardTypValidatior().validate(boardTypModel, result);
@@ -108,7 +108,7 @@ public class BoardTypController {
 	@RequestMapping("/list.do")
 	public ModelAndView list(HttpServletRequest request, HttpServletResponse response) {
 		// 게시판리스트 조회
-		List<BoardTypModel> boardTyplist = null;
+		List<BoardTypInfo> boardTyplist = null;
 		boardTyplist = boardTypService.getBoardTypList();
 		
 		ModelAndView mav = new ModelAndView();

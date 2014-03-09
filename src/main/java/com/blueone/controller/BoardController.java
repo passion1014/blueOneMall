@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.blueone.board.domain.BoardAttachFileModel;
-import com.blueone.board.domain.BoardCommentModel;
+import com.blueone.board.domain.BoardAttachFileInfo;
+import com.blueone.board.domain.BoardCommentInfo;
 import com.blueone.board.domain.BoardInfo;
-import com.blueone.board.domain.BoardSrchModel;
+import com.blueone.board.domain.BoardSrchInfo;
 import com.blueone.board.service.BoardService;
 import com.blueone.board.service.BoardTypService;
 import com.blueone.common.domain.BaseInfo;
@@ -38,7 +38,7 @@ public class BoardController {
 	
 	
 	@RequestMapping("/list.do")
-	public ModelAndView boardList(@ModelAttribute("BoardSrchModel") BoardSrchModel boardSrchModel, HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView boardList(@ModelAttribute("BoardSrchModel") BoardSrchInfo boardSrchModel, HttpServletRequest request, HttpServletResponse response) {
 		long[] noticeBrdSeq = {};
 		List<BoardInfo> noticeList = null;
 		List<BoardInfo> boardList = null;
@@ -69,7 +69,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/add.do")
-	public ModelAndView add(@ModelAttribute("BoardSrchModel") BoardSrchModel boardSrchModel, HttpServletRequest request) {
+	public ModelAndView add(@ModelAttribute("BoardSrchModel") BoardSrchInfo boardSrchModel, HttpServletRequest request) {
 		String srchBrdTyp = request.getParameter("srchBrdTyp");
 		int brdTyp = Integer.parseInt((Utility.isEmpty(srchBrdTyp) ? "0" : srchBrdTyp));
 		
@@ -119,7 +119,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/addComment.do", method = RequestMethod.POST)
-	public ModelAndView addComment(@ModelAttribute("BoardCommentModel") BoardCommentModel boardCommentModel, BindingResult result, HttpSession session) {
+	public ModelAndView addComment(@ModelAttribute("BoardCommentModel") BoardCommentInfo boardCommentModel, BindingResult result, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		LoginSessionModel userInfo = (LoginSessionModel) session.getAttribute("userInfo");
 		if (userInfo == null) {
@@ -149,7 +149,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/edit.do")
-	public ModelAndView edit(@ModelAttribute("BoardSrchModel") BoardSrchModel boardSrchModel, HttpServletRequest request, HttpSession session){
+	public ModelAndView edit(@ModelAttribute("BoardSrchModel") BoardSrchInfo boardSrchModel, HttpServletRequest request, HttpSession session){
 		String srchBrdSeq = request.getParameter("srchBrdSeq");
 		if (Utility.isEmpty(srchBrdSeq)) {
 			srchBrdSeq = request.getParameter("brdSeq");
@@ -161,7 +161,7 @@ public class BoardController {
 		// 조회
 		long brdSeq = Long.parseLong(srchBrdSeq);		
 		BoardInfo board = boardService.selectTBL010102(brdSeq);
-		List<BoardAttachFileModel> attaFileList = boardService.selectTBL010103(brdSeq);
+		List<BoardAttachFileInfo> attaFileList = boardService.selectTBL010103(brdSeq);
 		//List<BoardCommentModel> commentList = boardService.selectTBL010104(brdSeq);
 		
 		ModelAndView mav = new ModelAndView();
@@ -201,7 +201,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/editComment.do", method = RequestMethod.POST)
-	public ModelAndView editComment(@ModelAttribute("BoardCommentModel") BoardCommentModel boardCommentModel, BindingResult result, HttpSession session) {
+	public ModelAndView editComment(@ModelAttribute("BoardCommentModel") BoardCommentInfo boardCommentModel, BindingResult result, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		LoginSessionModel userInfo = (LoginSessionModel) session.getAttribute("userInfo");
 		if (userInfo == null) {
@@ -226,19 +226,19 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/view.do")
-	public ModelAndView view(@ModelAttribute("BoardSrchModel") BoardSrchModel boardSrchModel, HttpServletRequest request, HttpSession session) {
+	public ModelAndView view(@ModelAttribute("BoardSrchModel") BoardSrchInfo boardSrchModel, HttpServletRequest request, HttpSession session) {
 		
 		// 조회
 		long brdSeq = getBrdSeq(request);		
 		BoardInfo board = boardService.selectTBL010102(brdSeq);
-		List<BoardAttachFileModel> attaFileList = boardService.selectTBL010103(brdSeq);
-		List<BoardCommentModel> commentList = boardService.selectTBL010104(brdSeq);
+		List<BoardAttachFileInfo> attaFileList = boardService.selectTBL010103(brdSeq);
+		List<BoardCommentInfo> commentList = boardService.selectTBL010104(brdSeq);
 		
 		// 조회수 업데이트
 		boardService.updateTBL010102Hit(brdSeq);
 		
 		// 코멘트정보
-		BoardCommentModel boardCommentModel = new BoardCommentModel();
+		BoardCommentInfo boardCommentModel = new BoardCommentInfo();
 		boardCommentModel.setCommRootNo(0);
 		boardCommentModel.setCommRefNo(1);
 		boardCommentModel.setCommDepth(0);
@@ -255,7 +255,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/delete.do")
-	public ModelAndView delete(@ModelAttribute("BoardSrchModel") BoardSrchModel boardSrchModel, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+	public ModelAndView delete(@ModelAttribute("BoardSrchModel") BoardSrchInfo boardSrchModel, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		
 		LoginSessionModel userInfo = (LoginSessionModel) session.getAttribute("userInfo");
 		
@@ -276,7 +276,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/deleteComment.do")
-	public ModelAndView deleteComment(@ModelAttribute("BoardCommentModel") BoardCommentModel boardCommentModel, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+	public ModelAndView deleteComment(@ModelAttribute("BoardCommentModel") BoardCommentInfo boardCommentModel, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		LoginSessionModel userInfo = (LoginSessionModel) session.getAttribute("userInfo");
 		
 		// 삭제자
@@ -347,14 +347,14 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/fileDownload.do")
-	public void fileDownload(@ModelAttribute("BoardAttachFileModel") BoardAttachFileModel boardAttachFileModel, HttpServletRequest request, HttpServletResponse response) {
+	public void fileDownload(@ModelAttribute("BoardAttachFileModel") BoardAttachFileInfo boardAttachFileModel, HttpServletRequest request, HttpServletResponse response) {
 		String saveFileName = boardAttachFileModel.getSaveFilename();
 		String realFileName = boardAttachFileModel.getRealFilename();
 		FileDownloadUtility.doFileDownload(request, response, FileUploadUtility.UPLOAD_TYP_BOARD, saveFileName, realFileName);
 	}
 	
 	@RequestMapping("/fileDownloadImage.do")
-	public void fileDownloadImage(@ModelAttribute("BoardAttachFileModel") BoardAttachFileModel boardAttachFileModel, HttpServletRequest request, HttpServletResponse response) {
+	public void fileDownloadImage(@ModelAttribute("BoardAttachFileModel") BoardAttachFileInfo boardAttachFileModel, HttpServletRequest request, HttpServletResponse response) {
 		String saveFileName = boardAttachFileModel.getSaveFilename();
 		String realFileName = boardAttachFileModel.getRealFilename();
 		FileDownloadUtility.doFileDownload(request, response, FileUploadUtility.UPLOAD_TYP_BOARD_IMAGE, saveFileName, realFileName);

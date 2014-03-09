@@ -1,6 +1,6 @@
 package com.blueone.board.domain;
 
-public class BoardTypModel {
+public class BoardTypInfo {
 	private int brdTyp;				// 게시판유형
 	private String title;			// 게시판명
 	private String attaYn;			// 첨부파일여부

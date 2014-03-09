@@ -1,7 +1,7 @@
 package com.blueone.board.domain;
 
 
-public class BoardStatModel {
+public class BoardStatInfo {
 	private long todayCnt;			// 금일등록된전체글수
 	private long todayCommentCnt;	// 금일등록된덧글전체수
 	private long todayHitCnt;		// 금일등록된덧글전체수

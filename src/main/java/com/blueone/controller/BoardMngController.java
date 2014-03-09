@@ -30,11 +30,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.blueone.board.domain.BoardAttachFileModel;
-import com.blueone.board.domain.BoardCommentModel;
+import com.blueone.board.domain.BoardAttachFileInfo;
+import com.blueone.board.domain.BoardCommentInfo;
 import com.blueone.board.domain.BoardInfo;
-import com.blueone.board.domain.BoardSrchModel;
-import com.blueone.board.domain.BoardStatModel;
+import com.blueone.board.domain.BoardSrchInfo;
+import com.blueone.board.domain.BoardStatInfo;
 import com.blueone.board.service.BoardMngService;
 import com.blueone.board.service.BoardService;
 import com.blueone.board.service.BoardTypService;
@@ -57,7 +57,7 @@ public class BoardMngController {
 	
 	
 	@RequestMapping("/add.do")
-	public ModelAndView add(@ModelAttribute("BoardSrchModel") BoardSrchModel boardSrchModel, HttpServletRequest request, HttpSession session) {
+	public ModelAndView add(@ModelAttribute("BoardSrchModel") BoardSrchInfo boardSrchModel, HttpServletRequest request, HttpSession session) {
 		LoginSessionModel userInfo = (LoginSessionModel) session.getAttribute("userInfo");
 		
 		BoardInfo boardModal = new BoardInfo();
@@ -75,7 +75,7 @@ public class BoardMngController {
 	}
 	
 	@RequestMapping(value="/add.do", method = RequestMethod.POST)
-	public ModelAndView add(@ModelAttribute("BoardModel") BoardInfo boardModel, @ModelAttribute("BoardSrchModel") BoardSrchModel boardSrchModel, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+	public ModelAndView add(@ModelAttribute("BoardModel") BoardInfo boardModel, @ModelAttribute("BoardSrchModel") BoardSrchInfo boardSrchModel, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		LoginSessionModel userInfo = (LoginSessionModel) session.getAttribute("userInfo");
 		boardModel.setInsUser(userInfo.getUserId());
@@ -100,10 +100,10 @@ public class BoardMngController {
 	}
 	
 	@RequestMapping("/edit.do")
-	public ModelAndView edit(@ModelAttribute("BoardModel") BoardInfo boardModel, @ModelAttribute("BoardSrchModel") BoardSrchModel boardSrchModel, HttpServletRequest request, HttpSession session){
+	public ModelAndView edit(@ModelAttribute("BoardModel") BoardInfo boardModel, @ModelAttribute("BoardSrchModel") BoardSrchInfo boardSrchModel, HttpServletRequest request, HttpSession session){
 		long brdSeq = getBrdSeq(request);		
 		BoardInfo board = boardService.selectTBL010102(brdSeq);
-		List<BoardAttachFileModel> attaFileList = boardService.selectTBL010103(brdSeq);
+		List<BoardAttachFileInfo> attaFileList = boardService.selectTBL010103(brdSeq);
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("brdTypInfo", boardTypService.getBoardTyp(board.getBrdTyp()));
@@ -115,7 +115,7 @@ public class BoardMngController {
 	}
 	
 	@RequestMapping(value="/edit.do", method = RequestMethod.POST)
-	public ModelAndView update(@ModelAttribute("BoardModel") BoardInfo boardModel, @ModelAttribute("BoardSrchModel") BoardSrchModel boardSrchModel, HttpServletRequest request, HttpSession session) {
+	public ModelAndView update(@ModelAttribute("BoardModel") BoardInfo boardModel, @ModelAttribute("BoardSrchModel") BoardSrchInfo boardSrchModel, HttpServletRequest request, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		LoginSessionModel userInfo = (LoginSessionModel) session.getAttribute("userInfo");
 		boardModel.setUpdUser(userInfo.getUserId());
@@ -134,7 +134,7 @@ public class BoardMngController {
 	}
 	
 	@RequestMapping(value="/editComment.do", method = RequestMethod.POST)
-	public ModelAndView editComment(@ModelAttribute("BoardCommentModel") BoardCommentModel boardCommentModel, @ModelAttribute("BoardSrchModel") BoardSrchModel boardSrchModel, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+	public ModelAndView editComment(@ModelAttribute("BoardCommentModel") BoardCommentInfo boardCommentModel, @ModelAttribute("BoardSrchModel") BoardSrchInfo boardSrchModel, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		LoginSessionModel userInfo = (LoginSessionModel) session.getAttribute("userInfo");
 		boardCommentModel.setUpdUser(userInfo.getUserId());
@@ -153,16 +153,16 @@ public class BoardMngController {
 	}
 	
 	@RequestMapping("/view.do")
-	public ModelAndView view(@ModelAttribute("BoardSrchModel") BoardSrchModel boardSrchModel, HttpServletRequest request, HttpSession session){
+	public ModelAndView view(@ModelAttribute("BoardSrchModel") BoardSrchInfo boardSrchModel, HttpServletRequest request, HttpSession session){
 		long brdSeq = getBrdSeq(request);		
 		BoardInfo board = boardService.selectTBL010102(brdSeq);
-		List<BoardAttachFileModel> attaFileList = boardService.selectTBL010103(brdSeq);
-		List<BoardCommentModel> commentList = boardService.selectTBL010104(brdSeq);
+		List<BoardAttachFileInfo> attaFileList = boardService.selectTBL010103(brdSeq);
+		List<BoardCommentInfo> commentList = boardService.selectTBL010104(brdSeq);
 		
 		// 조회수 업데이트
 		boardService.updateTBL010102Hit(brdSeq);
 		
-		BoardCommentModel boardCommentModel = new BoardCommentModel();
+		BoardCommentInfo boardCommentModel = new BoardCommentInfo();
 		boardCommentModel.setCommRootNo(0);
 		boardCommentModel.setCommRefNo(1);
 		boardCommentModel.setCommDepth(0);
@@ -182,7 +182,7 @@ public class BoardMngController {
 	}
 	
 	@RequestMapping("/reply.do")
-	public ModelAndView reply(@ModelAttribute("BoardSrchModel") BoardSrchModel boardSrchModel, HttpServletRequest request, HttpSession session) {
+	public ModelAndView reply(@ModelAttribute("BoardSrchModel") BoardSrchInfo boardSrchModel, HttpServletRequest request, HttpSession session) {
 		LoginSessionModel userInfo = (LoginSessionModel) session.getAttribute("userInfo");
 		long brdSeq = getBrdSeq(request);
 		BoardInfo boardModel = boardService.selectTBL010102(brdSeq); // get selected article model
@@ -202,7 +202,7 @@ public class BoardMngController {
 	}
 	
 	@RequestMapping(value="/addComment.do", method = RequestMethod.POST)
-	public ModelAndView addComment(@ModelAttribute("BoardCommentModel") BoardCommentModel boardCommentModel, @ModelAttribute("BoardSrchModel") BoardSrchModel boardSrchModel, HttpServletRequest request, HttpSession session) {
+	public ModelAndView addComment(@ModelAttribute("BoardCommentModel") BoardCommentInfo boardCommentModel, @ModelAttribute("BoardSrchModel") BoardSrchInfo boardSrchModel, HttpServletRequest request, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		LoginSessionModel userInfo = (LoginSessionModel) session.getAttribute("userInfo");
 		boardCommentModel.setInsUser(userInfo.getUserId());
@@ -225,7 +225,7 @@ public class BoardMngController {
 	}
 	
 	@RequestMapping(value="/delete.do", method = RequestMethod.POST)
-	public ModelAndView delete(@ModelAttribute("BoardModel") BoardInfo boardModel, @ModelAttribute("BoardSrchModel") BoardSrchModel boardSrchModel, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+	public ModelAndView delete(@ModelAttribute("BoardModel") BoardInfo boardModel, @ModelAttribute("BoardSrchModel") BoardSrchInfo boardSrchModel, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		LoginSessionModel userInfo = (LoginSessionModel) session.getAttribute("userInfo");
 		boardSrchModel.setUserId(userInfo.getUserId());
@@ -246,7 +246,7 @@ public class BoardMngController {
 	}
 	
 	@RequestMapping("/deleteFromList.do")
-	public ModelAndView deleteFromList(@ModelAttribute("BoardSrchModel") BoardSrchModel boardSrchModel, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+	public ModelAndView deleteFromList(@ModelAttribute("BoardSrchModel") BoardSrchInfo boardSrchModel, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		LoginSessionModel userInfo = (LoginSessionModel) session.getAttribute("userInfo");
 		boardSrchModel.setUserId(userInfo.getUserId());
 		if (boardSrchModel.getCheck() != null) {
@@ -258,7 +258,7 @@ public class BoardMngController {
 	}
 	
 	@RequestMapping("/moveFromList.do")
-	public ModelAndView moveFromList(@ModelAttribute("BoardSrchModel") BoardSrchModel boardSrchModel, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+	public ModelAndView moveFromList(@ModelAttribute("BoardSrchModel") BoardSrchInfo boardSrchModel, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		LoginSessionModel userInfo = (LoginSessionModel) session.getAttribute("userInfo");
 		boardSrchModel.setUserId(userInfo.getUserId());
 		if (boardSrchModel.getCheck() != null) {
@@ -270,7 +270,7 @@ public class BoardMngController {
 	}
 	
 	@RequestMapping("/deleteComment.do")
-	public ModelAndView deleteComment(@ModelAttribute("BoardCommentModel") BoardCommentModel boardCommentModel, @ModelAttribute("BoardSrchModel") BoardSrchModel boardSrchModel, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+	public ModelAndView deleteComment(@ModelAttribute("BoardCommentModel") BoardCommentInfo boardCommentModel, @ModelAttribute("BoardSrchModel") BoardSrchInfo boardSrchModel, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		LoginSessionModel userInfo = (LoginSessionModel) session.getAttribute("userInfo");
 		
 		// 삭제처리
@@ -282,7 +282,7 @@ public class BoardMngController {
 	}
 	
 	@RequestMapping("/list.do")
-	public ModelAndView list(@ModelAttribute("BoardSrchModel") BoardSrchModel boardSrchModel, HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView list(@ModelAttribute("BoardSrchModel") BoardSrchInfo boardSrchModel, HttpServletRequest request, HttpServletResponse response) {
 		// 한페이지의 게시물
 		boardSrchModel.setRowsPerPage(15);
 		
@@ -304,7 +304,7 @@ public class BoardMngController {
 		List<CodeInfo> boardTypList = codeService.getBoardTypList();
 		
 		// 신규게시물정보 조회
-		BoardStatModel boardStat = boardMngService.getTodayTotalCount(boardSrchModel);
+		BoardStatInfo boardStat = boardMngService.getTodayTotalCount(boardSrchModel);
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("srchInfo", boardSrchModel);
@@ -320,7 +320,7 @@ public class BoardMngController {
 	}
 	
 	@RequestMapping(value="/fileDownload.do", method = RequestMethod.POST)
-	public void fileDownload(@ModelAttribute("BoardAttachFileModel") BoardAttachFileModel boardAttachFileModel, HttpServletRequest request, HttpServletResponse response) {
+	public void fileDownload(@ModelAttribute("BoardAttachFileModel") BoardAttachFileInfo boardAttachFileModel, HttpServletRequest request, HttpServletResponse response) {
 		String saveFileName = boardAttachFileModel.getSaveFilename();
 		String realFileName = boardAttachFileModel.getRealFilename();
 		FileDownloadUtility.doFileDownload(request, response, FileUploadUtility.UPLOAD_TYP_BOARD, saveFileName, realFileName);

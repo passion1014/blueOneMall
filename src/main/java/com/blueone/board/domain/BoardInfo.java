@@ -39,7 +39,7 @@ public class BoardInfo {
 	private String publicNm;
 	private String repreImage;
 	private String[] contImageFile;	// 내용에 추가된 이미지파일
-	private List<BoardAttachFileModel> attachFiles;
+	private List<BoardAttachFileInfo> attachFiles;
 	
 	
 	public String getInsDtTyp1() {
@@ -48,10 +48,10 @@ public class BoardInfo {
 	public void setInsDtTyp1(String insDtTyp1) {
 		this.insDtTyp1 = insDtTyp1;
 	}
-	public List<BoardAttachFileModel> getAttachFiles() {
+	public List<BoardAttachFileInfo> getAttachFiles() {
 		return attachFiles;
 	}
-	public void setAttachFiles(List<BoardAttachFileModel> attachFiles) {
+	public void setAttachFiles(List<BoardAttachFileInfo> attachFiles) {
 		this.attachFiles = attachFiles;
 	}
 	public String[] getContImageFile() {

@@ -3,7 +3,7 @@ package com.blueone.board.domain;
 import com.blueone.common.util.Utility;
 
 
-public class BoardAttachFileModel {
+public class BoardAttachFileInfo {
 	private long brdSeq;			// 게시물일련번호(FK)
 	private int flNo;				// 파일번호
 	private String attaKnd;			// 첨부유형[MG01]

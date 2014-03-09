@@ -3,7 +3,7 @@ package com.blueone.board.domain;
 import com.blueone.common.util.Utility;
 
 
-public class BoardCommentModel {
+public class BoardCommentInfo {
 	
 	private long brdSeq;		// 게시물일련번호(FK)
 	private int srchBrdTyp;		// 게시판유형(FK)

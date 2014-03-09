@@ -9,11 +9,11 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.blueone.board.domain.BoardAttachFileModel;
-import com.blueone.board.domain.BoardCommentModel;
+import com.blueone.board.domain.BoardAttachFileInfo;
+import com.blueone.board.domain.BoardCommentInfo;
 import com.blueone.board.domain.BoardInfo;
-import com.blueone.board.domain.BoardSrchModel;
-import com.blueone.board.domain.BoardStatModel;
+import com.blueone.board.domain.BoardSrchInfo;
+import com.blueone.board.domain.BoardStatInfo;
 import com.blueone.common.domain.FileInfo;
 import com.blueone.common.util.FileUploadUtility;
 
@@ -25,7 +25,7 @@ public class BoardMngService implements IBoardMngService {
 	private HashMap<String, Object> valueMap = new HashMap<String, Object>();
 		
 	@Override
-	public List<BoardInfo> getBoardList(BoardSrchModel boardSrchModel) {
+	public List<BoardInfo> getBoardList(BoardSrchInfo boardSrchModel) {
 		
 		List<BoardInfo> boardInfoList = new ArrayList<BoardInfo>();
 		
@@ -41,7 +41,7 @@ public class BoardMngService implements IBoardMngService {
 	}
 	
 	@Override
-	public int getBoardTotalCount(BoardSrchModel boardSrchModel) {
+	public int getBoardTotalCount(BoardSrchInfo boardSrchModel) {
 		int rst = 0;
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -56,8 +56,8 @@ public class BoardMngService implements IBoardMngService {
 	}
 	
 	@Override
-	public BoardStatModel getTodayTotalCount(BoardSrchModel boardSrchModel) {
-		BoardStatModel boardStatInfo = new BoardStatModel();
+	public BoardStatInfo getTodayTotalCount(BoardSrchInfo boardSrchModel) {
+		BoardStatInfo boardStatInfo = new BoardStatInfo();
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
@@ -71,7 +71,7 @@ public class BoardMngService implements IBoardMngService {
 	}
 	
 	@Override
-	public List<BoardInfo> getNoticeList(BoardSrchModel boardSrchModel) {
+	public List<BoardInfo> getNoticeList(BoardSrchInfo boardSrchModel) {
 		List<BoardInfo> boardInfoList = new ArrayList<BoardInfo>();
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -101,8 +101,8 @@ public class BoardMngService implements IBoardMngService {
 	}
 	
 	@Override
-	public List<BoardAttachFileModel> selectTBL010103(long brdSeq) {
-		List<BoardAttachFileModel> boardAttachFileList = new ArrayList<BoardAttachFileModel>();
+	public List<BoardAttachFileInfo> selectTBL010103(long brdSeq) {
+		List<BoardAttachFileInfo> boardAttachFileList = new ArrayList<BoardAttachFileInfo>();
 
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
@@ -116,9 +116,9 @@ public class BoardMngService implements IBoardMngService {
 	}
 	
 	@Override
-	public List<BoardCommentModel> selectTBL010104(long brdSeq) {
+	public List<BoardCommentInfo> selectTBL010104(long brdSeq) {
 
-		List<BoardCommentModel> boardAttachFileList = new ArrayList<BoardCommentModel>();
+		List<BoardCommentInfo> boardAttachFileList = new ArrayList<BoardCommentInfo>();
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
@@ -146,7 +146,7 @@ public class BoardMngService implements IBoardMngService {
 			
 			// 첨부파일정보 추가
 			FileInfo fileModel = null;
-			BoardAttachFileModel boardAttachFileModel = new BoardAttachFileModel();
+			BoardAttachFileInfo boardAttachFileModel = new BoardAttachFileInfo();
 			
 			if (uploadFileList != null && uploadFileList.size() > 0) {
 //				sqlMapClient.startBatch();
@@ -190,7 +190,7 @@ public class BoardMngService implements IBoardMngService {
 	}
 	
 	@Override
-	public boolean insertTBL010103(BoardAttachFileModel boardAttachFileModel) {
+	public boolean insertTBL010103(BoardAttachFileInfo boardAttachFileModel) {
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
@@ -204,7 +204,7 @@ public class BoardMngService implements IBoardMngService {
 	}
 	
 	@Override
-	public boolean insertTBL010104(BoardCommentModel boardCommentModel) {
+	public boolean insertTBL010104(BoardCommentInfo boardCommentModel) {
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
@@ -243,7 +243,7 @@ public class BoardMngService implements IBoardMngService {
 	}
 	
 	@Override
-	public boolean updateTBL010102Del(BoardSrchModel boardSrchModel) {
+	public boolean updateTBL010102Del(BoardSrchInfo boardSrchModel) {
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
@@ -265,7 +265,7 @@ public class BoardMngService implements IBoardMngService {
 	}
 	
 	@Override
-	public boolean updateTBL010102BrdTyp(BoardSrchModel boardSrchModel) {
+	public boolean updateTBL010102BrdTyp(BoardSrchInfo boardSrchModel) {
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {

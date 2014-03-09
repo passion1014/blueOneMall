@@ -9,10 +9,10 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.blueone.board.domain.BoardAttachFileModel;
-import com.blueone.board.domain.BoardCommentModel;
+import com.blueone.board.domain.BoardAttachFileInfo;
+import com.blueone.board.domain.BoardCommentInfo;
 import com.blueone.board.domain.BoardInfo;
-import com.blueone.board.domain.BoardSrchModel;
+import com.blueone.board.domain.BoardSrchInfo;
 import com.blueone.common.domain.FileInfo;
 import com.blueone.common.util.FileUploadUtility;
 
@@ -24,7 +24,7 @@ public class BoardService implements IBoardService {
 	private SqlSessionFactory sqlSessionFactory;
 
 	@Override
-	public List<BoardInfo> getBrdTypBoardList(BoardSrchModel boardSrchModel) {
+	public List<BoardInfo> getBrdTypBoardList(BoardSrchInfo boardSrchModel) {
 		List<BoardInfo> boards = new ArrayList<BoardInfo>();
 		BoardInfo board = null;
 		
@@ -48,7 +48,7 @@ public class BoardService implements IBoardService {
 	}
 	
 	@Override
-	public int getBrdTypTotalCount(BoardSrchModel boardSrchModel) {
+	public int getBrdTypTotalCount(BoardSrchInfo boardSrchModel) {
 		Integer count = new Integer(0);
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -80,7 +80,7 @@ public class BoardService implements IBoardService {
 	}
 	
 	@Override
-	public List<BoardInfo> getBrdTypNoticeList(BoardSrchModel boardSrchModel) {
+	public List<BoardInfo> getBrdTypNoticeList(BoardSrchInfo boardSrchModel) {
 		List<BoardInfo> boardList = new ArrayList<BoardInfo>();
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -128,7 +128,7 @@ public class BoardService implements IBoardService {
 			// 첨부파일정보 추가
 			int flNo = 1;
 			FileInfo fileModel = null;
-			BoardAttachFileModel boardAttachFileModel = new BoardAttachFileModel();
+			BoardAttachFileInfo boardAttachFileModel = new BoardAttachFileInfo();
 			
 			if (uploadFileList != null && uploadFileList.size() > 0) {
 //				sqlMapClient.startBatch();
@@ -193,7 +193,7 @@ public class BoardService implements IBoardService {
 	}
 	
 	@Override
-	public boolean insertTBL010104(BoardCommentModel boardCommentModel) {
+	public boolean insertTBL010104(BoardCommentInfo boardCommentModel) {
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
@@ -213,7 +213,7 @@ public class BoardService implements IBoardService {
 	}
 	
 	@Override
-	public boolean updateTBL010104(BoardCommentModel boardCommentModel) {
+	public boolean updateTBL010104(BoardCommentInfo boardCommentModel) {
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
@@ -242,7 +242,7 @@ public class BoardService implements IBoardService {
 		try {
 
 			// 기존 첨부파일 목록
-			List<BoardAttachFileModel> attaFileList = selectTBL010103(boardModel.getBrdSeq());
+			List<BoardAttachFileInfo> attaFileList = selectTBL010103(boardModel.getBrdSeq());
 			
 			// 이미지 파일업로드
 			imgFile = FileUploadUtility.doFileUpload(FileUploadUtility.UPLOAD_TYP_BOARD_IMAGE, boardModel.getImgFile(), false);
@@ -258,8 +258,8 @@ public class BoardService implements IBoardService {
 			// 첨부파일정보 추가
 			int flNo = 1;
 			FileInfo fileModel = null;
-			BoardAttachFileModel boardAttachFileModel = new BoardAttachFileModel();
-			BoardAttachFileModel tmpBoardAttachFileModel = new BoardAttachFileModel();
+			BoardAttachFileInfo boardAttachFileModel = new BoardAttachFileInfo();
+			BoardAttachFileInfo tmpBoardAttachFileModel = new BoardAttachFileInfo();
 			
 			// 기존첨부파일 모두삭제
 			sqlSession.delete("board.deleteTBL010103", boardModel.getBrdSeq());
@@ -378,13 +378,13 @@ public class BoardService implements IBoardService {
 	}
 	
 	@Override
-	public List<BoardAttachFileModel> selectTBL010103(long srchBrdSeq) {
+	public List<BoardAttachFileInfo> selectTBL010103(long srchBrdSeq) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		return sqlSession.selectList("board.selectTBL010103", srchBrdSeq);
 	}
 	
 	@Override
-	public List<BoardCommentModel> selectTBL010104(long srchBrdSeq) {
+	public List<BoardCommentInfo> selectTBL010104(long srchBrdSeq) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		return sqlSession.selectList("board.selectTBL010104", srchBrdSeq);
 	}

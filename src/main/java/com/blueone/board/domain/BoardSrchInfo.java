@@ -3,7 +3,7 @@ package com.blueone.board.domain;
 import com.blueone.common.domain.BaseInfo;
 
 
-public class BoardSrchModel extends BaseInfo {
+public class BoardSrchInfo extends BaseInfo {
 	private long brdSeq;
 	private long srchBrdSeq;
 	private int srchBrdTyp;				// 게시판유형

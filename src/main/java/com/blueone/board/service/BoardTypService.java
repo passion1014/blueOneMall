@@ -8,7 +8,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.blueone.board.domain.BoardTypModel;
+import com.blueone.board.domain.BoardTypInfo;
 
 @Service
 public class BoardTypService implements IBoardTypService {
@@ -18,8 +18,8 @@ public class BoardTypService implements IBoardTypService {
 	private HashMap<String, Object> valueMap = new HashMap<String, Object>();
 
 	@Override
-	public List<BoardTypModel> getBoardTypList() {
-		List<BoardTypModel> boardTypInfoList = new ArrayList<BoardTypModel>(); 
+	public List<BoardTypInfo> getBoardTypList() {
+		List<BoardTypInfo> boardTypInfoList = new ArrayList<BoardTypInfo>(); 
 		
 		// -----------------------------------------------------
 		// DB 실행
@@ -36,8 +36,8 @@ public class BoardTypService implements IBoardTypService {
 	}
 	
 	@Override
-	public BoardTypModel getBoardTyp(int brdTyp) {
-		BoardTypModel boardTypInfo = new BoardTypModel();
+	public BoardTypInfo getBoardTyp(int brdTyp) {
+		BoardTypInfo boardTypInfo = new BoardTypInfo();
 		
 		// -----------------------------------------------------
 		// DB 실행
@@ -54,7 +54,7 @@ public class BoardTypService implements IBoardTypService {
 	}
 	
 	@Override
-	public boolean insertTBL010101(BoardTypModel boardTypModel) {
+	public boolean insertTBL010101(BoardTypInfo boardTypModel) {
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();		
 		try {
@@ -75,7 +75,7 @@ public class BoardTypService implements IBoardTypService {
 	}
 	
 	@Override
-	public boolean updateTBL010101(BoardTypModel boardTypModel) {
+	public boolean updateTBL010101(BoardTypInfo boardTypModel) {
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();		
 		try {
