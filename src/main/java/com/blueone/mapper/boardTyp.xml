@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+    
+<sqlMap namespace="boardTyp">
+	<typeAlias alias="BoardTypModel" type="klac.board.model.BoardTypModel"/>
+	
+	<!-- 게시판 리스트조회 -->
+	<select id="getBoardTypList" parameterClass="java.util.HashMap" resultClass="BoardTypModel">
+		SELECT   t1.brd_typ as brdTyp
+		        ,t1.title
+		        ,t1.list_read_auth as listReadAuth
+		        ,(SELECT ct1.code_nm
+		            FROM tbl010901 ct1
+		           WHERE ct1.code_knd1 = 'MG'
+		             AND ct1.code_knd2 = 'MG16'
+		             AND ct1.code = t1.list_read_auth)
+		            AS listReadAuthNm
+		        ,t1.read_auth as readAuth
+		        ,(SELECT ct1.code_nm
+		            FROM tbl010901 ct1
+		           WHERE ct1.code_knd1 = 'MG'
+		             AND ct1.code_knd2 = 'MG16'
+		             AND ct1.code = t1.read_auth)
+		            AS readAuthNm
+		        ,t1.write_auth as writeAuth
+		        ,(SELECT ct1.code_nm
+		            FROM tbl010901 ct1
+		           WHERE ct1.code_knd1 = 'MG'
+		             AND ct1.code_knd2 = 'MG16'
+		             AND ct1.code = t1.write_auth)
+		            AS writeAuthNm
+		        ,(SELECT COUNT(*)
+		            FROM tbl010102 ct1
+		           WHERE ct1.brd_typ = t1.brd_typ
+		             AND ct1.del_yn = 'F')
+		            AS totalCnt
+		        ,(SELECT COUNT(*)
+		            FROM tbl010102 ct1
+		           WHERE ct1.brd_typ = t1.brd_typ
+		             AND ct1.ins_dt BETWEEN TO_DATE(TO_CHAR(SYSDATE
+		                                                   ,'yyyymmdd'
+		                                                   )
+		                                           ,'yyyymmdd'
+		                                           )
+		                                AND SYSDATE
+		             AND ct1.del_yn = 'F')
+		            AS todayCnt
+		    FROM tbl010101 t1
+		   WHERE t1.del_yn = 'F'
+		ORDER BY t1.brd_typ
+	</select>
+	
+	<!-- 게시판 조회 -->
+	<select id="getBoardTyp" parameterClass="int" resultClass="BoardTypModel">
+		SELECT t1.brd_typ AS brdTyp
+		      ,t1.title
+		      ,t1.atta_yn AS attaYn
+		      ,t1.reply_yn AS replyYn
+		      ,t1.comm_yn AS commYn
+		      ,t1.secr_yn AS secrYn
+		      ,t1.new_view_yn AS newViewYn
+		      ,t1.comm_view_yn AS commViewYn
+		      ,t1.atta_view_yn AS attaViewYn
+		      ,t1.list_read_auth AS listReadAuth
+		      ,t1.write_auth AS writeAuth
+		      ,t1.read_auth AS readAuth
+		      ,t1.reply_write_auth AS replyWriteAuth
+		      ,t1.reply_read_auth AS replyReadAuth
+		      ,t1.comm_write_auth AS commWriteAuth
+		      ,t1.comm_read_auth AS commReadAuth
+		      ,t1.img_use_yn as imgUseYn
+		      ,t1.public_use_yn as publicUseYn
+		  FROM tbl010101 t1
+		 WHERE t1.brd_typ = #brdTyp#
+	</select>
+	
+	<!-- 게시판 추가 -->
+	<insert id="insertTBL010101" parameterClass="BoardTypModel">
+		INSERT
+		  INTO tbl010101(brd_typ
+		                ,title
+		                ,atta_yn
+		                ,reply_yn
+		                ,comm_yn
+		                ,secr_yn
+		                ,new_view_yn
+		                ,comm_view_yn
+		                ,atta_view_yn
+		                ,list_read_auth
+		                ,write_auth
+		                ,read_auth
+		                ,reply_write_auth
+		                ,reply_read_auth
+		                ,comm_write_auth
+		                ,comm_read_auth
+		                ,ins_dt
+		                ,ins_user
+		                ,upd_dt
+		                ,upd_user
+		                )
+		VALUES (tbl010101seq.NEXTVAL, #title#, #attaYn#, #replyYn#, #commYn#
+		       ,#secrYn#, #newViewYn#, #commViewYn#, #attaViewYn#
+		       ,#listReadAuth#, #writeAuth#, #readAuth#, #replyWriteAuth#
+		       ,#replyReadAuth#, #commWriteAuth#, #commReadAuth#, SYSDATE
+		       ,#insUser#, SYSDATE, #updUser#
+		       )
+	</insert>
+	
+	<!-- 게시판 수정 -->
+	<update id="updateTBL010101" parameterClass="BoardTypModel">
+		UPDATE tbl010101
+		   SET title                       = #title#
+		      ,atta_yn                     = #attaYn#
+		      ,reply_yn                    = #replyYn#
+		      ,comm_yn                     = #commYn#
+		      ,secr_yn                     = #secrYn#
+		      ,new_view_yn                 = #newViewYn#
+		      ,comm_view_yn                = #commViewYn#
+		      ,atta_view_yn                = #attaViewYn#
+		      ,list_read_auth              = #listReadAuth#
+		      ,write_auth                  = #writeAuth#
+		      ,read_auth                   = #readAuth#
+		      ,reply_write_auth            = #replyWriteAuth#
+		      ,reply_read_auth             = #replyReadAuth#
+		      ,comm_write_auth             = #commWriteAuth#
+		      ,comm_read_auth              = #commReadAuth#
+		      ,upd_dt                      = SYSDATE
+		      ,upd_user                    = #updUser#
+		 WHERE brd_typ = #brdTyp#
+	</update>
+</sqlMap>
+
+
+
+
+
+
+

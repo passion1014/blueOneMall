@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+    
+<sqlMap namespace="boardMng">
+	<typeAlias alias="BoardModel" type="klac.board.model.BoardModel"/>
+	<typeAlias alias="BoardAttachFileModel" type="klac.board.model.BoardAttachFileModel"/>
+	<typeAlias alias="BoardSrchModel" type="klac.board.model.BoardSrchModel"/>
+	<typeAlias alias="BoardCommentModel" type="klac.board.model.BoardCommentModel"/>
+	<typeAlias alias="BoardStatModel" type="klac.board.model.BoardStatModel"/>
+	
+	
+	
+	<!-- 게시물 리스트조회 -->
+	<select id="getBoardList" parameterClass="BoardSrchModel" resultClass="BoardModel">
+		SELECT   s2.*
+		    FROM (SELECT ROWNUM AS rnum
+		                ,s1.*
+		            FROM (
+	
+		SELECT   t1.brd_seq as brdSeq
+		        ,t1.brd_typ as brdTyp
+		        ,t2.title AS brdTypNm
+		        ,t1.root_seq as rootSeq
+		        ,t1.ref_seq as refSeq
+		        ,t1.DEPTH
+		        ,t1.passwd
+		        ,t1.title
+		        ,t1.hit
+		        ,t1.comm_cnt as commCnt
+		        ,t1.reply_cnt as replyCnt
+		        ,t1.user_nm as userNm
+		        ,TO_CHAR(t1.ins_dt
+		                ,'yyyy.mm.dd hh24:mi'
+		                )
+		            AS insDt
+		        ,t1.ins_user as insUser
+		        ,t1.proc_st as procSt
+		    FROM tbl010102 t1 JOIN tbl010101 t2 ON t1.brd_typ = t2.brd_typ
+		   WHERE t1.del_yn = 'F'
+		   <dynamic prepend="AND"><iterate property="noticeBrdSeq" open=" brd_seq NOT IN (" close= ")" conjunction=",">#noticeBrdSeq[]#</iterate></dynamic>
+		   <isNotEqual prepend="AND" property="srchBrdTyp" compareValue="0">
+		     t1.brd_typ = #srchBrdTyp#
+		   </isNotEqual>
+		   <isNotEmpty prepend="AND" property="srchInsFromYmd">
+		     t1.ins_dt BETWEEN TO_DATE(#srchInsFromYmd#, 'yyyymmdd') AND TO_DATE(#srchInsToYmd#||'2359', 'yyyymmddhh24mi') 
+		   </isNotEmpty>
+		   <isNotEmpty prepend="AND" property="srchUserNm">
+		     t1.user_nm LIKE '%' || #srchUserNm# || '%'
+		   </isNotEmpty>
+		   <isNotEmpty prepend="AND" property="srchTitle">
+		     t1.title LIKE '%' || #srchTitle# || '%'
+		   </isNotEmpty>
+		ORDER BY t1.root_seq DESC
+		        ,t1.ref_seq
+		        ,t1.DEPTH
+		        
+			) s1) s2
+		   WHERE rnum BETWEEN ((#currentPage# - 1) * #rowsPerPage# + 1)
+		                  AND (((#currentPage# - 1) * #rowsPerPage# + 1) +
+		                       #rowsPerPage# - 1)
+		ORDER BY rnum
+	</select>
+	
+	<!-- 게시물 전체수 -->
+	<select id="getBoardTotalCount" parameterClass="BoardSrchModel" resultClass="int">
+		SELECT COUNT(t1.brd_seq)
+	      FROM tbl010102 t1 JOIN tbl010101 t2 ON t1.brd_typ = t2.brd_typ
+		 WHERE t1.del_yn = 'F'
+		   <isNotEqual prepend="AND" property="srchBrdTyp" compareValue="0">
+		     t1.brd_typ = #srchBrdTyp#
+		   </isNotEqual>
+		   <isNotEmpty prepend="AND" property="srchInsFromYmd">
+		     t1.ins_dt BETWEEN TO_DATE(#srchInsFromYmd#, 'yyyymmdd') AND TO_DATE(#srchInsToYmd#||'2359', 'yyyymmddhh24mi') 
+		   </isNotEmpty>
+		   <isNotEmpty prepend="AND" property="srchUserNm">
+		     t1.user_nm LIKE '%' || #srchUserNm# || '%'
+		   </isNotEmpty>
+		   <isNotEmpty prepend="AND" property="srchTitle">
+		     t1.title LIKE '%' || #srchTitle# || '%'
+		   </isNotEmpty>
+	</select>
+	
+	<!-- 공지 리스트조회 -->
+	<select id="getNoticeList" parameterClass="BoardSrchModel" resultClass="BoardModel">
+		SELECT s1.*
+		  FROM (SELECT   t1.brd_seq AS brdSeq
+		                ,t1.brd_typ AS brdTyp
+		                ,t2.title AS brdTypNm
+		                ,t1.root_seq AS rootSeq
+		                ,t1.ref_seq AS refSeq
+		                ,t1.DEPTH
+		                ,t1.passwd
+		                ,t1.title
+		                ,t1.hit
+		                ,t1.comm_cnt AS commCnt
+		                ,t1.reply_cnt AS replyCnt
+		                ,t1.user_nm AS userNm
+		                ,TO_CHAR(t1.ins_dt
+		                        ,'yyyy.mm.dd hh24:mi'
+		                        )
+		                    AS insDt
+		                ,t1.ins_user AS insUser
+		                ,t1.proc_st AS procSt
+		            FROM tbl010102 t1 JOIN tbl010101 t2 ON t1.brd_typ = t2.brd_typ
+		           WHERE t1.notice_yn = 'T'
+		             <isNotEqual prepend="AND" property="srchBrdTyp" compareValue="0">
+		               t1.brd_typ = #srchBrdTyp#
+		             </isNotEqual>
+		             AND t1.del_yn = 'F'
+		        ORDER BY t1.root_seq DESC
+		                ,t1.ref_seq
+		                ,t1.DEPTH) s1
+		 WHERE ROWNUM <![CDATA[<=]]> 3
+	</select>
+	
+	<!-- 신규게시물 건수조회 -->
+	<select id="getTodayTotalCount" parameterClass="BoardSrchModel" resultClass="BoardStatModel">
+		SELECT s1.*
+		      ,(SELECT COUNT(t1.brd_seq)
+		          FROM tbl010104 t1 JOIN tbl010102 t2 ON t1.brd_seq = t2.brd_seq
+		         WHERE t1.del_yn = 'F'
+                   <isNotEqual prepend="AND" property="srchBrdTyp" compareValue="0">
+		              t2.brd_typ = #srchBrdTyp#
+		           </isNotEqual>
+		           AND t1.ins_dt BETWEEN TO_DATE(TO_CHAR(SYSDATE
+		                                                ,'yyyymmdd'
+		                                                )
+		                                        ,'yyyymmdd'
+		                                        )
+		                             AND SYSDATE)
+		          AS todayCommentCnt
+		  FROM (SELECT COUNT(t1.brd_seq) AS todayCnt
+		              ,NVL(SUM(t1.hit), 0) AS todayHitCnt
+		          FROM tbl010102 t1
+		         WHERE t1.del_yn = 'F'
+                   <isNotEqual prepend="AND" property="srchBrdTyp" compareValue="0">
+		              t1.brd_typ = #srchBrdTyp#
+		           </isNotEqual>
+		           AND t1.ins_dt BETWEEN TO_DATE(TO_CHAR(SYSDATE
+		                                                ,'yyyymmdd'
+		                                                )
+		                                        ,'yyyymmdd'
+		                                        )
+		                             AND SYSDATE) s1
+	</select>
+	
+	<!-- 게시물 조회 -->
+	<select id="getBoard" parameterClass="long" resultClass="BoardModel">
+		SELECT   t1.brd_seq as brdSeq
+		        ,t1.brd_typ as brdTyp
+		        ,t2.title AS brdTypNm
+		        ,t1.root_seq as rootSeq
+		        ,t1.ref_seq as refSeq
+		        ,t1.DEPTH
+		        ,t1.passwd
+		        ,t1.title
+		        ,t1.cont
+		        ,t1.hit
+		        ,t1.comm_cnt as commCnt
+		        ,t1.reply_cnt as replyCnt
+		        ,t1.user_nm as userNm
+		        ,TO_CHAR(t1.ins_dt
+		                ,'yyyy.mm.dd hh24:mi'
+		                )
+		            AS insDt
+		        ,t1.ins_user as insUser
+		        ,t1.proc_st as procSt
+		    FROM tbl010102 t1 JOIN tbl010101 t2 ON t1.brd_typ = t2.brd_typ
+		   WHERE t1.brd_seq = #brdSeq#
+	</select>
+	
+	<!-- 첨부파일조회 -->
+	<select id="selectTBL010103" parameterClass="long" resultClass="BoardAttachFileModel">
+		SELECT   t1.brd_seq as brdSeq
+		        ,t1.fl_no as flNo
+		        ,t1.atta_knd as attaKnd
+		        ,t1.save_filename as saveFilename
+		        ,t1.real_filename as realFilename
+		        ,t1.filesize
+		        ,t1.file_ext as fileExt
+		    FROM tbl010103 t1
+		   WHERE t1.brd_seq = #brdSeq#
+		ORDER BY t1.fl_no
+	</select>
+	
+	<!-- 코멘트조회 -->
+	<select id="selectTBL010104" parameterClass="long" resultClass="BoardCommentModel">
+		SELECT   t1.brd_seq AS brdSeq
+		        ,t1.comm_no AS commNo
+		        ,t1.comm_root_no AS commRootNo
+		        ,t1.comm_ref_no AS commRefNo
+		        ,t1.comm_depth AS commDepth
+		        ,t1.comm_user_nm AS commUserNm
+		        ,t1.comm_cont AS commCont
+		        ,t1.comm_passwd AS commPasswd
+		        ,TO_CHAR(t1.ins_dt
+		                ,'yyyy.mm.dd hh24:mi'
+		                )
+		            AS insDt
+		        ,t1.ins_user AS insUser
+		        ,TO_CHAR(t1.upd_dt
+		                ,'yyyy.mm.dd hh24:mi'
+		                )
+		            AS updDt
+		        ,t1.upd_user AS updUser
+		    FROM tbl010104 t1
+		   WHERE t1.brd_seq = #brdSeq#
+		ORDER BY t1.comm_root_no DESC
+		        ,t1.comm_ref_no
+		        ,t1.comm_depth
+	</select>
+	
+	
+	<!-- 게시물 추가 -->
+	<insert id="insertTBL010102" parameterClass="BoardModel">
+		<selectKey keyProperty="brdSeq" resultClass="long">
+			SELECT tbl010102seq.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT
+		  INTO tbl010102(brd_seq
+		                ,brd_typ
+		                ,root_seq
+		                ,ref_seq
+		                ,DEPTH
+		                ,passwd
+		                ,title
+		                ,cont
+		                ,hit
+		                ,comm_cnt
+		                ,reply_cnt
+		                ,proc_st
+		                ,user_nm
+		                ,ins_dt
+		                ,ins_user
+		                ,upd_dt
+		                ,upd_user
+		                )
+		VALUES (#brdSeq#, #brdTyp#, <isEqual property="rootSeq" compareValue="0">#brdSeq#</isEqual><isNotEqual property="rootSeq" compareValue="0">#rootSeq#</isNotEqual>, #refSeq#, #depth#
+		       ,#passwd#, #title#, #cont#, #hit#, #commCnt#, #replyCnt#, #procSt#
+		       ,#userNm#, SYSDATE, #insUser#, SYSDATE, #updUser#
+		       )
+	</insert>
+	
+	<!-- 첨부파일 추가 -->
+	<insert id="insertTBL010103" parameterClass="BoardAttachFileModel">
+		INSERT
+		  INTO tbl010103(brd_seq
+		                ,fl_no
+		                ,atta_knd
+		                ,save_filename
+		                ,real_filename
+		                ,filesize
+		                ,file_ext
+		                )
+		VALUES (#brdSeq#, #flNo#, #attaKnd#, #saveFilename#, #realFilename#
+		       ,#filesize#, #fileExt#
+		       )
+	</insert>
+	
+	<!-- 코멘트 추가 -->
+	<insert id="insertTBL010104" parameterClass="BoardCommentModel">
+		<selectKey keyProperty="commNo" resultClass="int">
+			SELECT NVL(MAX(comm_no), 0)+1 FROM tbl010104 WHERE brd_seq = #brdSeq#
+		</selectKey>
+		INSERT
+		  INTO tbl010104(brd_seq
+		                ,comm_no
+		                ,comm_root_no
+		                ,comm_ref_no
+		                ,comm_depth
+		                ,comm_user_nm
+		                ,comm_passwd
+		                ,comm_cont
+		                ,ins_dt
+		                ,ins_user
+		                ,upd_dt
+		                ,upd_user
+		                )
+		VALUES (#brdSeq#, #commNo#, <isEqual property="commRootNo" compareValue="0">#commNo#</isEqual><isNotEqual property="commRootNo" compareValue="0">#commRootNo#</isNotEqual>
+		       ,#commRefNo#, #commDepth#, #commUserNm#, #commPasswd#, #commCont#, SYSDATE, 
+		       #insUser#, SYSDATE, #updUser#
+		       )
+	</insert>
+	
+	
+	<!-- 삭제처리 -->
+	<update id="updateTBL010102Del" parameterClass="BoardSrchModel">
+		UPDATE tbl010102
+		   SET del_yn = 'T', del_dt = SYSDATE, del_user = #userId#
+		 <dynamic prepend="WHERE">
+		   <iterate property="check" open="brd_seq IN (" close= ")" conjunction=",">
+		     #check[]#
+		   </iterate>
+		 </dynamic>
+	</update>
+	
+	<!-- 이동하기 -->
+	<update id="updateTBL010102BrdTyp" parameterClass="BoardSrchModel">
+		UPDATE tbl010102
+		   SET brd_typ = #brdTyp#, upd_dt = SYSDATE, upd_user = #userId#
+		 <dynamic prepend="WHERE">
+			((<iterate property="check" open="brd_seq IN (" close= ")" conjunction=",">#check[]#</iterate>
+			     AND DEPTH = 0)
+			     OR  (<iterate property="check" open="root_seq IN (" close= ")" conjunction=",">#check[]#</iterate>
+			      AND DEPTH > 0))
+		 </dynamic>
+	</update>
+</sqlMap>
+
+
+
+
+
+
+

@@ -42,7 +42,9 @@ public class BoardController {
 		long[] noticeBrdSeq = {};
 		List<BoardInfo> noticeList = null;
 		List<BoardInfo> boardList = null;
+		
 		if (boardSrchModel.getSrchBrdTyp() > 0) {
+			
 			noticeList = boardService.getBrdTypNoticeList(boardSrchModel);
 			if (noticeList != null && noticeList.size() > 0) {
 				noticeBrdSeq = new long[noticeList.size()];
