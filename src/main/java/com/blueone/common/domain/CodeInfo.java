@@ -1,6 +1,6 @@
 package com.blueone.common.domain;
 
-public class CodeModel {
+public class CodeInfo {
 	private String codeKnd1;	// 대분류
 	private String codeKnd2;	// 중분류
 	private String code;		// 코드

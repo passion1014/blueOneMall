@@ -38,7 +38,7 @@ import com.blueone.board.domain.BoardStatModel;
 import com.blueone.board.service.BoardMngService;
 import com.blueone.board.service.BoardService;
 import com.blueone.board.service.BoardTypService;
-import com.blueone.common.domain.CodeModel;
+import com.blueone.common.domain.CodeInfo;
 import com.blueone.common.service.CodeService;
 import com.blueone.common.util.FileDownloadUtility;
 import com.blueone.common.util.FileUploadUtility;
@@ -301,7 +301,7 @@ public class BoardMngController {
 		// 게시판리스트 조회
 		List<BoardInfo> boardList = boardMngService.getBoardList(boardSrchModel);
 		boardSrchModel.setTotalCount(boardMngService.getBoardTotalCount(boardSrchModel));
-		List<CodeModel> boardTypList = codeService.getBoardTypList();
+		List<CodeInfo> boardTypList = codeService.getBoardTypList();
 		
 		// 신규게시물정보 조회
 		BoardStatModel boardStat = boardMngService.getTodayTotalCount(boardSrchModel);

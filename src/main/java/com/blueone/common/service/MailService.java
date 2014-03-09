@@ -14,7 +14,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.blueone.common.domain.MailModel;
+import com.blueone.common.domain.MailInfo;
 import com.blueone.common.util.Configuration;
 import com.blueone.common.util.Utility;
 import com.blueone.customer.domain.MemberInfo;
@@ -30,7 +30,7 @@ public class MailService implements IMailService {
 	private final String webmasterEmail = Configuration.getInstance().getProperty("mail.webmaster.email");
 	
 	@Override
-	public String getCheckEmail(MailModel mailModel) {
+	public String getCheckEmail(MailInfo mailModel) {
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		
@@ -48,7 +48,7 @@ public class MailService implements IMailService {
 	}
 	
 	@Override
-	public boolean sentMail(MailModel mailModel) {
+	public boolean sentMail(MailInfo mailModel) {
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
@@ -83,7 +83,7 @@ public class MailService implements IMailService {
 		hm.put("content", "아이디 : " + member.getUserId());
 		String cont = applyTemplet("sample/mail/email.htm", hm);
 		
-		MailModel mailModel = new MailModel();
+		MailInfo mailModel = new MailInfo();
 		mailModel.setFromNm(webmasterName);
 		mailModel.setFromAddr(webmasterEmail);
 		mailModel.setToAddr(member.geteMail());
@@ -136,7 +136,7 @@ public class MailService implements IMailService {
 			hm.put("content", "비밀번호 : " + member.getPasswd());
 			String cont = applyTemplet("sample/mail/email.htm", hm);
 			
-			MailModel mailModel = new MailModel();
+			MailInfo mailModel = new MailInfo();
 			mailModel.setFromNm(webmasterName);
 			mailModel.setFromAddr(webmasterEmail);
 			mailModel.setToAddr(member.geteMail());
@@ -185,7 +185,7 @@ public class MailService implements IMailService {
 			hm.put("content", "아이디 : " + member.getUserId() + ", 비밀번호 : " + member.getPasswd());
 			String cont = applyTemplet("sample/mail/email.htm", hm);
 			
-			MailModel mailModel = new MailModel();
+			MailInfo mailModel = new MailInfo();
 			mailModel.setFromNm(webmasterName);
 			mailModel.setFromAddr(webmasterEmail);
 			mailModel.setToAddr(member.geteMail());
@@ -215,21 +215,21 @@ public class MailService implements IMailService {
 	}
 	
 	@Override
-	public List<MailModel> getList(MailModel mailModel) {
+	public List<MailInfo> getList(MailInfo mailModel) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		return sqlSession.selectList("mail.getList", mailModel);
 	}
 	
 	@Override
-	public int getTotalCount(MailModel mailModel) {
+	public int getTotalCount(MailInfo mailModel) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		return (Integer) sqlSession.selectOne("mail.getTotalCount", mailModel);
 	}
 	
 	@Override
-	public MailModel selectTBL090810(long mailSeq) {
+	public MailInfo selectTBL090810(long mailSeq) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		return (MailModel) sqlSession.selectOne("mail.selectTBL090810", mailSeq);
+		return (MailInfo) sqlSession.selectOne("mail.selectTBL090810", mailSeq);
 	}
 	
 	/**

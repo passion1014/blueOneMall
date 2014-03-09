@@ -1,7 +1,7 @@
 package com.blueone.common.domain;
 
 
-public class MailModel extends BaseModel {
+public class MailInfo extends BaseInfo {
 	private long mailSeq;		// 메일일련번호
 	private int skinSeq;		// 스킨일련번호(컨텐츠일련번호)
 	private String sentTyp;		// 메일유형[MG20]

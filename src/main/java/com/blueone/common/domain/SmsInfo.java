@@ -1,6 +1,6 @@
 package com.blueone.common.domain;
 
-public class SmsModel extends BaseModel {
+public class SmsInfo extends BaseInfo {
 	private String cmpMsgId;	//to_char(sysdateyyyymmddhh24miss)+5자리숫자
 	private String cmpUsrId;	//00000
 	private String odrFg;		//2

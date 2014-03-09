@@ -1,6 +1,6 @@
 package com.blueone.common.domain;
 
-public class StatModel extends BaseModel {
+public class StatInfo extends BaseInfo {
 	private int srchTarSeq;
 	private int srchSubSeq;
 	private int srchPgmSeq;

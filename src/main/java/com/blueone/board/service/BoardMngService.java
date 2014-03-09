@@ -14,7 +14,7 @@ import com.blueone.board.domain.BoardCommentModel;
 import com.blueone.board.domain.BoardInfo;
 import com.blueone.board.domain.BoardSrchModel;
 import com.blueone.board.domain.BoardStatModel;
-import com.blueone.common.domain.FileModel;
+import com.blueone.common.domain.FileInfo;
 import com.blueone.common.util.FileUploadUtility;
 
 @Service
@@ -134,7 +134,7 @@ public class BoardMngService implements IBoardMngService {
 	@Override
 	public boolean insertBoard(BoardInfo boardModel) {
 		
-		ArrayList<FileModel> uploadFileList = null;
+		ArrayList<FileInfo> uploadFileList = null;
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
@@ -145,7 +145,7 @@ public class BoardMngService implements IBoardMngService {
 			long brdSeq = boardModel.getBrdSeq();
 			
 			// 첨부파일정보 추가
-			FileModel fileModel = null;
+			FileInfo fileModel = null;
 			BoardAttachFileModel boardAttachFileModel = new BoardAttachFileModel();
 			
 			if (uploadFileList != null && uploadFileList.size() > 0) {

@@ -8,7 +8,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.blueone.common.domain.ZipModel;
+import com.blueone.common.domain.ZipInfo;
 
 @Service
 public class ZipService implements IZipService {
@@ -18,19 +18,19 @@ public class ZipService implements IZipService {
 	private HashMap<String, Object> valueMap = new HashMap<String, Object>();
 	
 	@Override
-	public List<ZipModel> getZipList(ZipModel zipModel) {
+	public List<ZipInfo> getZipList(ZipInfo zipModel) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		return sqlSession.selectList("zip.getZipList", zipModel);
 	}
 	
 	@Override
-	public List<ZipModel> getGiBunList(ZipModel zipModel) {
+	public List<ZipInfo> getGiBunList(ZipInfo zipModel) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		return sqlSession.selectList("zip.getGiBunList", zipModel);
 	}
 	
 	@Override
-	public List<ZipModel> getRoadNmList(ZipModel zipModel) {
+	public List<ZipInfo> getRoadNmList(ZipInfo zipModel) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		return sqlSession.selectList("zip.getRoadNmList", zipModel);
 	}

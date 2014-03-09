@@ -9,7 +9,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.blueone.common.domain.CodeModel;
+import com.blueone.common.domain.CodeInfo;
 import com.blueone.common.util.Utility;
 
 
@@ -21,9 +21,9 @@ public class CodeService implements ICodeService {
 	private HashMap<String, Object> valueMap = new HashMap<String, Object>();
 	
 	@Override
-	public List<CodeModel> getCodeList(String codeKnd1, String codeKnd2) {
+	public List<CodeInfo> getCodeList(String codeKnd1, String codeKnd2) {
 		
-		List<CodeModel> codeList = new ArrayList<CodeModel>();
+		List<CodeInfo> codeList = new ArrayList<CodeInfo>();
 		
 		valueMap.put("codeKnd1", codeKnd1);
 		valueMap.put("codeKnd2", codeKnd2);
@@ -40,8 +40,8 @@ public class CodeService implements ICodeService {
 	}
 	
 	@Override
-	public List<CodeModel> getTBL020110List() {
-		List<CodeModel> codeList = new ArrayList<CodeModel>();
+	public List<CodeInfo> getTBL020110List() {
+		List<CodeInfo> codeList = new ArrayList<CodeInfo>();
 
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
@@ -55,8 +55,8 @@ public class CodeService implements ICodeService {
 	}
 	
 	@Override
-	public List<CodeModel> getBoardTypList() {
-		List<CodeModel> codeList = new ArrayList<CodeModel>();
+	public List<CodeInfo> getBoardTypList() {
+		List<CodeInfo> codeList = new ArrayList<CodeInfo>();
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
@@ -70,8 +70,8 @@ public class CodeService implements ICodeService {
 	}
 	
 	@Override
-	public List<CodeModel> getEduSubList() {
-		List<CodeModel> codeList = new ArrayList<CodeModel>();
+	public List<CodeInfo> getEduSubList() {
+		List<CodeInfo> codeList = new ArrayList<CodeInfo>();
 		
 		valueMap.put("insideType", "F");
 		valueMap.put("orderSequence", "DESC");
@@ -88,8 +88,8 @@ public class CodeService implements ICodeService {
 	}
 	
 	@Override
-	public List<CodeModel> getEduSubList(String orderSequence) {
-		List<CodeModel> codeList = new ArrayList<CodeModel>();
+	public List<CodeInfo> getEduSubList(String orderSequence) {
+		List<CodeInfo> codeList = new ArrayList<CodeInfo>();
 
 		valueMap.put("insideType", "F");
 		valueMap.put("orderSequence", orderSequence);
@@ -106,8 +106,8 @@ public class CodeService implements ICodeService {
 	}
 	
 	@Override
-	public List<CodeModel> getEduSubAllList() {
-		List<CodeModel> codeList = new ArrayList<CodeModel>();
+	public List<CodeInfo> getEduSubAllList() {
+		List<CodeInfo> codeList = new ArrayList<CodeInfo>();
 		
 		valueMap.put("insideType", "");
 		valueMap.put("orderSequence", "DESC");
@@ -123,8 +123,8 @@ public class CodeService implements ICodeService {
 	}
 	
 	@Override
-	public List<CodeModel> getEduTarList() {
-		List<CodeModel> codeList = new ArrayList<CodeModel>();
+	public List<CodeInfo> getEduTarList() {
+		List<CodeInfo> codeList = new ArrayList<CodeInfo>();
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
@@ -137,8 +137,8 @@ public class CodeService implements ICodeService {
 	}
 	
 	@Override
-	public List<CodeModel> getEduInsList() {
-		List<CodeModel> codeList = new ArrayList<CodeModel>();
+	public List<CodeInfo> getEduInsList() {
+		List<CodeInfo> codeList = new ArrayList<CodeInfo>();
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
@@ -151,8 +151,8 @@ public class CodeService implements ICodeService {
 	}
 	
 	@Override
-	public List<CodeModel> getEduPgmList(int subSeq) {
-		List<CodeModel> codeList = new ArrayList<CodeModel>();
+	public List<CodeInfo> getEduPgmList(int subSeq) {
+		List<CodeInfo> codeList = new ArrayList<CodeInfo>();
 		valueMap.put("subSeq", subSeq);
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -166,8 +166,8 @@ public class CodeService implements ICodeService {
 	}
 	
 	@Override
-	public List<CodeModel> getMailSkinList() {
-		List<CodeModel> codeList = new ArrayList<CodeModel>();
+	public List<CodeInfo> getMailSkinList() {
+		List<CodeInfo> codeList = new ArrayList<CodeInfo>();
 	
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
@@ -180,10 +180,10 @@ public class CodeService implements ICodeService {
 	}
 	
 	@Override
-	public List<CodeModel> getMonthList() {
-		List<CodeModel> monthList = new ArrayList<CodeModel>();
+	public List<CodeInfo> getMonthList() {
+		List<CodeInfo> monthList = new ArrayList<CodeInfo>();
 		for (int i = 1; i <= 12; i++) {
-			CodeModel code = new CodeModel();
+			CodeInfo code = new CodeInfo();
 			code.setCode(Utility.lpad(Integer.toString(i), 2, '0'));
 			code.setCodeNm(Utility.lpad(Integer.toString(i), 2, '0'));
 			monthList.add(code);
@@ -199,11 +199,11 @@ public class CodeService implements ICodeService {
 	 * @param code
 	 * @return
 	 */
-	public String getCodeName(List<CodeModel> list, String code) {
+	public String getCodeName(List<CodeInfo> list, String code) {
 		String rtnValue = "";
 		
 		if (list != null && list.size() > 0) {
-			CodeModel codeModal = null;
+			CodeInfo codeModal = null;
 			for (int i = 0; i < list.size(); i++) {
 				codeModal = list.get(i);
 				if (codeModal.getCode().equals(code)) {
@@ -224,7 +224,7 @@ public class CodeService implements ICodeService {
 	 */
 	public String getCodeHTML (String name, String codeKnd1, String codeKnd2) {
 		StringBuffer codeHtml = new StringBuffer();
-		List<CodeModel> codeList = getCodeList(codeKnd1, codeKnd2);
+		List<CodeInfo> codeList = getCodeList(codeKnd1, codeKnd2);
 		
 		codeHtml.append("<select id='" + name + "' name='" + name + "'  class='form_1'>");
 		codeHtml.append("<option value=''>전체</option>");

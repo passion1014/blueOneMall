@@ -1,6 +1,6 @@
 package com.blueone.common.domain;
 
-public class FileModel {
+public class FileInfo {
 	private String saveFilename;
 	private String realFilename;
 	private long filesize;

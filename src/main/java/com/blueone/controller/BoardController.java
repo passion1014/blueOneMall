@@ -22,7 +22,7 @@ import com.blueone.board.domain.BoardInfo;
 import com.blueone.board.domain.BoardSrchModel;
 import com.blueone.board.service.BoardService;
 import com.blueone.board.service.BoardTypService;
-import com.blueone.common.domain.BaseModel;
+import com.blueone.common.domain.BaseInfo;
 import com.blueone.common.util.FileDownloadUtility;
 import com.blueone.common.util.FileUploadUtility;
 import com.blueone.common.util.Utility;
@@ -303,7 +303,7 @@ public class BoardController {
 	 * @param boardSrchModel
 	 * @return
 	 */
-	private String getPageHtml(BaseModel baseModel) {
+	private String getPageHtml(BaseInfo baseModel) {
 		StringBuffer pageHtml = new StringBuffer();
 		int startPage = 0;
 		int lastPage = 0;

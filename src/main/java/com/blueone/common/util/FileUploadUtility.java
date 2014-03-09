@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import org.springframework.web.multipart.MultipartFile;
-import com.blueone.common.domain.FileModel;
+import com.blueone.common.domain.FileInfo;
 
 
 /**
@@ -52,7 +52,7 @@ public class FileUploadUtility {
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 */
-	public static FileModel doFileUpload(int uploadTyp, MultipartFile file, boolean existFileDel) throws FileNotFoundException,IOException{
+	public static FileInfo doFileUpload(int uploadTyp, MultipartFile file, boolean existFileDel) throws FileNotFoundException,IOException{
 		// 저장할 파일이 있는지 체크
 		if (file == null || Utility.isEmpty(file.getOriginalFilename())) return null;
 		
@@ -60,7 +60,7 @@ public class FileUploadUtility {
 		String saveFilename = null;
 		String fullSaveFilename = null;
 		String fileExt = null;
-		FileModel fileModel = null;
+		FileInfo fileModel = null;
 		
 		switch (uploadTyp) {
 			case UPLOAD_TYP_BOARD :
@@ -111,7 +111,7 @@ public class FileUploadUtility {
 			
 			file.transferTo(saveFile);
 			
-			fileModel = new FileModel();
+			fileModel = new FileInfo();
 			fileModel.setSaveFilename(fullSaveFilename);
 			fileModel.setRealFilename(file.getOriginalFilename());
 			fileModel.setFilesize(file.getSize());
@@ -134,9 +134,9 @@ public class FileUploadUtility {
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 */
-	public static ArrayList<FileModel> doFileUpload(int uploadTyp, MultipartFile[] files, boolean existFileDel) throws FileNotFoundException,IOException{
-		FileModel fileModel = null;
-		ArrayList<FileModel> fileList = new ArrayList<FileModel>();
+	public static ArrayList<FileInfo> doFileUpload(int uploadTyp, MultipartFile[] files, boolean existFileDel) throws FileNotFoundException,IOException{
+		FileInfo fileModel = null;
+		ArrayList<FileInfo> fileList = new ArrayList<FileInfo>();
 		if (files != null && files.length > 0) {
 			for (int i = 0; i < files.length; i++) {
 				fileModel = doFileUpload(uploadTyp, files[i], existFileDel);

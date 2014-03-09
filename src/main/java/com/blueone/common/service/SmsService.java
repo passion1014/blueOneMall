@@ -9,7 +9,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.blueone.common.domain.SmsModel;
+import com.blueone.common.domain.SmsInfo;
 
 @Service
 public class SmsService implements ISmsService {
@@ -20,11 +20,11 @@ public class SmsService implements ISmsService {
 	private HashMap<String, Object> valueMap = new HashMap<String, Object>();
 	
 	@Override
-	public String getCheckHpNo(SmsModel smsModel) {
+	public String getCheckHpNo(SmsInfo smsModel) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		
 		StringBuffer hpNoInfo = new StringBuffer();
-		List<SmsModel> smsList = sqlSession.selectList("sms.getCheckHpNo", smsModel);
+		List<SmsInfo> smsList = sqlSession.selectList("sms.getCheckHpNo", smsModel);
 		if (smsList != null && smsList.size() > 0) {
 			for (int i = 0; i < smsList.size(); i++) {
 				if (i>0) hpNoInfo.append(",");
@@ -36,7 +36,7 @@ public class SmsService implements ISmsService {
 	}
 	
 	@Override
-	public boolean insertArreoSms(SmsModel smsModel) {
+	public boolean insertArreoSms(SmsInfo smsModel) {
 		String tmpRcvPhnId = smsModel.getRcvPhnId();
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -69,8 +69,8 @@ public class SmsService implements ISmsService {
 	}
 	
 	@Override
-	public List<SmsModel> getSmsList(SmsModel smsModel) {
-		List<SmsModel> smsList = new ArrayList<SmsModel>();
+	public List<SmsInfo> getSmsList(SmsInfo smsModel) {
+		List<SmsInfo> smsList = new ArrayList<SmsInfo>();
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
@@ -84,7 +84,7 @@ public class SmsService implements ISmsService {
 	}
 	
 	@Override
-	public int getSmsTotalCount(SmsModel smsModel) {
+	public int getSmsTotalCount(SmsInfo smsModel) {
 		Integer rst = 0;
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();

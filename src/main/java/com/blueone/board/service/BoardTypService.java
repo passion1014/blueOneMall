@@ -19,7 +19,7 @@ public class BoardTypService implements IBoardTypService {
 
 	@Override
 	public List<BoardTypModel> getBoardTypList() {
-		List<BoardTypModel> boardTypInfoList = new ArrayList<BoardTypModel>();
+		List<BoardTypModel> boardTypInfoList = new ArrayList<BoardTypModel>(); 
 		
 		// -----------------------------------------------------
 		// DB 실행

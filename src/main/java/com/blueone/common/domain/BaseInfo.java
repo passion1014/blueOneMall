@@ -3,7 +3,7 @@ package com.blueone.common.domain;
 import com.blueone.login.domain.LoginSessionModel;
 
 
-public class BaseModel {
+public class BaseInfo {
 	/** 로그인 세션정보 */
 	private LoginSessionModel loginSessionModel = new LoginSessionModel();
 	private String pgmId = "";			/** 프로그램ID */

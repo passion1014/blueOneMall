@@ -3,7 +3,7 @@ package com.blueone.common.domain;
 import com.blueone.common.util.Utility;
 
 
-public class AttachFileModel {
+public class AttachFileInfo {
 	private int flNo;				// 파일번호
 	private String attaKnd;			// 첨부유형[MG01]
 	private String saveFilename;	// 파일저장명

@@ -3,7 +3,7 @@ package com.blueone.common.domain;
 import com.blueone.common.util.Utility;
 
 
-public class HTMLContModel {
+public class HTMLContInfo {
 	private int htmlSeq;			// HTML일련번호
 	private String htmlKnd;			// HTML구분[MG05]
 	private String htmlKndNm;		// HTML구분[MG05]

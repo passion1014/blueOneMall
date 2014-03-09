@@ -9,7 +9,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.blueone.common.domain.HTMLContModel;
+import com.blueone.common.domain.HTMLContInfo;
 
 @Service
 public class HTMLContService implements IHTMLContService {
@@ -20,8 +20,8 @@ public class HTMLContService implements IHTMLContService {
 	private HashMap<String, Object> valueMap = new HashMap<String, Object>();
 	
 	@Override
-	public List<HTMLContModel> getHtmlContList(HTMLContModel htmlContModel) {
-		List<HTMLContModel> htmlContInfList = new ArrayList<HTMLContModel>();
+	public List<HTMLContInfo> getHtmlContList(HTMLContInfo htmlContModel) {
+		List<HTMLContInfo> htmlContInfList = new ArrayList<HTMLContInfo>();
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
@@ -35,8 +35,8 @@ public class HTMLContService implements IHTMLContService {
 	}
 	
 	@Override
-	public HTMLContModel getHtmlCont(int htmlSeq) {
-		HTMLContModel htmlContInfo = new HTMLContModel();
+	public HTMLContInfo getHtmlCont(int htmlSeq) {
+		HTMLContInfo htmlContInfo = new HTMLContInfo();
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
@@ -50,7 +50,7 @@ public class HTMLContService implements IHTMLContService {
 	}
 	
 	@Override
-	public boolean insertTBL010909(HTMLContModel htmlContModel) {
+	public boolean insertTBL010909(HTMLContInfo htmlContModel) {
 		int rst = 0;
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -74,7 +74,7 @@ public class HTMLContService implements IHTMLContService {
 	}
 	
 	@Override
-	public boolean updateTBL010909(HTMLContModel htmlContModel) {
+	public boolean updateTBL010909(HTMLContInfo htmlContModel) {
 		int rst = 0;
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();

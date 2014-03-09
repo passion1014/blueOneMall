@@ -3,27 +3,27 @@ package com.blueone.common.service;
 import java.util.HashMap;
 import java.util.List;
 
-import com.blueone.common.domain.StatModel;
+import com.blueone.common.domain.StatInfo;
 
 
 public interface IStatService {
 	//회원접속통계
-	List<StatModel> getConnection(StatModel statModel);
+	List<StatInfo> getConnection(StatInfo statModel);
 	
 	//교육대상별신청통계
-	List<StatModel> getAudience(StatModel statModel);
+	List<StatInfo> getAudience(StatInfo statModel);
 	
 	//교육별신청통계
-	List<StatModel> getProgram(StatModel statModel);
+	List<StatInfo> getProgram(StatInfo statModel);
 
 	//청소년 법교육신청통계
-	List<StatModel> getProgramSch(StatModel statModel);
+	List<StatInfo> getProgramSch(StatInfo statModel);
 	
 	//교육실시현황 조회
-	List<StatModel> getTBL090210List(StatModel statModel);
-	int getTBL090210TotalCount(StatModel statModel);
-	HashMap<String, Integer> getTBL090210Stat(StatModel statModel);
-	StatModel selectTBL090210(long effSeq);
+	List<StatInfo> getTBL090210List(StatInfo statModel);
+	int getTBL090210TotalCount(StatInfo statModel);
+	HashMap<String, Integer> getTBL090210Stat(StatInfo statModel);
+	StatInfo selectTBL090210(long effSeq);
 //	List<TBL090211Model> selectTBL090211(long effSeq);
 //	List<TBL090212Model> selectTBL090212(long effSeq);
 //	List<TBL090212Model> totalTBL090212(StatModel statModel);

@@ -1,6 +1,6 @@
 package com.blueone.common.domain;
 
-public class ZipModel extends BaseModel {
+public class ZipInfo extends BaseInfo {
 	private int zipSeq;			//우편일련번호
 	private String zipCd;		//우편번호
 	private String zipCity;		//시도

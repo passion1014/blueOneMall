@@ -8,7 +8,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.blueone.common.domain.StatModel;
+import com.blueone.common.domain.StatInfo;
 
 
 @Service
@@ -20,43 +20,43 @@ public class StatService implements IStatService {
 	private HashMap<String, Object> valueMap = new HashMap<String, Object>();
 	
 	@Override
-	public List<StatModel> getConnection(StatModel statModel) {
+	public List<StatInfo> getConnection(StatInfo statModel) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		return sqlSession.selectList("statMng.getConnection", statModel);
 	}
 	
 	@Override
-	public List<StatModel> getAudience(StatModel statModel) {
+	public List<StatInfo> getAudience(StatInfo statModel) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		return sqlSession.selectList("statMng.getAudience", statModel);
 	}
 	
 	@Override
-	public List<StatModel> getProgram(StatModel statModel) {
+	public List<StatInfo> getProgram(StatInfo statModel) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		return sqlSession.selectList("statMng.getProgram", statModel);
 	}
 	
 	@Override
-	public List<StatModel> getProgramSch(StatModel statModel) {
+	public List<StatInfo> getProgramSch(StatInfo statModel) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		return sqlSession.selectList("statMng.getProgramSch", statModel);
 	}
 	
 	@Override
-	public List<StatModel> getTBL090210List(StatModel statModel) {
+	public List<StatInfo> getTBL090210List(StatInfo statModel) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		return sqlSession.selectList("statMng.getTBL090210List", statModel);
 	}
 	
 	@Override
-	public int getTBL090210TotalCount(StatModel statModel) {
+	public int getTBL090210TotalCount(StatInfo statModel) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		return (Integer) sqlSession.selectOne("statMng.getTBL090210TotalCount", statModel);
 	}
 	
 	@Override
-	public HashMap<String, Integer> getTBL090210Stat(StatModel statModel) {
+	public HashMap<String, Integer> getTBL090210Stat(StatInfo statModel) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		return (HashMap) sqlSession.selectOne("statMng.getTBL090210Stat", statModel);
 	}
@@ -67,9 +67,9 @@ public class StatService implements IStatService {
 //	}
 	
 	@Override
-	public StatModel selectTBL090210(long effSeq) {
+	public StatInfo selectTBL090210(long effSeq) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		return (StatModel) sqlSession.selectOne("statMng.selectTBL090210", effSeq);
+		return (StatInfo) sqlSession.selectOne("statMng.selectTBL090210", effSeq);
 	}
 	
 //	@Override
