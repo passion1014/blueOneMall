@@ -35,7 +35,7 @@ public class BoardService implements IBoardService {
 			if (boards != null && boards.size() > 0) {
 				for (int i = 0; i < boards.size(); i++) {
 					board = boards.get(i);
-					board.setAttachFiles(selectTBL010103(board.getBrdSeq()));
+					board.setAttachFiles(selectBOM_ATTACHFILE_TB(board.getBrdSeq()));
 				}
 			}
 			
@@ -89,7 +89,7 @@ public class BoardService implements IBoardService {
 			if (boardList != null && boardList.size() > 0) {
 				for (int i = 0; i < boardList.size(); i++) {
 					BoardInfo board = boardList.get(i);
-					board.setAttachFiles(selectTBL010103(board.getBrdSeq()));
+					board.setAttachFiles(selectBOM_ATTACHFILE_TB(board.getBrdSeq()));
 				}
 			}
 		} finally {
@@ -117,12 +117,12 @@ public class BoardService implements IBoardService {
 //			sqlMapClient.startTransaction();
 			
 //			Object brdSeq = sqlMapClient.insert("board.insertTBL010102", boardModel);
-			sqlSession.insert("board.insertTBL010102", boardModel);
+			sqlSession.insert("board.insertBOM_BOARD_TB", boardModel);
 			if (boardModel.getBrdSeq() == 0) return false;
 			
 			// 답변갯수 업데이트
 			if (boardModel.getDepth() > 0 && boardModel.getRootSeq() > 0) {
-				sqlSession.update("board.updateTBL010102ReplyCnt", boardModel.getRootSeq());
+				sqlSession.update("board.updateBOM_BOARD_TBReplyCnt", boardModel.getRootSeq());
 			}
 			
 			// 첨부파일정보 추가
@@ -142,7 +142,7 @@ public class BoardService implements IBoardService {
 					boardAttachFileModel.setFilesize(fileModel.getFilesize());
 					boardAttachFileModel.setFileExt(fileModel.getFileExt());
 					
-					sqlSession.insert("board.insertTBL010103", boardAttachFileModel);
+					sqlSession.insert("board.insertBOM_ATTACHFILE_TB", boardAttachFileModel);
 				}
 //				sqlMapClient.executeBatch();
 			}
@@ -158,7 +158,7 @@ public class BoardService implements IBoardService {
 				boardAttachFileModel.setFilesize(imgFile.getFilesize());
 				boardAttachFileModel.setFileExt(imgFile.getFileExt());
 				
-				sqlSession.insert("board.insertTBL010103", boardAttachFileModel);
+				sqlSession.insert("board.insertBOM_ATTACHFILE_TB", boardAttachFileModel);
 //				sqlMapClient.executeBatch();
 			}
 			
@@ -174,7 +174,7 @@ public class BoardService implements IBoardService {
 					boardAttachFileModel.setFilesize(0);
 					boardAttachFileModel.setFileExt(FileUploadUtility.getFileExt(boardModel.getContImageFile()[i]).toUpperCase());
 					
-					sqlSession.insert("board.insertTBL010103", boardAttachFileModel);
+					sqlSession.insert("board.insertBOM_ATTACHFILE_TB", boardAttachFileModel);
 //					sqlMapClient.executeBatch();
 				}
 			}
@@ -193,12 +193,12 @@ public class BoardService implements IBoardService {
 	}
 	
 	@Override
-	public boolean insertTBL010104(BoardCommentInfo boardCommentModel) {
+	public boolean insertBOM_BOARD_CMT_TB(BoardCommentInfo boardCommentModel) {
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
 //			sqlMapClient.startTransaction();
-			sqlSession.insert("board.insertTBL010104", boardCommentModel);
+			sqlSession.insert("board.insertBOM_BOARD_CMT_TB", boardCommentModel);
 //			sqlMapClient.commitTransaction();
 //			sqlMapClient.getCurrentConnection().commit();
 			
@@ -213,12 +213,12 @@ public class BoardService implements IBoardService {
 	}
 	
 	@Override
-	public boolean updateTBL010104(BoardCommentInfo boardCommentModel) {
+	public boolean updateBOM_BOARD_CMT_TB(BoardCommentInfo boardCommentModel) {
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
 //			sqlMapClient.startTransaction();
-			sqlSession.update("board.updateTBL010104", boardCommentModel);
+			sqlSession.update("board.updateBOM_BOARD_CMT_TB", boardCommentModel);
 //			sqlMapClient.commitTransaction();
 //			sqlMapClient.getCurrentConnection().commit();
 			
@@ -242,7 +242,7 @@ public class BoardService implements IBoardService {
 		try {
 
 			// 기존 첨부파일 목록
-			List<BoardAttachFileInfo> attaFileList = selectTBL010103(boardModel.getBrdSeq());
+			List<BoardAttachFileInfo> attaFileList = selectBOM_ATTACHFILE_TB(boardModel.getBrdSeq());
 			
 			// 이미지 파일업로드
 			imgFile = FileUploadUtility.doFileUpload(FileUploadUtility.UPLOAD_TYP_BOARD_IMAGE, boardModel.getImgFile(), false);
@@ -253,7 +253,7 @@ public class BoardService implements IBoardService {
 //			sqlMapClient.startTransaction();
 			
 			// 업데이트
-			sqlSession.update("board.updateTBL010102", boardModel);
+			sqlSession.update("board.updateBOM_BOARD_TB", boardModel);
 			
 			// 첨부파일정보 추가
 			int flNo = 1;
@@ -262,7 +262,7 @@ public class BoardService implements IBoardService {
 			BoardAttachFileInfo tmpBoardAttachFileModel = new BoardAttachFileInfo();
 			
 			// 기존첨부파일 모두삭제
-			sqlSession.delete("board.deleteTBL010103", boardModel.getBrdSeq());
+			sqlSession.delete("board.deleteBOM_ATTACHFILE_TB", boardModel.getBrdSeq());
 			
 			// 기존첨부파일중 남은 첨부파일 추가
 			if (attaFileList != null && attaFileList.size() > 0) {
@@ -276,7 +276,7 @@ public class BoardService implements IBoardService {
 								if (tmpBoardAttachFileModel.getFlNo() == boardModel.getFlNo()[j]) {
 									// 첨부파일 등록
 									tmpBoardAttachFileModel.setFlNo(flNo++);
-									sqlSession.insert("board.insertTBL010103", tmpBoardAttachFileModel);
+									sqlSession.insert("board.insertBOM_ATTACHFILE_TB", tmpBoardAttachFileModel);
 									tmpBoardAttachFileModel.setTmpStr("INSERT");
 									break;
 								}
@@ -289,7 +289,7 @@ public class BoardService implements IBoardService {
 						if (imgFile == null) {
 							// 첨부파일 등록
 							tmpBoardAttachFileModel.setFlNo(flNo++);
-							sqlSession.insert("board.insertTBL010103", tmpBoardAttachFileModel);
+							sqlSession.insert("board.insertBOM_ATTACHFILE_TB", tmpBoardAttachFileModel);
 							tmpBoardAttachFileModel.setTmpStr("INSERT");
 						}
 					}
@@ -297,7 +297,7 @@ public class BoardService implements IBoardService {
 					// 내용속 첨부파일(무조건 재등록)
 					if ("CF".equals(tmpBoardAttachFileModel.getAttaKnd())) {
 						tmpBoardAttachFileModel.setFlNo(flNo++);
-						sqlSession.insert("board.insertTBL010103", tmpBoardAttachFileModel);
+						sqlSession.insert("board.insertBOM_ATTACHFILE_TB", tmpBoardAttachFileModel);
 						tmpBoardAttachFileModel.setTmpStr("INSERT");
 					}
 					
@@ -321,7 +321,7 @@ public class BoardService implements IBoardService {
 					boardAttachFileModel.setFilesize(fileModel.getFilesize());
 					boardAttachFileModel.setFileExt(fileModel.getFileExt());
 					
-					sqlSession.insert("board.insertTBL010103", boardAttachFileModel);
+					sqlSession.insert("board.insertBOM_ATTACHFILE_TB", boardAttachFileModel);
 				}
 //				sqlMapClient.executeBatch();
 			}
@@ -337,7 +337,7 @@ public class BoardService implements IBoardService {
 				boardAttachFileModel.setFilesize(imgFile.getFilesize());
 				boardAttachFileModel.setFileExt(imgFile.getFileExt());
 				
-				sqlSession.insert("board.insertTBL010103", boardAttachFileModel);
+				sqlSession.insert("board.insertBOM_ATTACHFILE_TB", boardAttachFileModel);
 //				sqlMapClient.executeBatch();
 			}
 			
@@ -353,7 +353,7 @@ public class BoardService implements IBoardService {
 					boardAttachFileModel.setFilesize(0);
 					boardAttachFileModel.setFileExt(FileUploadUtility.getFileExt(boardModel.getContImageFile()[i]).toUpperCase());
 					
-					sqlSession.insert("board.insertTBL010103", boardAttachFileModel);
+					sqlSession.insert("board.insertBOM_ATTACHFILE_TB", boardAttachFileModel);
 //					sqlMapClient.executeBatch();
 				}
 			}
@@ -372,30 +372,30 @@ public class BoardService implements IBoardService {
 	}
 	
 	@Override
-	public BoardInfo selectTBL010102(long srchBrdSeq) {
+	public BoardInfo selectBOM_BOARD_TB(long srchBrdSeq) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		return (BoardInfo) sqlSession.selectOne("board.selectTBL010102", srchBrdSeq);
+		return (BoardInfo) sqlSession.selectOne("board.selectBOM_BOARD_TB", srchBrdSeq);
 	}
 	
 	@Override
-	public List<BoardAttachFileInfo> selectTBL010103(long srchBrdSeq) {
+	public List<BoardAttachFileInfo> selectBOM_ATTACHFILE_TB(long srchBrdSeq) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		return sqlSession.selectList("board.selectTBL010103", srchBrdSeq);
+		return sqlSession.selectList("board.selectBOM_ATTACHFILE_TB", srchBrdSeq);
 	}
 	
 	@Override
-	public List<BoardCommentInfo> selectTBL010104(long srchBrdSeq) {
+	public List<BoardCommentInfo> selectBOM_BOARD_CMT_TB(long srchBrdSeq) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		return sqlSession.selectList("board.selectTBL010104", srchBrdSeq);
+		return sqlSession.selectList("board.selectBOM_BOARD_CMT_TB", srchBrdSeq);
 	}
 	
 	@Override
-	public void updateTBL010102Hit(long srchBrdSeq) {
+	public void updateBOM_BOARD_TBHit(long srchBrdSeq) {
 
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
 //			sqlMapClient.startTransaction();
-			sqlSession.update("board.updateTBL010102Hit", srchBrdSeq);
+			sqlSession.update("board.updateBOM_BOARD_TBHit", srchBrdSeq);
 //			sqlMapClient.commitTransaction();
 //			sqlMapClient.getCurrentConnection().commit();
 			
@@ -407,12 +407,12 @@ public class BoardService implements IBoardService {
 	}
 	
 	@Override
-	public void updateTBL010102ReplyCnt(long srchBrdSeq) {
+	public void updateBOM_BOARD_TBReplyCnt(long srchBrdSeq) {
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
 //			sqlMapClient.startTransaction();
-			sqlSession.update("board.updateTBL010102ReplyCnt", srchBrdSeq);
+			sqlSession.update("board.updateBOM_BOARD_TBReplyCnt", srchBrdSeq);
 //			sqlMapClient.commitTransaction();
 //			sqlMapClient.getCurrentConnection().commit();
 		} catch (Exception ex) {
@@ -423,12 +423,12 @@ public class BoardService implements IBoardService {
 	}
 	
 	@Override
-	public void updateTBL010102CommCnt(long srchBrdSeq) {
+	public void updateBOM_BOARD_TBCommCnt(long srchBrdSeq) {
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
 //			sqlMapClient.startTransaction();
-			sqlSession.update("board.updateTBL010102CommCnt", srchBrdSeq);
+			sqlSession.update("board.updateBOM_BOARD_TBCommCnt", srchBrdSeq);
 //			sqlMapClient.commitTransaction();
 //			sqlMapClient.getCurrentConnection().commit();
 			
@@ -440,7 +440,7 @@ public class BoardService implements IBoardService {
 	}
 	
 	@Override
-	public void updateTBL010102Del(long srchBrdSeq, String userId) {
+	public void updateBOM_BOARD_TBDel(long srchBrdSeq, String userId) {
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
@@ -448,7 +448,7 @@ public class BoardService implements IBoardService {
 			valueMap.put("userId", userId);
 			
 //			sqlMapClient.startTransaction();			
-			sqlSession.insert("board.updateTBL010102Del", valueMap);
+			sqlSession.insert("board.updateBOM_BOARD_TBDel", valueMap);
 //			sqlMapClient.commitTransaction();
 //			sqlMapClient.getCurrentConnection().commit();
 			
@@ -460,7 +460,7 @@ public class BoardService implements IBoardService {
 	}
 	
 	@Override
-	public void updateTBL010104Del(long srchBrdSeq, int commNo, String userId) {
+	public void updateBOM_BOARD_CMT_TBDel(long srchBrdSeq, int commNo, String userId) {
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
@@ -469,7 +469,7 @@ public class BoardService implements IBoardService {
 			valueMap.put("userId", userId);
 			
 //			sqlMapClient.startTransaction();			
-			sqlSession.insert("board.updateTBL010104Del", valueMap);
+			sqlSession.insert("board.updateBOM_BOARD_CMT_TBDel", valueMap);
 //			sqlMapClient.commitTransaction();
 //			sqlMapClient.getCurrentConnection().commit();
 			

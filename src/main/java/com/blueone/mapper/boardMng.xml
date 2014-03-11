@@ -15,7 +15,7 @@
 	<!-- 게시물 리스트조회 -->
 	<select id="getBoardList" parameterClass="BoardSrchModel" resultClass="BoardModel">
 		SELECT   s2.*
-		    FROM (SELECT ROWNUM AS rnum
+		    FROM (SELECT @rownum := @rownum + 1 AS rnum
 		                ,s1.*
 		            FROM (
 	
@@ -31,26 +31,26 @@
 		        ,t1.comm_cnt as commCnt
 		        ,t1.reply_cnt as replyCnt
 		        ,t1.user_nm as userNm
-		        ,TO_CHAR(t1.ins_dt
-		                ,'yyyy.mm.dd hh24:mi'
+		        ,CAST(t1.ins_dt
+		                ,'%Y.%m.%d %h:%m%i'
 		                )
 		            AS insDt
 		        ,t1.ins_user as insUser
 		        ,t1.proc_st as procSt
-		    FROM tbl010102 t1 JOIN tbl010101 t2 ON t1.brd_typ = t2.brd_typ
+		    FROM BOM_BOARD_TB t1 JOIN BOM_CODE_TB t2 ON t1.brd_typ = t2.brd_typ
 		   WHERE t1.del_yn = 'F'
 		   <dynamic prepend="AND"><iterate property="noticeBrdSeq" open=" brd_seq NOT IN (" close= ")" conjunction=",">#noticeBrdSeq[]#</iterate></dynamic>
 		   <isNotEqual prepend="AND" property="srchBrdTyp" compareValue="0">
 		     t1.brd_typ = #srchBrdTyp#
 		   </isNotEqual>
 		   <isNotEmpty prepend="AND" property="srchInsFromYmd">
-		     t1.ins_dt BETWEEN TO_DATE(#srchInsFromYmd#, 'yyyymmdd') AND TO_DATE(#srchInsToYmd#||'2359', 'yyyymmddhh24mi') 
+		     t1.ins_dt BETWEEN STR_TO_DATE()(#srchInsFromYmd#, '%Y%m%d') AND STR_TO_DATE()(#srchInsToYmd#||'2359', '%Y%m%d%h%m%i') 
 		   </isNotEmpty>
 		   <isNotEmpty prepend="AND" property="srchUserNm">
-		     t1.user_nm LIKE '%' || #srchUserNm# || '%'
+		     concat(t1.user_nm LIKE '%' , #srchUserNm# ,'%')
 		   </isNotEmpty>
 		   <isNotEmpty prepend="AND" property="srchTitle">
-		     t1.title LIKE '%' || #srchTitle# || '%'
+		     (t1.title LIKE '%' , #srchTitle# , '%')
 		   </isNotEmpty>
 		ORDER BY t1.root_seq DESC
 		        ,t1.ref_seq
@@ -66,19 +66,19 @@
 	<!-- 게시물 전체수 -->
 	<select id="getBoardTotalCount" parameterClass="BoardSrchModel" resultClass="int">
 		SELECT COUNT(t1.brd_seq)
-	      FROM tbl010102 t1 JOIN tbl010101 t2 ON t1.brd_typ = t2.brd_typ
+	      FROM BOM_BOARD_TB t1 JOIN BOM_BOARD_MNG_TB t2 ON t1.brd_typ = t2.brd_typ
 		 WHERE t1.del_yn = 'F'
 		   <isNotEqual prepend="AND" property="srchBrdTyp" compareValue="0">
 		     t1.brd_typ = #srchBrdTyp#
 		   </isNotEqual>
 		   <isNotEmpty prepend="AND" property="srchInsFromYmd">
-		     t1.ins_dt BETWEEN TO_DATE(#srchInsFromYmd#, 'yyyymmdd') AND TO_DATE(#srchInsToYmd#||'2359', 'yyyymmddhh24mi') 
+		     t1.ins_dt BETWEEN STR_TO_DATE()(#srchInsFromYmd#, '%Y%m%d') AND STR_TO_DATE()(concat(#srchInsToYmd# , '2359'), '%y%m%d%h%m%i') 
 		   </isNotEmpty>
 		   <isNotEmpty prepend="AND" property="srchUserNm">
-		     t1.user_nm LIKE '%' || #srchUserNm# || '%'
+		     concat(t1.user_nm LIKE '%' , #srchUserNm# , '%')
 		   </isNotEmpty>
 		   <isNotEmpty prepend="AND" property="srchTitle">
-		     t1.title LIKE '%' || #srchTitle# || '%'
+		     concat(t1.title LIKE '%' , #srchTitle# , '%')
 		   </isNotEmpty>
 	</select>
 	
@@ -97,13 +97,13 @@
 		                ,t1.comm_cnt AS commCnt
 		                ,t1.reply_cnt AS replyCnt
 		                ,t1.user_nm AS userNm
-		                ,TO_CHAR(t1.ins_dt
-		                        ,'yyyy.mm.dd hh24:mi'
+		                ,CAST(t1.ins_dt
+		                        ,'%y%m%d %h:%m%i'
 		                        )
 		                    AS insDt
 		                ,t1.ins_user AS insUser
 		                ,t1.proc_st AS procSt
-		            FROM tbl010102 t1 JOIN tbl010101 t2 ON t1.brd_typ = t2.brd_typ
+		            FROM BOM_BOARD_TB t1 JOIN BOM_BOARD_MNG_TB t2 ON t1.brd_typ = t2.brd_typ
 		           WHERE t1.notice_yn = 'T'
 		             <isNotEqual prepend="AND" property="srchBrdTyp" compareValue="0">
 		               t1.brd_typ = #srchBrdTyp#
@@ -112,38 +112,38 @@
 		        ORDER BY t1.root_seq DESC
 		                ,t1.ref_seq
 		                ,t1.DEPTH) s1
-		 WHERE ROWNUM <![CDATA[<=]]> 3
+		 WHERE limit <![CDATA[<=]]> 3
 	</select>
 	
 	<!-- 신규게시물 건수조회 -->
 	<select id="getTodayTotalCount" parameterClass="BoardSrchModel" resultClass="BoardStatModel">
 		SELECT s1.*
 		      ,(SELECT COUNT(t1.brd_seq)
-		          FROM tbl010104 t1 JOIN tbl010102 t2 ON t1.brd_seq = t2.brd_seq
+		          FROM BOM_BOARD_CMT_TB t1 JOIN BOM_BOARD_TB t2 ON t1.brd_seq = t2.brd_seq
 		         WHERE t1.del_yn = 'F'
                    <isNotEqual prepend="AND" property="srchBrdTyp" compareValue="0">
 		              t2.brd_typ = #srchBrdTyp#
 		           </isNotEqual>
-		           AND t1.ins_dt BETWEEN TO_DATE(TO_CHAR(SYSDATE
-		                                                ,'yyyymmdd'
+		           AND t1.ins_dt BETWEEN TO_DATE(DATE_FORMAT(NOW()
+		                                                ,'%y%m%d'
 		                                                )
-		                                        ,'yyyymmdd'
+		                                        ,'%y%m%d'
 		                                        )
-		                             AND SYSDATE)
+		                             AND NOW())
 		          AS todayCommentCnt
 		  FROM (SELECT COUNT(t1.brd_seq) AS todayCnt
-		              ,NVL(SUM(t1.hit), 0) AS todayHitCnt
-		          FROM tbl010102 t1
+		              ,IFNULL(SUM(t1.hit), 0) AS todayHitCnt
+		          FROM BOM_BOARD_TB t1
 		         WHERE t1.del_yn = 'F'
                    <isNotEqual prepend="AND" property="srchBrdTyp" compareValue="0">
 		              t1.brd_typ = #srchBrdTyp#
 		           </isNotEqual>
-		           AND t1.ins_dt BETWEEN TO_DATE(TO_CHAR(SYSDATE
-		                                                ,'yyyymmdd'
+		           AND t1.ins_dt BETWEEN STR_TO_DATE(DATE_FORMAT(NOW()
+		                                                ,'%y%m%d'
 		                                                )
-		                                        ,'yyyymmdd'
+		                                        ,'%y%m%d'
 		                                        )
-		                             AND SYSDATE) s1
+		                             AND NOW()) s1
 	</select>
 	
 	<!-- 게시물 조회 -->
@@ -161,18 +161,18 @@
 		        ,t1.comm_cnt as commCnt
 		        ,t1.reply_cnt as replyCnt
 		        ,t1.user_nm as userNm
-		        ,TO_CHAR(t1.ins_dt
-		                ,'yyyy.mm.dd hh24:mi'
+		        ,DATE_FORMAT(t1.ins_dt
+		                ,'%y.%m.%d %h:%m%i'
 		                )
 		            AS insDt
 		        ,t1.ins_user as insUser
 		        ,t1.proc_st as procSt
-		    FROM tbl010102 t1 JOIN tbl010101 t2 ON t1.brd_typ = t2.brd_typ
+		    FROM BOM_BOARD_TB t1 JOIN BOM_BOARD_MNG_TB t2 ON t1.brd_typ = t2.brd_typ
 		   WHERE t1.brd_seq = #brdSeq#
 	</select>
 	
 	<!-- 첨부파일조회 -->
-	<select id="selectTBL010103" parameterClass="long" resultClass="BoardAttachFileModel">
+	<select id="selectBOM_ATTACHFILE_TB" parameterClass="long" resultClass="BoardAttachFileModel">
 		SELECT   t1.brd_seq as brdSeq
 		        ,t1.fl_no as flNo
 		        ,t1.atta_knd as attaKnd
@@ -180,13 +180,13 @@
 		        ,t1.real_filename as realFilename
 		        ,t1.filesize
 		        ,t1.file_ext as fileExt
-		    FROM tbl010103 t1
+		    FROM BOM_ATTACHFILE_TB t1
 		   WHERE t1.brd_seq = #brdSeq#
 		ORDER BY t1.fl_no
 	</select>
 	
 	<!-- 코멘트조회 -->
-	<select id="selectTBL010104" parameterClass="long" resultClass="BoardCommentModel">
+	<select id="selectBOM_BOARD_CMT_TB" parameterClass="long" resultClass="BoardCommentModel">
 		SELECT   t1.brd_seq AS brdSeq
 		        ,t1.comm_no AS commNo
 		        ,t1.comm_root_no AS commRootNo
@@ -195,17 +195,17 @@
 		        ,t1.comm_user_nm AS commUserNm
 		        ,t1.comm_cont AS commCont
 		        ,t1.comm_passwd AS commPasswd
-		        ,TO_CHAR(t1.ins_dt
-		                ,'yyyy.mm.dd hh24:mi'
+		        ,DATE_FORMAT(t1.ins_dt
+		                ,'%y.%m.%d %h:%m%i'
 		                )
 		            AS insDt
 		        ,t1.ins_user AS insUser
-		        ,TO_CHAR(t1.upd_dt
-		                ,'yyyy.mm.dd hh24:mi'
+		        ,DATE_FORMAT(t1.upd_dt
+		                ,'%y.%m.%d %h:%m%i'
 		                )
 		            AS updDt
 		        ,t1.upd_user AS updUser
-		    FROM tbl010104 t1
+		    FROM BOM_BOARD_CMT_TB t1
 		   WHERE t1.brd_seq = #brdSeq#
 		ORDER BY t1.comm_root_no DESC
 		        ,t1.comm_ref_no
@@ -214,12 +214,12 @@
 	
 	
 	<!-- 게시물 추가 -->
-	<insert id="insertTBL010102" parameterClass="BoardModel">
+	<insert id="insertBOM_BOARD_TB" parameterClass="BoardModel">
 		<selectKey keyProperty="brdSeq" resultClass="long">
-			SELECT tbl010102seq.NEXTVAL FROM DUAL
+			SELECT max(brd_seq)+1 FROM DUAL
 		</selectKey>
 		INSERT
-		  INTO tbl010102(brd_seq
+		  INTO BOM_BOARD_TB(brd_seq
 		                ,brd_typ
 		                ,root_seq
 		                ,ref_seq
@@ -239,14 +239,14 @@
 		                )
 		VALUES (#brdSeq#, #brdTyp#, <isEqual property="rootSeq" compareValue="0">#brdSeq#</isEqual><isNotEqual property="rootSeq" compareValue="0">#rootSeq#</isNotEqual>, #refSeq#, #depth#
 		       ,#passwd#, #title#, #cont#, #hit#, #commCnt#, #replyCnt#, #procSt#
-		       ,#userNm#, SYSDATE, #insUser#, SYSDATE, #updUser#
+		       ,#userNm#, NOW(), #insUser#, NOW(), #updUser#
 		       )
 	</insert>
 	
 	<!-- 첨부파일 추가 -->
-	<insert id="insertTBL010103" parameterClass="BoardAttachFileModel">
+	<insert id="insertBOM_ATTACHFILE_TB" parameterClass="BoardAttachFileModel">
 		INSERT
-		  INTO tbl010103(brd_seq
+		  INTO BOM_ATTACHFILE_TB(brd_seq
 		                ,fl_no
 		                ,atta_knd
 		                ,save_filename
@@ -262,10 +262,10 @@
 	<!-- 코멘트 추가 -->
 	<insert id="insertTBL010104" parameterClass="BoardCommentModel">
 		<selectKey keyProperty="commNo" resultClass="int">
-			SELECT NVL(MAX(comm_no), 0)+1 FROM tbl010104 WHERE brd_seq = #brdSeq#
+			SELECT IFNULL(MAX(comm_no), 0)+1 FROM BOM_BOARD_CMT_TB WHERE brd_seq = #brdSeq#
 		</selectKey>
 		INSERT
-		  INTO tbl010104(brd_seq
+		  INTO BOM_BOARD_CMT_TB(brd_seq
 		                ,comm_no
 		                ,comm_root_no
 		                ,comm_ref_no
@@ -279,16 +279,16 @@
 		                ,upd_user
 		                )
 		VALUES (#brdSeq#, #commNo#, <isEqual property="commRootNo" compareValue="0">#commNo#</isEqual><isNotEqual property="commRootNo" compareValue="0">#commRootNo#</isNotEqual>
-		       ,#commRefNo#, #commDepth#, #commUserNm#, #commPasswd#, #commCont#, SYSDATE, 
-		       #insUser#, SYSDATE, #updUser#
+		       ,#commRefNo#, #commDepth#, #commUserNm#, #commPasswd#, #commCont#, NOW(), 
+		       #insUser#, NOW(), #updUser#
 		       )
 	</insert>
 	
 	
 	<!-- 삭제처리 -->
-	<update id="updateTBL010102Del" parameterClass="BoardSrchModel">
-		UPDATE tbl010102
-		   SET del_yn = 'T', del_dt = SYSDATE, del_user = #userId#
+	<update id="updateBOM_BOARD_TBDel" parameterClass="BoardSrchModel">
+		UPDATE BOM_BOARD_TB
+		   SET del_yn = 'T', del_dt = NOW(), del_user = #userId#
 		 <dynamic prepend="WHERE">
 		   <iterate property="check" open="brd_seq IN (" close= ")" conjunction=",">
 		     #check[]#
@@ -297,9 +297,9 @@
 	</update>
 	
 	<!-- 이동하기 -->
-	<update id="updateTBL010102BrdTyp" parameterClass="BoardSrchModel">
-		UPDATE tbl010102
-		   SET brd_typ = #brdTyp#, upd_dt = SYSDATE, upd_user = #userId#
+	<update id="updateBOM_BOARD_TBBrdTyp" parameterClass="BoardSrchModel">
+		UPDATE BOM_BOARD_TB
+		   SET brd_typ = #brdTyp#, upd_dt = NOW(), upd_user = #userId#
 		 <dynamic prepend="WHERE">
 			((<iterate property="check" open="brd_seq IN (" close= ")" conjunction=",">#check[]#</iterate>
 			     AND DEPTH = 0)

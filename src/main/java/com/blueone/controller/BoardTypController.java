@@ -55,7 +55,7 @@ public class BoardTypController {
 		boardTypModel.setInsUser(insUser);
 		boardTypModel.setUpdUser(insUser);
 		
-		if(boardTypService.insertTBL010101(boardTypModel)){
+		if(boardTypService.insertBOM_BOARD_MNG_TB(boardTypModel)){
 			mav.addObject("errCode", 3);
 			mav.setViewName("redirect:/boardTypMng/list.do"); // success to add new member; move to login page
 			return mav;
@@ -92,7 +92,7 @@ public class BoardTypController {
 		String userId = (String) session.getAttribute("userId");
 		boardTypModel.setUpdUser(userId);
 		
-		if(boardTypService.updateTBL010101(boardTypModel)){
+		if(boardTypService.updateBOM_BOARD_MNG_TB(boardTypModel)){
 			mav.addObject("errCode", 3);
 			mav.addObject("brdTyp", boardTypModel.getBrdTyp());
 			mav.setViewName("redirect:/boardTypMng/list.do"); // success to add new member; move to login page

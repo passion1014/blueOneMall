@@ -12,42 +12,42 @@
 		        ,t1.title
 		        ,t1.list_read_auth as listReadAuth
 		        ,(SELECT ct1.code_nm
-		            FROM tbl010901 ct1
+		            FROM BOM_CODE_TB ct1
 		           WHERE ct1.code_knd1 = 'MG'
 		             AND ct1.code_knd2 = 'MG16'
 		             AND ct1.code = t1.list_read_auth)
 		            AS listReadAuthNm
 		        ,t1.read_auth as readAuth
 		        ,(SELECT ct1.code_nm
-		            FROM tbl010901 ct1
+		            FROM BOM_CODE_TB ct1
 		           WHERE ct1.code_knd1 = 'MG'
 		             AND ct1.code_knd2 = 'MG16'
 		             AND ct1.code = t1.read_auth)
 		            AS readAuthNm
 		        ,t1.write_auth as writeAuth
 		        ,(SELECT ct1.code_nm
-		            FROM tbl010901 ct1
+		            FROM BOM_CODE_TB ct1
 		           WHERE ct1.code_knd1 = 'MG'
 		             AND ct1.code_knd2 = 'MG16'
 		             AND ct1.code = t1.write_auth)
 		            AS writeAuthNm
 		        ,(SELECT COUNT(*)
-		            FROM tbl010102 ct1
+		            FROM BOM_BOARD_TB ct1
 		           WHERE ct1.brd_typ = t1.brd_typ
 		             AND ct1.del_yn = 'F')
 		            AS totalCnt
 		        ,(SELECT COUNT(*)
-		            FROM tbl010102 ct1
+		            FROM BOM_BOARD_TB ct1
 		           WHERE ct1.brd_typ = t1.brd_typ
-		             AND ct1.ins_dt BETWEEN TO_DATE(TO_CHAR(SYSDATE
-		                                                   ,'yyyymmdd'
+		             AND ct1.ins_dt BETWEEN  STR_TO_DATE(DATE_FORMAT(NOW()
+		                                                   ,'%y%m%d'
 		                                                   )
-		                                           ,'yyyymmdd'
+		                                           ,'%y%m%d'
 		                                           )
-		                                AND SYSDATE
+		                                AND NOW()
 		             AND ct1.del_yn = 'F')
 		            AS todayCnt
-		    FROM tbl010101 t1
+		    FROM BOM_BOARD_MNG_TB t1
 		   WHERE t1.del_yn = 'F'
 		ORDER BY t1.brd_typ
 	</select>
@@ -72,14 +72,14 @@
 		      ,t1.comm_read_auth AS commReadAuth
 		      ,t1.img_use_yn as imgUseYn
 		      ,t1.public_use_yn as publicUseYn
-		  FROM tbl010101 t1
+		  FROM BOM_BOARD_MNG_TB t1
 		 WHERE t1.brd_typ = #brdTyp#
 	</select>
 	
 	<!-- 게시판 추가 -->
-	<insert id="insertTBL010101" parameterClass="BoardTypModel">
+	<insert id="insertBOM_BOARD_MNG_TB" parameterClass="BoardTypModel">
 		INSERT
-		  INTO tbl010101(brd_typ
+		  INTO BOM_BOARD_MNG_TB(brd_typ
 		                ,title
 		                ,atta_yn
 		                ,reply_yn
@@ -100,17 +100,17 @@
 		                ,upd_dt
 		                ,upd_user
 		                )
-		VALUES (tbl010101seq.NEXTVAL, #title#, #attaYn#, #replyYn#, #commYn#
+		VALUES (max(brd_typ)+1, #title#, #attaYn#, #replyYn#, #commYn#
 		       ,#secrYn#, #newViewYn#, #commViewYn#, #attaViewYn#
 		       ,#listReadAuth#, #writeAuth#, #readAuth#, #replyWriteAuth#
-		       ,#replyReadAuth#, #commWriteAuth#, #commReadAuth#, SYSDATE
-		       ,#insUser#, SYSDATE, #updUser#
+		       ,#replyReadAuth#, #commWriteAuth#, #commReadAuth#, NOW()
+		       ,#insUser#, NOW(), #updUser#
 		       )
 	</insert>
 	
 	<!-- 게시판 수정 -->
-	<update id="updateTBL010101" parameterClass="BoardTypModel">
-		UPDATE tbl010101
+	<update id="updateBOM_BOARD_MNG_TB" parameterClass="BoardTypModel">
+		UPDATE BOM_BOARD_MNG_TB
 		   SET title                       = #title#
 		      ,atta_yn                     = #attaYn#
 		      ,reply_yn                    = #replyYn#
@@ -126,7 +126,7 @@
 		      ,reply_read_auth             = #replyReadAuth#
 		      ,comm_write_auth             = #commWriteAuth#
 		      ,comm_read_auth              = #commReadAuth#
-		      ,upd_dt                      = SYSDATE
+		      ,upd_dt                      = NOW()
 		      ,upd_user                    = #updUser#
 		 WHERE brd_typ = #brdTyp#
 	</update>

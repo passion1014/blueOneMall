@@ -102,8 +102,8 @@ public class BoardMngController {
 	@RequestMapping("/edit.do")
 	public ModelAndView edit(@ModelAttribute("BoardModel") BoardInfo boardModel, @ModelAttribute("BoardSrchModel") BoardSrchInfo boardSrchModel, HttpServletRequest request, HttpSession session){
 		long brdSeq = getBrdSeq(request);		
-		BoardInfo board = boardService.selectTBL010102(brdSeq);
-		List<BoardAttachFileInfo> attaFileList = boardService.selectTBL010103(brdSeq);
+		BoardInfo board = boardService.selectBOM_BOARD_TB(brdSeq);
+		List<BoardAttachFileInfo> attaFileList = boardService.selectBOM_ATTACHFILE_TB(brdSeq);
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("brdTypInfo", boardTypService.getBoardTyp(board.getBrdTyp()));
@@ -139,7 +139,7 @@ public class BoardMngController {
 		LoginSessionModel userInfo = (LoginSessionModel) session.getAttribute("userInfo");
 		boardCommentModel.setUpdUser(userInfo.getUserId());
 		
-		if(boardService.updateTBL010104(boardCommentModel)) {
+		if(boardService.updateBOM_BOARD_CMT_TB(boardCommentModel)) {
 			// 성공
 			mav = view(boardSrchModel, request, session);
 			mav.addObject("errCode", 3);
@@ -155,12 +155,12 @@ public class BoardMngController {
 	@RequestMapping("/view.do")
 	public ModelAndView view(@ModelAttribute("BoardSrchModel") BoardSrchInfo boardSrchModel, HttpServletRequest request, HttpSession session){
 		long brdSeq = getBrdSeq(request);		
-		BoardInfo board = boardService.selectTBL010102(brdSeq);
-		List<BoardAttachFileInfo> attaFileList = boardService.selectTBL010103(brdSeq);
-		List<BoardCommentInfo> commentList = boardService.selectTBL010104(brdSeq);
+		BoardInfo board = boardService.selectBOM_BOARD_TB(brdSeq);
+		List<BoardAttachFileInfo> attaFileList = boardService.selectBOM_ATTACHFILE_TB(brdSeq);
+		List<BoardCommentInfo> commentList = boardService.selectBOM_BOARD_CMT_TB(brdSeq);
 		
 		// 조회수 업데이트
-		boardService.updateTBL010102Hit(brdSeq);
+		boardService.updateBOM_BOARD_TBHit(brdSeq);
 		
 		BoardCommentInfo boardCommentModel = new BoardCommentInfo();
 		boardCommentModel.setCommRootNo(0);
@@ -168,7 +168,7 @@ public class BoardMngController {
 		boardCommentModel.setCommDepth(0);
 		
 		// 조회수 업데이트
-		boardService.updateTBL010102Hit(brdSeq);
+		boardService.updateBOM_BOARD_TBHit(brdSeq);
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("board", board);
@@ -185,7 +185,7 @@ public class BoardMngController {
 	public ModelAndView reply(@ModelAttribute("BoardSrchModel") BoardSrchInfo boardSrchModel, HttpServletRequest request, HttpSession session) {
 		LoginSessionModel userInfo = (LoginSessionModel) session.getAttribute("userInfo");
 		long brdSeq = getBrdSeq(request);
-		BoardInfo boardModel = boardService.selectTBL010102(brdSeq); // get selected article model
+		BoardInfo boardModel = boardService.selectBOM_BOARD_TB(brdSeq); // get selected article model
 		boardModel.setRefSeq(boardModel.getRefSeq() + 1);
 		boardModel.setDepth(boardModel.getDepth() + 1);
 		boardModel.setTitle("[답변] " + boardModel.getTitle());
@@ -209,9 +209,9 @@ public class BoardMngController {
 		boardCommentModel.setUpdUser(userInfo.getUserId());
 		
 		// 코멘트수 업데이트
-		boardService.updateTBL010102CommCnt(boardCommentModel.getBrdSeq());
+		boardService.updateBOM_BOARD_TBCommCnt(boardCommentModel.getBrdSeq());
 		
-		if(boardService.insertTBL010104(boardCommentModel)){
+		if(boardService.insertBOM_BOARD_CMT_TB(boardCommentModel)){
 			// 성공
 			mav = view(boardSrchModel, request, session);
 			mav.addObject("errCode", 3);
@@ -232,7 +232,7 @@ public class BoardMngController {
 		long[] check = {boardModel.getBrdSeq()};
 		boardSrchModel.setCheck(check);
 		
-		if(boardMngService.updateTBL010102Del(boardSrchModel)){
+		if(boardMngService.updateBOM_BOARD_TBDel(boardSrchModel)){
 			// 성공
 			mav = list(boardSrchModel, request, response);
 			mav.addObject("errCode", 3);
@@ -250,7 +250,7 @@ public class BoardMngController {
 		LoginSessionModel userInfo = (LoginSessionModel) session.getAttribute("userInfo");
 		boardSrchModel.setUserId(userInfo.getUserId());
 		if (boardSrchModel.getCheck() != null) {
-			boardMngService.updateTBL010102Del(boardSrchModel);
+			boardMngService.updateBOM_BOARD_TBDel(boardSrchModel);
 		}
 		
 		// 리스트 조회
@@ -262,7 +262,7 @@ public class BoardMngController {
 		LoginSessionModel userInfo = (LoginSessionModel) session.getAttribute("userInfo");
 		boardSrchModel.setUserId(userInfo.getUserId());
 		if (boardSrchModel.getCheck() != null) {
-			boardMngService.updateTBL010102BrdTyp(boardSrchModel);
+			boardMngService.updateBOM_BOARD_TBBrdTyp(boardSrchModel);
 		}
 		
 		// 리스트 조회
@@ -274,7 +274,7 @@ public class BoardMngController {
 		LoginSessionModel userInfo = (LoginSessionModel) session.getAttribute("userInfo");
 		
 		// 삭제처리
-		boardService.updateTBL010104Del(boardCommentModel.getBrdSeq(), boardCommentModel.getCommNo(), userInfo.getUserId());
+		boardService.updateBOM_BOARD_CMT_TBDel(boardCommentModel.getBrdSeq(), boardCommentModel.getCommNo(), userInfo.getUserId());
 		
 		ModelAndView mav = new ModelAndView();
 		mav = view(boardSrchModel, request, session);

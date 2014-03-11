@@ -15,7 +15,7 @@ public interface IBoardTypService {
 	BoardTypInfo getBoardTyp(int brdTyp);
 	
 	// 게시판 추가/수정/삭제 처리
-	boolean insertTBL010101(BoardTypInfo boardTypModel);
-	boolean updateTBL010101(BoardTypInfo boardTypModel);
+	boolean insertBOM_BOARD_MNG_TB(BoardTypInfo boardTypModel);
+	boolean updateBOM_BOARD_MNG_TB(BoardTypInfo boardTypModel);
 	
 }

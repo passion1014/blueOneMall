@@ -17,22 +17,22 @@ public interface IBoardService {
 	List<BoardInfo> getBrdTypNoticeList(BoardSrchInfo boardSrchModel);
 	
 	// 게시물조회
-	BoardInfo selectTBL010102(long srchBrdSeq);
-	List<BoardAttachFileInfo> selectTBL010103(long srchBrdSeq);
-	List<BoardCommentInfo> selectTBL010104(long srchBrdSeq);
+	BoardInfo selectBOM_BOARD_TB(long srchBrdSeq);
+	List<BoardAttachFileInfo> selectBOM_ATTACHFILE_TB(long srchBrdSeq);
+	List<BoardCommentInfo> selectBOM_BOARD_CMT_TB(long srchBrdSeq);
 	
 	// 게시물추가/수정
 	boolean insertBoard(BoardInfo boardModel);
 	boolean updateBoard(BoardInfo boardModel);
-	boolean insertTBL010104(BoardCommentInfo boardCommentModel);
-	boolean updateTBL010104(BoardCommentInfo boardCommentModel);
+	boolean insertBOM_BOARD_CMT_TB(BoardCommentInfo boardCommentModel);
+	boolean updateBOM_BOARD_CMT_TB(BoardCommentInfo boardCommentModel);
 	
 	// 게시물 업데이트
-	void updateTBL010102Hit(long srchBrdSeq);
-	void updateTBL010102ReplyCnt(long srchBrdSeq);
-	void updateTBL010102CommCnt(long srchBrdSeq);
-	void updateTBL010102Del(long srchBrdSeq, String userId); 
-	void updateTBL010104Del(long srchBrdSeq, int commNo, String userId);
+	void updateBOM_BOARD_TBHit(long srchBrdSeq);
+	void updateBOM_BOARD_TBReplyCnt(long srchBrdSeq);
+	void updateBOM_BOARD_TBCommCnt(long srchBrdSeq);
+	void updateBOM_BOARD_TBDel(long srchBrdSeq, String userId); 
+	void updateBOM_BOARD_CMT_TBDel(long srchBrdSeq, int commNo, String userId);
 	
 	
 	

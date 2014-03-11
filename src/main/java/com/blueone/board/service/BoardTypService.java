@@ -54,16 +54,16 @@ public class BoardTypService implements IBoardTypService {
 	}
 	
 	@Override
-	public boolean insertTBL010101(BoardTypInfo boardTypModel) {
+	public boolean insertBOM_BOARD_MNG_TB(BoardTypInfo boardTypModel) {
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();		
 		try {
 //			sqlMapClient.startTransaction();
-//			sqlMapClient.insert("boardTyp.insertTBL010101", boardTypModel);
+//			sqlMapClient.insert("boardTyp.insertBOM_BOARD_MNG_TB", boardTypModel);
 //			sqlMapClient.commitTransaction();
 //			sqlMapClient.getCurrentConnection().commit();
 			
-			sqlSession.insert("boardTyp.insertTBL010101", boardTypModel);
+			sqlSession.insert("boardTyp.insertBOM_BOARD_MNG_TB", boardTypModel);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			return false;
@@ -75,7 +75,7 @@ public class BoardTypService implements IBoardTypService {
 	}
 	
 	@Override
-	public boolean updateTBL010101(BoardTypInfo boardTypModel) {
+	public boolean updateBOM_BOARD_MNG_TB(BoardTypInfo boardTypModel) {
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();		
 		try {
@@ -84,7 +84,7 @@ public class BoardTypService implements IBoardTypService {
 //			sqlMapClient.commitTransaction();
 //			sqlMapClient.getCurrentConnection().commit();
 			
-			sqlSession.update("boardTyp.insertTBL010101", boardTypModel);
+			sqlSession.update("boardTyp.insertBOM_BOARD_MNG_TB", boardTypModel);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			return false;

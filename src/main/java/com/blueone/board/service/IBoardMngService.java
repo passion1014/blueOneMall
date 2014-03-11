@@ -18,16 +18,16 @@ public interface IBoardMngService {
 	
 	// 게시물 상세조회
 	BoardInfo getBoard(long brdSeq);
-	List<BoardAttachFileInfo> selectTBL010103(long brdSeq);
-	List<BoardCommentInfo> selectTBL010104(long brdSeq);
+	List<BoardAttachFileInfo> selectBOM_ATTACHFILE_TB(long brdSeq);
+	List<BoardCommentInfo> selectBOM_BOARD_CMT_TB(long brdSeq);
 	
 	// 게시물 추가/수정/삭제 처리
 	boolean insertBoard(BoardInfo boardModel);
-	Object insertTBL010102(BoardInfo boardModel);
-	boolean insertTBL010104(BoardCommentInfo boardCommentModel);
-	boolean insertTBL010103(BoardAttachFileInfo boardAttachFileModel);
-	boolean updateTBL010102(BoardInfo boardModel);
-	boolean updateTBL010102Del(BoardInfo boardModel);
-	boolean updateTBL010102Del(BoardSrchInfo boardSrchModel);
-	boolean updateTBL010102BrdTyp(BoardSrchInfo boardSrchModel);
+	Object insertBOM_BOARD_TB(BoardInfo boardModel);
+	boolean insertBOM_BOARD_CMT_TB(BoardCommentInfo boardCommentModel);
+	boolean insertBOM_ATTACHFILE_TB(BoardAttachFileInfo boardAttachFileModel);
+	boolean updateBOM_BOARD_TB(BoardInfo boardModel);
+	boolean updateBOM_BOARD_TBDel(BoardInfo boardModel);
+	boolean updateBOM_BOARD_TBDel(BoardSrchInfo boardSrchModel);
+	boolean updateBOM_BOARD_TBBrdTyp(BoardSrchInfo boardSrchModel);
 }
