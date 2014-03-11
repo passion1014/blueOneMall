@@ -46,5 +46,7 @@
 	<context:component-scan base-package="com.blueone.admin" /> <!-- Admin Service 등록-->
 	<context:component-scan base-package="com.blueone.category" /> <!-- Category Service 등록-->
 	<context:component-scan base-package="com.blueone.product" /> <!-- Product Service 등록-->
+	<context:component-scan base-package="com.blueone.board" /> <!-- Board Service 등록-->
+	<context:component-scan base-package="com.blueone.common.service" /> <!-- Common Service 등록-->
 	
 </beans:beans>

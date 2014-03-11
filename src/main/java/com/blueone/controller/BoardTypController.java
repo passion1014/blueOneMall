@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -19,15 +20,20 @@ import org.springframework.web.servlet.ModelAndView;
 import com.blueone.board.domain.BoardTypInfo;
 import com.blueone.board.service.BoardTypService;
 import com.blueone.board.service.BoardTypValidatior;
+import com.blueone.board.service.IBoardTypService;
 import com.blueone.common.service.CodeService;
+import com.blueone.common.service.ICodeService;
 
-@Controller
+//@Controller
 @RequestMapping("/boardTypMng")
 public class BoardTypController {
 	// DI
-	private ApplicationContext context = new ClassPathXmlApplicationContext("/config/applicationContext.xml");
-	private BoardTypService boardTypService = (BoardTypService) context.getBean("boardTypService");
-	private CodeService codeService = (CodeService) context.getBean("codeService");
+//	private ApplicationContext context = new ClassPathXmlApplicationContext("/config/applicationContext.xml");
+//	private BoardTypService boardTypService = (BoardTypService) context.getBean("boardTypService");
+//	private CodeService codeService = (CodeService) context.getBean("codeService");
+	
+	@Autowired private IBoardTypService boardTypService;
+	@Autowired private ICodeService codeService;
 	
 	@RequestMapping("/add.do")
 	public ModelAndView add() {

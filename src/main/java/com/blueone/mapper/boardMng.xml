@@ -1,19 +1,18 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE sqlMap      
-    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
-    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
-<sqlMap namespace="boardMng">
-	<typeAlias alias="BoardModel" type="klac.board.model.BoardModel"/>
+<!-- <sqlMap namespace="boardMng"> -->
+<mapper namespace="boardMng">
+	<!-- <typeAlias alias="BoardModel" type="klac.board.model.BoardModel"/>
 	<typeAlias alias="BoardAttachFileModel" type="klac.board.model.BoardAttachFileModel"/>
 	<typeAlias alias="BoardSrchModel" type="klac.board.model.BoardSrchModel"/>
 	<typeAlias alias="BoardCommentModel" type="klac.board.model.BoardCommentModel"/>
-	<typeAlias alias="BoardStatModel" type="klac.board.model.BoardStatModel"/>
-	
-	
+	<typeAlias alias="BoardStatModel" type="klac.board.model.BoardStatModel"/> -->
 	
 	<!-- 게시물 리스트조회 -->
-	<select id="getBoardList" parameterClass="BoardSrchModel" resultClass="BoardModel">
+	<select id="getBoardList" parameterType="com.blueone.board.domain.BoardSrchInfo" resultType="com.blueone.board.domain.BoardInfo">
 		SELECT   s2.*
 		    FROM (SELECT @rownum := @rownum + 1 AS rnum
 		                ,s1.*
@@ -39,19 +38,19 @@
 		        ,t1.proc_st as procSt
 		    FROM BOM_BOARD_TB t1 JOIN BOM_CODE_TB t2 ON t1.brd_typ = t2.brd_typ
 		   WHERE t1.del_yn = 'F'
-		   <dynamic prepend="AND"><iterate property="noticeBrdSeq" open=" brd_seq NOT IN (" close= ")" conjunction=",">#noticeBrdSeq[]#</iterate></dynamic>
-		   <isNotEqual prepend="AND" property="srchBrdTyp" compareValue="0">
-		     t1.brd_typ = #srchBrdTyp#
-		   </isNotEqual>
-		   <isNotEmpty prepend="AND" property="srchInsFromYmd">
-		     t1.ins_dt BETWEEN STR_TO_DATE()(#srchInsFromYmd#, '%Y%m%d') AND STR_TO_DATE()(#srchInsToYmd#||'2359', '%Y%m%d%h%m%i') 
-		   </isNotEmpty>
-		   <isNotEmpty prepend="AND" property="srchUserNm">
-		     concat(t1.user_nm LIKE '%' , #srchUserNm# ,'%')
-		   </isNotEmpty>
-		   <isNotEmpty prepend="AND" property="srchTitle">
-		     (t1.title LIKE '%' , #srchTitle# , '%')
-		   </isNotEmpty>
+		   	AND brd_seq NOT IN 
+		   		<foreach item="noticeBrdSeq" index="index" collection="list" open=" (" close= ")" separator=",">#{noticeBrdSeq}</foreach>
+		   <if test='srchBrdTyp != "0"'>AND t1.brd_typ = #srchBrdTyp#</if>
+		   <if test="srchInsFromYmd != null and srchInsFromYmd != ''">
+		   	AND t1.ins_dt BETWEEN STR_TO_DATE()(#srchInsFromYmd#, '%Y%m%d') AND STR_TO_DATE()(#srchInsToYmd#||'2359', '%Y%m%d%h%m%i')
+		   </if>
+		   <if test="srchUserNm != null and srchUserNm != ''">
+		   	AND concat(t1.user_nm LIKE '%' , #srchUserNm# ,'%')
+		   </if>
+		   <if test="srchTitle != null and srchTitle != ''">
+		   	AND (t1.title LIKE '%' , #srchTitle# , '%')
+		   </if>
+		   
 		ORDER BY t1.root_seq DESC
 		        ,t1.ref_seq
 		        ,t1.DEPTH
@@ -64,26 +63,24 @@
 	</select>
 	
 	<!-- 게시물 전체수 -->
-	<select id="getBoardTotalCount" parameterClass="BoardSrchModel" resultClass="int">
+	<select id="getBoardTotalCount" parameterType="com.blueone.board.domain.BoardSrchInfo" resultType="int">
 		SELECT COUNT(t1.brd_seq)
 	      FROM BOM_BOARD_TB t1 JOIN BOM_BOARD_MNG_TB t2 ON t1.brd_typ = t2.brd_typ
 		 WHERE t1.del_yn = 'F'
-		   <isNotEqual prepend="AND" property="srchBrdTyp" compareValue="0">
-		     t1.brd_typ = #srchBrdTyp#
-		   </isNotEqual>
-		   <isNotEmpty prepend="AND" property="srchInsFromYmd">
-		     t1.ins_dt BETWEEN STR_TO_DATE()(#srchInsFromYmd#, '%Y%m%d') AND STR_TO_DATE()(concat(#srchInsToYmd# , '2359'), '%y%m%d%h%m%i') 
-		   </isNotEmpty>
-		   <isNotEmpty prepend="AND" property="srchUserNm">
-		     concat(t1.user_nm LIKE '%' , #srchUserNm# , '%')
-		   </isNotEmpty>
-		   <isNotEmpty prepend="AND" property="srchTitle">
-		     concat(t1.title LIKE '%' , #srchTitle# , '%')
-		   </isNotEmpty>
+		   <if test='srchBrdTyp != "0"'>AND t1.brd_typ = #srchBrdTyp#</if>
+		   <if test="srchInsFromYmd != null and srchInsFromYmd != ''">
+		   	AND t1.ins_dt BETWEEN STR_TO_DATE()(#srchInsFromYmd#, '%Y%m%d') AND STR_TO_DATE()(#srchInsToYmd#||'2359', '%Y%m%d%h%m%i')
+		   </if>
+		   <if test="srchUserNm != null and srchUserNm != ''">
+		   	AND concat(t1.user_nm LIKE '%' , #srchUserNm# ,'%')
+		   </if>
+		   <if test="srchTitle != null and srchTitle != ''">
+		   	AND (t1.title LIKE '%' , #srchTitle# , '%')
+		   </if>		   
 	</select>
 	
 	<!-- 공지 리스트조회 -->
-	<select id="getNoticeList" parameterClass="BoardSrchModel" resultClass="BoardModel">
+	<select id="getNoticeList" parameterType="com.blueone.board.domain.BoardSrchInfo" resultType="com.blueone.board.domain.BoardInfo">
 		SELECT s1.*
 		  FROM (SELECT   t1.brd_seq AS brdSeq
 		                ,t1.brd_typ AS brdTyp
@@ -105,9 +102,7 @@
 		                ,t1.proc_st AS procSt
 		            FROM BOM_BOARD_TB t1 JOIN BOM_BOARD_MNG_TB t2 ON t1.brd_typ = t2.brd_typ
 		           WHERE t1.notice_yn = 'T'
-		             <isNotEqual prepend="AND" property="srchBrdTyp" compareValue="0">
-		               t1.brd_typ = #srchBrdTyp#
-		             </isNotEqual>
+		             <if test='srchBrdTyp != "0"'>AND t1.brd_typ = #srchBrdTyp#</if>
 		             AND t1.del_yn = 'F'
 		        ORDER BY t1.root_seq DESC
 		                ,t1.ref_seq
@@ -116,14 +111,12 @@
 	</select>
 	
 	<!-- 신규게시물 건수조회 -->
-	<select id="getTodayTotalCount" parameterClass="BoardSrchModel" resultClass="BoardStatModel">
+	<select id="getTodayTotalCount" parameterType="com.blueone.board.domain.BoardSrchInfo" resultType="com.blueone.board.domain.BoardStatInfo">
 		SELECT s1.*
 		      ,(SELECT COUNT(t1.brd_seq)
 		          FROM BOM_BOARD_CMT_TB t1 JOIN BOM_BOARD_TB t2 ON t1.brd_seq = t2.brd_seq
 		         WHERE t1.del_yn = 'F'
-                   <isNotEqual prepend="AND" property="srchBrdTyp" compareValue="0">
-		              t2.brd_typ = #srchBrdTyp#
-		           </isNotEqual>
+		           <if test='srchBrdTyp != "0"'>AND t2.brd_typ = #srchBrdTyp#</if>
 		           AND t1.ins_dt BETWEEN TO_DATE(DATE_FORMAT(NOW()
 		                                                ,'%y%m%d'
 		                                                )
@@ -135,9 +128,7 @@
 		              ,IFNULL(SUM(t1.hit), 0) AS todayHitCnt
 		          FROM BOM_BOARD_TB t1
 		         WHERE t1.del_yn = 'F'
-                   <isNotEqual prepend="AND" property="srchBrdTyp" compareValue="0">
-		              t1.brd_typ = #srchBrdTyp#
-		           </isNotEqual>
+		           <if test='srchBrdTyp != "0"'>AND t1.brd_typ = #srchBrdTyp#</if>
 		           AND t1.ins_dt BETWEEN STR_TO_DATE(DATE_FORMAT(NOW()
 		                                                ,'%y%m%d'
 		                                                )
@@ -147,7 +138,7 @@
 	</select>
 	
 	<!-- 게시물 조회 -->
-	<select id="getBoard" parameterClass="long" resultClass="BoardModel">
+	<select id="getBoard" parameterType="long" resultType="com.blueone.board.domain.BoardInfo">
 		SELECT   t1.brd_seq as brdSeq
 		        ,t1.brd_typ as brdTyp
 		        ,t2.title AS brdTypNm
@@ -172,7 +163,7 @@
 	</select>
 	
 	<!-- 첨부파일조회 -->
-	<select id="selectBOM_ATTACHFILE_TB" parameterClass="long" resultClass="BoardAttachFileModel">
+	<select id="selectBOM_ATTACHFILE_TB" parameterType="long" resultType="com.blueone.board.domain.BoardAttachFileInfo">
 		SELECT   t1.brd_seq as brdSeq
 		        ,t1.fl_no as flNo
 		        ,t1.atta_knd as attaKnd
@@ -186,7 +177,7 @@
 	</select>
 	
 	<!-- 코멘트조회 -->
-	<select id="selectBOM_BOARD_CMT_TB" parameterClass="long" resultClass="BoardCommentModel">
+	<select id="selectBOM_BOARD_CMT_TB" parameterType="long" resultType="com.blueone.board.domain.BoardCommentInfo">
 		SELECT   t1.brd_seq AS brdSeq
 		        ,t1.comm_no AS commNo
 		        ,t1.comm_root_no AS commRootNo
@@ -214,8 +205,8 @@
 	
 	
 	<!-- 게시물 추가 -->
-	<insert id="insertBOM_BOARD_TB" parameterClass="BoardModel">
-		<selectKey keyProperty="brdSeq" resultClass="long">
+	<insert id="insertBOM_BOARD_TB" parameterType="com.blueone.board.domain.BoardInfo">
+		<selectKey keyProperty="brdSeq" resultType="long">
 			SELECT max(brd_seq)+1 FROM DUAL
 		</selectKey>
 		INSERT
@@ -237,14 +228,15 @@
 		                ,upd_dt
 		                ,upd_user
 		                )
-		VALUES (#brdSeq#, #brdTyp#, <isEqual property="rootSeq" compareValue="0">#brdSeq#</isEqual><isNotEqual property="rootSeq" compareValue="0">#rootSeq#</isNotEqual>, #refSeq#, #depth#
-		       ,#passwd#, #title#, #cont#, #hit#, #commCnt#, #replyCnt#, #procSt#
+		VALUES (#brdSeq#, #brdTyp#
+				, <if test='rootSeq == "0"'>#brdSeq#</if><if test='rootSeq != "0"'>#rootSeq#</if>
+				, #refSeq#, #depth#, #passwd#, #title#, #cont#, #hit#, #commCnt#, #replyCnt#, #procSt#
 		       ,#userNm#, NOW(), #insUser#, NOW(), #updUser#
 		       )
 	</insert>
 	
 	<!-- 첨부파일 추가 -->
-	<insert id="insertBOM_ATTACHFILE_TB" parameterClass="BoardAttachFileModel">
+	<insert id="insertBOM_ATTACHFILE_TB" parameterType="com.blueone.board.domain.BoardAttachFileInfo">
 		INSERT
 		  INTO BOM_ATTACHFILE_TB(brd_seq
 		                ,fl_no
@@ -260,8 +252,8 @@
 	</insert>
 	
 	<!-- 코멘트 추가 -->
-	<insert id="insertTBL010104" parameterClass="BoardCommentModel">
-		<selectKey keyProperty="commNo" resultClass="int">
+	<insert id="insertTBL010104" parameterType="com.blueone.board.domain.BoardCommentInfo">
+		<selectKey keyProperty="commNo" resultType="int">
 			SELECT IFNULL(MAX(comm_no), 0)+1 FROM BOM_BOARD_CMT_TB WHERE brd_seq = #brdSeq#
 		</selectKey>
 		INSERT
@@ -278,7 +270,8 @@
 		                ,upd_dt
 		                ,upd_user
 		                )
-		VALUES (#brdSeq#, #commNo#, <isEqual property="commRootNo" compareValue="0">#commNo#</isEqual><isNotEqual property="commRootNo" compareValue="0">#commRootNo#</isNotEqual>
+		VALUES (#brdSeq#, #commNo#
+				, <if test='commRootNo == "0"'>#commNo#</if><if test='commRootNo != "0"'>#commRootNo#</if>
 		       ,#commRefNo#, #commDepth#, #commUserNm#, #commPasswd#, #commCont#, NOW(), 
 		       #insUser#, NOW(), #updUser#
 		       )
@@ -286,30 +279,29 @@
 	
 	
 	<!-- 삭제처리 -->
-	<update id="updateBOM_BOARD_TBDel" parameterClass="BoardSrchModel">
+	<update id="updateBOM_BOARD_TBDel" parameterType="com.blueone.board.domain.BoardSrchInfo">
 		UPDATE BOM_BOARD_TB
 		   SET del_yn = 'T', del_dt = NOW(), del_user = #userId#
-		 <dynamic prepend="WHERE">
-		   <iterate property="check" open="brd_seq IN (" close= ")" conjunction=",">
-		     #check[]#
-		   </iterate>
-		 </dynamic>
+		WHERER brd_seq IN 
+		<foreach item="check" index="index" collection="list" open=" (" close= ")" separator=",">
+			#{check}
+		</foreach>
+
+		 
 	</update>
 	
 	<!-- 이동하기 -->
-	<update id="updateBOM_BOARD_TBBrdTyp" parameterClass="BoardSrchModel">
+	<update id="updateBOM_BOARD_TBBrdTyp" parameterType="com.blueone.board.domain.BoardSrchInfo">
 		UPDATE BOM_BOARD_TB
 		   SET brd_typ = #brdTyp#, upd_dt = NOW(), upd_user = #userId#
-		 <dynamic prepend="WHERE">
-			((<iterate property="check" open="brd_seq IN (" close= ")" conjunction=",">#check[]#</iterate>
+		WHERE
+			((<foreach item="check" index="index" collection="list" open="brd_seq IN (" close= ")" separator=",">#{check}</foreach>
 			     AND DEPTH = 0)
-			     OR  (<iterate property="check" open="root_seq IN (" close= ")" conjunction=",">#check[]#</iterate>
+			     OR  (<foreach item="check" index="index" collection="list" open="root_seq IN (" close= ")" separator=",">#{check}</foreach>
 			      AND DEPTH > 0))
-		 </dynamic>
 	</update>
-</sqlMap>
-
-
+<!-- </sqlMap> -->
+</mapper>
 
 
 

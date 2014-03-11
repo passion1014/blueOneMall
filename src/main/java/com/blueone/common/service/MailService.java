@@ -19,7 +19,7 @@ import com.blueone.common.util.Configuration;
 import com.blueone.common.util.Utility;
 import com.blueone.customer.domain.MemberInfo;
 
-@Service
+//@Service
 public class MailService implements IMailService {
 
 	@Autowired

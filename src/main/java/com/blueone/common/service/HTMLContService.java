@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.blueone.common.domain.HTMLContInfo;
 
-@Service
+//@Service
 public class HTMLContService implements IHTMLContService {
 
 	@Autowired

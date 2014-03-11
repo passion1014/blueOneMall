@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,8 @@ import com.blueone.board.domain.BoardInfo;
 import com.blueone.board.domain.BoardSrchInfo;
 import com.blueone.board.service.BoardService;
 import com.blueone.board.service.BoardTypService;
+import com.blueone.board.service.IBoardService;
+import com.blueone.board.service.IBoardTypService;
 import com.blueone.common.domain.BaseInfo;
 import com.blueone.common.util.FileDownloadUtility;
 import com.blueone.common.util.FileUploadUtility;
@@ -32,10 +35,12 @@ import com.blueone.login.domain.LoginSessionModel;
 @RequestMapping("/board")
 public class BoardController {
 	// DI
-	private ApplicationContext context = new ClassPathXmlApplicationContext("/config/applicationContext.xml");
-	private BoardService boardService = (BoardService) context.getBean("boardService");
-	private BoardTypService boardTypService = (BoardTypService) context.getBean("boardTypService");
+//	private ApplicationContext context = new ClassPathXmlApplicationContext("/config/applicationContext.xml");
+//	private BoardService boardService = (BoardService) context.getBean("boardService");
+//	private BoardTypService boardTypService = (BoardTypService) context.getBean("boardTypService");
 	
+	@Autowired private IBoardService boardService;
+	@Autowired private IBoardTypService boardTypService;
 	
 	@RequestMapping("/list.do")
 	public ModelAndView boardList(@ModelAttribute("BoardSrchModel") BoardSrchInfo boardSrchModel, HttpServletRequest request, HttpServletResponse response) {

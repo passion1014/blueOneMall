@@ -1,16 +1,18 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE sqlMap      
-    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
-    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">    
+
     
-<sqlMap namespace="board">
-	<typeAlias alias="BoardModel" type="com.blueone.board.domain.BoardInfo"/>
+<!-- <sqlMap namespace="board"> -->
+<mapper namespace="board">
+	<!-- <typeAlias alias="BoardModel" type="com.blueone.board.domain.BoardInfo"/>
 	<typeAlias alias="BoardSrchModel" type="com.blueone.board.domain.BoardSrchInfo"/>
 	<typeAlias alias="BoardAttachFileModel" type="com.blueone.board.domain.BoardAttachFileInfo"/>
-	<typeAlias alias="BoardCommentModel" type="com.blueone.board.domain.BoardCommentInfo"/>
+	<typeAlias alias="BoardCommentModel" type="com.blueone.board.domain.BoardCommentInfo"/> -->
 	
 	<!-- 특정게시판의 게시물리스트 -->
-	<select id="getBrdTypBoardList" parameterClass="BoardSrchModel" resultClass="BoardModel">
+	<select id="getBrdTypBoardList" parameterType="com.blueone.board.domain.BoardSrchInfo" resultType="com.blueone.board.domain.BoardInfo">
 		SELECT s2.*
 		      ,s2.brd_seq as brdSeq
 		      ,DATE_FORMAT(s2.ins_dt
@@ -48,12 +50,18 @@
 		                           ,t1.public_nm as publicNm
 		                           ,t1.cont
 		                       FROM BOM_BOARD_TB t1
+		                       
 		                      WHERE t1.del_yn = 'F'
 		                        AND t1.brd_typ = #srchBrdTyp#
-		                        <dynamic prepend="AND"><iterate property="noticeBrdSeq" open=" brd_seq NOT IN (" close= ")" conjunction=",">#noticeBrdSeq[]#</iterate></dynamic>
-		                        <isNotEmpty prepend="AND" property="srchKeyword">
-		                           concat(t1.title LIKE '%' , #srchKeyword# , '%')
-		                        </isNotEmpty>
+		                        AND brd_seq NOT IN
+		                        <foreach item="noticeBrdSeq" index="index" collection="list" open=" (" close= ")" separator=",">
+									#{noticeBrdSeq}
+								</foreach>
+		                        
+		                        <if test="srchKeyword != null and srchKeyword != ''">
+		                        	AND concat(t1.title LIKE '%', #{srchKeyword}, '%')
+		                        </if>
+		                        
 		                   ORDER BY t1.root_seq DESC
 		                           ,t1.ref_seq
 		                           ,t1.DEPTH) s1) s2
@@ -62,18 +70,18 @@
 	</select>
 	
 	<!-- 특정게시판의 게시물전체갯수 -->
-	<select id="getBrdTypTotalCount" parameterClass="BoardSrchModel" resultClass="int">
+	<select id="getBrdTypTotalCount" parameterType="com.blueone.board.domain.BoardSrchInfo" resultType="int">
 		SELECT COUNT(t1.brd_seq)
 		  FROM BOM_BOARD_TB t1
 		 WHERE t1.del_yn = 'F'
 		   AND t1.brd_typ = #srchBrdTyp#
-           <isNotEmpty prepend="AND" property="srchKeyword">
-              concat(t1.title LIKE '%' , #srchKeyword# , '%')
-           </isNotEmpty>
+ 			<if test="srchKeyword != null and srchKeyword != ''">
+		    	AND concat(t1.title LIKE '%', #{srchKeyword}, '%')
+			</if>
 	</select>
 	
 	<!-- 게시판의 최근게시물리스트 -->
-	<select id="getBoardLastList" parameterClass="java.util.HashMap" resultClass="BoardModel">
+	<select id="getBoardLastList" parameterType="java.util.HashMap" resultType="com.blueone.board.domain.BoardInfo">
 		SELECT  s1.*
 		       ,(SELECT ct1.save_filename
 				  FROM BOM_ATTACHFILE_TB ct1
@@ -88,11 +96,10 @@
 		                ,t1.notice_yn as noticeYn
 		            FROM BOM_BOARD_TB t1
 		           WHERE t1.del_yn = 'F'
-		           <dynamic prepend="AND">
-		             <iterate property="brdTyps" open="t1.brd_typ IN (" close= ")" conjunction=",">
-		              #brdTyps[]#
-		             </iterate>
-		           </dynamic>
+					AND t1.brd_typ IN
+					<foreach item="brdTyps" index="index" collection="list" open=" (" close= ")" separator=",">
+						#{brdTyps}
+					</foreach>
 		             AND t1.DEPTH = 0
 		             AND t1.passwd IS NULL
 		        ORDER BY t1.brd_seq DESC) s1
@@ -100,7 +107,7 @@
 	</select>
 	
 	<!-- 특정게시판의 공지리스트 -->
-	<select id="getBrdTypNoticeList" parameterClass="BoardSrchModel" resultClass="BoardModel">
+	<select id="getBrdTypNoticeList" parameterType="com.blueone.board.domain.BoardSrchInfo" resultType="com.blueone.board.domain.BoardInfo">
 		SELECT s1.*
 		      ,s1.brd_seq AS brdSeq
 		      ,DATE_FORMAT(s1.ins_dt
@@ -165,8 +172,8 @@
 	</select>
 	
 	<!-- 게시물 추가 -->
-	<insert id="insertBOM_BOARD_TB" parameterClass="BoardModel">
-		<selectKey keyProperty="brdSeq" resultClass="long">
+	<insert id="insertBOM_BOARD_TB" parameterType="com.blueone.board.domain.BoardInfo">
+		<selectKey keyProperty="brdSeq" resultType="long">
 			SELECT max(brd_seq)+1 FROM DUAL
 		</selectKey>
 		INSERT
@@ -191,14 +198,15 @@
 		                ,upd_user
 		                ,notice_yn
 		                )
-		VALUES (#brdSeq#, #brdTyp#, <isEqual property="rootSeq" compareValue="0">#brdSeq#</isEqual><isNotEqual property="rootSeq" compareValue="0">#rootSeq#</isNotEqual>, #refSeq#, #depth#
-		       ,#passwd#, #title#, #cont#, 0, 0, 0, #procSt#
-		       ,#userNm#, #publicYmd#, #publicNm#, SYSDATE, #insUser#, now(), #updUser#, IFNULL(#noticeYn#,'F')  ??
-		       )
+		VALUES (#brdSeq#, #brdTyp#
+				, <if test='rootSeq == "0"'>#brdSeq#</if><if test='rootSeq != "0"'>#rootSeq#</if>
+				, #refSeq#, #depth#, #passwd#, #title#, #cont#, 0, 0, 0, #procSt#
+				, #userNm#, #publicYmd#, #publicNm#, SYSDATE, #insUser#, now(), #updUser#, IFNULL(#noticeYn#,'F')  ??
+		)
 	</insert>
 	
 	<!-- 첨부파일 추가 -->
-	<insert id="insertBOM_ATTACHFILE_TB" parameterClass="BoardAttachFileModel">
+	<insert id="insertBOM_ATTACHFILE_TB" parameterType="com.blueone.board.domain.BoardAttachFileInfo">
 		INSERT
 		  INTO BOM_ATTACHFILE_TB(brd_seq
 		                ,fl_no
@@ -214,8 +222,8 @@
 	</insert>
 	
 	<!-- 코멘트 추가 -->
-	<insert id="insertBOM_BOARD_CMT_TB" parameterClass="BoardCommentModel">
-		<selectKey keyProperty="commNo" resultClass="int">
+	<insert id="insertBOM_BOARD_CMT_TB" parameterType="com.blueone.board.domain.BoardCommentInfo">
+		<selectKey keyProperty="commNo" resultType="int">
 			SELECT ifnull(MAX(comm_no), 0)+1 FROM BOM_BOARD_CMT_TB WHERE brd_seq = #brdSeq#
 		</selectKey>
 		INSERT
@@ -232,14 +240,15 @@
 		                ,upd_dt
 		                ,upd_user
 		                )
-		VALUES (#brdSeq#, #commNo#, <isEqual property="commRootNo" compareValue="0">#commNo#</isEqual><isNotEqual property="commRootNo" compareValue="0">#commRootNo#</isNotEqual>
-		       ,#commRefNo#, #commDepth#, #commUserNm#, #commPasswd#, #commCont#, now(), 
-		       #insUser#, now(), #updUser#
+		VALUES (#brdSeq#, #commNo#
+				, <if test='commRootNo == "0"'>#commNo#</if><if test='commRootNo != "0"'>#commRootNo#</if>
+				, #commRefNo#, #commDepth#, #commUserNm#, #commPasswd#, #commCont#, now()
+				, #insUser#, now(), #updUser#
 		       )
 	</insert>
 	
 	<!-- 코멘트 업데이트 -->
-	<update id="updateBOM_BOARD_CMT_TB" parameterClass="BoardCommentModel">
+	<update id="updateBOM_BOARD_CMT_TB" parameterType="com.blueone.board.domain.BoardCommentInfo">
 		UPDATE BOM_BOARD_CMT_TB
 		   SET comm_cont                   = #commCont#
 		      ,comm_passwd                 = #commPasswd#
@@ -250,7 +259,7 @@
 	</update>
 	
 	<!-- 게시물 수정 -->
-	<update id="updateBOM_BOARD_TB" parameterClass="BoardModel">
+	<update id="updateBOM_BOARD_TB" parameterType="com.blueone.board.domain.BoardInfo">
 		UPDATE BOM_BOARD_TB
 		   SET passwd                      = #passwd#
 		      ,title                       = #title#
@@ -265,7 +274,7 @@
 	</update>
 	
 	<!-- 게시물 조회 -->
-	<select id="selectBOM_BOARD_TB" parameterClass="long" resultClass="BoardModel">
+	<select id="selectBOM_BOARD_TB" parameterType="long" resultType="com.blueone.board.domain.BoardInfo">
 		SELECT   t1.brd_seq as brdSeq
 		        ,t1.brd_typ as brdTyp
 		        ,t2.title AS brdTypNm
@@ -294,7 +303,7 @@
 	</select>
 	
 	<!-- 첨부파일조회 -->
-	<select id="selectBOM_ATTACHFILE_TB" parameterClass="long" resultClass="BoardAttachFileModel">
+	<select id="selectBOM_ATTACHFILE_TB" parameterType="long" resultType="com.blueone.board.domain.BoardAttachFileInfo">
 		SELECT   t1.brd_seq AS brdSeq
 		        ,t1.fl_no AS flNo
 		        ,t1.atta_knd AS attaKnd
@@ -314,7 +323,7 @@
 	</select>
 	
 	<!-- 코멘트조회 -->
-	<select id="selectBOM_BOARD_CMT_TB" parameterClass="long" resultClass="BoardCommentModel">
+	<select id="selectBOM_BOARD_CMT_TB" parameterType="long" resultType="com.blueone.board.domain.BoardCommentInfo">
 		SELECT   t1.brd_seq AS brdSeq
 		        ,t1.comm_no AS commNo
 		        ,t1.comm_root_no AS commRootNo
@@ -365,35 +374,35 @@
 	</select>
 	
 	<!-- 조회수 업데이트 -->
-	<update id="updateBOM_BOARD_TBHit" parameterClass="long">
+	<update id="updateBOM_BOARD_TBHit" parameterType="long">
 		UPDATE BOM_BOARD_TB
 		   SET hit = (hit + 1)
 		 WHERE brd_seq = #brdSeq#
 	</update>
 	
 	<!-- 조회수 업데이트 -->
-	<update id="updateBOM_BOARD_TBReplyCnt" parameterClass="long">
+	<update id="updateBOM_BOARD_TBReplyCnt" parameterType="long">
 		UPDATE BOM_BOARD_TB
 		   SET reply_cnt = (reply_cnt + 1)
 		 WHERE brd_seq = #brdSeq#
 	</update>
 	
 	<!-- 코멘트수 업데이트 -->
-	<update id="updateBOM_BOARD_TBCommCnt" parameterClass="long">
+	<update id="updateBOM_BOARD_TBCommCnt" parameterType="long">
 		UPDATE BOM_BOARD_TB
 		   SET comm_cnt = (comm_cnt + 1)
 		 WHERE brd_seq = #brdSeq#
 	</update>
 	
 	<!-- 삭제처리 -->
-	<update id="updateBOM_BOARD_TBDel" parameterClass="java.util.HashMap">
+	<update id="updateBOM_BOARD_TBDel" parameterType="java.util.HashMap">
 		UPDATE tbl010102
 		   SET del_yn = 'T', del_dt = NOW(), del_user = #userId#
 		 WHERE brd_seq = #brdSeq#
 	</update>
 	
 	<!-- 코멘트 삭제처리 -->
-	<update id="updateBOM_BOARD_CMT_TBDel" parameterClass="java.util.HashMap">
+	<update id="updateBOM_BOARD_CMT_TBDel" parameterType="java.util.HashMap">
 		UPDATE tbl010104
 		   SET del_yn = 'T', del_dt = NOW(), del_user = #userId#
 		 WHERE brd_seq = #brdSeq#
@@ -401,11 +410,11 @@
 	</update>
 	
 	<!-- 첨부파일 삭제처리 -->
-	<delete id="deleteTBL010103" parameterClass="long">
+	<delete id="deleteTBL010103" parameterType="long">
 		DELETE FROM BOM_ATTACHFILE_TB
 		      WHERE brd_seq = #brdseq#
 	</delete>
-</sqlMap>
+</mapper>
 
 
 
