@@ -53,17 +53,6 @@
 
 
 
-<!-- admin.gnb.html start -->
-	<div id="GNB">
-		<ul>
-			<li><a href="getAdminList.do">환경설정</a></li>
-			<li><a href="#">회원관리</a></li>
-			<li><a href="#">상품관리</a></li>
-			<li><a href="#">주문관리</a></li>
-			<li><a href="#">커뮤니티</a></li>
-		</ul>
-	</div>
-<!-- admin.gnb.html end -->
 
 
 

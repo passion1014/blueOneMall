@@ -25,13 +25,60 @@ public class AdminController {
 	
 	@Autowired
 	IAdminManageService adminManageService;
+	
 
 	@RequestMapping(value = "/adminMain.do", method = RequestMethod.GET)
 	public String mainAdminInfo(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
 		return "admin/admin/main";
 	}
 	
-	@RequestMapping(value = "/registAdminInf.do")
+	
+	@RequestMapping(value="/adminSetting.do", method= RequestMethod.GET)
+	public String adminSetting(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model){
+		
+		   return "admin/admin/adminSetting";
+		
+		
+	}
+	
+	@RequestMapping(value="/adminMember.do", method= RequestMethod.GET)
+	public String adminMember(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model){
+		
+		   return "admin/admin/adminMember";
+		
+		
+	}
+	
+	@RequestMapping(value="/item.do", method= RequestMethod.GET)
+	public String item(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model){
+		
+		   return "admin/admin/item";
+		
+		
+	}
+	
+	@RequestMapping(value="/order.do", method= RequestMethod.GET)
+	public String order(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model){
+		
+		   return "admin/admin/order";
+		
+		
+	}
+	
+	
+	
+	@RequestMapping(value="/community.do", method= RequestMethod.GET)
+	public String community(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model){
+		
+		   return "admin/admin/community";
+		
+		
+	}
+	
+	
+	
+	
+    @RequestMapping(value = "/registAdminInf.do")
 	public String registAdminInfo(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
 		adminManageService.registAdminInf(adminInfo);
 		
@@ -73,5 +120,11 @@ public class AdminController {
 		
 		return "admin/result";
 	}
+	
+	
+	
+	
+	
+	
 
 }
