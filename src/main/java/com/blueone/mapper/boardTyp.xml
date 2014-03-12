@@ -101,11 +101,11 @@
 		                ,upd_dt
 		                ,upd_user
 		                )
-		VALUES (max(brd_typ)+1, #title#, #attaYn#, #replyYn#, #commYn#
-		       ,#secrYn#, #newViewYn#, #commViewYn#, #attaViewYn#
-		       ,#listReadAuth#, #writeAuth#, #readAuth#, #replyWriteAuth#
-		       ,#replyReadAuth#, #commWriteAuth#, #commReadAuth#, NOW()
-		       ,#insUser#, NOW(), #updUser#
+		VALUES (max(brd_typ)+1, #{title}#, #{attaYn}#, #{replyYn}#, #{commYn}#
+		       ,#{secrYn}#, #{newViewYn}#, #{commViewYn}#, #{attaViewYn}#
+		       ,#{listReadAuth}#, #{writeAuth}#, #{readAuth}#, #{replyWriteAuth}#
+		       ,#{replyReadAuth}#, #{commWriteAuth}#, #{commReadAuth}#, NOW()
+		       ,#{insUser}#, NOW(), #{updUser}#
 		       )
 	</insert>
 	

@@ -52,7 +52,7 @@
 		                       FROM BOM_BOARD_TB t1
 		                       
 		                      WHERE t1.del_yn = 'F'
-		                        AND t1.brd_typ = #srchBrdTyp#
+		                        AND t1.brd_typ = #{srchBrdTyp}#
 		                        AND brd_seq NOT IN
 		                        <foreach item="noticeBrdSeq" index="index" collection="list" open=" (" close= ")" separator=",">
 									#{noticeBrdSeq}
@@ -65,7 +65,7 @@
 		                   ORDER BY t1.root_seq DESC
 		                           ,t1.ref_seq
 		                           ,t1.DEPTH) s1) s2
-		 WHERE rnum BETWEEN ((#currentPage# - 1) * #rowsPerPage# + 1) AND (((#currentPage# - 1) * #rowsPerPage# + 1) + #rowsPerPage# - 1)
+		 WHERE rnum BETWEEN ((#{currentPage}# - 1) * #{rowsPerPage}# + 1) AND (((#{currentPage}# - 1) * #{rowsPerPage}# + 1) + #{rowsPerPage}# - 1)
 		ORDER BY rnum
 	</select>
 	
@@ -103,7 +103,7 @@
 		             AND t1.DEPTH = 0
 		             AND t1.passwd IS NULL
 		        ORDER BY t1.brd_seq DESC) s1
-		 WHERE limit <![CDATA[<=]]> #size#
+		 WHERE limit <![CDATA[<=]]> #{size}#
 	</select>
 	
 	<!-- 특정게시판의 공지리스트 -->
@@ -199,9 +199,9 @@
 		                ,notice_yn
 		                )
 		VALUES (#brdSeq#, #brdTyp#
-				, <if test='rootSeq == "0"'>#brdSeq#</if><if test='rootSeq != "0"'>#rootSeq#</if>
-				, #refSeq#, #depth#, #passwd#, #title#, #cont#, 0, 0, 0, #procSt#
-				, #userNm#, #publicYmd#, #publicNm#, SYSDATE, #insUser#, now(), #updUser#, IFNULL(#noticeYn#,'F')  ??
+				, <if test='rootSeq == "0"'>#{brdSeq}#</if><if test='rootSeq != "0"'>#{rootSeq}#</if>
+				, #{refSeq}#, #{depth}#, #{passwd}#, #{title}#, #{cont}#, 0, 0, 0, #{procSt}#
+				, #{userNm}#, #{publicYmd}#, #{publicNm}#, SYSDATE, #{insUser}#, now(), #{updUser}#, IFNULL(#{noticeYn}#,'F')  ??
 		)
 	</insert>
 	
@@ -216,15 +216,15 @@
 		                ,filesize
 		                ,file_ext
 		                )
-		VALUES (#brdSeq#, #flNo#, #attaKnd#, #saveFilename#, #realFilename#
-		       ,#filesize#, #fileExt#
+		VALUES (#{brdSeq}#, #{flNo}#, #{attaKnd}#, #{saveFilename}#, #{realFilename}#
+		       ,#{filesize}#, #{fileExt}#
 		       )
 	</insert>
 	
 	<!-- 코멘트 추가 -->
 	<insert id="insertBOM_BOARD_CMT_TB" parameterType="com.blueone.board.domain.BoardCommentInfo">
 		<selectKey keyProperty="commNo" resultType="int">
-			SELECT ifnull(MAX(comm_no), 0)+1 FROM BOM_BOARD_CMT_TB WHERE brd_seq = #brdSeq#
+			SELECT ifnull(MAX(comm_no), 0)+1 FROM BOM_BOARD_CMT_TB WHERE brd_seq = #{brdSeq}#
 		</selectKey>
 		INSERT
 		  INTO BOM_BOARD_CMT_TB(brd_seq
@@ -240,37 +240,37 @@
 		                ,upd_dt
 		                ,upd_user
 		                )
-		VALUES (#brdSeq#, #commNo#
-				, <if test='commRootNo == "0"'>#commNo#</if><if test='commRootNo != "0"'>#commRootNo#</if>
-				, #commRefNo#, #commDepth#, #commUserNm#, #commPasswd#, #commCont#, now()
-				, #insUser#, now(), #updUser#
+		VALUES (#{brdSeq}#, #{commNo}#
+				, <if test='commRootNo == "0"'>#{commNo}#</if><if test='commRootNo != "0"'>#{commRootNo}#</if>
+				, #{commRefNo}#, #{commDepth}#, #{commUserNm}#, #{commPasswd}#, #{commCont}#, now()
+				, #{insUser}#, now(), #{updUser}#
 		       )
 	</insert>
 	
 	<!-- 코멘트 업데이트 -->
 	<update id="updateBOM_BOARD_CMT_TB" parameterType="com.blueone.board.domain.BoardCommentInfo">
 		UPDATE BOM_BOARD_CMT_TB
-		   SET comm_cont                   = #commCont#
-		      ,comm_passwd                 = #commPasswd#
+		   SET comm_cont                   = #{commCont}#
+		      ,comm_passwd                 = #{commPasswd}#
 		      ,upd_dt                      = NOW()
-		      ,upd_user                    = #updUser#
-		 WHERE brd_seq = #brdSeq#
-		   AND comm_no = #commNo#
+		      ,upd_user                    = #{updUser}#
+		 WHERE brd_seq = #{brdSeq}#
+		   AND comm_no = #{commNo}#
 	</update>
 	
 	<!-- 게시물 수정 -->
 	<update id="updateBOM_BOARD_TB" parameterType="com.blueone.board.domain.BoardInfo">
 		UPDATE BOM_BOARD_TB
-		   SET passwd                      = #passwd#
-		      ,title                       = #title#
-		      ,cont                        = #cont#
-		      ,proc_st                     = #procSt#
-		      ,public_ymd                  = #publicYmd#
-		      ,public_nm                   = #publicNm#
+		   SET passwd                      = #{passwd}#
+		      ,title                       = #{title}#
+		      ,cont                        = #{cont}#
+		      ,proc_st                     = #{procSt}#
+		      ,public_ymd                  = #{publicYmd}#
+		      ,public_nm                   = #{publicNm}#
 		      ,upd_dt                      = NOW()
-		      ,upd_user                    = #updUser#
-		      ,notice_yn                   = NVL(#noticeYn#, 'F')
-		 WHERE brd_seq = #brdSeq#
+		      ,upd_user                    = #{updUser}#
+		      ,notice_yn                   = NVL(#{noticeYn}#, 'F')
+		 WHERE brd_seq = #{brdSeq}#
 	</update>
 	
 	<!-- 게시물 조회 -->
@@ -299,7 +299,7 @@
 		        ,DATE_FORMAT(STR_TO_DATE(DATE_FORMAT(t1.public_ymd, '%Y%m%d')), '%Y.%m.%d') as publicYmd
 		        ,t1.public_nm as publicNm
 		    FROM BOM_BOARD_TB t1 JOIN BOM_BOARD_MNG_TB t2 ON t1.brd_typ = t2.brd_typ
-		   WHERE t1.brd_seq = #brdSeq#
+		   WHERE t1.brd_seq = #{brdSeq}#
 	</select>
 	
 	<!-- 첨부파일조회 -->
@@ -377,42 +377,42 @@
 	<update id="updateBOM_BOARD_TBHit" parameterType="long">
 		UPDATE BOM_BOARD_TB
 		   SET hit = (hit + 1)
-		 WHERE brd_seq = #brdSeq#
+		 WHERE brd_seq = #{brdSeq}#
 	</update>
 	
 	<!-- 조회수 업데이트 -->
 	<update id="updateBOM_BOARD_TBReplyCnt" parameterType="long">
 		UPDATE BOM_BOARD_TB
 		   SET reply_cnt = (reply_cnt + 1)
-		 WHERE brd_seq = #brdSeq#
+		 WHERE brd_seq = #{brdSeq}#
 	</update>
 	
 	<!-- 코멘트수 업데이트 -->
 	<update id="updateBOM_BOARD_TBCommCnt" parameterType="long">
 		UPDATE BOM_BOARD_TB
 		   SET comm_cnt = (comm_cnt + 1)
-		 WHERE brd_seq = #brdSeq#
+		 WHERE brd_seq = #{brdSeq}#
 	</update>
 	
 	<!-- 삭제처리 -->
 	<update id="updateBOM_BOARD_TBDel" parameterType="java.util.HashMap">
 		UPDATE tbl010102
-		   SET del_yn = 'T', del_dt = NOW(), del_user = #userId#
-		 WHERE brd_seq = #brdSeq#
+		   SET del_yn = 'T', del_dt = NOW(), del_user = #{userId}#
+		 WHERE brd_seq = #{brdSeq}#
 	</update>
 	
 	<!-- 코멘트 삭제처리 -->
 	<update id="updateBOM_BOARD_CMT_TBDel" parameterType="java.util.HashMap">
 		UPDATE tbl010104
-		   SET del_yn = 'T', del_dt = NOW(), del_user = #userId#
-		 WHERE brd_seq = #brdSeq#
-		   AND comm_no = #commNo#
+		   SET del_yn = 'T', del_dt = NOW(), del_user = #{userId}#
+		 WHERE brd_seq = #{brdSeq}#
+		   AND comm_no = #{commNo}#
 	</update>
 	
 	<!-- 첨부파일 삭제처리 -->
 	<delete id="deleteTBL010103" parameterType="long">
 		DELETE FROM BOM_ATTACHFILE_TB
-		      WHERE brd_seq = #brdseq#
+		      WHERE brd_seq = #{brdseq}#
 	</delete>
 </mapper>
 

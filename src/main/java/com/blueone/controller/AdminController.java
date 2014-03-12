@@ -35,7 +35,7 @@ public class AdminController {
 	public String registAdminInfo(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
 		adminManageService.registAdminInf(adminInfo);
 		
-		return "redirecr:/admin/getAdminList.do";
+		return "redirect:/admin/getAdminList.do";
 	}
 	
 	@RequestMapping("/registAdminForm.do")
