@@ -29,5 +29,6 @@ public interface ICodeService {
 	
 	List<CodeInfo> getMonthList();
 	List<CodeInfo> getMailSkinList();
-
+	
+	String getCodeName(List<CodeInfo> list, String code);
 }

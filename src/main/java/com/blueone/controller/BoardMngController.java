@@ -22,6 +22,12 @@ import javax.servlet.http.HttpSession;
 
 
 
+
+
+
+
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -38,8 +44,12 @@ import com.blueone.board.domain.BoardStatInfo;
 import com.blueone.board.service.BoardMngService;
 import com.blueone.board.service.BoardService;
 import com.blueone.board.service.BoardTypService;
+import com.blueone.board.service.IBoardMngService;
+import com.blueone.board.service.IBoardService;
+import com.blueone.board.service.IBoardTypService;
 import com.blueone.common.domain.CodeInfo;
 import com.blueone.common.service.CodeService;
+import com.blueone.common.service.ICodeService;
 import com.blueone.common.util.FileDownloadUtility;
 import com.blueone.common.util.FileUploadUtility;
 import com.blueone.common.util.Utility;
@@ -49,12 +59,17 @@ import com.blueone.login.domain.LoginSessionModel;
 @RequestMapping("/boardMng")
 public class BoardMngController {
 	// DI
-	private ApplicationContext context = new ClassPathXmlApplicationContext("/config/applicationContext.xml");
-	private BoardTypService boardTypService = (BoardTypService) context.getBean("boardTypService");
-	private BoardMngService boardMngService = (BoardMngService) context.getBean("boardMngService");
-	private CodeService codeService = (CodeService) context.getBean("codeService");
-	private BoardService boardService = (BoardService) context.getBean("boardService");
-	
+//	private ApplicationContext context = new ClassPathXmlApplicationContext("/config/applicationContext.xml");
+//	private BoardTypService boardTypService = (BoardTypService) context.getBean("boardTypService");
+//	private BoardMngService boardMngService = (BoardMngService) context.getBean("boardMngService");
+//	private CodeService codeService = (CodeService) context.getBean("codeService");
+//	private BoardService boardService = (BoardService) context.getBean("boardService");
+
+	@Autowired private IBoardTypService boardTypService;
+	@Autowired private IBoardMngService boardMngService;
+	@Autowired private ICodeService codeService;
+	@Autowired private IBoardService boardService;
+
 	
 	@RequestMapping("/add.do")
 	public ModelAndView add(@ModelAttribute("BoardSrchModel") BoardSrchInfo boardSrchModel, HttpServletRequest request, HttpSession session) {

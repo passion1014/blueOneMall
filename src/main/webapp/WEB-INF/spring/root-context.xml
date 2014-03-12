@@ -16,14 +16,9 @@
         <property name="username" value="${jdbc.user}"/>
         <property name="password" value="${jdbc.password}"/> -->
         
-        <!-- <property name="driverClassName" value="com.mysql.jdbc.Driver"/> 
-        <property name="url" value="jdbc:mysql://test1.czbiogvx6rse.us-west-2.rds.amazonaws.com:3306/BLUEONEMALL1"/>
-        <property name="username" value="test1"/>
-        <property name="password" value="elaia79!1"/> -->
-
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/> 
         <property name="url" value="jdbc:mysql://test1.czbiogvx6rse.us-west-2.rds.amazonaws.com:3306/BLUEONEMALL1"/>
-        <property name="username" value="blueonestore"/>
+        <property name="username" value="test1"/>
         <property name="password" value="elaia79!1"/>
 
     </bean>

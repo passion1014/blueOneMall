@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import com.blueone.common.domain.StatInfo;
 
 
-@Service
+//@Service
 public class StatService implements IStatService {
 
 	@Autowired

@@ -1,7 +1,8 @@
 package com.blueone.controller;
 
 import java.util.List;
-import java.util.Locale;
+
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,13 +13,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-
-
-
-
-
-import org.springframework.web.servlet.ModelAndView;
 
 import com.blueone.admin.domain.AdminInfo;
 import com.blueone.admin.service.IAdminManageService;
@@ -34,7 +28,6 @@ public class AdminController {
 
 	@RequestMapping(value = "/adminMain.do", method = RequestMethod.GET)
 	public String mainAdminInfo(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
-		
 		return "admin/admin_main";
 	}
 	

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.blueone.common.domain.ZipInfo;
 
-@Service
+//@Service
 public class ZipService implements IZipService {
 
 	@Autowired

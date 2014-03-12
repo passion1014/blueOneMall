@@ -14,11 +14,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.blueone.customer.domain.MemberInfo;
 
 /**
  * Handles requests for the application home page.
  */
+
+@SessionAttributes("memberInfo")
 @Controller
 public class HomeController {
 	
@@ -33,7 +38,6 @@ public class HomeController {
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView home(Locale locale, Model model) {
-		// ∑Œ±◊¡§∫∏ √‚∑¬
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
 		String resourceHost = messageSourceAccessor.getMessage("DataDrivenEnumerationValueImpl_friendyName", "");
@@ -47,9 +51,28 @@ public class HomeController {
 		return mav;
 	}
 	
+	@RequestMapping(value = "/sessionTest.do", method = RequestMethod.GET)
+	public ModelAndView sessionTest(Locale locale, Model model) {
+		logger.info("Welcome home! The client locale is {}.", locale);
+		
+		MemberInfo memberInfo = new MemberInfo();
+		memberInfo.setUserNm("Ïù¥ÏÑ±Ïö±");
+		
+		List<String> list = sqlSession.selectList("myBatis.test.getTest");
+		
+		// Í≤∞Í≥ºÍ∞í Î¶¨ÌÑ¥
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("msg", list.toString());
+		mav.addObject("memberInfo", memberInfo);
+		mav.setViewName("home");
+
+		return mav;
+	}
+
+	
 //	@RequestMapping(value = "/", method = RequestMethod.GET)
 //	public String home(Locale locale, Model model) {
-//		// ∑Œ±◊¡§∫∏ √‚∑¬
+//		// ÔøΩŒ±ÔøΩÔøΩÔøΩÔøΩÔøΩ ÔøΩÔøΩÔøΩ
 //		logger.info("Welcome home! The client locale is {}.", locale);
 //		
 //		List<String> list = sqlSession.selectList("myBatis.test.getTest");

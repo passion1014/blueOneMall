@@ -1,13 +1,14 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE sqlMap      
-    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
-    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
-<sqlMap namespace="boardTyp">
-	<typeAlias alias="BoardTypModel" type="klac.board.model.BoardTypModel"/>
+<!-- <sqlMap namespace="boardTyp"> -->
+<mapper namespace="boardTyp">
+	<!-- <typeAlias alias="BoardTypModel" type="klac.board.model.BoardTypModel"/> -->
 	
 	<!-- 게시판 리스트조회 -->
-	<select id="getBoardTypList" parameterClass="java.util.HashMap" resultClass="BoardTypModel">
+	<select id="getBoardTypList" parameterType="java.util.HashMap" resultType="com.blueone.board.domain.BoardTypInfo">
 		SELECT   t1.brd_typ as brdTyp
 		        ,t1.title
 		        ,t1.list_read_auth as listReadAuth
@@ -53,7 +54,7 @@
 	</select>
 	
 	<!-- 게시판 조회 -->
-	<select id="getBoardTyp" parameterClass="int" resultClass="BoardTypModel">
+	<select id="getBoardTyp" parameterType="int" resultType="com.blueone.board.domain.BoardTypInfo">
 		SELECT t1.brd_typ AS brdTyp
 		      ,t1.title
 		      ,t1.atta_yn AS attaYn
@@ -77,7 +78,7 @@
 	</select>
 	
 	<!-- 게시판 추가 -->
-	<insert id="insertBOM_BOARD_MNG_TB" parameterClass="BoardTypModel">
+	<insert id="insertBOM_BOARD_MNG_TB" parameterType="com.blueone.board.domain.BoardTypInfo">
 		INSERT
 		  INTO BOM_BOARD_MNG_TB(brd_typ
 		                ,title
@@ -109,7 +110,7 @@
 	</insert>
 	
 	<!-- 게시판 수정 -->
-	<update id="updateBOM_BOARD_MNG_TB" parameterClass="BoardTypModel">
+	<update id="updateBOM_BOARD_MNG_TB" parameterType="com.blueone.board.domain.BoardTypInfo">
 		UPDATE BOM_BOARD_MNG_TB
 		   SET title                       = #title#
 		      ,atta_yn                     = #attaYn#
@@ -130,7 +131,8 @@
 		      ,upd_user                    = #updUser#
 		 WHERE brd_typ = #brdTyp#
 	</update>
-</sqlMap>
+<!-- </sqlMap> -->
+</mapper>
 
 
 

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.blueone.common.domain.SmsInfo;
 
-@Service
+//@Service
 public class SmsService implements ISmsService {
 
 	@Autowired
