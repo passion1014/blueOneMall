@@ -28,7 +28,7 @@ public class AdminController {
 
 	@RequestMapping(value = "/adminMain.do", method = RequestMethod.GET)
 	public String mainAdminInfo(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
-		return "admin/admin_main";
+		return "admin/admin/main";
 	}
 	
 	@RequestMapping(value = "/registAdminInf.do")
