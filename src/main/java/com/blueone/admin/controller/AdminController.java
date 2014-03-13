@@ -1,4 +1,4 @@
-package com.blueone.controller;
+package com.blueone.admin.controller;
 
 import java.util.HashMap;
 import java.util.List;
@@ -30,14 +30,21 @@ public class AdminController {
 	IAdminManageService adminManageService;
 	
 
-	@RequestMapping(value = "/adminMain.do", method = RequestMethod.GET)
-	public String mainAdminInfo(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
-		return "admin/admin/main";
+	@RequestMapping(value = "/adminDefault.do", method = RequestMethod.GET)
+	public String defaultAdminInfo(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
+		return "admin/defaultMain";
+	}
+	
+	@RequestMapping(value="/adminMain.do", method= RequestMethod.GET)
+	public String adminConf(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model){
+		
+		   return "admin/admin/adminMain";
+			
 	}
 	
 		
-	@RequestMapping(value="/adminMember.do", method= RequestMethod.GET)
-	public String MemberList(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model){
+	@RequestMapping(value="/member.do", method= RequestMethod.GET)
+	public String memberList(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model){
 		
 		   return "admin/member/memberList";
 		

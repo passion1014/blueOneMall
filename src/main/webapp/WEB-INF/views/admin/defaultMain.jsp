@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<c:import  url="../inc/top.jsp" />
+<c:import  url="./inc/top.jsp" />
 
 <body>
 <div id="Wrap">
 
-	<c:import url="../inc/gnb.jsp"/>
-	<c:import url="../inc/lnb.jsp">
-		<c:param name="slot" value="community"/>
+	<c:import url="./inc/gnb.jsp"/>
+	<c:import url="./inc/lnb.jsp">
+		<c:param name="slot" value=""/>
 	</c:import>
 	
 	<div style="text-align:center;color:#000;width:300px;height:110px;margin:150px auto;padding-top:50px;">
@@ -18,5 +18,5 @@
 </div>
 </body>
 
-<c:import url="../inc/footer.jsp" />
+<c:import url="./inc/footer.jsp" />
 

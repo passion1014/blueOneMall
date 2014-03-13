@@ -9,7 +9,7 @@
 
 	<c:import url="../inc/gnb.jsp"/>
 	<c:import url="../inc/lnb.jsp">
-	   <c:param name="member" value="member"/>
+	   <c:param name="slot" value="member"/>
 	</c:import>
 	
 	

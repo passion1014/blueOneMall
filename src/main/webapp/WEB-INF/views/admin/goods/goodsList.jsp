@@ -6,6 +6,9 @@
 <body>
 <div id="Wrap">
 	<c:import url="../inc/gnb.jsp"/>
+	<c:import url="../inc/lnb.jsp">
+	   <c:param name="slot" value="goods"/>
+	</c:import>
 	
 
 		<div style="text-align:center;color:#000;width:300px;height:110px;margin:150px auto;padding-top:50px;">
