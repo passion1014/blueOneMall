@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.blueone.admin.domain.AccountInfo;
 import com.blueone.admin.domain.AdminInfo;
 import com.blueone.common.util.MsgEnum;
 
@@ -122,6 +123,29 @@ public class AdminManageServiceImpl implements IAdminManageService {
 
 		return adminInfo;
 	}
+	
+	@Override
+	public List<AccountInfo> getAccountInfList(AccountInfo accountInfo){
+		
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+		
+		List<AccountInfo> list = new ArrayList<AccountInfo>();
+		
+		try {
+			Map<String, AccountInfo> sqlParams = new HashMap<String, AccountInfo>();
+
+			
+		    list = sqlSession.selectList("account.selectListBomAdminTb0001",sqlParams);
+			
+		} finally {
+			sqlSession.close();
+		}
+   
+		return  list;
+		
+		
+		
+	} 
 	
 	/**
 	 * 체크

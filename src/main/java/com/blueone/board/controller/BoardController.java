@@ -1,4 +1,4 @@
-package com.blueone.controller;
+package com.blueone.board.controller;
 
 
 import java.util.List;

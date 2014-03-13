@@ -42,12 +42,31 @@
     
 	<!-- 컴포넌트 빈으로 등록 -->
 	<context:component-scan base-package="com.blueone.controller" /> <!-- 컨트롤러들을 등록-->
-	<context:component-scan base-package="com.blueone.shop" />
-	<context:component-scan base-package="com.blueone.admin" /> <!-- Admin Service 등록-->
-	<context:component-scan base-package="com.blueone.admin.controller" /> <!-- Admin 컨트롤러들을 등록-->
-	<context:component-scan base-package="com.blueone.category" /> <!-- Category Service 등록-->
-	<context:component-scan base-package="com.blueone.product" /> <!-- Product Service 등록-->
-	<context:component-scan base-package="com.blueone.board" /> <!-- Board Service 등록-->
-	<context:component-scan base-package="com.blueone.common.service" /> <!-- Common Service 등록-->
 	
+	<context:component-scan base-package="com.blueone.admin.service" /> <!-- Admin Service 등록-->
+	<context:component-scan base-package="com.blueone.admin.controller" /> <!-- Admin 컨트롤러 등록-->
+	
+	<context:component-scan base-package="com.blueone.board.controller" /> <!-- Board Service 등록-->
+	<context:component-scan base-package="com.blueone.board.service" /> <!-- Board 컨트롤러 등록-->
+	
+	<context:component-scan base-package="com.blueone.category.controller" /><!--category 컨트롤러 등록  -->
+	<context:component-scan base-package="com.blueone.category.service" /> <!-- Category Service 등록-->
+	
+	<context:component-scan base-package="com.blueone.common.controller" /> <!--common 컨트롤러 등록  -->
+	<context:component-scan base-package="com.blueone.common.service" /><!-- Common Service 등록-->
+	
+	<context:component-scan base-package="com.blueone.customer.controller" /><!--customer 컨트롤러등록  -->
+	<context:component-scan base-package="com.blueone.customer.service" /> <!-- customer Service 등록-->
+	
+	<context:component-scan base-package="com.blueone.login.controller" /><!-- login 컨트롤러등록  -->
+	<context:component-scan base-package="com.blueone.login.service" /> <!-- login Service 등록-->
+	
+	<context:component-scan base-package="com.blueone.order.controller" /><!-- order 컨트롤러등록  -->
+	<context:component-scan base-package="com.blueone.order.service" /> <!-- order Service 등록-->
+	
+	<context:component-scan base-package="com.blueone.product.controller" /><!--product 컨트롤러등록  -->
+	<context:component-scan base-package="com.blueone.product.service" /> <!-- Product Service 등록-->
+	
+	<context:component-scan base-package="com.blueone.shop.controller" /><!-- Shop 컨트롤러 등록 -->
+	<context:component-scan base-package="com.blueone.shop.service" /><!-- shop Service 등록 -->
 </beans:beans>

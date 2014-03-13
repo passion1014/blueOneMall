@@ -29,10 +29,23 @@ public class AdminController {
 	@Autowired
 	IAdminManageService adminManageService;
 	
-
+    
+	@RequestMapping(value = "/adminLoginForm.do", method = RequestMethod.GET)
+	public String adminLoginform(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
+		return "admin/adminLoginForm";
+		
+	}
+	
+	@RequestMapping(value = "/adminLogin.do", method = RequestMethod.GET)
+	public String adminLogin(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
+		return "redirect:admin/adminDefault.do";
+		
+	}
+	
 	@RequestMapping(value = "/adminDefault.do", method = RequestMethod.GET)
 	public String defaultAdminInfo(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
 		return "admin/defaultMain";
+		
 	}
 	
 	@RequestMapping(value="/adminMain.do", method= RequestMethod.GET)
@@ -41,46 +54,6 @@ public class AdminController {
 		   return "admin/admin/adminMain";
 			
 	}
-	
-		
-	@RequestMapping(value="/member.do", method= RequestMethod.GET)
-	public String memberList(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model){
-		
-		   return "admin/member/memberList";
-		
-		
-	}
-	
-	@RequestMapping(value="/goods.do", method= RequestMethod.GET)
-	public String goodsList(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model){
-		
-		   return "admin/goods/goodsList";
-		
-		
-	}
-	
-	@RequestMapping(value="/order.do", method= RequestMethod.GET)
-	public String orderList(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model){
-		
-		   return "admin/order/orderList";
-		
-		
-	}
-	
-	
-	
-	@RequestMapping(value="/community.do", method= RequestMethod.GET)
-	public String community(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model){
-		
-		   return "admin/community/boardList";
-		
-		
-	}
-	
-
-	
-	
-	
 	
     @RequestMapping(value = "/registAdminInf.do")
 	public String registAdminInfo(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
@@ -98,10 +71,6 @@ public class AdminController {
 	@RequestMapping(value = "/editAdminInf.do", method = RequestMethod.POST)
 	public String editAdminInfo(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
 		adminManageService.editAdminInf(adminInfo);
-		
-		
-		
-		
 		
 		return "admin/result";
 	}

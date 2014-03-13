@@ -1,4 +1,4 @@
-package com.blueone.controller;
+package com.blueone.shop.controller;
 
 import java.util.List;
 

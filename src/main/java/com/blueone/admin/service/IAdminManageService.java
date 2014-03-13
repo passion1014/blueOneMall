@@ -3,6 +3,7 @@ package com.blueone.admin.service;
 import java.util.HashMap;
 import java.util.List;
 
+import com.blueone.admin.domain.AccountInfo;
 import com.blueone.admin.domain.AdminInfo;
 
 public interface IAdminManageService {
@@ -11,4 +12,5 @@ public interface IAdminManageService {
 	public int editAdminInf(AdminInfo adminInfo); /*운영자수정*/
 	public List<AdminInfo> getAdminInfList(AdminInfo adminInfo); /*운영자목록*/
 	public AdminInfo getAdminInfDetail(AdminInfo adminInfo); /*운영자 상세정보*/
+	public List<AccountInfo> getAccountInfList(AccountInfo accountInfo);/*계좌목록*/
 }
