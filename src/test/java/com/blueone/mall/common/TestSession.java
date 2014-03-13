@@ -8,7 +8,7 @@ import static org.springframework.test.web.server.result.MockMvcResultMatchers.s
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpSession;
 
-import com.blueone.customer.domain.MemberInfo;
+import com.blueone.customer.domain.CustomerInfo;
 import com.blueone.mall.BlueoneTestCase;
 
 public class TestSession extends BlueoneTestCase {
@@ -32,8 +32,8 @@ public class TestSession extends BlueoneTestCase {
 	private void printSessionInfo(MockHttpSession session, String attributeName) {
 		
 		if (session.getAttribute(attributeName) != null) {
-			MemberInfo memberInfo = (MemberInfo)session.getAttribute(attributeName);
-			System.out.println("Login Name is " + memberInfo.getUserNm());
+			CustomerInfo memberInfo = (CustomerInfo)session.getAttribute(attributeName);
+			System.out.println("Login Name is " + memberInfo.getCustNm());
 			
 		} else {
 			System.out.println(attributeName + " is NULL");

@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 import com.blueone.common.domain.MailInfo;
 import com.blueone.common.util.Configuration;
 import com.blueone.common.util.Utility;
-import com.blueone.customer.domain.MemberInfo;
+import com.blueone.customer.domain.CustomerInfo;
 
 //@Service
 public class MailService implements IMailService {
@@ -35,7 +35,7 @@ public class MailService implements IMailService {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		
 		StringBuffer eMailInfo = new StringBuffer();
-		List<MemberInfo> memberList = sqlSession.selectList("mail.getCheckEmail", mailModel);
+		List<CustomerInfo> memberList = sqlSession.selectList("mail.getCheckEmail", mailModel);
 		
 		if (memberList != null && memberList.size() > 0) {
 			for (int i = 0; i < memberList.size(); i++) {
@@ -75,12 +75,12 @@ public class MailService implements IMailService {
 	}
 	
 	@Override
-	public boolean sentMailUserId(MemberInfo member) {
+	public boolean sentMailUserId(CustomerInfo member) {
 		
 		// 내용
 		HashMap<String, String> hm = new HashMap<String, String>();
 		hm.put("title", "회원정보");
-		hm.put("content", "아이디 : " + member.getUserId());
+		hm.put("content", "아이디 : " + member.getCustId());
 		String cont = applyTemplet("sample/mail/email.htm", hm);
 		
 		MailInfo mailModel = new MailInfo();
@@ -117,7 +117,7 @@ public class MailService implements IMailService {
 	}
 	
 	@Override
-	public boolean sentMailPasswd(MemberInfo member) {
+	public boolean sentMailPasswd(CustomerInfo member) {
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
@@ -165,7 +165,7 @@ public class MailService implements IMailService {
 	}
 	
 	@Override
-	public boolean sentMailUserInfo(MemberInfo member) {
+	public boolean sentMailUserInfo(CustomerInfo member) {
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
@@ -182,7 +182,7 @@ public class MailService implements IMailService {
 			// 내용
 			HashMap<String, String> hm = new HashMap<String, String>();
 			hm.put("title", "회원정보");
-			hm.put("content", "아이디 : " + member.getUserId() + ", 비밀번호 : " + member.getPasswd());
+			hm.put("content", "아이디 : " + member.getCustId() + ", 비밀번호 : " + member.getPasswd());
 			String cont = applyTemplet("sample/mail/email.htm", hm);
 			
 			MailInfo mailModel = new MailInfo();

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.blueone.customer.domain.MemberInfo;
+import com.blueone.customer.domain.CustomerInfo;
 
 /**
  * Handles requests for the application home page.
@@ -55,8 +55,8 @@ public class HomeController {
 	public ModelAndView sessionTest(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
-		MemberInfo memberInfo = new MemberInfo();
-		memberInfo.setUserNm("이성욱");
+		CustomerInfo memberInfo = new CustomerInfo();
+		memberInfo.setCustNm("이성욱");
 		
 		List<String> list = sqlSession.selectList("myBatis.test.getTest");
 		

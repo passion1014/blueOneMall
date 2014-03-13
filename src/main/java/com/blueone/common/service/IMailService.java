@@ -3,7 +3,7 @@ package com.blueone.common.service;
 import java.util.List;
 
 import com.blueone.common.domain.MailInfo;
-import com.blueone.customer.domain.MemberInfo;
+import com.blueone.customer.domain.CustomerInfo;
 
 public interface IMailService {
 	// 선택한 회원의 메일정보 조회
@@ -18,9 +18,9 @@ public interface IMailService {
 	MailInfo selectTBL090810(long mailSeq);
 	
 	// 아이디찾기
-	boolean sentMailUserId(MemberInfo member);
-	boolean sentMailPasswd(MemberInfo member);
+	boolean sentMailUserId(CustomerInfo member);
+	boolean sentMailPasswd(CustomerInfo member);
 	
 	// 아이디/비번정보 메일발송
-	boolean sentMailUserInfo(MemberInfo member);
+	boolean sentMailUserInfo(CustomerInfo member);
 }

@@ -2,19 +2,18 @@ package com.blueone.product.domain;
 
 public class ProductInfo {
 	private int idx;
-	private String prdCd;
-	private String prdNm;
-	private String prdDesc;
-	private String prdDescHtml;
-	private String prdCtgL;
-	private String prdCtgM;
-	private String prdCtgS;
-	private String fromDate;
-	private String toDate;
-	private String regDate;
-	private String lastDate;
-	private String modifyUserId;
-	
+	private String prdCd;		// 상품코드
+	private String prdNm;		// 상품명
+	private String prdDesc;		// 상품상세내용
+	private String prdDescHtml;	// 상품상세내용HTML
+	private String prdCtgL;		// 대분류코드
+	private String prdCtgM;		// 중분류코드
+	private String prdCtgS;		// 소분류코드
+	private String fromDate;	// 적용시작일
+	private String toDate;		// 적용종료일
+	private String regDate;		// 등록일
+	private String lastDate;	// 최종수정일
+	private String modifyUserId;// 최종수정자
 	
 	public int getIdx() {
 		return idx;

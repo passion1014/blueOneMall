@@ -5,13 +5,13 @@ import org.springframework.validation.Validator;
 
 import com.blueone.board.domain.BoardTypInfo;
 import com.blueone.common.util.Utility;
-import com.blueone.customer.domain.MemberInfo;
+import com.blueone.customer.domain.CustomerInfo;
 
 public class BoardTypValidatior implements Validator {
 
 	@Override
 	public boolean supports(Class<?> clazz) {
-		return MemberInfo.class.isAssignableFrom(clazz);
+		return CustomerInfo.class.isAssignableFrom(clazz);
 	}
 
 	@Override
