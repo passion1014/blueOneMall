@@ -1,6 +1,8 @@
 package com.blueone.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.blueone.admin.domain.AdminInfo;
 import com.blueone.admin.service.IAdminManageService;
@@ -32,35 +35,27 @@ public class AdminController {
 		return "admin/admin/main";
 	}
 	
-	
-	@RequestMapping(value="/adminSetting.do", method= RequestMethod.GET)
-	public String adminSetting(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model){
 		
-		   return "admin/admin/adminSetting";
-		
-		
-	}
-	
 	@RequestMapping(value="/adminMember.do", method= RequestMethod.GET)
-	public String adminMember(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model){
+	public String MemberList(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model){
 		
-		   return "admin/admin/adminMember";
+		   return "admin/member/memberList";
 		
 		
 	}
 	
-	@RequestMapping(value="/item.do", method= RequestMethod.GET)
-	public String item(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model){
+	@RequestMapping(value="/goods.do", method= RequestMethod.GET)
+	public String goodsList(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model){
 		
-		   return "admin/admin/item";
+		   return "admin/goods/goodsList";
 		
 		
 	}
 	
 	@RequestMapping(value="/order.do", method= RequestMethod.GET)
-	public String order(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model){
+	public String orderList(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model){
 		
-		   return "admin/admin/order";
+		   return "admin/order/orderList";
 		
 		
 	}
@@ -70,10 +65,12 @@ public class AdminController {
 	@RequestMapping(value="/community.do", method= RequestMethod.GET)
 	public String community(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model){
 		
-		   return "admin/admin/community";
+		   return "admin/community/boardList";
 		
 		
 	}
+	
+
 	
 	
 	

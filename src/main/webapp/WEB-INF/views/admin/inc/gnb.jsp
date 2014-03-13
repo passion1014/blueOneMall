@@ -10,9 +10,9 @@
 	
 <div id="GNB">
 	<ul>
-		<li><a href="adminSetting.do">환경설정</a></li>
+		<li><a href="adminMain.do">환경설정</a></li>
 		<li><a href="adminMember.do">회원관리</a></li>
-		<li><a href="item.do">상품관리</a></li>
+		<li><a href="goods.do">상품관리</a></li>
 		<li><a href="order.do">주문관리</a></li>
 		<li><a href="community.do">커뮤니티</a></li>
 	</ul>
