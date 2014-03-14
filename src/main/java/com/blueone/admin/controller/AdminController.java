@@ -30,13 +30,13 @@ public class AdminController {
 	IAdminManageService adminManageService;
 	
     
-	@RequestMapping(value = "/adminLoginForm.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/adminLogin.do", method = RequestMethod.GET)
 	public String adminLoginform(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
-		return "admin/adminLoginForm";
+		return "admin/adminLogin";
 		
 	}
 	
-	@RequestMapping(value = "/adminLogin.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/adminLoginLogic.do", method = RequestMethod.GET)
 	public String adminLogin(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
 		return "redirect:admin/adminDefault.do";
 		
