@@ -10,12 +10,12 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>:: ADMIN ::</title>
 
-<link type="text/css" rel="stylesheet" href="<c:url value='/resources/css/admin/basic.css'/>" />
-<link type="text/css" rel="stylesheet" href="<c:url value='/resources/css/admin/admin.css'/>" />
+<link type="text/css" rel="stylesheet" href="<c:url value='/resources/css/basic.css'/>" />
+<link type="text/css" rel="stylesheet" href="<c:url value='/resources/css/admin.css'/>" />
 
-<script type="text/javascript" src="<c:url value='/resources/js/admin/js_ajax.js'/>"> </script>
-<script type="text/javascript" src="<c:url value='/resources/js/admin/js_common.js'/>"> </script>
-<script type="text/javascript" src="<c:url value='/resources/js/admin/js_admin.js'/>"> </script>
+<script type="text/javascript" src="<c:url value='/resources/js/js_ajax.js'/>"> </script>
+<script type="text/javascript" src="<c:url value='/resources/js/js_common.js'/>"> </script>
+<script type="text/javascript" src="<c:url value='/resources/js/js_admin.js'/>"> </script>
 
 <!--[if lt IE 9]>
 <script src="js/jquery_html5shiv.js"></script>
