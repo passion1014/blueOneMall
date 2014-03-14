@@ -1,0 +1,573 @@
+@charset "utf-8";
+
+body,form,div,p,h1,h2,h3,h4,h5,h6,dl,dt,dd,ul,ol,li,fieldset,input,th,td, form {
+    font: 12px 나눔고딕, 'Nanum Gothic',Arial,sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 20px;
+    color: #444;
+}
+
+a, a:link, a:visited {text-decoration:none;}
+a:hover, a:active {text-decoration:underline;}
+
+input,select,textarea {
+    font: 12px 나눔고딕, 'Nanum Gothic',Arial,sans-serif;
+    color: #494949;
+}
+
+address,caption,cite,code,dfn,em,th,var {
+    font-style: normal;
+    font-weight: normal;
+}
+
+fieldset,img {
+    border: 0;
+    vertical-align: top;
+}
+
+input,select {
+    vertical-align: middle;
+}
+
+ol,ul,dl {
+    list-style: none;
+}
+
+html,body {
+}
+
+html {
+    overflow-y: scroll;
+}
+
+/* Login Page */
+#Login_Wrap {
+    overflow: hidden;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 360px;
+    height: 280px;
+    margin: -125px 0 0 -180px;
+    background: #f1f1f1;
+}
+
+#Login_Wrap h1 {
+    overflow: hidden;
+    padding: 7px 5px 0 5px;
+    border-bottom: 3px solid #47c9af;
+    font-size: 12px;
+    background: #fff;
+}
+
+#Login_Wrap h1 p {
+    float: left;
+    padding: 60px 0 0 0;
+    color: #fff;
+    font-size: 15px;
+}
+
+#Login_Wrap h1 img {
+    float: left;
+    padding: 5px 10px;
+    margin: 0 10px 0 0;
+    vertical-align: middle;
+}
+
+#Login_Wrap div {
+    float: left;
+    margin: 20px 0 20px 36px;
+}
+
+#Login_Wrap div p {
+    line-height: 34px;
+}
+
+#Login_Wrap div p span {
+    display: inline-block;
+    width: 54px;
+    font-weight: bold;
+    color: #fff;
+}
+
+#Login_Wrap div p input {
+    border: 1px solid #fff;
+    width: 120px;
+    height: 21px;
+    padding: 0 5px;
+    line-height: 21px;
+    vertical-align: middle;
+}
+
+#Login_Wrap table {
+    width: 79%;
+    margin: 10px 20px 10px 30px;
+    border-collapse: collapse;
+    background: #fff;
+    border: 1px solid #47c9af;
+    color: #30ab92;
+}
+
+#Login_Wrap table th {
+    text-align: left;
+    padding: 0 11px;
+    font-weight: bold;
+}
+
+#Login_Wrap table td {
+    text-align: center;
+    padding: 10px 0;
+}
+
+.login_wrapper {
+    width: 500px;
+    margin: 150px auto;
+}
+
+.admin_logo {
+    text-align: center;
+}
+
+.admin_input {
+    width: 351px;
+    margin-top: 20px;
+    padding-bottom: 30px;
+    margin: 50px auto;
+}
+
+.btn_login {
+    height: 48px;
+    width: 283px;
+    font: 20px 나눔고딕, 'Nanum Gothic',Arial,sans-serif;
+    background: #2d80a3;
+    position: relative;
+    border-bottom: 2px solid #00395a;
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+    color: #fff;
+}
+
+.btn_login:active {
+    top: 1px;
+    border-bottom: 1px solid #00395a;
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+}
+
+.admin_input p {
+    margin-left: 34px;
+    margin-right: 34px;
+}
+
+.admin_input label {
+    margin-bottom: 10px;
+    color: #fff;
+    font-size: 11px;
+    text-transform: uppercase;
+    line-height: 25px;
+}
+
+form#loginform .input {
+    width: 261px;
+    border: 1px #fff solid;
+    border-radius: 0;
+    background: none;
+    color: #fff;
+    padding: 10px;
+    font-size: 22px;
+    outline: 0;
+}
+
+form#loginform .input_id {
+    margin-top: 30px;
+}
+
+form#loginform .input_pass {
+    margin-top: 10px;
+}
+
+form#loginform .input_btn {
+    margin-top: 10px;
+}
+
+.admin_input .company {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.admin_input .company .company_tit {
+    line-height: 30px;
+}
+
+.admin_input .company .font_light {
+    font-size: 11px;
+    color: #868686;
+    line-height: 16px;
+}
+
+
+/* Admin Page Layout */
+#Wrap {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0 auto;
+}
+
+#Header {
+    overflow: hidden;
+    height: 30px;
+    margin: 0;
+    padding: 20px 10px 40px 25px;
+}
+
+#GNB {
+    overflow: hidden;
+    height: 50px;
+    margin: 0;
+    padding: 0;
+    background: #2d80a3;
+    border-bottom: 2px solid #00395a;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+#LNB {
+    position: absolute;
+    width: 200px;
+    margin: 15px 0 0 30px;
+    border-bottom: 2px solid #00395a;
+    background: #f7f7f7;
+    padding-left:;
+}
+
+#Contents {
+    overflow: hidden;
+    padding: 0 30px;
+    margin: 0 0 0 225px;
+}
+
+/* Header */
+#Header div {
+    float: right;
+}
+
+#Header div input {
+    margin: 0 0 0 10px;
+    width: 70px;
+    height: 25px;
+    border: 0;
+    background: #00395a;
+    color: #fff;
+    font-weight: bold;
+    font-size: 12px;
+    vertical-align: middle;
+}
+
+/* GNB */
+#GNB ul {
+    overflow: auto;
+    list-style: none;
+    padding-left: 20px;
+}
+
+#GNB ul li {
+    float: left;
+    list-style: none;
+    height: 15px;
+    padding: 16px 0px 5px 0px;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 15px;
+}
+
+#GNB ul li a:link, #GNB ul li a:visited {
+    text-decoration: none;
+    font-weight: bold;
+    color: #fff;
+}
+
+#GNB ul li a:hover, #GNB ul li a:active {
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.GNB_ON {
+    font-size: 15px;
+    border-bottom: 2px solid #fff;
+    font-weight: bold;
+    color: #fff;
+}
+
+/* LNB */
+#LNB h1 {
+    position: relative;
+    height: 28px;
+    margin: 0 0 0 0;
+    padding: 6px 10px;
+    border-bottom: 2px solid #00395a;
+    background: #2d80a3;
+    color: #fff;
+    font-size: 16px;
+    line-height: 28px;
+    padding-left: 20px;
+}
+
+#LNB ul {
+    list-style: none;
+    margin: 0 15px;
+    padding: 15px 0 30px 0;
+    border-bottom: 1px solid #dbd4c8;
+}
+
+#LNB ul h2 {
+    padding: 5px 0 10px 10px;
+    color: #2d80a3;
+    font-size: 14px;
+}
+
+#LNB ul li {
+    padding: 5px 0 5px 15px;
+    line-height: 18px;
+}
+
+#LNB ul li a:link, #LNB ul li a:visited {
+    text-decoration: none;
+    color: #5b5b5b;
+}
+
+#LNB ul li a:active, #LNB ul li a:hover {
+    text-decoration: none;
+    color: #2d80a3;
+}
+
+/* Contents */
+#Contents h1 {
+    display: block;
+    margin: 5px 0;
+    padding: 5px 0;
+    color: #999;
+    border-bottom: 1px solid #000;
+}
+
+#Contents h1 strong {
+    color: #2d80a3;
+}
+
+#Contents div.Top_search {
+    width: 100%;
+    vertical-align: middle;
+    padding: 10px 0;
+}
+
+#Contents div.Top_search input.text {
+    width: 150px;
+}
+
+#Contents div.BBS_search {
+    width: 100%;
+    vertical-align: middle;
+    padding: 10px 0;
+    text-align: center;
+}
+
+#Contents div.BBS_search input.text {
+    width: 200px;
+}
+
+#Contents div.Btn_area {
+    overflow: hidden;
+    margin: 10px 0 0 0;
+    text-align: center;
+}
+
+.none {
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 100px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    width: 475px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    vertical-align: middle;
+}
+
+/* BBs Table */
+#Contents table, table.tbl1 {
+    width: 100%;
+    border-top: 2px solid #666;
+    border-bottom: 2px solid #666;
+    border-collapse: collapse;
+    margin: 5px 0 5px 0;
+}
+
+#Contents table th, table.tbl1 th {
+    background: #f7f7f7;
+    padding: 10px;
+    font-weight: bold;
+    border: 1px solid #999;
+		vertical-align:middle;
+}
+
+#Contents table td, table.tbl1 td {
+    background: #fff;
+    padding: 10px;
+    border: 1px solid #999;
+    text-align: center;
+		 vertical-align: middle;
+}
+
+#Contents table td a:link, #Contents table td a:visited, table.tbl1 td a:link, table.tbl1 td a:visited {
+    text-decoration: none;
+    color: #494949;
+}
+
+#Contents table td a:active, #Contents table td a:hover, table.tbl1 td a:active, table.tbl1 td a:hover {
+    text-decoration: underline;
+    color: #494949;
+}
+/*#Contents table td div { margin:10px; min-height:360px; text-align:left; }*/
+#Contents table td textarea.Reply_Text {
+    overflow: auto;
+    width: 98%;
+    height: 42px;
+    padding: 5px;
+}
+
+/* input */
+input.Radio {
+    margin: 0 5px 3px 5px;
+}
+
+input.Text {
+    padding: 0 5px;
+}
+
+.button_green {
+    border: 0;
+    color: #fff;
+    background: #47c9af;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.button_red {
+    border: 0;
+    color: #fff;
+    background: #f8866e;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.button_small {
+    padding: 7px 10px 6px 10px;
+    font-size: 11px;
+}
+
+.button_medium {
+    padding: 10px 20px;
+}
+
+select {
+    padding: 4px;
+}
+
+input[type="text"],input[type="password"] {
+    height: 22px;
+}
+
+input.Button {
+    border: 0;
+    padding: 10px 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+input.Small_Button {
+    padding: 3px 6px;
+    font-weight: bold;
+}
+
+
+input.Big_Button {
+	background: #f8866e;
+    color: #fff;
+    border: 0;
+	width: 100px;
+    height: 100px;
+    padding: 3px 6px;
+    font-weight: bold;
+}
+
+input.Gray {
+    background: #f8866e;
+    color: #fff;
+    border: 0;
+}
+
+input.Login {
+    margin: 26px 0 0 5px;
+    height: 58px;
+    background: #47c9af;
+    color: #fff;
+    border: 1px solid #30ab92;
+}
+
+#Paser {
+    overflow: hidden;
+    padding: 15px 0 30px 0;
+    text-align: center;
+}
+
+#Paser span {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    border: 1px solid #dfdfdf;
+    text-align: center;
+    line-height: 24px;
+    font-weight: bold;
+    color: #019bfd;
+}
+
+#Paser input.prev {
+    width: 47px;
+    height: 26px;
+    margin: -2px 0 0 0;
+    border: 1px solid #dfdfdf;
+    background: url(../images/admin/common/btn_pre.png) no-repeat !important;
+}
+
+#Paser input.next {
+    width: 47px;
+    height: 26px;
+    margin: -2px 0 0 0;
+    border: 1px solid #dfdfdf;
+    background: url(../images/admin/common/btn_next.png) no-repeat !important;
+}
+
+#Paser span a:link, #Paser span a:visited {
+    color: #717171;
+    font-weight: normal;
+}
+
+#Paser span a:hover, #Paser span a:active {
+    color: #019bfd;
+    font-weight: bold;
+}
+
+.red {
+    color: #d9654d;
+}
+
+.blue {
+    color: #2980b9;
+}
+
+.green {
+    color: #30ab92;
+}
