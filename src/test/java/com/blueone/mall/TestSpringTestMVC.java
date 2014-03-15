@@ -15,7 +15,7 @@ import static org.springframework.test.web.server.result.MockMvcResultMatchers.*
 import static org.springframework.test.web.server.result.MockMvcResultHandlers.*;
 
 /**
- * Junit°ú Spring-Test-MVC¸¦ »ç¿ëÇÏ¿© Å×½ºÆ®ÄÉÀÌ½º¸¦ ¸¸µå´Â ¿¹Á¦ÀÌ´Ù.
+ * Junitï¿½ï¿½ Spring-Test-MVCï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½×½ï¿½Æ®ï¿½ï¿½ï¿½Ì½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
  * 2014.02.24
  * @author daniel
  */
@@ -25,12 +25,6 @@ public class TestSpringTestMVC extends BlueoneTestCase {
 	@Autowired
 	private MessageSourceAccessor messageSourceAccessor;
 
-//	@Resource(name="messageSourceAccessor")
-//	private MessageSourceAccessor messageSourceAccessor;
-	
-	/**
-	 * SPRING-TEST-MVC¸¦ »ç¿ëÇÏ´Â ¿¹Á¦ÀÌ´Ù.
-	 */
 	@Test
 	public void testHomeController() throws Exception {
 
@@ -46,11 +40,6 @@ public class TestSpringTestMVC extends BlueoneTestCase {
 	public void testPropertyPlaceHolder() throws Exception {
 //		String resourceHost = messageSourceAccessor.getMessage("DataDrivenEnumerationValueImpl_friendyName", "");
 		String resourceHost = messageSourceAccessor.getMessage("basenames", "1");
-
-//		À¥¿¡¼­ »ç¿ëÇÏ±â
-//		<spring:message code='test' arguments='¸Þ½ÃÁöÅ×½ºÆ®' var="testMessage"/>
-//		<spring:message code='test1' var="testMessage1"/>
-
 
 		System.out.println("==================[" + resourceHost + "]==================");
 		System.out.println(resourceHost);

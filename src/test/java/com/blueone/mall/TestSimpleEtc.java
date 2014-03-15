@@ -4,7 +4,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.junit.Test;
 
-public class TestSimpleEtc {
+public class TestSimpleEtc extends BlueoneTestCase {
 
 	@Test
 	public void testStringCnvt2Int() {
@@ -22,5 +22,10 @@ public class TestSimpleEtc {
 		System.out.println("cnvt=" + NumberUtils.toInt("12"));
 		
 		System.out.println("cnvt=" + NumberUtils.toInt(null, -1));
+	}
+	
+	@Test
+	public void bindingTest() {
+		
 	}
 }

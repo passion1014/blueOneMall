@@ -47,6 +47,24 @@ public class TestSession extends BlueoneTestCase {
 		printAdminSessionInfo(session, "adminLoginInfo");
 	}
 
+	@Test
+	public void testSession2() throws Exception {
+		// 세션선언
+		MockHttpSession session = new MockHttpSession();
+		mockMvc.perform(get("/cust/setSessionTest.do").session(session)
+				.param("status", "status")
+				.param("id", "id")
+				.param("password", "password")
+				.param("pasword", "password")
+		)
+		.andDo(print());
+
+		mockMvc.perform(get("/cust/getSessionTest2.do").session(session)
+//				.param("author", "mOer")
+		)
+		.andDo(print());
+
+	}
 	
 	private void printSessionInfo(MockHttpSession session, String attributeName) {
 		
