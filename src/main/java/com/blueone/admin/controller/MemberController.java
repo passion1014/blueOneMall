@@ -16,13 +16,38 @@ public class MemberController {
 
 	private IMemberService memberService;
 	
-	@RequestMapping(value="/member.do", method= RequestMethod.GET)
+	@RequestMapping(value="/memberList.do", method= RequestMethod.GET)
 	public String memberList(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model){
 		
 		   return "admin/member/memberList";
 		
 		
 	}
+	
+	@RequestMapping(value="/memberAgreement.do", method=RequestMethod.GET)
+	public String memberAgreement(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model){
+		
+		   return "admin/member/memberAgreement";
+		
+	}
+	
+	@RequestMapping(value="/personInfo.do", method=RequestMethod.GET)
+	public String personInfo(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model){
+		
+		   return "admin/member/personInfo";
+		
+	}
+	
+	@RequestMapping(value="/memberRegist.do", method=RequestMethod.GET)
+	public String memberRegist(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model){
+		
+		   return "admin/member/memberRegist";
+		
+	}
+	
+
+	
+	
 	
 	
 }

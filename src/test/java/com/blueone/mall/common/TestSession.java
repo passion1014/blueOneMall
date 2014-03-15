@@ -8,6 +8,7 @@ import static org.springframework.test.web.server.result.MockMvcResultMatchers.s
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpSession;
 
+import com.blueone.admin.domain.AdminInfo;
 import com.blueone.customer.domain.CustomerInfo;
 import com.blueone.mall.BlueoneTestCase;
 
@@ -29,6 +30,24 @@ public class TestSession extends BlueoneTestCase {
 		printSessionInfo(session, "memberInfo");
 	}
 	
+	@Test
+	public void testAdminSession() throws Exception {
+
+		// 세션선언
+		MockHttpSession session = new MockHttpSession();
+		
+		// 세션정보 셋팅
+		mockMvc.perform(post("/admin/adminLoginLogic.do").session(session)
+				.param("id", "id5")
+				.param("password", "password"))
+		.andExpect(status().isOk())
+		.andDo(print());
+		
+		// 입력된 세션정보 확인
+		printAdminSessionInfo(session, "adminLoginInfo");
+	}
+
+	
 	private void printSessionInfo(MockHttpSession session, String attributeName) {
 		
 		if (session.getAttribute(attributeName) != null) {
@@ -41,4 +60,15 @@ public class TestSession extends BlueoneTestCase {
 		}
 	}
 
+	private void printAdminSessionInfo(MockHttpSession session, String attributeName) {
+		
+		if (session.getAttribute(attributeName) != null) {
+			AdminInfo memberInfo = (AdminInfo)session.getAttribute(attributeName);
+			System.out.println("Login admin id = " + memberInfo.getId());
+			
+		} else {
+			System.out.println(attributeName + " is NULL");
+			
+		}
+	}
 }

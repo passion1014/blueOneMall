@@ -5,10 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.blueone.admin.domain.AccountInfo;
 import com.blueone.admin.domain.AdminInfo;
@@ -121,6 +125,38 @@ public class AdminManageServiceImpl implements IAdminManageService {
 			sqlSession.close();
 		}
 
+		return adminInfo;
+	}
+	
+	@Override
+	public AdminInfo adminLogin(AdminInfo adminInfo) {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+
+		// 최초 Default 셋팅
+		adminInfo.setRightLogin(false);
+		try {
+			// DB에서 해당 아이디로 조회
+			Map<String, AdminInfo> sqlParams = new HashMap<String, AdminInfo>();
+			sqlParams.put("adminInfo", adminInfo);
+			AdminInfo dbAdminInfo = sqlSession.selectOne("admin.selectDtlBomAdminTb0001", sqlParams);
+			
+			if (dbAdminInfo != null) {
+				String inPwd = adminInfo.getPassword();
+				String dbPwd = dbAdminInfo.getPassword();
+				
+				// 로그인 정보 체크
+				if (!StringUtils.isEmpty(inPwd) && inPwd.equals(dbPwd)) {
+					adminInfo.setRightLogin(true);
+				}
+			}
+		} catch(Exception e) {
+			System.out.println(e);
+		} finally {
+			sqlSession.close();
+		}
+		
+		
+		
 		return adminInfo;
 	}
 	

@@ -26,7 +26,7 @@
 				,`ADMIN_HIT`,`ADMIN_CMT`,`REG_DATE`,`LAST_DATE`
 		FROM BOM_ADMIN_TB
 		WHERE
-			admin_id = #{adminInfo.id}
+			ADMIN_ID = #{adminInfo.id}
 	</select >
 	
 	<select id="selectListBomAdminTb0001" parameterType="hashmap" resultType="com.blueone.admin.domain.AdminInfo" resultMap="AdminInfoMap">

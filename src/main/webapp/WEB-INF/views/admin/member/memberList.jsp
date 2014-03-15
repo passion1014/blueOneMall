@@ -11,12 +11,9 @@
 	<c:import url="../inc/lnb.jsp">
 	   <c:param name="slot" value="member"/>
 	</c:import>
-	
-	
-	
-	<div style="text-align:center;color:#000;width:300px;height:110px;margin:150px auto;padding-top:50px;">
-		<span style="font-weight:bold">현대몰</span> 회원관리페이지입니다.<br><br>원하시는 관리메뉴를 선택해 주세요
-	</div>
+	<c:import url="membercontainer.jsp">
+	    <c:param name="container" value="memberList"/>
+	</c:import>	
 	
 
 </div>

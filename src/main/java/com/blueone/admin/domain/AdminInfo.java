@@ -15,6 +15,14 @@ public class AdminInfo {
 	private String regDate;
 	private String lastDate;
 	
+	private boolean isRightLogin;
+	
+	public boolean isRightLogin() {
+		return isRightLogin;
+	}
+	public void setRightLogin(boolean isRightLogin) {
+		this.isRightLogin = isRightLogin;
+	}
 	public int getIdx() {
 		return idx;
 	}

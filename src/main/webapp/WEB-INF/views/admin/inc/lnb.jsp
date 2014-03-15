@@ -27,8 +27,14 @@
 	<div id="LNB">
 		<h1>회원관리</h1>
 		<ul>
-			<h2>&nbsp;</h2>
-			<span style="line-height:10px;">&nbsp;</span>
+			<h2>약관정보</h2>
+			<span style="line-height:10px;"><a href="memberAgreement.do">이용약관</a></span><br/>
+			<span style="line-height:10px;"><a href="personInfo.do">개인보호취급방침</a></span>
+		</ul>
+		<ul>
+			<h2>회원정보</h2>
+			<span style="line-height:10px;"><a href="memberList.do">회원목록</a></span><br/>
+			<span style="line-height:10px;"><a href="memberRegist.do">회원등록</a></span>			
 		</ul>
 	</div>
 	</c:when>
