@@ -1,5 +1,8 @@
 package com.blueone.admin.domain;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
+
 public class AdminInfo {
 	private int idx;
 	private String status;
@@ -15,14 +18,13 @@ public class AdminInfo {
 	private String regDate;
 	private String lastDate;
 	
-	private boolean isRightLogin;
+	public AdminInfo() {}
 	
-	public boolean isRightLogin() {
-		return isRightLogin;
+	public AdminInfo(String id, String password) {
+		this.id = id;
+		this.password = password;
 	}
-	public void setRightLogin(boolean isRightLogin) {
-		this.isRightLogin = isRightLogin;
-	}
+
 	public int getIdx() {
 		return idx;
 	}

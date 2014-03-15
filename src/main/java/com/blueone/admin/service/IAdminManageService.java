@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.blueone.admin.domain.AccountInfo;
 import com.blueone.admin.domain.AdminInfo;
+import com.blueone.admin.domain.AdminLoginInfo;
 
 public interface IAdminManageService {
 
@@ -13,5 +14,5 @@ public interface IAdminManageService {
 	public List<AdminInfo> getAdminInfList(AdminInfo adminInfo); /*운영자목록*/
 	public AdminInfo getAdminInfDetail(AdminInfo adminInfo); /*운영자 상세정보*/
 	public List<AccountInfo> getAccountInfList(AccountInfo accountInfo);/*계좌목록*/
-	public AdminInfo adminLogin(AdminInfo adminInfo);	/* 관리자 로그인 */
+	public AdminInfo adminLogin(AdminLoginInfo adminInfo);	/* 관리자 로그인 */
 }

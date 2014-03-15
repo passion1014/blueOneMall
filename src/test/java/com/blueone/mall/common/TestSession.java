@@ -38,13 +38,13 @@ public class TestSession extends BlueoneTestCase {
 		
 		// 세션정보 셋팅
 		mockMvc.perform(post("/admin/adminLoginLogic.do").session(session)
-				.param("id", "id5")
-				.param("password", "password"))
+				.param("adminId", "id5")
+				.param("adminPw", "password"))
 		.andExpect(status().isOk())
 		.andDo(print());
 		
 		// 입력된 세션정보 확인
-		printAdminSessionInfo(session, "adminLoginInfo");
+		printAdminSessionInfo(session, "adminSession");
 	}
 
 	@Test

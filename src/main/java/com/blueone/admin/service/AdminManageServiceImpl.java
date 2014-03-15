@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.blueone.admin.domain.AccountInfo;
 import com.blueone.admin.domain.AdminInfo;
+import com.blueone.admin.domain.AdminLoginInfo;
 import com.blueone.common.util.MsgEnum;
 
 @Service
@@ -129,24 +130,24 @@ public class AdminManageServiceImpl implements IAdminManageService {
 	}
 	
 	@Override
-	public AdminInfo adminLogin(AdminInfo adminInfo) {
+	public AdminInfo adminLogin(AdminLoginInfo adminLoginInfo) {
+		AdminInfo adminInfo = new AdminInfo();
+		
+		adminLoginInfo.setRightLogin(false);	// 최초 Default 셋팅
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-
-		// 최초 Default 셋팅
-		adminInfo.setRightLogin(false);
 		try {
 			// DB에서 해당 아이디로 조회
 			Map<String, AdminInfo> sqlParams = new HashMap<String, AdminInfo>();
-			sqlParams.put("adminInfo", adminInfo);
-			AdminInfo dbAdminInfo = sqlSession.selectOne("admin.selectDtlBomAdminTb0001", sqlParams);
+			sqlParams.put("adminInfo", new AdminInfo(adminLoginInfo.getAdminId(), adminLoginInfo.getAdminPw()));
+			adminInfo = sqlSession.selectOne("admin.selectDtlBomAdminTb0001", sqlParams);
 			
-			if (dbAdminInfo != null) {
-				String inPwd = adminInfo.getPassword();
-				String dbPwd = dbAdminInfo.getPassword();
+			if (adminInfo != null) {
+				String inPwd = adminLoginInfo.getAdminPw();
+				String dbPwd = adminInfo.getPassword();
 				
 				// 로그인 정보 체크
 				if (!StringUtils.isEmpty(inPwd) && inPwd.equals(dbPwd)) {
-					adminInfo.setRightLogin(true);
+					return adminInfo;
 				}
 			}
 		} catch(Exception e) {
@@ -155,9 +156,7 @@ public class AdminManageServiceImpl implements IAdminManageService {
 			sqlSession.close();
 		}
 		
-		
-		
-		return adminInfo;
+		return null;
 	}
 	
 	@Override
