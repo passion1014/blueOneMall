@@ -33,7 +33,8 @@
 				<beans:value>classpath:/messages/UtilityMessages</beans:value>
 				<beans:value>classpath:/messages/messages</beans:value>
 			</beans:list>
-		</beans:property>		
+		</beans:property>
+		<beans:property name="defaultEncoding" value="UTF-8"/>
     </beans:bean>
 	<beans:bean id="messageSourceAccessor" class="org.springframework.context.support.MessageSourceAccessor">
 		<beans:constructor-arg>
