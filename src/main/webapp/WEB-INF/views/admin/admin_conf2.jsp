@@ -44,28 +44,6 @@
 		</div>
 	</div>
 <!-- admin.header.html end -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!-- admin.lnb_none.html start -->
 <div id="LNB">
 

@@ -12,8 +12,8 @@
 		
 		<ul>
 			<h2>운영자 관리</h2>
-			<span style="line-height:10px;">운영자 목록</span><br/>
-			<span style="line-height:10px;">운영자 등록</span>			
+			<span style="line-height:10px;"><a href="adminList.do">운영자 목록</a></span><br/>
+			<span style="line-height:10px;"><a href="adminRegistForm.do">운영자 등록</a></span>			
 		</ul>
 		
 		<ul>

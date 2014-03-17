@@ -44,7 +44,7 @@
 				,`ADMIN_PHONE`,`ADMIN_MOBILE`,`ADMIN_EMAIL`,`ADMIN_GRADE`
 				,`ADMIN_HIT`,`ADMIN_CMT`,`REG_DATE`,`LAST_DATE`,`MODIFY_USER_ID`)
 			VALUES
-			(#{status}, #{id}, #{password}, #{name}, #{phone}, #{mobile}
+			('default', #{id}, #{password}, #{name}, #{phone}, #{mobile}
 				, #{email}, #{grade}, #{hit}, #{comment}, sysdate(), sysdate(), 'default')
 	</insert>
 

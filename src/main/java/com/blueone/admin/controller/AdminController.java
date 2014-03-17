@@ -37,7 +37,7 @@ public class AdminController {
 	public String adminLoginform(@ModelAttribute("adminLoginInfo") AdminLoginInfo adminLoginInfo, BindingResult result, Model model) {
 		return "admin/adminLogin";
 	}
-	
+//=======================	
 	@RequestMapping(value = "/adminLoginLogic.do", method = RequestMethod.POST)
 	public ModelAndView adminLogin(@ModelAttribute("adminLoginInfo") @Valid AdminLoginInfo adminLoginInfo, BindingResult result, Model model) {
 		ModelAndView mav = new ModelAndView();
@@ -51,7 +51,7 @@ public class AdminController {
 
 			// viewName 셋팅
 			if (loggedInfo != null) {
-				mav.addObject("adminSession", loggedInfo);		// 세션에 정보 셋팅
+				mav.addObject("adminSession", loggedInfo);// 세션에 정보 셋팅
 				mav.setViewName("redirect:adminDefault.do");
 			} else {
 				mav.setViewName("redirect:adminLogin.do");
@@ -60,7 +60,7 @@ public class AdminController {
 		
 		return mav;
 	}
-	
+	//=======================	
 	@RequestMapping(value = "/adminDefault.do", method = RequestMethod.GET)
 	public String defaultAdminInfo(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
 		return "admin/defaultMain";
@@ -69,6 +69,9 @@ public class AdminController {
 	
 	@RequestMapping(value="/adminMain.do", method= RequestMethod.GET)
 	public String adminConf(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model){
+		  
+		   
+		
 		
 		   return "admin/admin/adminMain";
 			
@@ -76,15 +79,17 @@ public class AdminController {
 	
     @RequestMapping(value = "/registAdminInf.do")
 	public String registAdminInfo(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
-		adminManageService.registAdminInf(adminInfo);
-		
-		return "redirect:/admin/getAdminList.do";
+		ModelAndView mav = new ModelAndView();
+    	
+    	adminManageService.registAdminInf(adminInfo);
+    		
+		return "redirect:/admin/admin/AdminList.do";
 	}
 	
-	@RequestMapping("/registAdminForm.do")
+	@RequestMapping("/adminRegistForm.do")
 	public String registAdminForm() {
 		
-		return "admin/admin_conf2";
+		return "admin/admin/adminRegist";
 	}
 	//=====================
 	@RequestMapping(value = "/editAdminInf.do", method = RequestMethod.POST)
@@ -96,21 +101,26 @@ public class AdminController {
     //===========================
 	
 	@RequestMapping(value = "/adminList.do", method = RequestMethod.GET)
-	public String getAdminInfoList(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
+	public ModelAndView getAdminInfoList(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
+		ModelAndView mav = new ModelAndView();
 		List<AdminInfo> list = adminManageService.getAdminInfList(adminInfo);
 		
-	    model.addAttribute("list", list);
+	    mav.addObject("list", list);
+	    mav.setViewName("admin/admin/adminList");
 	    
-		return "admin/admin/adminList";
+		return mav;
 	}
 
 	
 	@RequestMapping(value = "/adminDetailInf.do", method = RequestMethod.GET)
 	public String getAdminDetailInfo(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
+		Map<String, AdminInfo> map = new HashMap<String, AdminInfo>();
 		
-		    adminManageService.getAdminInfDetail(adminInfo);
+		adminInfo= adminManageService.getAdminInfDetail(adminInfo);
+	   
 		
-		return "admin/result";
+		model.addAttribute("adminInfo", adminInfo);
+		return "admin/admin/adminDetail";
 	}
 	
 	

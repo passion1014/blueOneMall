@@ -117,10 +117,9 @@ public class AdminManageServiceImpl implements IAdminManageService {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		
 		try {
-			Map<String, AdminInfo> sqlParams = new HashMap<String, AdminInfo>();
-			sqlParams.put("adminInfo", adminInfo);
 			
-			adminInfo = sqlSession.selectOne("admin.selectDtlBomAdminTb0001", sqlParams);
+			
+			adminInfo = sqlSession.selectOne("admin.selectDtlBomAdminTb0001", adminInfo);
 			
 		} finally {
 			sqlSession.close();
@@ -156,7 +155,7 @@ public class AdminManageServiceImpl implements IAdminManageService {
 			sqlSession.close();
 		}
 		
-		return null;
+		return adminInfo;
 	}
 	
 	@Override

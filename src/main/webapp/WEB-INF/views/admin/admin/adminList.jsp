@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+
 <c:import  url="../inc/top.jsp" />
 
 <body>
@@ -46,7 +47,7 @@
 		<tr onClick="line_detail('1')" style="cursor:pointer;">
 			<td><b>${info.idx}</b></td>
 			<td>${info.status}</td>
-			<td>${info.id}</td>
+			<td><a href="adminDetailInf.do?id=${info.id}">${info.id}</a></td>
 			<td>${info.name}</td>
 			<td>○</td>
 			<td>○</td>
@@ -79,13 +80,13 @@
 						</tr>
 						<tr>
 							<th>연락처</th>
-							<td class="left"><?=stripslashes($_row["phone"])?></td>
+							<td class="left">${info.phone}</td>
 							<th>핸드폰</th>
-							<td class="left"><?=stripslashes($_row["mobile"])?></td>
+							<td class="left">${ingo.mobile}</td>
 						</tr>
 						<tr>
 							<th>Email</th>
-							<td colspan="3" class="left"><?=stripslashes($_row["admin_email"])?></td>
+							<td colspan="3" class="left">${info.emil}</td>
 						</tr>
 						<tr>
 							<th>관리등급</th>

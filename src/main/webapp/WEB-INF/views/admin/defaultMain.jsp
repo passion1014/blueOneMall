@@ -12,7 +12,7 @@
 	</c:import>
 	
 	<div style="text-align:center;color:#000;width:300px;height:110px;margin:150px auto;padding-top:50px;">
-		<span style="font-weight:bold">현대몰</span> 게시판관리페이지입니다.<br><br>원하시는 관리메뉴를 선택해 주세요
+		<span style="font-weight:bold">현대몰</span>${loggedInfo.id}<br><br>원하시는 관리메뉴를 선택해 주세요
 	</div>
 
 </div>
