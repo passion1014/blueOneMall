@@ -12,7 +12,7 @@
 		
 		<ul>
 			<h2>운영자 관리</h2>
-			<span style="line-height:10px;">운영자 목록</span>
+			<span style="line-height:10px;">운영자 목록</span><br/>
 			<span style="line-height:10px;">운영자 등록</span>			
 		</ul>
 		
@@ -29,7 +29,7 @@
 		<ul>
 			<h2>약관정보</h2>
 			<span style="line-height:10px;"><a href="memberAgreement.do">이용약관</a></span><br/>
-			<span style="line-height:10px;"><a href="personInfo.do">개인보호취급방침</a></span>
+			<span style="line-height:10px;"><a href="memberInfo.do">개인보호취급방침</a></span>
 		</ul>
 		<ul>
 			<h2>회원정보</h2>

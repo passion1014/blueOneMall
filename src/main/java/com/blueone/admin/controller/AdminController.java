@@ -101,7 +101,7 @@ public class AdminController {
 		
 	    model.addAttribute("list", list);
 	    
-		return "admin/admin_conf1";
+		return "admin/admin/adminList";
 	}
 
 	

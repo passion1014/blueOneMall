@@ -11,7 +11,7 @@
 	<c:import url="../inc/lnb.jsp">
 	   <c:param name="slot" value="member"/>
 	</c:import>
-	<div id="Contents">
+	   <div id="Contents">
 	<h1>회원관리 &gt; 약관정보 &gt; <strong><?=$_row["title"]?></strong></h1>
 
 	<form name="frm" method="post" action="./_action/member.do.php" onSubmit="return chkForm(this);" style="display:inline;" target="actionForm">
@@ -28,7 +28,7 @@
 			<th>항목</th>
 			<td class="left"><input type="text" id="title" name="title" value=""></td>
 			<th>최종변경일</th>
-			<td class="left"></td>
+			<td class="left"><?=$_row["reg_date"]?></td>
 		</tr>
 		<tr>
 			<th>약관내용</th>

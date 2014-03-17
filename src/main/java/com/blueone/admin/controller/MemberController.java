@@ -31,10 +31,10 @@ public class MemberController {
 		
 	}
 	
-	@RequestMapping(value="/personInfo.do", method=RequestMethod.GET)
+	@RequestMapping(value="/memberInfo.do", method=RequestMethod.GET)
 	public String personInfo(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model){
 		
-		   return "admin/member/personInfo";
+		   return "admin/member/memberInfo";
 		
 	}
 	
