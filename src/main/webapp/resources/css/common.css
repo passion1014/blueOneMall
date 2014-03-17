@@ -1,0 +1,115 @@
+@charset "utf-8";
+
+html { overflow-y:auto; }
+
+html, body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, hr, pre, code, form, fieldset, legend, input, textarea, button,  p, blockquote, th, td {margin:0; padding:0;}
+html, body { width:100%; height:100%; min-width:1000px; font-family:'NanumGothic', 'Dotum', 'Apple Gothic', 'sans-serif';}
+body {font-size:12px; font-family:"NanumGothic";}
+li {list-style:none;}
+img, fieldset {border:0 none;}
+img {vertical-align:middle;}
+legend, hr {display:none;}
+legend {position:absolute; top:0; left:0; width:0; height:0; display:block; overflow:hidden; visibility:hidden; font-size:0; line-height:0;}
+input, textarea {font-size:100%; color:#3f3f3f; background:#fff;}
+button {border:0 none; background:transparent; padding:0px; margin:0px; font-family:"NanumGothic";}
+em, address {font-style:normal;}
+table {border-spacing:0; border-collapse:collapse; width:100%;}
+caption {font-size: 0; line-height: 0; width:0; height:0; text-indent:-1000px; overflow: hidden;}
+a, a:link, a:visited {text-decoration:none;}
+a:hover, a:active {text-decoration:underline;}
+textarea {border:1px solid #d2d2d2; width:100%;}
+
+/* begin - font css */
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+
+@font-face {font-family:"NanumGothic"; font-style:normal; font-weight:normal; src:url("font/NanumGothic.eot"); src:url('../font/NanumGothic.eot?NanumGothic'), local('?'), url('../font/NanumGothic.woff') format('woff'), url('../font/NanumGothic.svg#NanumGothic') format('svg'), url('../font/NanumGothic.ttf') format('truetype');}
+
+@font-face {font-family:"NanumGothicBold"; font-style:normal; font-weight: bold; src:url('../font/NanumGothicBold.eot'); src:url('../font/NanumGothicBold.eot?iefix') format('embedded-opentype'), local('?'),	url('../font/NanumGothicBold.woff') format('woff'), url('../font/NanumGothicBold.svg#NanumGothicBold') format('svg'), url('../font/NanumGothicBold.ttf') format('truetype');}
+
+@font-face {font-family:"NanumGothic-ExtraBold"; font-style:normal; font-weight: bold; src:url('../font/NanumGothic-ExtraBold.eot'); src:url('../font/NanumGothic-ExtraBold.eot?iefix') format('embedded-opentype'), local('?'),	url('../font/NanumGothic-ExtraBold.woff') format('woff'), url('../font/NanumGothic-ExtraBold.svg#NanumGothicEB') format('svg'), url('../font/NanumGothic-ExtraBold.ttf') format('truetype');}
+
+
+/* layout */
+.wrap {width:100%}
+.header {height:142px; background:url('../images/common/header_bg.gif') repeat-x bottom left;}
+.container {width:1000px; margin:10px auto;}
+.footer {border-top:2px solid #888888;}
+
+/* header */
+.header .top {width:1000px; margin:0 auto;}
+.header .top:after {height:0; content:""; clear:both; display:block;}
+.header .top h1 {padding-top:38px; float:left;}
+.header .top p.top_img {float:left; margin:28px 0 0 150px;}
+.header .top .search_area {float:right;}
+.header .gnb {width:1000px; margin:0 auto;}
+.header .gnb:after {height:0; content:""; clear:both; display:block;}
+.header .gnb ul {float:left; margin-top:28px;}
+.header .gnb ul li {float:left; font-size:16px; font-family:"NanumGothicBold"; margin-right:25px; padding-left:25px;}
+.header .gnb ul li.gnb_list {border-left:1px solid #fff;}
+.header .gnb ul li a {color:#fff;}
+.header .search_area {padding-top:30px;}
+.header .search_area span {display:block;}
+.header .search_area span.search_menu a {color:#888888; padding-left:7px; font-family:"NanumGothicBold";}
+.header .search_area span.search_menu a.menu_site {display:inline-block; padding-right:7px; border-right:1px solid #888888;}
+.header .search_area span.search_box {padding-top:10px; text-align:right;}
+.header .search_area span.search_box input {width:184px; height:26px; border:1px solid #888888; padding-top:-10px; vertical-align:top;}
+.header .search_area span.search_box button {background:url('../images/common/search_img.gif') no-repeat center left; width:30px; height:28px; margin-left:-10px;}
+
+/* ------------- sub lnb ------------- */
+
+.container:after {height:0; content:""; clear:both; display:block;}
+.lnb {float:left; width:200px; overflow:hidden; border-left:1px solid #bbb; border-right:1px solid #bbb;}
+.lnb h3 {background:#188dd1; color:#fff; font-family:"NanumGothicBold"; font-size:24px; text-align:center; line-height:80px;}
+.lnb ul.lnb_list li {line-height:30px; border-bottom:1px solid #188dd1;}
+.lnb ul.lnb_list li a {display:block; padding-left:20px; color:#000; font-family:"NanumGothicBold";}
+.lnb ul.lnb_list .onclick_list {background:#f0f0f0; border-bottom:1px solid #bbb; padding:5px 0;}
+.lnb ul.lnb_list .onclick_list a {display:block; color:#000; padding-left:25px; line-height:25px;}
+.sub_content {float:left; margin-left:20px; width:778px;}
+
+
+/* footer */
+.footer_area {width:1000px; margin:40px auto; padding-bottom:40px;}
+.footer_area:after {height:0; content:""; clear:both; display:block;}
+.footer_area h2 {float:left;}
+.footer_area address {float:left; color:#b0b0b0; margin-left:50px; line-height:15px;}
+
+
+/* ------------- tab module ------------- */
+.ui-tabs {float:left; position:relative; width:666px; height:468px; border:1px solid #bbbbbb; margin-right:10px;}
+.ui-tabs .ui-tabs-nav {display:block; position:absolute; bottom:0; left:0; float:left;}
+.ui-tabs .ui-tabs-nav li {float:left;}
+.ui-tabs .ui-tabs-nav .ui-tabs-anchor {float:left; line-height:31px; width:111px; height:31px; text-align:center;/*color:#555;*/}
+.ui-tabs .ui-tabs-nav li.ui-tabs-active .ui-tabs-anchor,
+.ui-tabs .ui-tabs-nav li.ui-state-disabled .ui-tabs-anchor,
+.ui-tabs .ui-tabs-nav li.ui-tabs-loading .ui-tabs-anchor {cursor:text; color:#fff; font-family:"NanumGothicBold"; background:#4aa7dd; height:31px;}
+.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-active .ui-tabs-anchor {cursor:pointer;}
+
+.ui-state-default,
+.ui-state-default a,
+.ui-state-default a:link,
+.ui-state-default a:visited {color:#fff;background:#000;}
+.ui-state-hover a,
+.ui-state-hover a:hover,
+.ui-state-hover a:link,
+.ui-state-hover a:visited,
+.ui-state-focus a,
+.ui-state-focus a:hover,
+.ui-state-focus a:link,
+.ui-state-focus a:visited {color:#fff;background:#4aa7dd;}
+
+
+/* ------------- paging number ------------- */
+.paging {margin:18px 0; text-align:center;}
+.paging a {display:inline-block; border:1px solid #fff; padding:0 3px; margin:0 10px; color:#2a2a2a; font-size:14px; vertical-align:middle; line-height:14px;}
+.paging a:hover {border:1px solid #188dd1;}
+.paging a.on {border:1px solid #188dd1;}
+.paging a.palign1 {border:0; padding:0; margin:0;}
+.paging a.palign2 {margin:0 0 0 -3px; border:0; padding:0;}
+
+/* ------------- common ------------- */
+.leftline {border-left:1px solid #bbbbbb;}
+.clearfix {clear:both;}
+.tmargin {margin-top:20px;}
+.rb_line {border-right:1px solid #bbb;}
+.tbb_line {border-top:1px solid #bbb; border-bottom:1px solid #bbb;}
+.talign {text-align:center;}

@@ -1,0 +1,51 @@
+/* General Demo Style */
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
+
+
+
+.container > div a:after {
+	content: attr(data-info);
+	color: #47a3da;
+	position: absolute;
+	width: 200px;
+	top: 120%;
+	text-align: right;
+	right: 0;
+	opacity: 0;
+	pointer-events: none;
+}
+.container > div a:hover:after {
+	opacity: 1;
+}
+
+.container > div a:hover {
+	background: #47a3da;
+}
+.lnb {width:200px;}
+.lnb > div button {
+	border: none;
+	background: #47a3da;
+	color: #fff;
+	display: block;
+	cursor: pointer;
+}
+
+.lnb > div button:hover {
+	background: #258ecd;
+}
+
+.lnb > div button.active {
+	background: #0d77b6;
+}
+
+.lnb > div button.disabled {
+	background: #258ecd;
+}
+
+
+.container > div a:hover:before {
+	color: #fff;
+}
+
+
+
