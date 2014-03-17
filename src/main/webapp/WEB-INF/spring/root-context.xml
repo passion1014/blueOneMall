@@ -6,20 +6,20 @@
 	<!-- Root Context: defines shared resources visible to all other web components -->
 
     <!-- DB 설정 -->
-    <!-- <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-    	<property name="locations" value="/resources/db.properties" />
-    </bean> -->
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    	<property name="locations" value="classpath:db.properties" />
+    </bean>
 	
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <!-- <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="driverClassName" value="${jdbc.driver}"/>
         <property name="url" value="${jdbc.url}"/>
         <property name="username" value="${jdbc.user}"/>
-        <property name="password" value="${jdbc.password}"/> -->
+        <property name="password" value="${jdbc.password}"/>
         
-        <property name="driverClassName" value="com.mysql.jdbc.Driver"/> 
+        <!-- <property name="driverClassName" value="com.mysql.jdbc.Driver"/> 
         <property name="url" value="jdbc:mysql://test1.czbiogvx6rse.us-west-2.rds.amazonaws.com:3306/BLUEONEMALL1"/>
         <property name="username" value="test1"/>
-        <property name="password" value="elaia79!1"/>
+        <property name="password" value="elaia79!1"/> -->
 
     </bean>
  

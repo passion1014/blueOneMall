@@ -47,7 +47,7 @@
 	</beans:bean>
     
 	<!-- 컴포넌트 빈으로 등록 -->
-	<context:component-scan base-package="com.blueone.controller" /> <!-- 컨트롤러들을 등록-->
+	<!-- <context:component-scan base-package="com.blueone.controller" /> 컨트롤러들을 등록 -->
 	
 	<context:component-scan base-package="com.blueone.admin.service" /> <!-- Admin Service 등록-->
 	<context:component-scan base-package="com.blueone.admin.controller" /> <!-- Admin 컨트롤러 등록-->

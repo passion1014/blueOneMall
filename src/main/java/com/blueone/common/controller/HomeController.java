@@ -1,4 +1,4 @@
-package com.blueone.controller;
+package com.blueone.common.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -23,7 +23,6 @@ import com.blueone.customer.domain.CustomerInfo;
  * Handles requests for the application home page.
  */
 
-@SessionAttributes("memberInfo")
 @Controller
 public class HomeController {
 	
@@ -40,14 +39,13 @@ public class HomeController {
 	public ModelAndView home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
-		String resourceHost = messageSourceAccessor.getMessage("DataDrivenEnumerationValueImpl_friendyName", "");
-		System.out.println("==================[" + resourceHost + "]==================");
+//		String resourceHost = messageSourceAccessor.getMessage("DataDrivenEnumerationValueImpl_friendyName", "");
+//		System.out.println("==================[" + resourceHost + "]==================");
 		
 		List<String> list = sqlSession.selectList("myBatis.test.getTest");
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("home");
-		mav.addObject("msg", list.toString() );
 		return mav;
 	}
 	
