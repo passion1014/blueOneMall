@@ -87,11 +87,11 @@
 		<tr>
 			<th>관리등급</th>
 			<td colspan="3" style="padding:5px 5px 5px 10px;" class="left">
-				<input type="checkbox" id="g1" name="g1" value="y" /> 환경설정
-				<input type="checkbox" id="g2" name="g2" value="y" /> 회원관리
-				<input type="checkbox" id="g3" name="g3" value="y" /> 상품관리
-				<input type="checkbox" id="g4" name="g4" value="Y" /> 주문관리
-				<input type="checkbox" id="g5" name="g5" value="Y" /> 커뮤니티
+				<input type="checkbox" id="g1" name="grade" value="y" /> 환경설정
+				<input type="checkbox" id="g2" name="grade" value="y" /> 회원관리
+				<input type="checkbox" id="g3" name="grade" value="y" /> 상품관리
+				<input type="checkbox" id="g4" name="grade" value="Y" /> 주문관리
+				<input type="checkbox" id="g5" name="grade" value="Y" /> 커뮤니티
 			</td>
 		</tr>
 		<tr>

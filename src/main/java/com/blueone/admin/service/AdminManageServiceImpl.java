@@ -53,7 +53,7 @@ public class AdminManageServiceImpl implements IAdminManageService {
 	
 		AdminInfo beforeAdminInfo = null;
 		try {
-			beforeAdminInfo = getAdminInfDetail(adminInfo);
+		//	beforeAdminInfo = getAdminInfDetail(adminInfo);
 		} catch (Exception e) {
 			System.out.println("관리자 정보 조회시 에러가 발생하였습니다.");
 		}
@@ -113,13 +113,13 @@ public class AdminManageServiceImpl implements IAdminManageService {
 	 * @see com.blueone.admin.service.IAdminManageService#getAdminInfDetail(com.blueone.admin.domain.AdminInfo)
 	 */
 	@Override
-	public AdminInfo getAdminInfDetail(AdminInfo adminInfo) {
+	public AdminInfo getAdminInfDetail(String id) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		
+		AdminInfo adminInfo = new AdminInfo();
 		try {
 			
 			
-			adminInfo = sqlSession.selectOne("admin.selectDtlBomAdminTb0001", adminInfo);
+			adminInfo = sqlSession.selectOne("admin.selectDtlBomAdminTb0001", id);
 			
 		} finally {
 			sqlSession.close();
