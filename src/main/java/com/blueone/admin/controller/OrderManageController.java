@@ -12,7 +12,7 @@ import com.blueone.admin.service.IOrderService;
 
 @Controller
 @RequestMapping(value = "/admin")
-public class OrderController {
+public class OrderManageController {
 	private IOrderService orderService;
 	
 	@RequestMapping(value="/order.do", method= RequestMethod.GET)

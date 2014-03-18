@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="order">
+	<resultMap id="OrderInfoMap" type="com.blueone.category.domain.CategoryInfo">
+		<id property="idx" column="IDX" javaType="int"/>
+ 		<!-- <result property="ctgPCode" column="ORDER_NO" javaType="java.lang.String"/>
+		<result property="ctgCodeType" column="CUST_ID" javaType="java.lang.String"/>
+		<result property="ctgCode" column="CUST_CONTACT_NO" javaType="java.lang.String"/> -->
+		<result property="orderStatCd" column="ORDER_STAT_CD" javaType="java.lang.String"/>
+<!-- 		<result property="ctgDesc" column="REG_DATE" javaType="java.lang.String"/>
+		<result property="fromDate" column="LAST_DATE" javaType="java.lang.String"/>
+		<result property="toDate" column="MODIFY_USER_ID" javaType="java.lang.String"/> -->
+	</resultMap>
+
+	<select id="selectListBomOrderTb0001" resultType="orderInfo" resultMap="OrderInfoMap">
+		SELECT
+			IDX, ORDER_NO, CUST_ID, CUST_CONTACT_NO, ORDER_STAT_CD, REG_DATE
+			, LAST_DATE, MODIFY_USER_ID
+		FROM
+			BOM_ORDER_TB
+	</select >
+</mapper>

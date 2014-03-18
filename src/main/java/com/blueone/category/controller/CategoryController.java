@@ -18,7 +18,7 @@ import com.blueone.category.service.ICategoryManageService;
 @RequestMapping(value = "/category")
 public class CategoryController {
 
-	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
+	private static final Logger logger = LoggerFactory.getLogger(CategoryController.class);
 	
 	@Autowired
 	ICategoryManageService categoryManageService;

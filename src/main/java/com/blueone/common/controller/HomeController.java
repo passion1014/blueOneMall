@@ -45,7 +45,7 @@ public class HomeController {
 		List<String> list = sqlSession.selectList("myBatis.test.getTest");
 		
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("home");
+		mav.setViewName("shop/main");
 		return mav;
 	}
 	
