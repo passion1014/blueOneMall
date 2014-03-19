@@ -4,22 +4,99 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="order">
-	<resultMap id="OrderInfoMap" type="com.blueone.category.domain.CategoryInfo">
-		<id property="idx" column="IDX" javaType="int"/>
- 		<!-- <result property="ctgPCode" column="ORDER_NO" javaType="java.lang.String"/>
-		<result property="ctgCodeType" column="CUST_ID" javaType="java.lang.String"/>
-		<result property="ctgCode" column="CUST_CONTACT_NO" javaType="java.lang.String"/> -->
-		<result property="orderStatCd" column="ORDER_STAT_CD" javaType="java.lang.String"/>
-<!-- 		<result property="ctgDesc" column="REG_DATE" javaType="java.lang.String"/>
-		<result property="fromDate" column="LAST_DATE" javaType="java.lang.String"/>
-		<result property="toDate" column="MODIFY_USER_ID" javaType="java.lang.String"/> -->
+
+<!-- 	
+	private int idx;
+	
+	private String orderStatCd;			// 주문상태 (01:주문중, 02:결제완료, 03:배송중, 04:배송완료, 05:고객확인)
+	private BigDecimal totalOrderPrice;	// 총주문금액
+	private BigDecimal deliveryPrice;	// 배송금액
+	private String useWellfarePointYn;	// 복지카드포인트 사용여부
+	
+	private CustomerInfo customerInfo;	// 고객정보
+	private CustomerContactInfo customerContactInfo;	// 고객배송지+연락처정보
+	private List<OrderProductInfo> orderProductList;	// 주문상품정보
+	private List<PaymentInfo> paymentLisit;				// 결제정보
+	
+	private String regDate;		// 등록일
+	private String lastDate;	// 최종수정일
+	private String modifyUserId;// 최종수정자
+	
+ -->
+	<resultMap id="OrderInfoMap" type="orderInfo">
+		<id property="idx" column="ordIdx" javaType="int"/>
+		<id property="orderNo" column="ordNo" javaType="int"/>
+		<id property="orderStatCd" column="ordStatCd" javaType="int"/>
+		<id property="orderDate" column="ordDate" javaType="int"/>
+		<id property="regDate" column="ordRegDate" javaType="int"/>
+		<id property="lastDate" column="ordLastDate" javaType="int"/>
+		<id property="modifyUserId" column="ordModifyUserId" javaType="int"/>
+		
+		<!-- 고객정보 셋팅 -->
+		<association property="customerInfo" column="ordCustId" javaType="customerInfo" resultMap="CustomerInfoMap"/>
+
+		<!-- 주문상품정보 셋팅 -->
+		<collection property="orderProductList" ofType="orderProductInfo" resultMap="OrdProductInfo"/>
+		
 	</resultMap>
+
+	<resultMap id="CustomerInfoMap" type="customerInfo">
+		<id property="custId" column="ordCustId" javaType="int"/>
+	</resultMap>
+
+	<resultMap id="OrdProductInfo" type="orderProductInfo">
+		<id property="prdCd" column="prdCd" javaType="int"/>
+		<id property="prdNm" column="prdNm" javaType="int"/>
+		<id property="prdCtgL" column="prdCtgL" javaType="int"/>
+		<id property="prdCtgM" column="prdCtgM" javaType="int"/>
+		<id property="prdCtgS" column="prdCtgS" javaType="int"/>
+		<id property="fromDate" column="prdFromDate" javaType="int"/>
+		<id property="toDate" column="prdToDate" javaType="int"/>
+	</resultMap>
+
 
 	<select id="selectListBomOrderTb0001" resultType="orderInfo" resultMap="OrderInfoMap">
 		SELECT
-			IDX, ORDER_NO, CUST_ID, CUST_CONTACT_NO, ORDER_STAT_CD, REG_DATE
-			, LAST_DATE, MODIFY_USER_ID
-		FROM
-			BOM_ORDER_TB
+			T1.IDX AS ordIdx,
+			T1.ORDER_NO AS ordNo,
+			T1.CUST_ID AS ordCustId,
+			T1.CUST_CONTACT_NO AS ordCustContactNo,
+			T1.ORDER_STAT_CD AS ordStatCd,
+			T1.ORDER_DATE AS ordDate,
+			T1.REG_DATE AS ordRegDate,
+			T1.LAST_DATE AS ordLastDate,
+			T1.MODIFY_USER_ID AS ordModifyUserId,
+			T2.IDX AS payIdx,
+			T2.ORDER_NO AS payOrdNo,
+			T2.ORDER_NO_SEQ AS payOrdNoSeq,
+			T2.PYMT_PAY_CD AS payCd,
+			T2.PYMT_AMOUNT AS payAmount,
+			T2.PYMT_DATE AS payDate,
+			T2.REG_DATE AS payRegDate,
+			T2.LAST_DATE AS payLastDate,
+			T2.MODIFY_USER_ID AS payModifyUserId,
+			T3.IDX AS pordIdx,
+			T3.ORDER_NO AS pordOrdNo,
+			T3.PRD_CD AS pordPrdCd,
+			T4.IDX AS prdIdx,
+			T4.PRD_CD AS prdCd,
+			T4.PRD_NM AS prdNm,
+			T4.PRD_DESC AS prdDesc,
+			T4.PRD_DESC_HTML AS prdDescHtml,
+			T4.PRD_CTG_L AS prdCtgL,
+			T4.PRD_CTG_M AS prdCtgM,
+			T4.PRD_CTG_S AS prdCtgS,
+			T4.FROM_DATE AS prdFromDate,
+			T4.TO_DATE AS prdToDate
+		FROM 
+				BOM_ORDER_TB T1
+			LEFT OUTER JOIN 
+				BOM_PAYMENT_TB T2 ON T1.ORDER_NO = T2.ORDER_NO
+			JOIN 
+				BOM_ORD_PRD_TB T3 ON T1.ORDER_NO = T3.ORDER_NO
+			JOIN 
+				BOM_PRODUCT_TB T4 ON T3.PRD_CD = T4.PRD_CD
+		WHERE
+			T1.ORDER_DATE BETWEEN '2013-01-01' AND '2013-02-01'
 	</select >
 </mapper>

@@ -66,6 +66,8 @@
  
     <typeAliases>
          <typeAlias alias="orderInfo" type="com.blueone.order.domain.OrderInfo" />
+         <typeAlias alias="customerInfo" type="com.blueone.customer.domain.CustomerInfo" />
+         <typeAlias alias="orderProductInfo" type="com.blueone.order.domain.OrderProductInfo" />
      </typeAliases>
    
     <!-- db 연결 -->
