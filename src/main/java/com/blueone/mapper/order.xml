@@ -55,7 +55,7 @@
 	</resultMap>
 
 
-	<select id="selectListBomOrderTb0001" resultType="orderInfo" resultMap="OrderInfoMap">
+	<select id="selectListBomOrderTb0001" resultType="orderInfo" resultMap="OrderInfoMap" parameterType="orderSrchInfo">
 		SELECT
 			T1.IDX AS ordIdx,
 			T1.ORDER_NO AS ordNo,
@@ -97,6 +97,6 @@
 			JOIN 
 				BOM_PRODUCT_TB T4 ON T3.PRD_CD = T4.PRD_CD
 		WHERE
-			T1.ORDER_DATE BETWEEN '2013-01-01' AND '2014-03-21'
+			T1.ORDER_DATE BETWEEN #{srchStdDt} AND #{srchEdDt}
 	</select >
 </mapper>

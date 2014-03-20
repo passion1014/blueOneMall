@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="customer">
+
+	<resultMap id="CustomerInfoMap" type="customerInfo">
+		<id property="custSeq" column="custIdx" javaType="int"/>
+		<id property="custId" column="custId" javaType="java.lang.String"/>
+		<id property="custNm" column="custNm" javaType="java.lang.String"/>
+		<id property="insDt" column="custRegDate" javaType="java.lang.String"/>
+		<id property="updDt" column="custLastDate" javaType="java.lang.String"/>
+		<id property="updUser" column="custModifyUserId" javaType="java.lang.String"/>
+		
+		<!-- 주소정보 셋팅 -->
+		<collection property="customerContactList" ofType="customerContactInfo" resultMap="CustomerContactInfoMap"/>
+		
+	</resultMap>
+
+	<resultMap id="CustomerContactInfoMap" type="customerContactInfo">
+		<!-- <id property="prdCd" column="cntctIdx" javaType="java.lang.String"/> -->
+		<id property="contactSeq" column="cntctNo" javaType="java.lang.String"/>
+		<id property="contactType" column="cntctDivCd" javaType="java.lang.String"/>
+		<id property="contactNm" column="cntctNm" javaType="java.lang.String"/>
+		<id property="zipCd1" column="cntctPostNo1" javaType="java.lang.String"/>
+		<id property="zipCd2" column="cntctPostNo2" javaType="java.lang.String"/>
+		<id property="addrDesc1" column="cntctAddr" javaType="java.lang.String"/>
+		<id property="addrDesc2" column="cntctAddrDesc" javaType="java.lang.String"/>
+		<id property="mobile1" column="cntctMobileNo1" javaType="java.lang.String"/>
+		<id property="mobile2" column="cntctMobileNo2" javaType="java.lang.String"/>
+		<id property="mobile3" column="cntctMobileNo3" javaType="java.lang.String"/>
+		<id property="phone1" column="cntctPhoneNo1" javaType="java.lang.String"/>
+		<id property="phone2" column="cntctPhoneNo2" javaType="java.lang.String"/>
+		<id property="phone3" column="cntctPhoneNo3" javaType="java.lang.String"/>
+		<!-- <id property="toDate" column="cntctRegDate" javaType="java.lang.String"/>
+		<id property="toDate" column="cntctLastDate" javaType="java.lang.String"/>
+		<id property="toDate" column="cntctModifyUserId" javaType="java.lang.String"/> -->
+	</resultMap>
+
+
+	<select id="selectDtlBomCustTb0001" resultType="customerInfo" resultMap="CustomerInfoMap" parameterType="customerSrchInfo">
+		SELECT
+			T1.IDX AS custIdx,
+			T1.CUST_ID AS custId,
+			T1.CUST_NM AS custNm,
+			T1.REG_DATE AS custRegDate,
+			T1.LAST_DATE AS custLastDate,
+			T1.MODIFY_USER_ID AS custModifyUserId,
+			T2.IDX AS cntctIdx,
+			T2.CUST_CONTACT_NO AS cntctNo,
+			T2.CUST_CONTACT_DIV_CD AS cntctDivCd,
+			T2.CUST_CONTACT_NM AS cntctNm,
+			T2.POST_NO1 AS cntctPostNo1,
+			T2.POST_NO2 AS cntctPostNo2,
+			T2.ADDR AS cntctAddr,
+			T2.ADDR_DESC AS cntctAddrDesc,
+			T2.MOBILE_NO1 AS cntctMobileNo1,
+			T2.MOBILE_NO2 AS cntctMobileNo2,
+			T2.MOBILE_NO3 AS cntctMobileNo3,
+			T2.PHONE_NO1 AS cntctPhoneNo1,
+			T2.PHONE_NO2 AS cntctPhoneNo2,
+			T2.PHONE_NO3 AS cntctPhoneNo3,
+			T2.REG_DATE AS cntctRegDate,
+			T2.LAST_DATE AS cntctLastDate,
+			T2.MODIFY_USER_ID AS cntctModifyUserId
+		FROM
+			BOM_CUST_TB T1
+			LEFT OUTER JOIN BOM_CUST_CONTACT_TB T2 ON T1.CUST_ID = T2.CUST_ID
+		WHERE
+			T1.CUST_ID = #{custId}
+		ORDER BY T2.CUST_CONTACT_NO
+	</select >
+</mapper>

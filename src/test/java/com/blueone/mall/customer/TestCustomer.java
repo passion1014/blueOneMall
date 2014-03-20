@@ -1,7 +1,6 @@
-package com.blueone.mall.order;
+package com.blueone.mall.customer;
 
 import static org.springframework.test.web.server.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.server.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.server.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.server.result.MockMvcResultMatchers.status;
 
@@ -9,14 +8,12 @@ import org.junit.Test;
 
 import com.blueone.mall.BlueoneTestCase;
 
-public class TestOrderService extends BlueoneTestCase {
+public class TestCustomer extends BlueoneTestCase {
 
 	@Test
-	public void testGetOrderList() throws Exception {
-		// Spring MVC Test!
-		mockMvc.perform(get("/order/getOrderList.do")
-				.param("srchStdDt", "2013-03-01")
-				.param("srchEdDt", "2014-04-01"))
+	public void testGetCustomerInfo() throws Exception {
+		mockMvc.perform(get("/cust/getCustomerInfo.do")
+				.param("custId", "custId"))
 		.andExpect(status().isOk())
 		.andDo(print());
 	}

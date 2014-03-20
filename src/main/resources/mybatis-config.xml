@@ -65,9 +65,12 @@
      </settings>
  
     <typeAliases>
-         <typeAlias alias="orderInfo" type="com.blueone.order.domain.OrderInfo" />
-         <typeAlias alias="customerInfo" type="com.blueone.customer.domain.CustomerInfo" />
-         <typeAlias alias="orderProductInfo" type="com.blueone.order.domain.OrderProductInfo" />
+		<typeAlias alias="orderSrchInfo" type="com.blueone.order.domain.OrderSrchInfo" />
+		<typeAlias alias="customerSrchInfo" type="com.blueone.customer.domain.CustomerSrchInfo" />
+		<typeAlias alias="orderInfo" type="com.blueone.order.domain.OrderInfo" />
+		<typeAlias alias="customerInfo" type="com.blueone.customer.domain.CustomerInfo" />
+		<typeAlias alias="customerContactInfo" type="com.blueone.customer.domain.CustomerContactInfo" />
+		<typeAlias alias="orderProductInfo" type="com.blueone.order.domain.OrderProductInfo" />
      </typeAliases>
    
     <!-- db 연결 -->
