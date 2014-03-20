@@ -25,12 +25,12 @@
  -->
 	<resultMap id="OrderInfoMap" type="orderInfo">
 		<id property="idx" column="ordIdx" javaType="int"/>
-		<id property="orderNo" column="ordNo" javaType="int"/>
-		<id property="orderStatCd" column="ordStatCd" javaType="int"/>
-		<id property="orderDate" column="ordDate" javaType="int"/>
-		<id property="regDate" column="ordRegDate" javaType="int"/>
-		<id property="lastDate" column="ordLastDate" javaType="int"/>
-		<id property="modifyUserId" column="ordModifyUserId" javaType="int"/>
+		<id property="orderNo" column="ordNo" javaType="java.lang.String"/>
+		<id property="orderStatCd" column="ordStatCd" javaType="java.lang.String"/>
+		<id property="orderDate" column="ordDate" javaType="java.lang.String"/>
+		<id property="regDate" column="ordRegDate" javaType="java.lang.String"/>
+		<id property="lastDate" column="ordLastDate" javaType="java.lang.String"/>
+		<id property="modifyUserId" column="ordModifyUserId" javaType="java.lang.String"/>
 		
 		<!-- 고객정보 셋팅 -->
 		<association property="customerInfo" column="ordCustId" javaType="customerInfo" resultMap="CustomerInfoMap"/>
@@ -41,17 +41,17 @@
 	</resultMap>
 
 	<resultMap id="CustomerInfoMap" type="customerInfo">
-		<id property="custId" column="ordCustId" javaType="int"/>
+		<id property="custId" column="ordCustId" javaType="java.lang.String"/>
 	</resultMap>
 
 	<resultMap id="OrdProductInfo" type="orderProductInfo">
-		<id property="prdCd" column="prdCd" javaType="int"/>
-		<id property="prdNm" column="prdNm" javaType="int"/>
-		<id property="prdCtgL" column="prdCtgL" javaType="int"/>
-		<id property="prdCtgM" column="prdCtgM" javaType="int"/>
-		<id property="prdCtgS" column="prdCtgS" javaType="int"/>
-		<id property="fromDate" column="prdFromDate" javaType="int"/>
-		<id property="toDate" column="prdToDate" javaType="int"/>
+		<id property="prdCd" column="prdCd" javaType="java.lang.String"/>
+		<id property="prdNm" column="prdNm" javaType="java.lang.String"/>
+		<id property="prdCtgL" column="prdCtgL" javaType="java.lang.String"/>
+		<id property="prdCtgM" column="prdCtgM" javaType="java.lang.String"/>
+		<id property="prdCtgS" column="prdCtgS" javaType="java.lang.String"/>
+		<id property="fromDate" column="prdFromDate" javaType="java.lang.String"/>
+		<id property="toDate" column="prdToDate" javaType="java.lang.String"/>
 	</resultMap>
 
 
@@ -97,6 +97,6 @@
 			JOIN 
 				BOM_PRODUCT_TB T4 ON T3.PRD_CD = T4.PRD_CD
 		WHERE
-			T1.ORDER_DATE BETWEEN '2013-01-01' AND '2013-02-01'
+			T1.ORDER_DATE BETWEEN '2013-01-01' AND '2014-03-21'
 	</select >
 </mapper>

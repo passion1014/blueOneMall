@@ -18,19 +18,19 @@ public class OrderManageServiceImpl implements IOrderManageService{
 
 	@Override
 	public List<OrderInfo> getOrderInfoListByPeriod(OrderSrchInfo orderSrchInfo) {
-		
+		List<OrderInfo> orderList;
 		// -----------------------------------------------
 		// DB Insert 수행
 		// -----------------------------------------------
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
 			// DB 수행
-			sqlSession.selectList("order.selectListBomOrderTb0001", orderSrchInfo);
+			orderList = sqlSession.selectList("order.selectListBomOrderTb0001", orderSrchInfo);
 		} finally {
 			sqlSession.close();
 		}
 		
-		return null;
+		return orderList;
 	}
 
 }
