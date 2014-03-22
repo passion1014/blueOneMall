@@ -15,12 +15,6 @@
         <property name="url" value="${jdbc.url}"/>
         <property name="username" value="${jdbc.user}"/>
         <property name="password" value="${jdbc.password}"/>
-        
-        <!-- <property name="driverClassName" value="com.mysql.jdbc.Driver"/> 
-        <property name="url" value="jdbc:mysql://test1.czbiogvx6rse.us-west-2.rds.amazonaws.com:3306/BLUEONEMALL1"/>
-        <property name="username" value="test1"/>
-        <property name="password" value="elaia79!1"/> -->
-
     </bean>
  
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
@@ -28,24 +22,19 @@
         <property name="configLocation" value="classpath:mybatis-config.xml"/>
         <property name="mapperLocations" value="classpath*:com/blueone/mapper/*.xml"/>
     </bean>
+    
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+    	<property name="messageConverters">
+    		<list>
+    			<bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/>
+    		</list>
+    	</property>
+    </bean>
 
-	<!-- 메세지 사용 -->
-<!--     <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-		<property name="basenames" value="HelloWorld" />
-		<property name="basenames">
-			<value>HelloWorld</value>
-		</property>
-    </bean>
-	<bean id="messageSourceAccessor" class="org.springframework.context.support.MessageSourceAccessor">
-		<constructor-arg>
-			<ref local="messageSource" />
-		</constructor-arg>
+	<!-- myBatis 설정 -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory"/>
 	</bean>
-     -->
-   
-    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
-        <constructor-arg index="0" ref="sqlSessionFactory"/>
-    </bean>
 
 
 </beans>

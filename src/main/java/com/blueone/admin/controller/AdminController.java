@@ -16,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
@@ -99,6 +100,7 @@ public class AdminController {
 	}
     
     @RequestMapping("/checkAdminId.do")
+    @ResponseBody
     public String checkAdminDuplicateId(@ModelAttribute("adminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
     	String viewName = "duplicateIdCheck";
     	
