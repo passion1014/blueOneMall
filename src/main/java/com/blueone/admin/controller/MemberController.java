@@ -18,36 +18,21 @@ public class MemberController {
 	
 	@RequestMapping(value="/memberList.do", method= RequestMethod.GET)
 	public String memberList(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model){
-		
-		   return "admin/member/memberList";
-		
-		
+		return "admin/member/memberList";
 	}
 	
 	@RequestMapping(value="/memberAgreement.do", method=RequestMethod.GET)
 	public String memberAgreement(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model){
-		
-		   return "admin/member/memberAgreement";
-		
+		return "admin/member/memberAgreement";
 	}
 	
 	@RequestMapping(value="/memberInfo.do", method=RequestMethod.GET)
 	public String personInfo(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model){
-		
-		   return "admin/member/memberInfo";
-		
+		return "admin/member/memberInfo";
 	}
 	
 	@RequestMapping(value="/memberRegist.do", method=RequestMethod.GET)
 	public String memberRegist(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model){
-		
-		   return "admin/member/memberRegist";
-		
+		return "admin/member/memberRegist";
 	}
-	
-
-	
-	
-	
-	
 }

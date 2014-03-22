@@ -9,7 +9,7 @@
 html{background-color:#93d1e0;}
 </style>
 <body>
-<form:form commandName="adminLoginInfo" name="frm" method="post" action="adminLoginLogic.do" onSubmit="return chkForm(this)" id="loginform" style="display:inline;">
+<form:form commandName="adminLoginInfo" name="frm" method="post" action="adminLoginProc.do" onSubmit="return chkForm(this)" id="loginform" style="display:inline;">
 	<input type="hidden" name="Mode" value="login">
 	
 	<div class="login_wrapper">

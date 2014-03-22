@@ -11,17 +11,24 @@
 <script type="text/javascript" src="<c:url value='/resources/js/js_ajax.js'/>"> </script>
 <script type="text/javascript" src="<c:url value='/resources/js/js_common.js'/>"> </script>
 <script type="text/javascript" src="<c:url value='/resources/js/js_admin.js'/>"> </script>
+
+<script type="text/javascript">
+	function chk_double_admin_id() {
+		frm.action = "checkAdminId.do";
+		frm.submit();
+	}
+</script>
+
+
 <title>Insert title here</title>
 </head>
 
 <body>
 <div id="Wrap">
 <c:import url="../inc/gnb.jsp"/>
-	<c:import url="../inc/lnb.jsp">
-		<c:param name="slot" value="conf"/>
-	</c:import>
-
-	
+<c:import url="../inc/lnb.jsp">
+	<c:param name="slot" value="conf"/>
+</c:import>
 
 <iframe name="actionForm" width="700" height="200" frameborder="0" style="display:none;"> </iframe>
 <div id="Contents">

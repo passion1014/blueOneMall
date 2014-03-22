@@ -24,7 +24,7 @@ import com.blueone.admin.domain.AdminInfo;
 import com.blueone.admin.domain.AdminLoginInfo;
 import com.blueone.admin.service.IAdminManageService;
 
-@SessionAttributes("adminInfo")
+@SessionAttributes("adminSession")
 @Controller
 @RequestMapping(value = "/admin")
 public class AdminController {
@@ -39,7 +39,7 @@ public class AdminController {
 		return "admin/adminLogin";
 	}
 //=======================	
-	@RequestMapping(value = "/adminLoginLogic.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/adminLoginProc.do", method = RequestMethod.POST)
 	public ModelAndView adminLogin(@ModelAttribute("adminLoginInfo") @Valid AdminLoginInfo adminLoginInfo, BindingResult result, Model model) {
 		ModelAndView mav = new ModelAndView();
 		
@@ -52,7 +52,8 @@ public class AdminController {
 
 			// viewName 셋팅
 			if (loggedInfo != null) {
-				mav.addObject("adminInfo", loggedInfo);// 세션에 정보 셋팅
+				mav.addObject("adminSession", loggedInfo);// 세션에 정보 셋팅
+				
 				mav.setViewName("redirect:adminDefault.do");
 			} else {
 				mav.setViewName("redirect:adminLogin.do");
@@ -74,6 +75,7 @@ public class AdminController {
 	@RequestMapping(value = "/adminDefault.do", method = RequestMethod.GET)
 	public ModelAndView defaultAdminInfo(@ModelAttribute("adminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
 		ModelAndView mav = new ModelAndView();
+		model.addAttribute("adminSession",adminInfo.getId());
 		model.addAttribute("adminInfo", adminInfo);
 		mav.setViewName("admin/defaultMain");
 		return mav;
@@ -81,35 +83,44 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="/adminMain.do", method= RequestMethod.GET)
-	public String adminConf(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model){
-		  
-		   
-		
-		
-		   return "admin/admin/adminMain";
-			
+	public String adminConf(@ModelAttribute("adminInfo") AdminInfo adminInfo, BindingResult result, Model model){
+		return "admin/admin/adminMain";
 	}
 	
     @RequestMapping(value = "/registAdminInf.do")
-	public String registAdminInfo(@ModelAttribute("adminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
+	public String registAdminInfo(@ModelAttribute("adminInfo") @Valid AdminInfo adminInfo, BindingResult result, Model model,String id) {
+    	
+    	if(!id.equals(adminInfo.getId())){
+    	}
     	
     	adminManageService.registAdminInf(adminInfo);
     		
 		return "redirect:adminList.do";
 	}
+    
+    @RequestMapping("/checkAdminId.do")
+    public String checkAdminDuplicateId(@ModelAttribute("adminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
+    	String viewName = "duplicateIdCheck";
+    	
+    	int rst = adminManageService.checkDupAdminId(adminInfo);
+   		model.addAttribute("checkRst", rst);
+    	
+    	return viewName;
+    }
 	
 	@RequestMapping("/adminRegistForm.do")
 	public String registAdminForm() {
 		
 		return "admin/admin/adminRegist";
 	}
+	
 	//=====================
 	@RequestMapping(value = "/editAdminInf.do", method = RequestMethod.GET)
 	public ModelAndView editAdminInfo(@ModelAttribute("adminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
-		ModelAndView mav = new ModelAndView();
-		
 		
 		adminManageService.editAdminInf(adminInfo);
+
+		ModelAndView mav = new ModelAndView();
 		mav.addObject("adminInfo", adminInfo);
 		mav.setViewName("redirect:adminList.do");
 		
@@ -127,7 +138,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/adminList.do", method = RequestMethod.GET)
-	public ModelAndView getAdminInfoList(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
+	public ModelAndView getAdminInfoList(@ModelAttribute("adminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
 		ModelAndView mav = new ModelAndView();
 		List<AdminInfo> list = adminManageService.getAdminInfList(adminInfo);
 		
@@ -139,7 +150,7 @@ public class AdminController {
 
 	
 	@RequestMapping(value = "/adminDetailInf.do", method = RequestMethod.GET)
-	public ModelAndView getAdminDetailInfo(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model, String id) {
+	public ModelAndView getAdminDetailInfo(@ModelAttribute("adminInfo") AdminInfo adminInfo, BindingResult result, Model model, String id) {
 		
 		ModelAndView mav = new ModelAndView();
 		adminInfo= adminManageService.getAdminInfDetail(id);

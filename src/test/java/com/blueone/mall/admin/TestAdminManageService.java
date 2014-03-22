@@ -15,8 +15,16 @@ import com.google.gson.Gson;
 
 public class TestAdminManageService extends BlueoneTestCase {
 
+	
+	public void testCheckDuplicate() throws Exception {
+		// Spring MVC Test!
+		mockMvc.perform(post("/admin/checkAdminId.do")
+				.param("id", "id100"))
+		.andExpect(status().isOk())
+		.andDo(print());
+	}
+	
 	/**
-	 * ¾Æ·¡ Å¬·¡½º/ÇÔ¼ö¸¦ Å×½ºÆ® ÇÑ´Ù.
 	 * adminManageService.registAdmin
 	 */
 	@Test
@@ -28,7 +36,7 @@ public class TestAdminManageService extends BlueoneTestCase {
 				.param("status", "Y")
 				.param("id", "id5")
 				.param("password", "password1")
-				.param("name", "Àü¼ºÈ£")
+				.param("name", "ì´ì„±ìš±")
 				.param("phone", "010-1234-1111")
 				.param("mobile", "mobile")
 				.param("email", "email")

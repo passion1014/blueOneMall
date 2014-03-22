@@ -9,6 +9,7 @@ import com.blueone.admin.domain.AdminLoginInfo;
 
 public interface IAdminManageService {
 
+	public int checkDupAdminId(AdminInfo adminInfo); /*관리자등록시 중복 아이디 체크*/
 	public int registAdminInf(AdminInfo adminInfo); /*운영자등록*/
 	public int editAdminInf(AdminInfo adminInfo); /*운영자수정*/
 	public List<AdminInfo> getAdminInfList(AdminInfo adminInfo); /*운영자목록*/

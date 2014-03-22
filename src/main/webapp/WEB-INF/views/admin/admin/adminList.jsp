@@ -70,23 +70,23 @@
 						</colgroup>
 						<tr>
 							<th>상태</th>
-							<td colspan="3" class="left"><b><u>${info.phone}</u></b> &nbsp;&nbsp; [ 총 : 222 회,  최근 로그인 시간 : 2015.15.21  ]</td>
+							<td colspan="3" class="left"><b><u>${info.status}</u></b> &nbsp;&nbsp; [ 총 : 222 회,  최근 로그인 시간 : ${info.lastDate}  ]</td>
 						</tr>
 						<tr>
 							<th>관리자 정보</th>
-							<td class="left">( ID :)&nbsp;&nbsp;</td>
+							<td class="left">( ID :${info.id})&nbsp;&nbsp;</td>
 							<th>PASS</th>
-							<td class="left"></td>
+							<td class="left">${info.password}</td>
 						</tr>
 						<tr>
 							<th>연락처</th>
-							<td class="left"></td>
+							<td class="left">${info.phone}</td>
 							<th>핸드폰</th>
-							<td class="left"></td>
+							<td class="left">${info.mobile}</td>
 						</tr>
 						<tr>
 							<th>Email</th>
-							<td colspan="3" class="left"></td>
+							<td colspan="3" class="left">${info.email}</td>
 						</tr>
 						<tr>
 							<th>관리등급</th>
@@ -113,7 +113,7 @@
 						</tr>
 					</table>
 					<div style="margin-top:10px;" class="right">                                              
-						<input type="button" value="정보수정" class="button button_green button_medium" onClick="location.href='editAdminInfForm.do?id=${adminInfo.id}'"> &nbsp;
+						<input type="button" value="정보수정" class="button button_green button_medium" onClick="location.href='editAdminInfForm.do?id=${info.id}'"> &nbsp;
 						<input type="button" value="삭제" class="button button_red button_medium" onClick="confirm_process('actionForm','관리자 정보를 삭제하시겠습니까? \n\n삭제후에는 복구가 불가능합니다. \n\n상태를 중지 시키면 권한을 박탈할 수 있습니다. \n\n그래도 삭제하시겠습니까?','');">
 					</div>
 						

@@ -24,10 +24,33 @@ public class AdminManageServiceImpl implements IAdminManageService {
 
 	@Autowired
 	private SqlSessionFactory sqlSessionFactory;
+	
+	
+
+	@Override
+	public int checkDupAdminId(AdminInfo adminInfo) {
+		int rst = 0;
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			Map<String, AdminInfo> sqlParams = new HashMap<String, AdminInfo>();
+			sqlParams.put("adminInfo", adminInfo);
+			
+			adminInfo = sqlSession.selectOne("admin.selectDtlBomAdminTb0001", sqlParams);
+			
+			if (adminInfo == null) {
+				rst = 1;	// 입력된 아이디에 해당하는 관리자 정보는 없음!
+			}
+		} finally {
+			sqlSession.close();
+		}
+		
+		return rst;
+	}
 
 	@Override
 	public int registAdminInf(AdminInfo adminInfo) {
-
+        
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
 			checkAdminInfo(adminInfo);
@@ -53,7 +76,7 @@ public class AdminManageServiceImpl implements IAdminManageService {
 	
 		AdminInfo beforeAdminInfo = null;
 		try {
-		//	beforeAdminInfo = getAdminInfDetail(adminInfo);
+			//beforeAdminInfo = getAdminInfDetail(adminInfo);
 		} catch (Exception e) {
 			System.out.println("관리자 정보 조회시 에러가 발생하였습니다.");
 		}
@@ -117,10 +140,7 @@ public class AdminManageServiceImpl implements IAdminManageService {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		AdminInfo adminInfo = new AdminInfo();
 		try {
-			
-			
 			adminInfo = sqlSession.selectOne("admin.selectDtlBomAdminTb0001", id);
-			
 		} finally {
 			sqlSession.close();
 		}
