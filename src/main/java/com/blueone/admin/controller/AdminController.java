@@ -79,14 +79,16 @@ public class AdminController {
 	@RequestMapping(value = "/adminDefault.do", method = RequestMethod.GET)
 	public String defaultAdminInfo(@ModelAttribute("adminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
 		ModelAndView mav = new ModelAndView();
+
 		
 		AdminLoginInfo adminLoginInfo = new AdminLoginInfo();
 		adminInfo = adminManageService.adminLogin(adminLoginInfo);
 		mav.addObject("adminSession", adminInfo);
 		
-		
-		
 		return "admin/defaultMain";
+
+//		
+
 		
 	}
 	

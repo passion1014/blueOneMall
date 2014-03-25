@@ -17,6 +17,18 @@
 		frm.action = "checkAdminId.do";
 		frm.submit();
 	}
+	
+	$(document).read(function() {
+		$('#loginidcheck').click(function() {
+			$.getJSON('checkloginid/' + $('#loginid').val(), function(result) {
+				if (result.duplicated == true) {
+					alert('이미 등록된 아이디입니다.');
+				} else {
+					alert('사용가능한 아이디입니다.');
+				}
+			});
+		});
+	});
 </script>
 
 
