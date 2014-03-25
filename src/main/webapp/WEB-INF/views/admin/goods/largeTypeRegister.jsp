@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<<c:if test=""><script>opener.location.reload();</script></c:if>
+
 <c:import  url="../inc/top.jsp" />
 
 
@@ -9,7 +11,7 @@
 	<!-- 컨덴츠 -->
 	<div style="padding:10px;">
 	<div> 상품관리 > 상품분류 > 대분류 등록	</div>
-	<form name="frm" method="post" action="largeTypeRegisterProc.do" onSubmit="return chkForm(this);" target="actionForm" style="display:inline;">
+	<form name="frm" method="post" action="largeTypeRegisterProc.do">
 	<input type="hidden" id="ctgPCodeType" name="ctgPCodeType" value="">
 	<input type="hidden" id="ctgCodeType"  name="ctgCodeType"  value="01">
 	<input type="hidden" id="ctgDesc"      name="ctgDesc"      value="">
