@@ -21,8 +21,7 @@ public class GoodsServiceImpl implements IGoodsService {
 	
 	@Override
 	public int registGoodsType(GoodsTypeInfo goodsTypeInfo) {
-		
-		 
+	 
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {

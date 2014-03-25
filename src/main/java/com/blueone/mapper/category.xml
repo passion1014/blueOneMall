@@ -15,6 +15,7 @@
 		<result property="toDate" column="TO_DATE" javaType="java.lang.String"/>
 		<result property="regDate" column="REG_DATE" javaType="java.lang.String"/>
 		<result property="lastDate" column="LAST_DATE" javaType="java.lang.String"/>
+		<result property="modifyUserId" column="MODIFY_USER_ID" javaType="java.lang.String"/>
 	</resultMap>
 	
 	<select id="selectListBomCategoryTb0001" resultType="com.blueone.category.domain.CategoryInfo" resultMap="CategoryInfoMap">
@@ -41,7 +42,7 @@
 				,`CTG_DESC`,`FROM_DATE`,`TO_DATE`,`REG_DATE`,`LAST_DATE`, `MODIFY_USER_ID`)
 			VALUES
 			(#{ctgPCode}, #{ctgCodeType}, #{ctgCode}, #{ctgName}, #{ctgDesc}
-			  , #{fromDate}, #{toDate}, sysdate(), sysdate(), 'default')
+			  , #{fromDate}, #{toDate}, sysdate(), sysdate(), #{modifyUserId})
 	</insert>
 	
 	<update id="updateBomCategoryTb0001" parameterType="com.blueone.category.domain.CategoryInfo">

@@ -2,6 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:import  url="../inc/top.jsp" />
+<script>
+opener.location.reload();
+</script>
 
 <body>
 <div id="Wrap">
@@ -10,9 +13,11 @@
 	<div> 상품관리 > 상품분류 > 대분류 등록	</div>
 	<form name="frm" method="post" action="largeTypeRegisterProc.do" onSubmit="return chkForm(this);" target="actionForm" style="display:inline;">
 	<input type="hidden" id="ctgPCodeType" name="ctgPCodeType" value="">
-	<input type="hidden" id="ctgCodeType"  name="ctgCodeType"  value="">
+	<input type="hidden" id="ctgCodeType"  name="ctgCodeType"  value="01">
 	<input type="hidden" id="ctgDesc"      name="ctgDesc"      value="">
-	<input type="hidden" id="modifyUserId" name="modifyUserId" value="testID">
+	<input type="hidden" id="fromDate" name="fromDate" value="1900-01-01">
+	<input type="hidden" id="toDate" name="toDate" value="9999-12-31">
+	<input type="hidden" id="modifyUserId" name="modifyUserId" value="${adminSession.id}">
 	
 	<table class="tbl1">
 		<colgroup>
