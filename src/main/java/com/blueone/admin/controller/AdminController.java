@@ -50,7 +50,7 @@ public class AdminController {
 		} else {
 			// 로그인 서비스 호출
 			AdminInfo loggedInfo = adminManageService.adminLogin(adminLoginInfo);
-			
+			String text="잘못입력하셨습니다.";
 			String inpw = adminLoginInfo.getAdminPw();
 			
 			// viewName 셋팅
@@ -59,9 +59,10 @@ public class AdminController {
 				mav.addObject("adminSession", loggedInfo);// 세션에 정보 셋팅
 				model.addAttribute("logged", loggedInfo);
 				mav.setViewName("redirect:adminDefault.do");
-				} else {
+				}else{mav.setViewName("redirect:adminLogin.do");}
+			}else {
+				
 				mav.setViewName("redirect:adminLogin.do");
-			}
 		}}
 		
 		return mav;

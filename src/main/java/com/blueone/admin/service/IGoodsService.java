@@ -6,6 +6,7 @@ import com.blueone.admin.domain.GoodsTypeInfo;
 
 public interface IGoodsService {
 
-	public int registGoodsType(GoodsTypeInfo goodsTypeInfo); /* 상품관리 */	
+	public int registGoodsType(GoodsTypeInfo goodsTypeInfo); /* 상품관리 */
+	public List<GoodsTypeInfo> getGoodsTypeList(GoodsTypeInfo goodsTypeInfo);
 		
 }

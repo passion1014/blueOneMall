@@ -19,6 +19,7 @@ public class CategoryInfo {
 	private String toDate;
 	private String regDate;
 	private String lastDate;
+	private String modifyUserId;
 	
 	public int getIdx() {
 		return idx;
@@ -86,5 +87,12 @@ public class CategoryInfo {
 	public void setCtgOrder(int ctgOrder) {
 		this.ctgOrder = ctgOrder;
 	}
+	public String getModifyUserId() {
+		return modifyUserId;
+	}
+	public void setModifyUserId(String modifyUserId) {
+		this.modifyUserId = modifyUserId;
+	}
+	
 	
 }

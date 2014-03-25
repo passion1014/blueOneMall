@@ -1,6 +1,7 @@
 package com.blueone.admin.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,37 +26,43 @@ public class GoodsController {
 	@Autowired
 	private IGoodsService iGoodsService;
 	
-	private IGoodsService goodsService;
 	
 	@RequestMapping(value="/goodsList.do", method= RequestMethod.GET)
-	public String goodsList(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model){
+	public String goodsList(@ModelAttribute("goodsTypeInfo") GoodsTypeInfo goodsTypeInfo, BindingResult result, Model model){
 		return "admin/goods/goodsList";
 	}
 	
 	@RequestMapping(value="/largeTypeList.do", method= RequestMethod.GET)
-	public String largeTypeList(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model){
-		return "admin/goods/largeTypeList";
+	public ModelAndView largeTypeList(@ModelAttribute("goodsTypeInfo") GoodsTypeInfo goodsTypeInfo, BindingResult result, Model model){
+		ModelAndView mav = new ModelAndView();
+		List<GoodsTypeInfo> list = iGoodsService.getGoodsTypeList(goodsTypeInfo);
+		
+	    mav.addObject("list", list);
+	    mav.setViewName("admin/goods/largeTypeList");
+	    
+		return mav;
+		
+		
+		
 	}
 	
 	
 	@RequestMapping(value="/largeTypeRegister.do", method= RequestMethod.GET)
-	public String largeTypeRegister(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model){
-		Map<String, String> map = new HashMap<String, String>();
+	public String largeTypeRegister(@ModelAttribute("adminInfo") AdminInfo adminInfo, BindingResult result, Model model){
+		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("adminSession", adminInfo);
+		
 		return "admin/goods/largeTypeRegister";
 	}
 	
 	
 	@RequestMapping(value="/largeTypeRegisterProc.do", method= RequestMethod.POST)
-	public String largeTypeRegisterProc(@ModelAttribute("GoodsTypeInfo") GoodsTypeInfo goodsTypeInfo, BindingResult result, Model model){
+	public String largeTypeRegisterProc(@ModelAttribute("goodsTypeInfo") GoodsTypeInfo goodsTypeInfo, BindingResult result, Model model){
 		
 		iGoodsService.registGoodsType(goodsTypeInfo);
 		
-		
-		
-		
-		return "admin/adminMain";
+		return "admin/goods/largeTypeRegister";
 		
 		
 	}	

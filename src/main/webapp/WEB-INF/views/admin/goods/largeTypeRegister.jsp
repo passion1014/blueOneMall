@@ -2,9 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:import  url="../inc/top.jsp" />
-<script>
-opener.location.reload();
-</script>
+
 
 <body>
 <div id="Wrap">
@@ -54,7 +52,7 @@ opener.location.reload();
 
 	<div style="margin-top:10px;text-align:center;">
 		<input type="submit" value="등록하기" class="Button Gray">
-		<input type="button" value="창닫기" class="Button Gray" onClick="self.close();">
+		<input type="button" value="창닫기" class="Button Gray" onClick="closeWin()">
 	</div>
 	</form>
 	</div>

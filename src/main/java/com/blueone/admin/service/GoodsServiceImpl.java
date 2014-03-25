@@ -1,6 +1,8 @@
 package com.blueone.admin.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -22,7 +24,6 @@ public class GoodsServiceImpl implements IGoodsService {
 	@Override
 	public int registGoodsType(GoodsTypeInfo goodsTypeInfo) {
 	 
-		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
 			String ctgCode= "xxxxx";
@@ -35,7 +36,18 @@ public class GoodsServiceImpl implements IGoodsService {
 		return MsgEnum.MsgEnum_SUCCESS.value();
 	}
 	
-	
+	@Override
+	public List<GoodsTypeInfo> getGoodsTypeList(GoodsTypeInfo goodsTypeInfo){
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		List<GoodsTypeInfo> list = new ArrayList<GoodsTypeInfo>();
+		try{
+			list = sqlSession.selectList("category.selectListBomCategoryTb0001", goodsTypeInfo);
+		}finally{
+			sqlSession.close();
+		}
+		return list;
+	}
 	
 	
 
