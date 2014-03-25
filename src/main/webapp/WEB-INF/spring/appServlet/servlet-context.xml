@@ -25,6 +25,16 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<beans:bean id="jsonView" class="net.sf.json.spring.web.servlet.view.JsonView">
+		<beans:property name="contentType" value="text/html;charset=UTF-8"></beans:property>
+	</beans:bean>
+
+	<beans:bean id="beanNameResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<beans:property name="order" value="0"/> 
+	</beans:bean>
+
+
+	
 	<!-- 메세지 사용 -->
     <beans:bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
 		<!-- <beans:property name="basenames" value="1000" /> -->

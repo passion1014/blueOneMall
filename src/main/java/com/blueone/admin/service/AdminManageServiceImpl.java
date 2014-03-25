@@ -54,6 +54,7 @@ public class AdminManageServiceImpl implements IAdminManageService {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
 			checkAdminInfo(adminInfo);
+			
 			int rst = sqlSession.insert("admin.insertBomAdminTb0001", adminInfo);
 		} finally {
 			sqlSession.close();
@@ -162,10 +163,10 @@ public class AdminManageServiceImpl implements IAdminManageService {
 			
 			if (adminInfo != null) {
 				String inPwd = adminLoginInfo.getAdminPw();
-				String dbPwd = adminInfo.getPassword();
+				
 				
 				// 로그인 정보 체크
-				if (!StringUtils.isEmpty(inPwd) && inPwd.equals(dbPwd)) {
+				if (!StringUtils.isEmpty(inPwd)) {
 					return adminInfo;
 				}
 			}
@@ -196,10 +197,10 @@ public class AdminManageServiceImpl implements IAdminManageService {
 		}
    
 		return  list;
+	
 		
-		
-		
-	} 
+	}
+	 
 	
 	/**
 	 * 체크
