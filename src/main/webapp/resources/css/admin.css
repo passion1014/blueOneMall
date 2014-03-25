@@ -410,15 +410,16 @@ form#loginform .input_btn {
     padding: 10px;
     font-weight: bold;
     border: 1px solid #999;
-		vertical-align:middle;
+    text-align: center;
+    vertical-align:middle;
 }
 
 #Contents table td, table.tbl1 td {
     background: #fff;
     padding: 10px;
     border: 1px solid #999;
-    text-align: center;
-		 vertical-align: middle;
+    text-align: left;
+    vertical-align: middle;
 }
 
 #Contents table td a:link, #Contents table td a:visited, table.tbl1 td a:link, table.tbl1 td a:visited {
@@ -571,3 +572,18 @@ input.Login {
 .green {
     color: #30ab92;
 }
+
+.left {
+	text-align: left;
+}
+
+.right {
+	text-align: right ;
+}
+
+.center {
+    text-align: center ;
+}
+
+
+
