@@ -4,7 +4,7 @@
 <div id="Header">
 	<a href="/_admin/"><img src="/img/top_logo.gif" alt=""></a>
 	<div style="padding-right:10px">
-		<b>${sessionScope.adminInfo.id}</b> 께서 로그인하셨습니다. <input type="button" value="로그아웃" onClick="location.href='adminLoginOut.do';" style="cursor:pointer;"/>
+		<b>${adminSession.id}</b> 께서 로그인하셨습니다. <input type="button" value="로그아웃" onClick="location.href='adminLoginOut.do';" style="cursor:pointer;"/>
 	</div>
 </div>
 	

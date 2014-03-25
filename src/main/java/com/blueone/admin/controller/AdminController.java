@@ -41,7 +41,7 @@ public class AdminController {
 	}
 //=======================	
 	@RequestMapping(value = "/adminLoginProc.do", method = RequestMethod.POST)
-	public ModelAndView adminLogin(@ModelAttribute("adminLoginInfo") @Valid AdminLoginInfo adminLoginInfo, BindingResult result, Model model) {
+	public ModelAndView adminLogin(@ModelAttribute("adminLoginInfo") @Valid AdminLoginInfo adminLoginInfo, BindingResult result, Model model,String pw) {
 		ModelAndView mav = new ModelAndView();
 		
 		if (result.hasErrors()) {
@@ -50,16 +50,19 @@ public class AdminController {
 		} else {
 			// 로그인 서비스 호출
 			AdminInfo loggedInfo = adminManageService.adminLogin(adminLoginInfo);
-
+			
+			String inpw = adminLoginInfo.getAdminPw();
+			
 			// viewName 셋팅
 			if (loggedInfo != null) {
+				if(inpw.equals(loggedInfo.getPassword())){
 				mav.addObject("adminSession", loggedInfo);// 세션에 정보 셋팅
-				
+				model.addAttribute("logged", loggedInfo);
 				mav.setViewName("redirect:adminDefault.do");
-			} else {
+				} else {
 				mav.setViewName("redirect:adminLogin.do");
 			}
-		}
+		}}
 		
 		return mav;
 	}
@@ -74,12 +77,16 @@ public class AdminController {
 	
 	//=======================	
 	@RequestMapping(value = "/adminDefault.do", method = RequestMethod.GET)
-	public ModelAndView defaultAdminInfo(@ModelAttribute("adminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
+	public String defaultAdminInfo(@ModelAttribute("adminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
 		ModelAndView mav = new ModelAndView();
-		model.addAttribute("adminSession",adminInfo.getId());
-		model.addAttribute("adminInfo", adminInfo);
-		mav.setViewName("admin/defaultMain");
-		return mav;
+		
+		AdminLoginInfo adminLoginInfo = new AdminLoginInfo();
+		adminInfo = adminManageService.adminLogin(adminLoginInfo);
+		mav.addObject("adminSession", adminInfo);
+		
+		
+		
+		return "admin/defaultMain";
 		
 	}
 	
@@ -121,9 +128,7 @@ public class AdminController {
 	public ModelAndView editAdminInfo(@ModelAttribute("adminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
 		
 		adminManageService.editAdminInf(adminInfo);
-
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("adminInfo", adminInfo);
 		mav.setViewName("redirect:adminList.do");
 		
 		return mav;
