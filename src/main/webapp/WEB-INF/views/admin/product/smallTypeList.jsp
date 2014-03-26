@@ -47,7 +47,7 @@
 						<td>${goods.ctgMiddleName}</td>
 						<td>${goods.ctgName}</td>
 						<td style="text-align:center;">
-							<!--input type="button" value="수정" onClick="openWin('largeTypeModify.do?ctgCode=${goods.ctgCode}','largeTypeForm',600,450,'scrollbars=no');"  class="Button Gray"-->
+							<!--input type="button" value="수정" onClick="openWin('smallTypeModify.do?ctgCode=${goods.ctgCode}','smallTypeForm',600,450,'scrollbars=no');"  class="Button Gray"-->
 							<input type="button" value="수정" onClick="dialogUpdate('${goods.ctgCode}');" class="Button Gray">
 							<input type="button" value="삭제" onClick="location.href='deleteCategoryInf.do?ctgCode=${goods.ctgCode}';"  class="Button Gray">
 						</td>

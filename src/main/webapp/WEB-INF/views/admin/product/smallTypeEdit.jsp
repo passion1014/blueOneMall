@@ -4,12 +4,10 @@
 <div id="Wrap">
 	<!-- 컨덴츠 -->
 	<div style="padding:10px;">
-	<div> 상품관리 > 상품분류 > 대분류 수정	</div>
-	<form name="frm" method="post" action="editCategoryInfProc.do" onSubmit="return chkForm(this);">
-	<input type="hidden" id="ctgPCode"     name="ctgPCode"     value="${largeTypeObj.ctgPCode}">
-	<input type="hidden" id="ctgCodeType"  name="ctgCodeType"  value="${largeTypeObj.ctgCodeType}">
+	<div> 상품관리 > 상품분류 > 소분류 수정	</div>
+	<form name="frm" method="post" action="editMiddleCategoryInfProc.do" onSubmit="return chkForm(this);">
+	<input type="hidden" id="ctgCodeType"  name="ctgCodeType"  value="03">
 	<input type="hidden" id="ctgDesc"      name="ctgDesc"      value="${largeTypeObj.ctgDesc}">
-	<input type="hidden" id="ctgCode"      name="ctgCode"      value="${largeTypeObj.ctgCode}">
 	<input type="hidden" id="fromDate"     name="fromDate"     value="1900-01-01">
 	<input type="hidden" id="toDate"       name="toDate"       value="9999-12-31">
 	<input type="hidden" id="modifyUserId" name="modifyUserId" value="${adminSession.id}">
@@ -34,15 +32,14 @@
 			<td class="left">
 				<select id="ctgOrder" name="ctgOrder">
 				<c:forEach var="i" begin="1" end="50" step="1">
-				<c:if test="${i==largeTypeObj.ctgOrder}"> 
+				
+					<c:if test="${i==largeTypeObj.ctgOrder}"> 
 				<option selected><c:out value="${largeTypeObj.ctgOrder}"></c:out></option>
 				
 				</c:if>
 				<c:if test="${i!=largeTypeObj.ctgOrder}"> 
 				<option value="<c:out value="${i}"></c:out>"><c:out value="${i}"></c:out></option>
 				</c:if>
-					<option value="<c:out value="${i}"></c:out>"><c:out value="${i}"></c:out></option>
-					
 					</c:forEach>
 					
 				</select>&nbsp;
@@ -50,6 +47,32 @@
 		</tr>
 		<tr>
 			<th>대분류명</th>
+			<td class="left">
+				<select id="ctgCode" name="ctgCode">
+				<c:forEach items="${list}" var="list" >
+					<c:if test="${list.ctgCode==largeTypeObj.ctgCode}">
+					<option selected><c:out value="${list.ctgLargeName}"></c:out></option>
+					</c:if>
+					<option value="<c:out value="${list.ctgCode}"></c:out>"><c:out value="${list.ctgLargeName}"></c:out></option>
+				</c:forEach>							
+				</select>&nbsp;
+			</td>
+		</tr>
+		<tr>
+			<th>중분류명</th>
+			<td class="left">
+				<select id="ctgCode" name="ctgCode">
+				<c:forEach items="${list}" var="list" >
+					<c:if test="${list.ctgCode==largeTypeObj.ctgCode}">
+					<option selected><c:out value="${list.ctgLargeName}"></c:out></option>
+					</c:if>
+					<option value="<c:out value="${list.ctgCode}"></c:out>"><c:out value="${list.ctgLargeName}"></c:out></option>
+				</c:forEach>							
+				</select>&nbsp;
+			</td>
+		</tr>
+		<tr>
+			<th>소분류명</th>
 			<td colspan="3" class="left">
 				<input type="text" id="ctgName" name="ctgName" value="${largeTypeObj.ctgName}" class="Text Kor" style="width:90%;">
 			</td>
