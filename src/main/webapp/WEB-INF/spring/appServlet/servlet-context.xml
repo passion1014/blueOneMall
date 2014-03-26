@@ -25,6 +25,7 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<!-- 전성호 추가 시작 -->
 	<beans:bean id="jsonView" class="net.sf.json.spring.web.servlet.view.JsonView">
 		<beans:property name="contentType" value="text/html;charset=UTF-8"></beans:property>
 	</beans:bean>
@@ -32,6 +33,7 @@
 	<beans:bean id="beanNameResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
 		<beans:property name="order" value="0"/> 
 	</beans:bean>
+	<!-- 전성호 추가 끝 -->
 
 
 	
