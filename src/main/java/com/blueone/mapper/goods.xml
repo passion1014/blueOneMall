@@ -58,7 +58,7 @@
 		WHERE
 			`CTG_CODE`= #{ctgCode}
 	</update>
-		<delete id = "deleteBomCategoryTb0001"  parameterType="com.blueone.admin.domain.GoodsTypeInfo" >
+	<delete id = "deleteBomCategoryTb0001"  parameterType="com.blueone.admin.domain.GoodsTypeInfo" >
          DELETE BOM_CATEGORY_TB
          	SET
          		'LAST_DATE' = sysdate()
