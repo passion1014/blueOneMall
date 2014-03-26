@@ -36,7 +36,7 @@
 		</tr>
 	<c:forEach items="${list}" var="goods">
 		<tr>
-			<td>${goods.idx}</td>
+			<td><a href="largeTypeEdit.do?idx=${goods.idx}>"${goods.idx}</a></td>
 			<td></td>
 			<td></td>
 			<td class="left">${goods.ctgName}</td>

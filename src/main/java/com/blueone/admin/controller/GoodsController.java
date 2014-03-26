@@ -28,12 +28,12 @@ public class GoodsController {
 	
 	
 	@RequestMapping(value="/goodsList.do", method= RequestMethod.GET)
-	public String goodsList(@ModelAttribute("goodsTypeInfo") GoodsTypeInfo goodsTypeInfo, BindingResult result, Model model){
+	public String goodsList(@ModelAttribute("categoryTypeInfo") GoodsTypeInfo goodsTypeInfo, BindingResult result, Model model){
 		return "admin/goods/goodsList";
 	}
 	
 	@RequestMapping(value="/largeTypeList.do", method= RequestMethod.GET)
-	public ModelAndView largeTypeList(@ModelAttribute("goodsTypeInfo") GoodsTypeInfo goodsTypeInfo, BindingResult result, Model model){
+	public ModelAndView largeTypeList(@ModelAttribute("categoryTypeInfo") GoodsTypeInfo goodsTypeInfo, BindingResult result, Model model){
 		ModelAndView mav = new ModelAndView();
 		List<GoodsTypeInfo> list = iGoodsService.getGoodsTypeList(goodsTypeInfo);
 		
@@ -66,6 +66,22 @@ public class GoodsController {
 		
 		
 	}	
-	
+	@RequestMapping(value="/largeTypeEdit.do", method=RequestMethod.GET)
+	public ModelAndView largeTypeEdit(@ModelAttribute("goodsTypeInfo") GoodsTypeInfo goodsTypeInfo, BindingResult result, Model model){
+		ModelAndView mav = new ModelAndView();
+		int rst = iGoodsService.goodsTypeEdit(goodsTypeInfo);
+		if(rst == 0){
+			mav.setViewName("admin/largeTypeEdit");
+		}
+		mav.setViewName("admin/largeTypeEdit");
+		return mav;
+	}
+	@RequestMapping(value="/largeTypeDelete.do", method=RequestMethod.GET)
+	public ModelAndView largeTypeDelete(@ModelAttribute("goodsTypeInfo") GoodsTypeInfo goodsTypeInfo, BindingResult result, Model model){
+		ModelAndView mav = new ModelAndView();
+		int rst = iGoodsService.goodsTypeDelete(goodsTypeInfo);
+		mav.setViewName("admin/largeTypeDelete");
+		return mav;
+	}
 
 }

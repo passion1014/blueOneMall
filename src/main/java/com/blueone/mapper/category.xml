@@ -59,4 +59,5 @@
 			`CTG_CODE`= #{ctgCode}
 	</update>
 
+
 </mapper>

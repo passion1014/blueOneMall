@@ -28,7 +28,7 @@ public class GoodsServiceImpl implements IGoodsService {
 		try {
 			String ctgCode= "xxxxx";
 			goodsTypeInfo.setCtgCode(ctgCode);
-		int	rst = sqlSession.insert("category.insertBomCategoryTb0001", goodsTypeInfo);
+		int	rst = sqlSession.insert("goods.insertBomCategoryTb0001", goodsTypeInfo);
 		} finally {
 			sqlSession.close();
 		}
@@ -42,13 +42,41 @@ public class GoodsServiceImpl implements IGoodsService {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		List<GoodsTypeInfo> list = new ArrayList<GoodsTypeInfo>();
 		try{
-			list = sqlSession.selectList("category.selectListBomCategoryTb0001", goodsTypeInfo);
+			list = sqlSession.selectList("goods.selectListBomCategoryTb0001", goodsTypeInfo);
 		}finally{
 			sqlSession.close();
 		}
 		return list;
 	}
-	
+	@Override
+	public int goodsTypeEdit(GoodsTypeInfo goodsTypeInfo){
+		int rst = 0;
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try{
+			Map<String, GoodsTypeInfo> map = new HashMap<String, GoodsTypeInfo>();
+			map.put("categoryTypeInfo", goodsTypeInfo);
+			
+		rst = sqlSession.update("goods.updateBomCategoryTb0001", map);
+			
+		}finally{
+			sqlSession.close();
+		}
+		return rst;
+	}
+	@Override
+	public int goodsTypeDelete(GoodsTypeInfo goodsTypeInfo){
+		
+		int rst = 0;
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try{
+			Map<String, GoodsTypeInfo> map = new HashMap<String, GoodsTypeInfo>();
+			map.put("categoryTypeInfo", goodsTypeInfo);
+			rst = sqlSession.delete("goods.deleteBomCategoryTb0001", map);
+		}finally{
+			sqlSession.close();
+		}
+		return rst;
+	}
 	
 
 }
