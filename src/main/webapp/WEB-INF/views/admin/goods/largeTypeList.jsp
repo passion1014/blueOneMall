@@ -37,7 +37,7 @@
 	<c:forEach items="${list}" var="goods">
 		<tr>
 			<td>${goods.idx}</a></td>
-			<td>${goods.}</td>
+			<td></td>
 			<td class="left">${goods.ctgName}</td>
 			<td class="center">
 				<input type="button" value="수정" onClick="openWin('largeTypeModify.do?ctgCode=${goods.ctgCode}','largeTypeForm',600,450,'scrollbars=no');"  class="Button Gray">
