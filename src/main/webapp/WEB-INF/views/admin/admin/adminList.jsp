@@ -113,7 +113,7 @@
 						</tr>
 					</table>
 					<div style="margin-top:10px;" class="right">                                              
-						<input type="button" value="정보수정" class="button button_green button_medium" onClick="location.href='editAdminInfForm.do?id=${info.id}'"> &nbsp;
+						<a href="editCategoryInf.do?id=${list.id}">button</a> &nbsp;
 						<input type="button" value="삭제" class="button button_red button_medium" onClick="confirm_process('actionForm','관리자 정보를 삭제하시겠습니까? \n\n삭제후에는 복구가 불가능합니다. \n\n상태를 중지 시키면 권한을 박탈할 수 있습니다. \n\n그래도 삭제하시겠습니까?','');">
 					</div>
 						

@@ -48,28 +48,19 @@
 	<update id="updateBomCategoryTb0001" parameterType="com.blueone.admin.domain.GoodsTypeInfo">
 		UPDATE BOM_CATEGORY_TB
 			SET
-				`LAST_DATE` = sysdate()
-				<if test="ctgPCode != null and fromDate != ''">,`CTG_P_CODE` = #{ctgPCode}</if>
-				<if test="ctgCodeType != null and ctgCodeType != ''">,`CTG_CODE_TYPE` = #{ctgCodeType}</if>
-				<if test="ctgName != null and ctgName != ''">,`CTG_NAME` = #{ctgName}, `CTG_DESC` = #{ctgDesc}</if>
-				<if test="ctgOrder != null and ctgOrder != ''">,`CTG_ORDER` = #{ctgOrder}</if>
-				<if test="fromDate != null and fromDate != ''">,`FROM_DATE` = #{fromDate}</if>
-				<if test="toDate != null and toDate != ''">,`TO_DATE` = #{toDate}</if>
+				`LAST_DATE` = sysdate(),
+				`CTG_P_CODE` = #{ctgPCode},
+				`CTG_CODE_TYPE` = #{ctgCodeType},
+				`CTG_NAME` = #{ctgName}, `CTG_DESC` = #{ctgDesc},
+				`CTG_ORDER` = #{ctgOrder},
+				`FROM_DATE` = #{fromDate},
+				`TO_DATE` = #{toDate}
 		WHERE
 			`CTG_CODE`= #{ctgCode}
 	</update>
 	<delete id = "deleteBomCategoryTb0001"  parameterType="com.blueone.admin.domain.GoodsTypeInfo" >
-         DELETE BOM_CATEGORY_TB
-         	SET
-         		'LAST_DATE' = sysdate()
-         		<if test="ctgPCode != null and fromDate != ''">,`CTG_P_CODE` = #{ctgPCode}</if>
-				<if test="ctgCodeType != null and ctgCodeType != ''">,`CTG_CODE_TYPE` = #{ctgCodeType}</if>
-				<if test="ctgName != null and ctgName != ''">,`CTG_NAME` = #{ctgName}, `CTG_DESC` = #{ctgDesc}</if>
-				<if test="ctgOrder != null and ctgOrder != ''">,`CTG_ORDER` = #{ctgOrder}</if>
-				<if test="fromDate != null and fromDate != ''">,`FROM_DATE` = #{fromDate}</if>
-				<if test="toDate != null and toDate != ''">,`TO_DATE` = #{toDate}</if>
-		WHERE
-			`CTG_CODE`= #{ctgCode}
+         DELETE FROM BOM_CATEGORY_TB
+			WHERE
+			CTG_CODE = #{ctgCode}
      </delete>
-
 </mapper>

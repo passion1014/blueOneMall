@@ -36,13 +36,13 @@
 		</tr>
 	<c:forEach items="${list}" var="goods">
 		<tr>
-			<td><a href="largeTypeEdit.do?idx=${goods.idx}>"${goods.idx}</a></td>
+			<td>${goods.idx}</a></td>
 			<td></td>
 			<td></td>
 			<td class="left">${goods.ctgName}</td>
 			<td>
-				<input type="button" value="수정" class="Small_Button Gray" onClick="dialogUpdate('');">&nbsp;&nbsp;
-				<input type="button" value="삭제" class="Small_Button Gray" onClick="confirm_process('actionForm','대분류를 삭제하시겠습니까? \n\n삭제 후에는 복구가 불가능합니다. ','./_action/product.do.php?Mode=del_large_type&idx=')">
+				<a href="editCategoryInf.do?ctgCode=${goods.ctgCode}">update</a>&nbsp;&nbsp;
+				<a href="deleteCategoryInf.do?ctgCode=${goods.ctgCode}">delete</a>&nbsp;&nbsp;
 			</td>
 		</tr>
 	</c:forEach>
