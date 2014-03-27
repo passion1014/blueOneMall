@@ -41,9 +41,7 @@ public class GoodsController {
 	    mav.setViewName("admin/goods/largeTypeList");
 	    
 		return mav;
-		
-		
-		
+			
 	}
 	
 	
@@ -61,11 +59,13 @@ public class GoodsController {
 	public String largeTypeRegisterProc(@ModelAttribute("goodsTypeInfo") GoodsTypeInfo goodsTypeInfo, BindingResult result, Model model){
 		
 		iGoodsService.registGoodsType(goodsTypeInfo);
-		
+				
+		model.addAttribute("reloadVar", "yes");
 		return "admin/goods/largeTypeRegister";
-		
-		
-	}	
+			
+	}
+	
+	
 	@RequestMapping(value="/largeTypeEdit.do", method=RequestMethod.GET)
 	public ModelAndView largeTypeEdit(@ModelAttribute("goodsTypeInfo") GoodsTypeInfo goodsTypeInfo, BindingResult result, Model model){
 		ModelAndView mav = new ModelAndView();
@@ -76,6 +76,8 @@ public class GoodsController {
 		mav.setViewName("admin/largeTypeEdit");
 		return mav;
 	}
+	
+	
 	@RequestMapping(value="/largeTypeDelete.do", method=RequestMethod.GET)
 	public ModelAndView largeTypeDelete(@ModelAttribute("goodsTypeInfo") GoodsTypeInfo goodsTypeInfo, BindingResult result, Model model){
 		ModelAndView mav = new ModelAndView();

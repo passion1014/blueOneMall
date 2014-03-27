@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<<c:if test=""><script>opener.location.reload();</script></c:if>
+<c:if test="${reloadVar=='yes'}"><script>opener.location.reload();</script></c:if>
 
 <c:import  url="../inc/top.jsp" />
 
@@ -54,7 +54,7 @@
 
 	<div style="margin-top:10px;text-align:center;">
 		<input type="submit" value="등록하기" class="Button Gray">
-		<input type="button" value="창닫기" class="Button Gray" onClick="closeWin()">
+		<input type="button" value="창닫기" class="Button Gray" onClick="self.close();">
 	</div>
 	</form>
 	</div>
