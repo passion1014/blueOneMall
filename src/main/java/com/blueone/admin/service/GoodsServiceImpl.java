@@ -73,25 +73,19 @@ public class GoodsServiceImpl implements IGoodsService {
 			setDefaultDate(goodsTypeInfo);
 			String ctgCode= "xxxxx";
 			goodsTypeInfo.setCtgCode(ctgCode);
-<<<<<<< HEAD
 			
 			int	rst = sqlSession.insert("goods.insertBomCategoryTb0001", goodsTypeInfo);
 						
-=======
 			// DB 수행
-			int rst = sqlSession.insert("goods.insertBomCategoryTb0001", goodsTypeInfo);
->>>>>>> 9efb416b21b2b7a173d1f24579840d1d1c5e2e95
+			
 		} finally {
 			sqlSession.close();
 		}
 		
  		return rstInfo;
 	}
-<<<<<<< HEAD
 	
-=======
 
->>>>>>> 9efb416b21b2b7a173d1f24579840d1d1c5e2e95
 	@Override
 	public int editCategoryInf(GoodsTypeInfo goodsTypeInfo) {
 		int rst = -1;
@@ -117,14 +111,11 @@ public class GoodsServiceImpl implements IGoodsService {
 		
 		return rst;
 	}
-<<<<<<< HEAD
 	
-=======
 
 	/* 
 	 * 카테고리 목록 조회
 	 */
->>>>>>> 9efb416b21b2b7a173d1f24579840d1d1c5e2e95
 	@Override
 	public List<GoodsTypeInfo> getCategoryInfList(GoodsTypeInfo goodsTypeInfo) {
 		List<GoodsTypeInfo> list = new ArrayList<GoodsTypeInfo>();
@@ -134,7 +125,7 @@ public class GoodsServiceImpl implements IGoodsService {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
 			// DB 수행
-			list = sqlSession.selectList("goods.selectListBomCategoryTb0001");
+			list = sqlSession.selectList("goods.selectListBomCategoryTb0001",goodsTypeInfo);
 			
 		} finally {
 			sqlSession.close();
@@ -142,14 +133,11 @@ public class GoodsServiceImpl implements IGoodsService {
 		
 		return list;
 	}
-<<<<<<< HEAD
 	
-=======
 
 	/*
 	 * Category 조회 
 	 */
->>>>>>> 9efb416b21b2b7a173d1f24579840d1d1c5e2e95
 	@Override
 	public GoodsTypeInfo getCategoryInfDetail(GoodsTypeInfo goodsTypeInfo) {
 		
@@ -185,8 +173,6 @@ public class GoodsServiceImpl implements IGoodsService {
 		
 		return rst;
 	}
-<<<<<<< HEAD
-=======
 	
 	/*
 	 * Category 조회 
@@ -218,7 +204,6 @@ public class GoodsServiceImpl implements IGoodsService {
 			goodsTypeInfo.setToDate("9999-12-31");
 		}
 	}
->>>>>>> 9efb416b21b2b7a173d1f24579840d1d1c5e2e95
 	
 
 }

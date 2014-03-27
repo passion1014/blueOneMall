@@ -39,11 +39,10 @@ private static final Logger logger = LoggerFactory.getLogger(CategoryController.
 		return "admin/goods/goodsList";
 	}
 	
-<<<<<<< HEAD
 	@RequestMapping(value="/largeTypeList.do", method= RequestMethod.GET)
 	public ModelAndView largeTypeList(@ModelAttribute("categoryTypeInfo") GoodsTypeInfo goodsTypeInfo, BindingResult result, Model model){
 		ModelAndView mav = new ModelAndView();
-		List<GoodsTypeInfo> list = iGoodsService.getGoodsTypeList(goodsTypeInfo);
+		List<GoodsTypeInfo> list = iGoodsService.getCategoryInfList(goodsTypeInfo);
 		
 	    mav.addObject("list", list);
 	    mav.setViewName("admin/goods/largeTypeList");
@@ -52,8 +51,6 @@ private static final Logger logger = LoggerFactory.getLogger(CategoryController.
 			
 	}
 	
-=======
->>>>>>> 9efb416b21b2b7a173d1f24579840d1d1c5e2e95
 	
 	@RequestMapping(value="/largeTypeRegister.do", method= RequestMethod.GET)
 	public String largeTypeRegister(@ModelAttribute("adminInfo") AdminInfo adminInfo, BindingResult result, Model model){
@@ -77,8 +74,7 @@ private static final Logger logger = LoggerFactory.getLogger(CategoryController.
 	@RequestMapping(value = "/editCategoryInf.do", method = RequestMethod.GET)
 	public String editCategoryInfo(@ModelAttribute("GoodsTypeInfo") GoodsTypeInfo goodsTypeInfo, BindingResult result, Model model,String ctgCode) {
 		
-<<<<<<< HEAD
-		iGoodsService.registGoodsType(goodsTypeInfo);
+		iGoodsService.registCategoryInf(goodsTypeInfo);
 				
 		model.addAttribute("reloadVar", "yes");
 		return "admin/goods/largeTypeRegister";
@@ -89,7 +85,7 @@ private static final Logger logger = LoggerFactory.getLogger(CategoryController.
 	@RequestMapping(value="/largeTypeEdit.do", method=RequestMethod.GET)
 	public ModelAndView largeTypeEdit(@ModelAttribute("goodsTypeInfo") GoodsTypeInfo goodsTypeInfo, BindingResult result, Model model){
 		ModelAndView mav = new ModelAndView();
-		int rst = iGoodsService.goodsTypeEdit(goodsTypeInfo);
+		int rst = iGoodsService.editCategoryInf(goodsTypeInfo);
 		if(rst == 0){
 			mav.setViewName("admin/largeTypeEdit");
 		}
@@ -101,13 +97,11 @@ private static final Logger logger = LoggerFactory.getLogger(CategoryController.
 	@RequestMapping(value="/largeTypeDelete.do", method=RequestMethod.GET)
 	public ModelAndView largeTypeDelete(@ModelAttribute("goodsTypeInfo") GoodsTypeInfo goodsTypeInfo, BindingResult result, Model model){
 		ModelAndView mav = new ModelAndView();
-		int rst = iGoodsService.goodsTypeDelete(goodsTypeInfo);
-		mav.setViewName("admin/largeTypeDelete");
+		int rst = iGoodsService.deleteCategoryInf(goodsTypeInfo);
+		mav.setViewName("admin/goods/largeTypeList");
 		return mav;
-=======
 		
 		
-		return "admin/goods/largeTypeEdit";
 	}
 
 	/**
@@ -130,19 +124,8 @@ private static final Logger logger = LoggerFactory.getLogger(CategoryController.
 		
 		return "redirect:largeTypeList.do";
 	}
-	/**
-	 * 카테고리목록 조회
-	 */
-	@RequestMapping(value = "/largeTypeList.do", method = RequestMethod.GET)
-	public String getListCategoryInfo(@ModelAttribute("GoodsTypeInfo") GoodsTypeInfo goodsTypeInfo, BindingResult result, Model model) {
-		List<GoodsTypeInfo> list;
-		list = iGoodsService.getCategoryInfList(goodsTypeInfo);
-		model.addAttribute("list", list);
-		return "admin/goods/largeTypeList";
->>>>>>> 9efb416b21b2b7a173d1f24579840d1d1c5e2e95
-	}
 	
-	
+		
 	
 	
 
