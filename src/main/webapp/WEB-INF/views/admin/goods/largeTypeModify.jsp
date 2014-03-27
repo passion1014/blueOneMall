@@ -10,12 +10,12 @@
 	<div style="padding:10px;">
 	<div> 상품관리 > 상품분류 > 대분류 등록	</div>
 	<form name="frm" method="post" action="editCategoryInfProc.do" onSubmit="return chkForm(this);" target="actionForm" style="display:inline;">
-	<input type="hidden" id="ctgPCodeType" name="ctgPCodeType" value="">
-	<input type="hidden" id="ctgCodeType"  name="ctgCodeType"  value="01">
-	<input type="hidden" id="ctgDesc"      name="ctgDesc"      value="">
-	<input type="hidden" id="fromDate" name="fromDate" value="1900-01-01">
-	<input type="hidden" id="toDate" name="toDate" value="9999-12-31">
-	<input type="hidden" id="modifyUserId" name="modifyUserId" value="${adminSession.id}">
+	<input type="text" id="ctgPCode"     name="ctgPCode"     value="${largeTypeObj.ctgPCode}">
+	<input type="text" id="ctgCodeType"  name="ctgCodeType"  value="${largeTypeObj.ctgCodeType}">
+	<input type="text" id="ctgDesc"      name="ctgDesc"      value="${largeTypeObj.ctgDesc}">
+	<input type="text" id="fromDate"     name="fromDate"     value="1900-01-01">
+	<input type="text" id="toDate"       name="toDate"       value="9999-12-31">
+	<input type="text" id="modifyUserId" name="modifyUserId" value="${adminSession.id}">
 	
 	<table class="tbl1">
 		<colgroup>
@@ -45,14 +45,14 @@
 		<tr>
 			<th>대분류명</th>
 			<td colspan="3" class="left">
-				<input type="text" id="ctgName" name="ctgName" class="Text Kor" style="width:90%;">
+				<input type="text" id="ctgName" name="ctgName" value="${largeTypeObj.ctgName}" class="Text Kor" style="width:90%;">
 			</td>
 		</tr>
 	</table>
 
 	<div style="margin-top:10px;text-align:center;">
 		<input type="submit" value="등록하기" class="Button Gray">
-		<input type="button" value="창닫기" class="Button Gray" onClick="closeWin()">
+		<input type="button" value="창닫기" class="Button Gray" onClick="self.close();">
 	</div>
 	</form>
 	</div>

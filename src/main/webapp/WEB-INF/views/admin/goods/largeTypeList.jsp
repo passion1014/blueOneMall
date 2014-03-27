@@ -37,12 +37,12 @@
 	<c:forEach items="${list}" var="goods">
 		<tr>
 			<td>${goods.idx}</a></td>
-			<td></td>
-			<td></td>
+			<td>${goods.}</td>
 			<td class="left">${goods.ctgName}</td>
-			<td>
-				<a href="editCategoryInf.do?ctgCode=${goods.ctgCode}">update</a>&nbsp;&nbsp;
-				<a href="deleteCategoryInf.do?ctgCode=${goods.ctgCode}">delete</a>&nbsp;&nbsp;
+			<td class="center">
+				<input type="button" value="수정" onClick="openWin('largeTypeModify.do?ctgCode=${goods.ctgCode}','largeTypeForm',600,450,'scrollbars=no');"  class="Button Gray">
+				<input type="button" value="삭제" onClick="location.href='deleteCategoryInf.do?ctgCode=${goods.ctgCode}';"  class="Button Gray">
+				
 			</td>
 		</tr>
 	</c:forEach>
