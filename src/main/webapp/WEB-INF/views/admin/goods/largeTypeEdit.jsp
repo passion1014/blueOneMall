@@ -9,7 +9,7 @@
 	<!-- 컨덴츠 -->
 	<div style="padding:10px;">
 	<div> 상품관리 > 상품분류 > 대분류 등록	</div>
-	<form name="frm" method="post" action="largeTypeRegisterProc.do" onSubmit="return chkForm(this);" target="actionForm" style="display:inline;">
+	<form name="frm" method="post" action="editCategoryInfProc.do" onSubmit="return chkForm(this);" target="actionForm" style="display:inline;">
 	<input type="hidden" id="ctgPCodeType" name="ctgPCodeType" value="">
 	<input type="hidden" id="ctgCodeType"  name="ctgCodeType"  value="01">
 	<input type="hidden" id="ctgDesc"      name="ctgDesc"      value="">
@@ -45,7 +45,7 @@
 		<tr>
 			<th>대분류명</th>
 			<td colspan="3" class="left">
-				<input type="text" id="ctgName" name="ctgName" class="Text Kor" style="width:90%;" required hname="대분류명을 입력하여 주십시오">
+				<input type="text" id="ctgName" name="ctgName" class="Text Kor" style="width:90%;">
 			</td>
 		</tr>
 	</table>
