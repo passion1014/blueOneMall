@@ -2,8 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:import  url="../inc/top.jsp" />
-<c:set var="test" value="goodsList" scope="request"/> 
 <body>
+
 <div id="Wrap">
 	<c:import url="../inc/gnb.jsp"/>
 	<c:import url="../inc/lnb.jsp">
@@ -34,22 +34,28 @@
 			<th>분류명</th>
 			<th>수정 / 삭제</th>
 		</tr>
-	<c:forEach items="${list}" var="goods">
-		<tr>
-			<td>${goods.idx}</a></td>
-			<td></td>
-			<td class="left">${goods.ctgName}</td>
-			<td class="center">
-				<input type="button" value="수정" onClick="openWin('largeTypeModify.do?ctgCode=${goods.ctgCode}','largeTypeForm',600,450,'scrollbars=no');"  class="Button Gray">
-				<input type="button" value="삭제" onClick="location.href='deleteCategoryInf.do?ctgCode=${goods.ctgCode}';"  class="Button Gray">
-				
-			</td>
-		</tr>
-	</c:forEach>
-		<tr>
-			<td colspan="6" height="200">등록된 대분류가 없습니다.</td>
-		</tr>
-	
+		
+		<c:choose>
+			<c:when test="${goods.idx != ''}">
+				<c:forEach items="${list}" var="goods">
+					<tr>
+						<td class="center">${goods.idx}</td>
+						<td></td>
+						<td class="left">${goods.ctgName}</td>
+						<td class="center">
+							<input type="button" value="수정" onClick="openWin('largeTypeModify.do?ctgCode=${goods.ctgCode}','largeTypeForm',600,450,'scrollbars=no');"  class="Button Gray">
+							<input type="button" value="삭제" onClick="location.href='deleteCategoryInf.do?ctgCode=${goods.ctgCode}';"  class="Button Gray">
+						</td>
+					</tr>
+				</c:forEach>
+			</c:when>
+			<c:otherwise>
+				<tr>
+					<td colspan="6" height="200"> 등록된 대분류가 없습니다.</td>
+				</tr>			
+		    </c:otherwise>
+		</c:choose>
+			
 	</table>
 
 	<div id="Paser">

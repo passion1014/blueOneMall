@@ -70,21 +70,12 @@ private static final Logger logger = LoggerFactory.getLogger(CategoryController.
 	public String registCategoryInfo(@ModelAttribute("GoodsTypeInfo") GoodsTypeInfo goodsTypeInfo, BindingResult result, Model model) {
 		
 		iGoodsService.registCategoryInf(goodsTypeInfo);
-		return "admin/goods/largeTypeRegister";
-	}
-	
-	
-	@RequestMapping(value = "/editCategoryInf.do", method = RequestMethod.GET)
-	public String editCategoryInfo(@ModelAttribute("GoodsTypeInfo") GoodsTypeInfo goodsTypeInfo, BindingResult result, Model model,String ctgCode) {
 		
-		iGoodsService.registCategoryInf(goodsTypeInfo);
-				
 		model.addAttribute("reloadVar", "yes");
 		return "admin/goods/largeTypeRegister";
-			
 	}
 	
-	
+		
 	@RequestMapping(value="/largeTypeModify.do", method=RequestMethod.GET)
 	public String largeTypeModify(@ModelAttribute("goodsTypeInfo") GoodsTypeInfo goodsTypeInfo, BindingResult result, Model model){
 		
@@ -104,6 +95,16 @@ private static final Logger logger = LoggerFactory.getLogger(CategoryController.
 		
 		
 	}
+	
+	
+	
+	@RequestMapping(value = "/editCategoryInf.do", method = RequestMethod.GET)
+	public String editCategoryInfo(@ModelAttribute("GoodsTypeInfo") GoodsTypeInfo goodsTypeInfo, BindingResult result, Model model,String ctgCode) {
+		
+		iGoodsService.registCategoryInf(goodsTypeInfo);
+		return "admin/goods/largeTypeRegister";
+			
+	}
 
 	/**
 	 * 카테고리 수정
@@ -113,7 +114,8 @@ private static final Logger logger = LoggerFactory.getLogger(CategoryController.
 		
 		iGoodsService.editCategoryInf(goodsTypeInfo);
 		
-		return "redirect:largeTypeList.do";
+		model.addAttribute("reloadVar", "yes");		
+		return "admin/goods/largeTypeModify";
 	}
 	
 	/**

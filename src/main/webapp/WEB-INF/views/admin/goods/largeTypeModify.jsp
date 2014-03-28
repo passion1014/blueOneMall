@@ -1,18 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<c:import  url="../inc/top.jsp" />
+<c:if test="${reloadVar=='yes'}"><script>opener.location.reload();self.close();</script></c:if>
 
+<c:import  url="../inc/top.jsp" />
 
 <body>
 <div id="Wrap">
 	<!-- 컨덴츠 -->
 	<div style="padding:10px;">
 	<div> 상품관리 > 상품분류 > 대분류 등록	</div>
-	<form name="frm" method="post" action="editCategoryInfProc.do" onSubmit="return chkForm(this);" target="actionForm" style="display:inline;">
+	<form name="frm" method="post" action="editCategoryInfProc.do" onSubmit="return chkForm(this);">
 	<input type="text" id="ctgPCode"     name="ctgPCode"     value="${largeTypeObj.ctgPCode}">
 	<input type="text" id="ctgCodeType"  name="ctgCodeType"  value="${largeTypeObj.ctgCodeType}">
 	<input type="text" id="ctgDesc"      name="ctgDesc"      value="${largeTypeObj.ctgDesc}">
+	<input type="text" id="ctgCode"      name="ctgCode"      value="${largeTypeObj.ctgCode}">
 	<input type="text" id="fromDate"     name="fromDate"     value="1900-01-01">
 	<input type="text" id="toDate"       name="toDate"       value="9999-12-31">
 	<input type="text" id="modifyUserId" name="modifyUserId" value="${adminSession.id}">
