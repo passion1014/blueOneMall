@@ -1,89 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c_rt"%> 
-<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 
+<c:import  url="../inc/top.jsp" />
 
-<link type="text/css" rel="stylesheet" href="<c:url value='/resources/css/common.css'/>" />
-<link type="text/css" rel="stylesheet" href="<c:url value='/resources/css/component.css'/>" />
-<link type="text/css" rel="stylesheet" href="<c:url value='/resources/css/default.css'/>" />
-<link type="text/css" rel="stylesheet" href="<c:url value='/resources/css/main.css'/>" />
-<link type="text/css" rel="stylesheet" href="<c:url value='/resources/css/sub.css'/>" />
-<script type="text/javascript" src="<c:url value='/resources/js/jquery-ui.custom.js'/>"> </script>
-<script type="text/javascript" src="<c:url value='/resources/js/jquery.js'/>"> </script>
-
-<script type="text/javascript">
-	<!-- tab module -->
-	$(function() {
-		$( ".mcont" ).tabs();
-	});
-
-	function change_area(n){
-		for(var i=1;i<=6;i++){
-			area_id = "area_"+i ;
-			if(i == n){
-				document.getElementById(area_id).style.display = "block";
-			}else{
-				document.getElementById(area_id).style.display = "none";
-			}
-		}
-	}
-
-		function change_area1(n){
-		for(var i=1;i<=3;i++){
-			area_id = "area_"+i ;
-			if(i == n){
-				document.getElementById(area_id).style.display = "block";
-			}else{
-				document.getElementById(area_id).style.display = "none";
-			}
-		}
-	}
-	<!--// tab module -->
-</script>
-<title>Insert title here</title>
-</head>
 <body>
-   <div class="wrap">
-	<div class="header">
-		<div class="top">
-			<h1><a href="#"><img src="<c:url value='/resources/img/main/common/blueone_logo.png'/>"/></a></h1>
-			<p class="top_img">
-				<img src="<c:url value='/resources/img/main/common/top_image.jpg'/>"/>
-			</p>
-			<form action="#" method="post">
-				<div class="search_area">
-					<span class="search_menu">
-						<a href="#" class="menu_site">Àå¹Ù±¸´Ï</a>
-						<a href="#" class="menu_site">ÁÖ¹®¹è¼Û Á¶È¸</a>
-						<a href="#">¸¶ÀÌÆäÀÌÁö</a>
-					</span>
-					<span class="search_box">
-						<input type="text" title="¼­Ä¡ÅØ½ºÆ®¹Ú½º"/>
-						<button></button>
-					</span>
-				</div>
-			</form>
-		</div>
-		<div class="gnb">
-			<ul>
-				<li><a href="#">BLUETOOTH</a></li>
-				<li class="gnb_list"><a href="#">EARPHONE</a></li>
-				<li class="gnb_list"><a href="#">HEADPHONE</a></li>
-				<li class="gnb_list"><a href="#">MULTMEDIA</a></li>
-				<li class="gnb_list"><a href="#">CASE</a></li>
-				<li class="gnb_list"><a href="#">XTC</a></li>
-				<li class="gnb_list"><a href="#">SALE</a></li>
-				<li class="gnb_list"><a href="#">BARND SHOP</a></li>
-			</ul>
-		</div>
-	</div>
-<!--  header ³¡   -->
+<div class="wrap">
+	<c:import  url="../inc/header.jsp" />
+		
 	<div class="container">
 		<div class="cont_main">
 			<div class="mcont">
@@ -161,78 +84,78 @@
 					<li><a href="#" class="wpadding3">MULTMEDIA</a></li>
 				</ul>
 				<div class="product_elist">
-					<p class="tit_loc"><span class="loc_text1">BEST ITEM</span><span class="loc_text2">¿À´ÃÀÇ µô</span></p>
+					<p class="tit_loc"><span class="loc_text1">BEST ITEM</span><span class="loc_text2">ì˜¤ëŠ˜ì˜ ë”œ</span></p>
 					<ul class="pro_list">
 						<li><a href="#">
 							<dl class="list_product">
 								<dd><img src="./images/main/pro_img1.jpg" alt="product image"/></dd>
-								<dd>[Sonus Faber¦¢¼Ò³Ê½º ÆÄº£¸£]</dd>
-								<dd>BUS AG USB ÄÉÀÌºí</dd>
-								<dd><strong class="textline"> 510,000</strong>¡é<span>200,000¿ø</span></dd>
+								<dd>[Sonus Faberâ”‚ì†Œë„ˆìŠ¤ íŒŒë² ë¥´]</dd>
+								<dd>BUS AG USB ì¼€ì´ë¸”</dd>
+								<dd><strong class="textline"> 510,000</strong>â†“<span>200,000ì›</span></dd>
 							</dl>
 						</a></li>
 						<li><a href="#">
 							<dl class="list_product">
 								<dd><img src="./images/main/pro_img2.jpg" alt="product image"/></dd>
-								<dd>[Sonus Faber¦¢¼Ò³Ê½º ÆÄº£¸£]</dd>
-								<dd>BUS AG USB ÄÉÀÌºí</dd>
-								<dd><strong class="textline"> 510,000</strong>¡é<span>200,000¿ø</span></dd>
+								<dd>[Sonus Faberâ”‚ì†Œë„ˆìŠ¤ íŒŒë² ë¥´]</dd>
+								<dd>BUS AG USB ì¼€ì´ë¸”</dd>
+								<dd><strong class="textline"> 510,000</strong>â†“<span>200,000ì›</span></dd>
 							</dl>
 						</a></li>
 						<li><a href="#">
 							<dl class="list_product">
 								<dd><img src="./images/main/pro_img3.jpg" alt="product image"/></dd>
-								<dd>[Sonus Faber¦¢¼Ò³Ê½º ÆÄº£¸£]</dd>
-								<dd>BUS AG USB ÄÉÀÌºí</dd>
-								<dd><strong class="textline"> 510,000</strong>¡é<span>200,000¿ø</span></dd>
+								<dd>[Sonus Faberâ”‚ì†Œë„ˆìŠ¤ íŒŒë² ë¥´]</dd>
+								<dd>BUS AG USB ì¼€ì´ë¸”</dd>
+								<dd><strong class="textline"> 510,000</strong>â†“<span>200,000ì›</span></dd>
 							</dl>
 						</a></li>
 						<li><a href="#">
 							<dl class="list_product">
 								<dd><img src="./images/main/pro_img1.jpg" alt="product image"/></dd>
-								<dd>[Sonus Faber¦¢¼Ò³Ê½º ÆÄº£¸£]</dd>
-								<dd>BUS AG USB ÄÉÀÌºí</dd>
-								<dd><strong class="textline"> 510,000</strong>¡é<span>200,000¿ø</span></dd>
+								<dd>[Sonus Faberâ”‚ì†Œë„ˆìŠ¤ íŒŒë² ë¥´]</dd>
+								<dd>BUS AG USB ì¼€ì´ë¸”</dd>
+								<dd><strong class="textline"> 510,000</strong>â†“<span>200,000ì›</span></dd>
 							</dl>
 						</a></li>
 						<li><a href="#">
 							<dl class="list_product">
 								<dd><img src="./images/main/pro_img2.jpg" alt="product image"/></dd>
-								<dd>[Sonus Faber¦¢¼Ò³Ê½º ÆÄº£¸£]</dd>
-								<dd>BUS AG USB ÄÉÀÌºí</dd>
-								<dd><strong class="textline"> 510,000</strong>¡é<span>200,000¿ø</span></dd>
+								<dd>[Sonus Faberâ”‚ì†Œë„ˆìŠ¤ íŒŒë² ë¥´]</dd>
+								<dd>BUS AG USB ì¼€ì´ë¸”</dd>
+								<dd><strong class="textline"> 510,000</strong>â†“<span>200,000ì›</span></dd>
 							</dl>
 						</a></li>
 						<li><a href="#">
 							<dl class="list_product">
 								<dd><img src="./images/main/pro_img3.jpg" alt="product image"/></dd>
-								<dd>[Sonus Faber¦¢¼Ò³Ê½º ÆÄº£¸£]</dd>
-								<dd>BUS AG USB ÄÉÀÌºí</dd>
-								<dd><strong class="textline"> 510,000</strong>¡é<span>200,000¿ø</span></dd>
+								<dd>[Sonus Faberâ”‚ì†Œë„ˆìŠ¤ íŒŒë² ë¥´]</dd>
+								<dd>BUS AG USB ì¼€ì´ë¸”</dd>
+								<dd><strong class="textline"> 510,000</strong>â†“<span>200,000ì›</span></dd>
 							</dl>
 						</a></li>
 						<li><a href="#">
 							<dl class="list_product">
 								<dd><img src="./images/main/pro_img1.jpg" alt="product image"/></dd>
-								<dd>[Sonus Faber¦¢¼Ò³Ê½º ÆÄº£¸£]</dd>
-								<dd>BUS AG USB ÄÉÀÌºí</dd>
-								<dd><strong class="textline"> 510,000</strong>¡é<span>200,000¿ø</span></dd>
+								<dd>[Sonus Faberâ”‚ì†Œë„ˆìŠ¤ íŒŒë² ë¥´]</dd>
+								<dd>BUS AG USB ì¼€ì´ë¸”</dd>
+								<dd><strong class="textline"> 510,000</strong>â†“<span>200,000ì›</span></dd>
 							</dl>
 						</a></li>
 						<li><a href="#">
 							<dl class="list_product">
 								<dd><img src="./images/main/pro_img2.jpg" alt="product image"/></dd>
-								<dd>[Sonus Faber¦¢¼Ò³Ê½º ÆÄº£¸£]</dd>
-								<dd>BUS AG USB ÄÉÀÌºí</dd>
-								<dd><strong class="textline"> 510,000</strong>¡é<span>200,000¿ø</span></dd>
+								<dd>[Sonus Faberâ”‚ì†Œë„ˆìŠ¤ íŒŒë² ë¥´]</dd>
+								<dd>BUS AG USB ì¼€ì´ë¸”</dd>
+								<dd><strong class="textline"> 510,000</strong>â†“<span>200,000ì›</span></dd>
 							</dl>
 						</a></li>
 						<li><a href="#">
 							<dl class="list_product">
 								<dd><img src="./images/main/pro_img3.jpg" alt="product image"/></dd>
-								<dd>[Sonus Faber¦¢¼Ò³Ê½º ÆÄº£¸£]</dd>
-								<dd>BUS AG USB ÄÉÀÌºí</dd>
-								<dd><strong class="textline"> 510,000</strong>¡é<span>200,000¿ø</span></dd>
+								<dd>[Sonus Faberâ”‚ì†Œë„ˆìŠ¤ íŒŒë² ë¥´]</dd>
+								<dd>BUS AG USB ì¼€ì´ë¸”</dd>
+								<dd><strong class="textline"> 510,000</strong>â†“<span>200,000ì›</span></dd>
 							</dl>
 						</a></li>
 					</ul>
@@ -245,78 +168,78 @@
 					<li><a href="#" class="wpadding3">ETC</a></li>
 				</ul>
 				<div class="product_elist">
-					<p class="tit_loc"><span class="loc_text1">BEST ITEM</span><span class="loc_text2">¿À´ÃÀÇ µô</span></p>
+					<p class="tit_loc"><span class="loc_text1">BEST ITEM</span><span class="loc_text2">ì˜¤ëŠ˜ì˜ ë”œ</span></p>
 					<ul class="pro_list">
 						<li><a href="#">
 							<dl class="list_product">
 								<dd><img src="./images/main/pro_img1.jpg" alt="product image"/></dd>
-								<dd>[Sonus Faber¦¢¼Ò³Ê½º ÆÄº£¸£]</dd>
-								<dd>BUS AG USB ÄÉÀÌºí</dd>
-								<dd><strong class="textline"> 510,000</strong>¡é<span>200,000¿ø</span></dd>
+								<dd>[Sonus Faberâ”‚ì†Œë„ˆìŠ¤ íŒŒë² ë¥´]</dd>
+								<dd>BUS AG USB ì¼€ì´ë¸”</dd>
+								<dd><strong class="textline"> 510,000</strong>â†“<span>200,000ì›</span></dd>
 							</dl>
 						</a></li>
 						<li><a href="#">
 							<dl class="list_product">
 								<dd><img src="./images/main/pro_img2.jpg" alt="product image"/></dd>
-								<dd>[Sonus Faber¦¢¼Ò³Ê½º ÆÄº£¸£]</dd>
-								<dd>BUS AG USB ÄÉÀÌºí</dd>
-								<dd><strong class="textline"> 510,000</strong>¡é<span>200,000¿ø</span></dd>
+								<dd>[Sonus Faberâ”‚ì†Œë„ˆìŠ¤ íŒŒë² ë¥´]</dd>
+								<dd>BUS AG USB ì¼€ì´ë¸”</dd>
+								<dd><strong class="textline"> 510,000</strong>â†“<span>200,000ì›</span></dd>
 							</dl>
 						</a></li>
 						<li><a href="#">
 							<dl class="list_product">
 								<dd><img src="./images/main/pro_img3.jpg" alt="product image"/></dd>
-								<dd>[Sonus Faber¦¢¼Ò³Ê½º ÆÄº£¸£]</dd>
-								<dd>BUS AG USB ÄÉÀÌºí</dd>
-								<dd><strong class="textline"> 510,000</strong>¡é<span>200,000¿ø</span></dd>
+								<dd>[Sonus Faberâ”‚ì†Œë„ˆìŠ¤ íŒŒë² ë¥´]</dd>
+								<dd>BUS AG USB ì¼€ì´ë¸”</dd>
+								<dd><strong class="textline"> 510,000</strong>â†“<span>200,000ì›</span></dd>
 							</dl>
 						</a></li>
 						<li><a href="#">
 							<dl class="list_product">
 								<dd><img src="./images/main/pro_img1.jpg" alt="product image"/></dd>
-								<dd>[Sonus Faber¦¢¼Ò³Ê½º ÆÄº£¸£]</dd>
-								<dd>BUS AG USB ÄÉÀÌºí</dd>
-								<dd><strong class="textline"> 510,000</strong>¡é<span>200,000¿ø</span></dd>
+								<dd>[Sonus Faberâ”‚ì†Œë„ˆìŠ¤ íŒŒë² ë¥´]</dd>
+								<dd>BUS AG USB ì¼€ì´ë¸”</dd>
+								<dd><strong class="textline"> 510,000</strong>â†“<span>200,000ì›</span></dd>
 							</dl>
 						</a></li>
 						<li><a href="#">
 							<dl class="list_product">
 								<dd><img src="./images/main/pro_img2.jpg" alt="product image"/></dd>
-								<dd>[Sonus Faber¦¢¼Ò³Ê½º ÆÄº£¸£]</dd>
-								<dd>BUS AG USB ÄÉÀÌºí</dd>
-								<dd><strong class="textline"> 510,000</strong>¡é<span>200,000¿ø</span></dd>
+								<dd>[Sonus Faberâ”‚ì†Œë„ˆìŠ¤ íŒŒë² ë¥´]</dd>
+								<dd>BUS AG USB ì¼€ì´ë¸”</dd>
+								<dd><strong class="textline"> 510,000</strong>â†“<span>200,000ì›</span></dd>
 							</dl>
 						</a></li>
 						<li><a href="#">
 							<dl class="list_product">
 								<dd><img src="./images/main/pro_img3.jpg" alt="product image"/></dd>
-								<dd>[Sonus Faber¦¢¼Ò³Ê½º ÆÄº£¸£]</dd>
-								<dd>BUS AG USB ÄÉÀÌºí</dd>
-								<dd><strong class="textline"> 510,000</strong>¡é<span>200,000¿ø</span></dd>
+								<dd>[Sonus Faberâ”‚ì†Œë„ˆìŠ¤ íŒŒë² ë¥´]</dd>
+								<dd>BUS AG USB ì¼€ì´ë¸”</dd>
+								<dd><strong class="textline"> 510,000</strong>â†“<span>200,000ì›</span></dd>
 							</dl>
 						</a></li>
 						<li><a href="#">
 							<dl class="list_product">
 								<dd><img src="./images/main/pro_img1.jpg" alt="product image"/></dd>
-								<dd>[Sonus Faber¦¢¼Ò³Ê½º ÆÄº£¸£]</dd>
-								<dd>BUS AG USB ÄÉÀÌºí</dd>
-								<dd><strong class="textline"> 510,000</strong>¡é<span>200,000¿ø</span></dd>
+								<dd>[Sonus Faberâ”‚ì†Œë„ˆìŠ¤ íŒŒë² ë¥´]</dd>
+								<dd>BUS AG USB ì¼€ì´ë¸”</dd>
+								<dd><strong class="textline"> 510,000</strong>â†“<span>200,000ì›</span></dd>
 							</dl>
 						</a></li>
 						<li><a href="#">
 							<dl class="list_product">
 								<dd><img src="./images/main/pro_img2.jpg" alt="product image"/></dd>
-								<dd>[Sonus Faber¦¢¼Ò³Ê½º ÆÄº£¸£]</dd>
-								<dd>BUS AG USB ÄÉÀÌºí</dd>
-								<dd><strong class="textline"> 510,000</strong>¡é<span>200,000¿ø</span></dd>
+								<dd>[Sonus Faberâ”‚ì†Œë„ˆìŠ¤ íŒŒë² ë¥´]</dd>
+								<dd>BUS AG USB ì¼€ì´ë¸”</dd>
+								<dd><strong class="textline"> 510,000</strong>â†“<span>200,000ì›</span></dd>
 							</dl>
 						</a></li>
 						<li><a href="#">
 							<dl class="list_product">
 								<dd><img src="./images/main/pro_img3.jpg" alt="product image"/></dd>
-								<dd>[Sonus Faber¦¢¼Ò³Ê½º ÆÄº£¸£]</dd>
-								<dd>BUS AG USB ÄÉÀÌºí</dd>
-								<dd><strong class="textline"> 510,000</strong>¡é<span>200,000¿ø</span></dd>
+								<dd>[Sonus Faberâ”‚ì†Œë„ˆìŠ¤ íŒŒë² ë¥´]</dd>
+								<dd>BUS AG USB ì¼€ì´ë¸”</dd>
+								<dd><strong class="textline"> 510,000</strong>â†“<span>200,000ì›</span></dd>
 							</dl>
 						</a></li>
 					</ul>
@@ -329,21 +252,21 @@
 		</div>
 		<div class="cont_bottom">
 		 <dl class="cont_botbox1">
-			<dt>ÀÔÁ¡ ºê·¡µå
+			<dt>ìž…ì  ë¸Œëž˜ë“œ
 				<span>Sound Brand</span>
 			</dt>
 			<dd>
-				<a href="#" class="mart"><img src="./images/main/lglogo.gif" alt="LGÀüÀÚ logo"/></a>
+				<a href="#" class="mart"><img src="./images/main/lglogo.gif" alt="LGì „ìž logo"/></a>
 				<a href="#" class="mart"><img src="./images/main/akglogo.gif" alt="AKG logo"/></a>
 				<a href="#" class="mart"><img src="./images/main/harmanlogo.gif" alt="harman logo"/></a>
 				<a href="#"><img src="./images/main/ubllogo.gif" alt="UBL logo"/></a>
 			</dd>
 		 </dl>
 		 <dl class="cont_botbox2">
-			<dt>ÇÏ¸¸ ½ºÅä¾î
-				<span class="textbox1">ÁøÁ¤ÇÑ »ç¿îµå¸¦ Á» ´õ °¡±î¿î °÷¿¡¼­<br/>
-				´À³¢½Ç ¼ö ÀÖ½À´Ï´Ù.</span>
-				<span class="textbox2">¼­¿ï Æ¯º°½Ã °­³²±¸ Ã»´ãµ¿ 85-2 JWºôµù 1Ãþ</span>
+			<dt>í•˜ë§Œ ìŠ¤í† ì–´
+				<span class="textbox1">ì§„ì •í•œ ì‚¬ìš´ë“œë¥¼ ì¢€ ë” ê°€ê¹Œìš´ ê³³ì—ì„œ<br/>
+				ëŠë¼ì‹¤ ìˆ˜ ìžˆìŠµë‹ˆë‹¤.</span>
+				<span class="textbox2">ì„œìš¸ íŠ¹ë³„ì‹œ ê°•ë‚¨êµ¬ ì²­ë‹´ë™ 85-2 JWë¹Œë”© 1ì¸µ</span>
 			</dt>
 			<dd>
 				<a href="#" class="mart"><img src="./images/main/store_img1.jpg" alt="store image"/></a>
@@ -356,9 +279,9 @@
 			<dl class="notice_box">
 				<dt class="notice_tit">NEWS & NOTICE</dt>
 				<dd>
-					<a href="#" class="noticeblet">LG G2 Á¤ÄÉÀÌ½º Ãâ½Ã</a>
-					<a href="#" class="noticeblet">µ¿±Þ ÃÖ°­!! HBS-730NEW Ãâ½Ã!!</a>
-					<a href="#" class="noticeblet">SBS¼ö¸ñµå¶ó¸¶ AKG ÇìµåÆù ÇùÂù</a>
+					<a href="#" class="noticeblet">LG G2 ì •ì¼€ì´ìŠ¤ ì¶œì‹œ</a>
+					<a href="#" class="noticeblet">ë™ê¸‰ ìµœê°•!! HBS-730NEW ì¶œì‹œ!!</a>
+					<a href="#" class="noticeblet">SBSìˆ˜ëª©ë“œë¼ë§ˆ AKG í—¤ë“œí° í˜‘ì°¬</a>
 				</dd>
 			</dl>
 			<span class="icon_box">
@@ -370,18 +293,12 @@
 			</span>
 		</div>
 	</div>
-<!--  container ³¡   -->	
+<!--  container ë   -->	
 
-	<div class="footer">
-		<div class="footer_area">
-			<h2><img src="./images/common/footer_logo.jpg" alt="Çö´ë ·Î°í"/></h2>
-			<address>
-				°øÁ¤°Å·¡À§¿øÈ¸ °í½Ã Á¦2001-1È£¿¡ µû¸¥ »ç¾÷ÀÚ µî·Ï¹øÈ£:212-81-86027¤Ó´ëÇ¥ÀÌ»ç : ±èÈ­¿õ<br/>
-				°³ÀÎÁ¤º¸°ü¸® Ã¥ÀÓÀÚ ¹ýÀÎ»ç¾÷ºÎ ¹ýÀÎ¿µ¾÷1ÆÀ ¼Û¼±È£ ºÎÀå l ÁÖ¼Ò:¼­¿ï½Ã °­µ¿±¸ ¾Ï»çµ¿ 513-16¹øÁö Çö´ëH&S<br/>
-				COPYRIGHT 2012 BY Çö´ëH&S ALL RIGHT RESERVED.
-			</address>
-		</div>
-	</div>
+
+	<c:import  url="../inc/footer.jsp" />
+	
 </div>
 </body>
-</html>
+
+<c:import  url="../inc/bottom.jsp" />

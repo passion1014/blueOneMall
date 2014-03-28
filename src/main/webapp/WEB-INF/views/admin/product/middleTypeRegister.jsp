@@ -42,8 +42,8 @@
 			<th>대분류</th>
 			<td colspan="3" class="left">
 				<select id="ctgOrder" name="ctgOrder">
-				<c:forEach var="i" begin="1" end="50" step="1">
-					<option value="<c:out value="${i}"></c:out>"><c:out value="${i}"></c:out></option>
+				<c:forEach items="${list}" var="largeTypeObj">
+					<option value="<c:out value="${largeTypeObj.ctgCode}"></c:out>"><c:out value="${largeTypeObj.ctgCode}"></c:out></option>
 				</c:forEach>							
 				</select>&nbsp;
 			</td>

@@ -35,7 +35,7 @@
 		WHERE
 			CTG_CODE = #{ctgCode}
 	</select >
-
+		
 	<insert id="insertBomCategoryTb0001" parameterType="com.blueone.category.domain.CategoryInfo">
 		INSERT BOM_CATEGORY_TB
 			(`CTG_P_CODE`,`CTG_CODE_TYPE`,`CTG_CODE`,`CTG_NAME`

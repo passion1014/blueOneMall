@@ -26,11 +26,6 @@ public class ShopController {
 	ShopService shopService;
 	
 	
-
-	
-	
-	
-	
 	@RequestMapping(value ="/main.do", method = RequestMethod.GET)
 	public String read(@ModelAttribute("ShopInfo") ShopInfo shopInfo, BindingResult result, Model model){
 		
