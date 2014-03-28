@@ -76,7 +76,7 @@ private static final Logger logger = LoggerFactory.getLogger(CategoryController.
 	}
 	
 		
-	@RequestMapping(value="/largeTypeModify.do", method=RequestMethod.GET)
+	@RequestMapping(value="/largeTypeModify.do", method=RequestMethod.POST)
 	public String largeTypeModify(@ModelAttribute("goodsTypeInfo") GoodsTypeInfo goodsTypeInfo, BindingResult result, Model model){
 		
 		goodsTypeInfo = iGoodsService.getCategoryInfDetail(goodsTypeInfo);

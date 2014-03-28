@@ -12,14 +12,14 @@
 
 <link type="text/css" rel="stylesheet" href="<c:url value='/resources/css/basic.css'/>" />
 <link type="text/css" rel="stylesheet" href="<c:url value='/resources/css/admin.css'/>" />
+<link type="text/css" rel="stylesheet" href="<c:url value='/resources/css/custom-theme/jquery-ui-1.8.16.custom.css'/>" />
 
 <script type="text/javascript" src="<c:url value='/resources/js/js_ajax.js'/>"> </script>
 <script type="text/javascript" src="<c:url value='/resources/js/js_common.js'/>"> </script>
 <script type="text/javascript" src="<c:url value='/resources/js/js_admin.js'/>"> </script>
 <script type="text/javascript" src="<c:url value='/resources/js/jquery-1.4.3.min.js'/>"> </script>
 <script type="text/javascript" src="<c:url value='/resources/js/jquery-1.7.2.min.js'/>"> </script>
-<script type="text/javascript" src="<c:url value='/resources/js/jquery_1.9.1.min.js'/>"> </script>
-<script type="text/javascript" src="<c:url value='/resources/js/jquery.js'/>"> </script>
+<script type="text/javascript" src="<c:url value='/resources/js/jquery-ui-1.8.16.custom.min.js'/>"> </script>
 
 <!--[if lt IE 9]>
 <script src="js/jquery_html5shiv.js"></script>

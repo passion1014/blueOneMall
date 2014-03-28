@@ -1,15 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<c:if test="${reloadVar=='yes'}"><script>opener.location.reload();self.close();</script></c:if>
-
-<c:import  url="../inc/top.jsp" />
-
-<body>
 <div id="Wrap">
 	<!-- 컨덴츠 -->
 	<div style="padding:10px;">
-	<div> 상품관리 > 상품분류 > 대분류 등록	</div>
+	<div> 상품관리 > 상품분류 > 대분류 수정	</div>
 	<form name="frm" method="post" action="editCategoryInfProc.do" onSubmit="return chkForm(this);">
 	<input type="text" id="ctgPCode"     name="ctgPCode"     value="${largeTypeObj.ctgPCode}">
 	<input type="text" id="ctgCodeType"  name="ctgCodeType"  value="${largeTypeObj.ctgCodeType}">
@@ -53,14 +48,10 @@
 	</table>
 
 	<div style="margin-top:10px;text-align:center;">
-		<input type="submit" value="등록하기" class="Button Gray">
-		<input type="button" value="창닫기" class="Button Gray" onClick="self.close();">
+		<input type="submit" value="수정하기" class="Button Gray">
+		<input type="button" value="창닫기" class="Button Gray" onClick="closeDialog();">
 	</div>
 	</form>
 	</div>
 		
 </div>
-</body>
-
-
-<c:import url="../inc/footer.jsp" />
