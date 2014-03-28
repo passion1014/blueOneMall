@@ -12,7 +12,7 @@
 	<ul>
 		<li><a href="adminMain.do">환경설정</a></li>
 		<li><a href="memberList.do">회원관리</a></li>
-		<li><a href="goodsList.do">상품관리</a></li>
+		<li><a href="productList.do">상품관리</a></li>
 		<li><a href="orderList.do">주문관리</a></li>
 		<li><a href="community.do">커뮤니티</a></li>
 	</ul>

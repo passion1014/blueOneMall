@@ -147,7 +147,7 @@ public class CategoryManageServiceImpl implements ICategoryManageService {
 	}
 	
 	/*
-	 * Category 조회 
+	 * Category 분류 디테일 조회 
 	 */
 	private CategoryInfo getCategoryInfDetail(String ctgCode) {
 		
@@ -175,5 +175,27 @@ public class CategoryManageServiceImpl implements ICategoryManageService {
 		if (StringUtils.isEmpty(categoryInfo.getToDate())) {
 			categoryInfo.setToDate("9999-12-31");
 		}
+	}
+	
+	/*
+	 * 분류 삭제
+	 */
+	@Override
+	public int deleteCategoryInf(CategoryInfo categoryInfo){
+		
+		int rst = -1;
+		
+		
+			SqlSession sqlSession = sqlSessionFactory.openSession();
+			try {
+				// DB 수행
+				rst = sqlSession.delete("category.deleteBomCategoryTb0001", categoryInfo);
+				
+			} finally {
+				sqlSession.close();
+			}
+		
+		
+		return rst;
 	}
 }

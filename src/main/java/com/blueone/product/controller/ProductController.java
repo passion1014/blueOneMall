@@ -18,14 +18,40 @@ import com.blueone.product.domain.SearchProdInfo;
 import com.blueone.product.service.IProductManageService;
 
 @Controller
-@RequestMapping(value = "/product")
 public class ProductController {
 
 	private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
 	
 	@Autowired
 	IProductManageService productManageService;
+	
+	/*
+	 * 관리자 물품 리스트
+	 */
+	@RequestMapping(value = "/admin/productList.do")
+	public String productList(@ModelAttribute("ProductInfo") ProductInfo productInfo, BindingResult result, Model model) {
+				
+		return "admin/product/productList";
+	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	@RequestMapping(value = "/registProductInfo.do")
 	public String registAdminInfo(@ModelAttribute("ProductInfo") ProductInfo productInfo, BindingResult result, Model model) {

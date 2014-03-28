@@ -58,6 +58,13 @@
 		WHERE
 			`CTG_CODE`= #{ctgCode}
 	</update>
+	
+	
+	<delete id="deleteBomCategoryTb0001" parameterType="com.blueone.category.domain.CategoryInfo">
+		DELETE FROM BOM_CATEGORY_TB			
+		WHERE
+			`CTG_CODE`= #{ctgCode}
+	</delete>
 
 
 </mapper>
