@@ -71,7 +71,9 @@ public class GoodsServiceImpl implements IGoodsService {
 		try {
 			// fromDate, toDate 없을경우, 기본값 셋팅
 			setDefaultDate(goodsTypeInfo);
-			String ctgCode= "xxxxx";
+			int code= (int)(Math.random()*10000)+1;
+			String ctgCode= "L"+code;
+			
 			goodsTypeInfo.setCtgCode(ctgCode);
 			
 			int	rst = sqlSession.insert("goods.insertBomCategoryTb0001", goodsTypeInfo);
