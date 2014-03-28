@@ -12,7 +12,7 @@
 	<div style="padding:10px;">
 	<div> 상품관리 > 상품분류 > 대분류 등록	</div>
 	<form name="frm" method="post" action="largeTypeRegisterProc.do">
-	<input type="hidden" id="ctgPCodeType" name="ctgPCodeType" value="">
+	<input type="hidden" id="ctgPCode" name="ctgPCode" value="">
 	<input type="hidden" id="ctgCodeType"  name="ctgCodeType"  value="01">
 	<input type="hidden" id="ctgDesc"      name="ctgDesc"      value="">
 	<input type="hidden" id="fromDate" name="fromDate" value="1900-01-01">
