@@ -51,7 +51,8 @@
 				`LAST_DATE` = sysdate(),
 				`CTG_P_CODE` = #{ctgPCode},
 				`CTG_CODE_TYPE` = #{ctgCodeType},
-				`CTG_NAME` = #{ctgName}, `CTG_DESC` = #{ctgDesc},
+				`CTG_NAME` = #{ctgName},
+				`CTG_DESC` = #{ctgDesc},
 				`CTG_ORDER` = #{ctgOrder},
 				`FROM_DATE` = #{fromDate},
 				`TO_DATE` = #{toDate}

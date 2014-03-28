@@ -108,7 +108,7 @@ private static final Logger logger = LoggerFactory.getLogger(CategoryController.
 	/**
 	 * 카테고리 수정
 	 */
-	@RequestMapping(value = "/editCategoryInfProc.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/editCategoryInfProc.do", method = RequestMethod.POST)
 	public String editCategoryInfoProc(@ModelAttribute("GoodsTypeInfo") GoodsTypeInfo goodsTypeInfo, BindingResult result, Model model) {
 		
 		iGoodsService.editCategoryInf(goodsTypeInfo);
