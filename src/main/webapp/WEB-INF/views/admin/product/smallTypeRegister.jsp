@@ -5,6 +5,24 @@
 
 <c:import  url="../inc/top.jsp" />
 
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#largeType').change(function() {
+			$.getJSON('/admin/categoryListByParent/' + $('#largeType').val(), function(result) {
+//				alert('중분류 size=' + result.length + '    ctgCode=' + result[0].ctgCode);
+				var options = '';
+				if (result != null && result.length > 0) {
+					for (var i = 0; i < result.length; i++) {
+						options += '<option value="' + result[i].ctgCode + '">' + result[i].ctgName + '</option>';
+					}
+				} else {
+					options = "<option value=''>중분류를 선택하여주십시오</option>";
+				}
+				$("select#ctgPOrder").html(options);
+			});
+		});
+	});
+</script>
 
 <body>
 <div id="Wrap">
@@ -43,7 +61,7 @@
 			<td colspan="3" class="left">
 				<select id="largeType" name="largeType">
 					<option value="">대분류를 선택하여주십시오</option>	
-					<c:forEach items="${list}" var="largeTypeObj">
+					<c:forEach items="${ctgMList}" var="largeTypeObj">
 						<option value="<c:out value="${largeTypeObj.ctgCode}"></c:out>"><c:out value="${largeTypeObj.ctgCode}"></c:out></option>
 					</c:forEach>							
 				</select>&nbsp;

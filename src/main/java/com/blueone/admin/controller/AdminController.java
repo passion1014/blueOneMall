@@ -56,10 +56,12 @@ public class AdminController {
 			// viewName 셋팅
 			if (loggedInfo != null) {
 				if(inpw.equals(loggedInfo.getPassword())){
-				mav.addObject("adminSession", loggedInfo);// 세션에 정보 셋팅
-				model.addAttribute("logged", loggedInfo);
-				mav.setViewName("redirect:adminDefault.do");
-				}else{mav.setViewName("redirect:adminLogin.do");}
+					mav.addObject("adminSession", loggedInfo);// 세션에 정보 셋팅
+					model.addAttribute("logged", loggedInfo);
+					mav.setViewName("redirect:adminDefault.do");
+				}else{
+					mav.setViewName("redirect:adminLogin.do");
+				}
 			}else {
 				
 				mav.setViewName("redirect:adminLogin.do");

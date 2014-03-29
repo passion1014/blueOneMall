@@ -10,8 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -139,18 +141,11 @@ public class CategoryController {
 	@RequestMapping(value="/admin/middleTypeRegister.do", method= RequestMethod.GET)
 	public String middleTypeRegister(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model){
 		
-		List<CategoryInfo> list = categoryManageService.getCategoryInfList(categoryInfo);
 				
 		int code= (int)(Math.random()*10000)+1;
 		String ctgCode= "M"+code;
 		
-		// 카테고리타입이 01(대분류)인 것들만 수집
-		List<CategoryInfo> rstList = new ArrayList<CategoryInfo>();
-		for (CategoryInfo each : list) {
-			if ("01".equals(each.getCtgCodeType())) {
-				rstList.add(each);
-			}
-		}
+		List<CategoryInfo> rstList = getCategoryListByTypeCd(categoryInfo, "01");
 		
 		model.addAttribute("ctgCode", ctgCode);
 		model.addAttribute("ctgList", rstList);
@@ -158,6 +153,8 @@ public class CategoryController {
 		return "admin/product/middleTypeRegister";
 		
 	}
+
+
 	
 	
 //	@RequestMapping(value="/admin/middleTypeRegister.do", method= RequestMethod.GET)
@@ -209,58 +206,17 @@ public class CategoryController {
 	 */
 	@RequestMapping(value="/admin/smallTypeRegister.do", method= RequestMethod.GET)
 	public String smallTypeRegister(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model){
-		
-		ModelAndView mav = new ModelAndView();
-		List<CategoryInfo> list = categoryManageService.getCategoryInfList(categoryInfo);
-				
 		int code= (int)(Math.random()*10000)+1;
 		String ctgCode= "M"+code;
 		
+		List<CategoryInfo> rstList = getCategoryListByTypeCd(categoryInfo, "01");
+
 		model.addAttribute("ctgCode", ctgCode);
+		model.addAttribute("ctgMList", rstList);
 		
 		return "admin/product/smallTypeRegister";
 		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	/**
@@ -294,4 +250,34 @@ public class CategoryController {
 		return "category/result";
 	}
 	
+	
+	/**
+	 * 화면에서 콤보박스를 구성하기 위하여 호출하는 서비스
+	 * JSON 형식의 데이터로 반환한다.
+	 * @return
+	 */
+	@RequestMapping(value="/admin/categoryListByParent/{ctgPCode}", method= RequestMethod.GET)
+	@ResponseBody
+	public List<CategoryInfo> getCategoryList4Combo(@PathVariable String ctgPCode) {
+
+		CategoryInfo categoryInfo = new CategoryInfo();
+		categoryInfo.setCtgPCode(ctgPCode);
+		
+		List<CategoryInfo> rstList = categoryManageService.getCategoryInfList(categoryInfo);
+		return rstList;
+	}
+	
+	private List<CategoryInfo> getCategoryListByTypeCd(CategoryInfo categoryInfo, String ctgCodeType) {
+		List<CategoryInfo> list = categoryManageService.getCategoryInfList(categoryInfo);
+		
+		List<CategoryInfo> rstList = new ArrayList<CategoryInfo>();
+		for (CategoryInfo each : list) {
+			if (ctgCodeType.equals(each.getCtgCodeType())) {
+				rstList.add(each);
+			}
+		}
+		
+		return rstList;
+	}
+
 }

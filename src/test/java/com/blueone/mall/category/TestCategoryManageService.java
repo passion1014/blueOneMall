@@ -38,6 +38,16 @@ public class TestCategoryManageService extends BlueoneTestCase {
 		.andDo(print());
 	}
 	
+	@Test
+	public void testGetCategoryListByParentCd() throws Exception {
+		// LV101
+		mockMvc.perform(get("/admin/categoryListByParent/L3376")
+				.param("comment", "comment..."))
+		.andExpect(status().isOk())
+		.andDo(print());
+	}
+
+	
 	/**
 	 * "/category/registCategory.do"
 	 * @throws Exception
