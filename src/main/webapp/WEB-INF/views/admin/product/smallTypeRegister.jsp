@@ -10,7 +10,7 @@
 <div id="Wrap">
 	<!-- 컨덴츠 -->
 	<div style="padding:10px;">
-	<div> 상품관리 > 상품분류 > 중분류 등록	</div>
+	<div> 상품관리 > 상품분류 > 소분류 등록	</div>
 	<form name="frm" method="post" action="middleTypeRegisterProc.do">
 	<input type="text" id="ctgPCode"     name="ctgPCode" value="">
 	<input type="text" id="ctgCodeType"  name="ctgCodeType"  value="01">
@@ -27,7 +27,7 @@
 			<col width="*" />
 		</colgroup>
 
-		<tr>111${ctgList}
+		<tr>
 			<th>정렬순위</th>
 			<td colspan="3" class="left">
 				<select id="ctgOrder" name="ctgOrder">
@@ -41,16 +41,26 @@
 		<tr>
 			<th>대분류</th>
 			<td colspan="3" class="left">
-				<select id="ctgOrder" name="ctgOrder">
-				<c:forEach items="${ctgList}" var="largeTypeObj">
-					<option value="<c:out value="${largeTypeObj.ctgCode}"></c:out>"><c:out value="${largeTypeObj.ctgCode}"></c:out></option>
-				</c:forEach>							
+				<select id="largeType" name="largeType">
+					<option value="">대분류를 선택하여주십시오</option>	
+					<c:forEach items="${list}" var="largeTypeObj">
+						<option value="<c:out value="${largeTypeObj.ctgCode}"></c:out>"><c:out value="${largeTypeObj.ctgCode}"></c:out></option>
+					</c:forEach>							
 				</select>&nbsp;
 			</td>
 		</tr>
 		
 		<tr>
-			<th>중분류명</th>
+			<th>중분류</th>
+			<td colspan="3" class="left">
+				<select id="ctgPOrder" name="ctgPOrder">
+					<option value="">중분류를 선택하여주십시오</option>							
+				</select>&nbsp;
+			</td>
+		</tr>
+		
+		<tr>
+			<th>소분류명</th>
 			<td colspan="3" class="left">
 				<input type="text" id="ctgName" name="ctgName" class="Text Kor" style="width:90%;" required hname="대분류명을 입력하여 주십시오">
 			</td>

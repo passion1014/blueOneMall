@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:import  url="../inc/adminChecker.jsp" />
+
 <c:import  url="../inc/top.jsp" />
 <body>
 <div id="dialog-form"></div>
@@ -12,44 +12,51 @@
 	<!-- 컨덴츠 -->
 	
 	<div id="Contents">
-	<h1>상품관리 &gt; 상품분류 &gt; <strong>대분류목록</strong></h1>
+	<h1>상품관리 &gt; 상품분류 &gt; <strong>소분류목록</strong></h1>
 		
 	<div class="right">
-		<input type="button" value="대분류 등록" class="Small_Button Gray" onClick="openWin('./largeTypeRegister.do','largeTypeForm',600,450,'scrollbars=no');">
+		<input type="button" value="소분류 등록" class="Small_Button Gray" onClick="openWin('./smallTypeRegister.do','smallTypeForm',600,450,'scrollbars=no');">
 	</div>
 
 	<table>
 		<colgroup>
-			<col width="6%" />
+			<col width="5%" />
 			<col width="8%" />
-			<col width="*" />
-			<col width="15%" />
+			<col width="25%" />
+			<col width="25%" />
+			<col width="25%" />
+			<col width="12%" />
 		</colgroup>
 	
 		<tr>
 			<th>No</th>
 			<th>정렬순위</th>
-			<th>분류명</th>
+			<th>대분류명</th>
+			<th>중분류명</th>
+			<th>소분류명</th>
 			<th>수정/삭제</th>
 		</tr>
 		
 		<c:choose>
-			<c:when test="${list.size() != 0}">
-				<c:forEach items="${list}" var="category">
+			<c:when test="${goods.idx != ''}">
+				<c:forEach items="${list}" var="goods">
 					<tr>
-						<td style="text-align:center;">${category.idx}</td>
-						<td style="text-align:center;">${category.idx}</td>
-						<td>${category.ctgName}</td>
+						<td style="text-align:center;">${goods.idx}</td>
+						<td style="text-align:center;">${goods.idx}</td>
+						<td style="text-align:center;">${goods.idx}</td>
+						<td>${goods.ctgName}</td>
+						<td>${goods.ctgName}</td>
 						<td style="text-align:center;">
-							<input type="button" value="수정" onClick="dialogUpdate('${category.ctgCode}');" class="Button Gray">
-							<input type="button" value="삭제" onClick="confirm_process('','해당 분류를 삭제하시겠습니까?','deleteCategoryInf.do?ctgCode=${category.ctgCode}');"  class="Button Gray">
+							<!--input type="button" value="수정" onClick="openWin('largeTypeModify.do?ctgCode=${goods.ctgCode}','largeTypeForm',600,450,'scrollbars=no');"  class="Button Gray"-->
+							<input type="button" value="수정" onClick="dialogUpdate('${goods.ctgCode}');" class="Button Gray">
+							<input type="button" value="삭제" onClick="location.href='deleteCategoryInf.do?ctgCode=${goods.ctgCode}';"  class="Button Gray">
 						</td>
 					</tr>
 				</c:forEach>
 			</c:when>
 			<c:otherwise>
 				<tr>
-					<td colspan="4" height="200"> 등록된 대분류가 없습니다.</td>
+					<td colspan="6" height="200"> 등록된 소분류가 없습니다.</td>
 				</tr>			
 		    </c:otherwise>
 		</c:choose>
@@ -97,7 +104,7 @@ function closeDialog() {
 function dialogUpdate(cCode) {
 	$.ajax({
 		type: "POST",
-		url: "largeTypeEdit.do",
+		url: "largeTypeModify.do",
 		cache: false,
 		async: false,
 		data: {

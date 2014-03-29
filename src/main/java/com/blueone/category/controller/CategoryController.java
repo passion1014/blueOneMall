@@ -1,5 +1,6 @@
 package com.blueone.category.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -138,6 +139,77 @@ public class CategoryController {
 	@RequestMapping(value="/admin/middleTypeRegister.do", method= RequestMethod.GET)
 	public String middleTypeRegister(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model){
 		
+		List<CategoryInfo> list = categoryManageService.getCategoryInfList(categoryInfo);
+				
+		int code= (int)(Math.random()*10000)+1;
+		String ctgCode= "M"+code;
+		
+		// 카테고리타입이 01(대분류)인 것들만 수집
+		List<CategoryInfo> rstList = new ArrayList<CategoryInfo>();
+		for (CategoryInfo each : list) {
+			if ("01".equals(each.getCtgCodeType())) {
+				rstList.add(each);
+			}
+		}
+		
+		model.addAttribute("ctgCode", ctgCode);
+		model.addAttribute("ctgList", rstList);
+
+		return "admin/product/middleTypeRegister";
+		
+	}
+	
+	
+//	@RequestMapping(value="/admin/middleTypeRegister.do", method= RequestMethod.GET)
+//	public ModelAndView middleTypeRegister2(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model){
+//		
+//		List<CategoryInfo> list = categoryManageService.getCategoryInfList(categoryInfo);
+//				
+//		int code= (int)(Math.random()*10000)+1;
+//		String ctgCode= "M"+code;
+//		
+//		// 카테고리타입이 01(대분류)인 것들만 수집
+//		List<CategoryInfo> rstList = new ArrayList<CategoryInfo>();
+//		for (CategoryInfo each : list) {
+//			if ("01".equals(each.getCtgCodeType())) {
+//				rstList.add(each);
+//			}
+//		}
+//
+//		// 리턴객체 셋팅
+//		ModelAndView mav = new ModelAndView();
+//		mav.addObject("ctgCode", ctgCode);
+//		mav.addObject("ctgList", rstList);
+//		mav.setViewName("admin/product/middleTypeRegister");
+//
+//		return mav;
+//		
+//	}
+
+	
+	/**
+	 * 관리자 소분류 리스트
+	 */
+	@RequestMapping(value="/admin/smallTypeList.do", method= RequestMethod.GET)
+	public ModelAndView smallTypeList(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model){
+		
+		ModelAndView mav = new ModelAndView();
+		List<CategoryInfo> list = categoryManageService.getCategoryInfList(categoryInfo);
+	    
+		mav.addObject("list", list);
+		
+		mav.setViewName("admin/product/smallTypeList");	    
+		return mav;
+			
+	}
+
+	
+	/**
+	 * 관리자 소분류 등록폼
+	 */
+	@RequestMapping(value="/admin/smallTypeRegister.do", method= RequestMethod.GET)
+	public String smallTypeRegister(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model){
+		
 		ModelAndView mav = new ModelAndView();
 		List<CategoryInfo> list = categoryManageService.getCategoryInfList(categoryInfo);
 				
@@ -146,7 +218,7 @@ public class CategoryController {
 		
 		model.addAttribute("ctgCode", ctgCode);
 		
-		return "admin/product/middleTypeRegister";
+		return "admin/product/smallTypeRegister";
 		
 	}
 	
