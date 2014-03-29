@@ -11,15 +11,10 @@ import com.blueone.mall.BlueoneTestCase;
 public class TestBoardServcie extends BlueoneTestCase {
 	
 	@Test
-	public void testEditCategory() throws Exception {
-		// LV101
+	public void testBoardList() throws Exception {
 		mockMvc.perform(post("/board/list.do")
-				.param("ctgPCode", "")
-				.param("ctgCodeType", "01")
-				.param("ctgCode", "LV101")
-				.param("ctgName", "MAIN_CATEGORY_11111")
-				.param("ctgDesc", "THIS IS MAIN CATEGORY!~")
-				.param("comment", "comment..."))
+				.param("brdTyp", "1")
+				.param("srchBrdTyp", "1"))
 		.andExpect(status().isOk())
 		.andDo(print());
 	}

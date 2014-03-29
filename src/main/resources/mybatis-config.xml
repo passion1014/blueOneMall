@@ -73,6 +73,15 @@
 		<typeAlias alias="orderProductInfo" type="com.blueone.order.domain.OrderProductInfo" />
 		<typeAlias alias="categoryInfo" type="com.blueone.category.domain.CategoryInfo" />
 		
+		<!-- 커뮤니티 관련 모델 정보 -->
+		<typeAlias alias="boardInfo" type="com.blueone.board.domain.BoardInfo" />
+		<typeAlias alias="boardTypInfo" type="com.blueone.board.domain.BoardTypInfo" />
+		<typeAlias alias="boardSrchInfo" type="com.blueone.board.domain.BoardSrchInfo" />
+		<typeAlias alias="boardAttachFileInfo" type="com.blueone.board.domain.BoardAttachFileInfo"/>
+		<typeAlias alias="boardCommentInfo" type="com.blueone.board.domain.BoardCommentInfo"/>
+		
+		
+		
      </typeAliases>
    
     <!-- db 연결 -->

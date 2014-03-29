@@ -3,32 +3,20 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">    
 
-    
-<!-- <sqlMap namespace="board"> -->
 <mapper namespace="board">
-	<!-- <typeAlias alias="BoardModel" type="com.blueone.board.domain.BoardInfo"/>
-	<typeAlias alias="BoardSrchModel" type="com.blueone.board.domain.BoardSrchInfo"/>
-	<typeAlias alias="BoardAttachFileModel" type="com.blueone.board.domain.BoardAttachFileInfo"/>
-	<typeAlias alias="BoardCommentModel" type="com.blueone.board.domain.BoardCommentInfo"/> -->
 	
 	<!-- 특정게시판의 게시물리스트 -->
-	<select id="getBrdTypBoardList" parameterType="com.blueone.board.domain.BoardSrchInfo" resultType="com.blueone.board.domain.BoardInfo">
+	<select id="getBrdTypBoardList" parameterType="boardSrchInfo" resultType="boardInfo">
 		SELECT s2.*
 		      ,s2.brd_seq as brdSeq
-		      ,DATE_FORMAT(s2.ins_dt
-		              ,'%Y.%m.%d'
-		              )
-		          AS insDt
-		      ,DATE_FORMAT(s2.ins_dt
-		              ,'%Y.%m.%d'
-		              )
-		          AS insDtTyp1
+		      ,DATE_FORMAT(s2.ins_dt, '%Y.%m.%d') AS insDt
+		      ,DATE_FORMAT(s2.ins_dt, '%Y.%m.%d') AS insDtTyp1
 		      ,case DATE_FORMAT(s2.ins_dt,'%Y%m%d') when date_format(now(),'%Y%m%d') then 'T' else 'F' end AS todayYn
-		      ,(SELECT ct1.save_filename
+/*		      ,(SELECT ct1.save_filename
 				  FROM BOM_ATTACHFILE_TB ct1
 				 WHERE ct1.brd_seq = s2.brd_seq
 				   AND ct1.atta_knd = 'MI'
-				   AND limit = 1 ) as repreImage
+				   limit 1 ) as repreImage */
 		      ,(SELECT COUNT(ct1.brd_seq)
                   FROM BOM_BOARD_CMT_TB ct1
                  WHERE ct1.brd_seq = s2.brd_seq
@@ -52,11 +40,13 @@
 		                       FROM BOM_BOARD_TB t1
 		                       
 		                      WHERE t1.del_yn = 'F'
-		                        AND t1.brd_typ = #{srchBrdTyp}#
+		                        AND t1.brd_typ = #{srchBrdTyp}
+		                        <if test="noticeBrdSeq != null and noticeBrdSeq.length != 0">
 		                        AND brd_seq NOT IN
-		                        <foreach item="noticeBrdSeq" index="index" collection="list" open=" (" close= ")" separator=",">
-									#{noticeBrdSeq}
-								</foreach>
+			                        <foreach item="noticeBrdSeq" index="index" collection="noticeBrdSeq" open=" (" close= ")" separator=",">
+										#{noticeBrdSeq}
+									</foreach>
+		                        </if>
 		                        
 		                        <if test="srchKeyword != null and srchKeyword != ''">
 		                        	AND concat(t1.title LIKE '%', #{srchKeyword}, '%')
@@ -65,7 +55,7 @@
 		                   ORDER BY t1.root_seq DESC
 		                           ,t1.ref_seq
 		                           ,t1.DEPTH) s1) s2
-		 WHERE rnum BETWEEN ((#{currentPage}# - 1) * #{rowsPerPage}# + 1) AND (((#{currentPage}# - 1) * #{rowsPerPage}# + 1) + #{rowsPerPage}# - 1)
+		 WHERE rnum BETWEEN ((#{currentPage} - 1) * #{rowsPerPage} + 1) AND (((#{currentPage} - 1) * #{rowsPerPage} + 1) + #{rowsPerPage} - 1)
 		ORDER BY rnum
 	</select>
 	
@@ -74,7 +64,7 @@
 		SELECT COUNT(t1.brd_seq)
 		  FROM BOM_BOARD_TB t1
 		 WHERE t1.del_yn = 'F'
-		   AND t1.brd_typ = #srchBrdTyp#
+		   AND t1.brd_typ = #{srchBrdTyp}
  			<if test="srchKeyword != null and srchKeyword != ''">
 		    	AND concat(t1.title LIKE '%', #{srchKeyword}, '%')
 			</if>
@@ -103,41 +93,29 @@
 		             AND t1.DEPTH = 0
 		             AND t1.passwd IS NULL
 		        ORDER BY t1.brd_seq DESC) s1
-		 WHERE limit <![CDATA[<=]]> #{size}#
+		 WHERE limit <![CDATA[<=]]> #{size}
 	</select>
 	
 	<!-- 특정게시판의 공지리스트 -->
-	<select id="getBrdTypNoticeList" parameterType="com.blueone.board.domain.BoardSrchInfo" resultType="com.blueone.board.domain.BoardInfo">
+	<select id="getBrdTypNoticeList" parameterType="boardSrchInfo" resultType="boardInfo">
 		SELECT s1.*
 		      ,s1.brd_seq AS brdSeq
-		      ,DATE_FORMAT(s1.ins_dt
-		              ,'%Y.%m.%d'
-		              )
-		          AS insDt
-		      ,DATE_FORMAT(s1.ins_dt
-		              ,'%Y.%m.%d'
-		              )
-		          AS insDtTyp1
-		      ,case DATE_FORMAT(s1.ins_dt
-		                     ,'%Y%m%d'
-		                     )
-		             when DATE_FORMAT(now()
-		                     ,'%Y%m%d'
-		                     ) then 'T'
+		      ,DATE_FORMAT(s1.ins_dt, '%Y.%m.%d') AS insDt
+		      ,DATE_FORMAT(s1.ins_dt, '%Y.%m.%d') AS insDtTyp1
+		      ,case DATE_FORMAT(s1.ins_dt, '%Y%m%d')
+		             when DATE_FORMAT(now(), '%Y%m%d') then 'T'
 		             else 'F'
 		             end
 		          AS todayYn
-		      ,(SELECT ct1.save_filename
+/*		      ,(SELECT ct1.save_filename
 		          FROM BOM_ATTACHFILE_TB ct1
 		         WHERE ct1.brd_seq = s1.brd_seq
 		           AND ct1.atta_knd = 'MI'
-		           AND limit = 1)
-		          AS repreImage
+		           limit 1) AS repreImage */
 		      ,(SELECT COUNT(ct1.brd_seq)
 		          FROM BOM_BOARD_CMT_TB ct1
 		         WHERE ct1.brd_seq = s1.brd_seq
-		           AND ct1.del_yn = 'F')
-		          AS commCnt
+		           AND ct1.del_yn = 'F') AS commCnt
 		  FROM (SELECT   t1.brd_seq
 		                ,t1.root_seq AS rootSeq
 		                ,t1.ref_seq AS refSeq
@@ -149,26 +127,16 @@
 		                ,t1.user_nm AS userNm
 		                ,t1.ins_dt
 		                ,t1.hit
-		                ,DATE_FORMAT(DATE_FORMAT(t1.public_ymd
-		                                ,'%Y%m%d'
-		                                )
-		                        ,'%Y.%m.%d'
-		                        )
-		                    AS publicYmd
+		                ,DATE_FORMAT(DATE_FORMAT(t1.public_ymd ,'%Y%m%d'), '%Y.%m.%d') AS publicYmd
 		                ,t1.public_nm AS publicNm
-		                ,SUBSTR(cont
-		                       ,1
-		                       ,120
-		                       )
-		                    AS cont
+		                ,SUBSTR(cont, 1, 120) AS cont
 		            FROM BOM_BOARD_TB t1
 		           WHERE t1.del_yn = 'F'
-		             AND t1.brd_typ = #srchBrdTyp#
+		             AND t1.brd_typ = #{srchBrdTyp}
 		             AND t1.notice_yn = 'T'
 		        ORDER BY t1.root_seq DESC
 		                ,t1.ref_seq
-		                ,t1.DEPTH) s1
-		 WHERE limit <![CDATA[<=]]> 3
+		                ,t1.DEPTH) s1  limit 3
 	</select>
 	
 	<!-- 게시물 추가 -->
@@ -318,7 +286,7 @@
 		         ON t2.code_knd1 = 'MG'
 		        AND t2.code_knd2 = 'MG06'
 		        AND t2.code = t1.file_ext
-		   WHERE t1.brd_seq = #brdSeq#
+		   WHERE t1.brd_seq = #{brdSeq}
 		ORDER BY t1.fl_no
 	</select>
 	
@@ -415,10 +383,3 @@
 		      WHERE brd_seq = #{brdseq}#
 	</delete>
 </mapper>
-
-
-
-
-
-
-

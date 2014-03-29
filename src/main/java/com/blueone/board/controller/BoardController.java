@@ -64,7 +64,6 @@ public class BoardController {
 			boardSrchModel.setTotalCount(boardService.getBrdTypTotalCount(boardSrchModel));
 		}
 		
-		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("srchInfo", boardSrchModel);
 		mav.addObject("noticeList", noticeList);
@@ -72,6 +71,7 @@ public class BoardController {
 		mav.addObject("pageHtml", getPageHtml(boardSrchModel));
 		mav.addObject("brdTypInfo", boardTypService.getBoardTyp(boardSrchModel.getSrchBrdTyp()));
 		mav.setViewName("/board/list");
+		
 		return mav;
 	}
 	
