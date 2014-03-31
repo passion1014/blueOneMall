@@ -20,6 +20,10 @@ public class CategoryInfo {
 	private String regDate;
 	private String lastDate;
 	private String modifyUserId;
+	private String ctgLargeCode;
+	private String ctgLargeName;
+	private String ctgMiddleCode;
+	private String ctgMiddleName;
 	
 	public int getIdx() {
 		return idx;
@@ -92,6 +96,30 @@ public class CategoryInfo {
 	}
 	public void setModifyUserId(String modifyUserId) {
 		this.modifyUserId = modifyUserId;
+	}
+	public String getCtgLargeCode() {
+		return ctgLargeCode;
+	}
+	public void setCtgLargeCode(String ctgLargeCode) {
+		this.ctgLargeCode = ctgLargeCode;
+	}
+	public String getCtgLargeName() {
+		return ctgLargeName;
+	}
+	public void setCtgLargeName(String ctgLargeName) {
+		this.ctgLargeName = ctgLargeName;
+	}
+	public String getCtgMiddleCode() {
+		return ctgMiddleCode;
+	}
+	public void setCtgMiddleCode(String ctgMiddleCode) {
+		this.ctgMiddleCode = ctgMiddleCode;
+	}
+	public String getCtgMiddleName() {
+		return ctgMiddleName;
+	}
+	public void setCtgMiddleName(String ctgMiddleName) {
+		this.ctgMiddleName = ctgMiddleName;
 	}
 	
 	

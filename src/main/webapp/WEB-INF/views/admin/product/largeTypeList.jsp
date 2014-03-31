@@ -32,13 +32,13 @@
 			<th>분류명</th>
 			<th>수정/삭제</th>
 		</tr>
-		
+			
 		<c:choose>
 			<c:when test="${list.size() != 0}">
 				<c:forEach items="${list}" var="category">
 					<tr>
 						<td style="text-align:center;">${category.idx}</td>
-						<td style="text-align:center;">${category.idx}</td>
+						<td style="text-align:center;">${category.ctgOrder}</td>
 						<td>${category.ctgName}</td>
 						<td style="text-align:center;">
 							<input type="button" value="수정" onClick="dialogUpdate('${category.ctgCode}');" class="Button Gray">

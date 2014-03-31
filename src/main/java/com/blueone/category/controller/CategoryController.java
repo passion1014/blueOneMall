@@ -125,7 +125,7 @@ public class CategoryController {
 	public ModelAndView middleTypeList(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model){
 		
 		ModelAndView mav = new ModelAndView();
-		List<CategoryInfo> list = categoryManageService.getCategoryInfList(categoryInfo);
+		List<CategoryInfo> list = categoryManageService.getCategoryInfList3(categoryInfo);
 	    
 		mav.addObject("list", list);
 		
@@ -266,6 +266,11 @@ public class CategoryController {
 		List<CategoryInfo> rstList = categoryManageService.getCategoryInfList(categoryInfo);
 		return rstList;
 	}
+	
+	
+	
+	
+	
 	
 	private List<CategoryInfo> getCategoryListByTypeCd(CategoryInfo categoryInfo, String ctgCodeType) {
 		List<CategoryInfo> list = categoryManageService.getCategoryInfList(categoryInfo);
