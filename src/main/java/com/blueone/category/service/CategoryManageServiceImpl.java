@@ -118,7 +118,7 @@ public class CategoryManageServiceImpl implements ICategoryManageService {
 		try {
 			if (StringUtils.isNotEmpty(categoryInfo.getCtgPCode())) {
 				// 부모 카테고리로 자식 카테고리 목록을 조회
-				rstList = sqlSession.selectList("category.selectLstBomCategoryTb0003", categoryInfo);
+				rstList = sqlSession.selectList("category.selectListBomCategoryTb0003", categoryInfo);
 				
 			} else {
 				// 전체 카테고리 목록을 조회
