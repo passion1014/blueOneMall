@@ -60,19 +60,43 @@
 	</select >	
 	
 	<select id="selectDtlBomCategoryTb0001" parameterType="hashmap" resultType="categoryInfo" resultMap="CategoryInfoMap">
-		SELECT  `IDX`,`CTG_P_CODE`,`CTG_CODE_TYPE`,`CTG_CODE`,`CTG_NAME`
-				,`CTG_DESC`,`FROM_DATE`,`TO_DATE`,`REG_DATE`,`LAST_DATE`
-		FROM BOM_CATEGORY_TB
+		SELECT
+			T1.IDX            AS t1IDX, 
+			T1.CTG_P_CODE     AS t1ctgPCode, 
+			T1.CTG_CODE_TYPE  AS t1ctgCodeType, 
+			T1.CTG_CODE       AS t1ctgCode, 
+			T1.CTG_NAME       AS t1ctgName, 
+			T1.CTG_DESC       AS t1ctgDesc,
+			T1.CTG_ORDER      AS t1ctgOrder, 
+			T1.FROM_DATE      AS t1fromDate, 
+			T1.TO_DATE        AS t1toDate, 
+			T1.REG_DATE       AS t1regDate, 
+			T1.LAST_DATE      AS t1lastDate, 
+			T1.MODIFY_USER_ID AS t1modifyUserId
+		FROM
+			BOM_CATEGORY_TB AS T1
 		WHERE
-			CTG_CODE = #{ctgCode}
+			T1.CTG_CODE = #{ctgCode}
 	</select >
 
 	<select id="selectListBomCategoryTb0003" parameterType="categoryInfo" resultType="categoryInfo" resultMap="CategoryInfoMap">
-		SELECT  `IDX`,`CTG_P_CODE`,`CTG_CODE_TYPE`,`CTG_CODE`,`CTG_NAME`
-				,`CTG_DESC`,`FROM_DATE`,`TO_DATE`,`REG_DATE`,`LAST_DATE`
-		FROM BOM_CATEGORY_TB
+		SELECT
+			T1.IDX            AS t1IDX, 
+			T1.CTG_P_CODE     AS t1ctgPCode, 
+			T1.CTG_CODE_TYPE  AS t1ctgCodeType, 
+			T1.CTG_CODE       AS t1ctgCode, 
+			T1.CTG_NAME       AS t1ctgName, 
+			T1.CTG_DESC       AS t1ctgDesc,
+			T1.CTG_ORDER      AS t1ctgOrder, 
+			T1.FROM_DATE      AS t1fromDate, 
+			T1.TO_DATE        AS t1toDate, 
+			T1.REG_DATE       AS t1regDate, 
+			T1.LAST_DATE      AS t1lastDate, 
+			T1.MODIFY_USER_ID AS t1modifyUserId
+		FROM
+			BOM_CATEGORY_TB AS T1
 		WHERE
-			CTG_P_CODE = #{ctgPCode}
+			T1.CTG_P_CODE = #{ctgPCode}
 	</select >
 	
 	<select id="selectListBomCategoryTb0004" parameterType="categoryInfo" resultType="categoryInfo" resultMap="CategoryInfoMap">
