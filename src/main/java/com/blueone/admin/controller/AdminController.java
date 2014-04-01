@@ -78,25 +78,24 @@ public class AdminController {
 		return "redirect:adminLogin.do";
 	}
 	
-	//=======================	
 	@RequestMapping(value = "/adminDefault.do", method = RequestMethod.GET)
-	public String defaultAdminInfo(@ModelAttribute("adminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
-		ModelAndView mav = new ModelAndView();
+	public String defaultAdminInfo(@ModelAttribute("adminSession") AdminInfo adminSession, BindingResult result, Model model) {
 
-		
-		AdminLoginInfo adminLoginInfo = new AdminLoginInfo();
-		adminInfo = adminManageService.adminLogin(adminLoginInfo);
-		mav.addObject("adminSession", adminInfo);
+		// 세션체크
+		if (adminSession == null) {
+			return "redirect:adminLogin.do";
+		}
 		
 		return "admin/defaultMain";
-
-//		
-
-		
 	}
 	
 	@RequestMapping(value="/adminMain.do", method= RequestMethod.GET)
-	public String adminConf(@ModelAttribute("adminInfo") AdminInfo adminInfo, BindingResult result, Model model){
+	public String adminConf(@ModelAttribute("adminSession") AdminInfo adminSession, BindingResult result, Model model){
+		
+		// 세션체크
+		if (adminSession == null) {
+			return "redirect:adminLogin.do";
+		}
 		
 		return "admin/admin/adminMain";
 	}

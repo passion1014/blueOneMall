@@ -37,7 +37,7 @@ public class TestSession extends BlueoneTestCase {
 		MockHttpSession session = new MockHttpSession();
 		
 		// 세션정보 셋팅
-		mockMvc.perform(post("/admin/adminLoginLogic.do").session(session)
+		mockMvc.perform(post("/admin/adminLoginProc.do").session(session)
 				.param("adminId", "id5")
 				.param("adminPw", "password"))
 		.andExpect(status().isOk())
@@ -46,6 +46,8 @@ public class TestSession extends BlueoneTestCase {
 		// 입력된 세션정보 확인
 		printAdminSessionInfo(session, "adminSession");
 	}
+	
+	
 
 	@Test
 	public void testSession2() throws Exception {
