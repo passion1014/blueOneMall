@@ -36,17 +36,17 @@
 		</tr>
 		
 		<c:choose>
-			<c:when test="${goods.idx != ''}">
-				<c:forEach items="${list}" var="goods">
+			<c:when test="${list.size() != 0}">
+				<c:forEach items="${list}" var="middleCategory">
 					<tr>
-						<td style="text-align:center;">${goods.idx}</td>
-						<td style="text-align:center;">${goods.ctgOrder}</td>
-						<td style="text-align:center;">${goods.ctgLargeName}</td>
-						<td>${goods.ctgName}</td>
+						<td style="text-align:center;">${middleCategory.idx}</td>
+						<td style="text-align:center;">${middleCategory.ctgOrder}</td>
+						<td style="text-align:center;">${middleCategory.ctgLargeName}</td>
+						<td>${middleCategory.ctgName}</td>
 						<td style="text-align:center;">
-							<!--input type="button" value="수정" onClick="openWin('largeTypeModify.do?ctgCode=${goods.ctgCode}','largeTypeForm',600,450,'scrollbars=no');"  class="Button Gray"-->
-							<input type="button" value="수정" onClick="dialogUpdate('${goods.ctgCode}');" class="Button Gray">
-							<input type="button" value="삭제" onClick="location.href='deleteCategoryInf.do?ctgCode=${goods.ctgCode}';"  class="Button Gray">
+							<!--input type="button" value="수정" onClick="openWin('middleTypeEdit.do?ctgCode=${goods.ctgCode}','middleTypeForm',600,450,'scrollbars=no');"  class="Button Gray"-->
+							<input type="button" value="수정" onClick="dialogUpdate('${middleCategory.ctgCode}');" class="Button Gray">
+							<input type="button" value="삭제" onClick="location.href='deleteMiddleCategoryInf.do?ctgCode=${middleCategory.ctgCode}';"  class="Button Gray">
 						</td>
 					</tr>
 				</c:forEach>
@@ -101,7 +101,7 @@ function closeDialog() {
 function dialogUpdate(cCode) {
 	$.ajax({
 		type: "POST",
-		url: "largeTypeModify.do",
+		url: "middleTypeEdit.do",
 		cache: false,
 		async: false,
 		data: {

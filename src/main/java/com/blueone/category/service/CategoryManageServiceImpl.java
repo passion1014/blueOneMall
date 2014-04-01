@@ -137,7 +137,7 @@ public class CategoryManageServiceImpl implements ICategoryManageService {
 	 */
 	@Override
 	public CategoryInfo getCategoryInfDetail(CategoryInfo categoryInfo) {
-		
+		                 
 		CategoryInfo rstInfo = new CategoryInfo();
 		// -----------------------------------------------
 		// 조회
@@ -151,6 +151,9 @@ public class CategoryManageServiceImpl implements ICategoryManageService {
 		
 		return rstInfo;
 	}
+	
+	
+	
 	
 	/*
 	 * Category 분류 디테일 조회 
@@ -213,6 +216,8 @@ public class CategoryManageServiceImpl implements ICategoryManageService {
 	
 	
 	
+	
+	
 
 	private ResultInfo checkCategoryInfo(CategoryInfo categoryInfo) {
 		ResultInfo rstInfo = new ResultInfo();
@@ -255,4 +260,7 @@ public class CategoryManageServiceImpl implements ICategoryManageService {
 		
 		return rst;
 	}
+	
+	
+
 }

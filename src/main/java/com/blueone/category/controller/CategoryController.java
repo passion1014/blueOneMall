@@ -146,16 +146,63 @@ public class CategoryController {
 		String ctgCode= "M"+code;
 		
 		List<CategoryInfo> rstList = getCategoryListByTypeCd(categoryInfo, "01");
+		List<CategoryInfo> list = categoryManageService.getCategoryInfList3(categoryInfo);
 		
-		model.addAttribute("ctgCode", ctgCode);
+		model.addAttribute("ctgMidCode", ctgCode);
 		model.addAttribute("ctgList", rstList);
-
+		model.addAttribute("list", list);
 		return "admin/product/middleTypeRegister";
 		
 	}
-
-
 	
+	/**
+	 * 관리자 중분류 등록처리
+	 */
+	@RequestMapping(value = "/admin/middleTypeRegisterProc.do", method = RequestMethod.POST)
+	public String middleTypeRegisterProc(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model,String ctgname) {
+		
+		
+		categoryManageService.registCategoryInf(categoryInfo);
+		model.addAttribute("reloadVar", "yes");
+		return "admin/product/middleTypeRegister";
+		
+	}
+	
+	
+	/**
+	 * 관리자 중분류 수정폼
+	 */		
+	@RequestMapping(value="/admin/middleTypeEdit.do", method=RequestMethod.POST)
+	public String middleTypeModify(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model){
+		
+		categoryInfo = categoryManageService.getCategoryInfDetail(categoryInfo);
+		model.addAttribute("largeTypeObj", categoryInfo);
+		
+		return "admin/product/middleTypeEdit";
+	}
+	
+	
+
+	/**
+	 * 관리자 중분류 수정처리
+	 */
+	@RequestMapping(value = "/admin/editMiddleCategoryInfProc.do", method = RequestMethod.POST)
+	public String editMiddleCategoryInfoProc(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model) {
+		categoryManageService.editCategoryInf(categoryInfo);
+		
+		return "redirect:middleTypeList.do";
+	}
+	
+	
+	/**
+	 * 관리자 중분류 삭제
+	 */
+	@RequestMapping(value = "/admin/deleteMiddleCategoryInf.do", method = RequestMethod.GET)
+	public String deleteMiddleCategoryInfo(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model) {
+		categoryManageService.deleteCategoryInf(categoryInfo);
+		
+		return "redirect:middleTypeList.do";
+	}
 	
 //	@RequestMapping(value="/admin/middleTypeRegister.do", method= RequestMethod.GET)
 //	public ModelAndView middleTypeRegister2(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model){

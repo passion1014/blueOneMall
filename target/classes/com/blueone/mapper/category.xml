@@ -78,6 +78,7 @@
 		WHERE
 			T1.CTG_CODE = #{ctgCode}
 	</select >
+	
 
 	<select id="selectListBomCategoryTb0003" parameterType="categoryInfo" resultType="categoryInfo" resultMap="CategoryInfoMap">
 		SELECT
@@ -93,6 +94,8 @@
 			T1.REG_DATE       AS t1regDate, 
 			T1.LAST_DATE      AS t1lastDate, 
 			T1.MODIFY_USER_ID AS t1modifyUserId
+			T2.CTG_CODE		  AS t2ctgCode,
+			T2.CTG_NAME		  AS t2ctgName
 		FROM
 			BOM_CATEGORY_TB AS T1
 		WHERE
@@ -125,7 +128,7 @@
 	</select >
 	
 	
-	<select id="selectListBomCategoryTb0005" parameterType="categoryInfo" resultType="categoryInfo" resultMap="CategoryInfoMap">
+	<select id="selectDtlBomCategoryTb0005" parameterType="hashmap" resultType="categoryInfo" resultMap="CategoryInfoMap">
 		SELECT
 			T1.IDX            AS t1IDX, 
 			T1.CTG_P_CODE     AS t1ctgPCode, 
@@ -153,6 +156,9 @@
 		ORDER BY
 			T2.CTG_ORDER ASC, T3.CTG_ORDER ASC, T1.CTG_ORDER ASC		
 	</select >
+	
+	
+	
 
 
 	<insert id="insertBomCategoryTb0001" parameterType="categoryInfo">

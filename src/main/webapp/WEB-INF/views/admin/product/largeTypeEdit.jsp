@@ -17,19 +17,11 @@
 	<table class="tbl1">
 		<colgroup>
 			<col width="20%" />
-			<col width="30%" />
-			<col width="20%" />
+			<col width="50%" />
 			<col width="*" />
 		</colgroup>
 
 		<tr>
-			<th>표시여부</th>
-			<td class="left">
-				<select id="type_status" name="type_status">
-					<option value="y">표시</option>
-					<option value="n">숨김</option>
-				</select>&nbsp;
-			</td>
 			<th>정렬순위</th>
 			<td class="left">
 				<select id="ctgOrder" name="ctgOrder">

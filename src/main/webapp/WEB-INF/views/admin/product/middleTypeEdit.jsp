@@ -4,8 +4,8 @@
 <div id="Wrap">
 	<!-- 컨덴츠 -->
 	<div style="padding:10px;">
-	<div> 상품관리 > 상품분류 > 대분류 수정	</div>
-	<form name="frm" method="post" action="editCategoryInfProc.do" onSubmit="return chkForm(this);">
+	<div> 상품관리 > 상품분류 > 중분류 수정	</div>
+	<form name="frm" method="post" action="editMiddleCategoryInfProc.do" onSubmit="return chkForm(this);">
 	<input type="hidden" id="ctgPCode"     name="ctgPCode"     value="${largeTypeObj.ctgPCode}">
 	<input type="hidden" id="ctgCodeType"  name="ctgCodeType"  value="${largeTypeObj.ctgCodeType}">
 	<input type="hidden" id="ctgDesc"      name="ctgDesc"      value="${largeTypeObj.ctgDesc}">
@@ -41,6 +41,12 @@
 		</tr>
 		<tr>
 			<th>대분류명</th>
+			<td colspan="3" class="left">
+				<input type="text" id="ctgName" name="ctgName" value="${largeTypeObj.ctgName}" class="Text Kor" style="width:90%;">
+			</td>
+		</tr>
+		<tr>
+			<th>중분류명</th>
 			<td colspan="3" class="left">
 				<input type="text" id="ctgName" name="ctgName" value="${largeTypeObj.ctgName}" class="Text Kor" style="width:90%;">
 			</td>
