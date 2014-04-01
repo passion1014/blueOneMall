@@ -7,7 +7,8 @@
 //등록
 function fnAdd() {
 	var f = boardForm;
-	f.action = '${pgmId}write.do';
+//	f.action = '${pgmId}write.do';
+	f.action = 'add.do';
 	f.currentPage.value = 1;
 	f.submit();
 }
@@ -22,8 +23,8 @@ function fnList() {
 // 등록
 function fnAddClick() {
 	var f = boardForm;
-	
-	if (f.passwdYn != null) {
+
+/* 	if (f.passwdYn != null) {
 		if (f.passwdYn.checked) {
 			if (isEmpty(f.passwd)) {
 				alert('비밀번호를 입력해주세요.');
@@ -78,7 +79,7 @@ function fnAddClick() {
 		alert('제목을 입력해주세요.');
 		f.title.focus();
 		return false;
-	}
+	} */
 	
 	fnAdd();
 }
@@ -186,8 +187,10 @@ function setUploadImage(path) {
 		</div>
 	</div>
 	<div id="buttonWrap">
-		<img class="mousePoint" src="../images/board/btn/btn_ok.gif" onclick="fnAddClick()" alt="확인" />
-		<img class="mousePoint" src="../images/board/btn/btn_scancel.gif" onclick="fnList()" alt="취소"/>
+		<input type="button" name="확인" onclick="fnAddClick()"> 
+		<input type="button" name="취소" onclick="fnList()">
+		<!-- <img class="mousePoint" src="../images/board/btn/btn_ok.gif" onclick="fnAddClick()" alt="확인" />
+		<img class="mousePoint" src="../images/board/btn/btn_scancel.gif" onclick="fnList()" alt="취소"/> -->
 	</div>
 </div>
 </form>
