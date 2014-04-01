@@ -146,11 +146,9 @@ public class CategoryController {
 		String ctgCode= "M"+code;
 		
 		List<CategoryInfo> rstList = getCategoryListByTypeCd(categoryInfo, "01");
-		List<CategoryInfo> list = categoryManageService.getCategoryInfList3(categoryInfo);
 		
 		model.addAttribute("ctgMidCode", ctgCode);
 		model.addAttribute("ctgList", rstList);
-		model.addAttribute("list", list);
 		return "admin/product/middleTypeRegister";
 		
 	}
@@ -176,8 +174,9 @@ public class CategoryController {
 	public String middleTypeModify(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model){
 		
 		categoryInfo = categoryManageService.getCategoryInfDetail(categoryInfo);
+		List<CategoryInfo> list = categoryManageService.getCategoryInfList3(categoryInfo);
 		model.addAttribute("largeTypeObj", categoryInfo);
-		
+		model.addAttribute("list", list);
 		return "admin/product/middleTypeEdit";
 	}
 	

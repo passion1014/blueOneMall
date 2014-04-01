@@ -6,8 +6,7 @@
 	<div style="padding:10px;">
 	<div> 상품관리 > 상품분류 > 중분류 수정	</div>
 	<form name="frm" method="post" action="editMiddleCategoryInfProc.do" onSubmit="return chkForm(this);">
-	<input type="hidden" id="ctgPCode"     name="ctgPCode"     value="${largeTypeObj.ctgPCode}">
-	<input type="hidden" id="ctgCodeType"  name="ctgCodeType"  value="${largeTypeObj.ctgCodeType}">
+	<input type="hidden" id="ctgCodeType"  name="ctgCodeType"  value="02">
 	<input type="hidden" id="ctgDesc"      name="ctgDesc"      value="${largeTypeObj.ctgDesc}">
 	<input type="hidden" id="ctgCode"      name="ctgCode"      value="${largeTypeObj.ctgCode}">
 	<input type="hidden" id="fromDate"     name="fromDate"     value="1900-01-01">
@@ -41,8 +40,12 @@
 		</tr>
 		<tr>
 			<th>대분류명</th>
-			<td colspan="3" class="left">
-				<input type="text" id="ctgName" name="ctgName" value="${largeTypeObj.ctgName}" class="Text Kor" style="width:90%;">
+			<td class="left">
+				<select id="ctgName" name="ctgName">
+				<c:forEach items="${list}" var="list" >
+					<option value="<c:out value="${list.ctgLargeName}"></c:out>"><c:out value="${list.ctgLargeName}"></c:out></option>
+				</c:forEach>							
+				</select>&nbsp;
 			</td>
 		</tr>
 		<tr>

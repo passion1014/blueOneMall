@@ -46,7 +46,8 @@
 						<td style="text-align:center;">
 							<!--input type="button" value="수정" onClick="openWin('middleTypeEdit.do?ctgCode=${goods.ctgCode}','middleTypeForm',600,450,'scrollbars=no');"  class="Button Gray"-->
 							<input type="button" value="수정" onClick="dialogUpdate('${middleCategory.ctgCode}');" class="Button Gray">
-							<input type="button" value="삭제" onClick="location.href='deleteMiddleCategoryInf.do?ctgCode=${middleCategory.ctgCode}';"  class="Button Gray">
+							<input type="button" value="삭제" onClick="confirm_process('','해당 분류를 삭제하시겠습니까?','deleteMiddleCategoryInf.do?ctgCode=${middleCategory.ctgCode}');"  class="Button Gray">
+							
 						</td>
 					</tr>
 				</c:forEach>

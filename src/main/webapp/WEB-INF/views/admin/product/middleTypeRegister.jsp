@@ -12,7 +12,6 @@
 	<div style="padding:10px;">
 	<div> 상품관리 > 상품분류 > 중분류 등록	</div>
 	<form name="frm" method="post" action="middleTypeRegisterProc.do">
-	<input type="hidden" id="ctgPCode"     name="ctgPCode" value="${ctgLargeCode}">
 	<input type="hidden" id="ctgCode"      name="ctgCode"  value="${ctgMidCode}">
 	<input type="hidden" id="ctgCodeType"  name="ctgCodeType"  value="02">
 	<input type="hidden" id="ctgDesc"      name="ctgDesc"      value="">
@@ -42,9 +41,9 @@
 		<tr>
 			<th>대분류</th>
 			<td colspan="3" class="left">
-				<select id="ctgOrder" name="ctgOrder">
+				<select id="ctgPCode" name="ctgPCode">
 				<c:forEach items="${ctgList}" var="largeTypeObj">
-					<option value="<c:out value="${largeTypeObj.ctgName}"></c:out>"><c:out value="${largeTypeObj.ctgName}"></c:out></option>
+					<option value="<c:out value="${largeTypeObj.ctgCode}"></c:out>"><c:out value="${largeTypeObj.ctgName}"></c:out></option>
 				</c:forEach>							
 				</select>&nbsp;
 			</td>
