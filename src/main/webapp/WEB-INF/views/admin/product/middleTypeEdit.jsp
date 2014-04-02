@@ -8,7 +8,6 @@
 	<form name="frm" method="post" action="editMiddleCategoryInfProc.do" onSubmit="return chkForm(this);">
 	<input type="hidden" id="ctgCodeType"  name="ctgCodeType"  value="02">
 	<input type="hidden" id="ctgDesc"      name="ctgDesc"      value="${largeTypeObj.ctgDesc}">
-	<input type="hidden" id="ctgCode"      name="ctgCode"      value="${largeTypeObj.ctgCode}">
 	<input type="hidden" id="fromDate"     name="fromDate"     value="1900-01-01">
 	<input type="hidden" id="toDate"       name="toDate"       value="9999-12-31">
 	<input type="hidden" id="modifyUserId" name="modifyUserId" value="${adminSession.id}">
@@ -41,9 +40,9 @@
 		<tr>
 			<th>대분류명</th>
 			<td class="left">
-				<select id="ctgName" name="ctgName">
+				<select id="ctgCode" name="ctgCode">
 				<c:forEach items="${list}" var="list" >
-					<option value="<c:out value="${list.ctgLargeName}"></c:out>"><c:out value="${list.ctgLargeName}"></c:out></option>
+					<option value="<c:out value="${list.ctgCode}"></c:out>"><c:out value="${list.ctgLargeName}"></c:out></option>
 				</c:forEach>							
 				</select>&nbsp;
 			</td>

@@ -128,7 +128,7 @@
 	</select >
 	
 	
-	<select id="selectDtlBomCategoryTb0005" parameterType="hashmap" resultType="categoryInfo" resultMap="CategoryInfoMap">
+	<select id="selectListBomCategoryTb0005" parameterType="categoryInfo" resultType="categoryInfo" resultMap="CategoryInfoMap">
 		SELECT
 			T1.IDX            AS t1IDX, 
 			T1.CTG_P_CODE     AS t1ctgPCode, 

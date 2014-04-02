@@ -38,12 +38,12 @@
 		</tr>
 		
 		<c:choose>
-			<c:when test="${goods.idx != ''}">
+			<c:when test="${list.size() != 0}">
 				<c:forEach items="${list}" var="goods">
 					<tr>
 						<td style="text-align:center;">${goods.idx}</td>
-						<td style="text-align:center;">${goods.idx}</td>
-						<td style="text-align:center;">${goods.idx}</td>
+						<td style="text-align:center;">${goods.ctgOrder}</td>
+						<td style="text-align:center;">${goods.ctgLargeName}</td>
 						<td>${goods.ctgName}</td>
 						<td>${goods.ctgName}</td>
 						<td style="text-align:center;">

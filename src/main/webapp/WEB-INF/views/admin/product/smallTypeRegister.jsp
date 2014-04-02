@@ -18,7 +18,7 @@
 				} else {
 					options = "<option value=''>중분류를 선택하여주십시오</option>";
 				}
-				$("select#ctgPOrder").html(options);
+				$("select#ctgPCode").html(options);
 			});
 		});
 	});
@@ -30,8 +30,8 @@
 	<div style="padding:10px;">
 	<div> 상품관리 > 상품분류 > 소분류 등록	</div>
 	<form name="frm" method="post" action="middleTypeRegisterProc.do">
-	<input type="text" id="ctgPCode"     name="ctgPCode" value="">
-	<input type="text" id="ctgCodeType"  name="ctgCodeType"  value="01">
+	<input type="text" id="ctgCode"     name="ctgCode" value="ctgCode">
+	<input type="text" id="ctgCodeType"  name="ctgCodeType"  value="03">
 	<input type="text" id="ctgDesc"      name="ctgDesc"      value="">
 	<input type="text" id="fromDate"     name="fromDate" value="1900-01-01">
 	<input type="text" id="toDate"       name="toDate" value="9999-12-31">
@@ -61,8 +61,8 @@
 			<td colspan="3" class="left">
 				<select id="largeType" name="largeType">
 					<option value="">대분류를 선택하여주십시오</option>	
-					<c:forEach items="${ctgMList}" var="largeTypeObj">
-						<option value="<c:out value="${largeTypeObj.ctgCode}"></c:out>"><c:out value="${largeTypeObj.ctgCode}"></c:out></option>
+					<c:forEach items="${ctgList1}" var="largeTypeObj">
+						<option value="<c:out value="${largeTypeObj.ctgCode}"></c:out>"><c:out value="${largeTypeObj.ctgName}"></c:out></option>
 					</c:forEach>							
 				</select>&nbsp;
 			</td>
@@ -71,9 +71,12 @@
 		<tr>
 			<th>중분류</th>
 			<td colspan="3" class="left">
-				<select id="ctgPOrder" name="ctgPOrder">
-					<option value="">중분류를 선택하여주십시오</option>							
-				</select>&nbsp;
+			<select id="ctgPCode" name="ctgPCode">
+					<option value="">중분류를 선택하여주십시오</option>	
+					<c:forEach items="${ctgList2}" var="largeTypeObj">
+						<option value="<c:out value="${largeTypeObj.ctgPCode}"></c:out>"><c:out value="${largeTypeObj.ctgName}"></c:out></option>
+					</c:forEach>							
+			</select>&nbsp;
 			</td>
 		</tr>
 		

@@ -146,7 +146,7 @@ public class CategoryController {
 		String ctgCode= "M"+code;
 		
 		List<CategoryInfo> rstList = getCategoryListByTypeCd(categoryInfo, "01");
-		
+		model.addAttribute("reloadVar", "yes");
 		model.addAttribute("ctgMidCode", ctgCode);
 		model.addAttribute("ctgList", rstList);
 		return "admin/product/middleTypeRegister";
@@ -161,8 +161,8 @@ public class CategoryController {
 		
 		
 		categoryManageService.registCategoryInf(categoryInfo);
-		model.addAttribute("reloadVar", "yes");
-		return "admin/product/middleTypeRegister";
+		
+		return "redirect:middleTypeRegister.do";
 		
 	}
 	
@@ -181,7 +181,7 @@ public class CategoryController {
 	}
 	
 	
-
+                                                                        
 	/**
 	 * 관리자 중분류 수정처리
 	 */
@@ -237,7 +237,7 @@ public class CategoryController {
 	public ModelAndView smallTypeList(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model){
 		
 		ModelAndView mav = new ModelAndView();
-		List<CategoryInfo> list = categoryManageService.getCategoryInfList(categoryInfo);
+		List<CategoryInfo> list = categoryManageService.getCategoryInfList4(categoryInfo);
 	    
 		mav.addObject("list", list);
 		
@@ -253,15 +253,67 @@ public class CategoryController {
 	@RequestMapping(value="/admin/smallTypeRegister.do", method= RequestMethod.GET)
 	public String smallTypeRegister(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model){
 		int code= (int)(Math.random()*10000)+1;
-		String ctgCode= "M"+code;
-		
-		List<CategoryInfo> rstList = getCategoryListByTypeCd(categoryInfo, "01");
+		String ctgCode= "S"+code;
+		List<CategoryInfo> rstList1 = getCategoryListByTypeCd(categoryInfo, "01");
+		List<CategoryInfo> rstList2 = getCategoryListByTypeCd(categoryInfo, "02");
 
 		model.addAttribute("ctgCode", ctgCode);
-		model.addAttribute("ctgMList", rstList);
+		model.addAttribute("ctgList1", rstList1);
+		model.addAttribute("ctgList2", rstList2);
+		
 		
 		return "admin/product/smallTypeRegister";
 		
+	}
+	
+	/**
+	 * 관리자 소분류 등록처리
+	 */
+	@RequestMapping(value = "/admin/smallTypeRegisterProc.do", method = RequestMethod.POST)
+	public String smallTypeRegisterProc(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model,String ctgname) {
+		
+		
+		categoryManageService.registCategoryInf(categoryInfo);
+		model.addAttribute("reloadVar", "yes");
+		return "admin/product/smallTypeRegister";
+		
+	}
+	
+	
+	/**
+	 * 관리자 소분류 수정폼
+	 */		
+	@RequestMapping(value="/admin/smallTypeEdit.do", method=RequestMethod.POST)
+	public String smallTypeModify(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model){
+		
+		categoryInfo = categoryManageService.getCategoryInfDetail(categoryInfo);
+		List<CategoryInfo> list = categoryManageService.getCategoryInfList3(categoryInfo);
+		model.addAttribute("largeTypeObj", categoryInfo);
+		model.addAttribute("list", list);
+		return "admin/product/smallTypeEdit";
+	}
+	
+	
+                                                                        
+	/**
+	 * 관리자 소분류 수정처리
+	 */
+	@RequestMapping(value = "/admin/editsmallCategoryInfProc.do", method = RequestMethod.POST)
+	public String editsmallCategoryInfoProc(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model) {
+		categoryManageService.editCategoryInf(categoryInfo);
+		
+		return "redirect:smallTypeList.do";
+	}
+	
+	
+	/**
+	 * 관리자 소분류 삭제
+	 */
+	@RequestMapping(value = "/admin/deletesmallCategoryInf.do", method = RequestMethod.GET)
+	public String deletesmallCategoryInfo(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model) {
+		categoryManageService.deleteCategoryInf(categoryInfo);
+		
+		return "redirect:smallTypeList.do";
 	}
 	
 	

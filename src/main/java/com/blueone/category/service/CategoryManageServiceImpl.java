@@ -215,7 +215,26 @@ public class CategoryManageServiceImpl implements ICategoryManageService {
 	
 	
 	
-	
+	/*
+	 * Category 소분류 조회.... 
+	 */
+	@Override
+	public List<CategoryInfo> getCategoryInfList4(CategoryInfo categoryInfo) {
+		List<CategoryInfo> rstList = new ArrayList<CategoryInfo>();
+		// -----------------------------------------------
+		// DB Insert 수행
+		// -----------------------------------------------
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			// DB 수행
+			rstList = sqlSession.selectList("category.selectListBomCategoryTb0005");
+			
+		} finally {
+			sqlSession.close();
+		}
+		
+		return rstList;
+	}
 	
 	
 

@@ -50,8 +50,8 @@
 		</ul>
 		<ul>
 			<h2>상품관리</h2>
-			<li><a href="goodsList.do">상품목록</a></li>
-			<li><a href="goodsRegister.do">상품등록</a></li>
+			<li><a href="productList.do">상품목록</a></li>
+			<li><a href="productRegister.do">상품등록</a></li>
 		</ul>
 	</div>
 	</c:when>
