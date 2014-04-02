@@ -140,36 +140,36 @@
 	</select>
 	
 	<!-- 게시물 추가 -->
-	<insert id="insertBOM_BOARD_TB" parameterType="com.blueone.board.domain.BoardInfo">
+	<insert id="insertBOM_BOARD_TB" parameterType="boardInfo">
 		<selectKey keyProperty="brdSeq" resultType="long">
 			SELECT max(brd_seq)+1 FROM DUAL
 		</selectKey>
 		INSERT
-		  INTO tbl010102(brd_seq
-		                ,brd_typ
-		                ,root_seq
-		                ,ref_seq
-		                ,DEPTH
-		                ,passwd
-		                ,title
-		                ,cont
-		                ,hit
-		                ,comm_cnt
-		                ,reply_cnt
-		                ,proc_st
-		                ,user_nm
-		                ,public_ymd
-		                ,public_nm
-		                ,ins_dt
-		                ,ins_user
-		                ,upd_dt
-		                ,upd_user
-		                ,notice_yn
+		  INTO BOM_BOARD_TB(`BRD_SEQ`
+		                ,`BRD_TYP`
+		                ,`ROOT_SEQ`
+		                ,`REF_SEQ`
+		                ,`DEPTH`
+		                ,`PASSWD`
+		                ,`TITLE`
+		                ,`CONT`
+		                ,`HIT`
+		                ,`COMM_CNT`
+		                ,`REPLY_CNT`
+		                ,`PROC_ST`
+		                ,`USER_NM`
+		                ,`PUBLIC_YMD`
+		                ,`PUBLIC_NM`
+		                ,`INS_DT`
+		                ,`INS_USER`
+		                ,`UPD_DT`
+		                ,`UPD_USER`
+		                ,`NOTICE_YN`
 		                )
-		VALUES (#brdSeq#, #brdTyp#
-				, <if test='rootSeq == "0"'>#{brdSeq}#</if><if test='rootSeq != "0"'>#{rootSeq}#</if>
-				, #{refSeq}#, #{depth}#, #{passwd}#, #{title}#, #{cont}#, 0, 0, 0, #{procSt}#
-				, #{userNm}#, #{publicYmd}#, #{publicNm}#, SYSDATE, #{insUser}#, now(), #{updUser}#, IFNULL(#{noticeYn}#,'F')  ??
+		VALUES (#{brdSeq}, #{brdTyp}
+				, <if test='rootSeq == "0"'>#{brdSeq}</if><if test='rootSeq != "0"'>#{rootSeq}</if>
+				, #{refSeq}, #{depth}, #{passwd}, #{title}, #{cont}, 0, 0, 0, #{procSt}
+				, #{userNm}, #{publicYmd}, #{publicNm}, now(), #{insUser}, now(), #{updUser}, IFNULL(#{noticeYn},'F')
 		)
 	</insert>
 	

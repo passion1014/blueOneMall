@@ -10,10 +10,10 @@ public class Configuration {
 	private static Configuration instance = null;
 	
 	/** 속성값 객체 */
-	private static Properties	props			= null;
+	private static Properties props = null;
 
 	/** 속성 파일명 */
-	private final static String	CONF_FILE_NAME	= "config/klac.properties";
+	private final static String	CONF_FILE_NAME = "main/resources/blueone.properties";
 	
 	
 	private Configuration() {

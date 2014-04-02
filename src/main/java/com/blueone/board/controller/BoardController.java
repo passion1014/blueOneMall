@@ -8,8 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -21,8 +19,6 @@ import com.blueone.board.domain.BoardAttachFileInfo;
 import com.blueone.board.domain.BoardCommentInfo;
 import com.blueone.board.domain.BoardInfo;
 import com.blueone.board.domain.BoardSrchInfo;
-import com.blueone.board.service.BoardService;
-import com.blueone.board.service.BoardTypService;
 import com.blueone.board.service.IBoardService;
 import com.blueone.board.service.IBoardTypService;
 import com.blueone.common.domain.BaseInfo;
