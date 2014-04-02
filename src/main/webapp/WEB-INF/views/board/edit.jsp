@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"  %>
+    pageEncoding="UTF-8" import="com.blueone.common.util.CKEditorHelper" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="ckeditor" uri="http://ckeditor.com" %>
 
@@ -162,6 +162,8 @@ function setUploadImage(path) {
 							<th>내용입력</th>
 							<td colspan="3">
 								<textarea id="cont" name="cont" class="area_620_350">${board.cont}</textarea>
+								<ckeditor:replace replace="cont" basePath="${pageContext.request.contextPath}/module/ckeditor/" config="<%= CKEditorHelper.getDefaultConfig(620, 350) %>" />
+								
 							</td>
 						</tr>
 						<c:if test="${brdTypInfo.attaYn == 'T'}">
