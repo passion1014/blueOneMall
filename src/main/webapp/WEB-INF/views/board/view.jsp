@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="klac.common.CKEditorHelper" %>
+    pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="ckeditor" uri="http://ckeditor.com" %>
 
@@ -27,7 +27,7 @@ function fnEdit() {
 }
 
 //코멘트등록
-function fnAddComment() {
+/* function fnAddComment() {
 	if (${brdTypInfo.commWriteAuth == '20' && sessionScope.userInfo.userId == null}) {
 		if (!confirm('회원만 등록이 가능합니다.\n\n로그인 페이지로 이동하시겠습니까?')) {
 			return false;
@@ -59,7 +59,7 @@ function fnEditComment() {
 	f.method = 'post';
 	f.action = '${pgmId}editComment.do';
 	f.submit();
-}
+} */
 
 
 //코멘트삭제

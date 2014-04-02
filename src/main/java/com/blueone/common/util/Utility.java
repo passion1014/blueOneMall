@@ -28,7 +28,7 @@ import javax.swing.text.html.HTML;
 import javax.swing.text.html.HTML.Tag;
 
 /**
- * 공통 Utility Class
+ * 怨듯넻 Utility Class
  *
  * @version $Revision: 1.11 $
  * @author $Author: kwanwool $
@@ -37,12 +37,12 @@ import javax.swing.text.html.HTML.Tag;
 public final class Utility
 {
 
-	private static final char		DOUBLE_SPACE			= '　';
+	private static final char		DOUBLE_SPACE			= 'd';
 	
 	private static HashMap<String, String> tags = new HashMap<String, String>();
 
-	// 이거 그냥 공백 아니고 전각문자 공백임. 나중에 아스키코드로 바꾸는 것이 바람직할 듯
-	// 혹시라도 지우고 그냥 스페이스 넣으면 안됨 (by sik)
+	// �닿굅 洹몃깷 怨듬갚 �꾨땲怨��꾧컖臾몄옄 怨듬갚�� �섏쨷���꾩뒪�ㅼ퐫�쒕줈 諛붽씀��寃껋씠 諛붾엺吏곹븷 ��
+	// �뱀떆�쇰룄 吏�슦怨�洹몃깷 �ㅽ럹�댁뒪 �ｌ쑝硫��덈맖 (by sik)
 
 	private static final String	DEFAULT_DATE_FORMAT		= "yyyy-MM-dd";
 
@@ -72,7 +72,7 @@ public final class Utility
 	}
 
 	/**
-	 * String 에 quotation을 붙인다.
+	 * String ��quotation��遺숈씤��
 	 *
 	 * @param str
 	 */
@@ -90,7 +90,7 @@ public final class Utility
 	}
 
 	/**
-	 * 주어진 문자열을 int형으로 변환한다. 오류발생시 기존값을 리턴한다.
+	 * 二쇱뼱吏�臾몄옄�댁쓣 int�뺤쑝濡�蹂�솚�쒕떎. �ㅻ쪟諛쒖깮��湲곗〈媛믪쓣 由ы꽩�쒕떎.
 	 */
 	public static int parseInt(String s, int defualtValue)
 	{
@@ -105,7 +105,7 @@ public final class Utility
 	}
 
 	/**
-	 * 주어진 문자열을 int형으로 변환한다. 오류발생시 0을 리턴한다.
+	 * 二쇱뼱吏�臾몄옄�댁쓣 int�뺤쑝濡�蹂�솚�쒕떎. �ㅻ쪟諛쒖깮��0��由ы꽩�쒕떎.
 	 */
 	public static int parseInt(String s)
 	{
@@ -113,7 +113,7 @@ public final class Utility
 	}
 
 	/**
-	 * 주어진 문자열을 long형으로 변환한다. 오류발생시 기존값을 리턴한다.
+	 * 二쇱뼱吏�臾몄옄�댁쓣 long�뺤쑝濡�蹂�솚�쒕떎. �ㅻ쪟諛쒖깮��湲곗〈媛믪쓣 由ы꽩�쒕떎.
 	 */
 	public static long parseLong(String s, long defualtValue)
 	{
@@ -128,7 +128,7 @@ public final class Utility
 	}
 
 	/**
-	 * 주어진 문자열을 long형으로 변환한다. 오류발생시 0을 리턴한다.
+	 * 二쇱뼱吏�臾몄옄�댁쓣 long�뺤쑝濡�蹂�솚�쒕떎. �ㅻ쪟諛쒖깮��0��由ы꽩�쒕떎.
 	 */
 	public static long parseLong(String s)
 	{
@@ -136,7 +136,7 @@ public final class Utility
 	}
 
 	/**
-	 * 주어진 문자열을 double형으로 변환한다. 오류발생시 기존값을 리턴한다.
+	 * 二쇱뼱吏�臾몄옄�댁쓣 double�뺤쑝濡�蹂�솚�쒕떎. �ㅻ쪟諛쒖깮��湲곗〈媛믪쓣 由ы꽩�쒕떎.
 	 */
 	public static double parseDouble(String s, double defualtValue)
 	{
@@ -151,7 +151,7 @@ public final class Utility
 	}
 
 	/**
-	 * 주어진 문자열을 double형으로 변환한다. 오류발생시 0을 리턴한다.
+	 * 二쇱뼱吏�臾몄옄�댁쓣 double�뺤쑝濡�蹂�솚�쒕떎. �ㅻ쪟諛쒖깮��0��由ы꽩�쒕떎.
 	 */
 	public static double parseDouble(String s)
 	{
@@ -159,7 +159,7 @@ public final class Utility
 	}
 
 	/**
-	 * 주어진 문자열을 flat형으로 변환한다. 오류발생시 기존값을 리턴한다.
+	 * 二쇱뼱吏�臾몄옄�댁쓣 flat�뺤쑝濡�蹂�솚�쒕떎. �ㅻ쪟諛쒖깮��湲곗〈媛믪쓣 由ы꽩�쒕떎.
 	 */
 	public static float parseFloat(String s, float defualtValue)
 	{
@@ -174,7 +174,7 @@ public final class Utility
 	}
 
 	/**
-	 * 주어진 문자열을 float 변환한다. 오류발생시 0을 리턴한다.
+	 * 二쇱뼱吏�臾몄옄�댁쓣 float 蹂�솚�쒕떎. �ㅻ쪟諛쒖깮��0��由ы꽩�쒕떎.
 	 */
 	public static float parseFloat(String s)
 	{
@@ -182,7 +182,7 @@ public final class Utility
 	}
 
 	/**
-	 * 주어진 문자열이 NULL또는 공백인지 리턴한다.
+	 * 二쇱뼱吏�臾몄옄�댁씠 NULL�먮뒗 怨듬갚�몄� 由ы꽩�쒕떎.
 	 */
 	public static boolean isEmpty(String s)
 	{
@@ -194,8 +194,8 @@ public final class Utility
 	}
 	
 	/**
-	 * 인자로 받은 문자열 배열이 공백또는 NULL인지 돌려주는 메소드 
-	 * @param values 문자열배열
+	 * �몄옄濡�諛쏆� 臾몄옄��諛곗뿴��怨듬갚�먮뒗 NULL�몄� �뚮젮二쇰뒗 硫붿냼��
+	 * @param values 臾몄옄�대같��
 	 * @return
 	 */
 	public static boolean isEmpty(String[] values)
@@ -295,7 +295,7 @@ public final class Utility
 			return "";
 
 		char[] chars = s.toCharArray();
-		// 공백이외의 첫문자 검색
+		// 怨듬갚�댁쇅��泥ルЦ��寃�깋
 		int start = -1;
 		for (int i = 0; i < chars.length; i++)
 		{
@@ -305,7 +305,7 @@ public final class Utility
 				break;
 			}
 		}
-		// 공백이외의 마지막문자 검색
+		// 怨듬갚�댁쇅��留덉�留됰Ц��寃�깋
 		int end = -1;
 		for (int i = chars.length - 1; i >= 0; i--)
 		{
@@ -322,10 +322,10 @@ public final class Utility
 	}
 
 	/**
-	 * 해당 년월의 첫번째 날의 요일을 구한다.
+	 * �대떦 �꾩썡��泥ル쾲吏��좎쓽 �붿씪��援ы븳��
 	 *
-	 * @param yy 년도, mm 월
-	 * @return int(1:일요일 ~ 4(수) ~ 7:토요일
+	 * @param yy �꾨룄, mm ��
+	 * @return int(1:�쇱슂��~ 4(�� ~ 7:�좎슂��
 	 */
 	public static int getFirstDayWeek(int yy, int mm)
 	{
@@ -337,9 +337,9 @@ public final class Utility
 	}
 
 	/**
-	 * 해당 년월의 마지막일을 구한다.
+	 * �대떦 �꾩썡��留덉�留됱씪��援ы븳��
 	 *
-	 * @param yy 년도, mm 월
+	 * @param yy �꾨룄, mm ��
 	 * @return String
 	 */
 	public static int getLastDayMonth(int yy, int mm)
@@ -383,7 +383,7 @@ public final class Utility
 	}
 
 	/**
-	 * 문자열을 Date로 파싱한다.
+	 * 臾몄옄�댁쓣 Date濡��뚯떛�쒕떎.
 	 *
 	 * @param s
 	 * @return
@@ -409,11 +409,11 @@ public final class Utility
 	}
 
 	/**
-	 * 문자열형태의 숫자를 입력받아 일정한 format에 의하여 대상 문자열을 format으로 변경시킨다.
+	 * 臾몄옄�댄삎�쒖쓽 �レ옄瑜��낅젰諛쏆븘 �쇱젙��format���섑븯����긽 臾몄옄�댁쓣 format�쇰줈 蹂�꼍�쒗궓��
 	 *
-	 * @param number 숫자형태를 가진 대상 문자열
-	 * @param format 해당 문자열을 변경시키기 위한 format
-	 * @return 변경되어진 Number객체
+	 * @param number �レ옄�뺥깭瑜�媛�쭊 ��긽 臾몄옄��
+	 * @param format �대떦 臾몄옄�댁쓣 蹂�꼍�쒗궎湲��꾪븳 format
+	 * @return 蹂�꼍�섏뼱吏�Number媛앹껜
 	 */
 	public static Number parseNumber(String number, String format)
 	{
@@ -422,11 +422,11 @@ public final class Utility
 	}
 
 	/**
-	 * 문자열형태의 숫자를 입력받아 일정한 format에 의하여 대상 문자열을 int형태의 format으로 변경시킨다.
+	 * 臾몄옄�댄삎�쒖쓽 �レ옄瑜��낅젰諛쏆븘 �쇱젙��format���섑븯����긽 臾몄옄�댁쓣 int�뺥깭��format�쇰줈 蹂�꼍�쒗궓��
 	 *
-	 * @param number 숫자형태를 가진 대상 문자열
-	 * @param format 해당 문자열을 변경시키기 위한 format
-	 * @return 변경되어진 int형태의 값
+	 * @param number �レ옄�뺥깭瑜�媛�쭊 ��긽 臾몄옄��
+	 * @param format �대떦 臾몄옄�댁쓣 蹂�꼍�쒗궎湲��꾪븳 format
+	 * @return 蹂�꼍�섏뼱吏�int�뺥깭��媛�
 	 */
 	public static int parseInt(String number, String format)
 	{
@@ -434,11 +434,11 @@ public final class Utility
 	}
 
 	/**
-	 * 문자열형태의 숫자를 입력받아 일정한 format에 의하여 대상 문자열을 long형태의 format으로 변경시킨다.
+	 * 臾몄옄�댄삎�쒖쓽 �レ옄瑜��낅젰諛쏆븘 �쇱젙��format���섑븯����긽 臾몄옄�댁쓣 long�뺥깭��format�쇰줈 蹂�꼍�쒗궓��
 	 *
-	 * @param number 숫자형태를 가진 대상 문자열
-	 * @param format 해당 문자열을 변경시키기 위한 format
-	 * @return 변경되어진 long형태의 값
+	 * @param number �レ옄�뺥깭瑜�媛�쭊 ��긽 臾몄옄��
+	 * @param format �대떦 臾몄옄�댁쓣 蹂�꼍�쒗궎湲��꾪븳 format
+	 * @return 蹂�꼍�섏뼱吏�long�뺥깭��媛�
 	 */
 	public static long parseLong(String number, String format)
 	{
@@ -446,11 +446,11 @@ public final class Utility
 	}
 
 	/**
-	 * 문자열형태의 숫자를 입력받아 일정한 format에 의하여 대상 문자열을 float형태의 format으로 변경시킨다.
+	 * 臾몄옄�댄삎�쒖쓽 �レ옄瑜��낅젰諛쏆븘 �쇱젙��format���섑븯����긽 臾몄옄�댁쓣 float�뺥깭��format�쇰줈 蹂�꼍�쒗궓��
 	 *
-	 * @param number 숫자형태를 가진 대상 문자열
-	 * @param format 해당 문자열을 변경시키기 위한 format
-	 * @return 변경되어진 float형태의 값
+	 * @param number �レ옄�뺥깭瑜�媛�쭊 ��긽 臾몄옄��
+	 * @param format �대떦 臾몄옄�댁쓣 蹂�꼍�쒗궎湲��꾪븳 format
+	 * @return 蹂�꼍�섏뼱吏�float�뺥깭��媛�
 	 */
 	public static float parseFloat(String number, String format)
 	{
@@ -458,11 +458,11 @@ public final class Utility
 	}
 
 	/**
-	 * 문자열형태의 숫자를 입력받아 일정한 format에 의하여 대상 문자열을 double형태의 format으로 변경시킨다.
+	 * 臾몄옄�댄삎�쒖쓽 �レ옄瑜��낅젰諛쏆븘 �쇱젙��format���섑븯����긽 臾몄옄�댁쓣 double�뺥깭��format�쇰줈 蹂�꼍�쒗궓��
 	 *
-	 * @param number 숫자형태를 가진 대상 문자열
-	 * @param format 해당 문자열을 변경시키기 위한 format
-	 * @return 변경되어진 double형태의 값
+	 * @param number �レ옄�뺥깭瑜�媛�쭊 ��긽 臾몄옄��
+	 * @param format �대떦 臾몄옄�댁쓣 蹂�꼍�쒗궎湲��꾪븳 format
+	 * @return 蹂�꼍�섏뼱吏�double�뺥깭��媛�
 	 */
 	public static double parseDouble(String number, String format)
 	{
@@ -470,21 +470,21 @@ public final class Utility
 	}
 
 	/**
-	 * 현재 날짜를 yyyy년 MM월 dd일 HH시 mm분의 형태로 값을 얻어낸다.
+	 * �꾩옱 �좎쭨瑜�yyyy��MM��dd��HH��mm遺꾩쓽 �뺥깭濡�媛믪쓣 �살뼱�몃떎.
 	 *
-	 * @return yyyy년 MM월 dd일 HH시 mm분의 형태로 바뀐 현재 시간값
+	 * @return yyyy��MM��dd��HH��mm遺꾩쓽 �뺥깭濡�諛붾� �꾩옱 �쒓컙媛�
 	 */
 	public static String getTime()
 	{
 		Date d = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일 HH시 mm분");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy��MM��dd��HH��mm遺�");
 		return sdf.format(d);
 	}
 
 	/**
-	 * 현재일자를 표준 포맷으로 리턴한다.
+	 * �꾩옱�쇱옄瑜��쒖� �щ㎎�쇰줈 由ы꽩�쒕떎.
 	 *
-	 * @return 현재일자
+	 * @return �꾩옱�쇱옄
 	 */
 	public static String getCurrentDate()
 	{
@@ -492,7 +492,7 @@ public final class Utility
 	}
 
 	/**
-	 * 현재일자를 주어진 포맷으로 리턴한다.
+	 * �꾩옱�쇱옄瑜�二쇱뼱吏��щ㎎�쇰줈 由ы꽩�쒕떎.
 	 *
 	 * @param format
 	 * @return
@@ -505,7 +505,7 @@ public final class Utility
 	}
 
 	/**
-	 * 현재년월을 yyyyMM포맷으로 리턴한다.
+	 * �꾩옱�꾩썡��yyyyMM�щ㎎�쇰줈 由ы꽩�쒕떎.
 	 *
 	 * @return
 	 */
@@ -516,7 +516,7 @@ public final class Utility
 	}
 
 	/**
-	 * 현재년도를 리턴한다.
+	 * �꾩옱�꾨룄瑜�由ы꽩�쒕떎.
 	 *
 	 * @return
 	 */
@@ -528,7 +528,7 @@ public final class Utility
 	}
 
 	/**
-	 * 현재월을 리턴한다.
+	 * �꾩옱�붿쓣 由ы꽩�쒕떎.
 	 *
 	 * @return
 	 */
@@ -540,9 +540,9 @@ public final class Utility
 	}
 
 	/**
-	 * 오늘을 기준으로 어제의 날짜를 알아낸다
+	 * �ㅻ뒛��湲곗��쇰줈 �댁젣���좎쭨瑜��뚯븘�몃떎
 	 *
-	 * @return 기본 날짜 형태로 변경되된 문자열값
+	 * @return 湲곕낯 �좎쭨 �뺥깭濡�蹂�꼍�섎맂 臾몄옄�닿컪
 	 */
 	public static String getYesterday(String format)
 	{
@@ -559,9 +559,9 @@ public final class Utility
 	}
 
 	/**
-	 * 현재 얻어낸 날짜의 마지막 달을 알아낸다.
+	 * �꾩옱 �살뼱���좎쭨��留덉�留��ъ쓣 �뚯븘�몃떎.
 	 *
-	 * @return yyyy/mm형태로 변경되된 문자열값
+	 * @return yyyy/mm�뺥깭濡�蹂�꼍�섎맂 臾몄옄�닿컪
 	 */
 	public static String getLastMonth(String format)
 	{
@@ -578,9 +578,9 @@ public final class Utility
 	}
 
 	/**
-	 * GMT기준시간중의 한국표준시를 반환한다.
+	 * GMT湲곗��쒓컙以묒쓽 �쒓뎅�쒖��쒕� 諛섑솚�쒕떎.
 	 *
-	 * return GMT+09:00형태의 대한민국표준시
+	 * return GMT+09:00�뺥깭����븳誘쇨뎅�쒖���
 	 */
 	public static Calendar getCalendar()
 	{
@@ -591,7 +591,7 @@ public final class Utility
 	}
 
 	/**
-	 * 문자열을 Date타입으로 변환한다.
+	 * 臾몄옄�댁쓣 Date��엯�쇰줈 蹂�솚�쒕떎.
 	 *
 	 * @param s
 	 * @return
@@ -659,10 +659,10 @@ public final class Utility
 	}
 
 	/**
-	 * 두 날짜 사이에 몇일이 있는지 계산한다.
+	 * ���좎쭨 �ъ씠��紐뉗씪���덈뒗吏�怨꾩궛�쒕떎.
 	 *
-	 * @param start 시작일자
-	 * @param end 끝일
+	 * @param start �쒖옉�쇱옄
+	 * @param end �앹씪
 	 * @return
 	 */
 	public static int getDaysBetween(String start, String end)
@@ -673,11 +673,11 @@ public final class Utility
 	}
 
 	/**
-	 * 일반문자열형태를 HTML의 형태로 바꾼다. 기본적으로 &lt; &gt; 등의 문자는 실제 HTML형태로 변경시 태그를 망가뜨리는
-	 * 대상이 될수 있으므로 각각의 tag에 영향을 미치지않게끔 문자를 replace시키도록 한다.
+	 * �쇰컲臾몄옄�댄삎�쒕� HTML���뺥깭濡�諛붽씔�� 湲곕낯�곸쑝濡�&lt; &gt; �깆쓽 臾몄옄���ㅼ젣 HTML�뺥깭濡�蹂�꼍���쒓렇瑜�留앷��⑤━��
+	 * ��긽���좎닔 �덉쑝誘�줈 媛곴컖��tag���곹뼢��誘몄튂吏�븡寃뚮걫 臾몄옄瑜�replace�쒗궎�꾨줉 �쒕떎.
 	 *
-	 * @param fromText HTML형태로 변경시킬 문자열
-	 * @return HTML포맷으로 변경되어진 문자열
+	 * @param fromText HTML�뺥깭濡�蹂�꼍�쒗궗 臾몄옄��
+	 * @return HTML�щ㎎�쇰줈 蹂�꼍�섏뼱吏�臾몄옄��
 	 */
 	public static String toHTML(String fromText)
 	{
@@ -685,12 +685,12 @@ public final class Utility
 	}
 
 	/**
-	 * 일반문자열형태를 HTML의 형태로 바꾼다. 기본적으로 &lt; &gt; 등의 문자는 실제 HTML형태로 변경시 태그를 망가뜨리는
-	 * 대상이 될수 있으므로 각각의 tag에 영향을 미치지않게끔 문자를 replace시키도록 한다.
+	 * �쇰컲臾몄옄�댄삎�쒕� HTML���뺥깭濡�諛붽씔�� 湲곕낯�곸쑝濡�&lt; &gt; �깆쓽 臾몄옄���ㅼ젣 HTML�뺥깭濡�蹂�꼍���쒓렇瑜�留앷��⑤━��
+	 * ��긽���좎닔 �덉쑝誘�줈 媛곴컖��tag���곹뼢��誘몄튂吏�븡寃뚮걫 臾몄옄瑜�replace�쒗궎�꾨줉 �쒕떎.
 	 *
-	 * @param fromText HTML형태로 변경시킬 문자열
-	 * @param replyMode HTML mode or Reply mode를 지정하는 값
-	 * @return HTML포맷으로 변경되어진 문자열
+	 * @param fromText HTML�뺥깭濡�蹂�꼍�쒗궗 臾몄옄��
+	 * @param replyMode HTML mode or Reply mode瑜�吏�젙�섎뒗 媛�
+	 * @return HTML�щ㎎�쇰줈 蹂�꼍�섏뼱吏�臾몄옄��
 	 */
 	private static String toHTML(String fromText, boolean replyMode)
 	{
@@ -737,8 +737,8 @@ public final class Utility
 	}
 
 	/**
-	 * 인자로 받은 문자열을 HTML로 변환하여 돌려주는 메소드
-	 * @param str 문자열
+	 * �몄옄濡�諛쏆� 臾몄옄�댁쓣 HTML濡�蹂�솚�섏뿬 �뚮젮二쇰뒗 硫붿냼��
+	 * @param str 臾몄옄��
 	 * @return
 	 */
 	public static String toPebsHtml(String str) {
@@ -746,10 +746,10 @@ public final class Utility
 			return str;
 		}
 
-		int workPoint = -1;      // 작업하는 포인트
-		int lastPoint = 0;       // 작업의 마지막 포인트
-		String tempStr = "";	 // 작업중인 문자열
-		String tempTag = "";	 // 작업중인 태그명
+		int workPoint = -1;      // �묒뾽�섎뒗 �ъ씤��
+		int lastPoint = 0;       // �묒뾽��留덉�留��ъ씤��
+		String tempStr = "";	 // �묒뾽以묒씤 臾몄옄��
+		String tempTag = "";	 // �묒뾽以묒씤 �쒓렇紐�
 
 		StringBuffer rStrBuf = new StringBuffer();
 
@@ -757,7 +757,7 @@ public final class Utility
 
 		while (workPoint != -1) {
 
-			// HTML로 변환해야할 작업이 있으면 처리한다.
+			// HTML濡�蹂�솚�댁빞���묒뾽���덉쑝硫�泥섎━�쒕떎.
 			if (workPoint > lastPoint) {
 				tempStr = str.substring(lastPoint, workPoint);
 				rStrBuf.append(toHTML(tempStr));
@@ -777,7 +777,7 @@ public final class Utility
 
 		}//End while
 
-		// 남은 문자열을 담는다.
+		// �⑥� 臾몄옄�댁쓣 �대뒗��
 		tempStr = str.substring(lastPoint, str.length());
 		rStrBuf.append(toHTML(tempStr));
 
@@ -785,7 +785,7 @@ public final class Utility
 	}
 
 	/**
-	 * 인자로 받은 문자열에서 인자로 받은 시작 인덱스부터 태그명칭 찾아 돌려준다.
+	 * �몄옄濡�諛쏆� 臾몄옄�댁뿉���몄옄濡�諛쏆� �쒖옉 �몃뜳�ㅻ����쒓렇紐낆묶 李얠븘 �뚮젮以�떎.
 	 * @param str
 	 * @param findIndex
 	 * @return
@@ -816,7 +816,7 @@ public final class Utility
 	}
 
 	/**
-	 * 인자로 받은 문자열이 태그명이 맞는지 돌려주는 메소드
+	 * �몄옄濡�諛쏆� 臾몄옄�댁씠 �쒓렇紐낆씠 留욌뒗吏��뚮젮二쇰뒗 硫붿냼��
 	 * @param str
 	 * @return
 	 */
@@ -825,7 +825,7 @@ public final class Utility
 			return false;
 		}
 		
-		// 태그집합을 초기화한다.
+		// �쒓렇吏묓빀��珥덇린�뷀븳��
 		if (tags.size() < 1) {
 			Tag[] tempTags = HTML.getAllTags();
 			for (int i = 0; i < tempTags.length; i++) {
@@ -866,7 +866,7 @@ public final class Utility
 	}
 
 	/**
-	 * double 값을 기본 숫자 포맷으로 변환한다.
+	 * double 媛믪쓣 湲곕낯 �レ옄 �щ㎎�쇰줈 蹂�솚�쒕떎.
 	 *
 	 * @param value double
 	 * @return String
@@ -878,10 +878,10 @@ public final class Utility
 	}
 
 	/**
-	 * double 값을 소수점이하 자리수를 정해 변환한다.
+	 * double 媛믪쓣 �뚯닔�먯씠���먮━�섎� �뺥빐 蹂�솚�쒕떎.
 	 *
 	 * @param value double
-	 * @param decimalCount int 소수점이하 자리수
+	 * @param decimalCount int �뚯닔�먯씠���먮━��
 	 * @return String
 	 */
 	public static String format(double value, int decimalCount)
@@ -900,7 +900,7 @@ public final class Utility
 	}
 
 	/**
-	 * double 값을 기본 숫자 포맷으로 변환한다.
+	 * double 媛믪쓣 湲곕낯 �レ옄 �щ㎎�쇰줈 蹂�솚�쒕떎.
 	 *
 	 * @param value double
 	 * @param numberFormat String
@@ -913,7 +913,7 @@ public final class Utility
 	}
 
 	/**
-	 * float 값을 기본 숫자 포맷으로 변환한다.
+	 * float 媛믪쓣 湲곕낯 �レ옄 �щ㎎�쇰줈 蹂�솚�쒕떎.
 	 *
 	 * @param value float
 	 * @return String
@@ -925,10 +925,10 @@ public final class Utility
 	}
 
 	/**
-	 * float 값을 소수점이하 자리수를 정해 변환한다.
+	 * float 媛믪쓣 �뚯닔�먯씠���먮━�섎� �뺥빐 蹂�솚�쒕떎.
 	 *
 	 * @param value float
-	 * @param decimalCount int 소수점이하 자리수
+	 * @param decimalCount int �뚯닔�먯씠���먮━��
 	 * @return String
 	 */
 	public static String format(float value, int decimalCount)
@@ -947,7 +947,7 @@ public final class Utility
 	}
 
 	/**
-	 * float 값을 기본 숫자 포맷으로 변환한다.
+	 * float 媛믪쓣 湲곕낯 �レ옄 �щ㎎�쇰줈 蹂�솚�쒕떎.
 	 *
 	 * @param value float
 	 * @param numberFormat String
@@ -960,7 +960,7 @@ public final class Utility
 	}
 
 	/**
-	 * int 값을 기본 숫자 포맷으로 변환한다.
+	 * int 媛믪쓣 湲곕낯 �レ옄 �щ㎎�쇰줈 蹂�솚�쒕떎.
 	 *
 	 * @param value int
 	 * @return String
@@ -972,7 +972,7 @@ public final class Utility
 	}
 
 	/**
-	 * int 값을 기본 숫자 포맷으로 변환한다.
+	 * int 媛믪쓣 湲곕낯 �レ옄 �щ㎎�쇰줈 蹂�솚�쒕떎.
 	 *
 	 * @param value int
 	 * @param numberFormat String
@@ -985,7 +985,7 @@ public final class Utility
 	}
 
 	/**
-	 * data를 기본 포맷으로 변환한다..
+	 * data瑜�湲곕낯 �щ㎎�쇰줈 蹂�솚�쒕떎..
 	 *
 	 * @param data String, mask String
 	 * @return String
@@ -996,7 +996,7 @@ public final class Utility
 	}
 
 	/**
-	 * data를 지정된 포맷으로 변환한다..
+	 * data瑜�吏�젙���щ㎎�쇰줈 蹂�솚�쒕떎..
 	 *
 	 * @param data String, mask String
 	 * @return String
@@ -1010,7 +1010,7 @@ public final class Utility
 	}
 
 	/**
-	 * long 값을 기본 숫자 포맷으로 변환한다.
+	 * long 媛믪쓣 湲곕낯 �レ옄 �щ㎎�쇰줈 蹂�솚�쒕떎.
 	 *
 	 * @param value long
 	 * @return String
@@ -1022,7 +1022,7 @@ public final class Utility
 	}
 
 	/**
-	 * long 값을 기본 숫자 포맷으로 변환한다.
+	 * long 媛믪쓣 湲곕낯 �レ옄 �щ㎎�쇰줈 蹂�솚�쒕떎.
 	 *
 	 * @param value long
 	 * @param numberFormat String
@@ -1035,7 +1035,7 @@ public final class Utility
 	}
 
 	/**
-	 * data를 지정된 mask로 설정한다.
+	 * data瑜�吏�젙��mask濡��ㅼ젙�쒕떎.
 	 *
 	 * @param data String, mask String
 	 * @return String
@@ -1065,7 +1065,7 @@ public final class Utility
 						index++;
 					}
 					break;
-				case '^': // 글자를 건너뛴다 added by sik
+				case '^': // 湲�옄瑜�嫄대꼫�대떎 added by sik
 					index++;
 					break;
 				default:
@@ -1082,7 +1082,7 @@ public final class Utility
 	}
 
 	/**
-	 * 현 날짜를 yyyyMMdd 현식의 String 으로 리턴한다.
+	 * ���좎쭨瑜�yyyyMMdd �꾩떇��String �쇰줈 由ы꽩�쒕떎.
 	 */
 	public static String getShortDateString()
 	{
@@ -1092,7 +1092,7 @@ public final class Utility
 	}
 
 	/**
-	 * 현 날짜를 입력한 형태의 String 으로 리턴한다.
+	 * ���좎쭨瑜��낅젰���뺥깭��String �쇰줈 由ы꽩�쒕떎.
 	 */
 	public static String getSystemDate(String pattern)
 	{
@@ -1101,7 +1101,7 @@ public final class Utility
 	}
 
 	/**
-	 * 현 시간을 HHmmss 형식의 String 으로 리턴한다.
+	 * ���쒓컙��HHmmss �뺤떇��String �쇰줈 由ы꽩�쒕떎.
 	 */
 	public static String getShortTimeString()
 	{
@@ -1110,7 +1110,7 @@ public final class Utility
 	}
 
 	/**
-	 * 7자리날짜를 8자리로 바꾼다.
+	 * 7�먮━�좎쭨瑜�8�먮━濡�諛붽씔��
 	 *
 	 * @param data String
 	 * @return String
@@ -1135,7 +1135,7 @@ public final class Utility
 	}
 
 	/**
-	 * 8자리날짜를 7자리로 바꾼다.
+	 * 8�먮━�좎쭨瑜�7�먮━濡�諛붽씔��
 	 *
 	 * @param data String
 	 * @return String
@@ -1160,7 +1160,7 @@ public final class Utility
 	}
 
 	/**
-	 * 5자리년월을 6자리년월로 바꾼다.
+	 * 5�먮━�꾩썡��6�먮━�꾩썡濡�諛붽씔��
 	 *
 	 * @param data String
 	 * @return String
@@ -1185,7 +1185,7 @@ public final class Utility
 	}
 
 	/**
-	 * 6자리년월을 5자리년월로 바꾼다.
+	 * 6�먮━�꾩썡��5�먮━�꾩썡濡�諛붽씔��
 	 *
 	 * @param data String
 	 * @return String
@@ -1223,7 +1223,7 @@ public final class Utility
 
 		char[] chars = s.toCharArray();
 
-		// 공백이외의 마지막문자 검색
+		// 怨듬갚�댁쇅��留덉�留됰Ц��寃�깋
 		int end = -1;
 
 		for (int i = chars.length - 1; i >= 0; i--)
@@ -1278,7 +1278,7 @@ public final class Utility
 	}
 
 	/**
-	 * 문자열을 byte길이로 잘라낸다.
+	 * 臾몄옄�댁쓣 byte湲몄씠濡��섎씪�몃떎.
 	 *
 	 * @param s
 	 * @param byteLength
@@ -1294,7 +1294,7 @@ public final class Utility
 	}
 
 	/**
-	 * 주민 번호 체크
+	 * 二쇰� 踰덊샇 泥댄겕
 	 *
 	 * @param v
 	 * @return
@@ -1332,11 +1332,11 @@ public final class Utility
 	}// end function
 
 	/**
-	 * 사업자번호 유효 체크 function
+	 * �ъ뾽�먮쾲���좏슚 泥댄겕 function
 	 */
 	public static boolean isTaxNo(String vencod)
 	{
-		// 유효성 체크
+		// �좏슚��泥댄겕
 		if (vencod == null || vencod.length() != 10) {
 			return false;
 		}
@@ -1349,7 +1349,7 @@ public final class Utility
 		{
 			getlist[i] = parseInt(vencod.substring(i, i + 1), -1);
 			
-			// 숫자가 아닌경우...
+			// �レ옄媛��꾨땶寃쎌슦...
 			if (getlist[i] == -1) {
 				return false;
 			}
@@ -1377,8 +1377,8 @@ public final class Utility
 	}
 	
 	/**
-	 * 인자로 받은 메일주소가 유효한지 체크하여 돌려주는 메소드
-	 * @param email 메일주소
+	 * �몄옄濡�諛쏆� 硫붿씪二쇱냼媛��좏슚�쒖� 泥댄겕�섏뿬 �뚮젮二쇰뒗 硫붿냼��
+	 * @param email 硫붿씪二쇱냼
 	 * @return
 	 */
 	public static boolean isEmail(String email) {
@@ -1390,7 +1390,7 @@ public final class Utility
 	}
 
 	/**
-	 * 날짜 정합성 체크
+	 * �좎쭨 �뺥빀��泥댄겕
 	 *
 	 * @param data
 	 * @return
@@ -1450,8 +1450,8 @@ public final class Utility
 	}
 	
 	/**
-	 * 파라미터로 넘어온 문자열이 숫자로만 이뤄져 있는지 체크하는 function
-	 * @param str : 문자열
+	 * �뚮씪誘명꽣濡��섏뼱��臾몄옄�댁씠 �レ옄濡쒕쭔 �대쨪���덈뒗吏�泥댄겕�섎뒗 function
+	 * @param str : 臾몄옄��
 	 * @return boolean
 	 */
 	public static boolean isNumber(String str){
@@ -1467,11 +1467,11 @@ public final class Utility
 	}
 		 
 	/**
-	 * 파라미터로 넘어온 일자를 flag단위로 number만큼 더하는 function
+	 * �뚮씪誘명꽣濡��섏뼱���쇱옄瑜�flag�⑥쐞濡�number留뚰겮 �뷀븯��function
 	 *
-	 * @param current : 일자(yyyyMMdd)
-	 * @param number : 더할 간격 (빼고 싶으면 -로 입력)
-	 * @param flag : 기준 단위 (년,월,일,주)
+	 * @param current : �쇱옄(yyyyMMdd)
+	 * @param number : �뷀븷 媛꾧꺽 (鍮쇨퀬 �띠쑝硫�-濡��낅젰)
+	 * @param flag : 湲곗� �⑥쐞 (������二�
 	 * @return
 	 */
 	public static String getDateTerm(String current, int number, char flag)
@@ -1515,10 +1515,10 @@ public final class Utility
 	}
 	
 	/**
-	 * 현재 시간을 기준으로 달력의 규칙에 기반해 지정된 시간량이 지정된 달력 필드에 가산 또는 감산하는 메소드 
+	 * �꾩옱 �쒓컙��湲곗��쇰줈 �щ젰��洹쒖튃��湲곕컲��吏�젙���쒓컙�됱씠 吏�젙���щ젰 �꾨뱶��媛�궛 �먮뒗 媛먯궛�섎뒗 硫붿냼��
 	 *
-	 * @param field - 달력 필드
-	 * @param amount - 필드에 추가되는 일자 또는 시각의 양
+	 * @param field - �щ젰 �꾨뱶
+	 * @param amount - �꾨뱶��異붽��섎뒗 �쇱옄 �먮뒗 �쒓컖����
 	 * @return
 	 */
 	public static Date getDateAdd(int field, int amount)
@@ -1527,10 +1527,10 @@ public final class Utility
 	}
 	
 	/**
-	 * 현재 시간을 기준으로 달력의 규칙에 기반해 지정된 시간량이 지정된 달력 필드에 가산 또는 감산하는 메소드 
+	 * �꾩옱 �쒓컙��湲곗��쇰줈 �щ젰��洹쒖튃��湲곕컲��吏�젙���쒓컙�됱씠 吏�젙���щ젰 �꾨뱶��媛�궛 �먮뒗 媛먯궛�섎뒗 硫붿냼��
 	 *
-	 * @param field - 달력 필드
-	 * @param amount - 필드에 추가되는 일자 또는 시각의 양
+	 * @param field - �щ젰 �꾨뱶
+	 * @param amount - �꾨뱶��異붽��섎뒗 �쇱옄 �먮뒗 �쒓컖����
 	 * @return
 	 */
 	public static Date getCalendarAdd(Calendar cal, int field, int amount)
@@ -1540,10 +1540,10 @@ public final class Utility
 	}
 	
 	/**
-	 * 현재 시간을 기준으로 달력의 규칙에 기반해 지정된 시간량이 지정된 달력 필드에 가산 또는 감산하는 메소드 
+	 * �꾩옱 �쒓컙��湲곗��쇰줈 �щ젰��洹쒖튃��湲곕컲��吏�젙���쒓컙�됱씠 吏�젙���щ젰 �꾨뱶��媛�궛 �먮뒗 媛먯궛�섎뒗 硫붿냼��
 	 *
-	 * @param field - 달력 필드
-	 * @param amount - 필드에 추가되는 일자 또는 시각의 양
+	 * @param field - �щ젰 �꾨뱶
+	 * @param amount - �꾨뱶��異붽��섎뒗 �쇱옄 �먮뒗 �쒓컖����
 	 * @return
 	 */
 	public static Date getDateAdd(Date date, int field, int amount)
@@ -1557,10 +1557,10 @@ public final class Utility
 	
 
 	/**
-	 * 현재 일자를 파라미터로 넘어온 flag단위로 number만큼 더하는 function
+	 * �꾩옱 �쇱옄瑜��뚮씪誘명꽣濡��섏뼱��flag�⑥쐞濡�number留뚰겮 �뷀븯��function
 	 *
-	 * @param number : 더할 간격 (빼고 싶으면 -로 입력)
-	 * @param flag : 기준 단위 (년,월,일,주)
+	 * @param number : �뷀븷 媛꾧꺽 (鍮쇨퀬 �띠쑝硫�-濡��낅젰)
+	 * @param flag : 湲곗� �⑥쐞 (������二�
 	 * @return
 	 */
 	public static String getDateTerm(int number, char flag)
@@ -1594,9 +1594,9 @@ public final class Utility
 	}
 
 	/**
-	 * 파라미터로 넘어온 일자를 Calendar type으로 return하는 function
+	 * �뚮씪誘명꽣濡��섏뼱���쇱옄瑜�Calendar type�쇰줈 return�섎뒗 function
 	 *
-	 * @param current : 일자(yyyyMMdd)
+	 * @param current : �쇱옄(yyyyMMdd)
 	 * @return
 	 */
 	public static Calendar getCalendar(String current)
@@ -1657,7 +1657,7 @@ public final class Utility
 	}
 
 	/**
-	 * 단방향 암호화 처리(String)
+	 * �⑤갑���뷀샇��泥섎━(String)
 	 *
 	 * @param str
 	 * @return
@@ -1687,9 +1687,9 @@ public final class Utility
 	}
 
 	/**
-	 * @param s 자를 문자열
-	 * @param size 자를 길이
-	 * @return 잘린 문자열
+	 * @param s �먮� 臾몄옄��
+	 * @param size �먮� 湲몄씠
+	 * @return �섎┛ 臾몄옄��
 	 */
 	public static String head(String s, int size)
 	{
@@ -1704,12 +1704,12 @@ public final class Utility
 		while (index < len && cnt < size)
 		{
 			if (s.charAt(index++) < 256)
-			{ // 1바이트 문자라면...
-				cnt++; // 길이 1 증가
+			{ // 1諛붿씠��臾몄옄�쇰㈃...
+				cnt++; // 湲몄씠 1 利앷�
 			}
 			else
 			{
-				cnt += 2; // 길이 2 증가
+				cnt += 2; // 湲몄씠 2 利앷�
 			}
 		}// while
 
@@ -1804,8 +1804,8 @@ public final class Utility
 	}
 	
 	/**
-	 * 인자로 받은 파일사이즈를 보여주는 파일사이즈로 변환하여 돌려주는 메소드
-	 * @param fileSize 파일사이즈
+	 * �몄옄濡�諛쏆� �뚯씪�ъ씠利덈� 蹂댁뿬二쇰뒗 �뚯씪�ъ씠利덈줈 蹂�솚�섏뿬 �뚮젮二쇰뒗 硫붿냼��
+	 * @param fileSize �뚯씪�ъ씠利�
 	 * @return
 	 */
 	public static String getViewFileSize(long fileSize) {
@@ -1847,11 +1847,11 @@ public final class Utility
 	}
 	
 	/**
-	 * ByteBuffer 에서 size 길이만틈 String 으로 돌려준다.
+	 * ByteBuffer �먯꽌 size 湲몄씠留뚰땲 String �쇰줈 �뚮젮以�떎.
 	 * 
 	 * @param byteBuffer
 	 * @param size
-	 *            사이즈
+	 *            �ъ씠利�
 	 * 
 	 * @return String
 	 */
@@ -1868,12 +1868,12 @@ public final class Utility
 	}
     
 	  /**
-     * 인자로 받은 문자열을 인자로 받은 사이즈에 맞게 처리(왼쪽정렬)하여 돌려주는 메소드 
-     *   -> 처리하는 단위는 byte이고, 
-     *      문자열이 작을경우 문자열을 왼쪽에 정렬시키고 나머지는 인자로 받은 바이트로 채워서 돌려준다.
-     * @param str 문자열
-     * @param size 사이즈
-     * @param b 기본 Byte
+     * �몄옄濡�諛쏆� 臾몄옄�댁쓣 �몄옄濡�諛쏆� �ъ씠利덉뿉 留욊쾶 泥섎━(�쇱そ�뺣젹)�섏뿬 �뚮젮二쇰뒗 硫붿냼��
+     *   -> 泥섎━�섎뒗 �⑥쐞��byte�닿퀬, 
+     *      臾몄옄�댁씠 �묒쓣寃쎌슦 臾몄옄�댁쓣 �쇱そ���뺣젹�쒗궎怨��섎㉧吏�뒗 �몄옄濡�諛쏆� 諛붿씠�몃줈 梨꾩썙���뚮젮以�떎.
+     * @param str 臾몄옄��
+     * @param size �ъ씠利�
+     * @param b 湲곕낯 Byte
      * @return
      */
     public static String alignLeft(String str, int size, byte b) {
@@ -1881,10 +1881,10 @@ public final class Utility
     	byte[] returnByte = new byte[size];
     	
     	if (strByte.length >= size) {
-    		// 인자로 받은 문자열이 충분할 경우
+    		// �몄옄濡�諛쏆� 臾몄옄�댁씠 異⑸텇��寃쎌슦
     		System.arraycopy(strByte, 0, returnByte, 0, size);
     	} else {
-    		// 인자로 받은 문자열이 부족할 경우
+    		// �몄옄濡�諛쏆� 臾몄옄�댁씠 遺�”��寃쎌슦
     		System.arraycopy(strByte, 0, returnByte, 0, strByte.length);
     		
     		for (int i = strByte.length; i < size; i++)
@@ -1895,9 +1895,9 @@ public final class Utility
     }
     
     /**
-     * 인자로 받은 문자열을 인자로 받은 사이즈에 맞게 처리(오른쪽정렬)하여 돌려주는 메소드 
-     *   -> 처리하는 단위는 byte이고, 
-     *      문자열이 작을경우 문자열을 오른쪽에 정렬시키고 나머지는 인자로 받은 바이트로 채워서 돌려준다.
+     * �몄옄濡�諛쏆� 臾몄옄�댁쓣 �몄옄濡�諛쏆� �ъ씠利덉뿉 留욊쾶 泥섎━(�ㅻⅨ履쎌젙���섏뿬 �뚮젮二쇰뒗 硫붿냼��
+     *   -> 泥섎━�섎뒗 �⑥쐞��byte�닿퀬, 
+     *      臾몄옄�댁씠 �묒쓣寃쎌슦 臾몄옄�댁쓣 �ㅻⅨ履쎌뿉 �뺣젹�쒗궎怨��섎㉧吏�뒗 �몄옄濡�諛쏆� 諛붿씠�몃줈 梨꾩썙���뚮젮以�떎.
      * @param str
      * @param size
      * @param b
@@ -1908,10 +1908,10 @@ public final class Utility
     	byte[] returnByte = new byte[size];
     	
     	if (strByte.length >= size) {
-    		// 인자로 받은 문자열이 충분할 경우
+    		// �몄옄濡�諛쏆� 臾몄옄�댁씠 異⑸텇��寃쎌슦
     		System.arraycopy(strByte, 0, returnByte, 0, size);
     	} else {
-    		// 인자로 받은 문자열이 부족할 경우
+    		// �몄옄濡�諛쏆� 臾몄옄�댁씠 遺�”��寃쎌슦
     		for (int i = 0; i < (size - strByte.length); i++)
     			returnByte[i] = b;
     		
@@ -1923,9 +1923,9 @@ public final class Utility
     
 	
 	/**
-	 * 인자로 받은 체크값이 공백 또는 NULL 이면 반환값을 돌려주는 메소드
-	 * @param chkValue 체크값
-	 * @param rtnValue 반환값
+	 * �몄옄濡�諛쏆� 泥댄겕媛믪씠 怨듬갚 �먮뒗 NULL �대㈃ 諛섑솚媛믪쓣 �뚮젮二쇰뒗 硫붿냼��
+	 * @param chkValue 泥댄겕媛�
+	 * @param rtnValue 諛섑솚媛�
 	 * @return
 	 */
 	public static String toNvl(String chkValue, String rtnValue) {
@@ -1938,14 +1938,14 @@ public final class Utility
 	
 	
 	/**
-	 * 지정된 길이 length에서 문자열을 채우고 남은 공간은 왼쪽부터 문자로 채워서 돌려주는 메소드
-	 * @param str 문자열
-	 * @param ch 문자
-	 * @param length 길이
+	 * 吏�젙��湲몄씠 length�먯꽌 臾몄옄�댁쓣 梨꾩슦怨��⑥� 怨듦컙���쇱そ遺�꽣 臾몄옄濡�梨꾩썙���뚮젮二쇰뒗 硫붿냼��
+	 * @param str 臾몄옄��
+	 * @param ch 臾몄옄
+	 * @param length 湲몄씠
 	 * @return
 	 */
 	public static String lpad(String str, int length, char ch) {
-		// 유효성 체크
+		// �좏슚��泥댄겕
 		int strLength = -1;
 		if (str == null || (strLength = str.length()) >= length) {
 			return str;
@@ -1965,7 +1965,7 @@ public final class Utility
 	
 	
 	/**
-	 * 인자로 받은 문자열 배열을 ArrayList로 변환하여 돌려주는 메소드
+	 * �몄옄濡�諛쏆� 臾몄옄��諛곗뿴��ArrayList濡�蹂�솚�섏뿬 �뚮젮二쇰뒗 硫붿냼��
 	 * @param arrayStr
 	 * @return
 	 */
@@ -1982,9 +1982,9 @@ public final class Utility
 	}
 	
 	/**
-	 * 인자로 받은 전화번호의 앞/중간/뒷자리를 돌려주는 메소드
-	 * @param telNo 전체전화번호
-	 * @param partNo 1:압자리(국번), 2:중간자리, 3:뒷잔리
+	 * �몄옄濡�諛쏆� �꾪솕踰덊샇����以묎컙/�룹옄由щ� �뚮젮二쇰뒗 硫붿냼��
+	 * @param telNo �꾩껜�꾪솕踰덊샇
+	 * @param partNo 1:�뺤옄由�援�쾲), 2:以묎컙�먮━, 3:�룹옍由�
 	 * @return
 	 */
 	public static String getTelPartNo(String telNo, int partNo) {
@@ -2016,9 +2016,9 @@ public final class Utility
 	}
 	
 	/**
-	 * 인자로 받은 휴대전화번호의 앞/중간/뒷자리를 돌려주는 메소드
-	 * @param hpNo 전체전화번호
-	 * @param partNo 1:압자리(국번), 2:중간자리, 3:뒷잔리
+	 * �몄옄濡�諛쏆� �대��꾪솕踰덊샇����以묎컙/�룹옄由щ� �뚮젮二쇰뒗 硫붿냼��
+	 * @param hpNo �꾩껜�꾪솕踰덊샇
+	 * @param partNo 1:�뺤옄由�援�쾲), 2:以묎컙�먮━, 3:�룹옍由�
 	 * @return
 	 */
 	public static String getHpPartNo(String hpNo, int partNo) {
