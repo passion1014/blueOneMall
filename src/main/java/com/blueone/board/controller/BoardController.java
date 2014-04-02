@@ -39,33 +39,33 @@ public class BoardController {
 	@Autowired private IBoardTypService boardTypService;
 	
 	@RequestMapping("/list.do")
-	public ModelAndView boardList(@ModelAttribute("BoardSrchModel") BoardSrchInfo boardSrchModel, HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView boardList(@ModelAttribute("BoardSrchModel") BoardSrchInfo boardSrchInfo, HttpServletRequest request, HttpServletResponse response) {
 		long[] noticeBrdSeq = {};
 		List<BoardInfo> noticeList = null;
 		List<BoardInfo> boardList = null;
 		
-		if (boardSrchModel.getSrchBrdTyp() > 0) {
+		if (boardSrchInfo.getSrchBrdTyp() > 0) {
 			
-			noticeList = boardService.getBrdTypNoticeList(boardSrchModel);
+			noticeList = boardService.getBrdTypNoticeList(boardSrchInfo);
 			if (noticeList != null && noticeList.size() > 0) {
 				noticeBrdSeq = new long[noticeList.size()];
-				boardSrchModel.setRowsPerPage(10 - noticeList.size());
+				boardSrchInfo.setRowsPerPage(10 - noticeList.size());
 				for (int i = 0; i < noticeList.size(); i++) {
 					noticeBrdSeq[i] = noticeList.get(i).getBrdSeq();
 				}
 			}
 			
-			boardSrchModel.setNoticeBrdSeq(noticeBrdSeq);
-			boardList = boardService.getBrdTypBoardList(boardSrchModel);
-			boardSrchModel.setTotalCount(boardService.getBrdTypTotalCount(boardSrchModel));
+			boardSrchInfo.setNoticeBrdSeq(noticeBrdSeq);
+			boardList = boardService.getBrdTypBoardList(boardSrchInfo);
+			boardSrchInfo.setTotalCount(boardService.getBrdTypTotalCount(boardSrchInfo));
 		}
 		
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("srchInfo", boardSrchModel);
+		mav.addObject("srchInfo", boardSrchInfo);
 		mav.addObject("noticeList", noticeList);
 		mav.addObject("boardList", boardList);
-		mav.addObject("pageHtml", getPageHtml(boardSrchModel));
-		mav.addObject("brdTypInfo", boardTypService.getBoardTyp(boardSrchModel.getSrchBrdTyp()));
+		mav.addObject("pageHtml", getPageHtml(boardSrchInfo));
+		mav.addObject("brdTypInfo", boardTypService.getBoardTyp(boardSrchInfo.getSrchBrdTyp()));
 		mav.setViewName("/board/list");
 		
 		return mav;
@@ -91,30 +91,30 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/add.do", method = RequestMethod.POST)
-	public ModelAndView add(@ModelAttribute("BoardModel") BoardInfo boardModel, BindingResult result, HttpSession session) {
+	public ModelAndView add(@ModelAttribute("boardInfo") BoardInfo boardInfo, BindingResult result, HttpSession session) {
 		
 		ModelAndView mav = new ModelAndView();
 		LoginSessionModel userInfo = (LoginSessionModel) session.getAttribute("userInfo");
 		if (userInfo == null) {
-			boardModel.setInsUser("Guest");
-			boardModel.setUpdUser("Guest");
+			boardInfo.setInsUser("Guest");
+			boardInfo.setUpdUser("Guest");
 		} else {
-			boardModel.setInsUser(userInfo.getUserId());
-			boardModel.setUpdUser(userInfo.getUserId());
+			boardInfo.setInsUser(userInfo.getUserId());
+			boardInfo.setUpdUser(userInfo.getUserId());
 		}
 		
 		// 게시판유형 체크
-		if (boardModel.getBrdTyp() < 1) {
-			boardModel.setBrdTyp(boardModel.getSrchBrdTyp());
+		if (boardInfo.getBrdTyp() < 1) {
+			boardInfo.setBrdTyp(boardInfo.getSrchBrdTyp());
 		}
 		
-		if(boardService.insertBoard(boardModel)){
+		if(boardService.insertBoard(boardInfo)){
 			mav.addObject("errCode", 3);
 			mav.setViewName("redirect:/board/list.do"); // success to add new member; move to login page
 			return mav;
 		} else {
 			mav.addObject("errCode", 2); // failed to add new member
-			mav.addObject("srchBrdTyp", boardModel.getBrdTyp());
+			mav.addObject("srchBrdTyp", boardInfo.getBrdTyp());
 			mav.setViewName("redirect:/board/add.do");
 			return mav;
 		}

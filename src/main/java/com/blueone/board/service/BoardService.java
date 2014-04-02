@@ -113,8 +113,6 @@ public class BoardService implements IBoardService {
 			// 첨부파일 업로드
 			uploadFileList = FileUploadUtility.doFileUpload(FileUploadUtility.UPLOAD_TYP_BOARD, boardModel.getUploadFile(), false);
 			
-//			// 게시물추가(트렌젝션 처리)
-//			sqlMapClient.startTransaction();
 			
 //			Object brdSeq = sqlMapClient.insert("board.insertTBL010102", boardModel);
 			sqlSession.insert("board.insertBOM_BOARD_TB", boardModel);

@@ -141,11 +141,12 @@
 	
 	<!-- 게시물 추가 -->
 	<insert id="insertBOM_BOARD_TB" parameterType="boardInfo">
-		<selectKey keyProperty="brdSeq" resultType="long">
-			SELECT max(brd_seq)+1 FROM DUAL
+		<selectKey keyProperty="brdSeq" resultType="long" order="BEFORE">
+			SELECT COALESCE(max(brd_seq)+1, 1) AS maxBrdSeq FROM BOM_BOARD_TB;
 		</selectKey>
 		INSERT
-		  INTO BOM_BOARD_TB(`BRD_SEQ`
+		  INTO BOM_BOARD_TB(
+		  				`BRD_SEQ`
 		                ,`BRD_TYP`
 		                ,`ROOT_SEQ`
 		                ,`REF_SEQ`
