@@ -128,7 +128,7 @@ public class CategoryController {
 		List<CategoryInfo> list = categoryManageService.getCategoryInfList3(categoryInfo);
 	    
 		mav.addObject("list", list);
-		
+		model.addAttribute("reloadVar", "yes");
 		mav.setViewName("admin/product/middleTypeList");	    
 		return mav;
 			

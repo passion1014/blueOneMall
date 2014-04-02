@@ -33,8 +33,15 @@ public class ProductController {
 				
 		return "admin/product/productList";
 	}
-
 	
+	/*
+	 * 관리자 물품 리스트
+	 */
+	@RequestMapping(value = "/admin/productRegister.do")
+	public String productRegister(@ModelAttribute("ProductInfo") ProductInfo productInfo, BindingResult result, Model model) {
+				
+		return "admin/product/productRegister";
+	}
 	
 	
 	
