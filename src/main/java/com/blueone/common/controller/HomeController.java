@@ -54,11 +54,11 @@ public class HomeController {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
 		CustomerInfo memberInfo = new CustomerInfo();
-		memberInfo.setCustNm("이성욱");
+		memberInfo.setCustNm("�댁꽦��");
 		
 		List<String> list = sqlSession.selectList("myBatis.test.getTest");
 		
-		// 결과값 리턴
+		// 寃곌낵媛�由ы꽩
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("msg", list.toString());
 		mav.addObject("memberInfo", memberInfo);
@@ -70,7 +70,7 @@ public class HomeController {
 	
 //	@RequestMapping(value = "/", method = RequestMethod.GET)
 //	public String home(Locale locale, Model model) {
-//		// �α����� ���
+//		// 占싸깍옙占쏙옙占쏙옙 占쏙옙占�
 //		logger.info("Welcome home! The client locale is {}.", locale);
 //		
 //		List<String> list = sqlSession.selectList("myBatis.test.getTest");

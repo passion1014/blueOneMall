@@ -52,7 +52,7 @@ public class MailService implements IMailService {
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
-			// 메일추가(트렌젝션 처리)
+			// 硫붿씪異붽�(�몃젋�앹뀡 泥섎━)
 //			sqlMapClient.startTransaction();
 			int rst = sqlSession.insert("mail.insertTBL090810", mailModel);
 			if (0 == rst) return false;
@@ -60,7 +60,7 @@ public class MailService implements IMailService {
 //			sqlMapClient.commitTransaction();
 //			sqlMapClient.getCurrentConnection().commit();
 			
-			// 메일발송
+			// 硫붿씪諛쒖넚
 //			MailSender mailSender = new MailSender();
 //			mailSender.sent(mailModel);
 			
@@ -77,23 +77,23 @@ public class MailService implements IMailService {
 	@Override
 	public boolean sentMailUserId(CustomerInfo member) {
 		
-		// 내용
+		// �댁슜
 		HashMap<String, String> hm = new HashMap<String, String>();
-		hm.put("title", "회원정보");
-		hm.put("content", "아이디 : " + member.getCustId());
+		hm.put("title", "�뚯썝�뺣낫");
+		hm.put("content", "�꾩씠��: " + member.getCustId());
 		String cont = applyTemplet("sample/mail/email.htm", hm);
 		
 		MailInfo mailModel = new MailInfo();
 		mailModel.setFromNm(webmasterName);
 		mailModel.setFromAddr(webmasterEmail);
 		mailModel.setToAddr(member.geteMail());
-		mailModel.setSubject("[법문화교육센터] 회원정보 - 아이디");
+		mailModel.setSubject("[踰뺣Ц�붽탳�≪꽱�� �뚯썝�뺣낫 - �꾩씠��");
 		mailModel.setCont(cont);
 		mailModel.setInsUser("admin");
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
-			// 메일추가(트렌젝션 처리)
+			// 硫붿씪異붽�(�몃젋�앹뀡 泥섎━)
 //			sqlMapClient.startTransaction();
 			
 			int rst = sqlSession.insert("mail.insertTBL090810", mailModel);
@@ -102,7 +102,7 @@ public class MailService implements IMailService {
 //			sqlMapClient.commitTransaction();
 //			sqlMapClient.getCurrentConnection().commit();
 			
-			// 메일발송
+			// 硫붿씪諛쒖넚
 //			MailSender mailSender = new MailSender();
 //			mailSender.sent(mailModel);
 			
@@ -121,26 +121,26 @@ public class MailService implements IMailService {
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
-			// 메일추가(트렌젝션 처리)
+			// 硫붿씪異붽�(�몃젋�앹뀡 泥섎━)
 //			sqlMapClient.startTransaction();
 			
-			// 비밀번호 업데이트
+			// 鍮꾨�踰덊샇 �낅뜲�댄듃
 			String newPasswd = Long.toString(Math.round(Math.random() * 1000000));
 			member.setPasswd(newPasswd);
 			member.setUpdUser("admin");
 			sqlSession.insert("member.updateTBL020210Passwd", member);
 			
-			// 내용
+			// �댁슜
 			HashMap<String, String> hm = new HashMap<String, String>();
-			hm.put("title", "회원정보");
-			hm.put("content", "비밀번호 : " + member.getPasswd());
+			hm.put("title", "�뚯썝�뺣낫");
+			hm.put("content", "鍮꾨�踰덊샇 : " + member.getPasswd());
 			String cont = applyTemplet("sample/mail/email.htm", hm);
 			
 			MailInfo mailModel = new MailInfo();
 			mailModel.setFromNm(webmasterName);
 			mailModel.setFromAddr(webmasterEmail);
 			mailModel.setToAddr(member.geteMail());
-			mailModel.setSubject("[법문화교육센터] 회원정보 - 비밀번호");
+			mailModel.setSubject("[踰뺣Ц�붽탳�≪꽱�� �뚯썝�뺣낫 - 鍮꾨�踰덊샇");
 			mailModel.setCont(cont);
 			mailModel.setInsUser("admin");
 			
@@ -150,7 +150,7 @@ public class MailService implements IMailService {
 //			sqlMapClient.commitTransaction();
 //			sqlMapClient.getCurrentConnection().commit();
 			
-			// 메일발송
+			// 硫붿씪諛쒖넚
 //			MailSender mailSender = new MailSender();
 //			mailSender.sent(mailModel);
 			
@@ -169,27 +169,27 @@ public class MailService implements IMailService {
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
-			// 메일추가(트렌젝션 처리)
+			// 硫붿씪異붽�(�몃젋�앹뀡 泥섎━)
 //			sqlMapClient.startTransaction();
 			
-			// 비밀번호 업데이트
+			// 鍮꾨�踰덊샇 �낅뜲�댄듃
 			String newPasswd = Long.toString(Math.round(Math.random() * 1000000));
 			member.setPasswd(newPasswd);
 			member.setUpdUser("admin");
 			sqlSession.insert("member.updateTBL020210Passwd", member);
 			
 			
-			// 내용
+			// �댁슜
 			HashMap<String, String> hm = new HashMap<String, String>();
-			hm.put("title", "회원정보");
-			hm.put("content", "아이디 : " + member.getCustId() + ", 비밀번호 : " + member.getPasswd());
+			hm.put("title", "�뚯썝�뺣낫");
+			hm.put("content", "�꾩씠��: " + member.getCustId() + ", 鍮꾨�踰덊샇 : " + member.getPasswd());
 			String cont = applyTemplet("sample/mail/email.htm", hm);
 			
 			MailInfo mailModel = new MailInfo();
 			mailModel.setFromNm(webmasterName);
 			mailModel.setFromAddr(webmasterEmail);
 			mailModel.setToAddr(member.geteMail());
-			mailModel.setSubject("[법문화교육센터] 회원정보");
+			mailModel.setSubject("[踰뺣Ц�붽탳�≪꽱�� �뚯썝�뺣낫");
 			mailModel.setCont(cont);
 			mailModel.setInsUser("admin");
 			
@@ -200,7 +200,7 @@ public class MailService implements IMailService {
 //			sqlMapClient.commitTransaction();
 //			sqlMapClient.getCurrentConnection().commit();
 			
-			// 메일발송
+			// 硫붿씪諛쒖넚
 //			MailSender mailSender = new MailSender();
 //			mailSender.sent(mailModel);
 			
@@ -233,7 +233,7 @@ public class MailService implements IMailService {
 	}
 	
 	/**
-     * 메일 템플릿을 읽어온다.
+     * 硫붿씪 �쒗뵆由우쓣 �쎌뼱�⑤떎.
      * @param templetName
      * @return
      */

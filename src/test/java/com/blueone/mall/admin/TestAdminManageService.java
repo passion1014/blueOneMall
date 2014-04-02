@@ -36,7 +36,7 @@ public class TestAdminManageService extends BlueoneTestCase {
 				.param("status", "Y")
 				.param("id", "id5")
 				.param("password", "password1")
-				.param("name", "이성욱")
+				.param("name", "�댁꽦��")
 				.param("phone", "010-1234-1111")
 				.param("mobile", "mobile")
 				.param("email", "email")
