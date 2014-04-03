@@ -44,7 +44,7 @@
 						<td style="text-align:center;">${goods.idx}</td>
 						<td style="text-align:center;">${goods.ctgOrder}</td>
 						<td style="text-align:center;">${goods.ctgLargeName}</td>
-						<td>${goods.ctgName}</td>
+						<td>${goods.ctgMiddleName}</td>
 						<td>${goods.ctgName}</td>
 						<td style="text-align:center;">
 							<!--input type="button" value="수정" onClick="openWin('largeTypeModify.do?ctgCode=${goods.ctgCode}','largeTypeForm',600,450,'scrollbars=no');"  class="Button Gray"-->
@@ -104,7 +104,7 @@ function closeDialog() {
 function dialogUpdate(cCode) {
 	$.ajax({
 		type: "POST",
-		url: "largeTypeModify.do",
+		url: "smallTypeEdit.do",
 		cache: false,
 		async: false,
 		data: {

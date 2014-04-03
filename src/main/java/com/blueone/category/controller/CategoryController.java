@@ -43,7 +43,7 @@ public class CategoryController {
 	    
 		mav.addObject("list", list);
 		
-		mav.setViewName("admin/product/largeTypeList");	    
+		mav.setViewName("admin/product/largeTypeList");	  
 		return mav;
 			
 	}
@@ -240,7 +240,7 @@ public class CategoryController {
 		List<CategoryInfo> list = categoryManageService.getCategoryInfList4(categoryInfo);
 	    
 		mav.addObject("list", list);
-		
+		model.addAttribute("reloadVar", "yes");
 		mav.setViewName("admin/product/smallTypeList");	    
 		return mav;
 			
@@ -275,7 +275,7 @@ public class CategoryController {
 		
 		categoryManageService.registCategoryInf(categoryInfo);
 		model.addAttribute("reloadVar", "yes");
-		return "admin/product/smallTypeRegister";
+		return "redirect:smallTypeRegister.do";
 		
 	}
 	
@@ -361,7 +361,7 @@ public class CategoryController {
 		CategoryInfo categoryInfo = new CategoryInfo();
 		categoryInfo.setCtgPCode(ctgPCode);
 		
-		List<CategoryInfo> rstList = categoryManageService.getCategoryInfList(categoryInfo);
+		List<CategoryInfo> rstList = categoryManageService.getCategoryInfList3(categoryInfo);
 		return rstList;
 	}
 	
