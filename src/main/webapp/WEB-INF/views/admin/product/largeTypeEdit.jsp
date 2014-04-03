@@ -29,10 +29,11 @@
 				
 				<c:if test="${i==largeTypeObj.ctgOrder}"> 
 				<option selected><c:out value="${largeTypeObj.ctgOrder}"></c:out></option>
-				</c:if>
 				
+				</c:if>
+				<c:if test="${i!=largeTypeObj.ctgOrder}"> 
 				<option value="<c:out value="${i}"></c:out>"><c:out value="${i}"></c:out></option>
-			
+				</c:if>
 					
 				</c:forEach>
 									

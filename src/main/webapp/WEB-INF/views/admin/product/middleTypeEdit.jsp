@@ -34,11 +34,12 @@
 				<c:forEach var="i" begin="1" end="50" step="1">
 				
 					<c:if test="${i==largeTypeObj.ctgOrder}"> 
-						<option selected><c:out value="${largeTypeObj.ctgOrder}"></c:out></option>
-					</c:if>
+				<option selected><c:out value="${largeTypeObj.ctgOrder}"></c:out></option>
 				
-					<option value="<c:out value="${i}"></c:out>"><c:out value="${i}"></c:out></option>
-					
+				</c:if>
+				<c:if test="${i!=largeTypeObj.ctgOrder}"> 
+				<option value="<c:out value="${i}"></c:out>"><c:out value="${i}"></c:out></option>
+				</c:if>
 					</c:forEach>
 					
 				</select>&nbsp;

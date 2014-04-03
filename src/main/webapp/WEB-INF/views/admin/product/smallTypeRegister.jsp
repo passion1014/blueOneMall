@@ -30,7 +30,7 @@
 	<div style="padding:10px;">
 	<div> 상품관리 > 상품분류 > 소분류 등록	</div>
 	<form name="frm" method="post" action="middleTypeRegisterProc.do">
-	<input type="text" id="ctgCode"     name="ctgCode" value="ctgCode">
+	<input type="text" id="ctgCode"     name="ctgCode" value="${ctgCode}">
 	<input type="text" id="ctgCodeType"  name="ctgCodeType"  value="03">
 	<input type="text" id="ctgDesc"      name="ctgDesc"      value="">
 	<input type="text" id="fromDate"     name="fromDate" value="1900-01-01">
