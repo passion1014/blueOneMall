@@ -31,7 +31,6 @@
 				<option selected><c:out value="${largeTypeObj.ctgOrder}"></c:out></option>
 				</c:if>
 				
-				
 				<option value="<c:out value="${i}"></c:out>"><c:out value="${i}"></c:out></option>
 			
 					

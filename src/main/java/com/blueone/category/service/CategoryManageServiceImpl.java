@@ -116,6 +116,7 @@ public class CategoryManageServiceImpl implements ICategoryManageService {
 		// -----------------------------------------------
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
+			/*
 			if (StringUtils.isNotEmpty(categoryInfo.getCtgPCode())) {
 				// 부모 카테고리로 자식 카테고리 목록을 조회
 				rstList = sqlSession.selectList("category.selectListBomCategoryTb0003", categoryInfo);
@@ -125,6 +126,11 @@ public class CategoryManageServiceImpl implements ICategoryManageService {
 				rstList = sqlSession.selectList("category.selectListBomCategoryTb0001");
 				
 			}
+			
+			*/
+			rstList = sqlSession.selectList("category.selectListBomCategoryTb0001");
+				
+			 
 		} finally {
 			sqlSession.close();
 		}

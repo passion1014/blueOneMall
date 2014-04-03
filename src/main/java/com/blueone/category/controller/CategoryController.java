@@ -302,7 +302,7 @@ public class CategoryController {
 	public String editsmallCategoryInfoProc(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model) {
 		categoryManageService.editCategoryInf(categoryInfo);
 		
-		return "redirect:smallTypeList.do";
+		return "redirect:smallTypeEdit.do";
 	}
 	
 	
