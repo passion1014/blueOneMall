@@ -3,6 +3,8 @@ package com.blueone.category.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,15 +38,18 @@ public class CategoryController {
 	 * 관리자 대분류 리스트
 	 */
 	@RequestMapping(value="/admin/largeTypeList.do", method= RequestMethod.GET)
-	public ModelAndView largeTypeList(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model){
+	public String largeTypeList(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model,HttpSession session){
 		
-		ModelAndView mav = new ModelAndView();
+		AdminInfo adminSession = (AdminInfo)session.getAttribute("adminSession");
+		
+		if(adminSession == null){
+		return "redirect:adminLogin.do";
+		}
 		List<CategoryInfo> list = categoryManageService.getCategoryInfList(categoryInfo);
 	    
-		mav.addObject("list", list);
+		model.addAttribute("list", list);
 		
-		mav.setViewName("admin/product/largeTypeList");	  
-		return mav;
+		return "admin/product/largeTypeList";
 			
 	}
 	
@@ -122,15 +127,17 @@ public class CategoryController {
 	 * 관리자 중분류 리스트
 	 */
 	@RequestMapping(value="/admin/middleTypeList.do", method= RequestMethod.GET)
-	public ModelAndView middleTypeList(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model){
+	public String middleTypeList(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model,HttpSession session){
+		AdminInfo adminSession = (AdminInfo)session.getAttribute("adminSession");
+		if(adminSession == null){
+			return "redirect:adminLogin.do";
+		}
 		
-		ModelAndView mav = new ModelAndView();
 		List<CategoryInfo> list = categoryManageService.getCategoryInfList3(categoryInfo);
 	    
-		mav.addObject("list", list);
+		model.addAttribute("list", list);
 		model.addAttribute("reloadVar", "yes");
-		mav.setViewName("admin/product/middleTypeList");	    
-		return mav;
+		return "admin/product/middleTypeList";
 			
 	}
 
@@ -234,15 +241,17 @@ public class CategoryController {
 	 * 관리자 소분류 리스트
 	 */
 	@RequestMapping(value="/admin/smallTypeList.do", method= RequestMethod.GET)
-	public ModelAndView smallTypeList(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model){
-		
-		ModelAndView mav = new ModelAndView();
+	public String smallTypeList(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model,HttpSession session){
+		AdminInfo adminSession = (AdminInfo)session.getAttribute("adminSession");
+		if(adminSession == null){
+		return "redirect:adminLogin.do";
+		}
 		List<CategoryInfo> list = categoryManageService.getCategoryInfList4(categoryInfo);
 	    
-		mav.addObject("list", list);
+		model.addAttribute("list", list);
 		model.addAttribute("reloadVar", "yes");
-		mav.setViewName("admin/product/smallTypeList");	    
-		return mav;
+			    
+		return "admin/product/smallTypeList";
 			
 	}
 
@@ -284,11 +293,12 @@ public class CategoryController {
 	 * 관리자 소분류 수정폼
 	 */		
 	@RequestMapping(value="/admin/smallTypeEdit.do", method=RequestMethod.POST)
-	public String smallTypeModify(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model){
+	public String smallTypeEdit(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model){
 		
 		categoryInfo = categoryManageService.getCategoryInfDetail(categoryInfo);
-		List<CategoryInfo> list = categoryManageService.getCategoryInfList3(categoryInfo);
+		List<CategoryInfo> list = categoryManageService.getCategoryInfList4(categoryInfo);
 		model.addAttribute("largeTypeObj", categoryInfo);
+		
 		model.addAttribute("list", list);
 		return "admin/product/smallTypeEdit";
 	}
@@ -302,7 +312,7 @@ public class CategoryController {
 	public String editsmallCategoryInfoProc(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model) {
 		categoryManageService.editCategoryInf(categoryInfo);
 		
-		return "redirect:smallTypeEdit.do";
+		return "redirect:smallTypeList.do";
 	}
 	
 	

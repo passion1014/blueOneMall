@@ -2,6 +2,8 @@ package com.blueone.product.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.blueone.admin.domain.AdminInfo;
 import com.blueone.product.domain.ProductInfo;
@@ -18,6 +21,7 @@ import com.blueone.product.domain.SearchProdInfo;
 import com.blueone.product.service.IProductManageService;
 
 @Controller
+@SessionAttributes("adminSession")
 public class ProductController {
 
 	private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
@@ -29,8 +33,11 @@ public class ProductController {
 	 * 관리자 물품 리스트
 	 */
 	@RequestMapping(value = "/admin/productList.do")
-	public String productList(@ModelAttribute("ProductInfo") ProductInfo productInfo, BindingResult result, Model model) {
-				
+	public String productList(@ModelAttribute("ProductInfo") ProductInfo productInfo, BindingResult result, Model model,HttpSession session) {
+		AdminInfo adminSession = (AdminInfo)session.getAttribute("adminSession");		
+		if(adminSession==null){
+		return "redirect:adminLogin.do";
+		}
 		return "admin/product/productList";
 	}
 	
@@ -38,8 +45,11 @@ public class ProductController {
 	 * 관리자 물품 리스트
 	 */
 	@RequestMapping(value = "/admin/productRegister.do")
-	public String productRegister(@ModelAttribute("ProductInfo") ProductInfo productInfo, BindingResult result, Model model) {
-				
+	public String productRegister(@ModelAttribute("ProductInfo") ProductInfo productInfo, BindingResult result, Model model,HttpSession session) {
+		AdminInfo adminSession = (AdminInfo)session.getAttribute("adminSession");
+		if(adminSession == null){
+		return "redirect:adminLogin.do";
+		}
 		return "admin/product/productRegister";
 	}
 	

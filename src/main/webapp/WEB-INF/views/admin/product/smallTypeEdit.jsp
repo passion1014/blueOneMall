@@ -5,7 +5,7 @@
 	<!-- 컨덴츠 -->
 	<div style="padding:10px;">
 	<div> 상품관리 > 상품분류 > 소분류 수정	</div>
-	<form name="frm" method="post" action="editMiddleCategoryInfProc.do" onSubmit="return chkForm(this);">
+	<form name="frm" method="post" action=editsmallCategoryInfProc.do onSubmit="return chkForm(this);">
 	<input type="hidden" id="ctgCodeType"  name="ctgCodeType"  value="03">
 	<input type="hidden" id="ctgDesc"      name="ctgDesc"      value="${largeTypeObj.ctgDesc}">
 	<input type="hidden" id="fromDate"     name="fromDate"     value="1900-01-01">
@@ -53,7 +53,7 @@
 					<c:if test="${list.ctgCode==largeTypeObj.ctgCode}">
 					<option selected><c:out value="${list.ctgLargeName}"></c:out></option>
 					</c:if>
-					<option value="<c:out value="${list.ctgCode}"></c:out>"><c:out value="${list.ctgLargeName}"></c:out></option>
+					<option value="<c:out value="${list.ctgLargeCode}"></c:out>"><c:out value="${list.ctgLargeName}"></c:out></option>
 				</c:forEach>							
 				</select>&nbsp;
 			</td>
@@ -62,11 +62,11 @@
 			<th>중분류명</th>
 			<td class="left">
 				<select id="ctgCode" name="ctgCode">
-				<c:forEach items="${list}" var="list" >
-					<c:if test="${list.ctgCode==largeTypeObj.ctgCode}">
-					<option selected><c:out value="${list.ctgLargeName}"></c:out></option>
+				<c:forEach items="${smallList}" var="small" >
+					<c:if test="${smallList.ctgCode==largeTypeObj.ctgCode}">
+					<option selected><c:out value="${smallList.ctgLargeName}"></c:out></option>
 					</c:if>
-					<option value="<c:out value="${list.ctgCode}"></c:out>"><c:out value="${list.ctgLargeName}"></c:out></option>
+					<option value="<c:out value="${smallList.ctgCode}"></c:out>"><c:out value="${smallList.ctgLargeName}"></c:out></option>
 				</c:forEach>							
 				</select>&nbsp;
 			</td>

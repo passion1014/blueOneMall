@@ -57,7 +57,6 @@ public class AdminController {
 			if (loggedInfo != null) {
 				if(inpw.equals(loggedInfo.getPassword())){
 					mav.addObject("adminSession", loggedInfo);// 세션에 정보 셋팅
-					model.addAttribute("logged", loggedInfo);
 					mav.setViewName("redirect:adminDefault.do");
 				}else{
 					mav.setViewName("redirect:adminLogin.do");
@@ -79,8 +78,9 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/adminDefault.do", method = RequestMethod.GET)
-	public String defaultAdminInfo(@ModelAttribute("adminSession") AdminInfo adminSession, BindingResult result, Model model) {
+	public String defaultAdminInfo(HttpSession session,Model model) {
 
+		AdminInfo adminSession = (AdminInfo)session.getAttribute("adminSession");
 		// 세션체크
 		if (adminSession == null) {
 			return "redirect:adminLogin.do";
@@ -90,7 +90,9 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="/adminMain.do", method= RequestMethod.GET)
-	public String adminConf(@ModelAttribute("adminSession") AdminInfo adminSession, BindingResult result, Model model){
+	public String adminConf(@ModelAttribute("adminInfo") @Valid AdminInfo adminInfo,Model model, HttpSession session){
+		
+		AdminInfo adminSession = (AdminInfo)session.getAttribute("adminSession");
 		
 		// 세션체크
 		if (adminSession == null) {
@@ -123,8 +125,11 @@ public class AdminController {
     }
 	
 	@RequestMapping("/adminRegistForm.do")
-	public String registAdminForm() {
-		
+	public String registAdminForm(HttpSession session) {
+		AdminInfo adminSession = (AdminInfo)session.getAttribute("adminSession");
+		if(adminSession == null){
+		return "redirect:adminLogin.do";
+		}
 		return "admin/admin/adminRegist";
 	}
 	
@@ -141,8 +146,13 @@ public class AdminController {
     //===========================
 	
 	@RequestMapping(value="/editAdminInfForm.do", method= RequestMethod.GET)
-	public String editAdminInfForm(@ModelAttribute("adminInfo") AdminInfo adminInfo, BindingResult result, Model model,String id){
-		
+	public String editAdminInfForm(@ModelAttribute("adminInfo") AdminInfo adminInfo, BindingResult result, Model model,String id,HttpSession session){
+		AdminInfo adminSession = (AdminInfo)session.getAttribute("adminSession");
+		// 세션체크
+				if (adminSession == null) {
+					return "redirect:adminLogin.do";
+				}
+				
 		adminManageService.getAdminInfDetail(id);
 		model.addAttribute("adminInfo", adminInfo);
 		return "admin/admin/adminEdit";
@@ -150,14 +160,19 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/adminList.do", method = RequestMethod.GET)
-	public ModelAndView getAdminInfoList(@ModelAttribute("adminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
+	public ModelAndView getAdminInfoList(@ModelAttribute("adminInfo") AdminInfo adminInfo, BindingResult result, Model model,HttpSession session) {
+		AdminInfo adminSession = (AdminInfo)session.getAttribute("adminSession");
 		ModelAndView mav = new ModelAndView();
+		// 세션체크
+		if (adminSession == null) {
+			mav.setViewName("redirect:adminLogin.do");
+			return mav;
+		}
 		List<AdminInfo> list = adminManageService.getAdminInfList(adminInfo);
-		
 	    mav.addObject("list", list);
 	    mav.setViewName("admin/admin/adminList");
 	    
-		return mav;
+			return mav;
 	}
 
 	
