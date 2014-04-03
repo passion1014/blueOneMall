@@ -90,4 +90,7 @@
 	
 	<context:component-scan base-package="com.blueone.shop.controller" /><!-- Shop 컨트롤러 등록 -->
 	<context:component-scan base-package="com.blueone.shop.service" /><!-- shop Service 등록 -->
+
+	<context:component-scan base-package="com.blueone.community" /><!-- etc 서비스/컨트롤러 등록 -->
+	
 </beans:beans>
