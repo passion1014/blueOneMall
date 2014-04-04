@@ -86,6 +86,8 @@ public class CategoryController {
 		categoryManageService.registCategoryInf(categoryInfo);
 		redirectAttributes.addFlashAttribute("reloadVar", "yes");
 		
+
+		model.addAttribute("reloadVar", "yes");
 		return "redirect:largeTypeRegister.do";
 		
 	}
@@ -140,6 +142,7 @@ public class CategoryController {
 		List<CategoryInfo> list = categoryManageService.getCategoryInfList3(categoryInfo);
 	    
 		model.addAttribute("list", list);
+
 		return "admin/product/middleTypeList";
 			
 	}
@@ -156,7 +159,7 @@ public class CategoryController {
 		String ctgCode= "M"+code;
 		
 		List<CategoryInfo> rstList = getCategoryListByTypeCd(categoryInfo, "01");
-		model.addAttribute("reloadVar", "yes");
+		
 		model.addAttribute("ctgMidCode", ctgCode);
 		model.addAttribute("ctgList", rstList);
 		return "admin/product/middleTypeRegister";
@@ -171,7 +174,7 @@ public class CategoryController {
 		
 		
 		categoryManageService.registCategoryInf(categoryInfo);
-		
+		model.addAttribute("reloadVar", "yes");
 		return "redirect:middleTypeRegister.do";
 		
 	}
@@ -252,8 +255,7 @@ public class CategoryController {
 		List<CategoryInfo> list = categoryManageService.getCategoryInfList4(categoryInfo);
 	    
 		model.addAttribute("list", list);
-		model.addAttribute("reloadVar", "yes");
-			    
+		
 		return "admin/product/smallTypeList";
 			
 	}
@@ -266,8 +268,8 @@ public class CategoryController {
 	public String smallTypeRegister(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model){
 		int code= (int)(Math.random()*10000)+1;
 		String ctgCode= "S"+code;
-		List<CategoryInfo> rstList1 = getCategoryListByTypeCd(categoryInfo, "01");
-		List<CategoryInfo> rstList2 = getCategoryListByTypeCd(categoryInfo, "02");
+		List<CategoryInfo> rstList1 = getCategoryListByTypeCd(categoryInfo, "01");//대분류 lsit
+		List<CategoryInfo> rstList2 = getCategoryListByTypeCd(categoryInfo, "02");//중분류 list
 
 		model.addAttribute("ctgCode", ctgCode);
 		model.addAttribute("ctgList1", rstList1);
@@ -371,9 +373,19 @@ public class CategoryController {
 	public List<CategoryInfo> getCategoryList4Combo(@PathVariable String ctgPCode) {
 
 		CategoryInfo categoryInfo = new CategoryInfo();
-		categoryInfo.setCtgPCode(ctgPCode);
+
+		//categoryInfo.setCtgPCode(ctgPCode);
+		List<CategoryInfo> list = categoryManageService.getCategoryInfList3(categoryInfo);
 		
-		List<CategoryInfo> rstList = categoryManageService.getCategoryInfList3(categoryInfo);
+	
+		List<CategoryInfo> rstList = new ArrayList<CategoryInfo>();
+		for (CategoryInfo each : list) {
+			if (ctgPCode.equals(each.getCtgPCode())) {
+				rstList.add(each);
+			}
+		}
+		
+		
 		return rstList;
 	}
 	
@@ -394,6 +406,9 @@ public class CategoryController {
 		
 		return rstList;
 	}
+	
+	
+
 	
 	
 

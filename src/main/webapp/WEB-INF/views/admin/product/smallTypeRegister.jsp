@@ -73,8 +73,8 @@
 			<td colspan="3" class="left">
 			<select id="ctgPCode" name="ctgPCode">
 					<option value="">중분류를 선택하여주십시오</option>	
-					<c:forEach items="${ctgList2}" var="largeTypeObj">
-						<option value="<c:out value="${largeTypeObj.ctgPCode}"></c:out>"><c:out value="${largeTypeObj.ctgName}"></c:out></option>
+					<c:forEach items="${ctgList2}" var="middleTypeObj">
+						<option value="<c:out value="${middleTypeObj.ctgPCode}"></c:out>"><c:out value="${middleTypeObj.ctgName}"></c:out></option>
 					</c:forEach>							
 			</select>&nbsp;
 			</td>
