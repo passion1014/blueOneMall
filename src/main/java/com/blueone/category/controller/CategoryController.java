@@ -181,8 +181,8 @@ public class CategoryController {
 	public String middleTypeModify(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model){
 		
 		categoryInfo = categoryManageService.getCategoryInfDetail(categoryInfo);
-		List<CategoryInfo> list = categoryManageService.getCategoryInfList3(categoryInfo);
-		model.addAttribute("largeTypeObj", categoryInfo);
+		List<CategoryInfo> list = categoryManageService.getCategoryInfList(categoryInfo);
+		model.addAttribute("middleTypeObj", categoryInfo);
 		model.addAttribute("list", list);
 		return "admin/product/middleTypeEdit";
 	}
