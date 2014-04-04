@@ -82,7 +82,7 @@ public class CategoryController {
 		categoryManageService.registCategoryInf(categoryInfo);
 		
 		model.addAttribute("reloadVar", "yes");
-		return "admin/product/largeTypeRegister";
+		return "redirect:largeTypeRegister.do";
 		
 	}
 		
@@ -263,8 +263,8 @@ public class CategoryController {
 	public String smallTypeRegister(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model){
 		int code= (int)(Math.random()*10000)+1;
 		String ctgCode= "S"+code;
-		List<CategoryInfo> rstList1 = getCategoryListByTypeCd(categoryInfo, "01");
-		List<CategoryInfo> rstList2 = getCategoryListByTypeCd(categoryInfo, "02");
+		List<CategoryInfo> rstList1 = getCategoryListByTypeCd(categoryInfo, "01");//대분류 lsit
+		List<CategoryInfo> rstList2 = getCategoryListByTypeCd(categoryInfo, "02");//중분ㄹ list
 
 		model.addAttribute("ctgCode", ctgCode);
 		model.addAttribute("ctgList1", rstList1);
@@ -370,8 +370,11 @@ public class CategoryController {
 
 		CategoryInfo categoryInfo = new CategoryInfo();
 		categoryInfo.setCtgPCode(ctgPCode);
-		
+	
 		List<CategoryInfo> rstList = categoryManageService.getCategoryInfList3(categoryInfo);
+		
+		
+		
 		return rstList;
 	}
 	
