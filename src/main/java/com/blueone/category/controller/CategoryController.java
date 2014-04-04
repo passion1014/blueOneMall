@@ -1,5 +1,6 @@
 package com.blueone.category.controller;
 
+import java.lang.ProcessBuilder.Redirect;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.blueone.admin.controller.AdminController;
 import com.blueone.admin.domain.AdminInfo;
@@ -60,6 +62,8 @@ public class CategoryController {
 	@RequestMapping(value="/admin/largeTypeRegister.do", method= RequestMethod.GET)
 	public String largeTypeRegister(@ModelAttribute("adminInfo") AdminInfo adminInfo, BindingResult result, Model model){
 		
+		
+		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("adminSession", adminInfo);
 		
@@ -77,15 +81,15 @@ public class CategoryController {
 	 * 관리자 대분류 등록처리
 	 */
 	@RequestMapping(value = "/admin/largeTypeRegisterProc.do", method = RequestMethod.POST)
-	public String largeTypeRegisterProc(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model) {
+	public String largeTypeRegisterProc(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model,RedirectAttributes redirectAttributes ) {
 		
 		categoryManageService.registCategoryInf(categoryInfo);
+		redirectAttributes.addFlashAttribute("reloadVar", "yes");
 		
-		model.addAttribute("reloadVar", "yes");
-		return "admin/product/largeTypeRegister";
+		return "redirect:largeTypeRegister.do";
 		
 	}
-		
+	
 	
 	/**
 	 * 관리자 대분류 수정폼
@@ -136,7 +140,6 @@ public class CategoryController {
 		List<CategoryInfo> list = categoryManageService.getCategoryInfList3(categoryInfo);
 	    
 		model.addAttribute("list", list);
-		model.addAttribute("reloadVar", "yes");
 		return "admin/product/middleTypeList";
 			
 	}
@@ -298,7 +301,6 @@ public class CategoryController {
 		categoryInfo = categoryManageService.getCategoryInfDetail(categoryInfo);
 		List<CategoryInfo> list = categoryManageService.getCategoryInfList4(categoryInfo);
 		model.addAttribute("largeTypeObj", categoryInfo);
-		
 		model.addAttribute("list", list);
 		return "admin/product/smallTypeEdit";
 	}
@@ -392,5 +394,7 @@ public class CategoryController {
 		
 		return rstList;
 	}
+	
+	
 
 }
