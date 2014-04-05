@@ -85,9 +85,6 @@ public class CategoryController {
 		
 		categoryManageService.registCategoryInf(categoryInfo);
 		redirectAttributes.addFlashAttribute("reloadVar", "yes");
-		
-
-		model.addAttribute("reloadVar", "yes");
 		return "redirect:largeTypeRegister.do";
 		
 	}
