@@ -96,8 +96,6 @@
 			T1.REG_DATE       AS t1regDate, 
 			T1.LAST_DATE      AS t1lastDate, 
 			T1.MODIFY_USER_ID AS t1modifyUserId
-			T2.CTG_CODE		  AS t2ctgCode,
-			T2.CTG_NAME		  AS t2ctgName
 		FROM
 			BOM_CATEGORY_TB AS T1
 		WHERE

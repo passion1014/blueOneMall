@@ -242,6 +242,28 @@ public class CategoryManageServiceImpl implements ICategoryManageService {
 		return rstList;
 	}
 	
+	/*
+	 * 상위코드에 따른 하위코드 목록 조회 
+	 * 작성자 : 이성욱  
+	 */
+	@Override
+	public List<CategoryInfo> getCategoryInfListByPCode(CategoryInfo categoryInfo) {
+		List<CategoryInfo> rstList = new ArrayList<CategoryInfo>();
+		// -----------------------------------------------
+		// DB Insert 수행
+		// -----------------------------------------------
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			// DB 수행
+			rstList = sqlSession.selectList("category.selectListBomCategoryTb0003", categoryInfo);
+			
+		} finally {
+			sqlSession.close();
+		}
+		
+		return rstList;
+	}
+	
 	
 
 	private ResultInfo checkCategoryInfo(CategoryInfo categoryInfo) {
