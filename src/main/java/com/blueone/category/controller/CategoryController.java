@@ -81,17 +81,10 @@ public class CategoryController {
 	 * 관리자 대분류 등록처리
 	 */
 	@RequestMapping(value = "/admin/largeTypeRegisterProc.do", method = RequestMethod.POST)
-<<<<<<< HEAD
-	public String largeTypeRegisterProc(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model,RedirectAttributes redirectAttributes ) {
-		
-		categoryManageService.registCategoryInf(categoryInfo);
-=======
 	public String largeTypeRegisterProc(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model,RedirectAttributes redirectAttributes) {
 		
 		categoryManageService.registCategoryInf(categoryInfo);
 		
-
->>>>>>> ef3f2f1068d8ae9532aecb807fb87e8b0f21a6f0
 		redirectAttributes.addFlashAttribute("reloadVar", "yes");
 		return "redirect:largeTypeRegister.do";
 		
@@ -307,9 +300,7 @@ public class CategoryController {
 		
 		categoryInfo = categoryManageService.getCategoryInfDetail(categoryInfo);
 		List<CategoryInfo> list = categoryManageService.getCategoryInfList4(categoryInfo);
-<<<<<<< HEAD
 		model.addAttribute("largeTypeObj", categoryInfo);
-=======
 		
 		
 		
@@ -320,7 +311,6 @@ public class CategoryController {
 		model.addAttribute("ctgList1", rstList1);
 		model.addAttribute("ctgList2", rstList2);
 		model.addAttribute("smallTypeObj", categoryInfo);
->>>>>>> ef3f2f1068d8ae9532aecb807fb87e8b0f21a6f0
 		model.addAttribute("list", list);
 		return "admin/product/smallTypeEdit";
 	}
