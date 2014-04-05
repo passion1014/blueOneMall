@@ -223,3 +223,4 @@ pip-log.txt
 
 .springBeans
 target/m2e-wtp/web-resources/META-INF/maven/com.blueone/mall/pom.properties
+src/main/webapp/WEB-INF/views/home.jsp

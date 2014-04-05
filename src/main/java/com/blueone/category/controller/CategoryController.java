@@ -1,5 +1,6 @@
 package com.blueone.category.controller;
 
+import java.lang.ProcessBuilder.Redirect;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,6 +62,8 @@ public class CategoryController {
 	@RequestMapping(value="/admin/largeTypeRegister.do", method= RequestMethod.GET)
 	public String largeTypeRegister(@ModelAttribute("adminInfo") AdminInfo adminInfo, BindingResult result, Model model){
 		
+		
+		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("adminSession", adminInfo);
 		
@@ -78,15 +81,21 @@ public class CategoryController {
 	 * 관리자 대분류 등록처리
 	 */
 	@RequestMapping(value = "/admin/largeTypeRegisterProc.do", method = RequestMethod.POST)
+<<<<<<< HEAD
 	public String largeTypeRegisterProc(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model,RedirectAttributes redirectAttributes) {
 		
 		categoryManageService.registCategoryInf(categoryInfo);
 		
+=======
+	public String largeTypeRegisterProc(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model,RedirectAttributes redirectAttributes ) {
+		
+		categoryManageService.registCategoryInf(categoryInfo);
+>>>>>>> 0ccc72ce2827f2991c40088e384d817471fa5ebc
 		redirectAttributes.addFlashAttribute("reloadVar", "yes");
 		return "redirect:largeTypeRegister.do";
 		
 	}
-		
+	
 	
 	/**
 	 * 관리자 대분류 수정폼
@@ -137,7 +146,7 @@ public class CategoryController {
 		List<CategoryInfo> list = categoryManageService.getCategoryInfList3(categoryInfo);
 	    
 		model.addAttribute("list", list);
-		
+
 		return "admin/product/middleTypeList";
 			
 	}
@@ -300,6 +309,7 @@ public class CategoryController {
 		categoryInfo = categoryManageService.getCategoryInfDetail(categoryInfo);
 		
 		List<CategoryInfo> list = categoryManageService.getCategoryInfList4(categoryInfo);
+<<<<<<< HEAD
 		
 		
 		
@@ -310,6 +320,9 @@ public class CategoryController {
 		model.addAttribute("ctgList1", rstList1);
 		model.addAttribute("ctgList2", rstList2);
 		model.addAttribute("smallTypeObj", categoryInfo);
+=======
+		model.addAttribute("largeTypeObj", categoryInfo);
+>>>>>>> 0ccc72ce2827f2991c40088e384d817471fa5ebc
 		model.addAttribute("list", list);
 		
 		return "admin/product/smallTypeEdit";
@@ -414,6 +427,8 @@ public class CategoryController {
 		
 		return rstList;
 	}
+	
+	
 
 	
 	
