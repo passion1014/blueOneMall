@@ -35,8 +35,10 @@
 					<option value="n">대기</option>
 				</select>
 				&nbsp;&nbsp;<b>정렬</b> :
-				<select name="line_up">
-					<option value="1">1</option>
+				<select id="ctgOrder" name="ctgOrder">
+				<c:forEach var="i" begin="1" end="50" step="1">
+					<option value="<c:out value="${i}"></c:out>"><c:out value="${i}"></c:out></option>
+				</c:forEach>							
 				</select>
 			</td>
 			<th>특수설정</th>
@@ -49,13 +51,19 @@
 		<tr>
 			<th>상품분류</th>
 			<td colspan="3" style="text-align:left;">
-				<select name="large_idx" id="large_idx">
-					<option value="">:::: 대분류를 선택하여 주십시오 ::::</option>
-				</select>
+				<select id="largeType" name="largeType">
+					<option value="">대분류를 선택하여주십시오</option>	
+					<c:forEach items="${ctgList1}" var="largeTypeObj">
+						<option value="<c:out value="${largeTypeObj.ctgCode}"></c:out>"><c:out value="${largeTypeObj.ctgName}"></c:out></option>
+					</c:forEach>							
+				</select>&nbsp;
 				
-				<select name="middle_idx" id="middle_idx">
-					<option value="">:::: 중분류를 선택하여 주십시오 ::::</option>
-				</select> &nbsp;				
+				<select id="middleType" name="middleType">
+					<option value="">중분류를 선택하여주십시오</option>	
+					<c:forEach items="${ctgList1}" var="middleTypeObj">
+						<option value="<c:out value="${largeTypeObj.ctgCode}"></c:out>"><c:out value="${largeTypeObj.ctgName}"></c:out></option>
+					</c:forEach>							
+				</select>&nbsp;		
 
 				<select name="small_idx" id="small_idx">
 					<option value="">:::: 소분류를 선택하여 주십시오 ::::</option>
@@ -75,103 +83,98 @@
 	<table>
 		<colgroup>
 			<col width="15%">
+			<col width="35%">
+			<col width="15%">
 			<col width="*">
 		</colgroup>
-		<tr>
-			<th rowspan="">상품내역<br/>( Title / Content )</th>
-			<td style="text-align:left;">
-			<div class="pro_listarea">
-				<div class="titbox">
-					<p class="tit_text">Title</p>
-					<span>	
-						<input type="text" name="opt_title_1" id="opt_title_1" class="Text"
-						style="width:100%;">
-					</span>
-					<span>	
-						<input type="text" name="opt_title_2" id="opt_title_2" class="Text" style="width:100%;">
-					</span>
-					<span>	
-						<input type="text" name="opt_title_3" id="opt_title_3" class="Text" style="width:100%;">
-					</span>
-					<span>	
-						<input type="text" name="opt_title_4" id="opt_title_4" class="Text" style="width:100%;">
-					</span>
-					<span>	
-						<input type="text" name="opt_title_5" id="opt_title_5" class="Text" style="width:100%;">
-					</span>
-				</div>
-				<div class="contbox">
-					<p class="tit_text">Content</p>
-					<span>
-						<input type="text" name="opt_content_1" id="opt_content_1" class="Text" style="width:100%;">
-					</span>
-					<span>
-						<input type="text" name="opt_content_2" id="opt_content_2" class="Text" style="width:100%;">
-					</span>
-					<span>
-						<input type="text" name="opt_content_3" id="opt_content_3" class="Text" style="width:100%;">
-					</span>
-					<span>
-						<input type="text" name="opt_content_4" id="opt_content_4" class="Text" style="width:100%;">
-					</span>
-					<span>
-						<input type="text" name="opt_content_5" id="opt_content_5" class="Text" style="width:100%;">
-					</span>
-				</div>
-			</div>
 		
+		<tr>
+			<th>소비자가</th>
+			<td style="text-align:left;">
+				<input type="text" id="goods_name" name="goods_name" style="width:70%;text-align:right;padding-right:10px;"> 원
+			</td>
+			<th>판매가</th>
+			<td style="text-align:left;">
+				<input type="text" id="goods_name" name="goods_name" style="width:70%;text-align:right;padding-right:10px;""> 원
 			</td>		
 		</tr>
+		
+		<tr>
+			<th>모델명</th>
+			<td colspan="3" class="left">
+				<input type="text" id="goods_name" name="goods_name" style="width:80%;" required hname=" 상품명을 입력하여 주십시오">
+			</td>
+		</tr>
+		<tr>
+			<th>모델번호</th>
+			<td colspan="3" class="left">
+				<input type="text" id="goods_name" name="goods_name" style="width:80%;" required hname=" 상품명을 입력하여 주십시오">
+			</td>
+		</tr>
+		<tr>
+			<th>제조사</th>
+			<td colspan="3" class="left">
+				<input type="text" id="goods_name" name="goods_name" style="width:80%;" required hname=" 상품명을 입력하여 주십시오">
+			</td>
+		</tr>
+		
 		<tr>
 			<th>리스트 이미지</th>
-			<td class="left">
+			<td colspan="3" class="left">
 				<input type="file" id="list_img" name="list_img" style="width:80%;"> [112px X 176px]
 			</td>
 		</tr>
 		<tr>
 			<th>상품이미지1</th>
-			<td class="left">
+			<td colspan="3" class="left">
 				<input type="file" id="goods_img1" name="goods_img1" style="width:80%;"> [112px X 176px]
 			</td>
 		</tr>
 		<tr>
 			<th>상품이미지2</th>
-			<td class="left">
+			<td colspan="3" class="left">
 				<input type="file" id="goods_img2" name="goods_img2" style="width:80%;"> [112px X 176px]
 			</td>
 		</tr>
 		<tr>
 			<th>상품이미지3</th>
-			<td class="left">
+			<td colspan="3" class="left">
 				<input type="file" id="goods_img3" name="goods_img3" style="width:80%;"> [112px X 176px]
 			</td>
 		</tr>
 		<tr>
 			<th>목록내용</th>
-			<td style="text-align:left;">
+			<td colspan="3" style="text-align:left;">
 				<textarea name="list_cmt" id="list_cmt" class="Text" style="width:97%;height:150px;"></textarea>
 			</td>
 		</tr>
 		<tr>
 			<th>상세내용</th>
-			<td style="text-align:left;">
+			<td colspan="3" style="text-align:left;">
 				<textarea name="contents" id="contents" class="Text" style="width:97%;height:300px;"></textarea>
 			</td>
 		</tr>
 
 		<tr>
 			<th>검색어</th>
-			<td style="text-align:left;">
+			<td colspan="3" style="text-align:left;">
 				<textarea name="search_word" id="search_word" class="Text Kor" style="width:97%;height:80px;"></textarea>
 				<div style="margin-top:5px;">※ , 로 구분하여 입력하여 주십시오</div>
+			</td>
+		</tr>
+		
+		<tr>
+			<th>배송/반품/교환정보</th>
+			<td colspan="3" style="text-align:left;">
+				<div><input type="button" value="배송정보선택"></div>
 			</td>
 		</tr>
 
 		
 		<tr>
 			<th>관리 참고사항</th>
-			<td style="text-align:left;">
-				<textarea name="admin_cmt" id="admin_cmt" class="Text Kor" style="width:97%;height:250px;"></textarea>
+			<td colspan="3" style="text-align:left;">
+				<textarea name="admin_memo" id="admin_memo" class="Text Kor" style="width:97%;height:250px;"></textarea>
 			</td>
 		</tr>
 
