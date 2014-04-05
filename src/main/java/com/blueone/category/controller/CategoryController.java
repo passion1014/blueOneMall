@@ -168,11 +168,11 @@ public class CategoryController {
 	 * 관리자 중분류 등록처리
 	 */
 	@RequestMapping(value = "/admin/middleTypeRegisterProc.do", method = RequestMethod.POST)
-	public String middleTypeRegisterProc(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model,String ctgname) {
+	public String middleTypeRegisterProc(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model,String ctgname ,RedirectAttributes redirectAttributes ) {
 		
 		
 		categoryManageService.registCategoryInf(categoryInfo);
-		model.addAttribute("reloadVar", "yes");
+		redirectAttributes.addFlashAttribute("reloadVar", "yes");
 		return "redirect:middleTypeRegister.do";
 		
 	}
@@ -282,10 +282,11 @@ public class CategoryController {
 	 * 관리자 소분류 등록처리
 	 */
 	@RequestMapping(value = "/admin/smallTypeRegisterProc.do", method = RequestMethod.POST)
-	public String smallTypeRegisterProc(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model,String ctgname) {
+	public String smallTypeRegisterProc(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model,String ctgname,RedirectAttributes redirectAttributes) {
 		
 		
 		categoryManageService.registCategoryInf(categoryInfo);
+		redirectAttributes.addFlashAttribute("reloadVar", "yes");
 		model.addAttribute("reloadVar", "yes");
 		return "redirect:smallTypeRegister.do";
 		
