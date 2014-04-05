@@ -52,21 +52,24 @@
 			<th>상품분류</th>
 			<td colspan="3" style="text-align:left;">
 				<select id="largeType" name="largeType">
-					<option value="">대분류를 선택하여주십시오</option>	
+					<option value="">:::: 대분류를 선택하여주십시오 ::::</option>	
 					<c:forEach items="${ctgList1}" var="largeTypeObj">
 						<option value="<c:out value="${largeTypeObj.ctgCode}"></c:out>"><c:out value="${largeTypeObj.ctgName}"></c:out></option>
 					</c:forEach>							
 				</select>&nbsp;
 				
 				<select id="middleType" name="middleType">
-					<option value="">중분류를 선택하여주십시오</option>	
-					<c:forEach items="${ctgList1}" var="middleTypeObj">
-						<option value="<c:out value="${largeTypeObj.ctgCode}"></c:out>"><c:out value="${largeTypeObj.ctgName}"></c:out></option>
+					<option value="">:::: 중분류를 선택하여주십시오 ::::</option>	
+					<c:forEach items="${ctgList2}" var="middleTypeObj">
+						<option value="<c:out value="${middleTypeObj.ctgCode}"></c:out>"><c:out value="${middleTypeObj.ctgName}"></c:out></option>
 					</c:forEach>							
 				</select>&nbsp;		
 
-				<select name="small_idx" id="small_idx">
+				<select name="smallType" id="smallType">
 					<option value="">:::: 소분류를 선택하여 주십시오 ::::</option>
+					<c:forEach items="${ctgList3}" var="smallTypeObj">
+						<option value="<c:out value="${smallTypeObj.ctgCode}"></c:out>"><c:out value="${smallTypeObj.ctgName}"></c:out></option>
+					</c:forEach>	
 				</select> &nbsp;				
 			</td>
 		</tr>

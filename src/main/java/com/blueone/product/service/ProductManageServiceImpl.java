@@ -53,14 +53,14 @@ public class ProductManageServiceImpl implements IProductManageService {
 	}
 	
 	@Override
-	public ResultInfo registProductInfo(ProductInfo productInfo) {
+	public ProductInfo registProductInfo(ProductInfo productInfo) {
 		ResultInfo rstInfo = new ResultInfo();
 		
 		// -----------------------------------------------
 		// 체크로직
 		// -----------------------------------------------
-		rstInfo = checkProductInfo(productInfo);
-		if (!rstInfo.isOk()) return rstInfo;
+		String checkRst = checkProductInfo(productInfo);
+		if (!"1".equals(checkRst)) return productInfo;
 		
 		// -----------------------------------------------
 		// DB Insert 수행
@@ -69,40 +69,56 @@ public class ProductManageServiceImpl implements IProductManageService {
 		try {
 			setDefaultDate(productInfo);
 			
-			// DB 수행
 			int rst = sqlSession.insert("product.insertBomProductTb0001", productInfo);
 			
-			// 결과 메세지 셋팅
-			if (rst == 1) {
-				rstInfo.ok();
-			} else {
-				rstInfo.fail();
-				rstInfo.setRstMsgCd("");
-			}
 		} finally {
 			sqlSession.close();
 		}
 		
-		return rstInfo;
+		return productInfo;
 	}
 
 	@Override
-	public ResultInfo editProductInfo(ProductInfo productInfo) {
+	public ProductInfo registProductDtlInfo(ProductInfo productInfo) {
+		ResultInfo rstInfo = new ResultInfo();
+		
+		// -----------------------------------------------
+		// 체크로직
+		// -----------------------------------------------
+		String checkRst = checkProductInfo(productInfo);
+		if (!"1".equals(checkRst)) return productInfo;
+		
+		// -----------------------------------------------
+		// DB Insert 수행
+		// -----------------------------------------------
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			setDefaultDate(productInfo);
+			
+			int rst = sqlSession.insert("product.insertBomProductDtlTb0001", productInfo);
+			
+		} finally {
+			sqlSession.close();
+		}
+		
+		return productInfo;
+	}
+
+
+	@Override
+	public ProductInfo editProductInfo(ProductInfo productInfo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ResultInfo removeProductInfDetail(ProductInfo productInfo) {
+	public ProductInfo removeProductInfDetail(ProductInfo productInfo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	
-	private ResultInfo checkProductInfo(ProductInfo productInfo) {
-		ResultInfo rstInfo = new ResultInfo();
-		rstInfo.setRstCd("1");
-		
-		return rstInfo;
+	private String checkProductInfo(ProductInfo productInfo) {
+		return "1";
 	}
 
 	private void setDefaultDate(ProductInfo productInfo) {

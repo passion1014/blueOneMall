@@ -1,19 +1,39 @@
 package com.blueone.product.domain;
 
 public class ProductInfo {
+	
+	//제품 보여줄때 필요한 정보
 	private int idx;
 	private String prdCd;		// 상품코드
+	private String prdDp;		// 진열상태
+	private int  prdOrd;		// 주문 
 	private String prdNm;		// 상품명
-	private String prdDesc;		// 상품상세내용
-	private String prdDescHtml;	// 상품상세내용HTML
 	private String prdCtgL;		// 대분류코드
 	private String prdCtgM;		// 중분류코드
 	private String prdCtgS;		// 소분류코드
+	private String prdSpe1;		// 
+	private String prdSpe2;		// 
+	private String schWord;		// 검색단어
 	private String fromDate;	// 적용시작일
 	private String toDate;		// 적용종료일
 	private String regDate;		// 등록일
 	private String lastDate;	// 최종수정일
 	private String modifyUserId;// 최종수정자
+
+	//제품 상세정보
+	private String prdPrice;
+	private String prdSellPrc;
+	private String prdModel;
+	private String prdBrand;
+	private String prdListCmt;
+	private String prdListImg;
+	private String prdImg1;
+	private String prdImg2;
+	private String prdImg3;
+	private String prdImg4;
+	private String prdConts;
+	private String prdTransInf;
+	private String admMeno;
 	
 	public int getIdx() {
 		return idx;
@@ -27,23 +47,23 @@ public class ProductInfo {
 	public void setPrdCd(String prdCd) {
 		this.prdCd = prdCd;
 	}
+	public String getPrdDp() {
+		return prdDp;
+	}
+	public void setPrdDp(String prdDp) {
+		this.prdDp = prdDp;
+	}
+	public int getPrdOrd() {
+		return prdOrd;
+	}
+	public void setPrdOrd(int prdOrd) {
+		this.prdOrd = prdOrd;
+	}
 	public String getPrdNm() {
 		return prdNm;
 	}
 	public void setPrdNm(String prdNm) {
 		this.prdNm = prdNm;
-	}
-	public String getPrdDesc() {
-		return prdDesc;
-	}
-	public void setPrdDesc(String prdDesc) {
-		this.prdDesc = prdDesc;
-	}
-	public String getPrdDescHtml() {
-		return prdDescHtml;
-	}
-	public void setPrdDescHtml(String prdDescHtml) {
-		this.prdDescHtml = prdDescHtml;
 	}
 	public String getPrdCtgL() {
 		return prdCtgL;
@@ -63,6 +83,24 @@ public class ProductInfo {
 	public void setPrdCtgS(String prdCtgS) {
 		this.prdCtgS = prdCtgS;
 	}
+	public String getPrdSpe1() {
+		return prdSpe1;
+	}
+	public void setPrdSpe1(String prdSpe1) {
+		this.prdSpe1 = prdSpe1;
+	}
+	public String getPrdSpe2() {
+		return prdSpe2;
+	}
+	public void setPrdSpe2(String prdSpe2) {
+		this.prdSpe2 = prdSpe2;
+	}
+	public String getSchWord() {
+		return schWord;
+	}
+	public void setSchWord(String schWord) {
+		this.schWord = schWord;
+	}
 	public String getFromDate() {
 		return fromDate;
 	}
@@ -74,6 +112,12 @@ public class ProductInfo {
 	}
 	public void setToDate(String toDate) {
 		this.toDate = toDate;
+	}
+	public String getRegDate() {
+		return regDate;
+	}
+	public void setRegDate(String regDate) {
+		this.regDate = regDate;
 	}
 	public String getLastDate() {
 		return lastDate;
@@ -87,11 +131,84 @@ public class ProductInfo {
 	public void setModifyUserId(String modifyUserId) {
 		this.modifyUserId = modifyUserId;
 	}
-	public String getRegDate() {
-		return regDate;
+	public String getPrdPrice() {
+		return prdPrice;
 	}
-	public void setRegDate(String regDate) {
-		this.regDate = regDate;
+	public void setPrdPrice(String prdPrice) {
+		this.prdPrice = prdPrice;
 	}
+	public String getPrdSellPrc() {
+		return prdSellPrc;
+	}
+	public void setPrdSellPrc(String prdSellPrc) {
+		this.prdSellPrc = prdSellPrc;
+	}
+	public String getPrdModel() {
+		return prdModel;
+	}
+	public void setPrdModel(String prdModel) {
+		this.prdModel = prdModel;
+	}
+	public String getPrdBrand() {
+		return prdBrand;
+	}
+	public void setPrdBrand(String prdBrand) {
+		this.prdBrand = prdBrand;
+	}
+	public String getPrdListCmt() {
+		return prdListCmt;
+	}
+	public void setPrdListCmt(String prdListCmt) {
+		this.prdListCmt = prdListCmt;
+	}
+	public String getPrdListImg() {
+		return prdListImg;
+	}
+	public void setPrdListImg(String prdListImg) {
+		this.prdListImg = prdListImg;
+	}
+	public String getPrdImg1() {
+		return prdImg1;
+	}
+	public void setPrdImg1(String prdImg1) {
+		this.prdImg1 = prdImg1;
+	}
+	public String getPrdImg2() {
+		return prdImg2;
+	}
+	public void setPrdImg2(String prdImg2) {
+		this.prdImg2 = prdImg2;
+	}
+	public String getPrdImg3() {
+		return prdImg3;
+	}
+	public void setPrdImg3(String prdImg3) {
+		this.prdImg3 = prdImg3;
+	}
+	public String getPrdImg4() {
+		return prdImg4;
+	}
+	public void setPrdImg4(String prdImg4) {
+		this.prdImg4 = prdImg4;
+	}
+	public String getPrdConts() {
+		return prdConts;
+	}
+	public void setPrdConts(String prdConts) {
+		this.prdConts = prdConts;
+	}
+	public String getPrdTransInf() {
+		return prdTransInf;
+	}
+	public void setPrdTransInf(String prdTransInf) {
+		this.prdTransInf = prdTransInf;
+	}
+	public String getAdmMeno() {
+		return admMeno;
+	}
+	public void setAdmMeno(String admMeno) {
+		this.admMeno = admMeno;
+	}
+	
 	
 }
