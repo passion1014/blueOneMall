@@ -16,7 +16,7 @@
 						options += '<option value="' + result[i].ctgCode + '">' + result[i].ctgName + '</option>';
 					}
 				} else {
-					options = "<option value=''>중분류를 선택하여주십시오</option>";
+					options = "<option value=''>없음</option>";
 				}
 				$("select#ctgPCode").html(options);
 			});
