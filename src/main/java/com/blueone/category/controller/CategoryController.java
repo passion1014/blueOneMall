@@ -168,7 +168,6 @@ public class CategoryController {
 		
 		
 		categoryManageService.registCategoryInf(categoryInfo);
-		
 		return "redirect:middleTypeRegister.do";
 		
 	}
