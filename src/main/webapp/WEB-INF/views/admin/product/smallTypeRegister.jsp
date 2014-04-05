@@ -16,7 +16,7 @@
 						options += '<option value="' + result[i].ctgCode + '">' + result[i].ctgName + '</option>';
 					}
 				} else {
-					options = "<option value=''>중분류를 선택하여주십시오</option>";
+					options = "<option value=''>없음</option>";
 				}
 				$("select#ctgPCode").html(options);
 			});
@@ -29,7 +29,7 @@
 	<!-- 컨덴츠 -->
 	<div style="padding:10px;">
 	<div> 상품관리 > 상품분류 > 소분류 등록	</div>
-	<form name="frm" method="post" action="middleTypeRegisterProc.do">
+	<form name="frm" method="post" action="smallTypeRegisterProc.do">
 	<input type="text" id="ctgCode"     name="ctgCode" value="${ctgCode}">
 	<input type="text" id="ctgCodeType"  name="ctgCodeType"  value="03">
 	<input type="text" id="ctgDesc"      name="ctgDesc"      value="">
