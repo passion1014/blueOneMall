@@ -50,7 +50,7 @@ public class ProductController {
 		if(adminSession == null){
 		return "redirect:adminLogin.do";
 		}
-		return "admin/product/productRegister";
+		return "admin/product/ProductRegister";
 	}
 	
 	

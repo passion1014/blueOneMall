@@ -4,7 +4,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="product">
-	<resultMap id="ProductInfoMap" type="com.blueone.product.domain.ProductInfo">
+	<resultMap id="ProductMap" type="com.blueone.product.domain.ProductInfo">
 		<id property="idx" column="IDX" javaType="int"/>
 		<result property="prdCd" column="PRD_CD" javaType="java.lang.String"/>
 		<result property="prdNm" column="PRD_NM" javaType="java.lang.String"/>
@@ -20,6 +20,22 @@
 		<result property="modifyUserId" column="MODIFY_USER_ID" javaType="java.lang.String"/>
 	</resultMap>
 	
+	<resultMap id="ProductDtlMap" type="com.blueone.product.domain.ProductInfo">
+		<id property="idx" column="IDX" javaType="int"/>
+		<result property="prdCd" column="PRD_CD" javaType="java.lang.String"/>
+		<result property="prdNm" column="PRD_NM" javaType="java.lang.String"/>
+		<result property="prdDesc" column="PRD_DESC" javaType="java.lang.String"/>
+		<result property="prdDescHtml" column="PRD_DESC_HTML" javaType="java.lang.String"/>
+		<result property="prdCtgL" column="PRD_CTG_L" javaType="java.lang.String"/>
+		<result property="prdCtgM" column="PRD_CTG_M" javaType="java.lang.String"/>
+		<result property="prdCtgS" column="PRD_CTG_S" javaType="java.lang.String"/>
+		<result property="fromDate" column="FROM_DATE" javaType="java.lang.String"/>
+		<result property="toDate" column="TO_DATE" javaType="int"/>
+		<result property="regDate" column="REG_DATE" javaType="java.lang.String"/>
+		<result property="lastDate" column="LAST_DATE" javaType="java.lang.String"/>
+		<result property="modifyUserId" column="MODIFY_USER_ID" javaType="java.lang.String"/>
+	</resultMap>
+
 	<select id="selectListBomProductTb0001" parameterType="com.blueone.product.domain.SearchProdInfo" resultType="com.blueone.product.domain.ProductInfo">
 		SELECT  
 			`IDX`,`PRD_CD`,`PRD_NM`,`PRD_DESC`,`PRD_DESC_HTML`,`PRD_CTG_L`,`PRD_CTG_M`,`PRD_CTG_S`

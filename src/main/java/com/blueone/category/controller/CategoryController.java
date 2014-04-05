@@ -34,8 +34,7 @@ public class CategoryController {
 	
 	@Autowired
 	ICategoryManageService categoryManageService;
-	
-		
+
 	/**
 	 * 관리자 대분류 리스트
 	 */
