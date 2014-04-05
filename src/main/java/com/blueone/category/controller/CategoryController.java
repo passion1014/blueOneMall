@@ -84,7 +84,6 @@ public class CategoryController {
 		
 		categoryManageService.registCategoryInf(categoryInfo);
 		
-
 		redirectAttributes.addFlashAttribute("reloadVar", "yes");
 		return "redirect:largeTypeRegister.do";
 		
@@ -168,11 +167,11 @@ public class CategoryController {
 	 * 관리자 중분류 등록처리
 	 */
 	@RequestMapping(value = "/admin/middleTypeRegisterProc.do", method = RequestMethod.POST)
-	public String middleTypeRegisterProc(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model,String ctgname, RedirectAttributes redirectAttributes) {
+	public String middleTypeRegisterProc(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model,String ctgname) {
 		
 		
 		categoryManageService.registCategoryInf(categoryInfo);
-		redirectAttributes.addFlashAttribute("reloadVar", "yes");
+		model.addAttribute("reloadVar", "yes");
 		return "redirect:middleTypeRegister.do";
 		
 	}
@@ -264,10 +263,8 @@ public class CategoryController {
 	 */
 	@RequestMapping(value="/admin/smallTypeRegister.do", method= RequestMethod.GET)
 	public String smallTypeRegister(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model){
-		//소분류 코드생성
 		int code= (int)(Math.random()*10000)+1;
 		String ctgCode= "S"+code;
-		
 		List<CategoryInfo> rstList1 = getCategoryListByTypeCd(categoryInfo, "01");//대분류 lsit
 		List<CategoryInfo> rstList2 = getCategoryListByTypeCd(categoryInfo, "02");//중분류 list
 
@@ -284,11 +281,11 @@ public class CategoryController {
 	 * 관리자 소분류 등록처리
 	 */
 	@RequestMapping(value = "/admin/smallTypeRegisterProc.do", method = RequestMethod.POST)
-	public String smallTypeRegisterProc(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model,String ctgname,RedirectAttributes redirectAttributes) {
+	public String smallTypeRegisterProc(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model,String ctgname) {
 		
 		
 		categoryManageService.registCategoryInf(categoryInfo);
-		redirectAttributes.addFlashAttribute("reloadVar", "yes");
+		model.addAttribute("reloadVar", "yes");
 		return "redirect:smallTypeRegister.do";
 		
 	}
@@ -301,8 +298,8 @@ public class CategoryController {
 	public String smallTypeEdit(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model){
 		
 		categoryInfo = categoryManageService.getCategoryInfDetail(categoryInfo);
-		
 		List<CategoryInfo> list = categoryManageService.getCategoryInfList4(categoryInfo);
+		model.addAttribute("largeTypeObj", categoryInfo);
 		
 		
 		
@@ -314,7 +311,6 @@ public class CategoryController {
 		model.addAttribute("ctgList2", rstList2);
 		model.addAttribute("smallTypeObj", categoryInfo);
 		model.addAttribute("list", list);
-		
 		return "admin/product/smallTypeEdit";
 	}
 	
