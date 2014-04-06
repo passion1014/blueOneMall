@@ -48,6 +48,7 @@ public class CategoryController {
 		return "redirect:adminLogin.do";
 		}
 		List<CategoryInfo> list = categoryManageService.getCategoryInfList(categoryInfo);
+		list = getCategoryListByTypeCd(categoryInfo, "01");
 	    
 		model.addAttribute("list", list);
 		
@@ -301,9 +302,6 @@ public class CategoryController {
 		
 		categoryInfo = categoryManageService.getCategoryInfDetail(categoryInfo);
 		List<CategoryInfo> list = categoryManageService.getCategoryInfList4(categoryInfo);
-		model.addAttribute("largeTypeObj", categoryInfo);
-		
-		
 		
 		List<CategoryInfo> rstList1 = getCategoryListByTypeCd(categoryInfo, "01");//대분류 list
 		List<CategoryInfo> rstList2 = getCategoryListByTypeCd(categoryInfo, "02");//중분류 list
@@ -405,7 +403,6 @@ public class CategoryController {
 	
 	private List<CategoryInfo> getCategoryListByTypeCd(CategoryInfo categoryInfo, String ctgCodeType) {
 		List<CategoryInfo> list = categoryManageService.getCategoryInfList(categoryInfo);
-		
 		List<CategoryInfo> rstList = new ArrayList<CategoryInfo>();
 		for (CategoryInfo each : list) {
 			if (ctgCodeType.equals(each.getCtgCodeType())) {
