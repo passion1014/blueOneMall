@@ -82,18 +82,31 @@
 					<th>가격</th>
 					<th>관리</th>
 				</tr>
-				<tr>
-					<td class="center"><input id="unit_chk" name="unit_chk[]" value="gd_533bce184e45d" type="checkbox"></td>
-		<c:choose>
+						<c:choose>
 			<c:when test="${list.size() != 0}">
 				<c:forEach items="${list}" var="produts">
+				<tr>
+				
+					<td class="center"><input id="unit_chk" name="unit_chk[]" value="gd_533bce184e45d" type="checkbox"></td>
+
 					
 						<td style="text-align:center;">${produts.idx}</td>
 						<td style="text-align:center;">${produts.proListImg}</td>
 						<td style="text-align:center;">${produts.prdDp}</td>
 						<td>
 							상품분류:
-							${produts.prdCtgL}>${produts.prdCtgM}>${produts.prdCtgS}<br />
+							<c:if test="${produts.prdCtgL eq ''}">
+								없음
+							</c:if>
+							${produts.prdCtgL}>
+							<c:if test="${produts.prdCtgM eq ''}">
+								없음
+							</c:if>
+							${produts.prdCtgM}>
+							<c:if test="${produts.prdCtgS eq ''}">
+								없음
+							</c:if>
+							${produts.prdCtgS}<br />
 							특별분류:
 									
 										<c:if test="${produts.prdSpe1 eq 'y'}">

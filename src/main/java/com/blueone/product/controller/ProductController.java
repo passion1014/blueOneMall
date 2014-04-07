@@ -39,14 +39,14 @@ public class ProductController {
 	 * 관리자 물품 리스트
 	 */
 	@RequestMapping(value = "/admin/productList.do")
-	public String productList(@ModelAttribute("ProductInfo") ProductInfo productInfo, BindingResult result, Model model,HttpSession session) {
+	public String productList(@ModelAttribute("ProductInfo") SearchProdInfo srchProdInfo, BindingResult result, Model model,HttpSession session) {
 		/*
 		AdminInfo adminSession = (AdminInfo)session.getAttribute("adminSession");		
 		if(adminSession==null){
 		return "redirect:adminLogin.do";
 		}
 		*/
-		List<ProductInfo> list = productManageService.getProductInfList(productInfo);
+		List<ProductInfo> list = productManageService.getProductInfList(srchProdInfo);
 	    
 		model.addAttribute("list", list);
 		
@@ -113,7 +113,7 @@ public class ProductController {
 		
 	}
 
-	//상품등록 폼이랑 처리하는 메소드가 잇는데 이거 뭔가용?
+
 	@RequestMapping(value = "/registProductInfo.do")
 	public String registAdminInfo(@ModelAttribute("ProductInfo") ProductInfo productInfo, BindingResult result, Model model) {
 		productManageService.registProductInfo(productInfo);

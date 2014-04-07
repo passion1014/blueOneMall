@@ -24,30 +24,22 @@ public class ProductManageServiceImpl implements IProductManageService {
 	
 	//상품목록 불러옴
 	@Override
-	public List<ProductInfo> getProductInfList(ProductInfo productInfo) {
+	public List<ProductInfo> getProductInfList(SearchProdInfo srchProdInfo) {
 		
-		List<ProductInfo> productList = new ArrayList<ProductInfo>();
-		
-//		String srchSqlTp = "";
-//		if (StringUtils.isNotEmpty(searchProdInfo.getProdNm())) {
-//			
-//		}
+		List<ProductInfo> prodBaseList = new ArrayList<ProductInfo>();
 		
 		// -----------------------------------------------
 		// DB Insert 수행
 		// -----------------------------------------------
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
-			
 			// DB 수행
-			productList = sqlSession.selectList("product.selectListBomProductTb0001", productInfo);
-			productList = sqlSession.selectList("product.selectListBomProductDtlTb0001", productInfo);
-			
+			prodBaseList = sqlSession.selectList("product.selectListBomProductTb0001", srchProdInfo);
 		} finally {
 			sqlSession.close();
 		}
 		
-		return productList;
+		return prodBaseList;
 	}
 
 	@Override
@@ -161,5 +153,16 @@ public class ProductManageServiceImpl implements IProductManageService {
 		if (StringUtils.isEmpty(productInfo.getToDate())) {
 			productInfo.setToDate("9999-12-31");
 		}
+	}
+	
+	private ProductInfo getProdInfoByProdCd(List<ProductInfo> list, String prodCd) {
+		
+		for (ProductInfo each : list) {
+			if (prodCd.equals(each.getPrdCd())) {
+				return each;
+			}
+		}
+		
+		return null;
 	}
 }

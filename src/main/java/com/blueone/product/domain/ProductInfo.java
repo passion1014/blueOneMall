@@ -21,8 +21,9 @@ public class ProductInfo {
 	private String modifyUserId;// 최종수정자
 
 	//제품 상세정보
-	private String proPrice;	//소비자가
-	private String proSellPrc;	//판매가
+	private String proCd;
+	private int proPrice;	//소비자가
+	private int proSellPrc;	//판매가
 	private String proModel;	//모델명
 	private String proModelNo;	//모델명번호
 	private String proBrand;	//제조사
@@ -131,18 +132,6 @@ public class ProductInfo {
 	public void setModifyUserId(String modifyUserId) {
 		this.modifyUserId = modifyUserId;
 	}
-	public String getProPrice() {
-		return proPrice;
-	}
-	public void setProPrice(String proPrice) {
-		this.proPrice = proPrice;
-	}
-	public String getProSellPrc() {
-		return proSellPrc;
-	}
-	public void setProSellPrc(String proSellPrc) {
-		this.proSellPrc = proSellPrc;
-	}
 	public String getProModel() {
 		return proModel;
 	}
@@ -214,6 +203,24 @@ public class ProductInfo {
 	}
 	public void setAdmMeno(String admMeno) {
 		this.admMeno = admMeno;
+	}
+	public int getProPrice() {
+		return proPrice;
+	}
+	public void setProPrice(int proPrice) {
+		this.proPrice = proPrice;
+	}
+	public int getProSellPrc() {
+		return proSellPrc;
+	}
+	public void setProSellPrc(int proSellPrc) {
+		this.proSellPrc = proSellPrc;
+	}
+	public String getProCd() {
+		return proCd;
+	}
+	public void setProCd(String proCd) {
+		this.proCd = proCd;
 	}
 	
 
