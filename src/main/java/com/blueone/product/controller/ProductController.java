@@ -54,7 +54,7 @@ public class ProductController {
 	 */
 	@RequestMapping(value = "/admin/productRegister.do")
 	public String productRegister(@ModelAttribute("ProductInfo")ProductInfo productInfo, BindingResult result, Model model,HttpSession session) {
-		/*
+		
 		// -----------------------------------------------------------------
 		// 1. 세션정보를 확인해서 세션정보가 없을 경우 로그인 페이지로 이동한다.
 		// -----------------------------------------------------------------
@@ -63,7 +63,7 @@ public class ProductController {
 			return "redirect:adminLogin.do";
 		}
 
-		*/
+		
 		
 		// -----------------------------------------------------------------
 		// 2. 상품등록을 위한 카테고리(대분류) 리스트를 넘긴다.
