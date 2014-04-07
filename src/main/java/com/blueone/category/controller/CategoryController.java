@@ -47,6 +47,7 @@ public class CategoryController {
 		return "redirect:adminLogin.do";
 		}
 		List<CategoryInfo> list = categoryManageService.getCategoryInfList(categoryInfo);
+		list = getCategoryListByTypeCd(categoryInfo, "01");
 	    
 		model.addAttribute("list", list);
 		
@@ -267,10 +268,11 @@ public class CategoryController {
 		String ctgCode= "S"+code;
 		List<CategoryInfo> rstList1 = getCategoryListByTypeCd(categoryInfo, "01");//대분류 lsit
 		List<CategoryInfo> rstList2 = getCategoryListByTypeCd(categoryInfo, "02");//중분류 list
-
+		
 		model.addAttribute("ctgCode", ctgCode);
 		model.addAttribute("ctgList1", rstList1);
 		model.addAttribute("ctgList2", rstList2);
+		model.addAttribute("categoryInfo",categoryInfo);
 		
 		
 		return "admin/product/smallTypeRegister";
@@ -295,23 +297,30 @@ public class CategoryController {
 	/**
 	 * 관리자 소분류 수정폼
 	 */		
-	@RequestMapping(value="/admin/smallTypeEdit.do", method=RequestMethod.POST)
+	@RequestMapping(value="/admin/smallTypeEdit.do", method=RequestMethod.GET)
 	public String smallTypeEdit(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model){
 		
 		categoryInfo = categoryManageService.getCategoryInfDetail(categoryInfo);
 		List<CategoryInfo> list = categoryManageService.getCategoryInfList4(categoryInfo);
-		model.addAttribute("largeTypeObj", categoryInfo);
-		
-		
 		
 		List<CategoryInfo> rstList1 = getCategoryListByTypeCd(categoryInfo, "01");//대분류 list
 		List<CategoryInfo> rstList2 = getCategoryListByTypeCd(categoryInfo, "02");//중분류 list
+		
+		String ctgLargeCode = categoryInfo.getCtgLargeCode();
+		for(int idx=0; idx < rstList2.size(); idx++) {
+			CategoryInfo each = rstList2.get(idx);
+			if (!ctgLargeCode.equals(each.getCtgPCode())) {
+				rstList2.remove(idx);
+				idx--;
+			}
+		}
 
 		
 		model.addAttribute("ctgList1", rstList1);
 		model.addAttribute("ctgList2", rstList2);
-		model.addAttribute("smallTypeObj", categoryInfo);
+		model.addAttribute("categoryInfo", categoryInfo);
 		model.addAttribute("list", list);
+		
 		return "admin/product/smallTypeEdit";
 	}
 	
@@ -322,7 +331,15 @@ public class CategoryController {
 	 */
 	@RequestMapping(value = "/admin/editsmallCategoryInfProc.do", method = RequestMethod.POST)
 	public String editsmallCategoryInfoProc(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model) {
+		// ------------------------------------------------------
+		// 1. 화면으로부터 받은 입력값을 체크한다.
+		// ------------------------------------------------------
+		
+		// ------------------------------------------------------
+		// 2. CategoryInfo 값을 BOM_CATEGORY_TB에 업데이트 한다.
+		// ------------------------------------------------------
 		categoryManageService.editCategoryInf(categoryInfo);
+
 		
 		return "redirect:smallTypeList.do";
 	}
@@ -405,7 +422,6 @@ public class CategoryController {
 	
 	private List<CategoryInfo> getCategoryListByTypeCd(CategoryInfo categoryInfo, String ctgCodeType) {
 		List<CategoryInfo> list = categoryManageService.getCategoryInfList(categoryInfo);
-		
 		List<CategoryInfo> rstList = new ArrayList<CategoryInfo>();
 		for (CategoryInfo each : list) {
 			if (ctgCodeType.equals(each.getCtgCodeType())) {

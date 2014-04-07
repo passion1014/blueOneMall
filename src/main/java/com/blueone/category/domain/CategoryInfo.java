@@ -24,7 +24,14 @@ public class CategoryInfo {
 	private String ctgLargeName;
 	private String ctgMiddleCode;
 	private String ctgMiddleName;
+	private String srchFullYn;
 	
+	public String getSrchFullYn() {
+		return srchFullYn;
+	}
+	public void setSrchFullYn(String srchFullYn) {
+		this.srchFullYn = srchFullYn;
+	}
 	public int getIdx() {
 		return idx;
 	}

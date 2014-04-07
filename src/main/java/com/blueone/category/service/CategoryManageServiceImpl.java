@@ -145,15 +145,34 @@ public class CategoryManageServiceImpl implements ICategoryManageService {
 	public CategoryInfo getCategoryInfDetail(CategoryInfo categoryInfo) {
 		                 
 		CategoryInfo rstInfo = new CategoryInfo();
-		// -----------------------------------------------
-		// 조회
-		// -----------------------------------------------
+		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
+			// -----------------------------------------------
+			// 1. 카테고리 기본값 조회
+			// -----------------------------------------------
 			rstInfo = sqlSession.selectOne("category.selectDtlBomCategoryTb0001", categoryInfo);
+			
+			// -----------------------------------------------
+			// 2. 부모카테고리 조회 - 대분류일 경우 조회가 필요없음
+			// -----------------------------------------------
+			if (!"01".equals(categoryInfo.getCtgCodeType())) {
+				List<CategoryInfo> ctgFullList = sqlSession.selectList("category.selectListBomCategoryTb0006", categoryInfo);
+				
+				String ctgCode = categoryInfo.getCtgCode();
+				for (CategoryInfo each : ctgFullList) {
+					if (ctgCode.equals(each.getCtgCode())) {
+						rstInfo.setCtgLargeCode(each.getCtgLargeCode());
+						rstInfo.setCtgLargeName(each.getCtgLargeName());
+						rstInfo.setCtgMiddleCode(each.getCtgMiddleCode());
+						rstInfo.setCtgMiddleName(each.getCtgMiddleName());
+					}
+				}
+			}
 		} finally {
 			sqlSession.close();
 		}
+		
 		
 		return rstInfo;
 	}

@@ -55,8 +55,6 @@
 			T1.MODIFY_USER_ID AS t1modifyUserId
 		FROM
 			BOM_CATEGORY_TB AS T1
-		WHERE 
-			T1.CTG_CODE_TYPE = '01'
 		ORDER BY
 			T1.CTG_ORDER ASC, T1.CTG_CODE_TYPE ASC, T1.CTG_P_CODE ASC
 	</select >	
@@ -152,12 +150,37 @@
 			LEFT JOIN BOM_CATEGORY_TB T2 
 				ON ( T3.CTG_P_CODE = T2.CTG_CODE AND T2.CTG_CODE_TYPE='01' )
 		WHERE 
-			T1.CTG_CODE_TYPE = '03'		
+			T1.CTG_CODE_TYPE = '03'
 		ORDER BY
 			T2.CTG_ORDER ASC, T3.CTG_ORDER ASC, T1.CTG_ORDER ASC 		
 	</select >
 	
-	
+	<select id="selectListBomCategoryTb0006" parameterType="categoryInfo" resultType="categoryInfo" resultMap="CategoryInfoMap">
+		SELECT
+			T1.IDX            AS t1IDX, 
+			T1.CTG_P_CODE     AS t1ctgPCode, 
+			T1.CTG_CODE_TYPE  AS t1ctgCodeType, 
+			T1.CTG_CODE       AS t1ctgCode, 
+			T1.CTG_NAME       AS t1ctgName, 
+			T1.CTG_DESC       AS t1ctgDesc,
+			T1.CTG_ORDER      AS t1ctgOrder, 
+			T1.FROM_DATE      AS t1fromDate, 
+			T1.TO_DATE        AS t1toDate, 
+			T1.REG_DATE       AS t1regDate, 
+			T1.LAST_DATE      AS t1lastDate, 
+			T1.MODIFY_USER_ID AS t1modifyUserId,
+			T3.CTG_CODE       AS t3ctgCode,
+			T3.CTG_NAME       AS t3ctgName,
+			T2.CTG_CODE       AS t2ctgCode,
+			T2.CTG_NAME       AS t2ctgName
+		FROM BOM_CATEGORY_TB AS T1
+			LEFT JOIN BOM_CATEGORY_TB T3 
+				ON ( T1.CTG_P_CODE = T3.CTG_CODE AND T3.CTG_CODE_TYPE='02' )
+			LEFT JOIN BOM_CATEGORY_TB T2 
+				ON ( T3.CTG_P_CODE = T2.CTG_CODE AND T2.CTG_CODE_TYPE='01' )
+		ORDER BY
+			T2.CTG_ORDER ASC, T3.CTG_ORDER ASC, T1.CTG_ORDER ASC 		
+	</select >
 	
 
 
