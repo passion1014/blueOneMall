@@ -99,14 +99,17 @@
 								없음
 							</c:if>
 							${produts.prdCtgL}>
+							
 							<c:if test="${produts.prdCtgM eq ''}">
 								없음
 							</c:if>
 							${produts.prdCtgM}>
+							
 							<c:if test="${produts.prdCtgS eq ''}">
 								없음
 							</c:if>
 							${produts.prdCtgS}<br />
+							
 							특별분류:
 									
 										<c:if test="${produts.prdSpe1 eq 'y'}">
