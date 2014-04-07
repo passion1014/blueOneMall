@@ -14,7 +14,7 @@ public class BoardInfo {
 	private int depth;			// 게시물깊이
 	private String passwd;		// 비밀번호
 	private String title;		// 제목
-	private String cont;		// 내용
+	private String content;		// 내용
 	private int hit;			// 조회수
 	private int commCnt;		// 덧글수
 	private int replyCnt;		// 답변수
@@ -186,11 +186,11 @@ public class BoardInfo {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getCont() {
-		return cont;
+	public String getContent() {
+		return content;
 	}
-	public void setCont(String cont) {
-		this.cont = cont;
+	public void setContent(String content) {
+		this.content = content;
 	}
 	public int getHit() {
 		return hit;
@@ -253,8 +253,8 @@ public class BoardInfo {
 		this.updUser = updUser;
 	}
 	public String getContText() {
-		if (cont != null) {
-			return cont.replaceAll("(?i)<((/)?)(object|param|embed|img|OBJECT|PARAM|EMBED|IMG|Object|Param|Embed|Img)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>","");
+		if (content != null) {
+			return content.replaceAll("(?i)<((/)?)(object|param|embed|img|OBJECT|PARAM|EMBED|IMG|Object|Param|Embed|Img)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>","");
 		} else {
 			return "";
 		}
