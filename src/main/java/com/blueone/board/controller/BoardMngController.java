@@ -205,7 +205,7 @@ public class BoardMngController {
 		boardModel.setDepth(boardModel.getDepth() + 1);
 		boardModel.setTitle("[답변] " + boardModel.getTitle());
 		
-		boardModel.setCont("");
+		boardModel.setContent("");
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/admin/board/mngWrite");
