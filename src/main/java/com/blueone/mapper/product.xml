@@ -52,6 +52,15 @@
 			<if test="prdCtgM != null and prdCtgM != ''">AND PRD_CTG_M LIKE CONCAT(#{prdCtgM},'%')</if>
 			<if test="prdCtgS != null and prdCtgS != ''">AND PRD_CTG_S LIKE CONCAT(#{prdCtgS},'%')</if>
 	</select >
+	<select id="selectListBomProductDtlTb0001" parameterType="com.blueone.product.domain.SearchProdInfo" resultType="com.blueone.product.domain.ProductInfo">
+		SELECT  
+				`PRO_CD`,`PRO_PRICE`,`PRO_SELL_PRICE`,`PRO_MODEL`
+				,`PRO_MODEL_NO`,`PRO_BRAND`,`PRO_LIST_CMT`,`PRO_LIST_IMG`
+				,`PRO_IMG_1`,`PRO_IMG_2`,`PRO_IMG_3`,`PRO_IMG_4`
+				,`PRO_CONTENTS`,`PRO_TRANSFOR_INF`,`ADMIN_MEMO`
+		FROM BOM_PRODUCT_DETAIL_TB
+		
+	</select >
 
 	<insert id="insertBomProductTb0001" parameterType="productInfo">
 		INSERT  BOM_PRODUCT_TB

@@ -21,6 +21,8 @@ public class ProductManageServiceImpl implements IProductManageService {
 	@Autowired
 	private SqlSessionFactory sqlSessionFactory;
 
+	
+	//상품목록 불러옴
 	@Override
 	public List<ProductInfo> getProductInfList(ProductInfo productInfo) {
 		
@@ -39,6 +41,8 @@ public class ProductManageServiceImpl implements IProductManageService {
 			
 			// DB 수행
 			productList = sqlSession.selectList("product.selectListBomProductTb0001", productInfo);
+			productList = sqlSession.selectList("product.selectListBomProductDtlTb0001", productInfo);
+			
 		} finally {
 			sqlSession.close();
 		}

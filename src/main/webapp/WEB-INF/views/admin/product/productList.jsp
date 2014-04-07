@@ -84,13 +84,51 @@
 				</tr>
 				<tr>
 					<td class="center"><input id="unit_chk" name="unit_chk[]" value="gd_533bce184e45d" type="checkbox"></td>
+		<c:choose>
+			<c:when test="${list.size() != 0}">
+				<c:forEach items="${list}" var="produts">
 					
-					
-					<td class="center">
+						<td style="text-align:center;">${produts.idx}</td>
+						<td style="text-align:center;">${produts.proListImg}</td>
+						<td style="text-align:center;">${produts.prdDp}</td>
+						<td>
+							상품분류:
+							${produts.prdCtgL}>${produts.prdCtgM}>${produts.prdCtgS}<br />
+							특별분류:
+									
+										<c:if test="${produts.prdSpe1 eq 'y'}">
+											<c:out value="베스트"></c:out>
+										</c:if>
+										
+										<c:if test="${produts.prdSpe1 eq 'y'}">
+											<c:out value="행사품목"></c:out>
+										</c:if><br />
+									
+							상품명:${produts.prdNm}
+								
+						</td>
+						<td class="right">
+							<strike>${produts.proPrice}</strike> 원<br />
+							<b>${produts.proSellPrc}</b> 원						
+						</td>
+						<td class="center">
 						<input value="보기" class="Small_Button Gray" style="margin-bottom:5px;" onclick="openWin('./product/product.goods_viewer.php?gCode=gd_533bce184e45d','goods_viewer',1028,900,'scrollbars=yes');" type="button"> <br>
 						<input value="관리" class="Small_Button Gray" style="margin-bottom:5px;" onclick="location.href='./admin.product.php?slot=product&amp;type=goods_detail&amp;step=information&amp;gCode=gd_533bce184e45d&amp;s_1_idx=&amp;s_m_idx=&amp;s_s_idx=&amp;s_display_yn=&amp;sp_type_1=&amp;sp_type_2=&amp;sp_type_3=&amp;sp_type_4=&amp;keyfield=&amp;keyword='" type="button"> <br>
 						<input value="삭제" class="Small_Button Gray" onclick="confirm_process('actionForm','삭제하시겠습니까? \n\n삭제후에는 복원이 불가능합니다.','./_action/product.do.php?Mode=del_goods&amp;goods_code=gd_533bce184e45d')" type="button">
 					</td>
+					
+				</c:forEach>
+			</c:when>
+			<c:otherwise>
+			
+					<td colspan="6" height="200"> 등록된 상품이 없습니다.</td>
+					
+		    </c:otherwise>
+		</c:choose>
+	
+	
+			
+		
 				</tr>
 			</tbody>
 		</table>
