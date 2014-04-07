@@ -41,12 +41,13 @@
 
 	<select id="selectListBomProductTb0001" parameterType="com.blueone.product.domain.SearchProdInfo" resultType="com.blueone.product.domain.ProductInfo">
 		SELECT  
-			`IDX`,`PRD_CD`,`PRD_NM`,`PRD_DESC`,`PRD_DESC_HTML`,`PRD_CTG_L`,`PRD_CTG_M`,`PRD_CTG_S`
+			`IDX`,`PRD_CD`,`PRD_DISPLAY_YN`,`PRD_ORDER`,`PRD_NM`,
+			`PRD_CTG_L`,`PRD_CTG_M`,`PRD_CTG_S`,`PRO_SPECAL_1`,`PRO_SPECAL_2`,`SEARCH_WORD`
 			,`FROM_DATE`,`TO_DATE`,`REG_DATE`,`LAST_DATE`,`MODIFY_USER_ID`
 		FROM BOM_PRODUCT_TB
 		WHERE
 			1 = 1
-			<if test="prodNm != null and prodNm != ''">AND PRD_NM LIKE CONCAT(#{prodNm},'%')</if>
+			<if test="prdNm != null and prdNm != ''">AND PRD_NM LIKE CONCAT(#{prdNm},'%')</if>
 			<if test="prdCtgL != null and prdCtgL != ''">AND PRD_CTG_L LIKE CONCAT(#{prdCtgL},'%')</if>
 			<if test="prdCtgM != null and prdCtgM != ''">AND PRD_CTG_M LIKE CONCAT(#{prdCtgM},'%')</if>
 			<if test="prdCtgS != null and prdCtgS != ''">AND PRD_CTG_S LIKE CONCAT(#{prdCtgS},'%')</if>

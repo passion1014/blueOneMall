@@ -84,20 +84,8 @@
 				</tr>
 				<tr>
 					<td class="center"><input id="unit_chk" name="unit_chk[]" value="gd_533bce184e45d" type="checkbox"></td>
-					<td class="center">1</td>
-					<td class="center">&nbsp;</td>
-					<td class="center">
-						<font color="#3333FF"><b>진열</b></font><br>
-					</td>
-					<td style="line-height:160%;">
-						상품분류 : Tool kits &gt; 11 <br>
-						특별분류 : <br>
-						상품명 : 111												
-					</td>
-					<td class="right">
-						<strike>10000</strike> 원<br />
-						<b>10000</b> 원						
-					</td>
+					
+					
 					<td class="center">
 						<input value="보기" class="Small_Button Gray" style="margin-bottom:5px;" onclick="openWin('./product/product.goods_viewer.php?gCode=gd_533bce184e45d','goods_viewer',1028,900,'scrollbars=yes');" type="button"> <br>
 						<input value="관리" class="Small_Button Gray" style="margin-bottom:5px;" onclick="location.href='./admin.product.php?slot=product&amp;type=goods_detail&amp;step=information&amp;gCode=gd_533bce184e45d&amp;s_1_idx=&amp;s_m_idx=&amp;s_s_idx=&amp;s_display_yn=&amp;sp_type_1=&amp;sp_type_2=&amp;sp_type_3=&amp;sp_type_4=&amp;keyfield=&amp;keyword='" type="button"> <br>

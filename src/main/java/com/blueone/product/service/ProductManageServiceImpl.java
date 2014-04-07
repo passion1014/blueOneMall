@@ -22,7 +22,32 @@ public class ProductManageServiceImpl implements IProductManageService {
 	private SqlSessionFactory sqlSessionFactory;
 
 	@Override
-	public List<ProductInfo> getProductList(SearchProdInfo searchProdInfo) {
+	public List<ProductInfo> getProductInfList(ProductInfo productInfo) {
+		
+		List<ProductInfo> productList = new ArrayList<ProductInfo>();
+		
+//		String srchSqlTp = "";
+//		if (StringUtils.isNotEmpty(searchProdInfo.getProdNm())) {
+//			
+//		}
+		
+		// -----------------------------------------------
+		// DB Insert 수행
+		// -----------------------------------------------
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			
+			// DB 수행
+			productList = sqlSession.selectList("product.selectListBomProductTb0001", productInfo);
+		} finally {
+			sqlSession.close();
+		}
+		
+		return productList;
+	}
+
+	@Override
+	public List<ProductInfo> getProductSearchList(SearchProdInfo searchProdInfo) {
 		
 		List<ProductInfo> productList = new ArrayList<ProductInfo>();
 		

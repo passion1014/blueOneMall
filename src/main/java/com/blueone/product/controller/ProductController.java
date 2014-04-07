@@ -40,10 +40,16 @@ public class ProductController {
 	 */
 	@RequestMapping(value = "/admin/productList.do")
 	public String productList(@ModelAttribute("ProductInfo") ProductInfo productInfo, BindingResult result, Model model,HttpSession session) {
+		/*
 		AdminInfo adminSession = (AdminInfo)session.getAttribute("adminSession");		
 		if(adminSession==null){
 		return "redirect:adminLogin.do";
 		}
+		*/
+		List<ProductInfo> list = productManageService.getProductInfList(productInfo);
+	    
+		model.addAttribute("list", list);
+		
 		
 		
 		return "admin/product/productList";
@@ -118,7 +124,7 @@ public class ProductController {
 	@RequestMapping(value = "/searchProductList.do", method = RequestMethod.GET)
 	public String getAdminInfoList(@ModelAttribute("searchProdInfo") SearchProdInfo searchProdInfo, BindingResult result, Model model) {
 
-		List<ProductInfo> list = productManageService.getProductList(searchProdInfo);
+		List<ProductInfo> list = productManageService.getProductSearchList(searchProdInfo);
 	    model.addAttribute("list", list);
 	    
 		return "product/result";
