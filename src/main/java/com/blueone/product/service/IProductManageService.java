@@ -15,5 +15,13 @@ public interface IProductManageService {
 	public ProductInfo editProductInfo(ProductInfo productInfo);
 	public ProductInfo removeProductInfDetail(ProductInfo productInfo);
 	public ProductInfo registProductDtlInfo(ProductInfo productInfo);
+	
+	
+	
+	
+	
+	
+	//사용자 페이지
+	public List<ProductInfo> shopProductInfList(ProductInfo productInfo);
 
 }

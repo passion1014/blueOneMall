@@ -165,4 +165,26 @@ public class ProductManageServiceImpl implements IProductManageService {
 		
 		return null;
 	}
+	
+	
+	
+	
+	
+	
+	@Override
+	public List<ProductInfo> shopProductInfList(ProductInfo productInfo){
+		
+		List<ProductInfo> list = null;
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		
+		try{
+			
+		list =	sqlSession.selectList("product.selectListBomShopProductTb0001", productInfo);
+			
+		}finally{
+			sqlSession.close();
+		}
+		
+		return list;
+	}
 }

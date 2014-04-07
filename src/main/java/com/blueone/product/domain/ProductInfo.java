@@ -35,7 +35,7 @@ public class ProductInfo {
 	private String proImg4;		//상세보기 이미지4
 	private String proConts;	//상세보기
 	private String proTransInf;	//배송,반품,교환정보
-	private String admMeno;		//관리자메모
+	private String admMemo;		//관리자메모
 	public int getIdx() {
 		return idx;
 	}
@@ -198,11 +198,11 @@ public class ProductInfo {
 	public void setProTransInf(String proTransInf) {
 		this.proTransInf = proTransInf;
 	}
-	public String getAdmMeno() {
-		return admMeno;
+	public String getAdmMemo() {
+		return admMemo;
 	}
-	public void setAdmMeno(String admMeno) {
-		this.admMeno = admMeno;
+	public void setAdmMemo(String admMemo) {
+		this.admMemo = admMemo;
 	}
 	public int getProPrice() {
 		return proPrice;

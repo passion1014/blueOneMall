@@ -139,15 +139,13 @@ public class ProductController {
 	
 	/*
 	 * 사용자 물품 리스트
+	 */
 	@RequestMapping(value = "/product/productList.do")
 	public String userProductList(@ModelAttribute("ProductInfo") ProductInfo productInfo, BindingResult result, Model model,HttpSession session) {
-		/*
-		AdminInfo adminSession = (AdminInfo)session.getAttribute("adminSession");		
-		if(adminSession==null){
-		return "redirect:adminLogin.do";
-		}
 		
-		List<ProductInfo> list = productManageService.getProductInfList(productInfo);
+		
+		
+		List<ProductInfo> list = productManageService.shopProductInfList(productInfo);
 	    
 		model.addAttribute("list", list);
 		
@@ -156,7 +154,7 @@ public class ProductController {
 		return "product/productList";
 	}
 	
-	*/
+	
 	
 
 	
