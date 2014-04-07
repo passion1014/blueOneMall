@@ -34,8 +34,7 @@ public class CategoryController {
 	
 	@Autowired
 	ICategoryManageService categoryManageService;
-	
-		
+
 	/**
 	 * 관리자 대분류 리스트
 	 */
@@ -380,9 +379,10 @@ public class CategoryController {
 	public List<CategoryInfo> getCategoryList4Combo(@PathVariable String ctgPCode) {
 
 		CategoryInfo categoryInfo = new CategoryInfo();
+		categoryInfo.setCtgPCode(ctgPCode);
 
-		//categoryInfo.setCtgPCode(ctgPCode);
-		List<CategoryInfo> list = categoryManageService.getCategoryInfList3(categoryInfo);
+//		List<CategoryInfo> list = categoryManageService.getCategoryInfList3(categoryInfo);
+		List<CategoryInfo> list = categoryManageService.getCategoryInfListByPCode(categoryInfo);
 		
 	
 		List<CategoryInfo> rstList = new ArrayList<CategoryInfo>();

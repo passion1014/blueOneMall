@@ -10,8 +10,9 @@ public interface IProductManageService {
 
 	public List<ProductInfo> getProductList(SearchProdInfo searchProdInfo);
 	public ProductInfo getProductInfDetail(ProductInfo productInfo);
-	public ResultInfo registProductInfo(ProductInfo productInfo);
-	public ResultInfo editProductInfo(ProductInfo productInfo);
-	public ResultInfo removeProductInfDetail(ProductInfo productInfo);
+	public ProductInfo registProductInfo(ProductInfo productInfo);
+	public ProductInfo editProductInfo(ProductInfo productInfo);
+	public ProductInfo removeProductInfDetail(ProductInfo productInfo);
+	public ProductInfo registProductDtlInfo(ProductInfo productInfo);
 
 }

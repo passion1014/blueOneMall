@@ -4,22 +4,56 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="product">
-	<resultMap id="ProductInfoMap" type="com.blueone.product.domain.ProductInfo">
+	<resultMap id="ProductMap" type="com.blueone.product.domain.ProductInfo">
 		<id property="idx" column="IDX" javaType="int"/>
 		<result property="prdCd" column="PRD_CD" javaType="java.lang.String"/>
+		<result property="prdDp" column="PRD_DISPLAY_YN" javaType="java.lang.String"/>
+		<result property="prdOrd" column="PRD_ORDER" javaType="int"/>
 		<result property="prdNm" column="PRD_NM" javaType="java.lang.String"/>
-		<result property="prdDesc" column="PRD_DESC" javaType="java.lang.String"/>
-		<result property="prdDescHtml" column="PRD_DESC_HTML" javaType="java.lang.String"/>
 		<result property="prdCtgL" column="PRD_CTG_L" javaType="java.lang.String"/>
 		<result property="prdCtgM" column="PRD_CTG_M" javaType="java.lang.String"/>
 		<result property="prdCtgS" column="PRD_CTG_S" javaType="java.lang.String"/>
+		<result property="prdSpe1" column="PRO_SPECAL_1" javaType="java.lang.String"/>
+		<result property="prdSpe2" column="PRO_SPECAL_2" javaType="java.lang.String"/>
+		<result property="schWord" column="SEARCH_WORD" javaType="java.lang.String"/>
 		<result property="fromDate" column="FROM_DATE" javaType="java.lang.String"/>
 		<result property="toDate" column="TO_DATE" javaType="int"/>
 		<result property="regDate" column="REG_DATE" javaType="java.lang.String"/>
 		<result property="lastDate" column="LAST_DATE" javaType="java.lang.String"/>
 		<result property="modifyUserId" column="MODIFY_USER_ID" javaType="java.lang.String"/>
+
+		<result property="prdPrice" column="PRO_PRICE" javaType="int"/>
+		<result property="prdSellPrc" column="PRO_SELL_PRICE" javaType="int"/>
+		<result property="prdModel" column="PRO_MODEL" javaType="java.lang.String"/>
+		<result property="prdBrand" column="PRO_BRAND" javaType="java.lang.String"/>
+		<result property="prdListCmt" column="PRO_LIST_CMT" javaType="java.lang.String"/>
+		<result property="prdListImg" column="PRO_LIST_IMG" javaType="java.lang.String"/>
+		<result property="prdImg1" column="PRO_IMG_1" javaType="java.lang.String"/>
+		<result property="prdImg2" column="PRO_IMG_2" javaType="java.lang.String"/>
+		<result property="prdImg3" column="PRO_IMG_6" javaType="java.lang.String"/>
+		<result property="prdImg4" column="PRO_IMG_4" javaType="java.lang.String"/>
+		<result property="prdConts" column="PRO_CONTENTS" javaType="java.lang.String"/>
+		<result property="prdTransInf" column="PRO_TRANSFOR_INF" javaType="int"/>
+		<result property="admMeno" column="ADMIN_MEMO" javaType="java.lang.String"/>
 	</resultMap>
 	
+<!-- 	<resultMap id="ProductDtlMap" type="com.blueone.product.domain.ProducDtltInfo">
+		<result property="prdCd" column="PRD_CD" javaType="java.lang.String"/>
+		<result property="prdPrice" column="PRO_PRICE" javaType="int"/>
+		<result property="prdSellPrc" column="PRO_SELL_PRICE" javaType="int"/>
+		<result property="prdModel" column="PRO_MODEL" javaType="java.lang.String"/>
+		<result property="prdBrand" column="PRO_BRAND" javaType="java.lang.String"/>
+		<result property="prdListCmt" column="PRO_LIST_CMT" javaType="java.lang.String"/>
+		<result property="prdListImg" column="PRO_LIST_IMG" javaType="java.lang.String"/>
+		<result property="prdImg1" column="PRO_IMG_1" javaType="java.lang.String"/>
+		<result property="prdImg2" column="PRO_IMG_2" javaType="java.lang.String"/>
+		<result property="prdImg3" column="PRO_IMG_6" javaType="java.lang.String"/>
+		<result property="prdImg4" column="PRO_IMG_4" javaType="java.lang.String"/>
+		<result property="prdConts" column="PRO_CONTENTS" javaType="java.lang.String"/>
+		<result property="prdTransInf" column="PRO_TRANSFOR_INF" javaType="int"/>
+		<result property="admMeno" column="ADMIN_MEMO" javaType="java.lang.String"/>
+	</resultMap>
+ -->
 	<select id="selectListBomProductTb0001" parameterType="com.blueone.product.domain.SearchProdInfo" resultType="com.blueone.product.domain.ProductInfo">
 		SELECT  
 			`IDX`,`PRD_CD`,`PRD_NM`,`PRD_DESC`,`PRD_DESC_HTML`,`PRD_CTG_L`,`PRD_CTG_M`,`PRD_CTG_S`
@@ -33,7 +67,7 @@
 			<if test="prdCtgS != null and prdCtgS != ''">AND PRD_CTG_S LIKE CONCAT(#{prdCtgS},'%')</if>
 	</select >
 
-	<insert id="insertBomProductTb0001" parameterType="com.blueone.product.domain.ProductInfo">
+	<insert id="insertBomProductTb0001" parameterType="productInfo">
 		INSERT  BOM_PRODUCT_TB
 			(`PRD_CD`,`PRD_NM`,`PRD_DESC`,`PRD_DESC_HTML`
 				,`PRD_CTG_L`,`PRD_CTG_M`,`PRD_CTG_S`,`FROM_DATE`
@@ -41,6 +75,18 @@
 			VALUES
 			(#{prdCd}, #{prdNm}, #{prdDesc}, #{prdDescHtml}, #{prdCtgL}, #{prdCtgM}
 				, #{prdCtgS}, #{fromDate}, #{toDate}, sysdate(), sysdate(), 'default')
+	</insert>
+
+	<insert id="insertBomProductDtlTb0001" parameterType="productInfo">
+		INSERT  BOM_PRODUCT_DETAIL_TB
+			(`PRD_CD`,`PRO_PRICE`,`PRO_SELL_PRICE`,`PRO_MODEL`
+				,`PRO_MODEL_NO`,`PRO_BRAND`,`PRO_LIST_CMT`,`PRO_LIST_IMG`
+				,`PRO_IMG_1`,`PRO_IMG_2`,`PRO_IMG_3`,`PRO_IMG_4`
+				,`PRO_CONTENTS`,`PRO_TRANSFOR_INF`,`ADMIN_MEMO`)
+			VALUES
+			(#{prdCd}, #{prdPrice}, #{prdSellPrc}, #{prdModel}, #{prdBrand}, #{prdListCmt}
+				, #{prdListImg}, #{prdImg1},#{prdImg2},#{prdImg3},#{prdImg4}
+				, #{prdConts}, #{prdTransInf},#{admMeno})
 	</insert>
 
 </mapper>

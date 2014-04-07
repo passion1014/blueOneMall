@@ -2,6 +2,42 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:import  url="../inc/top.jsp" />
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#largeType').change(function() {
+			$.getJSON('/admin/categoryListByParent/' + $('#largeType').val(), function(result) {
+//				alert('중분류 size=' + result.length + '    ctgCode=' + result[0].ctgCode);
+				var options = '';
+				if (result != null && result.length > 0) {
+					for (var i = 0; i < result.length; i++) {
+						options += '<option value="' + result[i].ctgCode + '">' + result[i].ctgName + '</option>';
+					}
+				} else {
+					options = "<option value=''>없음</option>";
+				}
+				$("select#middleType").html(options);
+			});
+		});
+		
+		$('#middleType').change(function() {
+			$.getJSON('/admin/categoryListByParent/' + $('#middleType').val(), function(result) {
+				var options = '';
+				if (result != null && result.length > 0) {
+					for (var i = 0; i < result.length; i++) {
+						options += '<option value="' + result[i].ctgCode + '">' + result[i].ctgName + '</option>';
+					}
+				} else {
+					options = "<option value=''>없음</option>";
+				}
+				$("select#smallType").html(options);
+			});
+		});
+		
+	});
+</script>
+
+
 <c:set var="test" value="goodsList" scope="request"/> 
 <body>
 <div id="Wrap">
@@ -52,21 +88,24 @@
 			<th>상품분류</th>
 			<td colspan="3" style="text-align:left;">
 				<select id="largeType" name="largeType">
-					<option value="">대분류를 선택하여주십시오</option>	
-					<c:forEach items="${ctgList1}" var="largeTypeObj">
+					<option value="">:::: 대분류를 선택하여주십시오 ::::</option>	
+					<c:forEach items="${ctgLList}" var="largeTypeObj">
 						<option value="<c:out value="${largeTypeObj.ctgCode}"></c:out>"><c:out value="${largeTypeObj.ctgName}"></c:out></option>
 					</c:forEach>							
 				</select>&nbsp;
 				
 				<select id="middleType" name="middleType">
-					<option value="">중분류를 선택하여주십시오</option>	
-					<c:forEach items="${ctgList1}" var="middleTypeObj">
-						<option value="<c:out value="${largeTypeObj.ctgCode}"></c:out>"><c:out value="${largeTypeObj.ctgName}"></c:out></option>
+					<option value="">:::: 중분류를 선택하여주십시오 ::::</option>	
+					<c:forEach items="${ctgList2}" var="middleTypeObj">
+						<option value="<c:out value="${middleTypeObj.ctgCode}"></c:out>"><c:out value="${middleTypeObj.ctgName}"></c:out></option>
 					</c:forEach>							
 				</select>&nbsp;		
 
-				<select name="small_idx" id="small_idx">
+				<select name="smallType" id="smallType">
 					<option value="">:::: 소분류를 선택하여 주십시오 ::::</option>
+					<c:forEach items="${ctgList3}" var="smallTypeObj">
+						<option value="<c:out value="${smallTypeObj.ctgCode}"></c:out>"><c:out value="${smallTypeObj.ctgName}"></c:out></option>
+					</c:forEach>	
 				</select> &nbsp;				
 			</td>
 		</tr>
