@@ -40,12 +40,12 @@ public class ProductController {
 	 */
 	@RequestMapping(value = "/admin/productList.do")
 	public String productList(@ModelAttribute("ProductInfo") SearchProdInfo srchProdInfo, BindingResult result, Model model,HttpSession session) {
-		/*
+		
 		AdminInfo adminSession = (AdminInfo)session.getAttribute("adminSession");		
 		if(adminSession==null){
 		return "redirect:adminLogin.do";
 		}
-		*/
+		
 		List<ProductInfo> list = productManageService.getProductInfList(srchProdInfo);
 	    
 		model.addAttribute("list", list);
