@@ -268,10 +268,11 @@ public class CategoryController {
 		String ctgCode= "S"+code;
 		List<CategoryInfo> rstList1 = getCategoryListByTypeCd(categoryInfo, "01");//대분류 lsit
 		List<CategoryInfo> rstList2 = getCategoryListByTypeCd(categoryInfo, "02");//중분류 list
-
+		
 		model.addAttribute("ctgCode", ctgCode);
 		model.addAttribute("ctgList1", rstList1);
 		model.addAttribute("ctgList2", rstList2);
+		model.addAttribute("categoryInfo",categoryInfo);
 		
 		
 		return "admin/product/smallTypeRegister";
@@ -304,11 +305,20 @@ public class CategoryController {
 		
 		List<CategoryInfo> rstList1 = getCategoryListByTypeCd(categoryInfo, "01");//대분류 list
 		List<CategoryInfo> rstList2 = getCategoryListByTypeCd(categoryInfo, "02");//중분류 list
+		
+		String ctgLargeCode = categoryInfo.getCtgLargeCode();
+		for(int idx=0; idx < rstList2.size(); idx++) {
+			CategoryInfo each = rstList2.get(idx);
+			if (!ctgLargeCode.equals(each.getCtgPCode())) {
+				rstList2.remove(idx);
+				idx--;
+			}
+		}
 
 		
 		model.addAttribute("ctgList1", rstList1);
 		model.addAttribute("ctgList2", rstList2);
-		model.addAttribute("smallTypeObj", categoryInfo);
+		model.addAttribute("categoryInfo", categoryInfo);
 		model.addAttribute("list", list);
 		
 		return "admin/product/smallTypeEdit";
