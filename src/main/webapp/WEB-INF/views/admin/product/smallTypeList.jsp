@@ -103,7 +103,7 @@ function closeDialog() {
 
 function dialogUpdate(cCode) {
 	$.ajax({
-		type: "POST",
+		type: "GET",
 		url: "smallTypeEdit.do",
 		cache: false,
 		async: false,

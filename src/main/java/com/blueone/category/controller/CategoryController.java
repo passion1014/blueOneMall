@@ -296,7 +296,7 @@ public class CategoryController {
 	/**
 	 * 관리자 소분류 수정폼
 	 */		
-	@RequestMapping(value="/admin/smallTypeEdit.do", method=RequestMethod.POST)
+	@RequestMapping(value="/admin/smallTypeEdit.do", method=RequestMethod.GET)
 	public String smallTypeEdit(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model){
 		
 		categoryInfo = categoryManageService.getCategoryInfDetail(categoryInfo);
@@ -310,6 +310,7 @@ public class CategoryController {
 		model.addAttribute("ctgList2", rstList2);
 		model.addAttribute("smallTypeObj", categoryInfo);
 		model.addAttribute("list", list);
+		
 		return "admin/product/smallTypeEdit";
 	}
 	
@@ -320,7 +321,15 @@ public class CategoryController {
 	 */
 	@RequestMapping(value = "/admin/editsmallCategoryInfProc.do", method = RequestMethod.POST)
 	public String editsmallCategoryInfoProc(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model) {
+		// ------------------------------------------------------
+		// 1. 화면으로부터 받은 입력값을 체크한다.
+		// ------------------------------------------------------
+		
+		// ------------------------------------------------------
+		// 2. CategoryInfo 값을 BOM_CATEGORY_TB에 업데이트 한다.
+		// ------------------------------------------------------
 		categoryManageService.editCategoryInf(categoryInfo);
+
 		
 		return "redirect:smallTypeList.do";
 	}
