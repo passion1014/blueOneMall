@@ -2,7 +2,6 @@ package com.blueone.product.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale.Category;
 
 import javax.servlet.http.HttpSession;
 
@@ -16,10 +15,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.blueone.admin.domain.AdminInfo;
-import com.blueone.category.controller.CategoryController;
 import com.blueone.category.domain.CategoryInfo;
 import com.blueone.category.service.ICategoryManageService;
 import com.blueone.product.domain.ProductInfo;
@@ -55,6 +54,7 @@ public class ProductController {
 	 */
 	@RequestMapping(value = "/admin/productRegister.do")
 	public String productRegister(@ModelAttribute("ProductInfo")ProductInfo productInfo, BindingResult result, Model model,HttpSession session) {
+		/*
 		// -----------------------------------------------------------------
 		// 1. 세션정보를 확인해서 세션정보가 없을 경우 로그인 페이지로 이동한다.
 		// -----------------------------------------------------------------
@@ -63,6 +63,8 @@ public class ProductController {
 			return "redirect:adminLogin.do";
 		}
 
+		*/
+		
 		// -----------------------------------------------------------------
 		// 2. 상품등록을 위한 카테고리(대분류) 리스트를 넘긴다.
 		// -----------------------------------------------------------------
@@ -77,27 +79,35 @@ public class ProductController {
 			}
 		}
 		
+		
 		// 결과값 셋팅
 		model.addAttribute("ctgLList", rstList);
-					
-		return "admin/product/productRegister";
+							
+		return "admin/product/ProductRegister";
 	}
 	
 	/**
 	 * 상품등록처리 등록처리
 	 */
 	@RequestMapping(value = "/admin/productRegisterProc.do", method = RequestMethod.POST)
-	public String smallTypeRegisterProc(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model,String ctgname,RedirectAttributes redirectAttributes) {
+	public String smallTypeRegisterProc(@ModelAttribute("productInfo") ProductInfo productInfo, BindingResult result, Model model,String ctgname,RedirectAttributes redirectAttributes) {
+
+		// 상품 코드 채번
+		int code= (int)(Math.random()*10000)+1;
+		productInfo.setPrdCd("P"+code);
 		
+		// 상픔등록
+		productManageService.registProductDtlInfo(productInfo);
+		productManageService.registProductInfo(productInfo);
 		
 
 		redirectAttributes.addFlashAttribute("reloadVar", "yes");
-		model.addAttribute("reloadVar", "yes");
-		return "redirect:smallTypeRegister.do";
+		
+		return "redirect:productRegister.do";
 		
 	}
-	
-	
+
+	//상품등록 폼이랑 처리하는 메소드가 잇는데 이거 뭔가용?
 	@RequestMapping(value = "/registProductInfo.do")
 	public String registAdminInfo(@ModelAttribute("ProductInfo") ProductInfo productInfo, BindingResult result, Model model) {
 		productManageService.registProductInfo(productInfo);

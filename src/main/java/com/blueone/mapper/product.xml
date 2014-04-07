@@ -25,6 +25,7 @@
 		<result property="prdPrice" column="PRO_PRICE" javaType="int"/>
 		<result property="prdSellPrc" column="PRO_SELL_PRICE" javaType="int"/>
 		<result property="prdModel" column="PRO_MODEL" javaType="java.lang.String"/>
+		<result property="prdModelNo" column="PRO_MODEL_NO" javaType="java.lang.String"/>
 		<result property="prdBrand" column="PRO_BRAND" javaType="java.lang.String"/>
 		<result property="prdListCmt" column="PRO_LIST_CMT" javaType="java.lang.String"/>
 		<result property="prdListImg" column="PRO_LIST_IMG" javaType="java.lang.String"/>
@@ -69,24 +70,24 @@
 
 	<insert id="insertBomProductTb0001" parameterType="productInfo">
 		INSERT  BOM_PRODUCT_TB
-			(`PRD_CD`,`PRD_NM`,`PRD_DESC`,`PRD_DESC_HTML`
-				,`PRD_CTG_L`,`PRD_CTG_M`,`PRD_CTG_S`,`FROM_DATE`
+			(`PRD_CD`,`PRD_NM`,`PRD_CTG_L`,`PRD_CTG_M`,`PRD_CTG_S`,`FROM_DATE`
 				,`TO_DATE`,`REG_DATE`,`LAST_DATE`,`MODIFY_USER_ID`)
 			VALUES
-			(#{prdCd}, #{prdNm}, #{prdDesc}, #{prdDescHtml}, #{prdCtgL}, #{prdCtgM}
+			(#{prdCd}, #{prdNm}, #{prdCtgL}, #{prdCtgM}
 				, #{prdCtgS}, #{fromDate}, #{toDate}, sysdate(), sysdate(), 'default')
 	</insert>
 
 	<insert id="insertBomProductDtlTb0001" parameterType="productInfo">
 		INSERT  BOM_PRODUCT_DETAIL_TB
-			(`PRD_CD`,`PRO_PRICE`,`PRO_SELL_PRICE`,`PRO_MODEL`
+			(`PRO_CD`,`PRO_PRICE`,`PRO_SELL_PRICE`,`PRO_MODEL`
 				,`PRO_MODEL_NO`,`PRO_BRAND`,`PRO_LIST_CMT`,`PRO_LIST_IMG`
 				,`PRO_IMG_1`,`PRO_IMG_2`,`PRO_IMG_3`,`PRO_IMG_4`
 				,`PRO_CONTENTS`,`PRO_TRANSFOR_INF`,`ADMIN_MEMO`)
 			VALUES
-			(#{prdCd}, #{prdPrice}, #{prdSellPrc}, #{prdModel}, #{prdBrand}, #{prdListCmt}
-				, #{prdListImg}, #{prdImg1},#{prdImg2},#{prdImg3},#{prdImg4}
-				, #{prdConts}, #{prdTransInf},#{admMeno})
+			(#{prdCd}, #{prdPrice}, #{prdSellPrc}, #{prdModel}, #{prdModelNo},
+			#{prdBrand}, #{prdListCmt}, #{prdListImg}, #{prdImg1},
+			#{prdImg2},#{prdImg3},#{prdImg4}
+				, #{prdConts}, #{prdTransInf}, #{admMeno})
 	</insert>
 
 </mapper>

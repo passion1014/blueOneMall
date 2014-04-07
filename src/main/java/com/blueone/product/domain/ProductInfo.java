@@ -6,13 +6,13 @@ public class ProductInfo {
 	private int idx;
 	private String prdCd;		// 상품코드
 	private String prdDp;		// 진열상태
-	private int  prdOrd;		// 주문 
+	private int  prdOrd;		// 정렬
 	private String prdNm;		// 상품명
 	private String prdCtgL;		// 대분류코드
 	private String prdCtgM;		// 중분류코드
 	private String prdCtgS;		// 소분류코드
-	private String prdSpe1;		// 
-	private String prdSpe2;		// 
+	private String prdSpe1;		// 특수설정-베스트
+	private String prdSpe2;		// 특수설정-행사품목
 	private String schWord;		// 검색단어
 	private String fromDate;	// 적용시작일
 	private String toDate;		// 적용종료일
@@ -21,19 +21,20 @@ public class ProductInfo {
 	private String modifyUserId;// 최종수정자
 
 	//제품 상세정보
-	private String prdPrice;
-	private String prdSellPrc;
-	private String prdModel;
-	private String prdBrand;
-	private String prdListCmt;
-	private String prdListImg;
-	private String prdImg1;
-	private String prdImg2;
-	private String prdImg3;
-	private String prdImg4;
-	private String prdConts;
-	private String prdTransInf;
-	private String admMeno;
+	private String prdPrice;	//소비자가
+	private String prdSellPrc;	//판매가
+	private String prdModel;	//모델명
+	private String prdModelNo;	//모델명번호
+	private String prdBrand;	//제조사
+	private String prdListCmt;	//목록간략내용
+	private String prdListImg;	//목록이미지
+	private String prdImg1;		//상세보기 이미지1
+	private String prdImg2;		//상세보기 이미지2
+	private String prdImg3;		//상세보기 이미지3
+	private String prdImg4;		//상세보기 이미지4
+	private String prdConts;	//상세보기
+	private String prdTransInf;	//배송,반품,교환정보
+	private String admMeno;		//관리자메모
 	
 	public int getIdx() {
 		return idx;
@@ -208,6 +209,12 @@ public class ProductInfo {
 	}
 	public void setAdmMeno(String admMeno) {
 		this.admMeno = admMeno;
+	}
+	public String getPrdModelNo() {
+		return prdModelNo;
+	}
+	public void setPrdModelNo(String prdModelNo) {
+		this.prdModelNo = prdModelNo;
 	}
 	
 	
