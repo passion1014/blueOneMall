@@ -35,8 +35,6 @@
 	</beans:bean>
 	<!-- 전성호 추가 끝 -->
 
-
-	
 	<!-- 메세지 사용 -->
     <beans:bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
 		<!-- <beans:property name="basenames" value="1000" /> -->
@@ -58,6 +56,11 @@
 	<beans:bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
 		<beans:property name="validationMessageSource" ref="messageSource"/>
 	</beans:bean>
+	
+	<!-- interceptor -->
+   	<beans:bean id="multipartResolver"
+   		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+   	</beans:bean>
 	
 	
     

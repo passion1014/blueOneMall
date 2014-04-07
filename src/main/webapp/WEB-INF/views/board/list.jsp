@@ -3,16 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <script type="text/javascript">
-//아이핀인증
-function fnCheckGpin() {
-	wWidth = 360;
-    wHight = 120;
-
-    wX = (window.screen.width - wWidth) / 2;
-    wY = (window.screen.height - wHight) / 2;
-
-    var w = window.open("${pageContext.request.contextPath}/G-PIN/AuthRequest.jsp?callTyp=200", "gPinLoginWin", "directories=no,toolbar=no,left="+wX+",top="+wY+",width="+wWidth+",height="+wHight);
-}
 
 // 조회
 function fnInquiry() {

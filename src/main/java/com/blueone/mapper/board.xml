@@ -36,7 +36,7 @@
 		                           ,t1.hit
 		                           ,DATE_FORMAT(DATE_FORMAT(t1.public_ymd, '%Y%m%d'), '%Y.%m.%d') as publicYmd
 		                           ,t1.public_nm as publicNm
-		                           ,t1.cont
+		                           ,t1.content
 		                       FROM BOM_BOARD_TB t1
 		                       
 		                      WHERE t1.del_yn = 'F'
@@ -81,7 +81,7 @@
 		  FROM (SELECT   t1.brd_seq as brdSeq
 		                ,t1.brd_typ as brdTyp
 		                ,t1.title
-		                ,t1.cont
+		                ,t1.content
 		                ,DATE_FORMAT(t1.ins_dt, '%Y.%m.%d') as insDt
 		                ,t1.notice_yn as noticeYn
 		            FROM BOM_BOARD_TB t1
@@ -129,7 +129,7 @@
 		                ,t1.hit
 		                ,DATE_FORMAT(DATE_FORMAT(t1.public_ymd ,'%Y%m%d'), '%Y.%m.%d') AS publicYmd
 		                ,t1.public_nm AS publicNm
-		                ,SUBSTR(cont, 1, 120) AS cont
+		                ,SUBSTR(content, 1, 120) AS content
 		            FROM BOM_BOARD_TB t1
 		           WHERE t1.del_yn = 'F'
 		             AND t1.brd_typ = #{srchBrdTyp}
@@ -153,7 +153,7 @@
 		                ,`DEPTH`
 		                ,`PASSWD`
 		                ,`TITLE`
-		                ,`CONT`
+		                ,`CONTENT`
 		                ,`HIT`
 		                ,`COMM_CNT`
 		                ,`REPLY_CNT`
@@ -169,7 +169,7 @@
 		                )
 		VALUES (#{brdSeq}, #{brdTyp}
 				, <if test='rootSeq == "0"'>#{brdSeq}</if><if test='rootSeq != "0"'>#{rootSeq}</if>
-				, #{refSeq}, #{depth}, #{passwd}, #{title}, #{cont}, 0, 0, 0, #{procSt}
+				, #{refSeq}, #{depth}, #{passwd}, #{title}, #{content}, 0, 0, 0, #{procSt}
 				, #{userNm}, #{publicYmd}, #{publicNm}, now(), #{insUser}, now(), #{updUser}, IFNULL(#{noticeYn},'F')
 		)
 	</insert>
@@ -232,7 +232,7 @@
 		UPDATE BOM_BOARD_TB
 		   SET passwd                      = #{passwd}#
 		      ,title                       = #{title}#
-		      ,cont                        = #{cont}#
+		      ,content                     = #{content}#
 		      ,proc_st                     = #{procSt}#
 		      ,public_ymd                  = #{publicYmd}#
 		      ,public_nm                   = #{publicNm}#
@@ -252,7 +252,7 @@
 		        ,t1.DEPTH
 		        ,t1.passwd
 		        ,t1.title
-		        ,t1.cont
+		        ,t1.content
 		        ,t1.hit
 		        ,t1.comm_cnt as commCnt
 		        ,t1.reply_cnt as replyCnt
