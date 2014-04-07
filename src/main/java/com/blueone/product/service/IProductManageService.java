@@ -8,7 +8,8 @@ import com.blueone.product.domain.SearchProdInfo;
 
 public interface IProductManageService {
 
-	public List<ProductInfo> getProductList(SearchProdInfo searchProdInfo);
+	public List<ProductInfo> getProductInfList(ProductInfo productInfo);
+	public List<ProductInfo> getProductSearchList(SearchProdInfo searchProdInfo);
 	public ProductInfo getProductInfDetail(ProductInfo productInfo);
 	public ProductInfo registProductInfo(ProductInfo productInfo);
 	public ProductInfo editProductInfo(ProductInfo productInfo);

@@ -40,10 +40,16 @@ public class ProductController {
 	 */
 	@RequestMapping(value = "/admin/productList.do")
 	public String productList(@ModelAttribute("ProductInfo") ProductInfo productInfo, BindingResult result, Model model,HttpSession session) {
+		/*
 		AdminInfo adminSession = (AdminInfo)session.getAttribute("adminSession");		
 		if(adminSession==null){
 		return "redirect:adminLogin.do";
 		}
+		*/
+		List<ProductInfo> list = productManageService.getProductInfList(productInfo);
+	    
+		model.addAttribute("list", list);
+		
 		
 		
 		return "admin/product/productList";
@@ -54,7 +60,7 @@ public class ProductController {
 	 */
 	@RequestMapping(value = "/admin/productRegister.do")
 	public String productRegister(@ModelAttribute("ProductInfo")ProductInfo productInfo, BindingResult result, Model model,HttpSession session) {
-		/*
+		
 		// -----------------------------------------------------------------
 		// 1. 세션정보를 확인해서 세션정보가 없을 경우 로그인 페이지로 이동한다.
 		// -----------------------------------------------------------------
@@ -63,7 +69,7 @@ public class ProductController {
 			return "redirect:adminLogin.do";
 		}
 
-		*/
+		
 		
 		// -----------------------------------------------------------------
 		// 2. 상품등록을 위한 카테고리(대분류) 리스트를 넘긴다.
@@ -118,7 +124,7 @@ public class ProductController {
 	@RequestMapping(value = "/searchProductList.do", method = RequestMethod.GET)
 	public String getAdminInfoList(@ModelAttribute("searchProdInfo") SearchProdInfo searchProdInfo, BindingResult result, Model model) {
 
-		List<ProductInfo> list = productManageService.getProductList(searchProdInfo);
+		List<ProductInfo> list = productManageService.getProductSearchList(searchProdInfo);
 	    model.addAttribute("list", list);
 	    
 		return "product/result";

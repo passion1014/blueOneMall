@@ -21,21 +21,20 @@ public class ProductInfo {
 	private String modifyUserId;// 최종수정자
 
 	//제품 상세정보
-	private String prdPrice;	//소비자가
-	private String prdSellPrc;	//판매가
-	private String prdModel;	//모델명
-	private String prdModelNo;	//모델명번호
-	private String prdBrand;	//제조사
-	private String prdListCmt;	//목록간략내용
-	private String prdListImg;	//목록이미지
-	private String prdImg1;		//상세보기 이미지1
-	private String prdImg2;		//상세보기 이미지2
-	private String prdImg3;		//상세보기 이미지3
-	private String prdImg4;		//상세보기 이미지4
-	private String prdConts;	//상세보기
-	private String prdTransInf;	//배송,반품,교환정보
+	private String proPrice;	//소비자가
+	private String proSellPrc;	//판매가
+	private String proModel;	//모델명
+	private String proModelNo;	//모델명번호
+	private String proBrand;	//제조사
+	private String proListCmt;	//목록간략내용
+	private String proListImg;	//목록이미지
+	private String proImg1;		//상세보기 이미지1
+	private String proImg2;		//상세보기 이미지2
+	private String proImg3;		//상세보기 이미지3
+	private String proImg4;		//상세보기 이미지4
+	private String proConts;	//상세보기
+	private String proTransInf;	//배송,반품,교환정보
 	private String admMeno;		//관리자메모
-	
 	public int getIdx() {
 		return idx;
 	}
@@ -132,77 +131,83 @@ public class ProductInfo {
 	public void setModifyUserId(String modifyUserId) {
 		this.modifyUserId = modifyUserId;
 	}
-	public String getPrdPrice() {
-		return prdPrice;
+	public String getProPrice() {
+		return proPrice;
 	}
-	public void setPrdPrice(String prdPrice) {
-		this.prdPrice = prdPrice;
+	public void setProPrice(String proPrice) {
+		this.proPrice = proPrice;
 	}
-	public String getPrdSellPrc() {
-		return prdSellPrc;
+	public String getProSellPrc() {
+		return proSellPrc;
 	}
-	public void setPrdSellPrc(String prdSellPrc) {
-		this.prdSellPrc = prdSellPrc;
+	public void setProSellPrc(String proSellPrc) {
+		this.proSellPrc = proSellPrc;
 	}
-	public String getPrdModel() {
-		return prdModel;
+	public String getProModel() {
+		return proModel;
 	}
-	public void setPrdModel(String prdModel) {
-		this.prdModel = prdModel;
+	public void setProModel(String proModel) {
+		this.proModel = proModel;
 	}
-	public String getPrdBrand() {
-		return prdBrand;
+	public String getProModelNo() {
+		return proModelNo;
 	}
-	public void setPrdBrand(String prdBrand) {
-		this.prdBrand = prdBrand;
+	public void setProModelNo(String proModelNo) {
+		this.proModelNo = proModelNo;
 	}
-	public String getPrdListCmt() {
-		return prdListCmt;
+	public String getProBrand() {
+		return proBrand;
 	}
-	public void setPrdListCmt(String prdListCmt) {
-		this.prdListCmt = prdListCmt;
+	public void setProBrand(String proBrand) {
+		this.proBrand = proBrand;
 	}
-	public String getPrdListImg() {
-		return prdListImg;
+	public String getProListCmt() {
+		return proListCmt;
 	}
-	public void setPrdListImg(String prdListImg) {
-		this.prdListImg = prdListImg;
+	public void setProListCmt(String proListCmt) {
+		this.proListCmt = proListCmt;
 	}
-	public String getPrdImg1() {
-		return prdImg1;
+	public String getProListImg() {
+		return proListImg;
 	}
-	public void setPrdImg1(String prdImg1) {
-		this.prdImg1 = prdImg1;
+	public void setProListImg(String proListImg) {
+		this.proListImg = proListImg;
 	}
-	public String getPrdImg2() {
-		return prdImg2;
+	public String getProImg1() {
+		return proImg1;
 	}
-	public void setPrdImg2(String prdImg2) {
-		this.prdImg2 = prdImg2;
+	public void setProImg1(String proImg1) {
+		this.proImg1 = proImg1;
 	}
-	public String getPrdImg3() {
-		return prdImg3;
+	public String getProImg2() {
+		return proImg2;
 	}
-	public void setPrdImg3(String prdImg3) {
-		this.prdImg3 = prdImg3;
+	public void setProImg2(String proImg2) {
+		this.proImg2 = proImg2;
 	}
-	public String getPrdImg4() {
-		return prdImg4;
+	public String getProImg3() {
+		return proImg3;
 	}
-	public void setPrdImg4(String prdImg4) {
-		this.prdImg4 = prdImg4;
+	public void setProImg3(String proImg3) {
+		this.proImg3 = proImg3;
 	}
-	public String getPrdConts() {
-		return prdConts;
+	public String getProImg4() {
+		return proImg4;
 	}
-	public void setPrdConts(String prdConts) {
-		this.prdConts = prdConts;
+	public void setProImg4(String proImg4) {
+		this.proImg4 = proImg4;
 	}
-	public String getPrdTransInf() {
-		return prdTransInf;
+	public String getProConts() {
+		return proConts;
 	}
-	public void setPrdTransInf(String prdTransInf) {
-		this.prdTransInf = prdTransInf;
+	public void setProConts(String proConts) {
+		this.proConts = proConts;
+	}
+	public String getProTransInf() {
+		return proTransInf;
+	}
+	public void setProTransInf(String proTransInf) {
+		this.proTransInf = proTransInf;
 	}
 	public String getAdmMeno() {
 		return admMeno;
@@ -210,12 +215,7 @@ public class ProductInfo {
 	public void setAdmMeno(String admMeno) {
 		this.admMeno = admMeno;
 	}
-	public String getPrdModelNo() {
-		return prdModelNo;
-	}
-	public void setPrdModelNo(String prdModelNo) {
-		this.prdModelNo = prdModelNo;
-	}
 	
+
 	
 }
