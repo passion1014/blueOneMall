@@ -31,7 +31,7 @@ function fnAddClick() {
 </form> --%>
 
 	<!-- <form name="tx_editor_form" id="tx_editor_form" action="http://posttestserver.com/post.php" method="post" accept-charset="utf-8"> -->
-	<form name="tx_editor_form" id="tx_editor_form" action="add.do" method="post" accept-charset="utf-8">
+	<form name="tx_editor_form" id="tx_editor_form" action="add.do" method="post" enctype="multipart/form-data" accept-charset="utf-8">
 	<table class="boardNormal" summary="묻고답하기 등록">
 		<caption>묻고답하기 등록</caption>
 		<colgroup>
