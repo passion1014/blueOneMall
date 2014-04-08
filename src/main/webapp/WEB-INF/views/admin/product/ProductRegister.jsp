@@ -138,33 +138,33 @@
 		<tr>
 			<th>소비자가</th>
 			<td style="text-align:left;">
-				<input type="text" id="proPrice" name="proPrice" style="width:70%;text-align:right;padding-right:10px;"> 원
+				<input type="text" id="prdPrice" name="prdPrice" style="width:70%;text-align:right;padding-right:10px;"> 원
 			</td>
 			<th>판매가</th>
 			<td style="text-align:left;">
-				<input type="text" id="proSellPrc" name="proSellPrc" style="width:70%;text-align:right;padding-right:10px;""> 원
+				<input type="text" id="prdSellPrc" name="prdSellPrc" style="width:70%;text-align:right;padding-right:10px;""> 원
 			</td>		
 		</tr>
 		
 		<tr>
 			<th>모델명</th>
 			<td colspan="3" class="left">
-				<input type="text" id="proModel" name="proModel" style="width:80%;" required hname=" 상품명을 입력하여 주십시오">
+				<input type="text" id="prdModel" name="prdModel" style="width:80%;" required hname=" 상품명을 입력하여 주십시오">
 			</td>
 		</tr>
 		<tr>
 			<th>모델번호</th>
 			<td colspan="3" class="left">
-				<input type="text" id="proModelNo" name="proModelNo" style="width:80%;" required hname=" 상품명을 입력하여 주십시오">
+				<input type="text" id="prdModelNo" name="prdModelNo" style="width:80%;" required hname=" 상품명을 입력하여 주십시오">
 			</td>
 		</tr>
 		<tr>
 			<th>제조사</th>
 			<td colspan="3" class="left">
-				<input type="text" id="proBrand" name="proBrand" style="width:80%;" required hname=" 상품명을 입력하여 주십시오">
+				<input type="text" id="prdBrand" name="prdBrand" style="width:80%;" required hname=" 상품명을 입력하여 주십시오">
 			</td>
 		</tr>
-		
+		<!--  
 		<tr>
 			<th>리스트 이미지</th>
 			<td colspan="3" class="left">
@@ -195,11 +195,11 @@
 				<input type="file" id="proImg4" name="proImg4" style="width:80%;"> [112px X 176px]
 			</td>
 		</tr>
-		
+		-->
 		<tr>
 			<th>목록내용</th>
 			<td colspan="3" style="text-align:left;">
-				<textarea name="proListCmt" id="proListCmt" class="Text" style="width:97%;height:150px;"></textarea>
+				<textarea name="prdListCmt" id="prdListCmt" class="Text" style="width:97%;height:150px;"></textarea>
 			</td>
 		</tr>
 		<tr>

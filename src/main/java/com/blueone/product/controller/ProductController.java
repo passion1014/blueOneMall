@@ -103,7 +103,7 @@ public class ProductController {
 		productInfo.setPrdCd("P"+code);
 		
 		// 상픔등록
-		productManageService.registProductDtlInfo(productInfo);
+
 		productManageService.registProductInfo(productInfo);
 		
 
