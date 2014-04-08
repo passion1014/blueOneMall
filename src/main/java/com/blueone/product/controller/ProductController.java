@@ -80,16 +80,24 @@ public class ProductController {
 		
 		// 대분류로만 필터링한다.
 		List<CategoryInfo> rstList = new ArrayList<CategoryInfo>();
+		
+		//중분류만 필터링
+		List<CategoryInfo> rstList2 = new ArrayList<CategoryInfo>();
+		
 		for (CategoryInfo each : list) {
 			if ("01".equals(each.getCtgCodeType())) {
 				rstList.add(each);
+			
 			}
+			
 		}
 		
+
 		
 		// 결과값 셋팅
 		model.addAttribute("ctgLList", rstList);
-							
+		
+					
 		return "admin/product/ProductRegister";
 	}
 	
@@ -139,6 +147,7 @@ public class ProductController {
 	public String largeTypeModify(@ModelAttribute("productInfo") ProductInfo productInfo, BindingResult result, Model model, String pCd){
 		
 		productInfo.setPrdCd(pCd);
+		
 		productInfo = productManageService.getProductInfDetail(productInfo);
 		SearchProdInfo searchProdInfo = new SearchProdInfo();
 		
@@ -146,24 +155,66 @@ public class ProductController {
 		// 2. 상품수정을 위한 카테고리(대분류) 리스트를 넘긴다.
 		// -----------------------------------------------------------------
 		CategoryInfo categoryInfo = new CategoryInfo();
+		
+		//카테고리항목 다 불러오기
 		List<CategoryInfo> list = categoryManageService.getCategoryInfList(categoryInfo);
-		List<ProductInfo> list2 = productManageService.getProductInfList(searchProdInfo);
-		String ctgLargeCode = categoryInfo.getCtgLargeCode();
+		
+		
+		
 		// 대분류로만 필터링한다.
 		List<CategoryInfo> rstList = new ArrayList<CategoryInfo>();
-		
+		//중분류만 필터링
+		List<CategoryInfo> rstList2 = new ArrayList<CategoryInfo>();
+		//소분류만 필터링
+		List<CategoryInfo> rstList3 = new ArrayList<CategoryInfo>();
+
+		//필터링 하는중
 		for (CategoryInfo each : list) {
 			if ("01".equals(each.getCtgCodeType())) {
 				rstList.add(each);
+				
+			}
+			if("02".equals(each.getCtgCodeType())){
+				rstList2.add(each);
+			}
+			if("03".equals(each.getCtgCodeType())){
+				rstList3.add(each);
+			}
+			
+		}
+
+		//해당 대분류코드빼고 다른 중분류 코드 제거
+		String ctgLargeCode = productInfo.getPrdCtgL();
+		
+		for(int idx=0; idx < rstList2.size(); idx++) {
+			CategoryInfo each = rstList2.get(idx);
+			if (!ctgLargeCode.equals(each.getCtgPCode())) {
+				rstList2.remove(idx);
+				idx--;
+			}
+			
+		}
+		
+		//해당 중분류코드빼고 다른 중분류 코드 제거
+		String ctgMiddleCode = productInfo.getPrdCtgM();
+		
+		for(int idx=0; idx < rstList3.size(); idx++) {
+			CategoryInfo each = rstList3.get(idx);
+			if (!ctgMiddleCode.equals(each.getCtgPCode())) {
+				rstList3.remove(idx);
+				idx--;
 			}
 		}
 		
 		
-		model.addAttribute("searchProdInfo", searchProdInfo);
+		
 		model.addAttribute("prdInfo", productInfo);
-		model.addAttribute("category", list);
+		
 		// 결과값 셋팅
 		model.addAttribute("ctgLList", rstList);
+		model.addAttribute("ctgMList", rstList2);
+		model.addAttribute("ctgSList", rstList3);
+		
 		return "admin/product/productManagement";
 	}
 	
