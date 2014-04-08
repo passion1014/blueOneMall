@@ -3,6 +3,7 @@
 
 <c:import  url="../inc/top.jsp" />
 <c:set var="test" value="goodsList" scope="request"/> 
+
 <body>
 <div id="Wrap">
 	<c:import url="../inc/gnb.jsp"/>
@@ -129,7 +130,7 @@
 						</td>
 						<td class="center">
 						<input value="보기" class="Small_Button Gray" style="margin-bottom:5px;" onclick="openWin('./product/product.goods_viewer.php?gCode=gd_533bce184e45d','goods_viewer',1028,900,'scrollbars=yes');" type="button"> <br>
-						<input value="관리" class="Small_Button Gray" style="margin-bottom:5px;" onclick="location.href='./admin.product.php?slot=product&amp;type=goods_detail&amp;step=information&amp;gCode=gd_533bce184e45d&amp;s_1_idx=&amp;s_m_idx=&amp;s_s_idx=&amp;s_display_yn=&amp;sp_type_1=&amp;sp_type_2=&amp;sp_type_3=&amp;sp_type_4=&amp;keyfield=&amp;keyword='" type="button"> <br>
+						<input value="관리" class="Small_Button Gray" style="margin-bottom:5px;" onclick="prdManage('${produts.prdCd}');" type="button"><br>
 						<input value="삭제" class="Small_Button Gray" onclick="confirm_process('actionForm','삭제하시겠습니까? \n\n삭제후에는 복원이 불가능합니다.','./_action/product.do.php?Mode=del_goods&amp;goods_code=gd_533bce184e45d')" type="button">
 					</td>
 					
@@ -171,3 +172,24 @@
 </body>
 
 <c:import url="../inc/footer.jsp" />
+<script language="JavaScript" type="text/JavaScript">
+<!--
+
+
+function prdManage(pCode) {
+	$.ajax({
+		type: "POST",
+		url: "productManagement.do",
+		cache: false,
+		async: false,
+		data: {
+			prdCd : pCode
+		},
+		dataType: "html"
+	
+	});
+}
+
+//-->
+</script>
+
