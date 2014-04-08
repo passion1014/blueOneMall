@@ -27,6 +27,7 @@ public class UserProductServiceImpl implements IUserProductService{
 			
 		list =	sqlSession.selectList("product.selectListBomShopProductTb0001", productInfo);
 		
+		
 		}finally{
 			sqlSession.close();
 		}
@@ -34,7 +35,27 @@ public class UserProductServiceImpl implements IUserProductService{
 		return list;
 	}
 		
+	@Override
+	public List<Object> shopProductByPriceList(ProductInfo productInfo){
 		
+		List<ProductInfo> list = null;
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		List<Object> list1 = new ArrayList<Object>();
+		
+		try{
+			
+		list =	sqlSession.selectList("product.selectListBomShopProductTb0001", productInfo);
+		for (ProductInfo each : list) {
+			if (each.getPrdPrice()>0) {
+				list1.add(each.getPrdPrice());
+			}
+		}
+		}finally{
+			sqlSession.close();
+		}
+		
+		return list1;
+	}	
 		
 		
 	}

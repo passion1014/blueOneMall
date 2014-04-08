@@ -8,4 +8,5 @@ public interface IUserProductService {
 
 	//사용자 페이지
 		public List<ProductInfo> shopProductInfList(ProductInfo productInfo);
+		public List<Object> shopProductByPriceList(ProductInfo productInfo);
 }
