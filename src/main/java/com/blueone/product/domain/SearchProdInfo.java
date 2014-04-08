@@ -3,17 +3,17 @@ package com.blueone.product.domain;
 public class SearchProdInfo {
 	private static final int DEFAULT_PAGE_NUM = 1;
 	
-	private String prodNm;
+	private String prdNm;
 	private String prdCtgL;
 	private String prdCtgM;
 	private String prdCtgS;
 	private int pageNum;
 	
-	public String getProdNm() {
-		return prodNm;
+	public String getPrdNm() {
+		return prdNm;
 	}
-	public void setProdNm(String prodNm) {
-		this.prodNm = prodNm;
+	public void setPrdNm(String prodNm) {
+		this.prdNm = prodNm;
 	}
 	public String getPrdCtgL() {
 		return prdCtgL;
