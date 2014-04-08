@@ -3,7 +3,6 @@ package com.blueone.product.domain;
 public class ProductInfo {
 	
 	//제품 보여줄때 필요한 정보
-	private int idx;
 	private String prdCd;		// 상품코드
 	private String prdDp;		// 진열상태
 	private int  prdOrd;		// 정렬
@@ -18,30 +17,17 @@ public class ProductInfo {
 	private String toDate;		// 적용종료일
 	private String regDate;		// 등록일
 	private String lastDate;	// 최종수정일
-	private String modifyUserId;// 최종수정자
-
-	//제품 상세정보
-	private String proCd;
-	private int proPrice;	//소비자가
-	private int proSellPrc;	//판매가
+	private int proPrice;		//소비자가
+	private int proSellPrc;		//판매가
 	private String proModel;	//모델명
 	private String proModelNo;	//모델명번호
 	private String proBrand;	//제조사
 	private String proListCmt;	//목록간략내용
-	private String proListImg;	//목록이미지
-	private String proImg1;		//상세보기 이미지1
-	private String proImg2;		//상세보기 이미지2
-	private String proImg3;		//상세보기 이미지3
-	private String proImg4;		//상세보기 이미지4
 	private String proConts;	//상세보기
-	private String proTransInf;	//배송,반품,교환정보
+	private int proTransInf;	//배송,반품,교환정보
 	private String admMemo;		//관리자메모
-	public int getIdx() {
-		return idx;
-	}
-	public void setIdx(int idx) {
-		this.idx = idx;
-	}
+	private String modifyUserId;// 최종수정자
+	
 	public String getPrdCd() {
 		return prdCd;
 	}
@@ -126,11 +112,17 @@ public class ProductInfo {
 	public void setLastDate(String lastDate) {
 		this.lastDate = lastDate;
 	}
-	public String getModifyUserId() {
-		return modifyUserId;
+	public int getProPrice() {
+		return proPrice;
 	}
-	public void setModifyUserId(String modifyUserId) {
-		this.modifyUserId = modifyUserId;
+	public void setProPrice(int proPrice) {
+		this.proPrice = proPrice;
+	}
+	public int getProSellPrc() {
+		return proSellPrc;
+	}
+	public void setProSellPrc(int proSellPrc) {
+		this.proSellPrc = proSellPrc;
 	}
 	public String getProModel() {
 		return proModel;
@@ -156,46 +148,16 @@ public class ProductInfo {
 	public void setProListCmt(String proListCmt) {
 		this.proListCmt = proListCmt;
 	}
-	public String getProListImg() {
-		return proListImg;
-	}
-	public void setProListImg(String proListImg) {
-		this.proListImg = proListImg;
-	}
-	public String getProImg1() {
-		return proImg1;
-	}
-	public void setProImg1(String proImg1) {
-		this.proImg1 = proImg1;
-	}
-	public String getProImg2() {
-		return proImg2;
-	}
-	public void setProImg2(String proImg2) {
-		this.proImg2 = proImg2;
-	}
-	public String getProImg3() {
-		return proImg3;
-	}
-	public void setProImg3(String proImg3) {
-		this.proImg3 = proImg3;
-	}
-	public String getProImg4() {
-		return proImg4;
-	}
-	public void setProImg4(String proImg4) {
-		this.proImg4 = proImg4;
-	}
 	public String getProConts() {
 		return proConts;
 	}
 	public void setProConts(String proConts) {
 		this.proConts = proConts;
 	}
-	public String getProTransInf() {
+	public int getProTransInf() {
 		return proTransInf;
 	}
-	public void setProTransInf(String proTransInf) {
+	public void setProTransInf(int proTransInf) {
 		this.proTransInf = proTransInf;
 	}
 	public String getAdmMemo() {
@@ -204,25 +166,13 @@ public class ProductInfo {
 	public void setAdmMemo(String admMemo) {
 		this.admMemo = admMemo;
 	}
-	public int getProPrice() {
-		return proPrice;
+	public String getModifyUserId() {
+		return modifyUserId;
 	}
-	public void setProPrice(int proPrice) {
-		this.proPrice = proPrice;
-	}
-	public int getProSellPrc() {
-		return proSellPrc;
-	}
-	public void setProSellPrc(int proSellPrc) {
-		this.proSellPrc = proSellPrc;
-	}
-	public String getProCd() {
-		return proCd;
-	}
-	public void setProCd(String proCd) {
-		this.proCd = proCd;
+	public void setModifyUserId(String modifyUserId) {
+		this.modifyUserId = modifyUserId;
 	}
 	
-
+	
 	
 }
