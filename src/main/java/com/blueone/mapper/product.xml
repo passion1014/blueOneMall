@@ -94,6 +94,37 @@
 		FROM BOM_PRODUCT_TB	
 	</select>
 	
+	<select id="selectDtlBomProductTb0001" parameterType="hashmap" resultType="ProductInfo" resultMap="ProductBaseDtlMap">
+		SELECT  
+			T1.PRD_CD, 
+			T1.PRD_DISPLAY_YN, 
+			T1.PRD_ORDER,
+			T1.PRD_NM ,
+			T1.PRD_CTG_L, 
+			T1.PRD_CTG_M ,
+			T1.PRD_CTG_S ,
+			T1.PRD_SPECAL_1, 
+			T1.PRD_SPECAL_2 ,
+			T1.SEARCH_WORD ,
+			T1.FROM_DATE ,
+			T1.TO_DATE ,
+			T1.REG_DATE ,
+			T1.LAST_DATE ,
+			T1.MODIFY_USER_ID, 
+			T1.PRD_PRICE, 
+			T1.PRD_SELL_PRICE, 
+			T1.PRD_MODEL ,
+			T1.PRD_MODEL_NO, 
+			T1.PRD_BRAND ,
+			T1.PRD_LIST_CMT, 
+			T1.PRD_CONTENTS, 
+			T1.PRD_TRANSFOR_INF, 
+			T1.ADMIN_MEMO 
+		FROM BOM_PRODUCT_TB AS T1
+		WHERE
+			T1.PRD_CD = #{prdCd}
+	</select >
+	
 	<insert id="insertBomProductTb0001" parameterType="productInfo">
 		INSERT  BOM_PRODUCT_TB
 			(`PRD_CD`,`PRD_DISPLAY_YN`,`PRD_ORDER`,`PRD_NM`,`PRD_CTG_L`,`PRD_CTG_M`,

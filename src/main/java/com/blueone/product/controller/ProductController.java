@@ -40,12 +40,13 @@ public class ProductController {
 	 */
 	@RequestMapping(value = "/admin/productList.do")
 	public String productList(@ModelAttribute("ProductInfo") SearchProdInfo srchProdInfo, BindingResult result, Model model,HttpSession session) {
-		
+		/*
 		AdminInfo adminSession = (AdminInfo)session.getAttribute("adminSession");		
 		if(adminSession==null){
 		return "redirect:adminLogin.do";
 		}
 		
+		*/
 		List<ProductInfo> list = productManageService.getProductInfList(srchProdInfo);
 	    
 		model.addAttribute("list", list);
@@ -134,13 +135,12 @@ public class ProductController {
 	/**
 	 * 상품 관리 수정폼
 	 */		
-	@RequestMapping(value="/admin/productManagement.do", method=RequestMethod.POST)
-	public String largeTypeModify(@ModelAttribute("productInfo") ProductInfo productInfo, BindingResult result, Model model){
+	@RequestMapping(value="/admin/productManagement.do", method=RequestMethod.GET)
+	public String largeTypeModify(@ModelAttribute("productInfo") ProductInfo productInfo, BindingResult result, Model model, String pCd){
 		
-		/*
-		categoryInfo = categoryManageService.getCategoryInfDetail(categoryInfo);
-		model.addAttribute("largeTypeObj", categoryInfo);
-		*/
+		productInfo.setPrdCd(pCd);
+		productInfo = productManageService.getProductInfDetail(productInfo);
+		model.addAttribute("prdInfo", productInfo);
 		
 		return "admin/product/productManagement";
 	}
@@ -148,25 +148,7 @@ public class ProductController {
 	
 	
 	
-	/*
-	 * 사용자 물품 리스트
-	 */
-	@RequestMapping(value = "/product/productList.do")
-	public String userProductList(@ModelAttribute("ProductInfo") ProductInfo productInfo, BindingResult result, Model model,HttpSession session) {
-		
-		
-		
-		List<ProductInfo> list = productManageService.shopProductInfList(productInfo);
-	    
-		model.addAttribute("list", list);
-		
-		
-		
-		return "product/productList";
-	}
-	
-	
-	
+
 
 	
 }

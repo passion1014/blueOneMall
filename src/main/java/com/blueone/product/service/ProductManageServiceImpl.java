@@ -67,11 +67,7 @@ public class ProductManageServiceImpl implements IProductManageService {
 		return productList;
 	}
 
-	@Override
-	public ProductInfo getProductInfDetail(ProductInfo productInfo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 	
 	@Override
 	public ProductInfo registProductInfo(ProductInfo productInfo) {
@@ -187,4 +183,32 @@ public class ProductManageServiceImpl implements IProductManageService {
 		
 		return list;
 	}
+	
+	
+
+	/*
+	 * 상품 코드에 따라 조회 
+	 */
+	@Override
+	public ProductInfo getProductInfDetail(ProductInfo productInfo) {
+		                 
+		ProductInfo rstInfo = new ProductInfo();
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			// -----------------------------------------------
+			// 1. 상품코드 기본값 조회
+			// -----------------------------------------------
+			rstInfo = sqlSession.selectOne("product.selectDtlBomProductTb0001", productInfo);
+			
+			
+		} finally {
+			sqlSession.close();
+		}
+		
+		
+		return rstInfo;
+	}
+	
+	
 }
