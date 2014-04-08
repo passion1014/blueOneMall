@@ -307,6 +307,7 @@ public class CategoryController {
 		List<CategoryInfo> rstList2 = getCategoryListByTypeCd(categoryInfo, "02");//중분류 list
 		
 		String ctgLargeCode = categoryInfo.getCtgLargeCode();
+		
 		for(int idx=0; idx < rstList2.size(); idx++) {
 			CategoryInfo each = rstList2.get(idx);
 			if (!ctgLargeCode.equals(each.getCtgPCode())) {

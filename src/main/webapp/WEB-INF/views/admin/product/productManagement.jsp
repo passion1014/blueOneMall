@@ -75,20 +75,32 @@
 			<td style="text-align:left;">
 				<b>진열상태</b> :
 				<select name="prdDp">
-					<option value="y">진열</option>
+				<c:if test="${prdInfo.prdDp eq 'y'}"> 
+					<option value="y" select>진열</option>
 					<option value="n">대기</option>
+				</c:if>
+				<c:if test="${prdInfo.prdDp eq 'n'}"> 
+					<option value="y" >진열</option>
+					<option value="n" select>대기</option>
+				</c:if>
 				</select>
 				&nbsp;&nbsp;<b>정렬</b> :
 				<select id="prdOrd" name="prdOrd">
 				<c:forEach var="i" begin="1" end="50" step="1">
-					<option value="<c:out value="${i}"></c:out>"><c:out value="${i}"></c:out></option>
-				</c:forEach>							
+					
+					<c:if test="${i==prdInfo.prdOrd}"> 
+						<option selected><c:out value="${prdInfo.prdOrd}"></c:out></option>
+				
+					</c:if>
+					<c:if test="${i!=prdInfo.prdOrd}"> 
+						<option value="<c:out value="${i}"></c:out>"><c:out value="${i}"></c:out></option>
+					</c:if></c:forEach>							
 				</select>
 			</td>
 			<th>특수설정</th>
 			<td style="text-align:left;">
-				<input type="checkbox" name="prdSpe1" value="y"> 베스트 &nbsp;
-				<input type="checkbox" name="prdSpe2" value="y"> 행사품목 &nbsp;
+				<input type="checkbox" id="prdSpe1" name="prdSpe1" value="y" <c:if test="${prdInfo.prdSpe1 eq 'y'}">checked</c:if>> 베스트 &nbsp;
+				<input type="checkbox" id="prdSpe2" name="prdSpe2" value="y" <c:if test="${prdInfo.prdSpe2 eq 'y'}">checked</c:if>> 행사품목 &nbsp;
 			</td>
 		</tr>
 		
@@ -98,21 +110,24 @@
 				<select id="prdCtgL" name="prdCtgL">
 					<option value="">:::: 대분류를 선택하여주십시오 ::::</option>	
 					<c:forEach items="${ctgLList}" var="largeTypeObj">
-						<option value="<c:out value="${largeTypeObj.ctgCode}"></c:out>"><c:out value="${largeTypeObj.ctgName}"></c:out></option>
+				
+						<option value="<c:out value="${largeTypeObj.ctgCode}"></c:out>" <c:if test="${largeTypeObj.ctgCode==prdInfo.prdCtgL}">  selected </c:if>><c:out value="${largeTypeObj.ctgName}"></c:out></option>
+					
 					</c:forEach>							
 				</select>&nbsp;
 				
 				<select id="prdCtgM" name="prdCtgM">
 					<option value="">:::: 중분류를 선택하여주십시오 ::::</option>	
 					<c:forEach items="${ctgList2}" var="middleTypeObj">
-						<option value="<c:out value="${middleTypeObj.ctgCode}"></c:out>"><c:out value="${middleTypeObj.ctgName}"></c:out></option>
+						<option value="<c:out value="${middleTypeObj.ctgCode}"></c:out>" <c:if test="${middleTypeObj.ctgCode==prdInfo.prdCtgM}">  selected </c:if>><c:out value="${middleTypeObj.ctgName}"></c:out></option>
+					
 					</c:forEach>							
 				</select>&nbsp;		
 
 				<select id="prdCtgS" name="prdCtgS">
 					<option value="">:::: 소분류를 선택하여 주십시오 ::::</option>
 					<c:forEach items="${ctgList3}" var="smallTypeObj">
-						<option value="<c:out value="${smallTypeObj.ctgCode}"></c:out>"><c:out value="${smallTypeObj.ctgName}"></c:out></option>
+						<option value="<c:out value="${smallTypeObj.ctgCode}"></c:out>" <c:if test="${smallTypeObj.ctgCode==prdInfo.prdCtgS}">  selected </c:if>><c:out value="${smallTypeObj.ctgName}"></c:out></option>
 					</c:forEach>	
 				</select> &nbsp;				
 			</td>
@@ -246,5 +261,12 @@
 
 </div>
 </body>
-
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function prdSpe() {
+ 
+}
+ 
+//-->
+</script>
 <c:import url="../inc/footer.jsp" />
