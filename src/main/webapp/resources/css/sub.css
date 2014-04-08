@@ -89,7 +89,7 @@
 /* ------------- customer ------------- */
 .customer_section {margin-bottom:30px;}
 .customer_section:after {height:0; content:""; clear:both; display:block;}
-.customer_section dl.custom_tit {display:block; width:776px; min-height:294px; border:1px solid #bbb; background:url('../images/sub/customer_titbg.jpg') no-repeat;}
+.customer_section dl.custom_tit {display:block; width:776px; min-height:294px; border:1px solid #bbb; background:url('../img/sub/customer_titbg.jpg') no-repeat;}
 .customer_section dl.custom_tit dt {margin:54px 0 10px 100px; font-size:48px; font-family:"NanumGothicBold"; color:#666666;}
 .customer_section dl.custom_tit dd {margin-left:100px;}
 .customer_section dl.custom_tit dd.stit {margin-bottom:40px; font-size:22px; font-family:"NanumGothicBold"; color:#666666;}
@@ -102,17 +102,17 @@
 .custom_content .custom_notice table.custom_tbl thead th {border-top:2px solid #bbb; color:#888888; height:30px; border-bottom:1px solid #bbb; color:#888888;}
 .custom_content .custom_notice table.custom_tbl tbody td {padding-left:40px; height:30px; color:#bbb;}
 .custom_linkbox {float:left; margin-left:20px;}
-.custom_linkbox li.custom_faq {width:376px; height:76px; background:url('../images/sub/customer_faqbg.jpg') no-repeat; border:1px solid #bbb;}
+.custom_linkbox li.custom_faq {width:376px; height:76px; background:url('../img/sub/customer_faqbg.jpg') no-repeat; border:1px solid #bbb;}
 .custom_linkbox li.custom_faq span.tit {display:block; margin:11px 0 0 140px; font-size:18px; color:#3268b1; font-family:"NanumGothicBold";}
 .custom_linkbox li.custom_faq span.text {display:block; margin:5px 0 0 140px; color:#5d85bc; font-family:"NanumGothicBold";}
-.custom_linkbox li.custom_inquiry {margin-top:10px; width:376px; height:76px; background:url('../images/sub/customer_lqbg.jpg') no-repeat; border:1px solid #bbb;}
+.custom_linkbox li.custom_inquiry {margin-top:10px; width:376px; height:76px; background:url('../img/sub/customer_lqbg.jpg') no-repeat; border:1px solid #bbb;}
 .custom_linkbox li.custom_inquiry span.tit {display:block; margin:11px 0 0 140px; font-size:18px; color:#3268b1; font-family:"NanumGothicBold";}
 .custom_linkbox li.custom_inquiry span.text {display:block; margin:5px 0 0 140px; color:#5d85bc; font-family:"NanumGothicBold";}
 .customer_section h4 {margin-top:20px; font-size:24px; font-family:"NanumGothicBold";}
 .customer_section p.sub_tit {color:#0372b3; font-family:"NanumGothicBold"; margin:20px 0 30px 0;}
 .inquiry_area ul {border-top:2px solid #888; padding-top:20px;}
 .inquiry_area ul > li {margin-bottom:20px;}
-.inquiry_area ul li.inquiry_tit {background:url('../images/sub/inquiry_areabg.jpg') no-repeat; width:776px; height:96px; border:1px solid #888; vertical-align:middle;}
+.inquiry_area ul li.inquiry_tit {background:url('../img/sub/inquiry_areabg.jpg') no-repeat; width:776px; height:96px; border:1px solid #888; vertical-align:middle;}
 .inquiry_area ul li.inquiry_tit span.textbox {display:inline-block; margin:30px 0 0 174px; height:37px; line-height:22px; color:#5d85bc; font-weight:bold;}
 .inquiry_area ul li.inquiry_tit span.btn {display:inline-block; margin:30px 0 0 20px; width:100px; height:37px; background:#377ac6; border:1px solid #125eb4; text-align:center; vertical-align:top;}
 .inquiry_area ul li.inquiry_tit span.btn button {font-size:18px; color:#fff; font-family:"NanumGothicBold"; line-height:37px;}
@@ -137,7 +137,7 @@
 
 .faq_area ul {border-top:2px solid #888; padding-top:20px; border-bottom:1px solid #888; }
 .faq_area ul > li {margin-bottom:20px;}
-.faq_area ul li.faq_tit {background:url('../images/sub/inquiry_areabg.jpg') no-repeat; width:776px; height:96px; border:1px solid #888;}
+.faq_area ul li.faq_tit {background:url('../img/sub/inquiry_areabg.jpg') no-repeat; width:776px; height:96px; border:1px solid #888;}
 .faq_area ul li.faq_tit span.textbox_tit {display:inline-block; margin:25px 0 0 174px; font-weight:bold; height:37px; vertical-align:top; padding-top:5px; color:#3268b1; font-size:18px;}
 .faq_area ul li.faq_tit span.textbox_text {display:inline-block; margin:25px 0 0 15px; height:37px; line-height:22px; color:#5d85bc; font-weight:bold;}
 .faq_area ul li.faq_searchbox {background:#eef1f2; border:1px solid #bbb; padding:15px; margin-bottom:}
@@ -187,7 +187,7 @@
 /* ------------- mypage ------------- */
 .mypage_section h4 {margin-top:20px; font-size:24px; font-family:"NanumGothicBold";}
 .mypage_section p.sub_tit {color:#0372b3; font-family:"NanumGothicBold"; margin:20px 0 30px 0;}
-.mypage_section h5.basic_infotit {background:url('../images/common/bullet_tit.gif') no-repeat center left; padding-left:10px; line-height:18px; margin-bottom:10px; font-size:14px; font-family:"NanumGothicBold";}
+.mypage_section h5.basic_infotit {background:url('../img/common/bullet_tit.gif') no-repeat center left; padding-left:10px; line-height:18px; margin-bottom:10px; font-size:14px; font-family:"NanumGothicBold";}
 .mypage_section table.myinfo_tbl th {text-align:left; height:30px; border-bottom:1px solid #bbb; background:#eef1f2; padding-left:10px; color:#666666;}
 .mypage_section table.myinfo_tbl th.topline ,.mypage_section table.myinfo_tbl td.topline {border-top:2px solid #888;}
 .mypage_section table.myinfo_tbl td {text-align:left; height:30px; border-bottom:1px solid #bbb; padding-left:5px;}
@@ -206,7 +206,7 @@
 
 /* ------------- mypage step1, mypage step2------------- */
 .mypage_step {border-top:2px solid #888; padding-top:20px;}
-.mypage_step ul li.mypage_tit {background:#eef1f2; width:776px; height:96px; border:1px solid #888; background:url('../images/sub/mypage_titbg.jpg') no-repeat center left;}
+.mypage_step ul li.mypage_tit {background:#eef1f2; width:776px; height:96px; border:1px solid #888; background:url('../img/sub/mypage_titbg.jpg') no-repeat center left;}
 .mypage_step ul li.mypage_tit span.textbox_tit {display:block; margin:25px 0 0 216px; font-size:18px; font-family:"NanumGothicBold";}
 .mypage_step ul li.mypage_tit span.textbox_text {display:block; margin:5px 0 0 216px;}
 .mypage_step ul li.mypage_textbox {padding:0 0 0 80px; line-height:35px; background:#eef1f2;  border:1px solid #888; margin-top:20px;}
@@ -223,7 +223,7 @@
 .mypage_step ul li.cupon_tb table.cupon_tbl tbody td {text-align:center; height:30px; border-bottom:1px solid #bbb;}
 
 /* ------------- mypage step3 ------------- */
-.mypage_step h5 {background:url('../images/common/bullet_tit.gif') no-repeat center left; padding-left:10px; line-height:18px; margin-bottom:10px; font-size:14px; font-family:"NanumGothicBold";}
+.mypage_step h5 {background:url('../img/common/bullet_tit.gif') no-repeat center left; padding-left:10px; line-height:18px; margin-bottom:10px; font-size:14px; font-family:"NanumGothicBold";}
 .mypage_step ul li.datebox {display:block; background:#eef1f2; border:1px solid #bbb; padding:15px 30px;}
 .mypage_step ul li.datebox span {display:inline-block; line-height:22px;}
 .mypage_step ul li.datebox span button {width:40px; line-height:18px; border:1px solid #bbb; background:#fff; font-size:12px;  font-family:"NanumGothicBold"; margin:0 5px;}
@@ -253,8 +253,8 @@
 .mpoint_current dl.point_tbox dt {line-height:30px; background:#888888; color:#fff; text-align:center; font-size:18px; font-family:"NanumGothicBold"; padding:0 12px;}
 .mpoint_current dl.point_tbox dt span.point_tit {display:inline-block; width:161px;}
 .mpoint_current dl.point_tbox dd.paddingbox {padding:0 15px; border-bottom:1px solid #bbb;}
-.mpoint_current dl.point_tbox dd span.pbox1 {display:inline-block; background:url('../images/sub/point_on.jpg') no-repeat center left; width:130px; padding-left:30px; line-height:67px; text-align:center; font-size:18px; font-family:"NanumGothicBold";}
-.mpoint_current dl.point_tbox dd span.pbox2 {display:inline-block; background:url('../images/sub/point_off.jpg') no-repeat center left; width:130px; padding-left:30px; line-height:67px; text-align:center; font-size:18px; font-family:"NanumGothicBold";}
+.mpoint_current dl.point_tbox dd span.pbox1 {display:inline-block; background:url('../img/sub/point_on.jpg') no-repeat center left; width:130px; padding-left:30px; line-height:67px; text-align:center; font-size:18px; font-family:"NanumGothicBold";}
+.mpoint_current dl.point_tbox dd span.pbox2 {display:inline-block; background:url('../img/sub/point_off.jpg') no-repeat center left; width:130px; padding-left:30px; line-height:67px; text-align:center; font-size:18px; font-family:"NanumGothicBold";}
 .mpoint_current dl.point_tbox dd span.tpoint {display:inline-block; text-align:center; font-size:18px; width:160px; line-height:82px; font-family:"NanumGothicBold";}
 .mpoint_current dl.point_tbox dd.bt_textbox {margin-top:10px;}
 .mpoint_current dl.point_tbox dd.bt_textbox span.pbox_text {display:block; margin-top:10px; color:#888888;}
@@ -273,7 +273,7 @@
 .porder_step ul:after {height:0; content:""; clear:both; display:block;}
 .porder_step ul li {float:right;}
 .porder_step ul li.mmargin {margin-right:-28px;}
-.porder_step h5 {background:url('../images/common/bullet_tit.gif') no-repeat center left; padding-left:10px; line-height:18px; margin-bottom:10px; font-size:14px; font-family:"NanumGothicBold"; margin:30px 0 5px 0;}
+.porder_step h5 {background:url('../img/common/bullet_tit.gif') no-repeat center left; padding-left:10px; line-height:18px; margin-bottom:10px; font-size:14px; font-family:"NanumGothicBold"; margin:30px 0 5px 0;}
 .porder_step table.order_tbl thead th {height:30px; background:#eef1f2; border-top:1px solid #888; border-bottom:1px solid #bbb;}
 .porder_step table.order_tbl thead th input {width:18px; height:18px;}
 .porder_step table.order_tbl tbody th input {width:18px; height:18px;}
@@ -282,10 +282,10 @@
 .porder_step table.order_tbl tbody td.product_area span {padding-left:15px;}
 .porder_step table.order_tbl tbody td span.input_text {display:block; text-align:center;}
 .porder_step table.order_tbl tbody td span.input_text input {width:25px; height:15px; border:1px solid #bbb; text-align:center;}
-.porder_step table.order_tbl tbody td button.btn_triangle1 {background:url('../images/common/btn_triangle1.gif') no-repeat center right; width:14px; height:17px; margin-left:10px; vertical-align:middle;}
+.porder_step table.order_tbl tbody td button.btn_triangle1 {background:url('../img/common/btn_triangle1.gif') no-repeat center right; width:14px; height:17px; margin-left:10px; vertical-align:middle;}
 .porder_step table.order_tbl tbody td span.input_btn {display:block; text-align:center; margin-top:4px;}
 .porder_step table.order_tbl tbody td span.input_btn input {width:27px; line-height:16px; border:1px solid #bbb;}
-.porder_step table.order_tbl tbody td span.input_btn button.btn_triangle2 {background:url('../images/common/btn_triangle2.gif') no-repeat center right; width:14px; height:17px; margin:2px 0 0 10px; vertical-align:middle;}
+.porder_step table.order_tbl tbody td span.input_btn button.btn_triangle2 {background:url('../img/common/btn_triangle2.gif') no-repeat center right; width:14px; height:17px; margin:2px 0 0 10px; vertical-align:middle;}
 .porder_step table.order_tbl tbody td.one_choice {height:30px; line-height:30px; background:#eef1f2; border-top:1px solid #888; border-bottom:1px solid #bbb; text-align:right; padding-right:20px; 
 font-family:"NanumGothicBold"; color:#666666;}
 .porder_step table.order_tbl tbody td.total_choice {line-height:30px; height:30px; background:#daeff5; border-bottom:1px solid #888; text-align:right; padding-right:20px; font-family:"NanumGothicBold";}
@@ -295,10 +295,10 @@ font-family:"NanumGothicBold"; color:#666666;}
 .porder_step span.btn_bottom1 {display:inline-block; margin:10px 0 0 10px;}
 .porder_step span.btn_bottom1 button {padding:6px 10px; border:1px solid #bbb; color:#bbb; margin-right:5px;}
 .porder_step span.btn_bottom2 {display:inline-block; margin:10px 10px 0 0; float:right;}
-.porder_step span.btn_bottom2 button.btn_boximg1 {background:url('../images/sub/btn_contiue.jpg') no-repeat center left; width:130px; line-height:34px; color:#fff; font-family:"NanumGothicBold"; margin-right:5px; font-size:18px;}
-.porder_step span.btn_bottom2 button.btn_boximg2 {background:url('../images/sub/btn_order.jpg') no-repeat center left; width:130px; line-height:34px; color:#fff; font-family:"NanumGothicBold"; margin-right:5px; font-size:18px;}
-.porder_step span.btn_bottom2 button.btn_boximg3 {background:url('../images/sub/btn_torder.jpg') no-repeat center left; width:130px; line-height:34px; color:#fff; font-family:"NanumGothicBold"; font-size:18px;}
-.porder_step p.sub_tit1 {color:#2373d1; font-family:"NanumGothicBold"; margin:20px 0 10px 0; background:url('../images/common/bullet_lc.gif') no-repeat center left; padding-left:10px;}
+.porder_step span.btn_bottom2 button.btn_boximg1 {background:url('../img/sub/btn_contiue.jpg') no-repeat center left; width:130px; line-height:34px; color:#fff; font-family:"NanumGothicBold"; margin-right:5px; font-size:18px;}
+.porder_step span.btn_bottom2 button.btn_boximg2 {background:url('../img/sub/btn_order.jpg') no-repeat center left; width:130px; line-height:34px; color:#fff; font-family:"NanumGothicBold"; margin-right:5px; font-size:18px;}
+.porder_step span.btn_bottom2 button.btn_boximg3 {background:url('../img/sub/btn_torder.jpg') no-repeat center left; width:130px; line-height:34px; color:#fff; font-family:"NanumGothicBold"; font-size:18px;}
+.porder_step p.sub_tit1 {color:#2373d1; font-family:"NanumGothicBold"; margin:20px 0 10px 0; background:url('../img/common/bullet_lc.gif') no-repeat center left; padding-left:10px;}
 .porder_step p.sub_tit2 {color:#666666; font-family:"NanumGothicBold"; margin:0 0 10px 0;}
 .porder_step p.sub_tit3 {color:#666666; font-family:"NanumGothicBold"; margin:10px 0 10px 0;}
 .porder_step table.order_tblbox {margin-bottom:15px;}
@@ -356,14 +356,14 @@ font-family:"NanumGothicBold"; color:#666666;}
 .membership_section ul.lctit_section {display:block; margin-top:30px;}
 .membership_section ul.lctit_section:after {height:0; content:""; clear:both; display:block;}
 .membership_section ul.lctit_section li {float:left; width:257px; height:78px; border-left:1px solid #888; border-bottom:1px solid #888; border-top:1px solid #888; font-family:"NanumGothicBold"; font-size:14px;}
-.membership_section ul.lctit_section li.on {background:url('../images/sub/membership_listbg.gif') repeat-x; width:257px; height:78px; color:#fff; }
+.membership_section ul.lctit_section li.on {background:url('../img/sub/membership_listbg.gif') repeat-x; width:257px; height:78px; color:#fff; }
 .membership_section ul.lctit_section li.on span.loc_boxstit {border-left:1px solid #fff;}
 .membership_section ul.lctit_section li.rightline {border-right:1px solid #888;}
 .membership_section ul.lctit_section li span {display:inline-block;}
 .membership_section ul.lctit_section li span.loc_boxtit {margin:22px 25px 0 40px; vertical-align:top;}
 .membership_section ul.lctit_section li span.loc_aboxtit {margin:30px 25px 0 40px;}
 .membership_section ul.lctit_section li span.loc_boxstit {margin:22px 25px 25px 0; border-left:1px solid #000; padding-left:25px;}
-.membership_section h5 {background:url('../images/common/bullet_tit.gif') no-repeat center left; padding-left:10px; line-height:18px; margin-bottom:10px; font-size:14px; font-family:"NanumGothicBold"; margin:30px 0 5px 0;}
+.membership_section h5 {background:url('../img/common/bullet_tit.gif') no-repeat center left; padding-left:10px; line-height:18px; margin-bottom:10px; font-size:14px; font-family:"NanumGothicBold"; margin:30px 0 5px 0;}
 .membership_section .text_area {padding:20px; border:1px solid #888;}
 .membership_section .text_area:after {height:0; content:""; clear:both; display:block;}
 .membership_section .text_area p.sub_tit1 {color:#4aa7dd; font-family:"NanumGothicBold"; margin:20px 0 10px 0; }
@@ -375,10 +375,10 @@ font-family:"NanumGothicBold"; color:#666666;}
 .membership_section dl.accreditation dt {line-height:100px; background:#e5f2fa; border:1px solid #4ba2d5; font-size:18px; font-family:"NanumGothicBold"; text-align:center;}
 .membership_section dl.accreditation dd.tit_text {margin:10px 0; text-align:center;}
 .membership_section dl.accreditation dd.btn_areabox1 {float:left; margin:0 0 10px 120px;}
-.membership_section dl.accreditation dd.btn_areabox1 span.btn_tit {display:block; background:url('../images/common/bullet5.gif') no-repeat center left; padding-left:5px; line-height:30px; margin-left:24px;}
+.membership_section dl.accreditation dd.btn_areabox1 span.btn_tit {display:block; background:url('../img/common/bullet5.gif') no-repeat center left; padding-left:5px; line-height:30px; margin-left:24px;}
 .membership_section dl.accreditation dd.btn_areabox1 button {width:148px; line-height:38px; font-size:18px; color:#fff; background:#2c9dde; font-family:"NanumGothicBold"; border:1px solid #0083ce;}
 .membership_section dl.accreditation dd.btn_areabox2 {float:left; margin:0 0 10px 198px;}
-.membership_section dl.accreditation dd.btn_areabox2 span.btn_tit {display:block; background:url('../images/common/bullet5.gif') no-repeat center left; padding-left:5px; line-height:30px;}
+.membership_section dl.accreditation dd.btn_areabox2 span.btn_tit {display:block; background:url('../img/common/bullet5.gif') no-repeat center left; padding-left:5px; line-height:30px;}
 .membership_section dl.accreditation dd.btn_areabox2 button {width:148px; line-height:38px; font-size:18px; color:#fff; background:#2c9dde; font-family:"NanumGothicBold"; border:1px solid #0083ce;}
 
 .membership_section table.membership_tbl {border-top:2px solid #888; border-bottom:2px solid #888;}

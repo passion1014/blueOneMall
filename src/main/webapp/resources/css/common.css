@@ -31,7 +31,7 @@ textarea {border:1px solid #d2d2d2; width:100%;}
 
 /* layout */
 .wrap {width:100%}
-.header {height:142px; background:url('../images/common/header_bg.gif') repeat-x bottom left;}
+.header {height:142px; background:url('../img/common/header_bg.gif') repeat-x bottom left;}
 .container {width:1000px; margin:10px auto;}
 .footer {border-top:2px solid #888888;}
 
@@ -53,7 +53,7 @@ textarea {border:1px solid #d2d2d2; width:100%;}
 .header .search_area span.search_menu a.menu_site {display:inline-block; padding-right:7px; border-right:1px solid #888888;}
 .header .search_area span.search_box {padding-top:10px; text-align:right;}
 .header .search_area span.search_box input {width:184px; height:26px; border:1px solid #888888; padding-top:-10px; vertical-align:top;}
-.header .search_area span.search_box button {background:url('../images/common/search_img.gif') no-repeat center left; width:30px; height:28px; margin-left:-10px;}
+.header .search_area span.search_box button {background:url('../img/common/search_img.gif') no-repeat center left; width:30px; height:28px; margin-left:-10px;}
 
 /* ------------- sub lnb ------------- */
 

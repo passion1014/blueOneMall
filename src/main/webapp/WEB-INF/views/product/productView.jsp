@@ -1,54 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta http-equiv="Expires" content="0" />
-<meta http-equiv="Pragma" content="no-cache" />
-<meta http-equiv="imagetoolbar" content="no" />
-<title> ###### 현대프로모션몰 ######</title>
-<link href="css/common.css" rel="stylesheet" type="text/css" />
-<link href="css/sub.css" rel="stylesheet" type="text/css" />
-</head>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<c:import  url="../inc/topSub.jsp" />
 
 <body>
 <div class="wrap">
-	<div class="header">
-		<div class="top">
-			<h1><a href="#"><img src="./images/common/blueone_logo.png" alt="blueone logo"/></a></h1>
-			<p class="top_img">
-				<img src="./images/common/top_image.jpg" alt="top image"/>
-			</p>
-			<form action="#" method="post">
-				<div class="search_area">
-					<span class="search_menu">
-						<a href="#" class="menu_site">장바구니</a>
-						<a href="#" class="menu_site">주문배송 조회</a>
-						<a href="#">마이페이지</a>
-					</span>
-					<span class="search_box">
-						<input type="text" title="서치텍스트박스"/>
-						<button></button>
-					</span>
-				</div>
-			</form>
-		</div>
-		<div class="gnb">
-			<ul>
-				<li><a href="#">BLUETOOTH</a></li>
-				<li class="gnb_list"><a href="#">EARPHONE</a></li>
-				<li class="gnb_list"><a href="#">HEADPHONE</a></li>
-				<li class="gnb_list"><a href="#">MULTMEDIA</a></li>
-				<li class="gnb_list"><a href="#">CASE</a></li>
-				<li class="gnb_list"><a href="#">XTC</a></li>
-				<li class="gnb_list"><a href="#">SALE</a></li>
-				<li class="gnb_list"><a href="#">BARND SHOP</a></li>
-			</ul>
-		</div>
-	</div>
-<!--  header 끝   -->
+	<!--  header 시작   -->
+	<c:import url="../inc/header.jsp"/>
+	<!--  header 끝   -->
 
 	<div class="container">
 		<div class="lnb">
@@ -80,12 +39,12 @@
 					<span class="locat_box">Home&nbsp;>&nbsp;블루투&nbsp;>&nbsp;LG&nbsp;>&nbsp;스테레오</span>
 					<h4>HBS730 (TONE PLUS) 스테레오 블루투스/APT-X 최강음질지원</h4>
 					<div class="view_dbox1">
-						<p><img src="./images/product/pro_mainimg.jpg" alt="상품 큰이미지"/></p>
-						<button><img src="./images/common/btn_viewpro.jpg" alt="자세히보기"/></button>
-						<span class="mralign"><img src="./images/product/pro_simg1.jpg" alt="상품 작은이미지"/></span>
-						<span class="mralign"><img src="./images/product/pro_simg2.jpg" alt="상품 작은이미지"/></span>
-						<span class="mralign"><img src="./images/product/pro_simg3.jpg" alt="상품 작은이미지"/></span>
-						<span><img src="./images/product/pro_simg4.jpg" alt="상품 작은이미지"/></span>
+						<p><img src="<c:url value='/resources/img/product/pro_mainimg.jpg'/>" alt="상품 큰이미지"/></p>
+						<button><img src="<c:url value='/resources/img/common/btn_viewpro.jpg'/>" alt="자세히보기"/></button>
+						<span class="mralign"><img src="<c:url value='/resources/img/product/pro_simg1.jpg'/>" alt="상품 작은이미지"/></span>
+						<span class="mralign"><img src="<c:url value='/resources/img/product/pro_simg2.jpg'/>" alt="상품 작은이미지"/></span>
+						<span class="mralign"><img src="<c:url value='/resources/img/product/pro_simg3.jpg'/>" alt="상품 작은이미지"/></span>
+						<span><img src="<c:url value='/resources/img/product/pro_simg4.jpg'/>" alt="상품 작은이미지"/></span>
 					</div>
 					<div class="view_dbox2">
 						<table class="detail_tbl" summary="제품에 대한 상세리스트표">
@@ -206,7 +165,7 @@
 						<li class="alignline">배송/반품/교환정보</li>
 					</ul>
 					<p class="image_section">
-						<img src="./images/product/pro_detailimg.jpg" alt="제품상세이미지"/>
+						<img src="<c:url value='/resources/img/product/pro_detailimg.jpg'/>" alt="제품상세이미지"/>
 					</p>
 				</div>
 				<div class="detail_section">
@@ -217,7 +176,7 @@
 						<li class="alignline">배송/반품/교환정보</li>
 					</ul>
 					<p class="image_section">
-						<img src="./images/product/inqriry_img.jpg" alt="제품문의이미지"/>
+						<img src="<c:url value='/resources/img/product/inqriry_img.jpg'/>" alt="제품문의이미지"/>
 					</p>
 				</div>
 				<div class="detail_section">
@@ -244,10 +203,10 @@
 							<dt class="clearfix">평가하기</dt>
 							<dd>
 								<span>
-									<img src="./images/common/bullet_lstar.png" alt="큰 별 이미지"/>
-									<img src="./images/common/bullet_lstar.png" alt="큰 별 이미지"/>
-									<img src="./images/common/bullet_lstar.png" alt="큰 별 이미지"/>
-									<img src="./images/common/bullet_lstar.png" alt="큰 별 이미지"/>
+									<img src="<c:url value='/resources/img/common/bullet_lstar.png'/>" alt="큰 별 이미지"/>
+									<img src="<c:url value='/resources/img/common/bullet_lstar.png'/>" alt="큰 별 이미지"/>
+									<img src="<c:url value='/resources/img/common/bullet_lstar.png'/>" alt="큰 별 이미지"/>
+									<img src="<c:url value='/resources/img/common/bullet_lstar.png'/>" alt="큰 별 이미지"/>
 								</span>
 							</dd>
 						</dl>
@@ -285,11 +244,11 @@
 									<td class="bgcolor">abcd*****</td>
 									<td>2014-01-08</td>
 									<td class="bgcolor">
-										<img src="./images/common/bullet_sstar.png" alt="작은별 이미지"/>
-										<img src="./images/common/bullet_sstar.png" alt="작은별 이미지"/>
-										<img src="./images/common/bullet_sstar.png" alt="작은별 이미지"/>
-										<img src="./images/common/bullet_sstar.png" alt="작은별 이미지"/>
-										<img src="./images/common/bullet_sstar.png" alt="작은별 이미지"/>
+										<img src="<c:url value='/resources/img/common/bullet_sstar.png'/>" alt="작은별 이미지"/>
+										<img src="<c:url value='/resources/img/common/bullet_sstar.png'/>" alt="작은별 이미지"/>
+										<img src="<c:url value='/resources/img/common/bullet_sstar.png'/>" alt="작은별 이미지"/>
+										<img src="<c:url value='/resources/img/common/bullet_sstar.png'/>" alt="작은별 이미지"/>
+										<img src="<c:url value='/resources/img/common/bullet_sstar.png'/>" alt="작은별 이미지"/>
 									</td>
 								</tr>
 								<tr>
@@ -298,11 +257,11 @@
 									<td class="bgcolor">abcd*****</td>
 									<td>2014-01-08</td>
 									<td class="bgcolor">
-										<img src="./images/common/bullet_sstar.png" alt="작은별 이미지"/>
-										<img src="./images/common/bullet_sstar.png" alt="작은별 이미지"/>
-										<img src="./images/common/bullet_sstar.png" alt="작은별 이미지"/>
-										<img src="./images/common/bullet_sstar.png" alt="작은별 이미지"/>
-										<img src="./images/common/bullet_sstar.png" alt="작은별 이미지"/>
+										<img src="<c:url value='/resources/img/common/bullet_sstar.png'/>" alt="작은별 이미지"/>
+										<img src="<c:url value='/resources/img/common/bullet_sstar.png'/>" alt="작은별 이미지"/>
+										<img src="<c:url value='/resources/img/common/bullet_sstar.png'/>" alt="작은별 이미지"/>
+										<img src="<c:url value='/resources/img/common/bullet_sstar.png'/>" alt="작은별 이미지"/>
+										<img src="<c:url value='/resources/img/common/bullet_sstar.png'/>" alt="작은별 이미지"/>
 									</td>
 								</tr>
 								<tr>
@@ -311,11 +270,11 @@
 									<td class="bgcolor">abcd*****</td>
 									<td>2014-01-08</td>
 									<td class="bgcolor">
-										<img src="./images/common/bullet_sstar.png" alt="작은별 이미지"/>
-										<img src="./images/common/bullet_sstar.png" alt="작은별 이미지"/>
-										<img src="./images/common/bullet_sstar.png" alt="작은별 이미지"/>
-										<img src="./images/common/bullet_sstar.png" alt="작은별 이미지"/>
-										<img src="./images/common/bullet_sstar.png" alt="작은별 이미지"/>
+										<img src="<c:url value='/resources/img/common/bullet_sstar.png'/>" alt="작은별 이미지"/>
+										<img src="<c:url value='/resources/img/common/bullet_sstar.png'/>" alt="작은별 이미지"/>
+										<img src="<c:url value='/resources/img/common/bullet_sstar.png'/>" alt="작은별 이미지"/>
+										<img src="<c:url value='/resources/img/common/bullet_sstar.png'/>" alt="작은별 이미지"/>
+										<img src="<c:url value='/resources/img/common/bullet_sstar.png'/>" alt="작은별 이미지"/>
 									</td>
 								</tr>
 								<tr>
@@ -324,11 +283,11 @@
 									<td class="bgcolor">abcd*****</td>
 									<td>2014-01-08</td>
 									<td class="bgcolor">
-										<img src="./images/common/bullet_sstar.png" alt="작은별 이미지"/>
-										<img src="./images/common/bullet_sstar.png" alt="작은별 이미지"/>
-										<img src="./images/common/bullet_sstar.png" alt="작은별 이미지"/>
-										<img src="./images/common/bullet_sstar.png" alt="작은별 이미지"/>
-										<img src="./images/common/bullet_sstar.png" alt="작은별 이미지"/>
+										<img src="<c:url value='/resources/img/common/bullet_sstar.png'/>" alt="작은별 이미지"/>
+										<img src="<c:url value='/resources/img/common/bullet_sstar.png'/>" alt="작은별 이미지"/>
+										<img src="<c:url value='/resources/img/common/bullet_sstar.png'/>" alt="작은별 이미지"/>
+										<img src="<c:url value='/resources/img/common/bullet_sstar.png'/>" alt="작은별 이미지"/>
+										<img src="<c:url value='/resources/img/common/bullet_sstar.png'/>" alt="작은별 이미지"/>
 									</td>
 								</tr>
 							</tbody>
@@ -336,8 +295,8 @@
 					</div>
 				</div>
 				<div class="paging2">
-					<a href="#" class="palign1"><img src="./images/common/btn_first.gif" alt="처음으로"></a>
-					<a href="#" class="palign2"><img src="./images/common/btn_prev.gif" alt="이전"></a>
+					<a href="#" class="palign1"><img src="<c:url value='/resources/img/common/btn_first.gif'/>" alt="처음으로"></a>
+					<a href="#" class="palign2"><img src="<c:url value='/resources/img/common/btn_prev.gif'/>" alt="이전"></a>
 					<a href="#" class="on">1</a>
 					<a href="#">2</a>
 					<a href="#">3</a>
@@ -348,8 +307,8 @@
 					<a href="#">8</a>
 					<a href="#">9</a>
 					<a href="#">10</a>
-					<a href="#" class="palign1"><img src="./images/common/btn_next.gif" alt="다음"></a>
-					<a href="#" class="palign2"><img src="./images/common/btn_end.gif" alt="끝으로"></a>
+					<a href="#" class="palign1"><img src="<c:url value='/resources/img/common/btn_next.gif'/>" alt="다음"></a>
+					<a href="#" class="palign2"><img src="<c:url value='/resources/img/common/btn_end.gif'/>" alt="끝으로"></a>
 				</div>
 			</form>
 		</div>
@@ -358,7 +317,7 @@
 
 	<div class="footer">
 		<div class="footer_area">
-			<h2><img src="./images/common/footer_logo.jpg" alt="현대 로고"/></h2>
+			<h2><img src="<c:url value='/resources/img/common/footer_logo.jpg'/>" alt="현대 로고"/></h2>
 			<address>
 				공정거래위원회 고시 제2001-1호에 따른 사업자 등록번호:212-81-86027ㅣ대표이사 : 김화웅<br/>
 				개인정보관리 책임자 법인사업부 법인영업1팀 송선호 부장 l 주소:서울시 강동구 암사동 513-16번지 현대H&S<br/>
