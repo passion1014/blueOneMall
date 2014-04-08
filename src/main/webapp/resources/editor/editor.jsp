@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!doctype html>
 <html>
 <head>
@@ -21,8 +24,8 @@
         에디터 리소스들을 로딩하는 부분으로, 경로가 변경되면 이 부분 수정이 필요.
         주의: 서비스에 이용시 loader 에 붙은 environment=development 값을 제거해야 브라우저 캐시를 사용할 수 있습니다.
     -->
-    <link rel="stylesheet" href="css/editor.css" type="text/css" charset="utf-8"/>
-    <script src="js/editor_loader.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" href="/resources/editor/css/editor.css" type="text/css" charset="utf-8"/>
+    <script src="/resources/editor/js/editor_loader.js" type="text/javascript" charset="utf-8"></script>
 
 </head>
 <body>
@@ -265,9 +268,9 @@
 							</div>
 							<div class="tx-menu-footer">
 								<img class="tx-menu-confirm"
-									 src="./images/icon/editor/btn_confirm.gif?rv=1.0.1" alt=""/>
+									 src="/resources/editor/images/icon/editor/btn_confirm.gif?rv=1.0.1" alt=""/>
 								<img class="tx-menu-cancel" hspace="3"
-									 src="./images/icon/editor/btn_cancel.gif?rv=1.0.1" alt=""/>
+									 src="/resources/editor/images/icon/editor/btn_cancel.gif?rv=1.0.1" alt=""/>
 							</div>
 						</div>
 					</li>
@@ -404,7 +407,7 @@
 			<!-- 편집영역 시작 -->
 				<!-- 에디터 Start -->
 	<div id="tx_canvas" class="tx-canvas">
-		<div id="tx_loading" class="tx-loading"><div><img src="images/icon/editor/loading2.png" width="113" height="21" align="absmiddle"/></div></div>
+		<div id="tx_loading" class="tx-loading"><div><img src="/resources/editor/images/icon/editor/loading2.png" width="113" height="21" align="absmiddle"/></div></div>
 		<div id="tx_canvas_wysiwyg_holder" class="tx-holder" style="display:block;">
 			<iframe id="tx_canvas_wysiwyg" name="tx_canvas_wysiwyg" allowtransparency="true" frameborder="0"></iframe>
 		</div>
@@ -420,7 +423,7 @@
 					<!-- 높이조절 Start -->
 	<div id="tx_resizer" class="tx-resize-bar">
 		<div class="tx-resize-bar-bg"></div>
-		<img id="tx_resize_holder" src="images/icon/editor/skin/01/btn_drag01.gif" width="58" height="12" unselectable="on" alt="" />
+		<img id="tx_resize_holder" src="/resources/editor/images/icon/editor/skin/01/btn_drag01.gif" width="58" height="12" unselectable="on" alt="" />
 	</div>
 					<div class="tx-side-bi" id="tx_side_bi">
 		<!--<div style="text-align: right;">
@@ -434,7 +437,7 @@
 		<div id="tx_attach_txt" class="tx-attach-txt">파일 첨부</div>
 		<div id="tx_attach_box" class="tx-attach-box">
 			<div class="tx-attach-box-inner">
-				<div id="tx_attach_preview" class="tx-attach-preview"><p></p><img src="images/icon/editor/pn_preview.gif" width="147" height="108" unselectable="on"/></div>
+				<div id="tx_attach_preview" class="tx-attach-preview"><p></p><img src="/resources/editor/images/icon/editor/pn_preview.gif" width="147" height="108" unselectable="on"/></div>
 				<div class="tx-attach-main">
 					<div id="tx_upload_progress" class="tx-upload-progress"><div>0%</div><p>파일을 업로드하는 중입니다.</p></div>
 					<ul class="tx-attach-top">
@@ -459,14 +462,14 @@
 <script type="text/javascript">
 	var config = {
 		txHost: '', /* 런타임 시 리소스들을 로딩할 때 필요한 부분으로, 경로가 변경되면 이 부분 수정이 필요. ex) http://xxx.xxx.com */
-		txPath: '', /* 런타임 시 리소스들을 로딩할 때 필요한 부분으로, 경로가 변경되면 이 부분 수정이 필요. ex) /xxx/xxx/ */
+		txPath: '/resources/editor/', /* 런타임 시 리소스들을 로딩할 때 필요한 부분으로, 경로가 변경되면 이 부분 수정이 필요. ex) /xxx/xxx/ */
 		txService: 'sample', /* 수정필요없음. */
 		txProject: 'sample', /* 수정필요없음. 프로젝트가 여러개일 경우만 수정한다. */
 		initializedId: "", /* 대부분의 경우에 빈문자열 */
 		wrapper: "tx_trex_container", /* 에디터를 둘러싸고 있는 레이어 이름(에디터 컨테이너) */
 		form: 'tx_editor_form'+"", /* 등록하기 위한 Form 이름 */
-		txIconPath: "images/icon/editor/", /*에디터에 사용되는 이미지 디렉터리, 필요에 따라 수정한다. */
-		txDecoPath: "images/deco/contents/", /*본문에 사용되는 이미지 디렉터리, 서비스에서 사용할 때는 완성된 컨텐츠로 배포되기 위해 절대경로로 수정한다. */
+		txIconPath: "/resources/editor/images/icon/editor/", /*에디터에 사용되는 이미지 디렉터리, 필요에 따라 수정한다. */
+		txDecoPath: "/resources/editor/images/deco/contents/", /*본문에 사용되는 이미지 디렉터리, 서비스에서 사용할 때는 완성된 컨텐츠로 배포되기 위해 절대경로로 수정한다. */
 		canvas: {
 			styles: {
 				color: "#123456", /* 기본 글자색 */
