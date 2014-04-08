@@ -32,4 +32,10 @@ public class UserProductController {
 		
 		return "product/productList";
 	}
+	
+	@RequestMapping(value="/product/productView.do")
+	public String productView(@ModelAttribute("productInfo") ProductInfo productInfo, BindingResult result, Model model){
+		
+		return "product/productView";
+	}
 }
