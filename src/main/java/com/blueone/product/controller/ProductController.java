@@ -140,30 +140,31 @@ public class ProductController {
 		
 		productInfo.setPrdCd(pCd);
 		productInfo = productManageService.getProductInfDetail(productInfo);
-		SearchProdInfo searchProdInfo = new SearchProdInfo();
 		
 		// -----------------------------------------------------------------
 		// 2. 상품수정을 위한 카테고리(대분류) 리스트를 넘긴다.
 		// -----------------------------------------------------------------
 		CategoryInfo categoryInfo = new CategoryInfo();
 		List<CategoryInfo> list = categoryManageService.getCategoryInfList(categoryInfo);
-		List<ProductInfo> list2 = productManageService.getProductInfList(searchProdInfo);
 		String ctgLargeCode = categoryInfo.getCtgLargeCode();
 		// 대분류로만 필터링한다.
-		List<CategoryInfo> rstList = new ArrayList<CategoryInfo>();
+		List<CategoryInfo> rstList = getCategoryListByTypeCd(categoryInfo, "01");
+		List<CategoryInfo> rstList2 = getCategoryListByTypeCd(categoryInfo, "02");//중분류 list
+		model.addAttribute("ctgMList2", rstList2);
 		
-		for (CategoryInfo each : list) {
-			if ("01".equals(each.getCtgCodeType())) {
-				rstList.add(each);
+		for(int idx=0; idx < rstList2.size(); idx++) {
+			CategoryInfo each = rstList2.get(idx);
+			if (!ctgLargeCode.equals(each.getCtgPCode())) {
+				rstList2.remove(idx);
+				idx--;
 			}
 		}
 		
-		
-		model.addAttribute("searchProdInfo", searchProdInfo);
+		model.addAttribute("productInfo", productInfo);
 		model.addAttribute("prdInfo", productInfo);
-		model.addAttribute("category", list);
 		// 결과값 셋팅
 		model.addAttribute("ctgLList", rstList);
+		
 		return "admin/product/productManagement";
 	}
 	
@@ -171,5 +172,15 @@ public class ProductController {
 	
 	
 
-	
+	private List<CategoryInfo> getCategoryListByTypeCd(CategoryInfo categoryInfo, String ctgCodeType) {
+		List<CategoryInfo> list = categoryManageService.getCategoryInfList(categoryInfo);
+		List<CategoryInfo> rstList = new ArrayList<CategoryInfo>();
+		for (CategoryInfo each : list) {
+			if (ctgCodeType.equals(each.getCtgCodeType())) {
+				rstList.add(each);
+			}
+		}
+		
+		return rstList;
+	}
 }

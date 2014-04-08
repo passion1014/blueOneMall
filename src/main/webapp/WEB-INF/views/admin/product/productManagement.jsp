@@ -118,7 +118,7 @@
 				
 				<select id="prdCtgM" name="prdCtgM">
 					<option value="">:::: 중분류를 선택하여주십시오 ::::</option>	
-					<c:forEach items="${ctgList2}" var="middleTypeObj">
+					<c:forEach items="${ctgMList2}" var="middleTypeObj">
 						<option value="<c:out value="${middleTypeObj.ctgCode}"></c:out>" <c:if test="${middleTypeObj.ctgCode==prdInfo.prdCtgM}">  selected </c:if>><c:out value="${middleTypeObj.ctgName}"></c:out></option>
 					
 					</c:forEach>							
