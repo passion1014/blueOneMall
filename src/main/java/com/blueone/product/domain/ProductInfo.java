@@ -17,14 +17,14 @@ public class ProductInfo {
 	private String toDate;		// 적용종료일
 	private String regDate;		// 등록일
 	private String lastDate;	// 최종수정일
-	private int proPrice;		//소비자가
-	private int proSellPrc;		//판매가
-	private String proModel;	//모델명
-	private String proModelNo;	//모델명번호
-	private String proBrand;	//제조사
-	private String proListCmt;	//목록간략내용
-	private String proConts;	//상세보기
-	private int proTransInf;	//배송,반품,교환정보
+	private int prdPrice;		//소비자가
+	private int prdSellPrc;		//판매가
+	private String prdModel;	//모델명
+	private String prdModelNo;	//모델명번호
+	private String prdBrand;	//제조사
+	private String prdListCmt;	//목록간략내용
+	private String prdConts;	//상세보기
+	private int prdTransInf;	//배송,반품,교환정보
 	private String admMemo;		//관리자메모
 	private String modifyUserId;// 최종수정자
 	
@@ -112,53 +112,54 @@ public class ProductInfo {
 	public void setLastDate(String lastDate) {
 		this.lastDate = lastDate;
 	}
-	public int getProPrice() {
-		return proPrice;
+
+	public int getPrdPrice() {
+		return prdPrice;
 	}
-	public void setProPrice(int proPrice) {
-		this.proPrice = proPrice;
+	public void setPrdPrice(int prdPrice) {
+		this.prdPrice = prdPrice;
 	}
-	public int getProSellPrc() {
-		return proSellPrc;
+	public int getPrdSellPrc() {
+		return prdSellPrc;
 	}
-	public void setProSellPrc(int proSellPrc) {
-		this.proSellPrc = proSellPrc;
+	public void setPrdSellPrc(int prdSellPrc) {
+		this.prdSellPrc = prdSellPrc;
 	}
-	public String getProModel() {
-		return proModel;
+	public String getPrdModel() {
+		return prdModel;
 	}
-	public void setProModel(String proModel) {
-		this.proModel = proModel;
+	public void setPrdModel(String prdModel) {
+		this.prdModel = prdModel;
 	}
-	public String getProModelNo() {
-		return proModelNo;
+	public String getPrdModelNo() {
+		return prdModelNo;
 	}
-	public void setProModelNo(String proModelNo) {
-		this.proModelNo = proModelNo;
+	public void setPrdModelNo(String prdModelNo) {
+		this.prdModelNo = prdModelNo;
 	}
-	public String getProBrand() {
-		return proBrand;
+	public String getPrdBrand() {
+		return prdBrand;
 	}
-	public void setProBrand(String proBrand) {
-		this.proBrand = proBrand;
+	public void setPrdBrand(String prdBrand) {
+		this.prdBrand = prdBrand;
 	}
-	public String getProListCmt() {
-		return proListCmt;
+	public String getPrdListCmt() {
+		return prdListCmt;
 	}
-	public void setProListCmt(String proListCmt) {
-		this.proListCmt = proListCmt;
+	public void setPrdListCmt(String prdListCmt) {
+		this.prdListCmt = prdListCmt;
 	}
-	public String getProConts() {
-		return proConts;
+	public String getPrdConts() {
+		return prdConts;
 	}
-	public void setProConts(String proConts) {
-		this.proConts = proConts;
+	public void setPrdConts(String prdConts) {
+		this.prdConts = prdConts;
 	}
-	public int getProTransInf() {
-		return proTransInf;
+	public int getPrdTransInf() {
+		return prdTransInf;
 	}
-	public void setProTransInf(int proTransInf) {
-		this.proTransInf = proTransInf;
+	public void setPrdTransInf(int prdTransInf) {
+		this.prdTransInf = prdTransInf;
 	}
 	public String getAdmMemo() {
 		return admMemo;

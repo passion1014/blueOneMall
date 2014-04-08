@@ -90,8 +90,8 @@
 					<td class="center"><input id="unit_chk" name="unit_chk[]" value="gd_533bce184e45d" type="checkbox"></td>
 
 					
-						<td style="text-align:center;">${produts.idx}</td>
-						<td style="text-align:center;">${produts.proListImg}</td>
+						<td style="text-align:center;">0</td>
+						<td style="text-align:center;">상품이미지</td>
 						<td style="text-align:center;">${produts.prdDp}</td>
 						<td>
 							상품분류:
@@ -124,8 +124,8 @@
 								
 						</td>
 						<td class="right">
-							<strike>${produts.proPrice}</strike> 원<br />
-							<b>${produts.proSellPrc}</b> 원						
+							<strike>${produts.prdPrice}</strike> 원<br />
+							<b>${produts.prdSellPrc}</b> 원						
 						</td>
 						<td class="center">
 						<input value="보기" class="Small_Button Gray" style="margin-bottom:5px;" onclick="openWin('./product/product.goods_viewer.php?gCode=gd_533bce184e45d','goods_viewer',1028,900,'scrollbars=yes');" type="button"> <br>
