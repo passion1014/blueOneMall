@@ -103,7 +103,7 @@ public class ProductController {
 		productInfo.setPrdCd("P"+code);
 		
 		// 상픔등록
-		productManageService.registProductDtlInfo(productInfo);
+
 		productManageService.registProductInfo(productInfo);
 		
 
@@ -131,8 +131,19 @@ public class ProductController {
 	}
 	
 	
-	
-	
+	/**
+	 * 상품 관리 수정폼
+	 */		
+	@RequestMapping(value="/admin/productManagement.do", method=RequestMethod.POST)
+	public String largeTypeModify(@ModelAttribute("productInfo") ProductInfo productInfo, BindingResult result, Model model){
+		
+		/*
+		categoryInfo = categoryManageService.getCategoryInfDetail(categoryInfo);
+		model.addAttribute("largeTypeObj", categoryInfo);
+		*/
+		
+		return "admin/product/productManagement";
+	}
 	
 	
 	
