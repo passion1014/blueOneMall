@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +24,7 @@ import com.blueone.board.service.IBoardTypService;
 import com.blueone.common.service.HTMLContService;
 import com.blueone.common.service.IHTMLContService;
 import com.blueone.common.util.Utility;
+import com.blueone.user.domain.UserInfo;
 
 @Controller
 public class EtcController {
@@ -155,7 +157,11 @@ public class EtcController {
 	
 	
 	
-	
+	//1:1문의하기
+		@RequestMapping(value="/community/qnaList.do", method=RequestMethod.GET)
+		public String qnaList(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model){
+			return "community/qnaPage";
+		}
 	
 	
 	
