@@ -47,6 +47,7 @@ public class ProductController {
 		}
 		
 		*/
+		
 		List<ProductInfo> list = productManageService.getProductInfList(srchProdInfo);
 	    
 		model.addAttribute("list", list);
@@ -104,7 +105,7 @@ public class ProductController {
 	 * 상품등록처리 등록처리
 	 */
 	@RequestMapping(value = "/admin/productRegisterProc.do", method = RequestMethod.POST)
-	public String smallTypeRegisterProc(@ModelAttribute("productInfo") ProductInfo productInfo, BindingResult result, Model model,String ctgname,RedirectAttributes redirectAttributes) {
+	public String productRegisterProc(@ModelAttribute("productInfo") ProductInfo productInfo, BindingResult result, Model model,String ctgname,RedirectAttributes redirectAttributes) {
 
 		// 상품 코드 채번
 		int code= (int)(Math.random()*10000)+1;
@@ -143,7 +144,7 @@ public class ProductController {
 	 * 상품 관리 수정폼
 	 */		
 	@RequestMapping(value="/admin/productManagement.do", method=RequestMethod.GET)
-	public String largeTypeModify(@ModelAttribute("productInfo") ProductInfo productInfo, BindingResult result, Model model, String pCd){
+	public String productManage(@ModelAttribute("productInfo") ProductInfo productInfo, BindingResult result, Model model, String pCd){
 		
 		productInfo.setPrdCd(pCd);
 		
@@ -220,6 +221,25 @@ public class ProductController {
 		return "admin/product/productManagement";
 	}
 	
+	/**
+	 * 상품 수정처리
+	 */
+	@RequestMapping(value = "/admin/manageProductInfProc.do", method = RequestMethod.POST)
+	public String manageProductInfProc(@ModelAttribute("categoryInfo") ProductInfo productInfo, BindingResult result, Model model) {
+		productManageService.manageProductInf(productInfo);
+		
+		return "redirect:productList.do";
+	}
+	
+	/**
+	 * 상품 삭제
+	 */
+	@RequestMapping(value = "/admin/deleteProductInf.do", method = RequestMethod.GET)
+	public String deleteProductInfo(@ModelAttribute("productInfo") ProductInfo productInfo, BindingResult result, Model model) {
+		productManageService.deleteProductInf(productInfo);
+		
+		return "redirect:productList.do";
+	}
 	
 	
 	

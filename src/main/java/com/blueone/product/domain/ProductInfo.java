@@ -17,8 +17,8 @@ public class ProductInfo {
 	private String toDate;		// 적용종료일
 	private String regDate;		// 등록일
 	private String lastDate;	// 최종수정일
-	private long prdPrice;		//소비자가
-	private long prdSellPrc;		//판매가
+	private int prdPrice;		//소비자가
+	private int prdSellPrc;		//판매가
 	private String prdModel;	//모델명
 	private String prdModelNo;	//모델명번호
 	private String prdBrand;	//제조사
@@ -27,6 +27,14 @@ public class ProductInfo {
 	private int prdTransInf;	//배송,반품,교환정보
 	private String admMemo;		//관리자메모
 	private String modifyUserId;// 최종수정자
+	
+	
+	private String ctgLargeCode;
+	private String ctgLargeName;
+	private String ctgMiddleCode;
+	private String ctgMiddleName;
+	private String ctgSmallCode;
+	private String ctgSmallName;
 	
 	public String getPrdCd() {
 		return prdCd;
@@ -113,13 +121,14 @@ public class ProductInfo {
 		this.lastDate = lastDate;
 	}
 
-	public long getPrdPrice() {
+
+	public int getPrdPrice() {
 		return prdPrice;
 	}
 	public void setPrdPrice(int prdPrice) {
 		this.prdPrice = prdPrice;
 	}
-	public long getPrdSellPrc() {
+	public int getPrdSellPrc() {
 		return prdSellPrc;
 	}
 	public void setPrdSellPrc(int prdSellPrc) {
@@ -172,6 +181,42 @@ public class ProductInfo {
 	}
 	public void setModifyUserId(String modifyUserId) {
 		this.modifyUserId = modifyUserId;
+	}
+	public String getCtgLargeCode() {
+		return ctgLargeCode;
+	}
+	public void setCtgLargeCode(String ctgLargeCode) {
+		this.ctgLargeCode = ctgLargeCode;
+	}
+	public String getCtgLargeName() {
+		return ctgLargeName;
+	}
+	public void setCtgLargeName(String ctgLargeName) {
+		this.ctgLargeName = ctgLargeName;
+	}
+	public String getCtgMiddleCode() {
+		return ctgMiddleCode;
+	}
+	public void setCtgMiddleCode(String ctgMiddleCode) {
+		this.ctgMiddleCode = ctgMiddleCode;
+	}
+	public String getCtgMiddleName() {
+		return ctgMiddleName;
+	}
+	public void setCtgMiddleName(String ctgMiddleName) {
+		this.ctgMiddleName = ctgMiddleName;
+	}
+	public String getCtgSmallCode() {
+		return ctgSmallCode;
+	}
+	public void setCtgSmallCode(String ctgSmallCode) {
+		this.ctgSmallCode = ctgSmallCode;
+	}
+	public String getCtgSmallName() {
+		return ctgSmallName;
+	}
+	public void setCtgSmallName(String ctgSmallName) {
+		this.ctgSmallName = ctgSmallName;
 	}
 	
 	

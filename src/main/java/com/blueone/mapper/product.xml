@@ -46,6 +46,14 @@
 		<result property="prdConts" column="PRD_CONTENTS" javaType="java.lang.String"/>
 		<result property="prdTransInf" column="PRD_TRANSFOR_INF" javaType="int"/>
 		<result property="admMemo" column="ADMIN_MEMO" javaType="java.lang.String"/>
+		<result property="modifyUserId" column="MODIFY_USER_ID" javaType="java.lang.String"/>
+		<result property="ctgLargeCode"  column="t2ctgCode"    javaType="java.lang.String"/>
+		<result property="ctgLargeName"  column="t2ctgName"    javaType="java.lang.String"/>
+		<result property="ctgMiddleCode"  column="t3ctgCode"   javaType="java.lang.String"/>
+		<result property="ctgMiddleName"  column="t3ctgName"   javaType="java.lang.String"/>
+		<result property="ctgSmallCode"  column="t4ctgCode"   javaType="java.lang.String"/>
+		<result property="ctgSmallName"  column="t4ctgName"   javaType="java.lang.String"/>
+		
 	</resultMap>
 	
 
@@ -74,9 +82,23 @@
 			T1.PRD_LIST_CMT, 
 			T1.PRD_CONTENTS, 
 			T1.PRD_TRANSFOR_INF, 
-			T1.ADMIN_MEMO 
+			T1.ADMIN_MEMO,
+			T1.MODIFY_USER_ID,
+			T2.CTG_CODE       AS t2ctgCode,
+			T2.CTG_NAME       AS t2ctgName,
+			T3.CTG_CODE       AS t3ctgCode,
+			T3.CTG_NAME       AS t3ctgName,
+			T4.CTG_CODE       AS t4ctgCode,
+			T4.CTG_NAME       AS t4ctgName
+			
 		FROM BOM_PRODUCT_TB AS T1
-		
+				LEFT JOIN BOM_CATEGORY_TB T2
+					ON ( T1.PRD_CTG_L = T2.CTG_CODE)
+				LEFT JOIN BOM_CATEGORY_TB T3 
+					ON ( T1.PRD_CTG_M = T3.CTG_CODE )
+				LEFT JOIN BOM_CATEGORY_TB T4 
+					ON ( T1.PRD_CTG_S = T4.CTG_CODE )
+				
 		WHERE
 			1 = 1
 			<if test="prdNm != null and prdNm != ''">AND T1.PRD_NM LIKE CONCAT(#{prodNm},'%')</if>
@@ -119,7 +141,9 @@
 			T1.PRD_LIST_CMT, 
 			T1.PRD_CONTENTS, 
 			T1.PRD_TRANSFOR_INF, 
-			T1.ADMIN_MEMO 
+			T1.ADMIN_MEMO,
+			T1.MODIFY_USER_ID
+			
 		FROM BOM_PRODUCT_TB AS T1
 		WHERE
 			T1.PRD_CD = #{prdCd}
@@ -127,18 +151,49 @@
 	
 	<insert id="insertBomProductTb0001" parameterType="productInfo">
 		INSERT  BOM_PRODUCT_TB
-			(`PRD_CD`,`PRD_DISPLAY_YN`,`PRD_ORDER`,`PRD_NM`,`PRD_CTG_L`,`PRD_CTG_M`,
-			`PRD_CTG_S`,`PRD_SPECAL_1`,`PRD_SPECAL_2`,`SEARCH_WORD`,`FROM_DATE`,
-			`TO_DATE`,`REG_DATE`,`LAST_DATE`,`PRD_PRICE`,`PRD_SELL_PRICE`,`PRD_MODEL`,
-			`PRD_MODEL_NO`,`PRD_BRAND`,`PRD_LIST_CMT`,`PRD_CONTENTS`,`PRD_TRANSFOR_INF`,
-			`MODIFY_USER_ID`)
+			(`PRD_CD`,`PRD_DISPLAY_YN`,`PRD_ORDER`,`PRD_NM`,`PRD_CTG_L`,`PRD_CTG_M`,`PRD_CTG_S`,
+			`PRD_SPECAL_1`,`SEARCH_WORD`,`PRD_SPECAL_2`,`FROM_DATE`,`TO_DATE`,`REG_DATE`,
+			`LAST_DATE`,`PRD_PRICE`,`PRD_SELL_PRICE`,`PRD_MODEL`,`PRD_MODEL_NO`,`PRD_BRAND`,
+			`PRD_LIST_CMT`,`PRD_CONTENTS`,`PRD_TRANSFOR_INF`,`ADMIN_MEMO`,`MODIFY_USER_ID`)
 			VALUES
-			(#{prdCd},#{prdDp},#{prdOrd}, #{prdNm}, #{prdCtgL}, #{prdCtgM}, 
-			#{prdCtgS}, #{prdSpe1}, #{prdSpe1}, #{schWord}, #{fromDate},
-			 #{toDate}, sysdate(), sysdate(), #{prdPrice},#{prdSellPrc},#{prdModel},
-			 #{prdModelNo},#{prdBrand},#{prdListCmt},#{prdConts},#{prdTransInf},
-			 'default')
+			(#{prdCd},#{prdDp},#{prdOrd}, #{prdNm}, #{prdCtgL}, #{prdCtgM},#{prdCtgS}, 
+			#{prdSpe1}, #{schWord},#{prdSpe2}, #{fromDate}, #{toDate}, sysdate(), sysdate(), 
+			#{prdPrice},#{prdSellPrc},#{prdModel}, #{prdModelNo},#{prdBrand},
+			#{prdListCmt},#{prdConts},#{prdTransInf},#{admMemo}, 'default')
 	</insert>
 
+		
+	<delete id="deleteBomProductTb0001" parameterType="productInfo">
+		DELETE FROM BOM_PRODUCT_TB			
+		WHERE
+			`PRD_CD`= #{prdCd}
+	</delete>
+	
 
+	<update id="updateBomProductTb0001" parameterType="categoryInfo">
+		UPDATE BOM_PRODUCT_TB
+			SET
+				`LAST_DATE` = sysdate()
+				<if test="prdDp != null and prdDp != ''">,`PRD_DISPLAY_YN` = #{prdDp}</if>
+				<if test="prdOrd != null and prdOrd != ''">,`PRD_ORDER` = #{prdOrd}</if>
+				<if test="prdNm != null and prdNm != ''">,`PRD_NM` = #{prdNm}</if>
+				<if test="prdCtgL != null and prdCtgL != ''">,`PRD_CTG_L` = #{prdCtgL}</if>
+				<if test="prdCtgM != null and prdCtgM != ''">,`PRD_CTG_M` = #{prdCtgM}</if>
+				<if test="prdCtgS != null and prdCtgS != ''">,`PRD_CTG_S` = #{prdCtgS}</if>
+				<if test="prdSpe1 != null and prdSpe1 != ''">,`PRD_SPECAL_1` = #{prdSpe1}</if>
+				<if test="prdSpe2 != null and prdSpe2 != ''">,`PRD_SPECAL_2` = #{prdSpe2}</if>
+				<if test="prdPrice != null and prdPrice != ''">,`PRD_PRICE` = #{prdPrice}</if>
+				<if test="prdSellPrc != null and prdSellPrc != ''">,`PRD_SELL_PRICE` = #{prdSellPrc}</if>
+				<if test="prdModel != null and prdModel != ''">,`PRD_MODEL` = #{prdModel}</if>
+				<if test="prdModelNo != null and prdModelNo != ''">,`PRD_MODEL_NO` = #{prdModelNo}</if>
+				<if test="prdBrand != null and prdBrand != ''">,`PRD_BRAND` = #{prdBrand}</if>
+				<if test="prdListCmt != null and prdListCmt != ''">,`PRD_LIST_CMT` = #{prdListCmt}</if>
+				<if test="prdConts != null and prdConts != ''">,`PRD_CONTENTS` = #{prdConts}</if>
+				<if test="admMemo != null and admMemo != ''">,`ADMIN_MEMO` = #{admMemo}</if>
+				<if test="fromDate != null and fromDate != ''">,`FROM_DATE` = #{fromDate}</if>
+				<if test="toDate != null and toDate != ''">,`TO_DATE` = #{toDate}</if>
+		WHERE
+			`PRD_CD`= #{prdCd}
+	</update>
+	
 </mapper>
