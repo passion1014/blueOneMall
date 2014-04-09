@@ -22,8 +22,13 @@
 			</div>
 		</form>
 	</div>
+	
 	<div class="gnb">
 		<ul>
+			<c:forEach var="largeList" items="${rstList}">
+				<li><a href="#">${largeList.ctgName}</a></li>
+			</c:forEach>
+			<!-- 	
 			<li><a href="#">BLUETOOTH</a></li>
 			<li class="gnb_list"><a href="#">EARPHONE</a></li>
 			<li class="gnb_list"><a href="#">HEADPHONE</a></li>
@@ -32,7 +37,9 @@
 			<li class="gnb_list"><a href="#">XTC</a></li>
 			<li class="gnb_list"><a href="#">SALE</a></li>
 			<li class="gnb_list"><a href="#">BARND SHOP</a></li>
+			-->
 		</ul>
 	</div>
+	
 </div>
 <!--  header 끝   -->
