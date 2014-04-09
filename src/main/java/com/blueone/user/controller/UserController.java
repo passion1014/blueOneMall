@@ -23,9 +23,9 @@ public class UserController {
 	}
 	
 	//마이페이지
-	@RequestMapping(value="/user/userMypage.do", method=RequestMethod.GET)
-	public String userMypage(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model){
-		return "user/userMypage";
+	@RequestMapping(value="/user/userEdit.do", method=RequestMethod.GET)
+	public String userEdit(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model){
+		return "user/userEdit";
 	}
 	
 	//적립금현황
@@ -34,9 +34,4 @@ public class UserController {
 		return "user/userPoint";
 	}
 	
-	//1:1문의하기
-	@RequestMapping(value="/user/qnaList.do", method=RequestMethod.GET)
-	public String qnaList(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model){
-		return "user/qnaPage";
-	}
 }

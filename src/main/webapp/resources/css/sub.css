@@ -355,8 +355,8 @@ font-family:"NanumGothicBold"; color:#666666;}
 .membership_section p.sub_text {font-family:"NanumGothicBold";}
 .membership_section ul.lctit_section {display:block; margin-top:30px;}
 .membership_section ul.lctit_section:after {height:0; content:""; clear:both; display:block;}
-.membership_section ul.lctit_section li {float:left; width:257px; height:78px; border-left:1px solid #888; border-bottom:1px solid #888; border-top:1px solid #888; font-family:"NanumGothicBold"; font-size:14px;}
-.membership_section ul.lctit_section li.on {background:url('../img/sub/membership_listbg.gif') repeat-x; width:257px; height:78px; color:#fff; }
+.membership_section ul.lctit_section li {float:left; width:387px; height:78px; border-left:1px solid #888; border-bottom:1px solid #888; border-top:1px solid #888; font-family:"NanumGothicBold"; font-size:14px;}
+.membership_section ul.lctit_section li.on {background:url('../img/sub/membership_listbg.gif') repeat-x; width:387px; height:78px; color:#fff; }
 .membership_section ul.lctit_section li.on span.loc_boxstit {border-left:1px solid #fff;}
 .membership_section ul.lctit_section li.rightline {border-right:1px solid #888;}
 .membership_section ul.lctit_section li span {display:inline-block;}

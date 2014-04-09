@@ -14,88 +14,43 @@
 </head>
 <body>
 		<div class="wrap">
-	<div class="header">
-		<div class="top">
-			<h1><a href="#"><img src="./images/common/blueone_logo.png" alt="blueone logo"/></a></h1>
-			<p class="top_img">
-				<img src="./images/common/top_image.jpg" alt="top image"/>
-			</p>
-			<form action="#" method="post">
-				<div class="search_area">
-					<span class="search_menu">
-						<a href="#" class="menu_site">장바구니</a>
-						<a href="#" class="menu_site">주문배송 조회</a>
-						<a href="#">마이페이지</a>
-					</span>
-					<span class="search_box">
-						<input type="text" title="서치텍스트박스"/>
-						<button></button>
-					</span>
-				</div>
-			</form>
-		</div>
-		<div class="gnb">
-			<ul>
-				<li><a href="#">BLUETOOTH</a></li>
-				<li class="gnb_list"><a href="#">EARPHONE</a></li>
-				<li class="gnb_list"><a href="#">HEADPHONE</a></li>
-				<li class="gnb_list"><a href="#">MULTMEDIA</a></li>
-				<li class="gnb_list"><a href="#">CASE</a></li>
-				<li class="gnb_list"><a href="#">XTC</a></li>
-				<li class="gnb_list"><a href="#">SALE</a></li>
-				<li class="gnb_list"><a href="#">BARND SHOP</a></li>
-			</ul>
-		</div>
-	</div>
+	<c:import url="../inc/header.jsp"/>
 <!--  header 끝   -->
 
 	<div class="container">
-		<div class="lnb">
-			<h3>CATEGORY</h3>
-			<ul class="lnb_list">
-				<li><a href="#">Multimedia(MM)</a></li>
-				<li><a href="#">Amp</a></li>
-				<div class="onclick_list">
-					<a href="#">인디앰프</a>
-					<a href="#">프리앰프</a>
-					<a href="#">파워앰프</a>
-					<a href="#">올인원앰프/시스템</a>
-					<a href="#">포노앰프</a>
-					<a href="#">홈시어터앰프</a>
-				</div>
-				<li><a href="#">Speaker</a></li>
-				<div class="onclick_list">
-					<a href="#">Hi-Fi Collecion</a>
-					<a href="#">톨보이스커</a>
-					<a href="#">북셀프스피커</a>
-					<a href="#">멀티채널스피커</a>
-					<a href="#">사운드바</a>
-				</div>
-			</ul>
-		</div>
+		<c:import url="../inc/productLnb.jsp"/>
 		<div class="sub_content">
 			<form action="#" method="post">
 				<div class="membership_section">
 					<h4>회원가입</h4>
-					<p class="sub_tit">모든 서비스를 이용하시려면 회원가입을 하셔야 합니다.</p>
-					<p class="sub_text">회원 가입하시려면 회원약관 및 개인정보 수집항목, 목적 및 이용안내, 쇼핑몰의 
-					수집한 개인정보 취급위탁의 동의와 실명인증이 필요합니다.</p>
 					<ul class="lctit_section">
-						<li>
+						<li class="on">
 							<span class="loc_boxtit">STEP 1</span>
-							<span class="loc_boxstit">약관동의 및 <br/>
-							실명인증
+							<span class="loc_boxstit">약관동의 및 실명인증<br/>
+							회원가입
 							</span>
 						</li>
-						<li class="on">
-							<span class="loc_aboxtit">STEP 2</span>
-							<span class="loc_boxstit">회원정보 입력</span>
-						</li>
+						
 						<li class="rightline">
-							<span class="loc_aboxtit">STEP 3</span>
+							<span class="loc_aboxtit">STEP 2</span>
 							<span class="loc_boxstit">회원가입 완료</span>
 						</li>
 					</ul>
+						<h5>약관동의</h5>
+					<div class="text_area">
+						<p class="sub_tit1"> > 회원약관</p>
+						<textarea></textarea>
+						<span class="agree_box">
+							<input type="checkbox" id="agre_check1" name="agree checked1"/>
+							<label for="agre_check1">이용약관에 동의합니다</label>
+						</span>
+						<p class="sub_tit1 clearfix"> > 개인정보 수집항목, 목적 및 이용안내 </p>
+						<textarea></textarea>
+						<span class="agree_box">
+							<input type="checkbox" id="agre_check2" name="agree checked2"/>
+							<label for="agre_check2">이용약관에 동의합니다</label>
+						</span>
+					</div>
 					<h5>기본정보 입력</h5>
 					<table class="membership_tbl" summary="회원가입양식">
 						<caption>회원가입목록</caption>
@@ -220,16 +175,6 @@
 	</div>
 <!--  container 끝   -->	
 
-	<div class="footer">
-		<div class="footer_area">
-			<h2><img src="./images/common/footer_logo.jpg" alt="현대 로고"/></h2>
-			<address>
-				공정거래위원회 고시 제2001-1호에 따른 사업자 등록번호:212-81-86027ㅣ대표이사 : 김화웅<br/>
-				개인정보관리 책임자 법인사업부 법인영업1팀 송선호 부장 l 주소:서울시 강동구 암사동 513-16번지 현대H&S<br/>
-				COPYRIGHT 2012 BY 현대H&S ALL RIGHT RESERVED.
-			</address>
-		</div>
-	</div>
-</div>
+	<c:import url="../inc/footer.jsp"/>
 </body>
 </html>
