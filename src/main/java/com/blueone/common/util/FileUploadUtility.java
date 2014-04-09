@@ -4,7 +4,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+
 import org.springframework.web.multipart.MultipartFile;
+
+import com.blueone.common.domain.AttachFileInfo;
 import com.blueone.common.domain.FileInfo;
 
 
@@ -25,7 +28,8 @@ public class FileUploadUtility {
 	
 //	public final static String FILE_UPLOAD_DIR = Configuration.getInstance().getProperty("file.upload.dir");
 //	public final static String WEBROOT_DIR = Configuration.getInstance().getProperty("webroot.dir");
-	public final static String FILE_UPLOAD_DIR = "D:/KLACEDU/upload";
+//	public final static String FILE_UPLOAD_DIR = "D:/KLACEDU/upload";
+	public final static String FILE_UPLOAD_DIR = "D:/src/blueOneMall/src/main/webapp/upload";
 	public final static String WEBROOT_DIR = "D:/KLACEDU/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/LCECH";
 	
 	
@@ -54,7 +58,7 @@ public class FileUploadUtility {
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 */
-	public static FileInfo doFileUpload(int uploadTyp, MultipartFile file, boolean existFileDel) throws FileNotFoundException,IOException{
+	public static AttachFileInfo doFileUpload(int uploadTyp, MultipartFile file, boolean existFileDel) throws FileNotFoundException,IOException{
 		// 저장할 파일이 있는지 체크
 		if (file == null || Utility.isEmpty(file.getOriginalFilename())) return null;
 		
@@ -62,12 +66,12 @@ public class FileUploadUtility {
 		String saveFilename = null;
 		String fullSaveFilename = null;
 		String fileExt = null;
-		FileInfo fileModel = null;
+		AttachFileInfo fileModel = null;
 		
 		switch (uploadTyp) {
 			case UPLOAD_TYP_BOARD :
 				fullSaveFilename = DateUtil.getDate("yyyyMM") + "/";
-				savePath = FILE_UPLOAD_DIR + "/board/" + fullSaveFilename;
+				savePath = FILE_UPLOAD_DIR + "/" + fullSaveFilename;
 				break;
 			case UPLOAD_TYP_BOARD_IMAGE :
 				fullSaveFilename = DateUtil.getDate("yyyyMM") + "/";
@@ -113,10 +117,10 @@ public class FileUploadUtility {
 			
 			file.transferTo(saveFile);
 			
-			fileModel = new FileInfo();
-			fileModel.setSaveFilename(fullSaveFilename);
-			fileModel.setRealFilename(file.getOriginalFilename());
-			fileModel.setFilesize(file.getSize());
+			fileModel = new AttachFileInfo();
+			fileModel.setSaveFileName(fullSaveFilename);
+			fileModel.setRealFileName(file.getOriginalFilename());
+			fileModel.setFileSize(file.getSize());
 			fileModel.setFileExt(fileExt.toUpperCase());
 		
 		} catch(FileNotFoundException fe) {
@@ -124,7 +128,6 @@ public class FileUploadUtility {
 		}
 		
 		return fileModel;
-		
 	}
 	
 	/**
@@ -136,9 +139,9 @@ public class FileUploadUtility {
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 */
-	public static ArrayList<FileInfo> doFileUpload(int uploadTyp, MultipartFile[] files, boolean existFileDel) throws FileNotFoundException,IOException{
-		FileInfo fileModel = null;
-		ArrayList<FileInfo> fileList = new ArrayList<FileInfo>();
+	public static ArrayList<AttachFileInfo> doFileUpload(int uploadTyp, MultipartFile[] files, boolean existFileDel) throws FileNotFoundException,IOException{
+		AttachFileInfo fileModel = null;
+		ArrayList<AttachFileInfo> fileList = new ArrayList<AttachFileInfo>();
 		if (files != null && files.length > 0) {
 			for (int i = 0; i < files.length; i++) {
 				fileModel = doFileUpload(uploadTyp, files[i], existFileDel);

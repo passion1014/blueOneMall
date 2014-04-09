@@ -14,6 +14,7 @@ import com.blueone.board.domain.BoardCommentInfo;
 import com.blueone.board.domain.BoardInfo;
 import com.blueone.board.domain.BoardSrchInfo;
 import com.blueone.board.domain.BoardStatInfo;
+import com.blueone.common.domain.AttachFileInfo;
 import com.blueone.common.domain.FileInfo;
 import com.blueone.common.util.FileUploadUtility;
 
@@ -134,7 +135,7 @@ public class BoardMngService implements IBoardMngService {
 	@Override
 	public boolean insertBoard(BoardInfo boardModel) {
 		
-		ArrayList<FileInfo> uploadFileList = null;
+		ArrayList<AttachFileInfo> uploadFileList = null;
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
@@ -145,7 +146,7 @@ public class BoardMngService implements IBoardMngService {
 			long brdSeq = boardModel.getBrdSeq();
 			
 			// 첨부파일정보 추가
-			FileInfo fileModel = null;
+			AttachFileInfo fileModel = null;
 			BoardAttachFileInfo boardAttachFileModel = new BoardAttachFileInfo();
 			
 			if (uploadFileList != null && uploadFileList.size() > 0) {
@@ -155,9 +156,9 @@ public class BoardMngService implements IBoardMngService {
 					boardAttachFileModel.setBrdSeq((Long)brdSeq);
 					boardAttachFileModel.setFlNo(i+1);
 					boardAttachFileModel.setAttaKnd("AF"); // 첨부유형:첨부파일
-					boardAttachFileModel.setSaveFilename(fileModel.getSaveFilename());
-					boardAttachFileModel.setRealFilename(fileModel.getRealFilename());
-					boardAttachFileModel.setFilesize(fileModel.getFilesize());
+					boardAttachFileModel.setSaveFilename(fileModel.getSaveFileName());
+					boardAttachFileModel.setRealFilename(fileModel.getRealFileName());
+					boardAttachFileModel.setFilesize(fileModel.getFileSize());
 					boardAttachFileModel.setFileExt(fileModel.getFileExt());
 					
 //					sqlMapClient.insert("boardMng.insertBOM_ATTACHFILE_TB", boardAttachFileModel);

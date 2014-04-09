@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>###### 현대프로모션몰 ######</title>
 <link type="text/css" rel="stylesheet" href="<c:url value='/resources/css/common.css'/>" />
 <link type="text/css" rel="stylesheet" href="<c:url value='/resources/css/component.css'/>" />
 <link type="text/css" rel="stylesheet" href="<c:url value='/resources/css/default.css'/>" />
