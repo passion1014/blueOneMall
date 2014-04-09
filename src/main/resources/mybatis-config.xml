@@ -82,6 +82,8 @@
 		<typeAlias alias="boardAttachFileInfo" type="com.blueone.board.domain.BoardAttachFileInfo"/>
 		<typeAlias alias="boardCommentInfo" type="com.blueone.board.domain.BoardCommentInfo"/>
 		
+		<typeAlias alias="userInfo" type="com.blueone.user.domain.UserInfo"/>
+		
 		
 		
      </typeAliases>

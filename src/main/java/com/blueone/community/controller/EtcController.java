@@ -25,27 +25,26 @@ import com.blueone.common.service.IHTMLContService;
 import com.blueone.common.util.Utility;
 
 @Controller
-@RequestMapping("/etc")
 public class EtcController {
 	@Autowired private IHTMLContService htmlContService;
 
 	private BoardController boardController = new BoardController();
 	
-	@RequestMapping("/etc01.do")
+	@RequestMapping("/etc/etc01.do")
 	public ModelAndView etc01(@ModelAttribute("BoardSrchModel") BoardSrchInfo boardSrchModel, HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = boardController.boardList(boardSrchModel, request, response);
 		mav.setViewName("/etc/etc01");
 		return mav;
 	}
 	
-	@RequestMapping("/etc01write.do")
+	@RequestMapping("/etc/etc01write.do")
 	public ModelAndView etc01write(@ModelAttribute("BoardSrchModel") BoardSrchInfo boardSrchModel, HttpServletRequest request) {
 		ModelAndView mav = boardController.add(boardSrchModel, request);
 		mav.setViewName("/etc/etc01write");
 		return mav;
 	}
 	
-	@RequestMapping(value="/etc01write.do", method = RequestMethod.POST)
+	@RequestMapping(value="/etc/etc01write.do", method = RequestMethod.POST)
 	public ModelAndView etc01write(@ModelAttribute("BoardModel") BoardInfo boardModel, BindingResult result, HttpSession session) {
 		ModelAndView mav = boardController.add(boardModel, result, session);
 		mav.addObject("srchBrdTyp", boardModel.getBrdTyp());
@@ -53,42 +52,42 @@ public class EtcController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/etc01writeComment.do", method = RequestMethod.POST)
+	@RequestMapping(value="/etc/etc01writeComment.do", method = RequestMethod.POST)
 	public ModelAndView etc01writeComment(@ModelAttribute("BoardCommentModel") BoardCommentInfo boardCommentModel, BindingResult result, HttpSession session) {
 		ModelAndView mav = boardController.addComment(boardCommentModel, result, session);
 		mav.setViewName("redirect:/etc/etc01view.do");
 		return mav;
 	}
 	
-	@RequestMapping("/etc01edit.do")
+	@RequestMapping("/etc/etc01edit.do")
 	public ModelAndView etc01edit(@ModelAttribute("BoardSrchModel") BoardSrchInfo boardSrchModel, HttpServletRequest request, HttpSession session) {
 		ModelAndView mav = boardController.edit(boardSrchModel, request, session);
 		mav.setViewName("/etc/etc01edit");
 		return mav;
 	}
 	
-	@RequestMapping(value="/etc01edit.do", method = RequestMethod.POST)
+	@RequestMapping(value="/etc/etc01edit.do", method = RequestMethod.POST)
 	public ModelAndView etc01edit(@ModelAttribute("BoardModel") BoardInfo boardModel, BindingResult result, HttpSession session) {
 		ModelAndView mav = boardController.edit(boardModel, result, session);
 		mav.setViewName("redirect:/etc/etc01.do");
 		return mav;
 	}
 	
-	@RequestMapping(value="/etc01editComment.do", method = RequestMethod.POST)
+	@RequestMapping(value="/etc/etc01editComment.do", method = RequestMethod.POST)
 	public ModelAndView etc01editComment(@ModelAttribute("BoardCommentModel") BoardCommentInfo boardCommentModel, BindingResult result, HttpSession session) {
 		ModelAndView mav = boardController.editComment(boardCommentModel, result, session);
 		mav.setViewName("redirect:/etc/etc01view.do");
 		return mav;
 	}
 	
-	@RequestMapping("/etc01view.do")
+	@RequestMapping("/etc/etc01view.do")
 	public ModelAndView etc01view(@ModelAttribute("BoardSrchModel") BoardSrchInfo boardSrchModel, HttpServletRequest request, HttpSession session) {
 		ModelAndView mav = boardController.view(boardSrchModel, request, session);
 		mav.setViewName("/etc/etc01view");
 		return mav;
 	}
 	
-	@RequestMapping("/etc01delete.do")
+	@RequestMapping("/etc/etc01delete.do")
 	public ModelAndView etc01delete(@ModelAttribute("BoardSrchModel") BoardSrchInfo boardSrchModel, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		ModelAndView mav = boardController.delete(boardSrchModel, request, response, session);
 		mav.addObject("srchKeyword", boardSrchModel.getSrchKeyword());
@@ -97,7 +96,7 @@ public class EtcController {
 		return mav;
 	}
 	
-	@RequestMapping("/etc01deleteComment.do")
+	@RequestMapping("/etc/etc01deleteComment.do")
 	public ModelAndView etc01deleteComment(@ModelAttribute("BoardCommentModel") BoardCommentInfo boardCommentModel, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		ModelAndView mav = boardController.deleteComment(boardCommentModel, request, response, session);
 		mav.addObject("srchKeyword", boardCommentModel.getSrchKeyword());
@@ -110,7 +109,7 @@ public class EtcController {
 	
 	
 	
-	@RequestMapping("/etc02.do")
+	@RequestMapping("/etc/etc02.do")
 	public ModelAndView etc02(HttpServletRequest request, HttpServletResponse response) {
 		String strHtmlCont = request.getParameter("htmlSeq");
 		int htmlCont = 17;
@@ -124,7 +123,7 @@ public class EtcController {
 		return mav;
 	}
 	
-	@RequestMapping("/etc03.do")
+	@RequestMapping("/etc/etc03.do")
 	public ModelAndView etc03(HttpServletRequest request, HttpServletResponse response) {
 		String strHtmlCont = request.getParameter("htmlSeq");
 		int htmlCont = 18;
@@ -133,12 +132,12 @@ public class EtcController {
 		}
 		
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/etc/etc03");
+		mav.setViewName("/etc/etc/etc03");
 		mav.addObject("htmlCont", htmlContService.getHtmlCont(htmlCont));
 		return mav;
 	}
 	
-	@RequestMapping("/etc04.do")
+	@RequestMapping("/etc/etc04.do")
 	public ModelAndView etc04(HttpServletRequest request, HttpServletResponse response) {
 		String strHtmlCont = request.getParameter("htmlSeq");
 		int htmlCont = 26;
@@ -151,5 +150,14 @@ public class EtcController {
 		mav.addObject("htmlCont", htmlContService.getHtmlCont(htmlCont));
 		return mav;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }//End class
