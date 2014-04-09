@@ -75,16 +75,14 @@
 			<td style="text-align:left;">
 				<b>진열상태</b> :
 				<select name="prdDp">
-					<option value="y" <c:if test="${prdInfo.prdDp eq 'y'}">select</c:if>>진열</option>
-					<option value="n" <c:if test="${prdInfo.prdDp eq 'n'}">select</c:if>>대기</option>
+					<option value="y" <c:if test="${prdInfo.prdDp eq 'y'}">selected</c:if>>진열</option>
+					<option value="n" <c:if test="${prdInfo.prdDp eq 'n'}">selected</c:if>>대기</option>
 				</select>
 				&nbsp;&nbsp;<b>정렬</b> :
 				<select id="prdOrd" name="prdOrd">
 				<c:forEach var="i" begin="1" end="50" step="1">
-					<c:if test="${i!=prdInfo.prdOrd}"> 
-						<option value="<c:out value="${i}"></c:out>" <c:if test="${i==prdInfo.prdOrd}">selected</c:if>><c:out value="${i}"></c:out></option>
-					</c:if>
-				</c:forEach>							
+						<option value="<c:out value="${i}"></c:out>" <c:if test="${i==prdInfo.prdOrd}"> selected </c:if> ><c:out value="${i}"></c:out></option>
+					</c:forEach>							
 				</select>
 			</td>
 			<th>특수설정</th>
@@ -214,8 +212,7 @@
 		<tr>
 			<th>상세내용</th>
 			<td colspan="3" style="text-align:left;">
-				<textarea name="prdConts" id="prdConts" class="Text Kor" style="width:97%;height:300px;">
-			
+				<textarea name="prdConts" id="prdConts" class="Text Kor" style="width:97%;height:300px;">${prdInfo.prdConts}
 				</textarea>
 			</td>
 		</tr>
@@ -223,8 +220,7 @@
 		<tr>
 			<th>검색어</th>
 			<td colspan="3" style="text-align:left;">
-				<textarea name="schWord" id="schWord"  class="Text Kor" style="width:97%;height:80px;">
-				
+				<textarea name="schWord" id="schWord"  class="Text Kor" style="width:97%;height:80px;">${prdInfo.schWord}
 				</textarea>
 				<div style="margin-top:5px;">※ , 로 구분하여 입력하여 주십시오</div>
 			</td>
@@ -237,13 +233,10 @@
 			</td>
 		</tr>
 
-		
 		<tr>
 			<th>관리 참고사항</th>
 			<td colspan="3" style="text-align:left;">
-				<textarea name="admMeno" id="admMeno" class="Text Kor" style="width:97%;height:250px;">
-				
-				</textarea>
+				<textarea name="admMemo" id="admMemo" class="Text Kor" style="width:97%;height:250px;">${prdInfo.admMemo}</textarea>
 			</td>
 		</tr>
 

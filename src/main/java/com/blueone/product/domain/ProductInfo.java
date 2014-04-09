@@ -17,8 +17,8 @@ public class ProductInfo {
 	private String toDate;		// 적용종료일
 	private String regDate;		// 등록일
 	private String lastDate;	// 최종수정일
-	private long prdPrice;		//소비자가
-	private long prdSellPrc;		//판매가
+	private int prdPrice;		//소비자가
+	private int prdSellPrc;		//판매가
 	private String prdModel;	//모델명
 	private String prdModelNo;	//모델명번호
 	private String prdBrand;	//제조사
@@ -113,13 +113,14 @@ public class ProductInfo {
 		this.lastDate = lastDate;
 	}
 
-	public long getPrdPrice() {
+
+	public int getPrdPrice() {
 		return prdPrice;
 	}
 	public void setPrdPrice(int prdPrice) {
 		this.prdPrice = prdPrice;
 	}
-	public long getPrdSellPrc() {
+	public int getPrdSellPrc() {
 		return prdSellPrc;
 	}
 	public void setPrdSellPrc(int prdSellPrc) {

@@ -205,7 +205,7 @@
 		<tr>
 			<th>상세내용</th>
 			<td colspan="3" style="text-align:left;">
-				<textarea name="admMeno" id="admMeno" class="Text" style="width:97%;height:300px;"></textarea>
+				<textarea name="prdConts" id="prdConts" class="Text" style="width:97%;height:300px;"></textarea>
 			</td>
 		</tr>
 
@@ -228,7 +228,7 @@
 		<tr>
 			<th>관리 참고사항</th>
 			<td colspan="3" style="text-align:left;">
-				<textarea name="admMeno" id="admMeno" class="Text Kor" style="width:97%;height:250px;"></textarea>
+				<textarea name="admMemo" id="admMemo" class="Text Kor" style="width:97%;height:250px;"></textarea>
 			</td>
 		</tr>
 

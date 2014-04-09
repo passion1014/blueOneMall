@@ -93,7 +93,10 @@
 					
 						<td style="text-align:center;">0</td>
 						<td style="text-align:center;">상품이미지</td>
-						<td style="text-align:center;">${produts.prdDp}</td>
+						<td style="text-align:center;">
+							<c:if test="${produts.prdDp eq 'y'}">진열</c:if>
+							<c:if test="${produts.prdDp eq 'n'}">대기</c:if>
+						</td>
 						<td>
 							상품분류:
 							<c:if test="${produts.prdCtgL eq ''}">
@@ -117,7 +120,7 @@
 											<c:out value="베스트"></c:out>
 										</c:if>
 										
-										<c:if test="${produts.prdSpe1 eq 'y'}">
+										<c:if test="${produts.prdSpe2 eq 'y'}">
 											<c:out value="행사품목"></c:out>
 										</c:if><br />
 									
