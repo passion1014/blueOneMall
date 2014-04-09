@@ -104,12 +104,21 @@
 				</select>&nbsp;
 				
 				<select id="prdCtgM" name="prdCtgM">
+<<<<<<< HEAD
 
 					<option value="">선택해주세요</option>	
+=======
+<<<<<<< HEAD
+					<option value="">:::: 중분류를 선택하여주십시오 ::::</option>	
+<<<<<<< HEAD
+					<c:forEach items="${ctgMList2}" var="middleTypeObj">
+=======
+>>>>>>> 81272f02f1b4d3ee263324103af3c1e29ae577bd
 					<c:forEach items="${ctgList2}" var="middleTypeObj">
 						<option value="<c:out value="${middleTypeObj.ctgCode}"></c:out>" <c:if test="${middleTypeObj.ctgCode==prdInfo.prdCtgM}">selected</c:if>><c:out value="${middleTypeObj.ctgName}"></c:out></option>
 					</c:forEach>		
 					<c:forEach items="${ctgMList}" var="middleTypeObj">
+>>>>>>> c831da999bf6fcdd21bff54c37717370fd517bab
 						<option value="<c:out value="${middleTypeObj.ctgCode}"></c:out>" <c:if test="${middleTypeObj.ctgCode==prdInfo.prdCtgM}">  selected </c:if>><c:out value="${middleTypeObj.ctgName}"></c:out></option>
 
 					</c:forEach>							
