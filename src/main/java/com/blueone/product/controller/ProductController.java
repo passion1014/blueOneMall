@@ -102,7 +102,7 @@ public class ProductController {
 	}
 	
 	/**
-	 * 상품등록처리 등록처리
+	 * 상품등록처리 
 	 */
 	@RequestMapping(value = "/admin/productRegisterProc.do", method = RequestMethod.POST)
 	public String productRegisterProc(@ModelAttribute("productInfo") ProductInfo productInfo, BindingResult result, Model model,String ctgname,RedirectAttributes redirectAttributes) {
@@ -241,9 +241,31 @@ public class ProductController {
 		return "redirect:productList.do";
 	}
 	
-	
+	/**
+	 * 상품 다중 삭제
+	 */
+	@RequestMapping(value = "/admin/deleteProductsInf.do", method = RequestMethod.GET)
+	public String deleteProductsInfo(@ModelAttribute("productInfo") ProductInfo productInfo, BindingResult result, Model model) {
+		productManageService.deleteProductInf(productInfo);
+		
+		return "redirect:productList.do";
+	}
 	
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	 public static List stringsToList(String[] strings) {
+	     List list = new ArrayList();
+	     if(strings != null) {
+	      if(strings.length > 0) {
+	       for(int i=0; i<strings.length; i++) {
+	        list.add(strings[i]);
+	       }
+	      }
+	     }
+	     return list;
+	    } 
+	
+/*
 	private List<CategoryInfo> getCategoryListByTypeCd(CategoryInfo categoryInfo, String ctgCodeType) {
 		List<CategoryInfo> list = categoryManageService.getCategoryInfList(categoryInfo);
 		List<CategoryInfo> rstList = new ArrayList<CategoryInfo>();
@@ -255,4 +277,6 @@ public class ProductController {
 		
 		return rstList;
 	}
+*/
+	
 }
