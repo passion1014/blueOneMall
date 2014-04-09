@@ -104,27 +104,25 @@
 				</select>&nbsp;
 				
 				<select id="prdCtgM" name="prdCtgM">
-<<<<<<< HEAD
-					<option value="">:::: 중분류를 선택하여주십시오 ::::</option>	
+
+					<option value="">선택해주세요</option>	
 					<c:forEach items="${ctgList2}" var="middleTypeObj">
 						<option value="<c:out value="${middleTypeObj.ctgCode}"></c:out>" <c:if test="${middleTypeObj.ctgCode==prdInfo.prdCtgM}">selected</c:if>><c:out value="${middleTypeObj.ctgName}"></c:out></option>
-=======
-				
+					</c:forEach>		
 					<c:forEach items="${ctgMList}" var="middleTypeObj">
 						<option value="<c:out value="${middleTypeObj.ctgCode}"></c:out>" <c:if test="${middleTypeObj.ctgCode==prdInfo.prdCtgM}">  selected </c:if>><c:out value="${middleTypeObj.ctgName}"></c:out></option>
->>>>>>> 0326ec79abf11b2e6070643269c34fd4e924cd32
+
 					</c:forEach>							
 				</select>&nbsp;		
 
 				<select id="prdCtgS" name="prdCtgS">
-<<<<<<< HEAD
-					<option value="">:::: 소분류를 선택하여 주십시오 ::::</option>
+					<option value="">선택해주세요</option>
 					<c:forEach items="${ctgList3}" var="smallTypeObj">
 						<option value="<c:out value="${smallTypeObj.ctgCode}"></c:out>" <c:if test="${smallTypeObj.ctgCode==prdInfo.prdCtgS}">selected</c:if>><c:out value="${smallTypeObj.ctgName}"></c:out></option>
-=======
+					</c:forEach>	
 					<c:forEach items="${ctgSList}" var="smallTypeObj">
 						<option value="<c:out value="${smallTypeObj.ctgCode}"></c:out>" <c:if test="${smallTypeObj.ctgCode==prdInfo.prdCtgS}">  selected </c:if>><c:out value="${smallTypeObj.ctgName}"></c:out></option>
->>>>>>> 0326ec79abf11b2e6070643269c34fd4e924cd32
+
 					</c:forEach>	
 				</select> &nbsp;				
 			</td>
@@ -133,7 +131,7 @@
 		<tr>
 			<th>상품명</th>
 			<td colspan="3" class="left">
-				<input type="text" id="prdNm" name="prdNm" style="width:80%;" required hname=" 상품명을 입력하여 주십시오">
+				<input type="text" id="prdNm" name="prdNm" style="width:80%;" value="${prdInfo.prdNm}" required hname=" 상품명을 입력하여 주십시오">
 			</td>
 		</tr>
 	</table>
@@ -161,7 +159,7 @@
 		<tr>
 			<th>모델명</th>
 			<td colspan="3" class="left">
-				<input type="text" id="prdModel" name="prdModel" style="width:80%;" value="${prdInfo.prdNm}" required hname=" 상품명을 입력하여 주십시오">
+				<input type="text" id="prdModel" name="prdModel" style="width:80%;" value="${prdInfo.prdModel}" required hname=" 상품명을 입력하여 주십시오">
 			</td>
 		</tr>
 		<tr>
@@ -176,7 +174,7 @@
 				<input type="text" id="prdBrand" name="prdBrand" value="${prdInfo.prdBrand}" style="width:80%;" required hname=" 상품명을 입력하여 주십시오">
 			</td>
 		</tr>
-	 
+	 <!--
 		<tr>
 			<th>리스트 이미지</th>
 			<td colspan="3" class="left">
@@ -207,12 +205,11 @@
 				<input type="file" id="proImg4" name="proImg4" style="width:80%;"> [112px X 176px]
 			</td>
 		</tr>
-		
+		-->
 		<tr>
 			<th>목록내용</th>
 			<td colspan="3" style="text-align:left;">
-				<textarea name="prdListCmt" id="prdListCmt"  class="Text Kor" style="width:97%;height:150px;">
-				<c:out value="${prdInfo.prdListCmt}"></c:out>
+				<textarea name="prdListCmt" id="prdListCmt" class="Text Kor" style="width:97%;height:150px;">${prdInfo.prdListCmt}
 				</textarea>
 			
 			</td>
@@ -221,7 +218,7 @@
 			<th>상세내용</th>
 			<td colspan="3" style="text-align:left;">
 				<textarea name="prdConts" id="prdConts" class="Text Kor" style="width:97%;height:300px;">
-				<c:out value="${prdInfo.prdConts}"></c:out>
+			
 				</textarea>
 			</td>
 		</tr>
@@ -230,7 +227,7 @@
 			<th>검색어</th>
 			<td colspan="3" style="text-align:left;">
 				<textarea name="schWord" id="schWord"  class="Text Kor" style="width:97%;height:80px;">
-				<c:out value="${prdInfo.schWord}"></c:out>
+				
 				</textarea>
 				<div style="margin-top:5px;">※ , 로 구분하여 입력하여 주십시오</div>
 			</td>
@@ -248,7 +245,6 @@
 			<th>관리 참고사항</th>
 			<td colspan="3" style="text-align:left;">
 				<textarea name="admMeno" id="admMeno" class="Text Kor" style="width:97%;height:250px;">
-				<c:out value="${prdInfo.admMeno}"></c:out>
 				
 				</textarea>
 			</td>
