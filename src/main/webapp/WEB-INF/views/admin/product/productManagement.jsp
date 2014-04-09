@@ -51,7 +51,7 @@
 	<div id="Contents">
 	<h1>제품관리 &gt; 상품관리 &gt; 상품목록 &gt; <strong>선택상품관리</strong></h1>
 	
-	<form name="frm" method="post" enctype="multipart/form-data" action="productRegisterProc.do">
+	<form name="frm" method="post" enctype="multipart/form-data" action="manageProductInfProc.do">
 	<input type="hidden" name="Mode" value="add_goods">
 	<input type="hidden" id="prdCd"      name="prdCd"  value="${prdInfo.prdCd}">
 	<input type="hidden" id="fromDate"     name="fromDate" value="1900-01-01">

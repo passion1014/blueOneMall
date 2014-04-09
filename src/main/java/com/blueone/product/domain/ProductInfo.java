@@ -28,6 +28,14 @@ public class ProductInfo {
 	private String admMemo;		//관리자메모
 	private String modifyUserId;// 최종수정자
 	
+	
+	private String ctgLargeCode;
+	private String ctgLargeName;
+	private String ctgMiddleCode;
+	private String ctgMiddleName;
+	private String ctgSmallCode;
+	private String ctgSmallName;
+	
 	public String getPrdCd() {
 		return prdCd;
 	}
@@ -173,6 +181,42 @@ public class ProductInfo {
 	}
 	public void setModifyUserId(String modifyUserId) {
 		this.modifyUserId = modifyUserId;
+	}
+	public String getCtgLargeCode() {
+		return ctgLargeCode;
+	}
+	public void setCtgLargeCode(String ctgLargeCode) {
+		this.ctgLargeCode = ctgLargeCode;
+	}
+	public String getCtgLargeName() {
+		return ctgLargeName;
+	}
+	public void setCtgLargeName(String ctgLargeName) {
+		this.ctgLargeName = ctgLargeName;
+	}
+	public String getCtgMiddleCode() {
+		return ctgMiddleCode;
+	}
+	public void setCtgMiddleCode(String ctgMiddleCode) {
+		this.ctgMiddleCode = ctgMiddleCode;
+	}
+	public String getCtgMiddleName() {
+		return ctgMiddleName;
+	}
+	public void setCtgMiddleName(String ctgMiddleName) {
+		this.ctgMiddleName = ctgMiddleName;
+	}
+	public String getCtgSmallCode() {
+		return ctgSmallCode;
+	}
+	public void setCtgSmallCode(String ctgSmallCode) {
+		this.ctgSmallCode = ctgSmallCode;
+	}
+	public String getCtgSmallName() {
+		return ctgSmallName;
+	}
+	public void setCtgSmallName(String ctgSmallName) {
+		this.ctgSmallName = ctgSmallName;
 	}
 	
 	

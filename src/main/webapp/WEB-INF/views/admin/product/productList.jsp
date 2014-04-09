@@ -90,7 +90,6 @@
 				
 					<td class="center"><input id="unit_chk" name="unit_chk[]" value="gd_533bce184e45d" type="checkbox"></td>
 
-					
 						<td style="text-align:center;">0</td>
 						<td style="text-align:center;">상품이미지</td>
 						<td style="text-align:center;">
@@ -99,20 +98,19 @@
 						</td>
 						<td>
 							상품분류:
-							<c:if test="${produts.prdCtgL eq ''}">
+							<c:if test="${produts.ctgLargeName eq ''}">
 								없음
 							</c:if>
-							${produts.prdCtgL}>
+							${produts.ctgLargeName}>
+							<c:if test="${produts.ctgMiddleCode eq ''}">
+								없음
+							</c:if>
+							${produts.ctgMiddleName}>
 							
-							<c:if test="${produts.prdCtgM eq ''}">
+							<c:if test="${produts.ctgSmallCode eq ''}">
 								없음
 							</c:if>
-							${produts.prdCtgM}>
-							
-							<c:if test="${produts.prdCtgS eq ''}">
-								없음
-							</c:if>
-							${produts.prdCtgS}<br />
+							${produts.ctgSmallName}<br />
 							
 							특별분류:
 									
@@ -134,7 +132,7 @@
 						<td class="center">
 						<input value="보기" class="Small_Button Gray" style="margin-bottom:5px;" onclick="openWin('./product/product.goods_viewer.php?gCode=gd_533bce184e45d','goods_viewer',1028,900,'scrollbars=yes');" type="button"> <br>
 						<input value="관리" class="Small_Button Gray" style="margin-bottom:5px;" onclick="javascript:location.href='productManagement.do?pCd=${produts.prdCd}'" type="button"><br>
-						<input value="삭제" class="Small_Button Gray" onclick="confirm_process('actionForm','삭제하시겠습니까? \n\n삭제후에는 복원이 불가능합니다.','./_action/product.do.php?Mode=del_goods&amp;goods_code=gd_533bce184e45d')" type="button">
+						<input value="삭제" class="Small_Button Gray" onclick="confirm_process('','삭제하시겠습니까? \n\n삭제후에는 복원이 불가능합니다.','deleteProductInf.do?prdCd=${produts.prdCd}')" type="button">
 					</td>
 					
 				</c:forEach>

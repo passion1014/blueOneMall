@@ -23,6 +23,8 @@ public interface IProductManageService {
 	
 	//사용자 페이지
 	public List<ProductInfo> shopProductInfList(ProductInfo productInfo);
+	public int deleteProductInf(ProductInfo productInfo);
+	public int manageProductInf(ProductInfo productInfo);
 	
 
 }

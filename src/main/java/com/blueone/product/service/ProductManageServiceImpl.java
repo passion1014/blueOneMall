@@ -120,7 +120,36 @@ public class ProductManageServiceImpl implements IProductManageService {
 		
 		return productInfo;
 	}
+	
+	//상품관리(수정)
+	@Override
+	public int manageProductInf(ProductInfo productInfo) {
+		
+		int rst = -1;
+		
+		// -----------------------------------------------
+		// 해당하는 상품 데이터가 있는지 확인
+		// -----------------------------------------------
+		ProductInfo searchRstInf = getProductInfDetail(productInfo);
+		
+		// -----------------------------------------------
+		// 조회한 결과값이 있으면 DB업데이트
+		// -----------------------------------------------
+		if (searchRstInf != null && StringUtils.isNotEmpty(searchRstInf.getPrdCd())) {
+			SqlSession sqlSession = sqlSessionFactory.openSession();
+			try {
+				// DB 수행
+				rst = sqlSession.update("product.updateBomProductTb0001", productInfo);
+				
+			} finally {
+				sqlSession.close();
+			}
+		}
+		
+		return rst;
+	}
 
+	
 
 	@Override
 	public ProductInfo editProductInfo(ProductInfo productInfo) {
@@ -209,6 +238,29 @@ public class ProductManageServiceImpl implements IProductManageService {
 		
 		return rstInfo;
 	}
+	
+	/*
+	 * 분류 삭제
+	 */
+	@Override
+	public int deleteProductInf(ProductInfo productInfo){
+		
+		int rst = -1;
+		
+		
+			SqlSession sqlSession = sqlSessionFactory.openSession();
+			try {
+				// DB 수행
+				rst = sqlSession.delete("product.deleteBomProductTb0001", productInfo);
+				
+			} finally {
+				sqlSession.close();
+			}
+		
+		
+		return rst;
+	}
+	
 	
 	
 }
