@@ -175,7 +175,6 @@
 			<th>상품이미지1</th>
 			<td colspan="3" class="left">
 				<input type="file" id="proImg1Up" name="proImg1Up" style="width:80%;"> [112px X 176px]
-				IM
 			</td>
 		</tr>
 		<tr>

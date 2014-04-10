@@ -75,8 +75,6 @@
 				<tr>
 					<th>
      				<input id="muti_chk" name="multi_chk[]" value="gd_533bce184e45d" type="checkbox">
-     				
-          
 					</th>
 					<th>No</th>
 					<th>이미지</th>
