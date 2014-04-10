@@ -13,17 +13,18 @@ public class AttachFileInfo {
 	private String attCdKey;
 	private String attImgType;
 	private String attSaveFileNm;
-	private String attRealFileNm;
+	private String attRealFileNm=imgInfo.getOriginalFilename();
 	private String attFilePath;
-	private int attFileSize;
-	private String attFileExt;
+	private int attFileSize=(int)imgInfo.getSize();
+	private String attFileExt=imgInfo.getContentType();
 	
-	AttachFileInfo(MultipartFile imgInfo){
-		this.imgInfo=imgInfo;
-		
-		attRealFileNm=imgInfo.getOriginalFilename();
-		attFileSize=(int)imgInfo.getSize();
-		attFileExt=imgInfo.getContentType();
+	
+	
+	public MultipartFile getImgInfo() {
+		return imgInfo;
+	}
+	public void setImgInfo(MultipartFile imgInfo) {
+		this.imgInfo = imgInfo;
 	}
 	public int getIdx() {
 		return idx;

@@ -22,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.blueone.admin.domain.AdminInfo;
 import com.blueone.category.domain.CategoryInfo;
 import com.blueone.category.service.ICategoryManageService;
+import com.blueone.common.domain.AttachFileInfo;
 import com.blueone.product.domain.ProductInfo;
 import com.blueone.product.domain.SearchProdInfo;
 import com.blueone.product.service.IProductManageService;
@@ -113,8 +114,8 @@ public class ProductController {
 		productInfo.setPrdCd("P"+code);
 		
 		//상품 이미지 등록
-		AttachFileInfo contImg = new AttachFileInfo(productInfo.getProListImg());
-		
+		AttachFileInfo contImg = new AttachFileInfo();
+		contImg.setUploadFile(productInfo.getProListImg());
 		
 		// 상픔등록
 		productManageService.registProductInfo(productInfo);
