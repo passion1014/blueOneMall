@@ -6,16 +6,118 @@ import com.blueone.common.util.Utility;
 
 
 public class AttachFileInfo {
-	private String codeType;
-	private String codeKey;
-	private String imgType;
-	private String saveFileName;
-	private String realFileName;
-	private String filePath;
-	private long fileSize;
-	private String fileExt;
+	private int idx ;
+	private String attCdType;
+	private String attCdKey;
+	private String attImgType;
+	private String attSaveFileNm;
+	private String attRealFileNm;
+	private String attFilePath;
+	private long attFileSize;
+	private String attFileExt;
+	   
+	private MultipartFile uploadFile;	
+	// 첨부파일
+	public AttachFileInfo(){
+	
+		
+	}
+	
+	public AttachFileInfo(MultipartFile imgInfo){
+		uploadFile=imgInfo;
+		
+		attSaveFileNm=imgInfo.getOriginalFilename();
+		attFileSize=imgInfo.getSize();
+		attFileExt=imgInfo.getContentType();
+		
+	}
+	
+	
+	public int getIdx() {
+		return idx;
+	}
 
-	private MultipartFile uploadFile;		// 첨부파일
+
+	public void setIdx(int idx) {
+		this.idx = idx;
+	}
+
+
+	public long getAttFileSize() {
+		return attFileSize;
+	}
+
+
+	public void setAttFileSize(long attFileSize) {
+		this.attFileSize = attFileSize;
+	}
+
+
+	public String getAttCdType() {
+		return attCdType;
+	}
+
+	public void setAttCdType(String attCdType) {
+		this.attCdType = attCdType;
+	}
+
+	public String getAttCdKey() {
+		return attCdKey;
+	}
+
+	public void setAttCdKey(String attCdKey) {
+		this.attCdKey = attCdKey;
+	}
+
+	public String getAttImgType() {
+		return attImgType;
+	}
+
+	public void setAttImgType(String attImgType) {
+		this.attImgType = attImgType;
+	}
+
+	public String getAttSaveFileNm() {
+		return attSaveFileNm;
+	}
+
+	public void setAttSaveFileNm(String attSaveFileNm) {
+		this.attSaveFileNm = attSaveFileNm;
+	}
+
+	public String getAttRealFileNm() {
+		return attRealFileNm;
+	}
+
+	public void setAttRealFileNm(String attRealFileNm) {
+		this.attRealFileNm = attRealFileNm;
+	}
+
+	public String getAttFilePath() {
+		return attFilePath;
+	}
+
+	public void setAttFilePath(String attFilePath) {
+		this.attFilePath = attFilePath;
+	}
+
+	
+
+	public String getAttFileExt() {
+		return attFileExt;
+	}
+
+	public void setAttFileExt(String attFileExt) {
+		this.attFileExt = attFileExt;
+	}
+
+	public MultipartFile getUploadFile() {
+		return uploadFile;
+	}
+
+	public void setUploadFile(MultipartFile uploadFile) {
+		this.uploadFile = uploadFile;
+	}
 
 
 //	private int flNo;				// 파일번호
@@ -27,60 +129,7 @@ public class AttachFileInfo {
 //	private String iconImage;		// 
 //	private String tmpStr;
 	
-	public MultipartFile getUploadFile() {
-		return uploadFile;
-	}
-	public void setUploadFile(MultipartFile uploadFile) {
-		this.uploadFile = uploadFile;
-	}
-	public String getCodeType() {
-		return codeType;
-	}
-	public void setCodeType(String codeType) {
-		this.codeType = codeType;
-	}
-	public String getCodeKey() {
-		return codeKey;
-	}
-	public void setCodeKey(String codeKey) {
-		this.codeKey = codeKey;
-	}
-	public String getImgType() {
-		return imgType;
-	}
-	public void setImgType(String imgType) {
-		this.imgType = imgType;
-	}
-	public String getSaveFileName() {
-		return saveFileName;
-	}
-	public void setSaveFileName(String saveFileName) {
-		this.saveFileName = saveFileName;
-	}
-	public String getRealFileName() {
-		return realFileName;
-	}
-	public void setRealFileName(String realFileName) {
-		this.realFileName = realFileName;
-	}
-	public String getFilePath() {
-		return filePath;
-	}
-	public void setFilePath(String filePath) {
-		this.filePath = filePath;
-	}
-	public long getFileSize() {
-		return fileSize;
-	}
-	public void setFileSize(long fileSize) {
-		this.fileSize = fileSize;
-	}
-	public String getFileExt() {
-		return fileExt;
-	}
-	public void setFileExt(String fileExt) {
-		this.fileExt = fileExt;
-	}
+
 	
 //	public String getTmpStr() {
 //		return tmpStr;

@@ -33,10 +33,10 @@ public class FileMngService implements IFileMngService {
 			AttachFileInfo uploadFile = FileUploadUtility.doFileUpload(FileUploadUtility.UPLOAD_TYP_BOARD, attachFileInfo.getUploadFile(), false);
 			
 			if (uploadFile != null) {
-				attachFileInfo.setSaveFileName(uploadFile.getSaveFileName());
-				attachFileInfo.setRealFileName(uploadFile.getRealFileName());
-				attachFileInfo.setFileSize(uploadFile.getFileSize());
-				attachFileInfo.setFileExt(uploadFile.getFileExt());
+				attachFileInfo.setAttSaveFileNm(uploadFile.getAttSaveFileNm());
+				attachFileInfo.setAttRealFileNm(uploadFile.getAttRealFileNm());
+				attachFileInfo.setAttFileSize(uploadFile.getAttFileSize());
+				attachFileInfo.setAttFileExt(uploadFile.getAttFileExt());
 				
 //				boardAttachFileInfo.setBrdSeq(boardModel.getBrdSeq());
 //				boardAttachFileInfo.setFlNo(flNo++);

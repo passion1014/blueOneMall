@@ -25,6 +25,7 @@ public class FileUploadUtility {
 	public final static int UPLOAD_TYP_EDUCATE = 4;
 	public final static int UPLOAD_TYP_EDITOR_IMAGE = 5;
 	public final static int UPLOAD_TYP_SAMPLE = 6;
+	public final static int UPLOAD_TYP_PRODUCT_IMAGE = 7;
 	
 //	public final static String FILE_UPLOAD_DIR = Configuration.getInstance().getProperty("file.upload.dir");
 //	public final static String WEBROOT_DIR = Configuration.getInstance().getProperty("webroot.dir");
@@ -89,6 +90,11 @@ public class FileUploadUtility {
 				fullSaveFilename = DateUtil.getDate("yyyyMM") + "/";
 				savePath = WEBROOT_DIR + "/userfiles/editor/" + fullSaveFilename;
 				break;
+			case UPLOAD_TYP_PRODUCT_IMAGE :
+				fullSaveFilename = DateUtil.getDate("yyyyMM") + "/";
+				savePath = FILE_UPLOAD_DIR + "/" + fullSaveFilename;
+				break;
+					
 			default : 
 				return null;
 		}
@@ -118,10 +124,10 @@ public class FileUploadUtility {
 			file.transferTo(saveFile);
 			
 			fileModel = new AttachFileInfo();
-			fileModel.setSaveFileName(fullSaveFilename);
-			fileModel.setRealFileName(file.getOriginalFilename());
-			fileModel.setFileSize(file.getSize());
-			fileModel.setFileExt(fileExt.toUpperCase());
+			fileModel.setAttSaveFileNm(fullSaveFilename);
+			fileModel.setAttRealFileNm(file.getOriginalFilename());
+			fileModel.setAttFileSize(file.getSize());
+			fileModel.setAttFileExt(fileExt.toUpperCase());
 		
 		} catch(FileNotFoundException fe) {
 			fe.printStackTrace();

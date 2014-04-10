@@ -101,6 +101,7 @@ public class ProductManageServiceImpl implements IProductManageService {
 			
 			int rst = sqlSession.insert("product.insertBomProductTb0001", productInfo);
 			
+			
 		} finally {
 			sqlSession.close();
 		}
@@ -125,7 +126,7 @@ public class ProductManageServiceImpl implements IProductManageService {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
 			
-			int rst = sqlSession.insert("product.insertBomProductTb0001", attFileInfo);
+			int rst = sqlSession.insert("attFile.insertBomAttachFileTb0001", attFileInfo);
 			
 		} finally {
 			sqlSession.close();

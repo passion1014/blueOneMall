@@ -136,10 +136,10 @@ public class BoardService implements IBoardService {
 					boardAttachFileInfo.setBrdSeq(boardModel.getBrdSeq());
 					boardAttachFileInfo.setFlNo(flNo++);
 					boardAttachFileInfo.setAttaKnd("AF"); // 첨부유형:첨부파일
-					boardAttachFileInfo.setSaveFilename(fileModel.getSaveFileName());
-					boardAttachFileInfo.setRealFilename(fileModel.getRealFileName());
-					boardAttachFileInfo.setFilesize(fileModel.getFileSize());
-					boardAttachFileInfo.setFileExt(fileModel.getFileExt());
+					boardAttachFileInfo.setSaveFilename(fileModel.getAttSaveFileNm());
+					boardAttachFileInfo.setRealFilename(fileModel.getAttRealFileNm());
+					boardAttachFileInfo.setFilesize(fileModel.getAttFileSize());
+					boardAttachFileInfo.setFileExt(fileModel.getAttFileExt());
 					
 					sqlSession.insert("board.insertBOM_ATTACHFILE_TB", boardAttachFileInfo);
 				}
@@ -152,10 +152,10 @@ public class BoardService implements IBoardService {
 				boardAttachFileInfo.setBrdSeq(boardModel.getBrdSeq());
 				boardAttachFileInfo.setFlNo(flNo++);
 				boardAttachFileInfo.setAttaKnd("MI"); // 첨부유형:첨부파일
-				boardAttachFileInfo.setSaveFilename(imgFile.getSaveFileName());
-				boardAttachFileInfo.setRealFilename(imgFile.getRealFileName());
-				boardAttachFileInfo.setFilesize(imgFile.getFileSize());
-				boardAttachFileInfo.setFileExt(imgFile.getFileExt());
+				boardAttachFileInfo.setSaveFilename(imgFile.getAttSaveFileNm());
+				boardAttachFileInfo.setRealFilename(imgFile.getAttRealFileNm());
+				boardAttachFileInfo.setFilesize(imgFile.getAttFileSize());
+				boardAttachFileInfo.setFileExt(imgFile.getAttFileExt());
 				
 				sqlSession.insert("board.insertBOM_ATTACHFILE_TB", boardAttachFileInfo);
 //				sqlMapClient.executeBatch();
@@ -315,10 +315,10 @@ public class BoardService implements IBoardService {
 					boardAttachFileModel.setBrdSeq(boardModel.getBrdSeq());
 					boardAttachFileModel.setFlNo(flNo++);
 					boardAttachFileModel.setAttaKnd("AF"); // 첨부유형:첨부파일
-					boardAttachFileModel.setSaveFilename(fileModel.getSaveFileName());
-					boardAttachFileModel.setRealFilename(fileModel.getRealFileName());
-					boardAttachFileModel.setFilesize(fileModel.getFileSize());
-					boardAttachFileModel.setFileExt(fileModel.getFileExt());
+					boardAttachFileModel.setSaveFilename(fileModel.getAttSaveFileNm());
+					boardAttachFileModel.setRealFilename(fileModel.getAttRealFileNm());
+					boardAttachFileModel.setFilesize(fileModel.getAttFileSize());
+					boardAttachFileModel.setFileExt(fileModel.getAttFileExt());
 					
 					sqlSession.insert("board.insertBOM_ATTACHFILE_TB", boardAttachFileModel);
 				}
@@ -331,10 +331,10 @@ public class BoardService implements IBoardService {
 				boardAttachFileModel.setBrdSeq(boardModel.getBrdSeq());
 				boardAttachFileModel.setFlNo(flNo++);
 				boardAttachFileModel.setAttaKnd("MI"); // 첨부유형:첨부파일
-				boardAttachFileModel.setSaveFilename(imgFile.getSaveFileName());
-				boardAttachFileModel.setRealFilename(imgFile.getRealFileName());
-				boardAttachFileModel.setFilesize(imgFile.getFileSize());
-				boardAttachFileModel.setFileExt(imgFile.getFileExt());
+				boardAttachFileModel.setSaveFilename(imgFile.getAttSaveFileNm());
+				boardAttachFileModel.setRealFilename(imgFile.getAttRealFileNm());
+				boardAttachFileModel.setFilesize(imgFile.getAttFileSize());
+				boardAttachFileModel.setFileExt(imgFile.getAttFileExt());
 				
 				sqlSession.insert("board.insertBOM_ATTACHFILE_TB", boardAttachFileModel);
 //				sqlMapClient.executeBatch();

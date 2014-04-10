@@ -142,12 +142,14 @@
 			(`PRD_CD`,`PRD_DISPLAY_YN`,`PRD_ORDER`,`PRD_NM`,`PRD_CTG_L`,`PRD_CTG_M`,`PRD_CTG_S`,
 			`PRD_SPECAL_1`,`SEARCH_WORD`,`PRD_SPECAL_2`,`FROM_DATE`,`TO_DATE`,`REG_DATE`,
 			`LAST_DATE`,`PRD_PRICE`,`PRD_SELL_PRICE`,`PRD_MODEL`,`PRD_MODEL_NO`,`PRD_BRAND`,
-			`PRD_LIST_CMT`,`PRD_CONTENTS`,`PRD_TRANSFOR_INF`,`ADMIN_MEMO`,`MODIFY_USER_ID`)
+			`PRD_LIST_CMT`,`PRD_CONTENTS`,`PRD_TRANSFOR_INF`,`ADMIN_MEMO`,`MODIFY_USER_ID`,
+			`PRO_LIST_IMG`,`PRD_IMG1`,`PRD_IMG2`,`PRD_IMG3`,`PRD_IMG4`)
 			VALUES
 			(#{prdCd},#{prdDp},#{prdOrd}, #{prdNm}, #{prdCtgL}, #{prdCtgM},#{prdCtgS}, 
 			#{prdSpe1}, #{schWord},#{prdSpe2}, #{fromDate}, #{toDate}, sysdate(), sysdate(), 
 			#{prdPrice},#{prdSellPrc},#{prdModel}, #{prdModelNo},#{prdBrand},
-			#{prdListCmt},#{prdConts},#{prdTransInf},#{admMemo}, 'default')
+			#{prdListCmt},#{prdConts},#{prdTransInf},#{admMemo}, 'default',
+			#{proListImg},#{proImg1},#{proImg2},#{proImg3},#{proImg4})
 	</insert>
 	
 

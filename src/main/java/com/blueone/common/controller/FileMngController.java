@@ -30,11 +30,11 @@ public class FileMngController {
 		// redirect로 값을 넘길경우 Post방식으로 넘어가지 않는다.
 		// 그래서 Get방식으로 셋팅.
 		StringBuilder viewSb = new StringBuilder("redirect:/resources/editor/pages/trex/image_upload.jsp");
-		viewSb.append("?imageurl=" + attachFileInfo.getSaveFileName());		// 이미지경로
-		viewSb.append("&filename=" + attachFileInfo.getRealFileName());		// 원래파일명
-		viewSb.append("&filesize=" + attachFileInfo.getFileSize());			// 파일크기
-		viewSb.append("&originalurl=" + attachFileInfo.getRealFileName());	// 원래파일명
-		viewSb.append("&thumburl=" + attachFileInfo.getRealFileName());
+		viewSb.append("?imageurl=" + attachFileInfo.getAttSaveFileNm());		// 이미지경로
+		viewSb.append("&filename=" + attachFileInfo.getAttRealFileNm());		// 원래파일명
+		viewSb.append("&filesize=" + attachFileInfo.getAttFileSize());			// 파일크기
+		viewSb.append("&originalurl=" + attachFileInfo.getAttRealFileNm());	// 원래파일명
+		viewSb.append("&thumburl=" + attachFileInfo.getAttRealFileNm());
 		
 		return viewSb.toString();
 	}

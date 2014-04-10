@@ -30,6 +30,12 @@ public class ProductInfo {
 	private String admMemo;		//관리자메모
 	private String modifyUserId;// 최종수정자
 	
+	private String proListImg; //코드값
+	private String proImg1;
+	private String proImg2;
+	private String proImg3;
+	private String proImg4;
+	
 	//대 중 소 분류 네임
 	private String ctgLargeCode;
 	private String ctgLargeName;
@@ -38,44 +44,75 @@ public class ProductInfo {
 	private String ctgSmallCode;
 	private String ctgSmallName;
 	
-	private MultipartFile proListImg;
-	private MultipartFile proImg1;
-	private MultipartFile proImg2;
-	private MultipartFile proImg3;
-	private MultipartFile proImg4;
+	private MultipartFile proListImgUp;
+	private MultipartFile proImg1Up;
+	private MultipartFile proImg2Up;
+	private MultipartFile proImg3Up;
+	private MultipartFile proImg4Up;
 	
 	private String unit_chk; //다중 checkbox
 	
 	
-	public MultipartFile getProListImg() {
+	
+	public String getProListImg() {
 		return proListImg;
 	}
-	public void setProListImg(MultipartFile proListImg) {
+	public void setProListImg(String proListImg) {
 		this.proListImg = proListImg;
 	}
-	public MultipartFile getProImg1() {
+	public String getProImg1() {
 		return proImg1;
 	}
-	public void setProImg1(MultipartFile proImg1) {
+	public void setProImg1(String proImg1) {
 		this.proImg1 = proImg1;
 	}
-	public MultipartFile getProImg2() {
+	public String getProImg2() {
 		return proImg2;
 	}
-	public void setProImg2(MultipartFile proImg2) {
+	public void setProImg2(String proImg2) {
 		this.proImg2 = proImg2;
 	}
-	public MultipartFile getProImg3() {
+	public String getProImg3() {
 		return proImg3;
 	}
-	public void setProImg3(MultipartFile proImg3) {
+	public void setProImg3(String proImg3) {
 		this.proImg3 = proImg3;
 	}
-	public MultipartFile getProImg4() {
+	public String getProImg4() {
 		return proImg4;
 	}
-	public void setProImg4(MultipartFile proImg4) {
+	public void setProImg4(String proImg4) {
 		this.proImg4 = proImg4;
+	}
+	public MultipartFile getProListImgUp() {
+		return proListImgUp;
+	}
+	public void setProListImgUp(MultipartFile proListImgUp) {
+		this.proListImgUp = proListImgUp;
+	}
+	public MultipartFile getProImg1Up() {
+		return proImg1Up;
+	}
+	public void setProImg1Up(MultipartFile proImg1Up) {
+		this.proImg1Up = proImg1Up;
+	}
+	public MultipartFile getProImg2Up() {
+		return proImg2Up;
+	}
+	public void setProImg2Up(MultipartFile proImg2Up) {
+		this.proImg2Up = proImg2Up;
+	}
+	public MultipartFile getProImg3Up() {
+		return proImg3Up;
+	}
+	public void setProImg3Up(MultipartFile proImg3Up) {
+		this.proImg3Up = proImg3Up;
+	}
+	public MultipartFile getProImg4Up() {
+		return proImg4Up;
+	}
+	public void setProImg4Up(MultipartFile proImg4Up) {
+		this.proImg4Up = proImg4Up;
 	}
 	public String getUnit_chk() {
 		return unit_chk;

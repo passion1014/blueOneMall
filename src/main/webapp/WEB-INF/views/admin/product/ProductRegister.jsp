@@ -168,32 +168,32 @@
 		<tr>
 			<th>리스트 이미지</th>
 			<td colspan="3" class="left">
-				<input type="file" id="proListImg" name="proListImg" style="width:80%;"> [112px X 176px]
+				<input type="file" id="proListImgUp" name="proListImgUp" style="width:80%;"> [112px X 176px]
 			</td>
 		</tr>
 		<tr>
 			<th>상품이미지1</th>
 			<td colspan="3" class="left">
-				<input type="file" id="proImg1" name="proImg1" style="width:80%;"> [112px X 176px]
+				<input type="file" id="proImg1Up" name="proImg1Up" style="width:80%;"> [112px X 176px]
 				IM
 			</td>
 		</tr>
 		<tr>
 			<th>상품이미지2</th>
 			<td colspan="3" class="left">
-				<input type="file" id="proImg2" name="proImg2" style="width:80%;"> [112px X 176px]
+				<input type="file" id="proImg2Up" name="proImg2Up" style="width:80%;"> [112px X 176px]
 			</td>
 		</tr>
 		<tr>
 			<th>상품이미지3</th>
 			<td colspan="3" class="left">
-				<input type="file" id="proImg3" name="proImg3" style="width:80%;"> [112px X 176px]
+				<input type="file" id="proImg3Up" name="proImg3Up" style="width:80%;"> [112px X 176px]
 			</td>
 		</tr>
 		<tr>
 			<th>상품이미지4</th>
 			<td colspan="3" class="left">
-				<input type="file" id="proImg4" name="proImg4" style="width:80%;"> [112px X 176px]
+				<input type="file" id="proImg4Up" name="proImg4Up" style="width:80%;"> [112px X 176px]
 			</td>
 		</tr>
 		

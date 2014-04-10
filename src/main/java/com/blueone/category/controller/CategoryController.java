@@ -46,7 +46,10 @@ public class CategoryController {
 		List<CategoryInfo> mFullList = new ArrayList<CategoryInfo>();
 		
 		// 3. 소분류전체조회
+		List<CategoryInfo> sFullList = new ArrayList<CategoryInfo>();
 		
+		
+		//대 중 소 분류 선별
 		for (CategoryInfo large : lFullList) {
 			String largeCd = large.getCtgCode();
 			

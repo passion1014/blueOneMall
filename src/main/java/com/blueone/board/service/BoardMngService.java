@@ -156,10 +156,10 @@ public class BoardMngService implements IBoardMngService {
 					boardAttachFileModel.setBrdSeq((Long)brdSeq);
 					boardAttachFileModel.setFlNo(i+1);
 					boardAttachFileModel.setAttaKnd("AF"); // 첨부유형:첨부파일
-					boardAttachFileModel.setSaveFilename(fileModel.getSaveFileName());
-					boardAttachFileModel.setRealFilename(fileModel.getRealFileName());
-					boardAttachFileModel.setFilesize(fileModel.getFileSize());
-					boardAttachFileModel.setFileExt(fileModel.getFileExt());
+					boardAttachFileModel.setSaveFilename(fileModel.getAttSaveFileNm());
+					boardAttachFileModel.setRealFilename(fileModel.getAttRealFileNm());
+					boardAttachFileModel.setFilesize(fileModel.getAttFileSize());
+					boardAttachFileModel.setFileExt(fileModel.getAttFileExt());
 					
 //					sqlMapClient.insert("boardMng.insertBOM_ATTACHFILE_TB", boardAttachFileModel);
 					sqlSession.insert("boardMng.insertBOM_ATTACHFILE_TB", boardAttachFileModel);

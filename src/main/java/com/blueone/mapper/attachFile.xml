@@ -17,7 +17,7 @@
    	</resultMap>
    	
    	<insert id="insertBomAttachFileTb0001" parameterType="attFileInfo">
-		INSERT  BOM_PRODUCT_TB
+		INSERT  BOM_ATTACHIFILE_TB
 			(`ATT_CODE_TYPE`,`ATT_CODE_KEY`,`ATT_IMG_TYPE`,`ATT_SAVE_FILENAME`,
 			`ATT_REAL_FILENAME`,`ATT_FILE_PATH`,`ATT_FILE_SIZE`,`ATT_FILE_EXT`)
 			VALUES

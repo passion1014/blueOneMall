@@ -45,6 +45,11 @@ public class FileDownloadUtility {
 					basePath = FileUploadUtility.WEBROOT_DIR;
 					fullName = basePath + "/sample/";
 					break;
+				case FileUploadUtility.UPLOAD_TYP_PRODUCT_IMAGE :
+					basePath = FileUploadUtility.FILE_UPLOAD_DIR;
+					fullName = basePath + "/product/";
+					break;
+				
 				default : 
 			}
 

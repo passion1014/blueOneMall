@@ -74,7 +74,7 @@
 		<typeAlias alias="categoryInfo" type="com.blueone.category.domain.CategoryInfo" />
 		<typeAlias alias="productInfo" type="com.blueone.product.domain.ProductInfo" />
 		<typeAlias alias="searchProdInfo" type="com.blueone.product.domain.SearchProdInfo" />
-		<typeAlias alias="attFileInfo" type="com.blueone.product.domain.attFileInfo" />
+		<typeAlias alias="attFileInfo" type="com.blueone.common.domain.AttachFileInfo" />
 		
 		<!-- 커뮤니티 관련 모델 정보 -->
 		<typeAlias alias="boardInfo" type="com.blueone.board.domain.BoardInfo" />
