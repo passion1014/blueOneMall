@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.blueone.category.domain.CategoryInfo;
+import com.blueone.common.domain.AttachFileInfo;
 import com.blueone.common.domain.ResultInfo;
 import com.blueone.product.domain.ProductInfo;
 import com.blueone.product.domain.SearchProdInfo;
@@ -20,7 +21,19 @@ public class ProductManageServiceImpl implements IProductManageService {
 
 	@Autowired
 	private SqlSessionFactory sqlSessionFactory;
-
+	
+	 @SuppressWarnings({ "rawtypes", "unchecked" })
+	 public static List stringsToList(String[] strings) {
+	     List list = new ArrayList();
+	     if(strings != null) {
+	      if(strings.length > 0) {
+	       for(int i=0; i<strings.length; i++) {
+	        list.add(strings[i]);
+	       }
+	      }
+	     }
+	     return list;
+	    } 
 	
 	//상품목록 불러옴
 	@Override
@@ -93,6 +106,32 @@ public class ProductManageServiceImpl implements IProductManageService {
 		}
 		
 		return productInfo;
+	}
+	@Override
+	public AttachFileInfo registProductImgInfo(AttachFileInfo attFileInfo) {
+		ResultInfo rstInfo = new ResultInfo();
+		
+		/*
+		// -----------------------------------------------
+		// 체크로직
+		// -----------------------------------------------
+		String checkRst = checkProductInfo(attFileInfo);
+		if (!"1".equals(checkRst)) return attFileInfo;
+		*/
+		
+		// -----------------------------------------------
+		// DB Insert 수행
+		// -----------------------------------------------
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			
+			int rst = sqlSession.insert("product.insertBomProductTb0001", attFileInfo);
+			
+		} finally {
+			sqlSession.close();
+		}
+		
+		return attFileInfo;
 	}
 
 	@Override

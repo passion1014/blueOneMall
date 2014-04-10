@@ -1,5 +1,7 @@
 package com.blueone.category.domain;
 
+import java.util.List;
+
 /**
  * 카테고리정보
  * 	대분류= 01, 중분류=02, 소분류=03
@@ -25,7 +27,16 @@ public class CategoryInfo {
 	private String ctgMiddleCode;
 	private String ctgMiddleName;
 	private String srchFullYn;
+	private String chooseYn;	// 선택된중분류일경우 Y
 	
+	List<CategoryInfo> childList;
+	
+	public List<CategoryInfo> getChildList() {
+		return childList;
+	}
+	public void setChildList(List<CategoryInfo> childList) {
+		this.childList = childList;
+	}
 	public String getSrchFullYn() {
 		return srchFullYn;
 	}

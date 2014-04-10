@@ -2,6 +2,7 @@ package com.blueone.product.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpSession;
 
@@ -62,7 +63,7 @@ public class ProductController {
 	 */
 	@RequestMapping(value = "/admin/productRegister.do")
 	public String productRegister(@ModelAttribute("ProductInfo")ProductInfo productInfo, BindingResult result, Model model,HttpSession session) {
-		
+		/*
 		// -----------------------------------------------------------------
 		// 1. 세션정보를 확인해서 세션정보가 없을 경우 로그인 페이지로 이동한다.
 		// -----------------------------------------------------------------
@@ -70,7 +71,7 @@ public class ProductController {
 		if(adminSession == null){
 			return "redirect:adminLogin.do";
 		}
-
+*/
 	
 		// -----------------------------------------------------------------
 		// 2. 상품등록을 위한 카테고리(대분류) 리스트를 넘긴다.
@@ -111,9 +112,13 @@ public class ProductController {
 		int code= (int)(Math.random()*10000)+1;
 		productInfo.setPrdCd("P"+code);
 		
+		//상품 이미지 등록
+		AttachFileInfo contImg = new AttachFileInfo(productInfo.getProListImg());
+		
+		
 		// 상픔등록
-
 		productManageService.registProductInfo(productInfo);
+		
 		
 
 		redirectAttributes.addFlashAttribute("reloadVar", "yes");
@@ -225,7 +230,7 @@ public class ProductController {
 	 * 상품 수정처리
 	 */
 	@RequestMapping(value = "/admin/manageProductInfProc.do", method = RequestMethod.POST)
-	public String manageProductInfProc(@ModelAttribute("categoryInfo") ProductInfo productInfo, BindingResult result, Model model) {
+	public String manageProductInfProc(@ModelAttribute("productInfo") ProductInfo productInfo, BindingResult result, Model model) {
 		productManageService.manageProductInf(productInfo);
 		
 		return "redirect:productList.do";
@@ -244,27 +249,41 @@ public class ProductController {
 	/**
 	 * 상품 다중 삭제
 	 */
-	@RequestMapping(value = "/admin/deleteProductsInf.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/deleteProductsInf.do", method = RequestMethod.POST)
 	public String deleteProductsInfo(@ModelAttribute("productInfo") ProductInfo productInfo, BindingResult result, Model model) {
-		productManageService.deleteProductInf(productInfo);
+		
+		
+		
+		StringTokenizer st = new StringTokenizer(productInfo.getUnit_chk(),",");
+
+		while(st.hasMoreTokens()){ // 반활할 토큰이 있는가? true/false;
+			   productInfo.setPrdCd(st.nextToken());
+			   productManageService.deleteProductInf(productInfo);
+				
+			  
+		}
+			
+		
+		return "redirect:productList.do";
+	}
+	/**
+	 * 이미지 찾기 폼
+	 */
+	@RequestMapping(value = "/admin/searchProductImg.do", method = RequestMethod.POST)
+	public String searchProductImg(@ModelAttribute("productInfo") ProductInfo productInfo, BindingResult result, Model model) {
+		
+		return "redirect:productList.do";
+	}
+	/**
+	 * 이미지 찾기 처리
+	 */
+	@RequestMapping(value = "/admin/searchProductImgProc.do", method = RequestMethod.POST)
+	public String searchProductImgProc(@ModelAttribute("productInfo") ProductInfo productInfo, BindingResult result, Model model) {
 		
 		return "redirect:productList.do";
 	}
 	
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	 public static List stringsToList(String[] strings) {
-	     List list = new ArrayList();
-	     if(strings != null) {
-	      if(strings.length > 0) {
-	       for(int i=0; i<strings.length; i++) {
-	        list.add(strings[i]);
-	       }
-	      }
-	     }
-	     return list;
-	    } 
-	
 /*
 	private List<CategoryInfo> getCategoryListByTypeCd(CategoryInfo categoryInfo, String ctgCodeType) {
 		List<CategoryInfo> list = categoryManageService.getCategoryInfList(categoryInfo);

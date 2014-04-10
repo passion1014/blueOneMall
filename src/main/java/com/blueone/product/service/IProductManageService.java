@@ -3,6 +3,7 @@ package com.blueone.product.service;
 import java.util.List;
 
 import com.blueone.category.domain.CategoryInfo;
+import com.blueone.common.domain.AttachFileInfo;
 import com.blueone.common.domain.ResultInfo;
 import com.blueone.product.domain.ProductInfo;
 import com.blueone.product.domain.SearchProdInfo;
@@ -17,7 +18,9 @@ public interface IProductManageService {
 	public ProductInfo registProductDtlInfo(ProductInfo productInfo);
 	
 	public ProductInfo getProductInfDetail(ProductInfo productInfo);
+	public AttachFileInfo registProductImgInfo(AttachFileInfo attFileInfo);
 	
+
 	
 	
 	
@@ -26,5 +29,5 @@ public interface IProductManageService {
 	public int deleteProductInf(ProductInfo productInfo);
 	public int manageProductInf(ProductInfo productInfo);
 	
-
+	
 }

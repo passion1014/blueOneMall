@@ -24,6 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.blueone.admin.controller.AdminController;
 import com.blueone.admin.domain.AdminInfo;
 import com.blueone.category.domain.CategoryInfo;
+import com.blueone.category.domain.MenuInfo;
 import com.blueone.category.service.ICategoryManageService;
 
 @Controller
@@ -34,7 +35,34 @@ public class CategoryController {
 	
 	@Autowired
 	ICategoryManageService categoryManageService;
-
+	
+	/*
+	public  MenuInfo getMenu() {
+		
+		// 1. 대분류전체조회
+		List<CategoryInfo> lFullList = new ArrayList<CategoryInfo>();
+		
+		// 2. 중분류전체조회
+		List<CategoryInfo> mFullList = new ArrayList<CategoryInfo>();
+		
+		// 3. 소분류전체조회
+		
+		for (CategoryInfo large : lFullList) {
+			String largeCd = large.getCtgCode();
+			
+			List<CategoryInfo> mList = new ArrayList<CategoryInfo>();
+			for (CategoryInfo mid : mFullList) {
+				if (largeCd.equals(mid.getCtgPCode())) {
+					mList.add(mid);
+				}
+			}
+			
+			large.setChildList(mList);
+		}
+		
+		
+	}
+	*/
 	/**
 	 * 관리자 대분류 리스트
 	 */

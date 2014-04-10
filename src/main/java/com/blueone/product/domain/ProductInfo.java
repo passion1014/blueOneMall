@@ -1,5 +1,7 @@
 package com.blueone.product.domain;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class ProductInfo {
 	
 	//제품 보여줄때 필요한 정보
@@ -28,7 +30,7 @@ public class ProductInfo {
 	private String admMemo;		//관리자메모
 	private String modifyUserId;// 최종수정자
 	
-	
+	//대 중 소 분류 네임
 	private String ctgLargeCode;
 	private String ctgLargeName;
 	private String ctgMiddleCode;
@@ -36,6 +38,51 @@ public class ProductInfo {
 	private String ctgSmallCode;
 	private String ctgSmallName;
 	
+	private MultipartFile proListImg;
+	private MultipartFile proImg1;
+	private MultipartFile proImg2;
+	private MultipartFile proImg3;
+	private MultipartFile proImg4;
+	
+	private String unit_chk; //다중 checkbox
+	
+	
+	public MultipartFile getProListImg() {
+		return proListImg;
+	}
+	public void setProListImg(MultipartFile proListImg) {
+		this.proListImg = proListImg;
+	}
+	public MultipartFile getProImg1() {
+		return proImg1;
+	}
+	public void setProImg1(MultipartFile proImg1) {
+		this.proImg1 = proImg1;
+	}
+	public MultipartFile getProImg2() {
+		return proImg2;
+	}
+	public void setProImg2(MultipartFile proImg2) {
+		this.proImg2 = proImg2;
+	}
+	public MultipartFile getProImg3() {
+		return proImg3;
+	}
+	public void setProImg3(MultipartFile proImg3) {
+		this.proImg3 = proImg3;
+	}
+	public MultipartFile getProImg4() {
+		return proImg4;
+	}
+	public void setProImg4(MultipartFile proImg4) {
+		this.proImg4 = proImg4;
+	}
+	public String getUnit_chk() {
+		return unit_chk;
+	}
+	public void setUnit_chk(String unit_chk) {
+		this.unit_chk = unit_chk;
+	}
 	public String getPrdCd() {
 		return prdCd;
 	}

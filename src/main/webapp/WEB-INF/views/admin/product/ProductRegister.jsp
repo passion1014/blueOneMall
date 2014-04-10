@@ -164,7 +164,7 @@
 				<input type="text" id="prdBrand" name="prdBrand" style="width:80%;" required hname=" 상품명을 입력하여 주십시오">
 			</td>
 		</tr>
-		<!--  
+		
 		<tr>
 			<th>리스트 이미지</th>
 			<td colspan="3" class="left">
@@ -175,6 +175,7 @@
 			<th>상품이미지1</th>
 			<td colspan="3" class="left">
 				<input type="file" id="proImg1" name="proImg1" style="width:80%;"> [112px X 176px]
+				IM
 			</td>
 		</tr>
 		<tr>
@@ -195,7 +196,7 @@
 				<input type="file" id="proImg4" name="proImg4" style="width:80%;"> [112px X 176px]
 			</td>
 		</tr>
-		-->
+		
 		<tr>
 			<th>목록내용</th>
 			<td colspan="3" style="text-align:left;">
@@ -248,3 +249,52 @@
 </body>
 
 <c:import url="../inc/footer.jsp" />
+
+<script language="JavaScript" type="text/JavaScript">
+<!--
+$(document).ready(function() {
+	
+	$("#dialog-form").dialog({
+		autoOpen: false,
+		closeOnEscape: false,
+		draggable: false,
+		modal: true,
+		resizable: false,
+		title: '',
+		width: 650,
+		//height: 0,
+		//zIndex: 0,
+		create: function(event, ui) {},
+		open: function(event, ui) {},
+		close: function(event, ui) {}
+	});
+
+});
+
+function openDialog() {
+	$("#dialog-form").dialog("open");
+}
+
+function closeDialog() {
+	$("#dialog-form").dialog("close");
+}
+
+function dialogUpdate() {
+	$.ajax({
+		type: "POST",
+		url: "largeTypeEdit.do",
+		cache: false,
+		async: false,
+		data: {
+			ctgCode : cCode
+		},
+		dataType: "html",
+		success: function(e) {
+			$("#dialog-form").html(e);
+			openDialog();
+		}
+	});
+}
+
+//-->
+</script>

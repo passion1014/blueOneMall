@@ -59,7 +59,7 @@
 		</tbody></table>
 		</form>
 	
-		<form id="cfrm" name="cfrm" method="POST" action="./_action/product.do.php" target="actionForm">
+		<form id="cfrm" name="cfrm" method="POST" action="deleteProductsInf.do" >
 		<input id="Mode" name="Mode" value="" type="hidden">
 		<table>
 			<colgroup>
@@ -74,8 +74,9 @@
 			<tbody>
 				<tr>
 					<th>
-						 <input type="checkbox" onclick="Checkbox.toggleAll(this.checked, document.getElementsByName('checkboxes2'));">
-     
+     				<input id="muti_chk" name="multi_chk[]" value="gd_533bce184e45d" type="checkbox">
+     				
+          
 					</th>
 					<th>No</th>
 					<th>이미지</th>
@@ -89,7 +90,10 @@
 				<c:forEach items="${list}" var="produts">
 				<tr>
 				
-					<td class="center"><input id="unit_chk" name="unit_chk[]" value="gd_533bce184e45d" type="checkbox"></td>
+     					<td class="center">
+     					<input id="unit_chk" name="unit_chk" value="${produts.prdCd}" type="checkbox">
+
+     					</td> 
 
 						<td style="text-align:center;">index</td>
 						<td style="text-align:center;">상품이미지</td>
@@ -161,10 +165,9 @@
 				</select> &nbsp;
 				<input name="c_sp_1" value="y" type="checkbox"> 베스트 &nbsp;
 				<input name="c_sp_2" value="y" type="checkbox"> 행사품목 &nbsp;
-				<input value="선택수정" class="Small_Button Gray" onclick="list_Submit('modify')" type="button"> 
-				<!--  <input value="선택삭제" class="Small_Button Gray" onclick="list_Submit('del')" type="button">-->
-				<input id="btnDeleteUser" class="Small_Button Gray" type="button" value="선택 삭제" style="display:none" onclick="lfn_delete();"/>
-      
+				<input value="선택수정" class="Small_Button Gray" type="submit"> 
+				<input value="선택삭제" class="Small_Button Gray" type="submit">
+				
 			</span>
 			<span class="f_right"> 1 2 3 4 5 6 7 8 9 </span>
 		</div>
@@ -176,51 +179,4 @@
 </body>
 
 <c:import url="../inc/footer.jsp" />
-<script language="JavaScript" type="text/JavaScript">
-<!--
-//체크박스 관련
-var Checkbox = {
- toggleAll : function(isAllCheck, checkboxes) {
-  for(var i=0; i<checkboxes.length; i++){
-   if(!checkboxes[i].disabled) {
-    checkboxes[i].checked = isAllCheck;
-   }
-  }
- }
-};
-
-function lfn_delete() {
-	 //Common.log("### checkbox checked length : "+$("input[id*='checkboxes2']:checked").length);
-	 if($("input[id*='checkboxes2']:checked").length == 0) {
-	  //massage, width, height 
-	  Common.message("삭제할 상품을 선택해 주세요.", 400, 200);
-	 }
-	 else {
-	
-	  //Common.log("삭제처리");
-	  $.post(   
-	   "${pageContext.request.contextPath}/admin/deleteProductsInf.do"
-	   ,$("#testVoSet").serialize()
-	   ,function(data, status, xhr) {
-	    
-	    if(status == "success") {
-	     
-	     if(data == "SUCCESS") {
-	      //message, width, height 
-	      Common.message("선택 상품 삭제 성공", 300, 200);
-	      
-	      $("a.ui-dialog-titlebar-close").click(function() {
-	       lfn_search();
-	      });
-	     }
-	     else {
-	      Common.message("사용자 삭제 실패", 300, 200);
-	     }
-	    }
-	   }
-	  );
-	 }
-	}
-//-->
-
-</script>
+\

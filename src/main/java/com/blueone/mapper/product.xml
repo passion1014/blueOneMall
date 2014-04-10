@@ -5,24 +5,6 @@
 
 <mapper namespace="product">
 	 <resultMap id="ProductBaseDtlMap" type="productInfo">
-		<!-- <id property="idx" column="IDX" javaType="int"/> -->
-		<!-- <result property="idx" column="IDX" javaType="int"/>
-		<result property="prdCd" column="PRD_CD" javaType="java.lang.String"/>
-		<result property="prdDp" column="PRD_DISPLAY_YN" javaType="java.lang.String"/>
-		<result property="prdOrd" column="PRD_ORDER" javaType="int"/>
-		<result property="prdNm" column="PRD_NM" javaType="java.lang.String"/>
-		<result property="prdCtgL" column="PRD_CTG_L" javaType="java.lang.String"/>
-		<result property="prdCtgM" column="PRD_CTG_M" javaType="java.lang.String"/>
-		<result property="prdCtgS" column="PRD_CTG_S" javaType="java.lang.String"/>
-		<result property="prdSpe1" column="PRO_SPECAL_1" javaType="java.lang.String"/>
-		<result property="prdSpe2" column="PRO_SPECAL_2" javaType="java.lang.String"/>
-		<result property="schWord" column="SEARCH_WORD" javaType="java.lang.String"/>
-		<result property="fromDate" column="FROM_DATE" javaType="java.lang.String"/>
-		<result property="toDate" column="TO_DATE" javaType="java.lang.String"/>
-		<result property="regDate" column="REG_DATE" javaType="java.lang.String"/>
-		<result property="lastDate" column="LAST_DATE" javaType="java.lang.String"/>
-		<result property="modifyUserId" column="MODIFY_USER_ID" javaType="java.lang.String"/> -->
-		
 		<result property="prdCd" column="PRD_CD" javaType="java.lang.String"/>
 		<result property="prdDp" column="PRD_DISPLAY_YN" javaType="java.lang.String"/>
 		<result property="prdOrd" column="PRD_ORDER" javaType="int"/>
@@ -47,13 +29,19 @@
 		<result property="prdTransInf" column="PRD_TRANSFOR_INF" javaType="int"/>
 		<result property="admMemo" column="ADMIN_MEMO" javaType="java.lang.String"/>
 		<result property="modifyUserId" column="MODIFY_USER_ID" javaType="java.lang.String"/>
+		<result property="proListImg"  column="PRO_LIST_IMG"   javaType="java.lang.String"/>
+		<result property="proImg1"  column="PRD_IMG1"   javaType="java.lang.String"/>
+		<result property="proImg2"  column="PRD_IMG2"   javaType="java.lang.String"/>
+		<result property="proImg3"  column="PRD_IMG3"   javaType="java.lang.String"/>
+		<result property="proImg4"  column="PRD_IMG4"   javaType="java.lang.String"/>
+		
 		<result property="ctgLargeCode"  column="t2ctgCode"    javaType="java.lang.String"/>
 		<result property="ctgLargeName"  column="t2ctgName"    javaType="java.lang.String"/>
 		<result property="ctgMiddleCode"  column="t3ctgCode"   javaType="java.lang.String"/>
 		<result property="ctgMiddleName"  column="t3ctgName"   javaType="java.lang.String"/>
 		<result property="ctgSmallCode"  column="t4ctgCode"   javaType="java.lang.String"/>
 		<result property="ctgSmallName"  column="t4ctgName"   javaType="java.lang.String"/>
-		
+
 	</resultMap>
 	
 
@@ -161,6 +149,7 @@
 			#{prdPrice},#{prdSellPrc},#{prdModel}, #{prdModelNo},#{prdBrand},
 			#{prdListCmt},#{prdConts},#{prdTransInf},#{admMemo}, 'default')
 	</insert>
+	
 
 		
 	<delete id="deleteBomProductTb0001" parameterType="productInfo">
