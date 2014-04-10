@@ -70,18 +70,46 @@ public class CategoryController {
 	 * 관리자 대분류 리스트
 	 */
 	@RequestMapping(value="/admin/largeTypeList.do", method= RequestMethod.GET)
-	public String largeTypeList(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model,HttpSession session){
-		
+	public String largeTypeList(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model,HttpSession session, String page){
+		/*
 		AdminInfo adminSession = (AdminInfo)session.getAttribute("adminSession");
 		
 		if(adminSession == null){
 		return "redirect:adminLogin.do";
 		}
+		*/
 		List<CategoryInfo> list = categoryManageService.getCategoryInfList(categoryInfo);
 		list = getCategoryListByTypeCd(categoryInfo, "01");
 	    
-		model.addAttribute("list", list);
+		int pNum;
+	   
+	    if(page.isEmpty()){
+	    	pNum=1;
+	    }else{
+	    	pNum=Integer.parseInt(page);
+	    }
+	    
+		int endNum=1;
+		if(list.size()%2==0) {
+			endNum=list.size()/2;
+		}
+		else{
+			endNum=list.size()/2+1;
+			}
 		
+		List<CategoryInfo> exlist = new ArrayList<CategoryInfo>();
+		
+		int startIdx=pNum*2-2;
+		int forend=pNum*2-1;
+		
+		for(int i=startIdx; i<=forend; i++){
+			exlist.add(list.get(i));
+		}
+		
+		model.addAttribute("list", exlist);
+		
+		model.addAttribute("endNum",endNum);
+	
 		return "admin/product/largeTypeList";
 			
 	}

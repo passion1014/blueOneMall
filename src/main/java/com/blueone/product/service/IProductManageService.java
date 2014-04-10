@@ -19,6 +19,7 @@ public interface IProductManageService {
 	
 	public ProductInfo getProductInfDetail(ProductInfo productInfo);
 	public AttachFileInfo registProductImgInfo(AttachFileInfo attFileInfo);
+	public List<AttachFileInfo> getAttFileInfList(AttachFileInfo attFileInfo);
 	
 
 	
@@ -28,6 +29,5 @@ public interface IProductManageService {
 	public List<ProductInfo> shopProductInfList(ProductInfo productInfo);
 	public int deleteProductInf(ProductInfo productInfo);
 	public int manageProductInf(ProductInfo productInfo);
-	
 	
 }

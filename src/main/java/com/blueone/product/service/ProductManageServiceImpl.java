@@ -54,6 +54,26 @@ public class ProductManageServiceImpl implements IProductManageService {
 		
 		return prodBaseList;
 	}
+	
+	//상품 목록 이미지 불러옴
+	@Override
+	public List<AttachFileInfo> getAttFileInfList(AttachFileInfo attFileInfo) {
+		
+		List<AttachFileInfo> fileList = new ArrayList<AttachFileInfo>();
+		
+		// -----------------------------------------------
+		// DB Insert 수행
+		// -----------------------------------------------
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			// DB 수행
+			fileList = sqlSession.selectList("attFile.selectListBomProductTb0001", attFileInfo);
+		} finally {
+			sqlSession.close();
+		}
+		
+		return fileList;
+	}
 
 	@Override
 	public List<ProductInfo> getProductSearchList(SearchProdInfo searchProdInfo) {
