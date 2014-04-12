@@ -2,9 +2,29 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div class="lnb">
-	<h3>CATEGORY</h3>
+	
+	<h3><c:out value="${largeInfo.ctgName}"></c:out></h3>
+	
 	<ul class="lnb_list">
-		<li><a href="#">Multimedia(MM)</a></li>
+		<c:forEach items="${categoryList}" var="lList">
+			<li><a href="#">${lList.ctgName}</a></li>
+			
+			
+			<c:forEach items="${list1}" var="sList">
+				<div class="onclick_list">				
+				<c:if test="${sList.ctgCodeType == '03'}">
+					<c:if test="${sList.ctgPCode} == ${lList.ctgCode}">
+						<a href="#">${sList.ctgName}</a>
+					</c:if>					
+				</c:if>
+				</div>					
+			</c:forEach>
+			
+				
+		</c:forEach>
+		
+		
+		<!-- <li><a href="#">Multimedia(MM)</a></li>
 		<li><a href="#">Amp</a></li>
 		<div class="onclick_list">
 			<a href="#">인디앰프</a>
@@ -21,6 +41,6 @@
 			<a href="#">북셀프스피커</a>
 			<a href="#">멀티채널스피커</a>
 			<a href="#">사운드바</a>
-		</div>
+		</div> -->
 	</ul>
 </div>
