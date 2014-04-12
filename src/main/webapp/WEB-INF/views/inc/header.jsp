@@ -26,7 +26,7 @@
 	<div class="gnb">
 		<ul>
 			<c:forEach var="largeList" items="${rstList}">
-				<li><a href="#">${largeList.ctgName}</a></li>
+				<li><a href="productView.do?ctgCode=${largeList.ctgCode}">${largeList.ctgName}</a></li>
 			</c:forEach>
 			<!-- 	
 			<li><a href="#">BLUETOOTH</a></li>
