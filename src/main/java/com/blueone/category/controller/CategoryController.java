@@ -121,8 +121,6 @@ public class CategoryController {
 	@RequestMapping(value="/admin/largeTypeRegister.do", method= RequestMethod.GET)
 	public String largeTypeRegister(@ModelAttribute("adminInfo") AdminInfo adminInfo, BindingResult result, Model model){
 		
-		
-		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("adminSession", adminInfo);
 		
