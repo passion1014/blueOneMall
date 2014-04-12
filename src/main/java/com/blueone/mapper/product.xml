@@ -36,6 +36,19 @@
 		<result property="ctgMiddleName"  column="t3ctgName"   javaType="java.lang.String"/>
 		<result property="ctgSmallCode"  column="t4ctgCode"   javaType="java.lang.String"/>
 		<result property="ctgSmallName"  column="t4ctgName"   javaType="java.lang.String"/>
+		
+		
+		<result property="idx" column="IDX" javaType="int"/>
+		<result property="attCdType" column="ATT_CODE_TYPE" javaType="java.lang.String"/>
+		<result property="attCdKey" column="ATT_CODE_KEY" javaType="java.lang.String"/>
+		<result property="attImgType" column="ATT_IMG_TYPE" javaType="java.lang.String"/>
+		<result property="attSaveFileNm" column="ATT_SAVE_FILENAME" javaType="java.lang.String"/>
+		<result property="attRealFileNm" column="ATT_REAL_FILENAME" javaType="java.lang.String"/>
+		<result property="attFilePath"  column="ATT_FILE_PATH"   javaType="java.lang.String"/>
+		<result property="attFileSize"  column="ATT_FILE_SIZE"   javaType="int"/>
+		<result property="attFileExt"  column="ATT_FILE_EXT"   javaType="java.lang.String"/>
+		<result property="attImgSeq"  column="ATT_IMG_SEQ"   javaType="int"/>		
+   
 
 	</resultMap>
 	
@@ -72,7 +85,8 @@
 			T3.CTG_CODE       AS t3ctgCode,
 			T3.CTG_NAME       AS t3ctgName,
 			T4.CTG_CODE       AS t4ctgCode,
-			T4.CTG_NAME       AS t4ctgName
+			T4.CTG_NAME       AS t4ctgName,
+			T5.ATT_FILE_PATH AS attFilePath
 			
 		FROM BOM_PRODUCT_TB AS T1
 				LEFT JOIN BOM_CATEGORY_TB T2
@@ -81,13 +95,19 @@
 					ON ( T1.PRD_CTG_M = T3.CTG_CODE )
 				LEFT JOIN BOM_CATEGORY_TB T4 
 					ON ( T1.PRD_CTG_S = T4.CTG_CODE )
+				LEFT JOIN BOM_ATTACHIFILE_TB T5
+					ON ( T1.PRD_CD = T5.ATT_CODE_KEY )
+					
+					
 				
 		WHERE
-			1 = 1
+			(1 = 1)
 			<if test="prdNm != null and prdNm != ''">AND T1.PRD_NM LIKE CONCAT(#{prodNm},'%')</if>
 			<if test="prdCtgL != null and prdCtgL != ''">AND T1.PRD_CTG_L LIKE CONCAT(#{prdCtgL},'%')</if>
 			<if test="prdCtgM != null and prdCtgM != ''">AND T1.PRD_CTG_M LIKE CONCAT(#{prdCtgM},'%')</if>
 			<if test="prdCtgS != null and prdCtgS != ''">AND T1.PRD_CTG_S LIKE CONCAT(#{prdCtgS},'%')</if>
+			
+			 AND (T5.ATT_IMG_TYPE = 01)
 	</select >
 	
 	<select id="selectListBomShopProductTb0001" parameterType="ProductInfo" resultMap="ProductBaseDtlMap">
@@ -131,6 +151,8 @@
 		WHERE
 			T1.PRD_CD = #{prdCd}
 	</select >
+	
+
 	
 	<insert id="insertBomProductTb0001" parameterType="productInfo">
 		INSERT  BOM_PRODUCT_TB

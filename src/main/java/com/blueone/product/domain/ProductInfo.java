@@ -38,13 +38,8 @@ public class ProductInfo {
 	private String ctgMiddleName;
 	private String ctgSmallCode;
 	private String ctgSmallName;
-	
-	private String ctgLargeCodePath;
-	private String ctgLargeNamePath;
-	private String ctgMiddleCodePath;
-	private String ctgMiddleNamePath;
-	private String ctgSmallCodePath;
-	private String ctgSmallNamePath;
+
+	private String attFilePath;
 	
 	private MultipartFile proListImgUp;
 	private MultipartFile proImg1Up;
@@ -56,43 +51,15 @@ public class ProductInfo {
 	
 	
 	
-	public String getCtgLargeCodePath() {
-		return ctgLargeCodePath;
-	}
-	public void setCtgLargeCodePath(String ctgLargeCodePath) {
-		this.ctgLargeCodePath = ctgLargeCodePath;
-	}
-	public String getCtgLargeNamePath() {
-		return ctgLargeNamePath;
-	}
-	public void setCtgLargeNamePath(String ctgLargeNamePath) {
-		this.ctgLargeNamePath = ctgLargeNamePath;
-	}
-	public String getCtgMiddleCodePath() {
-		return ctgMiddleCodePath;
-	}
-	public void setCtgMiddleCodePath(String ctgMiddleCodePath) {
-		this.ctgMiddleCodePath = ctgMiddleCodePath;
-	}
-	public String getCtgMiddleNamePath() {
-		return ctgMiddleNamePath;
-	}
-	public void setCtgMiddleNamePath(String ctgMiddleNamePath) {
-		this.ctgMiddleNamePath = ctgMiddleNamePath;
-	}
-	public String getCtgSmallCodePath() {
-		return ctgSmallCodePath;
-	}
-	public void setCtgSmallCodePath(String ctgSmallCodePath) {
-		this.ctgSmallCodePath = ctgSmallCodePath;
-	}
-	public String getCtgSmallNamePath() {
-		return ctgSmallNamePath;
-	}
-	public void setCtgSmallNamePath(String ctgSmallNamePath) {
-		this.ctgSmallNamePath = ctgSmallNamePath;
-	}
+	
 
+
+	public String getAttFilePath() {
+		return attFilePath;
+	}
+	public void setAttFilePath(String attFilePath) {
+		this.attFilePath = attFilePath;
+	}
 	public MultipartFile getProListImgUp() {
 		return proListImgUp;
 	}

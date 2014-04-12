@@ -58,7 +58,8 @@ public class ProductController {
 		*/
 		
 		List<ProductInfo> list = productManageService.getProductInfList(srchProdInfo);
-		List<AttachFileInfo> filelist = attFileManageService.getAttFileInfList();
+		
+		
 	    
 		PageDivision pd = new PageDivision();
 		
@@ -67,7 +68,7 @@ public class ProductController {
 		
 
 		model.addAttribute("list", pd.getPrdList(3));
-		model.addAttribute("filelist", filelist);
+	
 
 		model.addAttribute("endNum",pd.getEndPageNum());
 		

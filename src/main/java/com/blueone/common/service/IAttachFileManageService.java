@@ -7,7 +7,7 @@ import com.blueone.common.domain.AttachFileInfo;
 public interface IAttachFileManageService {
 
 	public AttachFileInfo registProductImgInfo(AttachFileInfo attFileInfo);
-	public List<AttachFileInfo> getAttFileInfList();
+	public List<AttachFileInfo> getAttFileInfList(AttachFileInfo attFileInfo);
 
 	
 }

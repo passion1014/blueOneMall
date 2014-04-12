@@ -95,12 +95,7 @@
 
 						<td style="text-align:center;">index</td>
 						<td style="text-align:center;">
-						<c:forEach items="${filelist}" var="filelist">
-							<c:if test="${produts.prdCd == filelist.attCdKey}">
-							<c:if test="${ filelist.}"
-								<img src="${filelist.attFilePath}">
-							</c:if>
-						</c:forEach>
+									<img src="${produts.attFilePath}">
 						</td>
 						<td style="text-align:center;">
 							<c:if test="${produts.prdDp eq 'y'}">진열</c:if>
@@ -170,7 +165,7 @@
 				</select> &nbsp;
 				<input name="c_sp_1" value="y" type="checkbox"> 베스트 &nbsp;
 				<input name="c_sp_2" value="y" type="checkbox"> 행사품목 &nbsp;
-				<input value="선택수정" class="Small_Button Gray" type="submit"> 
+				<input value="선택수정" class="Small_Butto Gray" type="submit"> 
 				<input value="선택삭제" class="Small_Button Gray" type="submit">
 				
 			</span>

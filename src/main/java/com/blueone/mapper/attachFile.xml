@@ -8,21 +8,32 @@
 		<result property="idx" column="IDX" javaType="int"/>
 		<result property="attCdType" column="ATT_CODE_TYPE" javaType="java.lang.String"/>
 		<result property="attCdKey" column="ATT_CODE_KEY" javaType="java.lang.String"/>
-		<result property="attImgType" column="ATT_IMG_TYPE" javaType="int"/>
+		<result property="attImgType" column="ATT_IMG_TYPE" javaType="java.lang.String"/>
 		<result property="attSaveFileNm" column="ATT_SAVE_FILENAME" javaType="java.lang.String"/>
 		<result property="attRealFileNm" column="ATT_REAL_FILENAME" javaType="java.lang.String"/>
-		<result property="attFilePath"  column="ATT_FILE_PATH"   javaType="int"/>
-		<result property="attFileSize"  column="ATT_FILE_SIZE"   javaType="java.lang.String"/>
+		<result property="attFilePath"  column="ATT_FILE_PATH"   javaType="java.lang.String"/>
+		<result property="attFileSize"  column="ATT_FILE_SIZE"   javaType="int"/>
 		<result property="attFileExt"  column="ATT_FILE_EXT"   javaType="java.lang.String"/>
 		<result property="attImgSeq"  column="ATT_IMG_SEQ"   javaType="int"/>
 		
    	</resultMap>
-   	<select id="selectListBomAttFileTb0001" resultMap="AttachFileMap">
+   	<select id="selectListBomAttFileTb0001" parameterType="attFileInfo" resultMap="AttachFileMap">
 	
 		SELECT 
-			`ATT_CODE_TYPE`,`ATT_CODE_KEY`,`ATT_IMG_TYPE`,`ATT_SAVE_FILENAME`,
-			`ATT_REAL_FILENAME`,`ATT_FILE_PATH`,`ATT_FILE_SIZE`,`ATT_FILE_EXT`,`ATT_IMG_SEQ`
-		FROM BOM_ATTACHIFILE_TB	
+			T1.ATT_CODE_TYPE,
+			T1.ATT_CODE_KEY,
+			T1.ATT_IMG_TYPE,
+			T1.ATT_SAVE_FILENAME,
+			T1.ATT_REAL_FILENAME,
+			T1.ATT_FILE_PATH,
+			T1.ATT_FILE_SIZE,
+			T1.ATT_FILE_EXT,
+			T1.ATT_IMG_SEQ
+		FROM BOM_ATTACHIFILE_TB AS T1
+		WHERE
+			LEFT JOIN BOM_PRODUCT_TB T2 
+				ON (T2.PRD_CD=T1.ATT_CODE_KEY)
+			AND T.ATT_CODE_TYPE = 
 	</select>
 	
    	<insert id="insertBomAttachFileTb0001" parameterType="attFileInfo">
@@ -34,6 +45,4 @@
 			#{attRealFileNm}, #{attFilePath}, #{attFileSize},#{attFileExt},#{attImgSeq})
 	</insert>
    	
-   
-   
    </mapper>
