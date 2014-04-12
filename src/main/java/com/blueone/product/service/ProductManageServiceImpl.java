@@ -55,25 +55,6 @@ public class ProductManageServiceImpl implements IProductManageService {
 		return prodBaseList;
 	}
 	
-	//상품 목록 이미지 불러옴
-	@Override
-	public List<AttachFileInfo> getAttFileInfList(AttachFileInfo attFileInfo) {
-		
-		List<AttachFileInfo> fileList = new ArrayList<AttachFileInfo>();
-		
-		// -----------------------------------------------
-		// DB Insert 수행
-		// -----------------------------------------------
-		SqlSession sqlSession = sqlSessionFactory.openSession();
-		try {
-			// DB 수행
-			fileList = sqlSession.selectList("attFile.selectListBomProductTb0001", attFileInfo);
-		} finally {
-			sqlSession.close();
-		}
-		
-		return fileList;
-	}
 
 	@Override
 	public List<ProductInfo> getProductSearchList(SearchProdInfo searchProdInfo) {
@@ -128,32 +109,7 @@ public class ProductManageServiceImpl implements IProductManageService {
 		
 		return productInfo;
 	}
-	@Override
-	public AttachFileInfo registProductImgInfo(AttachFileInfo attFileInfo) {
-		ResultInfo rstInfo = new ResultInfo();
-		
-		/*
-		// -----------------------------------------------
-		// 체크로직
-		// -----------------------------------------------
-		String checkRst = checkProductInfo(attFileInfo);
-		if (!"1".equals(checkRst)) return attFileInfo;
-		*/
-		
-		// -----------------------------------------------
-		// DB Insert 수행
-		// -----------------------------------------------
-		SqlSession sqlSession = sqlSessionFactory.openSession();
-		try {
-			
-			int rst = sqlSession.insert("attFile.insertBomAttachFileTb0001", attFileInfo);
-			
-		} finally {
-			sqlSession.close();
-		}
-		
-		return attFileInfo;
-	}
+	
 
 	@Override
 	public ProductInfo registProductDtlInfo(ProductInfo productInfo) {

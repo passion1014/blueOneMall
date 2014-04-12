@@ -14,23 +14,24 @@
 		<result property="attFilePath"  column="ATT_FILE_PATH"   javaType="int"/>
 		<result property="attFileSize"  column="ATT_FILE_SIZE"   javaType="java.lang.String"/>
 		<result property="attFileExt"  column="ATT_FILE_EXT"   javaType="java.lang.String"/>
+		<result property="attImgSeq"  column="ATT_IMG_SEQ"   javaType="int"/>
+		
    	</resultMap>
-   	<select id="selectListBomFileTb0001" parameterType="attFileInfo" resultMap="AttachFileMap">
+   	<select id="selectListBomAttFileTb0001" resultMap="AttachFileMap">
 	
 		SELECT 
-			`PRD_PRICE`,`PRD_SELL_PRICE`,`PRD_MODEL`,`PRD_MODEL_NO`,`PRD_BRAND`,`PRD_LIST_CMT`,
-			`PRD_CONTENTS`,`PRD_TRANSFOR_INF`,
-			`ADMIN_MEMO`
-		FROM BOM_PRODUCT_TB	
+			`ATT_CODE_TYPE`,`ATT_CODE_KEY`,`ATT_IMG_TYPE`,`ATT_SAVE_FILENAME`,
+			`ATT_REAL_FILENAME`,`ATT_FILE_PATH`,`ATT_FILE_SIZE`,`ATT_FILE_EXT`,`ATT_IMG_SEQ`
+		FROM BOM_ATTACHIFILE_TB	
 	</select>
 	
    	<insert id="insertBomAttachFileTb0001" parameterType="attFileInfo">
 		INSERT  BOM_ATTACHIFILE_TB
 			(`ATT_CODE_TYPE`,`ATT_CODE_KEY`,`ATT_IMG_TYPE`,`ATT_SAVE_FILENAME`,
-			`ATT_REAL_FILENAME`,`ATT_FILE_PATH`,`ATT_FILE_SIZE`,`ATT_FILE_EXT`)
+			`ATT_REAL_FILENAME`,`ATT_FILE_PATH`,`ATT_FILE_SIZE`,`ATT_FILE_EXT`,`ATT_IMG_SEQ`)
 			VALUES
 			(#{attCdType},#{attCdKey},#{attImgType}, #{attSaveFileNm}, 
-			#{attRealFileNm}, #{attFilePath}, #{attFileSize},#{attFileExt})
+			#{attRealFileNm}, #{attFilePath}, #{attFileSize},#{attFileExt},#{attImgSeq})
 	</insert>
    	
    

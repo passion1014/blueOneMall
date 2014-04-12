@@ -25,7 +25,9 @@ import com.blueone.admin.domain.AdminInfo;
 import com.blueone.category.domain.CategoryInfo;
 import com.blueone.category.service.ICategoryManageService;
 import com.blueone.common.domain.AttachFileInfo;
+import com.blueone.common.service.IAttachFileManageService;
 import com.blueone.common.util.FileUploadUtility;
+import com.blueone.common.util.PageDivision;
 import com.blueone.common.util.Utility;
 import com.blueone.product.domain.ProductInfo;
 import com.blueone.product.domain.SearchProdInfo;
@@ -39,13 +41,14 @@ public class ProductController {
 	
 	@Autowired IProductManageService productManageService;
 	@Autowired ICategoryManageService categoryManageService;
+	@Autowired IAttachFileManageService attFileManageService;
 	
 	
 	/*
 	 * 관리자 물품 리스트
 	 */
-	@RequestMapping(value = "/admin/productList.do")
-	public String productList(@ModelAttribute("ProductInfo") SearchProdInfo srchProdInfo, BindingResult result, Model model,HttpSession session) {
+	@RequestMapping(value = "/admin/productList.do", method= RequestMethod.GET)
+	public String productList(@ModelAttribute("ProductInfo") SearchProdInfo srchProdInfo, BindingResult result, Model model,HttpSession session, String page) {
 		/*
 		AdminInfo adminSession = (AdminInfo)session.getAttribute("adminSession");		
 		if(adminSession==null){
@@ -55,9 +58,18 @@ public class ProductController {
 		*/
 		
 		List<ProductInfo> list = productManageService.getProductInfList(srchProdInfo);
+		List<AttachFileInfo> filelist = attFileManageService.getAttFileInfList();
 	    
-		model.addAttribute("list", list);
+		PageDivision pd = new PageDivision();
 		
+		pd.pageNum(page);
+		pd.setPrdList(list);
+		
+
+		model.addAttribute("list", pd.getPrdList(3));
+		model.addAttribute("filelist", filelist);
+
+		model.addAttribute("endNum",pd.getEndPageNum());
 		
 		
 		return "admin/product/productList";
@@ -127,11 +139,10 @@ public class ProductController {
 		FileUploadUtility utilList = new FileUploadUtility();
 		contImg=utilList.doFileUpload(7,productInfo.getProListImgUp(),false);
 		contImg.setAttCdType("01");//등록유형 : 상품
-		int imgListCd= (int)(Math.random()*10000)+1;
-		contImg.setAttCdKey("PI"+imgListCd); //
-		productInfo.setProListImg("PI"+code);		
+		contImg.setAttCdKey(productInfo.getPrdCd()); //
 		contImg.setAttImgType("01");//목록
-		productManageService.registProductImgInfo(contImg);
+		contImg.setAttImgSeq(1);
+		attFileManageService.registProductImgInfo(contImg);
 		}
 		
 		if(!productInfo.getProImg1Up().isEmpty()){
@@ -140,11 +151,11 @@ public class ProductController {
 		FileUploadUtility utilList1 = new FileUploadUtility();		
 		contImg1=utilList1.doFileUpload(7,productInfo.getProImg1Up(),false);
 		contImg1.setAttCdType("01");//등록유형 : 상품
-		int imgCd1= (int)(Math.random()*10000)+1;
-		contImg1.setAttCdKey("PI"+imgCd1); //
-		productInfo.setProImg1("PI"+code);		
-		contImg1.setAttImgType("01");//목록
-		productManageService.registProductImgInfo(contImg1);
+		contImg1.setAttCdKey(productInfo.getPrdCd()); //
+		contImg1.setAttImgType("02");//뷰
+		contImg1.setAttImgSeq(1);
+		
+		attFileManageService.registProductImgInfo(contImg1);
 		}
 		
 		if(!productInfo.getProImg2Up().isEmpty()){
@@ -153,11 +164,11 @@ public class ProductController {
 		FileUploadUtility utilList2 = new FileUploadUtility();				
 		contImg2=FileUploadUtility.doFileUpload(7,productInfo.getProImg2Up(),false);
 		contImg2.setAttCdType("01");//등록유형 : 상품
-		int imgCd2= (int)(Math.random()*10000)+1;
-		contImg2.setAttCdKey("PI"+imgCd2); //
-		productInfo.setProImg2("PI"+code);		
-		contImg2.setAttImgType("01");//목록
-		productManageService.registProductImgInfo(contImg2);
+		contImg2.setAttCdKey(productInfo.getPrdCd()); //
+		contImg2.setAttImgType("02");//뷰
+		contImg2.setAttImgSeq(2);
+		
+		attFileManageService.registProductImgInfo(contImg2);
 		}
 		
 		if(!productInfo.getProImg3Up().isEmpty()){
@@ -166,11 +177,11 @@ public class ProductController {
 		FileUploadUtility utilList3 = new FileUploadUtility();				
 		contImg3=utilList3.doFileUpload(7,productInfo.getProImg3Up(),false);
 		contImg3.setAttCdType("01");//등록유형 : 상품
-		int imgCd3= (int)(Math.random()*10000)+1;
-		contImg3.setAttCdKey("PI"+imgCd3); //
-		productInfo.setProImg3("PI"+code);		
-		contImg3.setAttImgType("01");//목록
-		productManageService.registProductImgInfo(contImg3);
+		contImg3.setAttCdKey(productInfo.getPrdCd()); //
+		contImg3.setAttImgType("02");//뷰
+		contImg3.setAttImgSeq(3);
+		
+		attFileManageService.registProductImgInfo(contImg3);
 		}
 		
 		
@@ -180,11 +191,10 @@ public class ProductController {
 		FileUploadUtility utilList4 = new FileUploadUtility();				
 		contImg4=utilList4.doFileUpload(7,productInfo.getProImg4Up(),false);
 		contImg4.setAttCdType("01");//등록유형 : 상품
-		int imgCd4= (int)(Math.random()*10000)+1;
-		contImg4.setAttCdKey("PI"+imgCd4); //
-		productInfo.setProImg4("PI"+code);		
-		contImg4.setAttImgType("01");//목록
-		productManageService.registProductImgInfo(contImg4);
+		contImg4.setAttCdKey(productInfo.getPrdCd()); //
+		contImg4.setAttImgType("02");//뷰
+		contImg4.setAttImgSeq(4);
+		attFileManageService.registProductImgInfo(contImg4);
 		}
 		
 	

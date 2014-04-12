@@ -13,26 +13,24 @@ public class AttachFileInfo {
 	private String attSaveFileNm;
 	private String attRealFileNm;
 	private String attFilePath;
+	private int attImgSeq;
 	private long attFileSize;
 	private String attFileExt;
 	   
 	private MultipartFile uploadFile;	
-	// 첨부파일
-	public AttachFileInfo(){
 	
-		
+
+	
+	public int getAttImgSeq() {
+		return attImgSeq;
 	}
-	
-	public AttachFileInfo(MultipartFile imgInfo){
-		uploadFile=imgInfo;
-		
-		attSaveFileNm=imgInfo.getOriginalFilename();
-		attFileSize=imgInfo.getSize();
-		attFileExt=imgInfo.getContentType();
-		
+
+
+	public void setAttImgSeq(int attImgSeq) {
+		this.attImgSeq = attImgSeq;
 	}
-	
-	
+
+
 	public int getIdx() {
 		return idx;
 	}

@@ -44,13 +44,13 @@
 		<h1>상품관리</h1>
 		<ul>
 			<h2>상품분류</h2>
-			<li><a href="largeTypeList.do">대분류 목록</a></li>
-			<li><a href="middleTypeList.do">중분류 목록</a></li>
-			<li><a href="smallTypeList.do">소분류 목록</a></li>
+			<li><a href="largeTypeList.do?page=1">대분류 목록</a></li>
+			<li><a href="middleTypeList.do?page=1">중분류 목록</a></li>
+			<li><a href="smallTypeList.do?page=1">소분류 목록</a></li>
 		</ul>
 		<ul>
 			<h2>상품관리</h2>
-			<li><a href="productList.do">상품목록</a></li>
+			<li><a href="productList.do?page=1">상품목록</a></li>
 			<li><a href="productRegister.do">상품등록</a></li>
 		</ul>
 	</div>

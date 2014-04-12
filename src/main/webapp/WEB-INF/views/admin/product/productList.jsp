@@ -94,7 +94,14 @@
      					</td> 
 
 						<td style="text-align:center;">index</td>
-						<td style="text-align:center;">상품이미지</td>
+						<td style="text-align:center;">
+						<c:forEach items="${filelist}" var="filelist">
+							<c:if test="${produts.prdCd == filelist.attCdKey}">
+							<c:if test="${ filelist.}"
+								<img src="${filelist.attFilePath}">
+							</c:if>
+						</c:forEach>
+						</td>
 						<td style="text-align:center;">
 							<c:if test="${produts.prdDp eq 'y'}">진열</c:if>
 							<c:if test="${produts.prdDp eq 'n'}">대기</c:if>
@@ -167,7 +174,12 @@
 				<input value="선택삭제" class="Small_Button Gray" type="submit">
 				
 			</span>
-			<span class="f_right"> 1 2 3 4 5 6 7 8 9 </span>
+			<span class="f_right">
+			<c:forEach var="i" begin="1" end="${endNum}">
+		<input type="button" value="${i}" onClick="javascript:location.href='productList.do?page=${i}'">				
+	</c:forEach>
+	
+			</span>
 		</div>
 		</form>
 		

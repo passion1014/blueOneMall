@@ -18,8 +18,6 @@ public interface IProductManageService {
 	public ProductInfo registProductDtlInfo(ProductInfo productInfo);
 	
 	public ProductInfo getProductInfDetail(ProductInfo productInfo);
-	public AttachFileInfo registProductImgInfo(AttachFileInfo attFileInfo);
-	public List<AttachFileInfo> getAttFileInfList(AttachFileInfo attFileInfo);
 	
 
 	

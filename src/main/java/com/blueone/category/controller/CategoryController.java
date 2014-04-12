@@ -26,6 +26,7 @@ import com.blueone.admin.domain.AdminInfo;
 import com.blueone.category.domain.CategoryInfo;
 import com.blueone.category.domain.MenuInfo;
 import com.blueone.category.service.ICategoryManageService;
+import com.blueone.common.util.PageDivision;
 
 @Controller
 @SessionAttributes("adminSession")
@@ -71,44 +72,25 @@ public class CategoryController {
 	 */
 	@RequestMapping(value="/admin/largeTypeList.do", method= RequestMethod.GET)
 	public String largeTypeList(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model,HttpSession session, String page){
-		/*
+		
 		AdminInfo adminSession = (AdminInfo)session.getAttribute("adminSession");
 		
 		if(adminSession == null){
 		return "redirect:adminLogin.do";
 		}
-		*/
+		
 		List<CategoryInfo> list = categoryManageService.getCategoryInfList(categoryInfo);
 		list = getCategoryListByTypeCd(categoryInfo, "01");
 	    
-		int pNum;
-	   
-	    if(page.isEmpty()){
-	    	pNum=1;
-	    }else{
-	    	pNum=Integer.parseInt(page);
-	    }
-	    
-		int endNum=1;
-		if(list.size()%2==0) {
-			endNum=list.size()/2;
-		}
-		else{
-			endNum=list.size()/2+1;
-			}
+		PageDivision pd = new PageDivision();
 		
-		List<CategoryInfo> exlist = new ArrayList<CategoryInfo>();
+		pd.pageNum(page);
+		pd.setCtList(list);
 		
-		int startIdx=pNum*2-2;
-		int forend=pNum*2-1;
 		
-		for(int i=startIdx; i<=forend; i++){
-			exlist.add(list.get(i));
-		}
+		model.addAttribute("list", pd.getCtList(2));
 		
-		model.addAttribute("list", exlist);
-		
-		model.addAttribute("endNum",endNum);
+		model.addAttribute("endNum",pd.getEndPageNum());
 	
 		return "admin/product/largeTypeList";
 			
@@ -188,7 +170,7 @@ public class CategoryController {
 	 * 관리자 중분류 리스트
 	 */
 	@RequestMapping(value="/admin/middleTypeList.do", method= RequestMethod.GET)
-	public String middleTypeList(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model,HttpSession session){
+	public String middleTypeList(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model,HttpSession session, String page){
 		AdminInfo adminSession = (AdminInfo)session.getAttribute("adminSession");
 		if(adminSession == null){
 			return "redirect:adminLogin.do";
@@ -196,7 +178,15 @@ public class CategoryController {
 		
 		List<CategoryInfo> list = categoryManageService.getCategoryInfList3(categoryInfo);
 	    
-		model.addAttribute("list", list);
+		PageDivision pd = new PageDivision();
+		
+		pd.pageNum(page);
+		pd.setCtList(list);
+		
+		
+		model.addAttribute("list", pd.getCtList(2));
+		
+		model.addAttribute("endNum",pd.getEndPageNum());
 
 		return "admin/product/middleTypeList";
 			
@@ -302,14 +292,22 @@ public class CategoryController {
 	 * 관리자 소분류 리스트
 	 */
 	@RequestMapping(value="/admin/smallTypeList.do", method= RequestMethod.GET)
-	public String smallTypeList(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model,HttpSession session){
+	public String smallTypeList(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model,HttpSession session, String page){
 		AdminInfo adminSession = (AdminInfo)session.getAttribute("adminSession");
 		if(adminSession == null){
 		return "redirect:adminLogin.do";
 		}
 		List<CategoryInfo> list = categoryManageService.getCategoryInfList4(categoryInfo);
 	    
-		model.addAttribute("list", list);
+		PageDivision pd = new PageDivision();
+		
+		pd.pageNum(page);
+		pd.setCtList(list);
+		
+		
+		model.addAttribute("list", pd.getCtList(2));
+		
+		model.addAttribute("endNum",pd.getEndPageNum());
 		
 		return "admin/product/smallTypeList";
 			

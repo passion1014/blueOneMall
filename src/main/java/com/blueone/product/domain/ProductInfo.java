@@ -30,11 +30,6 @@ public class ProductInfo {
 	private String admMemo;		//관리자메모
 	private String modifyUserId;// 최종수정자
 	
-	private String proListImg; //코드값
-	private String proImg1;
-	private String proImg2;
-	private String proImg3;
-	private String proImg4;
 	
 	//대 중 소 분류 네임
 	private String ctgLargeCode;
@@ -43,6 +38,13 @@ public class ProductInfo {
 	private String ctgMiddleName;
 	private String ctgSmallCode;
 	private String ctgSmallName;
+	
+	private String ctgLargeCodePath;
+	private String ctgLargeNamePath;
+	private String ctgMiddleCodePath;
+	private String ctgMiddleNamePath;
+	private String ctgSmallCodePath;
+	private String ctgSmallNamePath;
 	
 	private MultipartFile proListImgUp;
 	private MultipartFile proImg1Up;
@@ -54,36 +56,43 @@ public class ProductInfo {
 	
 	
 	
-	public String getProListImg() {
-		return proListImg;
+	public String getCtgLargeCodePath() {
+		return ctgLargeCodePath;
 	}
-	public void setProListImg(String proListImg) {
-		this.proListImg = proListImg;
+	public void setCtgLargeCodePath(String ctgLargeCodePath) {
+		this.ctgLargeCodePath = ctgLargeCodePath;
 	}
-	public String getProImg1() {
-		return proImg1;
+	public String getCtgLargeNamePath() {
+		return ctgLargeNamePath;
 	}
-	public void setProImg1(String proImg1) {
-		this.proImg1 = proImg1;
+	public void setCtgLargeNamePath(String ctgLargeNamePath) {
+		this.ctgLargeNamePath = ctgLargeNamePath;
 	}
-	public String getProImg2() {
-		return proImg2;
+	public String getCtgMiddleCodePath() {
+		return ctgMiddleCodePath;
 	}
-	public void setProImg2(String proImg2) {
-		this.proImg2 = proImg2;
+	public void setCtgMiddleCodePath(String ctgMiddleCodePath) {
+		this.ctgMiddleCodePath = ctgMiddleCodePath;
 	}
-	public String getProImg3() {
-		return proImg3;
+	public String getCtgMiddleNamePath() {
+		return ctgMiddleNamePath;
 	}
-	public void setProImg3(String proImg3) {
-		this.proImg3 = proImg3;
+	public void setCtgMiddleNamePath(String ctgMiddleNamePath) {
+		this.ctgMiddleNamePath = ctgMiddleNamePath;
 	}
-	public String getProImg4() {
-		return proImg4;
+	public String getCtgSmallCodePath() {
+		return ctgSmallCodePath;
 	}
-	public void setProImg4(String proImg4) {
-		this.proImg4 = proImg4;
+	public void setCtgSmallCodePath(String ctgSmallCodePath) {
+		this.ctgSmallCodePath = ctgSmallCodePath;
 	}
+	public String getCtgSmallNamePath() {
+		return ctgSmallNamePath;
+	}
+	public void setCtgSmallNamePath(String ctgSmallNamePath) {
+		this.ctgSmallNamePath = ctgSmallNamePath;
+	}
+
 	public MultipartFile getProListImgUp() {
 		return proListImgUp;
 	}

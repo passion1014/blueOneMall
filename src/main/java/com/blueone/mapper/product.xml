@@ -29,11 +29,6 @@
 		<result property="prdTransInf" column="PRD_TRANSFOR_INF" javaType="int"/>
 		<result property="admMemo" column="ADMIN_MEMO" javaType="java.lang.String"/>
 		<result property="modifyUserId" column="MODIFY_USER_ID" javaType="java.lang.String"/>
-		<result property="proListImg"  column="PRO_LIST_IMG"   javaType="java.lang.String"/>
-		<result property="proImg1"  column="PRD_IMG1"   javaType="java.lang.String"/>
-		<result property="proImg2"  column="PRD_IMG2"   javaType="java.lang.String"/>
-		<result property="proImg3"  column="PRD_IMG3"   javaType="java.lang.String"/>
-		<result property="proImg4"  column="PRD_IMG4"   javaType="java.lang.String"/>
 		
 		<result property="ctgLargeCode"  column="t2ctgCode"    javaType="java.lang.String"/>
 		<result property="ctgLargeName"  column="t2ctgName"    javaType="java.lang.String"/>
@@ -142,14 +137,12 @@
 			(`PRD_CD`,`PRD_DISPLAY_YN`,`PRD_ORDER`,`PRD_NM`,`PRD_CTG_L`,`PRD_CTG_M`,`PRD_CTG_S`,
 			`PRD_SPECAL_1`,`SEARCH_WORD`,`PRD_SPECAL_2`,`FROM_DATE`,`TO_DATE`,`REG_DATE`,
 			`LAST_DATE`,`PRD_PRICE`,`PRD_SELL_PRICE`,`PRD_MODEL`,`PRD_MODEL_NO`,`PRD_BRAND`,
-			`PRD_LIST_CMT`,`PRD_CONTENTS`,`PRD_TRANSFOR_INF`,`ADMIN_MEMO`,`MODIFY_USER_ID`,
-			`PRO_LIST_IMG`,`PRD_IMG1`,`PRD_IMG2`,`PRD_IMG3`,`PRD_IMG4`)
+			`PRD_LIST_CMT`,`PRD_CONTENTS`,`PRD_TRANSFOR_INF`,`ADMIN_MEMO`,`MODIFY_USER_ID`)
 			VALUES
 			(#{prdCd},#{prdDp},#{prdOrd}, #{prdNm}, #{prdCtgL}, #{prdCtgM},#{prdCtgS}, 
 			#{prdSpe1}, #{schWord},#{prdSpe2}, #{fromDate}, #{toDate}, sysdate(), sysdate(), 
 			#{prdPrice},#{prdSellPrc},#{prdModel}, #{prdModelNo},#{prdBrand},
-			#{prdListCmt},#{prdConts},#{prdTransInf},#{admMemo}, 'default',
-			#{proListImg},#{proImg1},#{proImg2},#{proImg3},#{proImg4})
+			#{prdListCmt},#{prdConts},#{prdTransInf},#{admMemo}, 'default')
 	</insert>
 	
 
