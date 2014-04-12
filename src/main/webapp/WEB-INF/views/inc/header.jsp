@@ -1,5 +1,22 @@
+<%@page import="java.util.List"%>
+<%@page import="org.springframework.context.ApplicationContext"%>
+<%@page import="com.blueone.category.domain.CategoryInfo"%>
+<%@page import="com.blueone.category.service.CategoryManageServiceImpl"%>
+<%@page import="com.blueone.category.service.ICategoryManageService"%>
+<%@page import="org.springframework.web.servlet.support.RequestContextUtils"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<%
+	ApplicationContext ctx = RequestContextUtils.getWebApplicationContext(request);
+	ICategoryManageService categoryService = (CategoryManageServiceImpl) ctx.getBean(ICategoryManageService.class);
+	
+	// 조회
+	CategoryInfo categoryInfo = new CategoryInfo();
+	List<CategoryInfo> categoryList = categoryService.getCategoryInfList(categoryInfo);
+%>
+
 
 <c:if test="${reloadVar=='yes'}"><script>opener.location.reload();</script></c:if>
 
