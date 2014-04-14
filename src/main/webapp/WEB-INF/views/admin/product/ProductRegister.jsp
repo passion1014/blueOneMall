@@ -208,7 +208,24 @@
 				<textarea name="prdConts" id="prdConts" class="Text" style="width:97%;height:300px;"></textarea>
 			</td>
 		</tr>
-
+		<tr>
+      <th>옵션</th>
+      <td  colspan="3" style="text-align:left;">
+		    <ul id="optionField_1" style="display:block;">
+		       <select id="optionKey_1" name="optionKey_1">
+		            <option value="color">색상</option>
+		            <option value="szie">크기</option>
+		       </select>
+		               <input type="text" id="optionValue_1" name="optionValue_1" value="">
+		               <input type="button" value="추가" onClick="chgOption('add','2')">
+		   </ul>
+		            
+		         
+	      
+	           
+         
+      </td>
+   </tr>
 		<tr>
 			<th>검색어</th>
 			<td colspan="3" style="text-align:left;">
@@ -250,6 +267,15 @@
 <c:import url="../inc/footer.jsp" />
 
 <script language="JavaScript" type="text/JavaScript">
+function chgOption(op,n){
+	   var targetField = "optionField_" + n ;
+	   if(op == "add"){
+	      document.getElementById(targetField).style.display = "block" ;
+	   }else{
+	      document.getElementById(targetField).style.display = "none" ;
+	   }
+	}
+	
 <!--
 $(document).ready(function() {
 	
@@ -293,6 +319,7 @@ function dialogUpdate() {
 			openDialog();
 		}
 	});
+
 }
 
 //-->
