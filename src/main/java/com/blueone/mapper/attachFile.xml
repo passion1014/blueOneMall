@@ -20,6 +20,7 @@
    	<select id="selectListBomAttFileTb0001" parameterType="attFileInfo" resultMap="AttachFileMap">
 	
 		SELECT 
+			T1.IDX,
 			T1.ATT_CODE_TYPE,
 			T1.ATT_CODE_KEY,
 			T1.ATT_IMG_TYPE,
@@ -42,5 +43,12 @@
 			(#{attCdType},#{attCdKey},#{attImgType}, #{attSaveFileNm}, 
 			#{attRealFileNm}, #{attFilePath}, #{attFileSize},#{attFileExt},#{attImgSeq})
 	</insert>
+   		
+	<delete id="deleteBomAttachFileTb0001" parameterType="attFileInfo">
+		DELETE FROM BOM_ATTACHIFILE_TB			
+		WHERE
+			`IDX`= #{idx}
+	</delete>
+	
    	
    </mapper>

@@ -36,6 +36,7 @@
 		});
 		
 	});
+	
 </script>
 
 
@@ -169,50 +170,51 @@
 				<input type="text" id="prdBrand" name="prdBrand" value="${prdInfo.prdBrand}" style="width:80%;" required hname=" 상품명을 입력하여 주십시오">
 			</td>
 		</tr>
-<c:choose>
-	<c:when test="${imgList.size() != 0}">
-		<c:forEach items="${imgList}" var="prdImg">
+
+	
+	
 		<tr>
-		
 			<th>리스트 이미지</th>
 			<td colspan="3" class="left">
-				<c:if test="${prdImg.attImgType eq '01'}">
-					<img src="${prdImg.attFilePath}">
+			<c:forEach items="${imgList}" var="prdImg">
+			<c:if test="${prdImg.attImgType eq '01'}">
+			<c:choose>
+				<c:when test="${prdImg.attImgSeq==1}">
+						<img src="${prdImg.attFilePath}">
+						<input type="button" value="삭제" onClick="confirm_process('','해당 사진을 삭제하시겠습니까?','manageProductImgDelProc.do?idx=${prdImg.idx},${prdInfo.prdCd}');"  class="Button Gray">
 					
-				</c:if>
-				<c:if test="${prdImg.attImgType eq ''}">
-					<input type="file" id="proListImgUp"  style="width:80%;"> [112px X 176px]
-				</c:if>
+				</c:when>
+				<c:otherwise>
+					 <input type="file" id="proListImgUp" name="proListImgUp" style="width:80%;"> [112px X 176px]
+				</c:otherwise>
+			</c:choose>
+			</c:if>
+			</c:forEach>
 			</td>
-			<!-- 
 		</tr>
-		<tr>
+		
+		
+			<tr>
 			<th>상품이미지1</th>
 			<td colspan="3" class="left">
-				<input type="file" id="proImg1Up" name="proImg1Up"  style="width:80%;"> [112px X 176px]
+			<c:forEach items="${imgList}" var="prdImg">
+				<c:if test="${prdImg.attImgType eq '02'}">
+					<c:choose>
+					<c:when test="${prdImg.attImgSeq==1}">
+						<img src="${prdImg.attFilePath}">
+						<input type="button" value="삭제" onClick="confirm_process('','해당 사진을 삭제하시겠습니까?','manageProductImgDelProc.do?idx=${prdImg.idx},${prdInfo.prdCd}');"  class="Button Gray">
+					</c:when>				
+					<c:otherwise>
+						<input type="file" id="proImg1Up" name="proImg1Up"  style="width:80%;"> [112px X 176px]
+					</c:otherwise>
+					</c:choose>
+				</c:if>
+			</c:forEach>
 			</td>
-		</tr>
-		<tr>
-			<th>상품이미지2</th>
-			<td colspan="3" class="left">
-				<input type="file" id="proImg2Up" name="proImg2Up"  style="width:80%;"> [112px X 176px]
-			</td>
-		</tr>
-		<tr>
-			<th>상품이미지3</th>
-			<td colspan="3" class="left">
-				<input type="file" id="proImg3Up" name="proImg3Up"  style="width:80%;"> [112px X 176px]
-			</td>
-		</tr>
-		<tr>
-			<th>상품이미지4</th>
-			<td colspan="3" class="left">
-				<input type="file" id="proImg4Up" name="proImg4Up"  style="width:80%;"> [112px X 176px]
-			</td>
-		</tr>
-		</c:forEach>
-	</c:when>
-</c:choose> -->
+			</tr>
+		
+		
+
 		<tr>
 			<th>목록내용</th>
 			<td colspan="3" style="text-align:left;">

@@ -387,6 +387,7 @@ public class ProductController {
 		
 		return "redirect:productList.do";
 	}
+	
 	/**
 	 * 이미지 찾기 처리
 	 */
@@ -395,6 +396,26 @@ public class ProductController {
 		
 		return "redirect:productList.do";
 	}
+	
+	/**
+	 * 상품 관리-이미지삭제
+	 */
+	@RequestMapping(value = "/admin/manageProductImgDelProc.do", method = RequestMethod.GET)
+	public String deleteImgProc(@ModelAttribute("attFileInfo") AttachFileInfo attFileInfo, BindingResult result, Model model, String idx) {
+		
+		StringTokenizer st = new StringTokenizer(idx,",");
+		
+		String index = st.nextToken();
+		int i = Integer.parseInt(index);
+		attFileInfo.setIdx(i);
+		String prdCd=  st.nextToken();
+		
+		attFileManageService.deleteAttachFileInf(attFileInfo);
+		
+		String redi = "redirect:productManagement.do?pCd="+prdCd;
+		return redi;
+	}
+	
 	
 
 /*

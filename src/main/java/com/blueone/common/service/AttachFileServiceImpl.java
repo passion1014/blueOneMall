@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.blueone.common.domain.AttachFileInfo;
 import com.blueone.common.domain.ResultInfo;
+import com.blueone.product.domain.ProductInfo;
 
 @Service
 public class AttachFileServiceImpl implements IAttachFileManageService{
@@ -79,4 +80,27 @@ public class AttachFileServiceImpl implements IAttachFileManageService{
 			return fileList;
 		}
 
+		/*
+		 * 이미지 삭제
+		 */
+		@Override
+		public int deleteAttachFileInf(AttachFileInfo attFileInfo){
+			
+			int rst = -1;
+			
+			
+				SqlSession sqlSession = sqlSessionFactory.openSession();
+				try {
+					// DB 수행
+					rst = sqlSession.delete("attFile.deleteBomAttachFileTb0001", attFileInfo);
+					
+				} finally {
+					sqlSession.close();
+				}
+			
+			
+			return rst;
+		}
+		
+		
 }
