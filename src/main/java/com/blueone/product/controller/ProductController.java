@@ -8,6 +8,7 @@ import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +64,8 @@ public class ProductController {
 	    
 		PageDivision pd = new PageDivision();
 		
-		pd.pageNum(page);
+		if(StringUtils.isEmpty(page)) pd.pageNum("1");
+		else pd.pageNum(page);
 		pd.setPrdList(list);
 		
 
@@ -297,7 +299,12 @@ public class ProductController {
 			}
 		}
 		
+		AttachFileInfo attFile= new AttachFileInfo();
+		attFile.setAttCdKey(productInfo.getPrdCd());
+		List<AttachFileInfo> imgList = attFileManageService.getAttFileInfList(attFile);
 		
+		model.addAttribute("imgList", imgList);
+
 		
 		model.addAttribute("prdInfo", productInfo);
 		
@@ -350,6 +357,28 @@ public class ProductController {
 		
 		return "redirect:productList.do";
 	}
+
+	/**
+	 * 상품 다중 수정
+	 */
+	@RequestMapping(value = "/admin/modifyProductsInf.do", method = RequestMethod.POST)
+	public String modifyProductsInfo(@ModelAttribute("productInfo") ProductInfo productInfo, BindingResult result, Model model) {
+		
+		
+		
+		StringTokenizer st = new StringTokenizer(productInfo.getUnit_chk(),",");
+
+		while(st.hasMoreTokens()){ // 반활할 토큰이 있는가? true/false;
+			   productInfo.setPrdCd(st.nextToken());
+			   productManageService.manageProductInf(productInfo);
+				
+			  
+		}
+			
+		
+		return "redirect:productList.do";
+	}
+	
 	/**
 	 * 이미지 찾기 폼
 	 */
@@ -358,6 +387,7 @@ public class ProductController {
 		
 		return "redirect:productList.do";
 	}
+	
 	/**
 	 * 이미지 찾기 처리
 	 */
@@ -366,6 +396,26 @@ public class ProductController {
 		
 		return "redirect:productList.do";
 	}
+	
+	/**
+	 * 상품 관리-이미지삭제
+	 */
+	@RequestMapping(value = "/admin/manageProductImgDelProc.do", method = RequestMethod.GET)
+	public String deleteImgProc(@ModelAttribute("attFileInfo") AttachFileInfo attFileInfo, BindingResult result, Model model, String idx) {
+		
+		StringTokenizer st = new StringTokenizer(idx,",");
+		
+		String index = st.nextToken();
+		int i = Integer.parseInt(index);
+		attFileInfo.setIdx(i);
+		String prdCd=  st.nextToken();
+		
+		attFileManageService.deleteAttachFileInf(attFileInfo);
+		
+		String redi = "redirect:productManagement.do?pCd="+prdCd;
+		return redi;
+	}
+	
 	
 
 /*

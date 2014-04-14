@@ -17,7 +17,7 @@ import com.blueone.common.domain.FileInfo;
  *
  */
 public class FileUploadUtility {
-	
+
 	/** 게시판 첨부파일 */
 	public final static int UPLOAD_TYP_BOARD = 1;
 	public final static int UPLOAD_TYP_BOARD_IMAGE = 2;

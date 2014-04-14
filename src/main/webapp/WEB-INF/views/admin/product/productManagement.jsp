@@ -36,6 +36,7 @@
 		});
 		
 	});
+	
 </script>
 
 
@@ -169,38 +170,51 @@
 				<input type="text" id="prdBrand" name="prdBrand" value="${prdInfo.prdBrand}" style="width:80%;" required hname=" 상품명을 입력하여 주십시오">
 			</td>
 		</tr>
-	 <!--
+
+	
+	
 		<tr>
 			<th>리스트 이미지</th>
 			<td colspan="3" class="left">
-				<input type="file" id="proListImg" name="proListImg" style="width:80%;"> [112px X 176px]
+			<c:forEach items="${imgList}" var="prdImg">
+			<c:if test="${prdImg.attImgType eq '01'}">
+			<c:choose>
+				<c:when test="${prdImg.attImgSeq==1}">
+						<img src="${prdImg.attFilePath}">
+						<input type="button" value="삭제" onClick="confirm_process('','해당 사진을 삭제하시겠습니까?','manageProductImgDelProc.do?idx=${prdImg.idx},${prdInfo.prdCd}');"  class="Button Gray">
+					
+				</c:when>
+				<c:otherwise>
+					 <input type="file" id="proListImgUp" name="proListImgUp" style="width:80%;"> [112px X 176px]
+				</c:otherwise>
+			</c:choose>
+			</c:if>
+			</c:forEach>
 			</td>
 		</tr>
-		<tr>
+		
+		
+			<tr>
 			<th>상품이미지1</th>
 			<td colspan="3" class="left">
-				<input type="file" id="proImg1" name="proImg1" style="width:80%;"> [112px X 176px]
+			<c:forEach items="${imgList}" var="prdImg">
+				<c:if test="${prdImg.attImgType eq '02'}">
+					<c:choose>
+					<c:when test="${prdImg.attImgSeq==1}">
+						<img src="${prdImg.attFilePath}">
+						<input type="button" value="삭제" onClick="confirm_process('','해당 사진을 삭제하시겠습니까?','manageProductImgDelProc.do?idx=${prdImg.idx},${prdInfo.prdCd}');"  class="Button Gray">
+					</c:when>				
+					<c:otherwise>
+						<input type="file" id="proImg1Up" name="proImg1Up"  style="width:80%;"> [112px X 176px]
+					</c:otherwise>
+					</c:choose>
+				</c:if>
+			</c:forEach>
 			</td>
-		</tr>
-		<tr>
-			<th>상품이미지2</th>
-			<td colspan="3" class="left">
-				<input type="file" id="proImg2" name="proImg2" style="width:80%;"> [112px X 176px]
-			</td>
-		</tr>
-		<tr>
-			<th>상품이미지3</th>
-			<td colspan="3" class="left">
-				<input type="file" id="proImg3" name="proImg3" style="width:80%;"> [112px X 176px]
-			</td>
-		</tr>
-		<tr>
-			<th>상품이미지4</th>
-			<td colspan="3" class="left">
-				<input type="file" id="proImg4" name="proImg4" style="width:80%;"> [112px X 176px]
-			</td>
-		</tr>
-		-->
+			</tr>
+		
+		
+
 		<tr>
 			<th>목록내용</th>
 			<td colspan="3" style="text-align:left;">
@@ -254,6 +268,5 @@
 
 </div>
 </body>
-<script language="JavaScript" type="text/JavaScript">
 
 <c:import url="../inc/footer.jsp" />
