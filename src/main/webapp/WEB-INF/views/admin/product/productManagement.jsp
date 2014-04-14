@@ -11,11 +11,13 @@
 //				alert('중분류 size=' + result.length + '    ctgCode=' + result[0].ctgCode);
 				var options = '';
 				if (result != null && result.length > 0) {
+					options +=  "<option value=''>선택해주세요</option>";
 					for (var i = 0; i < result.length; i++) {
 						options += '<option value="' + result[i].ctgCode + '">' + result[i].ctgName + '</option>';
 					}
 				} else {
 					options = "<option value=''>없음</option>";
+					
 				}
 				$("select#prdCtgM").html(options);
 			});
@@ -25,6 +27,7 @@
 			$.getJSON('/admin/categoryListByParent/' + $('#prdCtgM').val(), function(result) {
 				var options = '';
 				if (result != null && result.length > 0) {
+					options +=  "<option value=''>선택해주세요</option>";
 					for (var i = 0; i < result.length; i++) {
 						options += '<option value="' + result[i].ctgCode + '">' + result[i].ctgName + '</option>';
 					}
@@ -178,14 +181,15 @@
 			<td colspan="3" class="left">
 			<c:forEach items="${imgList}" var="prdImg">
 			<c:choose>
-				<c:when test="${prdImg.attImgSeq==1 && prdImg.attImgType=='01'}">
+				<c:when test="${prdImg.attImgType=='01'}">
 						<img src="${prdImg.attFilePath}">
 						<input type="button" value="삭제" onClick="confirm_process('','해당 사진을 삭제하시겠습니까?','manageProductImgDelProc.do?idx=${prdImg.idx},${prdInfo.prdCd}');"  class="Button Gray">
 				</c:when>
-				<c:when test="${(prdImg.attImgSeq==1 && prdImg.attImgType=='01')==null}">
-					 <input type="file" id="proListImgUp" name="proListImgUp" style="width:80%;"> [112px X 176px]
-				</c:when>
+				
 			</c:choose>
+				<c:if test="${prdImg.attImgType!='01' && prdImg.attImgType!='02'}">
+					 <input type="file" id="proListImgUp" name="proListImgUp" style="width:80%;"> [112px X 176px]
+				</c:if>
 			</c:forEach>
 			</td>
 		</tr>
