@@ -36,7 +36,8 @@ public class BoardService implements IBoardService {
 			if (boards != null && boards.size() > 0) {
 				for (int i = 0; i < boards.size(); i++) {
 					board = boards.get(i);
-					board.setAttachFiles(selectBOM_ATTACHFILE_TB(board.getBrdSeq()));
+					// 게시판의 첨부파일 정보
+//					board.setAttachFiles(selectBOM_ATTACHFILE_TB(board.getBrdSeq()));
 				}
 			}
 			
@@ -80,6 +81,9 @@ public class BoardService implements IBoardService {
 //		return sqlMapClientTemplate.queryForList("board.getBoardLastList", valueMap);
 	}
 	
+	/* 
+	 * 공지사항 조회
+	 */
 	@Override
 	public List<BoardInfo> getBrdTypNoticeList(BoardSrchInfo boardSrchModel) {
 		List<BoardInfo> boardList = new ArrayList<BoardInfo>();

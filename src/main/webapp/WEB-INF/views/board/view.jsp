@@ -222,7 +222,7 @@ function setEditComment(commNo) {
 		</thead>
 		<tbody>
 			<tr>
-				<td width="745" colspan="6" class="content">${board.cont}</td>
+				<td width="745" colspan="6" class="content">${board.content}</td>
 			</tr>
 		</tbody>
 	</table>

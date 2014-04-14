@@ -1,6 +1,7 @@
 package com.blueone.board.controller;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -44,12 +45,13 @@ public class BoardController {
 		List<BoardInfo> noticeList = null;
 		List<BoardInfo> boardList = null;
 		
+		// 게시판유형이 있을 경우 - 공지사항 조회
 		if (boardSrchInfo.getSrchBrdTyp() > 0) {
-			
 			noticeList = boardService.getBrdTypNoticeList(boardSrchInfo);
 			if (noticeList != null && noticeList.size() > 0) {
 				noticeBrdSeq = new long[noticeList.size()];
 				boardSrchInfo.setRowsPerPage(10 - noticeList.size());
+				
 				for (int i = 0; i < noticeList.size(); i++) {
 					noticeBrdSeq[i] = noticeList.get(i).getBrdSeq();
 				}
@@ -110,10 +112,10 @@ public class BoardController {
 		
 		if(boardService.insertBoard(boardInfo)){
 			mav.addObject("errCode", 3);
-			mav.setViewName("redirect:/board/list.do"); // success to add new member; move to login page
+			mav.setViewName("redirect:/board/list.do");
 			return mav;
 		} else {
-			mav.addObject("errCode", 2); // failed to add new member
+			mav.addObject("errCode", 2);
 			mav.addObject("srchBrdTyp", boardInfo.getBrdTyp());
 			mav.setViewName("redirect:/board/add.do");
 			return mav;
@@ -234,7 +236,8 @@ public class BoardController {
 		// 조회
 		long brdSeq = getBrdSeq(request);		
 		BoardInfo board = boardService.selectBOM_BOARD_TB(brdSeq);
-		List<BoardAttachFileInfo> attaFileList = boardService.selectBOM_ATTACHFILE_TB(brdSeq);
+//		List<BoardAttachFileInfo> attaFileList = boardService.selectBOM_ATTACHFILE_TB(brdSeq);
+		List<BoardAttachFileInfo> attaFileList = new ArrayList<BoardAttachFileInfo>();
 		List<BoardCommentInfo> commentList = boardService.selectBOM_BOARD_CMT_TB(brdSeq);
 		
 		// 조회수 업데이트

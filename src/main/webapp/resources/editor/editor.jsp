@@ -576,7 +576,7 @@
         return true;
 	}
 </script>
-<div><button onclick='saveContent()'>SAMPLE - submit contents</button></div>
+<!-- <div><button onclick='saveContent()'>SAMPLE - submit contents</button></div> -->
 <!-- End: Saving Contents -->
 
 <!-- Sample: Loading Contents -->
@@ -626,7 +626,7 @@
 		});
 	}
 </script>
-<div><button onclick='loadContent()'>SAMPLE - load contents to editor</button></div>
+<!-- <div><button onclick='loadContent()'>SAMPLE - load contents to editor</button></div> -->
 <!-- End: Loading Contents -->
 
 </body>

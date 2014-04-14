@@ -51,7 +51,7 @@ function fnAdd() {
 // 페이지이동
 function fnGotoPage(page) {
 	var f = boardForm;
-	f.action = '${pgmId}.do';
+	f.action = 'list.do';
 	f.currentPage.value = page;
 	f.submit();
 }
@@ -63,13 +63,13 @@ function fnGotoPage(page) {
 	<input type="hidden" name="srchBrdTyp" value="${srchInfo.srchBrdTyp}" />
 	<input type="hidden" name="srchBrdSeq" value="0" />
 	<div id="boardList">
-		<div id="search">
+		<%-- <div id="search">
 			<fieldset>
 			<legend>검색</legend>
 			<input type="text" name="srchKeyword" value="${srchInfo.srchKeyword}" class="text" title="검색어 입력" />
 			<img class="mousePoint" src="../images/board/btn/btn_search.gif" onclick="fnInquiry();" alt="검색" />
 			</fieldset>
-		</div>
+		</div> --%>
 		
 		<!-- 일반게시판 -->
 		<c:if test="${brdTypInfo.imgUseYn != 'T'}">
@@ -146,52 +146,6 @@ function fnGotoPage(page) {
 		</tr>
 		</c:forEach>
 		</tbody>		
-		</table>
-		</c:if>
-		
-		<!-- 이미지게시판 -->
-		<c:if test="${brdTypInfo.imgUseYn == 'T'}">
-		<table class="boardPhoto" summary="발간자료 목록">
-		<caption>발간자료 목록</caption>
-		<colgroup>
-		<col width="60" />
-		<col width="90" />
-		<col width="625" />
-		</colgroup>
-		<thead>
-		<tr>
-			<th scope="col"></th>
-			<th scope="col"></th>
-			<th scope="col"></th>
-		</tr>
-		</thead>
-		<tbody>
-		<c:forEach var="board" items="${boardList}" varStatus="loop">
-			<tr <c:if test="${loop.index == 0}">class="first"</c:if>>
-				<td>${board.brdSeq}</td>
-				<td>
-					<c:if test="${board.repreImage != null}">
-						<img src="../userfiles/board/${board.repreImage}" width="86" height="86" alt="이미지" />
-					</c:if>
-					<c:if test="${board.repreImage == null}">
-						<img src="../images/common/noimg.gif" alt="이미지" />
-					</c:if>
-				</td>
-				<td valign="top">
-					<ul>
-						<li class="<c:if test="${brdTypInfo.brdTyp == 6}">data_tit</c:if><c:if test="${brdTypInfo.brdTyp != 6}">photo_tit</c:if> mousePoint" onclick="fnDetail(${board.brdSeq})"><strong>${fn:substring(board.title, 0, (brdTypInfo.brdTyp == 6 ? 20 : 36))}</strong></li>
-						<c:if test="${brdTypInfo.publicUseYn == 'T'}">
-						<li class="data_other">
-							<p class="title01"><strong>발간일</strong> : <span class="color_3593e5">${board.publicYmd}</span></p>
-							<p class="title02"><strong>발간자</strong> : ${fn:substring(board.publicNm, 0, 3)}</p>
-						</li>
-						</c:if>
-						<li id="idCont${loop.index}" class="ctent" style="display:none">${board.contText}</li>
-					</ul>
-				</td>
-			</tr>
-		</c:forEach>
-		</tbody>
 		</table>
 		</c:if>
 		

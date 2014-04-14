@@ -54,7 +54,7 @@
 		                        
 		                   ORDER BY t1.root_seq DESC
 		                           ,t1.ref_seq
-		                           ,t1.DEPTH) s1) s2
+		                           ,t1.DEPTH) s1, (select @rownum := 0)R ) s2
 		 WHERE rnum BETWEEN ((#{currentPage} - 1) * #{rowsPerPage} + 1) AND (((#{currentPage} - 1) * #{rowsPerPage} + 1) + #{rowsPerPage} - 1)
 		ORDER BY rnum
 	</select>
@@ -265,14 +265,15 @@
 		        ,t1.proc_st as procSt
 		        ,t1.notice_yn as noticeYn
 		        ,t1.public_ymd as orgPublicYmd
-		        ,DATE_FORMAT(STR_TO_DATE(DATE_FORMAT(t1.public_ymd, '%Y%m%d')), '%Y.%m.%d') as publicYmd
+--		        ,DATE_FORMAT(STR_TO_DATE(DATE_FORMAT(t1.public_ymd, '%Y%m%d')), '%Y.%m.%d') as publicYmd
+				,DATE_FORMAT(t1.public_ymd, '%Y%m%d') as publicYmd
 		        ,t1.public_nm as publicNm
 		    FROM BOM_BOARD_TB t1 JOIN BOM_BOARD_MNG_TB t2 ON t1.brd_typ = t2.brd_typ
 		   WHERE t1.brd_seq = #{brdSeq}#
 	</select>
 	
 	<!-- 첨부파일조회 -->
-	<select id="selectBOM_ATTACHFILE_TB" parameterType="long" resultType="com.blueone.board.domain.BoardAttachFileInfo">
+	<select id="selectBOM_ATTACHFILE_TB" parameterType="long" resultType="boardAttachFileInfo">
 		SELECT   t1.brd_seq AS brdSeq
 		        ,t1.fl_no AS flNo
 		        ,t1.atta_knd AS attaKnd
@@ -335,7 +336,7 @@
 		          END)
 		            AS childCommCnt
 		    FROM BOM_BOARD_CMT_TB t1
-		   WHERE t1.brd_seq = #brdSeq#
+		   WHERE t1.brd_seq = #{brdSeq}
 		     AND t1.del_yn = 'F'
 		ORDER BY t1.comm_root_no DESC
 		        ,t1.comm_ref_no
