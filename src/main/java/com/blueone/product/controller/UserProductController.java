@@ -46,12 +46,6 @@ public class UserProductController {
 		List<CategoryInfo> categoryList = categoryManageService.getCategoryInfList(categoryInfo);
 		
 		for (CategoryInfo each : categoryList) {
-			if ("01".equals(each.getCtgCodeType())) {
-				rstList.add(each);
-			}
-		}
-		
-		for (CategoryInfo each : categoryList) {
 			if (lCode.equals(each.getCtgPCode())) {
 				lnbList.add(each);
 			}
@@ -82,7 +76,6 @@ public class UserProductController {
 		
 		
 		model.addAttribute("productList", productList);	// 상품리스트
-		model.addAttribute("categoryList", categoryList);
 		model.addAttribute("priceList", priceList);
 		model.addAttribute("rstList",rstList);
 		model.addAttribute("categoryList",lnbList);

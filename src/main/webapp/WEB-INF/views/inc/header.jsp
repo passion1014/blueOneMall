@@ -14,9 +14,9 @@
 	
 	// 조회
 	CategoryInfo categoryInfo = new CategoryInfo();
-	List<CategoryInfo> categoryList = categoryService.getCategoryInfList(categoryInfo);
+	List<CategoryInfo> largeMenuList = categoryService.getCategoryInfList2(categoryInfo);
+	
 %>
-
 
 <c:if test="${reloadVar=='yes'}"><script>opener.location.reload();</script></c:if>
 
@@ -44,22 +44,10 @@
 	
 	<div class="gnb">
 		<ul>
-		
-				<c:forEach var="largeList" items="${rstList}">
-					<li><a href="productList.do?lCode=${largeList.ctgCode}">${largeList.ctgName}</a></li>
-				</c:forEach>
-			<!-- 	
-			<li><a href="#">BLUETOOTH</a></li>
-			<li class="gnb_list"><a href="#">EARPHONE</a></li>
-			<li class="gnb_list"><a href="#">HEADPHONE</a></li>
-			<li class="gnb_list"><a href="#">MULTMEDIA</a></li>
-			<li class="gnb_list"><a href="#">CASE</a></li>
-			<li class="gnb_list"><a href="#">XTC</a></li>
-			<li class="gnb_list"><a href="#">SALE</a></li>
-			<li class="gnb_list"><a href="#">BARND SHOP</a></li>
-			-->
+			<c:forEach var="largeList" items="<%=largeMenuList%>">
+				<li><a href="productList.do?lCode=${largeList.ctgCode}">${largeList.ctgName}</a></li>
+			</c:forEach>
 		</ul>
 	</div>
-	
 </div>
 <!--  header 끝   -->

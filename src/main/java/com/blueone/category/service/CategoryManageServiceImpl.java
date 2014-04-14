@@ -206,7 +206,7 @@ public class CategoryManageServiceImpl implements ICategoryManageService {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
 			// DB 수행
-			rstList = sqlSession.selectList("category.selectListBomCategoryTb0002");
+			rstList = sqlSession.selectList("category.selectListBomCategoryTb0002",categoryInfo);
 			
 		} finally {
 			sqlSession.close();

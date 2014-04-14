@@ -2,23 +2,18 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
     
-    
-    
-<c:import  url="../inc/topSub.jsp" />
-<c:import  url="../inc/topMain.jsp" />    
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>###### 현대프로모션몰 ######</title>
-</head>
+<c:import  url="../inc/topSub.jsp" />    
+
 <body>
-		<div class="wrap">
+<div class="wrap">
+	<!--  header 시작 -->
 	<c:import url="../inc/header.jsp"/>
-<!--  header 끝   -->
+	<!--  header 끝   -->
 
 	<div class="container">
-		<c:import url="../inc/productLnb.jsp"/>
+		
+		<c:import url="../inc/userLnb.jsp"/>
+		
 		<div class="sub_content">
 			<form action="#" method="post">
 				<div class="membership_section">
@@ -63,13 +58,9 @@
 						<tbody>
 							<tr>
 								<th>이름</th>
-								<td></td>
+								<td><input type="text" title="아이디입력창"/></td>
 								<th><span class="bullet_color">*</span>아이디</th>
-								<td>
-									<span class="in_idpass">
-										<input type="text" title="아이디입력창"/>
-									</span>
-								</td>
+								<td>id</td>
 							</tr>
 							<tr>
 								<th>생년월일</th>
@@ -92,7 +83,7 @@
 										<input type="text" title="phone number" />
 									</span>
 								</td>
-								<th><span class="bullet_color">*</span>휴대폰</th>
+								<th>휴대폰</th>
 								<td>
 									<span class="in_number">
 										<select>
@@ -104,7 +95,7 @@
 								</td>
 							</tr>
 							<tr>
-								<th><span class="bullet_color">*</span>이메일</th>
+								<th>이메일</th>
 								<td colspan="3">
 									<span class="in_email">
 										<input type="text" title="email text" />&nbsp;@&nbsp;
@@ -122,45 +113,8 @@
 									<input type="text" title="address text" /><input type="text" title="address text" style="width:220px;"/>
 								</td>
 							</tr>
-							<tr>
-								<th><span class="bullet_color">*</span>SMS수신여부</th>
-								<td>
-									<span class="in_radio">
-										<input type="radio" id="agree" name="sms" />
-										<label for="agree">수신동의</label>
-										<input type="radio" id="refusal" name="sms" />
-										<label for="refusal">수신거부</label>
-									</span>
-								</td>
-								<th><span class="bullet_color">*</span>e-mail수신여부</th>
-								<td>
-									<span class="in_radio">
-										<input type="radio" id="e_agree" name="email" />
-										<label for="e_agree">수신동의</label>
-										<input type="radio" id="e_refusal" name="email" />
-										<label for="e_refusal">수신거부</label>
-									</span>
-								</td>
-							</tr>
-							<tr>
-								<th><span class="bullet_color">*</span>비밀번호</th>
-								<td>
-									<span class="in_idpass">
-										<input type="password" title="비밀번호" />
-									</span>
-								</td>
-								<th><span class="bullet_color">*</span>비밀번호 확인</th>
-								<td>
-									<span class="in_idpass">
-										<input type="password" title="비밀번호 확인" />
-									</span>
-								</td>
-							</tr>
 						</tbody>
 					</table>
-					<p class="tabbt_text">
-						※ 보안을 위하여 비밀번호는 영문과 숫자혼합 8자~12자 이내로 작성해 주시기 바라며, 같은 문자나 숫자가 연속으로 3회 이상 반복되면 안됩니다.
-					</p>
 					<div class="complet_box">
 						<span class="btn_complete">
 							<input type="submit" value="확인" title="확인"/>

@@ -34,4 +34,7 @@ public class UserController {
 		return "user/userPoint";
 	}
 	
+	
+	
+	
 }
