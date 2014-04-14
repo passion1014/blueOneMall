@@ -94,7 +94,7 @@ public class UserProductController {
 	@RequestMapping(value="/include/header.do")
 	public String header() {
 		System.out.println("aaa");
-		return "/inc/header.jsp";
+		return "/inc/header";
 	}
 	
 	@RequestMapping(value="/product/productView.do")

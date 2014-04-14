@@ -8,6 +8,7 @@ public interface IAttachFileManageService {
 
 	public AttachFileInfo registProductImgInfo(AttachFileInfo attFileInfo);
 	public List<AttachFileInfo> getAttFileInfList(AttachFileInfo attFileInfo);
+	public int deleteAttachFileInf(AttachFileInfo attFileInfo);
 
 	
 }
