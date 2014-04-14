@@ -177,43 +177,20 @@
 			<th>리스트 이미지</th>
 			<td colspan="3" class="left">
 			<c:forEach items="${imgList}" var="prdImg">
-			<c:if test="${prdImg.attImgType eq '01'}">
 			<c:choose>
-				<c:when test="${prdImg.attImgSeq==1}">
+				<c:when test="${prdImg.attImgSeq==1 && prdImg.attImgType=='01'}">
 						<img src="${prdImg.attFilePath}">
 						<input type="button" value="삭제" onClick="confirm_process('','해당 사진을 삭제하시겠습니까?','manageProductImgDelProc.do?idx=${prdImg.idx},${prdInfo.prdCd}');"  class="Button Gray">
-					
 				</c:when>
-				<c:otherwise>
+				<c:when test="${(prdImg.attImgSeq==1 && prdImg.attImgType=='01')==null}">
 					 <input type="file" id="proListImgUp" name="proListImgUp" style="width:80%;"> [112px X 176px]
-				</c:otherwise>
+				</c:when>
 			</c:choose>
-			</c:if>
 			</c:forEach>
 			</td>
 		</tr>
-		
-		
-			<tr>
-			<th>상품이미지1</th>
-			<td colspan="3" class="left">
-			<c:forEach items="${imgList}" var="prdImg">
-				<c:if test="${prdImg.attImgType eq '02'}">
-					<c:choose>
-					<c:when test="${prdImg.attImgSeq==1}">
-						<img src="${prdImg.attFilePath}">
-						<input type="button" value="삭제" onClick="confirm_process('','해당 사진을 삭제하시겠습니까?','manageProductImgDelProc.do?idx=${prdImg.idx},${prdInfo.prdCd}');"  class="Button Gray">
-					</c:when>				
-					<c:otherwise>
-						<input type="file" id="proImg1Up" name="proImg1Up"  style="width:80%;"> [112px X 176px]
-					</c:otherwise>
-					</c:choose>
-				</c:if>
-			</c:forEach>
-			</td>
-			</tr>
-		
-		
+	
+
 
 		<tr>
 			<th>목록내용</th>

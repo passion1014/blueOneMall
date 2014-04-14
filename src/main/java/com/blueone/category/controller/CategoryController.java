@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,7 +85,9 @@ public class CategoryController {
 	    
 		PageDivision pd = new PageDivision();
 		
-		pd.pageNum(page);
+
+		if(StringUtils.isEmpty(page)) pd.pageNum("1");
+		else pd.pageNum(page);
 		pd.setCtList(list);
 		
 		
@@ -180,7 +183,9 @@ public class CategoryController {
 	    
 		PageDivision pd = new PageDivision();
 		
-		pd.pageNum(page);
+
+		if(StringUtils.isEmpty(page)) pd.pageNum("1");
+		else pd.pageNum(page);
 		pd.setCtList(list);
 		
 		
@@ -301,7 +306,9 @@ public class CategoryController {
 	    
 		PageDivision pd = new PageDivision();
 		
-		pd.pageNum(page);
+
+		if(StringUtils.isEmpty(page)) pd.pageNum("1");
+		else pd.pageNum(page);
 		pd.setCtList(list);
 		
 		
