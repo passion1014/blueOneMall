@@ -301,7 +301,7 @@
                 <version>1.1</version>
                 <configuration>
                     <url>http://blueonestore.cafe24.com/manager/text</url>
-                    <path>/mall</path>
+                    <path>/</path>
                     <username>blueonestore</username>
                     <password>b150djrekftjd</password>
                 </configuration>

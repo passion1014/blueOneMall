@@ -4,6 +4,42 @@
 <c:import  url="../inc/top.jsp" />
 <c:set var="test" value="goodsList" scope="request"/> 
 
+<script language="javascript">
+<!--
+function list_Submit(key){
+
+	if (key == "modify"){
+		msg = "선택하신 상품을 일괄 수정 하시겠습니까?" ;
+		document.getElementById("cfrm").action = "modifyProductsInf.do" ;
+	}else if (key == "del"){
+		msg = "선택하신 상품을 삭제 하시겠습니까? \n\n삭제 후에는 복구가 불가능 합니다." ;
+		document.getElementById("cfrm").action = "deleteProductsInf.do" ;
+	}
+	
+	
+	var chk_num = document.cfrm.elements.length;
+	
+	for(var i = 0; i < chk_num; i++){
+		var checkbox_obj = eval("document.cfrm.elements["+i+"]");
+		if(checkbox_obj.checked == true)	break;
+	}
+
+	if(i == chk_num) {
+		alert("먼저 처리하고자 하는 정보를 선택하여 주십시오");
+		return false;
+	} else {
+		if(confirm(msg)){
+
+			
+			document.getElementById("cfrm").submit() ;
+			return false;
+		}
+	}
+
+}
+//-->
+</script>
+
 <body>
 <div id="Wrap">
 	<c:import url="../inc/gnb.jsp"/>
@@ -74,7 +110,7 @@
 			<tbody>
 				<tr>
 					<th>
-     				<input id="muti_chk" name="multi_chk[]" value="gd_533bce184e45d" type="checkbox">
+     					<input id="muti_chk" name="multi_chk" onClick="allCheckbox('document.cfrm.unit_chk','multi_chk');" type="checkbox">
 					</th>
 					<th>No</th>
 					<th>이미지</th>
@@ -83,13 +119,13 @@
 					<th>가격</th>
 					<th>관리</th>
 				</tr>
-						<c:choose>
-			<c:when test="${list.size() != 0}">
+				<c:choose>
+				<c:when test="${list.size() != 0}">
 				<c:forEach items="${list}" var="produts">
 				<tr>
 				
      					<td class="center">
-     					<input id="unit_chk" name="unit_chk" value="${produts.prdCd}" type="checkbox">
+     					<input type="checkbox" id="unit_chk" name="unit_chk" value="${produts.prdCd}">
 
      					</td> 
 
@@ -139,12 +175,14 @@
 						<input value="관리" class="Small_Button Gray" style="margin-bottom:5px;" onclick="javascript:location.href='productManagement.do?pCd=${produts.prdCd}'" type="button"><br>
 						<input value="삭제" class="Small_Button Gray" onclick="confirm_process('','삭제하시겠습니까? \n\n삭제후에는 복원이 불가능합니다.','deleteProductInf.do?prdCd=${produts.prdCd}')" type="button">
 					</td>
+				</tr>
 					
 				</c:forEach>
 			</c:when>
 			<c:otherwise>
-			
+				<tr>
 					<td colspan="6" height="200"> 등록된 상품이 없습니다.</td>
+				</tr>
 					
 		    </c:otherwise>
 		</c:choose>
@@ -152,21 +190,20 @@
 	
 			
 		
-				</tr>
 			</tbody>
 		</table>
 		
 		<div style="padding:15px 0px 10px 0px;">
 			<span class="f_left">
-				<select name="c_display_yn">
+				<select name="prdDp">
 					<option value="">변경없음</option>
-					<option value="ing">진열</option>
-					<option value="end">대기</option>
+					<option value="y">진열</option>
+					<option value="n">대기</option>
 				</select> &nbsp;
-				<input name="c_sp_1" value="y" type="checkbox"> 베스트 &nbsp;
-				<input name="c_sp_2" value="y" type="checkbox"> 행사품목 &nbsp;
-				<input value="선택수정" class="Small_Butto Gray" type="submit"> 
-				<input value="선택삭제" class="Small_Button Gray" type="submit">
+				<input name="prdSpe1" value="y" type="checkbox"> 베스트 &nbsp;
+				<input name="prdSpe2" value="y" type="checkbox"> 행사품목 &nbsp;
+				<input type="button" value="선택수정" class="Small_Button Green" onClick="list_Submit('modify')" /> 
+				<input type="button" value="선택삭제" class="Small_Button Gray" onClick="list_Submit('del')"/>
 				
 			</span>
 			<span class="f_right">
@@ -184,4 +221,4 @@
 </body>
 
 <c:import url="../inc/footer.jsp" />
-\
+

@@ -669,12 +669,12 @@ function closeLayer(idx,step){
  * 사용법    : 
  *****************************************************************************/
 function allCheckbox(f,btn){
-
+	
 	var _btn_obj  = eval(document.getElementById(btn));
 	var _list_obj = eval(f);
 	var _num      = _list_obj.length ;
 	var i ;
-
+	
 	if(_btn_obj.checked == true){
 
 		for(i=0;i<_num;i++){

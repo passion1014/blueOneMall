@@ -31,9 +31,7 @@
 			T1.ATT_IMG_SEQ
 		FROM BOM_ATTACHIFILE_TB AS T1
 		WHERE
-			LEFT JOIN BOM_PRODUCT_TB T2 
-				ON (T2.PRD_CD=T1.ATT_CODE_KEY)
-			AND T.ATT_CODE_TYPE = 
+			T1.ATT_CODE_KEY = #{attCdKey}
 	</select>
 	
    	<insert id="insertBomAttachFileTb0001" parameterType="attFileInfo">
