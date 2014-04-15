@@ -12,17 +12,7 @@ function fnAddClick() {
 }
 </script>
 
-<!-- <form name="boardForm" method="post" enctype="multipart/form-data" action=""> -->
-<%-- <form name="boardForm" method="post" action="">
-<input type="hidden" name="currentPage" value="${srchInfo.currentPage}" />
-<input type="hidden" name="srchBrdTyp" value="${srchBrdTyp}" />
 
-	<div>
-		<input type="button" name="확인" onclick="fnAddClick()"> 
-		<input type="button" name="취소" onclick="fnList()">
-	</div>
-</div>
-</form> --%>
 
 <form name="tx_editor_form" method="post" enctype="multipart/form-data" action="http://posttestserver.com/post.php">
 <table class="boardNormal" summary="묻고답하기 등록">

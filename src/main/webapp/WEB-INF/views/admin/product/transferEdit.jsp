@@ -19,7 +19,7 @@
 		
 		<form name="frm" method="post" action="transferEditProc.do">
 		<div style="padding:10px 5px 2px 5px;"><b>배송정보</b></div>
-		
+		 <input type="hidden" name="idx" value="${transferInfo.idx}"/>
 		<table>
 			<colgroup>
 				<col width="15%">
@@ -29,13 +29,13 @@
 			<tr>
 				<th>배송정보명</th>
 				<td colspan="3" class="left">
-					<input type="text" id="transferTitle" name="transferTitle" style="width:80%;">
+					<input type="text" id="transferTitle" value="${transferInfo.tTitle}" name="tTitle" style="width:80%;">
 				</td>
 			</tr>
 			<tr>
 				<th>상세내용</th>
 				<td colspan="3" style="text-align:left;">
-					<textarea name="transferContents" id="transferContents" class="Text" style="width:97%;height:300px;"></textarea>
+					<textarea name="tContents" value="${transferInfo.tContents} id="transferContents" class="Text" style="width:97%;height:300px;"></textarea>
 				</td>
 			</tr>		
 		</table>

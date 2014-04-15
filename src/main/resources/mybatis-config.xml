@@ -84,8 +84,8 @@
 		<typeAlias alias="boardCommentInfo" type="com.blueone.board.domain.BoardCommentInfo"/>
 		
 		<typeAlias alias="userInfo" type="com.blueone.user.domain.UserInfo"/>
-		
-		
+		<!-- 배송관련 모델정보 -->
+		<typeAlias alias="TransferInfo" type="com.blueone.product.domain.TransferInfo"/>
 		
      </typeAliases>
    
