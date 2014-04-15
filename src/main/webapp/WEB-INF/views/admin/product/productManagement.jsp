@@ -179,18 +179,21 @@
 		<tr>
 			<th>리스트 이미지</th>
 			<td colspan="3" class="left">
-			<c:forEach items="${imgList}" var="prdImg">
-			<c:choose>
-				<c:when test="${prdImg.attImgType=='01'}">
+			
+				<c:set var="listImageViewVal" value="N"/>
+				
+				<c:forEach items="${imgList}" var="prdImg">
+					<c:if test="${'01' eq prdImg.attImgType}">
+						<c:set var="listImageViewVal" value="Y"/>
 						<img src="${prdImg.attFilePath}">
 						<input type="button" value="삭제" onClick="confirm_process('','해당 사진을 삭제하시겠습니까?','manageProductImgDelProc.do?idx=${prdImg.idx},${prdInfo.prdCd}');"  class="Button Gray">
-				</c:when>
+					</c:if>
+				</c:forEach>
 				
-			</c:choose>
-				<c:if test="${prdImg.attImgType!='01' && prdImg.attImgType!='02'}">
-					 <input type="file" id="proListImgUp" name="proListImgUp" style="width:80%;"> [112px X 176px]
+				<c:if test="${'N' eq listImageViewVal}">
+					<input type="file" id="proListImgUp" name="proListImgUp" style="width:80%;"> [112px X 176px]
 				</c:if>
-			</c:forEach>
+		
 			</td>
 		</tr>
 	
@@ -221,20 +224,17 @@
       			<input type="text" id="optionValue_1" name="optionValue" value="${prdInfo.optionValue[0]}">
       			<input type="button" value="추가" onClick="chgOption('add','2')">
       		</ul>
-      		<!-- 
-      		<ul id="optionField_${i}" style="display:none;">
-      	<select id="optionKey_${i}" name="optionKey">
-      		<option value="01">색상</option>
-      		<option value="02">크기</option>
-      	</select>
-      	<input type="text" id="optionValue_${i}" name="optionValue" value="">
-      	<input type="button" value="추가" onClick="chgOption('add','${i+1}')">
-      	<input type="button" value="삭제" onClick="chgOption('del','${i}')">
-      	</ul> -->
       		
-      
-      	<c:forEach var="opKey" items="${prdInfo.optionKey}" begin="1" end="49" varStatus="i">
-      		<ul id="optionField_${i.index+1}" style="display:none;">
+      		<c:forEach var="opKey" items="${prdInfo.optionKey}" begin="1" end="49" varStatus="i">
+      			<c:if test="${null ne prdInfo.optionValue[i.index]}">
+      				<ul id="optionField_${i.index+1}" style="display:block;">
+      			</c:if>
+      			
+      			<c:if test="${null eq prdInfo.optionValue[i.index]}">
+      				<ul id="optionField_${i.index+1}" style="display:none;">
+      			</c:if>
+      		
+      		
       		
       			<select id="optionKey_${i.index+1}" name="optionKey">
       				<option value="01" <c:if test="${opKey eq '01'}">  selected </c:if>>색상</option>
@@ -285,3 +285,14 @@
 </body>
 
 <c:import url="../inc/footer.jsp" />
+
+<script language="JavaScript" type="text/JavaScript">
+function chgOption(op,n){
+	   var targetField = "optionField_" + n ;
+	   if(op == "add"){
+	      document.getElementById(targetField).style.display = "block" ;
+	   }else{
+	      document.getElementById(targetField).style.display = "none" ;
+	   }
+	}
+</script>
