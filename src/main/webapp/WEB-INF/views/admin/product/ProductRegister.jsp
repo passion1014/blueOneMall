@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
+	import="com.blueone.common.util.CKEditorHelper"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:if test="${reloadVar=='yes'}"><script>opener.location.reload();</script></c:if>
 
@@ -36,6 +37,16 @@
 		});
 		
 	});
+	
+	function fnAddClick() {
+		var f = tx_editor_form;
+
+		f.action = '/admin/productRegisterProc.do';
+
+		Editor.save(); // 다음 에디터
+	}
+
+
 </script>
 
 
@@ -51,7 +62,7 @@
 	<div id="Contents">
 	<h1>제품관리 &gt; 상품관리 &gt; <strong>상품등록</strong></h1>
 	
-	<form name="frm" method="post" enctype="multipart/form-data" action="productRegisterProc.do">
+	<form name="frm" method="post" enctype="multipart/form-data" action="http://posttestserver.com/post.php">
 	<input type="hidden" name="Mode" value="add_goods">
 	<input type="hidden" id="prdCd"      name="prdCd"  value="${prdCd}">
 	<input type="hidden" id="fromDate"     name="fromDate" value="1900-01-01">
@@ -205,7 +216,8 @@
 		<tr>
 			<th>상세내용</th>
 			<td colspan="3" style="text-align:left;">
-				<textarea name="prdConts" id="prdConts" class="Text" style="width:97%;height:300px;"></textarea>
+				<!--  <textarea name="prdConts" id="prdConts" class="Text" style="width:97%;height:300px;"></textarea>-->
+				<jsp:include page="/resources/editor/editor.jsp" />
 			</td>
 		</tr>
 		<tr>
@@ -218,8 +230,9 @@
 		       </select>
 		               <input type="text" id="optionValue_1" name="optionValue_1" value="">
 		               <input type="button" value="추가" onClick="chgOption('add','2')">
-		   </ul>
-		            
+			   </ul>
+		    
+		         
 		         
 	      
 	           
@@ -252,7 +265,7 @@
 	</table>
 
 	<div class="Btn_area">
-		<input type="submit" value="등록하기" class="Button Gray"> &nbsp; 
+		<input type="button" value="등록하기" onClick="fnAddClick();class="Button Gray" > &nbsp; 
 		<input type="button" value="취소"     class="Button Gray" onClick="history.back();">
 	</div>
 

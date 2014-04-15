@@ -89,6 +89,7 @@ public class BoardController {
 		mav.addObject("brdTypInfo", boardTypService.getBoardTyp(brdTyp));
 		mav.addObject("board", boardModal);
 		mav.addObject("srchInfo", boardSrchModel);
+		
 		return mav;
 	}
 	
