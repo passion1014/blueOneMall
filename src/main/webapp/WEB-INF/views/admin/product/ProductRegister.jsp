@@ -223,19 +223,53 @@
 		<tr>
       <th>옵션</th>
       <td  colspan="3" style="text-align:left;">
-		    <ul id="optionField_1" style="display:block;">
-		       <select id="optionKey_1" name="optionKey_1">
-		            <option value="color">색상</option>
-		            <option value="szie">크기</option>
-		       </select>
-		               <input type="text" id="optionValue_1" name="optionValue_1" value="">
-		               <input type="button" value="추가" onClick="chgOption('add','2')">
-			   </ul>
-		    
-		         
-		         
-	      
-	           
+      	<ul id="optionField_1" style="display:block;">
+      	<select id="optionKey_1" name="optionKey_1">
+      		<option value="color">색상</option>
+      		<option value="szie">크기</option>
+      	</select>
+      	<input type="text" id="optionValue_1" name="optionValue_1" value="">
+      	<input type="button" value="추가" onClick="chgOption('add','2')">
+      	</ul>
+      	
+      	<ul id="optionField_2" style="display:none;">
+      	<select id="optionKey_2" name="optionKey_2">
+      		<option value="color">색상</option>
+      		<option value="szie">크기</option>
+      	</select>
+      	<input type="text" id="optionValue_2" name="optionValue_2" value="">
+      	<input type="button" value="추가" onClick="chgOption('add','3')">
+      	<input type="button" value="삭제" onClick="chgOption('del','2')">
+      	</ul>
+      	
+      	<ul id="optionField_3" style="display:none;">
+      	<select id="optionKey_3" name="optionKey_3">
+      		<option value="color">색상</option>
+      		<option value="szie">크기</option>
+      	</select>
+      	<input type="text" id="optionValue_3" name="optionValue_3" value="">
+      	<input type="button" value="추가" onClick="chgOption('add','4')">
+      	<input type="button" value="삭제" onClick="chgOption('del','3')">
+      	</ul>
+      	
+      	<ul id="optionField_4" style="display:none;">
+      	<select id="optionKey_4" name="optionKey_4">
+      		<option value="color">색상</option>
+      		<option value="szie">크기</option>
+      	</select>
+      	<input type="text" id="optionValue_4" name="optionValue_4" value="">
+      	<input type="button" value="추가" onClick="chgOption('add','5')">
+      	<input type="button" value="삭제" onClick="chgOption('del','4')">
+      	</ul>
+      	
+      	<ul id="optionField_5" style="display:none;">
+      	<select id="optionKey_5" name="optionKey_5">
+      		<option value="color">색상</option>
+      		<option value="szie">크기</option>
+      	</select>
+      	<input type="text" id="optionValue_5" name="optionValue_5" value="">
+      	<input type="button" value="삭제" onClick="chgOption('del','5')">
+      	</ul>       
          
       </td>
    </tr>
