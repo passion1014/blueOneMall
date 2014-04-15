@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="transfer">
+
+	<resultMap id="TransferInfoMap" type="transferInfo">
+		<id property="idx"           column="IDX"           javaType="int"/>
+		<id property="tTitle"      	 column="T_TITLE"       javaType="java.lang.String"/>
+		<id property="tContents"     column="T_CONTENTS"    javaType="java.lang.String"/>	
+	</resultMap>
+	<insert id="insertBomTransferTb0001" parameterType="transferInfo" >
+		INSERT BOM_TRANSFER_INFO_TB
+			(`T_TITLE`,`T_CONTENTS`)
+				VALUES
+			(#{tTitle},#{tContents})
+	</insert>
+	<select id="selectListBomTransferTb0001" parameterType="transferInfo" resultType="transferInfo" resultMap="TransferInfoMap">
+		SELECT `IDX`,`T_TITLE`,`T_CONTENTS`
+		FROM BOM_TRANSFER_INFO_TB
+	</select>
+	<select id="selectDtlBomTransfer0001" parameterType="hashmap" resultType="transferInfo" resultMap="TransferInfoMap">
+		SELECT `IDX`, `T_TITLE`,`T_CONTENTS`
+		FROM BOM_TRANSFER_INFO_TB
+		WHERE 
+			IDX = #{idx}
+	</select>
+	<update id="updateBomTransferTb0001" parameterType="transferInfo">
+		UPDATE BOM_TRANSFER_INFO_TB
+			SET
+				`T_TITLE` = #{tTitle}, `T_CONTENTS` = #{tContents}
+			WHERE
+				`IDX` = #{idx}	
+	
+	</update>
+	<delete id="deleteBomTransferTb0001" parameterType="transferInfo">
+		DELETE FROM BOM_TRANSFER_INFO_TB			
+		WHERE
+			`IDX`= #{idx}
+	</delete>
+</mapper>    

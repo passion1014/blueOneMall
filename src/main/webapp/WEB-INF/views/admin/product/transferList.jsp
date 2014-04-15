@@ -28,14 +28,14 @@
 		</tr>
 			
 		<c:choose>
-			<c:when test="${list.size() != 0}">
-				<c:forEach items="${list}" var="category">
+			<c:when test="${transferList.size() != 0}">
+				<c:forEach items="${transferList}" var="transferList">
 					<tr>
-						<td style="text-align:center;">${category.idx}</td>
-						<td>${category.ctgName}</td>
+						<td style="text-align:center;">${transferList.idx}</td>
+						<td>${transferList.tContents}</td>
 						<td style="text-align:center;">
-							<input type="button" value="수정" onClick="location.href='transferEdit.do?idx=';" class="Button Gray">
-							<input type="button" value="삭제" onClick="confirm_process('','해당 분류를 삭제하시겠습니까?','deleteCategoryInf.do?ctgCode=${category.ctgCode}');"  class="Button Gray">
+							<input type="button" value="수정" onClick="location.href='transferEdit.do?idx=${transferList.idx}';" class="Button Gray">
+							<input type="button" value="삭제" onClick="confirm_process('','해당 분류를 삭제하시겠습니까?','transferDelete.do?idx=${transferList.idx}');"  class="Button Gray">
 						</td>
 					</tr>
 				</c:forEach>
@@ -48,9 +48,12 @@
 		</c:choose>
 			
 	</table>
-	<c:forEach var="i" begin="1" end="${endNum}">
-		<input type="button" value="${i}" onClick="javascript:location.href='largeTypeList.do?page=${i}'">				
+	<span class="f_right">
+			<c:forEach var="i" begin="1" end="${endNum}">
+		<input type="button" value="${i}" onClick="javascript:location.href='productList.do?page=${i}'">				
 	</c:forEach>
+	
+	</span>
 	<div id="Paser">
 	</div>
 	
