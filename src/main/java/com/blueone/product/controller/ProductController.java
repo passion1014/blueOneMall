@@ -472,7 +472,7 @@ public class ProductController {
 	/**
 	 * 배송-배송수정처리
 	 */
-	@RequestMapping(value = "/admin/transferEditProc.do", method= RequestMethod.GET)
+	@RequestMapping(value = "/admin/transferEditProc.do", method= RequestMethod.POST)
 	public String transferEditProc(@ModelAttribute("transferInfo")TransferInfo transferInfo, BindingResult result, Model model,HttpSession session) {
 		
 		transferService.transferEdit(transferInfo);

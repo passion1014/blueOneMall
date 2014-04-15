@@ -32,7 +32,10 @@
 				<c:forEach items="${transferList}" var="transferList">
 					<tr>
 						<td style="text-align:center;">${transferList.idx}</td>
-						<td>${transferList.tContents}</td>
+						<td>
+							${transferList.tTitle} <BR />
+							${transferList.tContents}
+						</td>
 						<td style="text-align:center;">
 							<input type="button" value="수정" onClick="location.href='transferEdit.do?idx=${transferList.idx}';" class="Button Gray">
 							<input type="button" value="삭제" onClick="confirm_process('','해당 분류를 삭제하시겠습니까?','transferDelete.do?idx=${transferList.idx}');"  class="Button Gray">
@@ -48,12 +51,12 @@
 		</c:choose>
 			
 	</table>
-	<span class="f_right">
-			<c:forEach var="i" begin="1" end="${endNum}">
-		<input type="button" value="${i}" onClick="javascript:location.href='productList.do?page=${i}'">				
-	</c:forEach>
 	
-	</span>
+	<span class="f_right">
+		<c:forEach var="i" begin="1" end="${endNum}">
+			<input type="button" value="${i}" onClick="javascript:location.href='productList.do?page=${i}'">				
+		</c:forEach>
+		</span>
 	<div id="Paser">
 	</div>
 	
