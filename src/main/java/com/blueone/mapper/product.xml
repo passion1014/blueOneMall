@@ -37,7 +37,6 @@
 		<result property="ctgSmallCode"  column="t4ctgCode"   javaType="java.lang.String"/>
 		<result property="ctgSmallName"  column="t4ctgName"   javaType="java.lang.String"/>
 		
-		
 		<result property="idx" column="IDX" javaType="int"/>
 		<result property="attCdType" column="ATT_CODE_TYPE" javaType="java.lang.String"/>
 		<result property="attCdKey" column="ATT_CODE_KEY" javaType="java.lang.String"/>
@@ -49,7 +48,12 @@
 		<result property="attFileExt"  column="ATT_FILE_EXT"   javaType="java.lang.String"/>
 		<result property="attImgSeq"  column="ATT_IMG_SEQ"   javaType="int"/>		
    
-
+   		<result property="propIdx"  column="PROP_IDX"   javaType="int"/>		
+		<result property="propPrdCD" column="PROP_PRD_CD" javaType="java.lang.String"/>
+		<result property="propType" column="PROP_OP_TYPE" javaType="java.lang.String"/>
+		<result property="propName"  column="PROP_OP_NAME"   javaType="java.lang.String"/>
+	
+		
 	</resultMap>
 	
 
@@ -152,6 +156,17 @@
 			T1.PRD_CD = #{prdCd}
 	</select >
 	
+	<select id="selectDtlBomProductOptionTb0001" parameterType="hashmap" resultType="ProductInfo" resultMap="ProductBaseDtlMap">
+		SELECT  
+			T1.PROP_PRD_CD, 
+			T1.PROP_OP_TYPE, 
+			T1.PROP_OP_NAME
+			
+		FROM BOM_PRODUCT_OPTION_TB AS T1
+		WHERE
+			T1.PROP_PRD_CD = #{prdCd}
+	</select >
+	
 
 	
 	<insert id="insertBomProductTb0001" parameterType="productInfo">
@@ -168,6 +183,13 @@
 	</insert>
 	
 
+	<insert id="insertBomProductOptionTb0001" parameterType="productInfo">
+		INSERT  BOM_PRODUCT_OPTION_TB
+			(`PROP_PRD_CD`,`PROP_OP_TYPE`,`PROP_OP_NAME`)
+			VALUES
+			(#{prdCd},#{propType},#{propName})
+	</insert>
+	
 		
 	<delete id="deleteBomProductTb0001" parameterType="productInfo">
 		DELETE FROM BOM_PRODUCT_TB			

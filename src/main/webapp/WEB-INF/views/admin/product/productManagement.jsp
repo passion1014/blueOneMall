@@ -211,7 +211,42 @@
 				</textarea>
 			</td>
 		</tr>
-		
+		<th>옵션</th>
+      		<td  colspan="3" style="text-align:left;">
+      		<ul id="optionField_1" style="display:block;">
+      		<!-- 
+      		<select id="optionKey_1" name="optionKey">
+      			<option value="01" <c:if test="${prdInfo.optionKey[0] eq '01'}">  selected </c:if>>색상</option>
+      			<option value="02" <c:if test="${prdInfo.optionKey[0] eq '02'}">  selected </c:if>>크기</option>
+      		</select>
+      			<input type="text" id="optionValue_1" name="optionValue" value="${prdInfo.optionValue[0]}">
+      			<input type="button" value="추가" onClick="chgOption('add','2')">
+      		</ul>
+      		
+      		<ul id="optionField_${i}" style="display:none;">
+      	<select id="optionKey_${i}" name="optionKey">
+      		<option value="01">색상</option>
+      		<option value="02">크기</option>
+      	</select>
+      	<input type="text" id="optionValue_${i}" name="optionValue" value="">
+      	<input type="button" value="추가" onClick="chgOption('add','${i+1}')">
+      	<input type="button" value="삭제" onClick="chgOption('del','${i}')">
+      	</ul>
+      		 -->
+      
+      	<c:forEach var="opKey" items="${prdInfo.optionKey}" begin="0" end="49" varStatus="i">
+      		<ul id="optionField_${i.index+1}" style="display:none;">
+      		<!-- 
+      			<select id="optionKey_${i.index+1}" name="optionKey">
+      				<option value="01" <c:if test="${opKey eq '01'}">  selected </c:if>>색상</option>
+      				<option value="02" <c:if test="${opKey eq '02'}">  selected </c:if>>크기</option>
+      			</select> -->
+      			<input type="text" id="optionValue_${i.index+1}" name="optionValue" value="${prdInfo.optionValue[i.index]}">
+      			<input type="button" value="추가" onClick="chgOption('add','${i.index+1}')">
+      			<input type="button" value="삭제" onClick="chgOption('del','${i.index}')">
+      		</ul>
+      	</c:forEach>
+      	
 		<tr>
 			<th>검색어</th>
 			<td colspan="3" style="text-align:left;">

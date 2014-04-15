@@ -38,12 +38,6 @@
 		
 	});
 	
-	function fnAddClick() {
-		var f = tx_editor_form;
-
-		f.action = '/admin/productRegisterProc.do';
-
-		Editor.save(); // 다음 에디터
 	}
 
 
@@ -62,7 +56,7 @@
 	<div id="Contents">
 	<h1>제품관리 &gt; 상품관리 &gt; <strong>상품등록</strong></h1>
 	
-	<form name="frm" method="post" enctype="multipart/form-data" action="http://posttestserver.com/post.php">
+	<form name="frm" method="post" enctype="multipart/form-data" action="productRegisterProc.do">
 	<input type="hidden" name="Mode" value="add_goods">
 	<input type="hidden" id="prdCd"      name="prdCd"  value="${prdCd}">
 	<input type="hidden" id="fromDate"     name="fromDate" value="1900-01-01">
@@ -223,20 +217,66 @@
 		<tr>
       <th>옵션</th>
       <td  colspan="3" style="text-align:left;">
-		    <ul id="optionField_1" style="display:block;">
-		       <select id="optionKey_1" name="optionKey_1">
-		            <option value="color">색상</option>
-		            <option value="szie">크기</option>
-		       </select>
-		               <input type="text" id="optionValue_1" name="optionValue_1" value="">
-		               <input type="button" value="추가" onClick="chgOption('add','2')">
-			   </ul>
-		    
-		         
-		         
-	      
-	           
-         
+      	<ul id="optionField_1" style="display:block;">
+      	<select id="optionKey_1" name="optionKey">
+      		<option value="01">색상</option>
+      		<option value="02">크기</option>
+      	</select>
+      	<input type="text" id="optionValue_1" name="optionValue" value="">
+      	<input type="button" value="추가" onClick="chgOption('add','2')">
+      	</ul>
+      	
+      	<c:forEach var="i" begin="2" end="50">
+      		<ul id="optionField_${i}" style="display:none;">
+      	<select id="optionKey_${i}" name="optionKey">
+      		<option value="01">색상</option>
+      		<option value="02">크기</option>
+      	</select>
+      	<input type="text" id="optionValue_${i}" name="optionValue" value="">
+      	<input type="button" value="추가" onClick="chgOption('add','${i+1}')">
+      	<input type="button" value="삭제" onClick="chgOption('del','${i}')">
+      	</ul>
+      	</c:forEach>
+      	<!--  
+      	<ul id="optionField_2" style="display:none;">
+      	<select id="optionKey_2" name="optionKey_2">
+      		<option value="color">색상</option>
+      		<option value="szie">크기</option>
+      	</select>
+      	<input type="text" id="optionValue_2" name="optionValue_2" value="">
+      	<input type="button" value="추가" onClick="chgOption('add','3')">
+      	<input type="button" value="삭제" onClick="chgOption('del','2')">
+      	</ul>
+      	
+      	<ul id="optionField_3" style="display:none;">
+      	<select id="optionKey_3" name="optionKey_3">
+      		<option value="color">색상</option>
+      		<option value="szie">크기</option>
+      	</select>
+      	<input type="text" id="optionValue_3" name="optionValue_3" value="">
+      	<input type="button" value="추가" onClick="chgOption('add','4')">
+      	<input type="button" value="삭제" onClick="chgOption('del','3')">
+      	</ul>
+      	
+      	<ul id="optionField_4" style="display:none;">
+      	<select id="optionKey_4" name="optionKey_4">
+      		<option value="color">색상</option>
+      		<option value="szie">크기</option>
+      	</select>
+      	<input type="text" id="optionValue_4" name="optionValue_4" value="">
+      	<input type="button" value="추가" onClick="chgOption('add','5')">
+      	<input type="button" value="삭제" onClick="chgOption('del','4')">
+      	</ul>
+      	
+      	<ul id="optionField_5" style="display:none;">
+      	<select id="optionKey_5" name="optionKey_5">
+      		<option value="color">색상</option>
+      		<option value="szie">크기</option>
+      	</select>
+      	<input type="text" id="optionValue_5" name="optionValue_5" value="">
+      	<input type="button" value="삭제" onClick="chgOption('del','5')">
+      	</ul>       
+         -->
       </td>
    </tr>
 		<tr>
@@ -265,7 +305,7 @@
 	</table>
 
 	<div class="Btn_area">
-		<input type="button" value="등록하기" onClick="fnAddClick();class="Button Gray" > &nbsp; 
+		<input type="submit" value="등록하기" 	class="Button Gray"  > &nbsp; 
 		<input type="button" value="취소"     class="Button Gray" onClick="history.back();">
 	</div>
 
