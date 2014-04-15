@@ -53,6 +53,11 @@
 			<li><a href="productList.do?page=1">상품목록</a></li>
 			<li><a href="productRegister.do">상품등록</a></li>
 		</ul>
+		<ul>
+			<h2>배송정보관리</h2>
+			<li><a href="transferList.do">배송정보목록</a></li>
+			<li><a href="transferRegister.do">배송정보등록</a></li>
+		</ul>
 	</div>
 	</c:when>
 	

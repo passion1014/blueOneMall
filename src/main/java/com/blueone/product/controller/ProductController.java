@@ -431,5 +431,47 @@ public class ProductController {
 		return rstList;
 	}
 */
+	
+	
+	
+	
+	@RequestMapping(value = "/admin/transferList.do", method= RequestMethod.GET)
+	public String transferList(@ModelAttribute("ProductInfo") SearchProdInfo srchProdInfo, BindingResult result, Model model,HttpSession session, String page) {
+		
+		return "admin/product/transferList";
+	}
+	
+	
+	@RequestMapping(value = "/admin/transferRegister.do")
+	public String transferRegister(@ModelAttribute("ProductInfo")ProductInfo productInfo, BindingResult result, Model model,HttpSession session) {
+		
+		return "admin/product/transferRegister";
+	}
+	
+	
+	
+	@RequestMapping(value = "/admin/transferEdit.do")
+	public String transferEdit(@ModelAttribute("ProductInfo")ProductInfo productInfo, BindingResult result, Model model,HttpSession session) {
+		
+		return "admin/product/transferEdit";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
