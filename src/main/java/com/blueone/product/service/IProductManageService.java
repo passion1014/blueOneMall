@@ -27,5 +27,7 @@ public interface IProductManageService {
 	public List<ProductInfo> shopProductInfList(ProductInfo productInfo);
 	public int deleteProductInf(ProductInfo productInfo);
 	public int manageProductInf(ProductInfo productInfo);
+	public ProductInfo registProductOptionInfo(ProductInfo productInfo);
+	public List<ProductInfo> getProductOptionInfDetail(ProductInfo productInfo);
 	
 }

@@ -31,6 +31,12 @@ public class ProductInfo {
 	private String modifyUserId;// 최종수정자
 	
 	
+	//상품 옵션
+	private String optionKey[];
+	private String optionValue[];
+	
+	
+	
 	//대 중 소 분류 네임
 	private String ctgLargeCode;
 	private String ctgLargeName;
@@ -49,11 +55,47 @@ public class ProductInfo {
 	
 	private String unit_chk; //다중 checkbox
 	
+	private String propType;
+	private String propName;
+	private String propPrdCD;
+	
 	
 	
 	
 
 
+
+	public String[] getOptionKey() {
+		return optionKey;
+	}
+	public void setOptionKey(String[] optionKey) {
+		this.optionKey = optionKey;
+	}
+	public String[] getOptionValue() {
+		return optionValue;
+	}
+	public void setOptionValue(String[] optionValue) {
+		this.optionValue = optionValue;
+	}
+	public String getPropType() {
+		return propType;
+	}
+	public void setPropType(String propType) {
+		this.propType = propType;
+	}
+	public String getPropName() {
+		return propName;
+	}
+	public void setPropName(String propName) {
+		this.propName = propName;
+	}
+	public String getPropPrdCD() {
+		return propPrdCD;
+	}
+	public void setPropPrdCD(String propPrdCD) {
+		this.propPrdCD = propPrdCD;
+	}
+	
 	public String getAttFilePath() {
 		return attFilePath;
 	}

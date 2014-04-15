@@ -134,7 +134,7 @@ public class ProductController {
 		int code= (int)(Math.random()*10000)+1;
 		productInfo.setPrdCd("P"+code);
 		
-		
+	
 		
 		if(!productInfo.getProListImgUp().isEmpty()){
 		//상품 리스트 이미지 등록
@@ -200,11 +200,15 @@ public class ProductController {
 		attFileManageService.registProductImgInfo(contImg4);
 		}
 		
-	
+		
+		
 		
 		
 		// 상픔등록
 		productManageService.registProductInfo(productInfo);
+		
+		//상품 옵션 등록
+		//productManageService.registProductOptionInfo(productInfo);
 		
 
 		redirectAttributes.addFlashAttribute("reloadVar", "yes");
@@ -241,6 +245,20 @@ public class ProductController {
 		
 		productInfo = productManageService.getProductInfDetail(productInfo);
 		
+		List<ProductInfo> prdOpList = new ArrayList<ProductInfo>();
+		prdOpList=productManageService.getProductOptionInfDetail(productInfo);
+		int i=0;
+		String[] opKey=new String[50];
+		String[] opValue=new String[50];
+		for(ProductInfo each : prdOpList){
+			opKey[i]=each.getPropType();
+			opValue[i]=each.getPropName();
+			i++;
+		}
+		productInfo.setOptionKey(opKey);
+		productInfo.setOptionValue(opValue);
+		
+
 		// -----------------------------------------------------------------
 		// 2. 상품수정을 위한 카테고리(대분류) 리스트를 넘긴다.
 		// -----------------------------------------------------------------
@@ -305,6 +323,7 @@ public class ProductController {
 		
 		model.addAttribute("imgList", imgList);
 
+		
 		
 		model.addAttribute("prdInfo", productInfo);
 		

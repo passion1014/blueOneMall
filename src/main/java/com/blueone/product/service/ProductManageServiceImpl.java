@@ -98,9 +98,18 @@ public class ProductManageServiceImpl implements IProductManageService {
 		// -----------------------------------------------
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
-			setDefaultDate(productInfo);
 			
+			setDefaultDate(productInfo);
 			int rst = sqlSession.insert("product.insertBomProductTb0001", productInfo);
+			
+			for(int i=0; i<50; i++){
+				if(!productInfo.getOptionValue()[i].equals("")){
+					productInfo.setPropType(productInfo.getOptionKey()[i]);
+					productInfo.setPropName(productInfo.getOptionValue()[i]);
+					rst = sqlSession.insert("product.insertBomProductOptionTb0001", productInfo);
+				}
+			}
+			
 			
 			
 		} finally {
@@ -111,6 +120,44 @@ public class ProductManageServiceImpl implements IProductManageService {
 	}
 	
 
+	@Override
+	public ProductInfo registProductOptionInfo(ProductInfo productInfo) {
+		ResultInfo rstInfo = new ResultInfo();
+		
+		// -----------------------------------------------
+		// 체크로직
+		// -----------------------------------------------
+		String checkRst = checkProductInfo(productInfo);
+		if (!"1".equals(checkRst)) return productInfo;
+		
+		// -----------------------------------------------
+		// DB Insert 수행
+		// -----------------------------------------------
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			
+			setDefaultDate(productInfo);
+			int rst=0;
+			/*
+			if(!productInfo.getOptionValue_1().equals("")){
+				productInfo.setPropType(productInfo.getOptionKey_1());
+				productInfo.setPropName(productInfo.getOptionValue_1());
+				rst = sqlSession.insert("product.insertBomProductOptionTb0001", productInfo);
+			}
+			if(!productInfo.getOptionValue_2().equals("")){
+				productInfo.setPropType(productInfo.getOptionKey_2());
+				productInfo.setPropName(productInfo.getOptionValue_2());
+				
+			}
+			*/
+			
+		} finally {
+			sqlSession.close();
+		}
+		
+		return productInfo;
+	}
+	
 	@Override
 	public ProductInfo registProductDtlInfo(ProductInfo productInfo) {
 		ResultInfo rstInfo = new ResultInfo();
@@ -253,6 +300,30 @@ public class ProductManageServiceImpl implements IProductManageService {
 		
 		
 		return rstInfo;
+	}
+	
+	/*
+	 * 상품 코드에 따라 옵션조회 
+	 */
+	@Override
+	public List<ProductInfo> getProductOptionInfDetail(ProductInfo productInfo) {
+		                 
+		List<ProductInfo> prdOpList = new ArrayList<ProductInfo>();
+		
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			// -----------------------------------------------
+			// 1. 상품코드 기본값 조회
+			// -----------------------------------------------
+			prdOpList = sqlSession.selectList("product.selectDtlBomProductOptionTb0001", productInfo);
+			
+		} finally {
+			sqlSession.close();
+		}
+		
+		
+		return prdOpList;
 	}
 	
 	/*
