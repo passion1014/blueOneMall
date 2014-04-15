@@ -32,7 +32,9 @@ import com.blueone.common.util.PageDivision;
 import com.blueone.common.util.Utility;
 import com.blueone.product.domain.ProductInfo;
 import com.blueone.product.domain.SearchProdInfo;
+import com.blueone.product.domain.TransferInfo;
 import com.blueone.product.service.IProductManageService;
+import com.blueone.product.service.ITransferService;
 
 @Controller
 @SessionAttributes("adminSession")
@@ -43,8 +45,7 @@ public class ProductController {
 	@Autowired IProductManageService productManageService;
 	@Autowired ICategoryManageService categoryManageService;
 	@Autowired IAttachFileManageService attFileManageService;
-	
-	
+	@Autowired ITransferService transferService;
 	/*
 	 * 관리자 물품 리스트
 	 */
@@ -134,7 +135,7 @@ public class ProductController {
 		int code= (int)(Math.random()*10000)+1;
 		productInfo.setPrdCd("P"+code);
 		
-	
+		
 		
 		if(!productInfo.getProListImgUp().isEmpty()){
 		//상품 리스트 이미지 등록
@@ -200,15 +201,11 @@ public class ProductController {
 		attFileManageService.registProductImgInfo(contImg4);
 		}
 		
-		
-		
+	
 		
 		
 		// 상픔등록
 		productManageService.registProductInfo(productInfo);
-		
-		//상품 옵션 등록
-		//productManageService.registProductOptionInfo(productInfo);
 		
 
 		redirectAttributes.addFlashAttribute("reloadVar", "yes");
@@ -245,20 +242,6 @@ public class ProductController {
 		
 		productInfo = productManageService.getProductInfDetail(productInfo);
 		
-		List<ProductInfo> prdOpList = new ArrayList<ProductInfo>();
-		prdOpList=productManageService.getProductOptionInfDetail(productInfo);
-		int i=0;
-		String[] opKey=new String[50];
-		String[] opValue=new String[50];
-		for(ProductInfo each : prdOpList){
-			opKey[i]=each.getPropType();
-			opValue[i]=each.getPropName();
-			i++;
-		}
-		productInfo.setOptionKey(opKey);
-		productInfo.setOptionValue(opValue);
-		
-
 		// -----------------------------------------------------------------
 		// 2. 상품수정을 위한 카테고리(대분류) 리스트를 넘긴다.
 		// -----------------------------------------------------------------
@@ -323,7 +306,6 @@ public class ProductController {
 		
 		model.addAttribute("imgList", imgList);
 
-		
 		
 		model.addAttribute("prdInfo", productInfo);
 		
@@ -434,8 +416,80 @@ public class ProductController {
 		String redi = "redirect:productManagement.do?pCd="+prdCd;
 		return redi;
 	}
+	/**
+	 * 배송-배송목록
+	 */
+	@RequestMapping(value = "/admin/transferList.do", method= RequestMethod.GET)
+	public String transferList(@ModelAttribute("transferInfo") TransferInfo transferInfo, BindingResult result, Model model,HttpSession session, String page) {
+		
+		PageDivision pd = new PageDivision();
+		
+		List<TransferInfo> transferList = new ArrayList<TransferInfo>();
+		
+		transferList = transferService.transferList(transferInfo);
+		
+		if(StringUtils.isEmpty(page)) pd.pageNum("1");
+		else pd.pageNum(page);
+		pd.setTrList(transferList);
+		
+		model.addAttribute("transferList", transferList);
+		model.addAttribute("list", pd.getTrList(2));
+		model.addAttribute("endNum",pd.getEndPageNum());
+		return "admin/product/transferList";
+	}
+	
+	/**
+	 * 배송-배송등록
+	 */
+	@RequestMapping(value = "/admin/transferRegister.do" ,method= RequestMethod.GET)
+	public String transferRegister(@ModelAttribute("transferInfo")TransferInfo transferInfo, BindingResult result, Model model,HttpSession session) {
+		
+		return "admin/product/transferRegister";
+	}
+	
+	@RequestMapping(value = "/admin/transferRegisterProc.do" ,method= RequestMethod.POST)
+	public String transferRegisterProc(@ModelAttribute("transferInfo")TransferInfo transferInfo, BindingResult result, Model model,HttpSession session) {
+		
+		transferService.transferInsert(transferInfo);	
+		
+		return "admin/product/transferRegister";
+	}
 	
 	
+	/**
+	 * 배송-배송수정
+	 */
+	@RequestMapping(value = "/admin/transferEdit.do", method= RequestMethod.GET)
+	public String transferEdit(@ModelAttribute("transferInfo")TransferInfo transferInfo, BindingResult result, Model model,HttpSession session) {
+		
+		transferInfo = transferService.transferDetail(transferInfo);
+		
+		model.addAttribute("transferInfo", transferInfo);
+		
+		return "admin/product/transferEdit";
+	}
+	
+	/**
+	 * 배송-배송수정처리
+	 */
+	@RequestMapping(value = "/admin/transferEditProc.do", method= RequestMethod.GET)
+	public String transferEditProc(@ModelAttribute("transferInfo")TransferInfo transferInfo, BindingResult result, Model model,HttpSession session) {
+		
+		transferService.transferEdit(transferInfo);
+		
+		return "redirect:transferList.do";
+	}
+	
+	/**
+	 * 배송-배송삭제
+	 */
+	@RequestMapping(value = "/admin/transferDelete.do", method= RequestMethod.GET)
+	public String transferDelete(@ModelAttribute("transferInfo")TransferInfo transferInfo, BindingResult result, Model model,HttpSession session) {
+		
+		transferService.transDelete(transferInfo);
+		
+		return "redirect:transferList.do";
+	}
 
 /*
 	private List<CategoryInfo> getCategoryListByTypeCd(CategoryInfo categoryInfo, String ctgCodeType) {
@@ -450,42 +504,6 @@ public class ProductController {
 		return rstList;
 	}
 */
-	
-	
-	
-	
-	@RequestMapping(value = "/admin/transferList.do", method= RequestMethod.GET)
-	public String transferList(@ModelAttribute("ProductInfo") SearchProdInfo srchProdInfo, BindingResult result, Model model,HttpSession session, String page) {
-		
-		return "admin/product/transferList";
-	}
-	
-	
-	@RequestMapping(value = "/admin/transferRegister.do")
-	public String transferRegister(@ModelAttribute("ProductInfo")ProductInfo productInfo, BindingResult result, Model model,HttpSession session) {
-		
-		return "admin/product/transferRegister";
-	}
-	
-	
-	
-	@RequestMapping(value = "/admin/transferEdit.do")
-	public String transferEdit(@ModelAttribute("ProductInfo")ProductInfo productInfo, BindingResult result, Model model,HttpSession session) {
-		
-		return "admin/product/transferEdit";
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
