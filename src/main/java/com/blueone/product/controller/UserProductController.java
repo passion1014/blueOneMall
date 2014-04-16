@@ -36,10 +36,9 @@ public class UserProductController {
 		if(StringUtils.isEmpty(ctgCode))ctgCode="L2727";
 		
 		
-		
-		
-	
-		
+		CategoryInfo caIn = new CategoryInfo();
+		caIn.setCtgCode(ctgCode);
+		CategoryInfo caInRe =categoryManageService.getCategoryInfDetail(caIn);
 		
 		// ----------------------------------------------------------
 		// 1. 변수선언
@@ -54,7 +53,6 @@ public class UserProductController {
 		// 2. 카테고리 조회
 		// ----------------------------------------------------------
 		List<CategoryInfo> categoryList = categoryManageService.getCategoryInfList(categoryInfo);
-		//porductList첫화면에서 보여지는 메뉴를 위해..
 		for (CategoryInfo each : categoryList) {
 			if (ctgCode.equals(each.getCtgPCode())) {
 				lnbList.add(each);
@@ -81,12 +79,9 @@ public class UserProductController {
 		// ----------------------------------------------------------
 		productList = iUserProductService.shopProductInfList(productInfo);
 		priceList= iUserProductService.shopProductByPriceList(productInfo);
-		CategoryInfo lMenuDetail = new CategoryInfo();
-		
-		lMenuDetail = categoryManageService.getCategoryInfDetail(categoryInfo);
 		
 		
-		
+		categoryInfo = categoryManageService.getCategoryInfDetail(categoryInfo);
 		
 		model.addAttribute("productList", productList);	// 상품리스트
 		model.addAttribute("priceList", priceList);//상품가격
@@ -94,7 +89,7 @@ public class UserProductController {
 		model.addAttribute("categoryList",categoryList);//
 		model.addAttribute("largeCode",largeCode);
 		model.addAttribute("middleCode",middleCode);
-		model.addAttribute("lMenuDetail",lMenuDetail);
+		model.addAttribute("lMenuDetail",categoryInfo);
 		return "product/productList";
 	}
 	

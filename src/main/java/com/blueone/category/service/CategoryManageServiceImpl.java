@@ -156,19 +156,19 @@ public class CategoryManageServiceImpl implements ICategoryManageService {
 			// -----------------------------------------------
 			// 2. 부모카테고리 조회 - 대분류일 경우 조회가 필요없음
 			// -----------------------------------------------
-			if (!"01".equals(categoryInfo.getCtgCodeType())) {
+	/*		if (!"01".equals(categoryInfo.getCtgCodeType())) {
 				List<CategoryInfo> ctgFullList = sqlSession.selectList("category.selectListBomCategoryTb0006", categoryInfo);
 				
 				String ctgCode = categoryInfo.getCtgCode();
 				for (CategoryInfo each : ctgFullList) {
-					if (ctgCode.equals(each.getCtgCode())) {
+					if (ctgCode.equals(each.getCtgCode()) && each !=null && ctgCode!=null ) {
 						rstInfo.setCtgLargeCode(each.getCtgLargeCode());
 						rstInfo.setCtgLargeName(each.getCtgLargeName());
 						rstInfo.setCtgMiddleCode(each.getCtgMiddleCode());
 						rstInfo.setCtgMiddleName(each.getCtgMiddleName());
 					}
 				}
-			}
+			}*/
 		} finally {
 			sqlSession.close();
 		}
@@ -326,6 +326,8 @@ public class CategoryManageServiceImpl implements ICategoryManageService {
 		
 		return rst;
 	}
+	
+
 	
 	
 
