@@ -3,6 +3,7 @@ package com.blueone.product.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,49 +30,77 @@ public class UserProductController {
 	@Autowired
 	private SqlSessionFactory sqlSessionFactory;
 	
+	
 	@RequestMapping(value="/product/productList.do")
-	public String productList(@ModelAttribute("productInfo") ProductInfo productInfo, @ModelAttribute("categoryInfo") CategoryInfo categoryInfo, String lCode, BindingResult result, Model model){
+	public String productList(@ModelAttribute("productInfo") ProductInfo productInfo, @ModelAttribute("categoryInfo") CategoryInfo categoryInfo, String ctgCode, BindingResult result, Model model){
+		if(StringUtils.isEmpty(ctgCode))ctgCode="L2727";
+		
+		
+		
+		
+	
+		
 		
 		// ----------------------------------------------------------
 		// 1. 변수선언
 		// ----------------------------------------------------------
 		List<ProductInfo> productList = null;
 		List<Object> priceList = new ArrayList<Object>();		
-		List<CategoryInfo> rstList  = new ArrayList<CategoryInfo>();
+		List<CategoryInfo> largeCode  = new ArrayList<CategoryInfo>();//대분류조회
+		List<CategoryInfo> middleCode  = new ArrayList<CategoryInfo>();//중분류조회
 		List<CategoryInfo> lnbList  = new ArrayList<CategoryInfo>();
 		
 		// ----------------------------------------------------------
 		// 2. 카테고리 조회
 		// ----------------------------------------------------------
 		List<CategoryInfo> categoryList = categoryManageService.getCategoryInfList(categoryInfo);
-		
+		//porductList첫화면에서 보여지는 메뉴를 위해..
 		for (CategoryInfo each : categoryList) {
-			if (lCode.equals(each.getCtgPCode())) {
+			if (ctgCode.equals(each.getCtgPCode())) {
 				lnbList.add(each);
 			}
 		}
-				
 		
+		//대분류만 조회
+		for(CategoryInfo each : categoryList){
+			if("01".equals(each.getCtgCodeType())){
+				largeCode.add(each);
+			}
+		}
+		//중분류만 조회
+		for(CategoryInfo each : categoryList){
+			if("02".equals(each.getCtgCodeType())){
+				middleCode.add(each);
+			}
+		}
+		
+		
+				
 		// ----------------------------------------------------------
 		// 3. 상품+가격목록 조회
 		// ----------------------------------------------------------
 		productList = iUserProductService.shopProductInfList(productInfo);
 		priceList= iUserProductService.shopProductByPriceList(productInfo);
+		CategoryInfo lMenuDetail = new CategoryInfo();
+		
+		lMenuDetail = categoryManageService.getCategoryInfDetail(categoryInfo);
 		
 		
 		
 		
 		model.addAttribute("productList", productList);	// 상품리스트
 		model.addAttribute("priceList", priceList);//상품가격
-		model.addAttribute("categoryList",lnbList);
-		model.addAttribute("categoryList",categoryList);
-		
+		model.addAttribute("lnbList",lnbList);
+		model.addAttribute("categoryList",categoryList);//
+		model.addAttribute("largeCode",largeCode);
+		model.addAttribute("middleCode",middleCode);
+		model.addAttribute("lMenuDetail",lMenuDetail);
 		return "product/productList";
 	}
 	
 	@RequestMapping(value="/include/header.do")
 	public String header() {
-		System.out.println("aaa");
+		
 		return "/inc/header";
 	}
 	

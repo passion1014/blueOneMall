@@ -45,7 +45,7 @@
 	<div class="gnb">
 		<ul>
 			<c:forEach var="largeList" items="<%=largeMenuList%>">
-				<li><a href="productList.do?lCode=${largeList.ctgCode}">${largeList.ctgName}</a></li>
+				<li><a href="/product/productList.do?ctgCode=${largeList.ctgCode}">${largeList.ctgName}</a></li>
 			</c:forEach>
 		</ul>
 	</div>
