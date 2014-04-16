@@ -54,17 +54,27 @@ public class ProductInfo {
 	private MultipartFile proImg4Up;
 	
 	private String unit_chk; //다중 checkbox
+	private int propIdx;
 	
+	private int[] optionIdx;
 	private String propType;
 	private String propName;
 	private String propPrdCD;
 	
-	
-	
-	
 
-
-
+	
+	public int getPropIdx() {
+		return propIdx;
+	}
+	public void setPropIdx(int propIdx) {
+		this.propIdx = propIdx;
+	}
+	public int[] getOptionIdx() {
+		return optionIdx;
+	}
+	public void setOptionIdx(int[] optionIdx) {
+		this.optionIdx = optionIdx;
+	}
 	public String[] getOptionKey() {
 		return optionKey;
 	}

@@ -5,7 +5,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
-
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartException;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
@@ -56,7 +57,6 @@ public class ProductController {
 		if(adminSession==null){
 		return "redirect:adminLogin.do";
 		}
-		
 		*/
 		
 		List<ProductInfo> list = productManageService.getProductInfList(srchProdInfo);
@@ -213,7 +213,7 @@ public class ProductController {
 
 		redirectAttributes.addFlashAttribute("reloadVar", "yes");
 		
-		return "redirect:productRegister.do";
+		return "redirect:productList.do";
 		
 	}
 
@@ -245,7 +245,23 @@ public class ProductController {
 		
 		productInfo = productManageService.getProductInfDetail(productInfo);
 		
-		// -----------------------------------------------------------------
+		List<ProductInfo> prdOpList = new ArrayList<ProductInfo>();
+		prdOpList=productManageService.getProductOptionInfDetail(productInfo);
+		int i=0;
+		
+		int[] opIdx=new int[50] ;
+		String[] opKey=new String[50];
+		String[] opValue=new String[50];
+		for(ProductInfo each : prdOpList){
+			opKey[i]=each.getPropType();
+			opValue[i]=each.getPropName();
+			opIdx[i]=each.getPropIdx();
+			i++;
+		}
+		productInfo.setOptionKey(opKey);
+		productInfo.setOptionValue(opValue);
+		
+
 		// 2. 상품수정을 위한 카테고리(대분류) 리스트를 넘긴다.
 		// -----------------------------------------------------------------
 		CategoryInfo categoryInfo = new CategoryInfo();
@@ -323,12 +339,82 @@ public class ProductController {
 	
 	/**
 	 * 상품 수정처리
+	 * @throws IOException 
+	 * @throws FileNotFoundException 
 	 */
 	@RequestMapping(value = "/admin/manageProductInfProc.do", method = RequestMethod.POST)
-	public String manageProductInfProc(@ModelAttribute("productInfo") ProductInfo productInfo, BindingResult result, Model model) {
+	public String manageProductInfProc(@ModelAttribute("productInfo") ProductInfo productInfo, BindingResult result, Model model) throws FileNotFoundException, IOException {
 		productManageService.manageProductInf(productInfo);
 		
-		return "redirect:productList.do";
+		MultipartFile proListImgUp = productInfo.getProListImgUp();
+		if(proListImgUp != null && !proListImgUp.isEmpty()) {
+			//상품 리스트 이미지 등록
+			AttachFileInfo contImg = new AttachFileInfo();
+			FileUploadUtility utilList = new FileUploadUtility();
+			contImg = utilList.doFileUpload(7,productInfo.getProListImgUp(),false);
+			contImg.setAttCdType("01");//등록유형 : 상품
+			contImg.setAttCdKey(productInfo.getPrdCd()); //
+			contImg.setAttImgType("01");//목록
+			contImg.setAttImgSeq(1);
+			attFileManageService.updateAttachFileInf(contImg);
+		}
+		
+		
+		MultipartFile proImg1Ip = productInfo.getProImg1Up();
+		if(proImg1Ip!=null && !proImg1Ip.isEmpty()){
+			//상품 이미지 등록
+			AttachFileInfo contImg1 = new AttachFileInfo();
+			FileUploadUtility utilList1 = new FileUploadUtility();		
+			contImg1=utilList1.doFileUpload(7,productInfo.getProImg1Up(),false);
+			contImg1.setAttCdType("01");//등록유형 : 상품
+			contImg1.setAttCdKey(productInfo.getPrdCd()); //
+			contImg1.setAttImgType("02");//뷰
+			contImg1.setAttImgSeq(1);
+			attFileManageService.updateAttachFileInf(contImg1);
+		}
+		
+		MultipartFile proImg2Ip = productInfo.getProImg2Up();
+		if(proImg2Ip!=null && !proImg2Ip.isEmpty()){	//상품 이미지 등록
+			AttachFileInfo contImg2 = new AttachFileInfo();
+			FileUploadUtility utilList2 = new FileUploadUtility();				
+			contImg2=FileUploadUtility.doFileUpload(7,productInfo.getProImg2Up(),false);
+			contImg2.setAttCdType("01");//등록유형 : 상품
+			contImg2.setAttCdKey(productInfo.getPrdCd()); //
+			contImg2.setAttImgType("02");//뷰
+			contImg2.setAttImgSeq(2);
+			
+			attFileManageService.updateAttachFileInf(contImg2);
+		}
+		
+		MultipartFile proImg3Ip = productInfo.getProImg3Up();
+		if(proImg3Ip!=null && !proImg3Ip.isEmpty()){	//상품 이미지 등록
+			//상품 이미지 등록
+			AttachFileInfo contImg3 = new AttachFileInfo();
+			FileUploadUtility utilList3 = new FileUploadUtility();				
+			contImg3=utilList3.doFileUpload(7,productInfo.getProImg3Up(),false);
+			contImg3.setAttCdType("01");//등록유형 : 상품
+			contImg3.setAttCdKey(productInfo.getPrdCd()); //
+			contImg3.setAttImgType("02");//뷰
+			contImg3.setAttImgSeq(3);
+			
+			attFileManageService.updateAttachFileInf(contImg3);
+		}
+		
+		
+		MultipartFile proImg4Ip = productInfo.getProImg4Up();
+		if(proImg4Ip!=null && !proImg4Ip.isEmpty()){	//상품 이미지 등록
+		//상품 이미지 등록
+			AttachFileInfo contImg4 = new AttachFileInfo();
+			FileUploadUtility utilList4 = new FileUploadUtility();				
+			contImg4=utilList4.doFileUpload(7,productInfo.getProImg4Up(),false);
+			contImg4.setAttCdType("01");//등록유형 : 상품
+			contImg4.setAttCdKey(productInfo.getPrdCd()); //
+			contImg4.setAttImgType("02");//뷰
+			contImg4.setAttImgSeq(4);
+			attFileManageService.updateAttachFileInf(contImg4);
+		}
+
+		return "redirect:productManagement.do?pCd="+productInfo.getPrdCd();
 	}
 	
 	/**
@@ -475,7 +561,7 @@ public class ProductController {
 	/**
 	 * 배송-배송수정처리
 	 */
-	@RequestMapping(value = "/admin/transferEditProc.do", method= RequestMethod.GET)
+	@RequestMapping(value = "/admin/transferEditProc.do", method= RequestMethod.POST)
 	public String transferEditProc(@ModelAttribute("transferInfo")TransferInfo transferInfo, BindingResult result, Model model,HttpSession session) {
 		
 		transferService.transferEdit(transferInfo);

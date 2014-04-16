@@ -106,7 +106,7 @@ public class ProductManageServiceImpl implements IProductManageService {
 				if(!productInfo.getOptionValue()[i].equals("")){
 					productInfo.setPropType(productInfo.getOptionKey()[i]);
 					productInfo.setPropName(productInfo.getOptionValue()[i]);
-					rst = sqlSession.insert("product.insertBomProductOptionTb0001", productInfo);
+					rst = sqlSession.insert("product.updateBomProductOptionTb0001", productInfo);
 				}
 			}
 			
@@ -120,44 +120,6 @@ public class ProductManageServiceImpl implements IProductManageService {
 	}
 	
 
-	@Override
-	public ProductInfo registProductOptionInfo(ProductInfo productInfo) {
-		ResultInfo rstInfo = new ResultInfo();
-		
-		// -----------------------------------------------
-		// 체크로직
-		// -----------------------------------------------
-		String checkRst = checkProductInfo(productInfo);
-		if (!"1".equals(checkRst)) return productInfo;
-		
-		// -----------------------------------------------
-		// DB Insert 수행
-		// -----------------------------------------------
-		SqlSession sqlSession = sqlSessionFactory.openSession();
-		try {
-			
-			setDefaultDate(productInfo);
-			int rst=0;
-			/*
-			if(!productInfo.getOptionValue_1().equals("")){
-				productInfo.setPropType(productInfo.getOptionKey_1());
-				productInfo.setPropName(productInfo.getOptionValue_1());
-				rst = sqlSession.insert("product.insertBomProductOptionTb0001", productInfo);
-			}
-			if(!productInfo.getOptionValue_2().equals("")){
-				productInfo.setPropType(productInfo.getOptionKey_2());
-				productInfo.setPropName(productInfo.getOptionValue_2());
-				
-			}
-			*/
-			
-		} finally {
-			sqlSession.close();
-		}
-		
-		return productInfo;
-	}
-	
 	@Override
 	public ProductInfo registProductDtlInfo(ProductInfo productInfo) {
 		ResultInfo rstInfo = new ResultInfo();
@@ -184,6 +146,7 @@ public class ProductManageServiceImpl implements IProductManageService {
 		return productInfo;
 	}
 	
+	
 	//상품관리(수정)
 	@Override
 	public int manageProductInf(ProductInfo productInfo) {
@@ -204,6 +167,14 @@ public class ProductManageServiceImpl implements IProductManageService {
 				// DB 수행
 				rst = sqlSession.update("product.updateBomProductTb0001", productInfo);
 				
+				for(int i=0; i<50; i++){
+					if(!productInfo.getOptionValue()[i].equals("")){
+						productInfo.setPropType(productInfo.getOptionKey()[i]);
+						productInfo.setPropName(productInfo.getOptionValue()[i]);
+						productInfo.setPropIdx(productInfo.getOptionIdx()[i]);
+						rst = sqlSession.insert("product.updateBomProductTb0001", productInfo);
+					}
+				}
 			} finally {
 				sqlSession.close();
 			}
@@ -347,7 +318,7 @@ public class ProductManageServiceImpl implements IProductManageService {
 		
 		return rst;
 	}
-	
-	
+
+
 	
 }

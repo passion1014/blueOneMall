@@ -66,10 +66,7 @@
  
     <typeAliases>
 		<typeAlias alias="orderSrchInfo" type="com.blueone.order.domain.OrderSrchInfo" />
-		<typeAlias alias="customerSrchInfo" type="com.blueone.customer.domain.CustomerSrchInfo" />
 		<typeAlias alias="orderInfo" type="com.blueone.order.domain.OrderInfo" />
-		<typeAlias alias="customerInfo" type="com.blueone.customer.domain.CustomerInfo" />
-		<typeAlias alias="customerContactInfo" type="com.blueone.customer.domain.CustomerContactInfo" />
 		<typeAlias alias="orderProductInfo" type="com.blueone.order.domain.OrderProductInfo" />
 		<typeAlias alias="categoryInfo" type="com.blueone.category.domain.CategoryInfo" />
 		<typeAlias alias="productInfo" type="com.blueone.product.domain.ProductInfo" />
@@ -83,9 +80,19 @@
 		<typeAlias alias="boardAttachFileInfo" type="com.blueone.board.domain.BoardAttachFileInfo"/>
 		<typeAlias alias="boardCommentInfo" type="com.blueone.board.domain.BoardCommentInfo"/>
 		
+		<!-- 고객관련 모델정보 -->
 		<typeAlias alias="userInfo" type="com.blueone.user.domain.UserInfo"/>
+		
 		<!-- 배송관련 모델정보 -->
 		<typeAlias alias="TransferInfo" type="com.blueone.product.domain.TransferInfo"/>
+		
+		
+		<!-- [START] 삭제예정(User 패키지로 대체함) -->
+		<typeAlias alias="customerSrchInfo" type="com.blueone.customer.domain.CustomerSrchInfo" /> 
+		<typeAlias alias="customerInfo" type="com.blueone.customer.domain.CustomerInfo" /> 
+		<typeAlias alias="customerContactInfo" type="com.blueone.customer.domain.CustomerContactInfo" />
+		<!-- [END] 삭제예정(User 패키지로 대체함) -->
+		
 		
      </typeAliases>
    

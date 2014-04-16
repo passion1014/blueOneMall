@@ -35,7 +35,7 @@
 			<tr>
 				<th>상세내용</th>
 				<td colspan="3" style="text-align:left;">
-					<textarea name="tContents" value="${transferInfo.tContents} id="transferContents" class="Text" style="width:97%;height:300px;"></textarea>
+					<textarea name="tContents" id="transferContents" class="Text" style="width:97%;height:300px;">${transferInfo.tContents}</textarea>
 				</td>
 			</tr>		
 		</table>

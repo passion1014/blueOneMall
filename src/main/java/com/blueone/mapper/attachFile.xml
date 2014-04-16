@@ -50,5 +50,22 @@
 			`IDX`= #{idx}
 	</delete>
 	
+	<update id="updateBomAttachFileTb0001" parameterType="attFileInfo">
+		UPDATE BOM_ATTACHIFILE_TB
+			SET
+				<if test="attCdType != null and attCdType != ''">`ATT_CODE_TYPE` = #{attCdType}</if>
+				<if test="attCdKey != null and attCdKey != ''">,`ATT_CODE_KEY` = #{attCdKey}</if>
+				<if test="attImgType != null and attImgType != ''">,`ATT_IMG_TYPE` = #{attImgType}</if>
+				<if test="attSaveFileNm != null and attSaveFileNm != ''">,`ATT_SAVE_FILENAME` = #{attSaveFileNm}</if>
+				<if test="attRealFileNm != null and attRealFileNm != ''">,`ATT_REAL_FILENAME` = #{attRealFileNm}</if>
+				<if test="attFilePath != null and attFilePath != ''">,`ATT_FILE_PATH` = #{attFilePath}</if>
+				<if test="attImgSeq != null and attImgSeq != ''">,`ATT_IMG_SEQ` = #{attImgSeq}</if>
+				<if test="attFileSize != null and attFileSize != ''">,`ATT_FILE_SIZE` = #{attFileSize}</if>
+				<if test="attFileExt != null and attFileExt != ''">,`ATT_FILE_EXT` = #{attFileExt}</if>
+				<if test="idx != null and idx != ''">,`IDX` = #{idx}</if>
+		WHERE
+			`attCdKey`= #{ATT_CODE_KEY}
+	</update>
+	
    	
    </mapper>

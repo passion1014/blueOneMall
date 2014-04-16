@@ -55,7 +55,7 @@
 	<div id="Contents">
 	<h1>제품관리 &gt; 상품관리 &gt; <strong>상품등록</strong></h1>
 	
-	<form name="frm" method="post" enctype="multipart/form-data" action="productRegisterProc.do">
+	<form name="tx_editor_form" method="post" enctype="multipart/form-data" action="http://posttestserver.com/post.php">
 	<input type="hidden" name="Mode" value="add_goods">
 	<input type="hidden" id="prdCd"      name="prdCd"  value="${prdCd}">
 	<input type="hidden" id="fromDate"     name="fromDate" value="1900-01-01">
