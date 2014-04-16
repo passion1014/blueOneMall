@@ -58,28 +58,12 @@ public class UserProductController {
 		productList = iUserProductService.shopProductInfList(productInfo);
 		priceList= iUserProductService.shopProductByPriceList(productInfo);
 		
-		CategoryInfo rstInfo = new CategoryInfo();
-		SqlSession sqlSession = sqlSessionFactory.openSession();
-		try {
-			// -----------------------------------------------
-			// 1. 카테고리 기본값 조회
-			// -----------------------------------------------
-			CategoryInfo largeInfo = new CategoryInfo();
-			largeInfo.setCtgCode("L2727");
-			
-			rstInfo = sqlSession.selectOne("category.selectDtlBomCategoryTb0001", largeInfo);
-			sqlSession.close();
-			
-		} finally {
-			sqlSession.close();
-		}			
+		
 		
 		
 		model.addAttribute("productList", productList);	// 상품리스트
-		model.addAttribute("priceList", priceList);
-		model.addAttribute("rstList",rstList);
+		model.addAttribute("priceList", priceList);//상품가격
 		model.addAttribute("categoryList",lnbList);
-		model.addAttribute("largeInfo",rstInfo);
 		
 		return "product/productList";
 	}

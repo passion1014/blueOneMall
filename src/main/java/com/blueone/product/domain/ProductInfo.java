@@ -61,11 +61,6 @@ public class ProductInfo {
 	private String propName;
 	private String propPrdCD;
 	
-	
-	
-	
-
-
 
 	
 	public int getPropIdx() {

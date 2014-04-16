@@ -14,7 +14,7 @@ public class CustomerInfo {
 	
 	private long custSeq;			// 고객일련번호
 	private String custId;			// 고객아이디
-	private String custKnd;			// 고객구분[MG02]
+	private String custKnd;			// 고객구분[MG02] (### 사용안함-삭제예정)
 	private String custNm;			// 고객명(단체명)
 	private String passwd;			// 비밀번호
 	private String birthYmd;		// 생년월일
@@ -23,10 +23,10 @@ public class CustomerInfo {
 	private String eMail;			// 이메일
 	private String telNo;			// 전화번호
 	private String hpNo;			// 휴대폰번호
-	private String remarks;			// 특이사항
-	private String delYn;			// 삭제여부
-	private String delDt;			// 삭제일자
-	private String delUser;			// 삭제자
+	private String remarks;			// 특이사항 (### 사용안함-삭제예정)
+	private String delYn;			// 삭제여부 (### 사용안함-삭제예정)
+	private String delDt;			// 삭제일자 (### 사용안함-삭제예정)
+	private String delUser;			// 삭제자 (### 사용안함-삭제예정)
 	private String insDt;			// 최초입력일
 	private String insUser;			// 최초입력자
 	private String updDt;			// 최종변경일

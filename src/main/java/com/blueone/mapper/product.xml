@@ -198,6 +198,15 @@
 			`PRD_CD`= #{prdCd}
 	</delete>
 	
+		
+	<delete id="deleteBomProductOptionTb0001" parameterType="productInfo">
+		DELETE FROM BOM_PRODUCT_OPTION_TB			
+		WHERE
+			`PROP_IDX`= #{propIdx}
+	</delete>
+	
+	
+	
 
 	<update id="updateBomProductTb0001" parameterType="productInfo">
 		UPDATE BOM_PRODUCT_TB
