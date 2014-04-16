@@ -5,7 +5,9 @@
 <c:import  url="../inc/top.jsp" />
 
 <script type="text/javascript">
+
 	$(document).ready(function() {
+	
 		$('#prdCtgL').change(function() {
 			$.getJSON('/admin/categoryListByParent/' + $('#prdCtgL').val(), function(result) {
 //				alert('중분류 size=' + result.length + '    ctgCode=' + result[0].ctgCode);
@@ -46,7 +48,14 @@
 
 		Editor.save(); // 다음 에디터
 	}
-
+	
+	Editor.modify({
+			
+	      "content":"${prdInfo.content}"
+	      });
+	
+	
+		
 </script>
 
 
@@ -64,13 +73,13 @@
 	
 	<form name="tx_editor_form" method="post" enctype="multipart/form-data" action="http://posttestserver.com/post.php">
 	<input type="hidden" name="Mode" value="add_goods">
-	<input type="hidden" id="prdCd"      name="prdCd"  value="${prdInfo.prdCd}">
+	<input type="hidden" id="prdCd"        name="prdCd"  value="${prdInfo.prdCd}">
 	<input type="hidden" id="fromDate"     name="fromDate" value="1900-01-01">
 	<input type="hidden" id="toDate"       name="toDate" value="9999-12-31">
-	<input type="hidden" id="prdTransInf"       name="prdTransInf" value="${prdInfo.prdTransInf}">
+	<input type="hidden" id="prdTransInf"  name="prdTransInf" value="${prdInfo.prdTransInf}">
 	<input type="hidden" id="modifyUserId" name="modifyUserId" value="${adminSession.id}">
 	
-	
+
 	
 	<div style="padding:10px 5px 2px 5px;"><b>상품 기본정보</b></div>
 	<table>
@@ -302,6 +311,7 @@
 			<th>상세내용</th>
 			<td colspan="3" style="text-align:left;">
 				<jsp:include page="/resources/editor/editor.jsp" />
+				
 			</td>
 		</tr>
 		<th>옵션</th>
@@ -360,7 +370,7 @@
 	</table>
 
 	<div class="Btn_area">
-		<input type="submit" value="수정하기" class="Button Gray"> &nbsp; 
+		<input type="button" value="수정하기" class="Button Gray" onClick="fnAddClick();" /> &nbsp; 
 		<input type="button" value="취소"     class="Button Gray" onClick="history.back();">
 	</div>
 
@@ -375,13 +385,13 @@
 <c:import url="../inc/footer.jsp" />
 
 <script language="JavaScript" type="text/JavaScript">
-function chgOption(op,n,idx){
+function chgOption(op,n,Idx){
 	   var targetField = "optionField_" + n ;
 	   if(op == "add"){
 	      document.getElementById(targetField).style.display = "block" ;
 	   }else{
 	      document.getElementById(targetField).style.display = "none" ;
-	      location.href='deletePrdOptionInf.do?propIdx='+idx;
+	      location.href='deletePrdOptionInf.do?idx='+Idx+','+${prdInfo.prdCd};
 	   }
 	}
 </script>

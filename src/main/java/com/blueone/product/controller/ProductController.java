@@ -424,10 +424,15 @@ public class ProductController {
 	 * 상품 옵션 삭제
 	 */
 	@RequestMapping(value = "/admin/deletePrdOptionInf.do", method = RequestMethod.GET)
-	public String deletePrdOptionInfo(@ModelAttribute("productInfo") ProductInfo productInfo, BindingResult result, Model model) {
-		
-		
+	public String deletePrdOptionInfo(@ModelAttribute("productInfo") ProductInfo productInfo, BindingResult result, Model model, String idx) {
 
+		StringTokenizer st = new StringTokenizer(idx,",");
+		
+		String index = st.nextToken();
+		int i = Integer.parseInt(index);
+		productInfo.setPropIdx(i);
+		String prdCd=  st.nextToken();
+		
 		productManageService.deleteProductOptionInf(productInfo);
 		
 
