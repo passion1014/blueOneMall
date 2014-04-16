@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:if test="${reloadVar=='yes'}"><script>opener.location.reload();</script></c:if>
 <c:import  url="../inc/adminChecker.jsp" />
 <c:import  url="../inc/top.jsp" />
 <body>
@@ -51,8 +52,8 @@
 						</td>
 						<td style="text-align:center;">
 							<input type="button" value="수정" onClick="dialogUpdate('${accList.accIdx}');" class="Button Gray">
-							<%-- <input type="button" value="삭제" onClick="confirm_process('','해당 계좌를 삭제하시겠습니까?','deleteAccountProc.do?accIdx=${accList.accIdx}');"  class="Button Gray"> --%>
-							<input type="button" value="삭제" onClick="alert();location.href='accountRegister.do';"  class="Button Gray">
+							<input type="button" value="삭제" onClick="confirm_process('','해당 계좌를 삭제하시겠습니까?','deleteAccountProc.do?accIdx=${accList.accIdx}');"  class="Button Gray">
+							
 						</td>
 					</tr>
 				</c:forEach>

@@ -262,13 +262,28 @@ public class AdminController {
 	
 	
 	/**
-	 * 관리자 소분류 삭제
+	 * 계좌 삭제
 	 */
 	@RequestMapping(value = "/deleteAccountProc.do", method = RequestMethod.GET)
 	public String deletesAccountInfo(@ModelAttribute("accountInfo") AccountInfo accInfo, BindingResult result, Model model) {
 		
 		adminManageService.deleteAccountInf(accInfo);
 		
+		return "redirect:accountList.do";
+	}
+	
+	/**
+	 * 계좌 수정폼
+	 */		
+	@RequestMapping(value="/accountEdit.do", method=RequestMethod.POST)
+	public String middleTypeModify(@ModelAttribute("accountInfo") AccountInfo accInfo, BindingResult result, Model model){
+		
+		/*
+		accInfo = categoryManageService.getCategoryInfDetail(categoryInfo);
+		List<CategoryInfo> list = categoryManageService.getCategoryInfList(categoryInfo);
+		model.addAttribute("middleTypeObj", categoryInfo);
+		model.addAttribute("list", list);
+		*/
 		return "redirect:accountList.do";
 	}
 	
