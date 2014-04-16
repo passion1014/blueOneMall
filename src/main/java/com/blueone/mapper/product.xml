@@ -157,7 +157,8 @@
 	</select >
 	
 	<select id="selectDtlBomProductOptionTb0001" parameterType="hashmap" resultType="ProductInfo" resultMap="ProductBaseDtlMap">
-		SELECT  
+		SELECT 
+			T1.PROP_IDX,
 			T1.PROP_PRD_CD, 
 			T1.PROP_OP_TYPE, 
 			T1.PROP_OP_NAME
@@ -198,7 +199,7 @@
 	</delete>
 	
 
-	<update id="updateBomProductTb0001" parameterType="categoryInfo">
+	<update id="updateBomProductTb0001" parameterType="productInfo">
 		UPDATE BOM_PRODUCT_TB
 			SET
 				`LAST_DATE` = sysdate()
@@ -223,5 +224,18 @@
 		WHERE
 			`PRD_CD`= #{prdCd}
 	</update>
+
+
+	<update id="updateBomProductOptionTb0001" parameterType="productInfo">
+		UPDATE BOM_PRODUCT_OPTION_TB
+			SET
+				
+				<if test="propType != null and propType != ''">`PROP_OP_TYPE` = #{propType}</if>
+				<if test="propName != null and propName != ''">,`PROP_OP_NAME` = #{prdOrd}</if>
+			WHERE
+			`PROP_IDX`= #{propIdx}
+	</update>
+
+
 	
 </mapper>
