@@ -74,7 +74,7 @@ public class ProductController {
 	
 
 		model.addAttribute("endNum",pd.getEndPageNum());
-		
+	
 		
 		return "admin/product/productList";
 	}
@@ -135,6 +135,7 @@ public class ProductController {
 		int code= (int)(Math.random()*10000)+1;
 		productInfo.setPrdCd("P"+code);
 		
+		productInfo.setPrdConts(productInfo.getContent());
 		
 		
 		if(!productInfo.getProListImgUp().isEmpty()){
@@ -241,6 +242,8 @@ public class ProductController {
 		productInfo.setPrdCd(pCd);
 		
 		productInfo = productManageService.getProductInfDetail(productInfo);
+		
+		productInfo.setContent(productInfo.getPrdConts());
 		
 		List<ProductInfo> prdOpList = new ArrayList<ProductInfo>();
 		prdOpList=productManageService.getProductOptionInfDetail(productInfo);
@@ -415,6 +418,21 @@ public class ProductController {
 	}
 	
 	/**
+	 * 상품 옵션 삭제
+	 */
+	@RequestMapping(value = "/admin/deletePrdOptionInf.do", method = RequestMethod.GET)
+	public String deletePrdOptionInfo(@ModelAttribute("productInfo") ProductInfo productInfo, BindingResult result, Model model) {
+		
+		
+
+		productManageService.deleteProductOptionInf(productInfo);
+		
+
+		String redi = "redirect:productManagement.do?pCd="+productInfo.getPrdCd();
+		return redi;
+	}
+	
+	/**
 	 * 상품 삭제
 	 */
 	@RequestMapping(value = "/admin/deleteProductInf.do", method = RequestMethod.GET)
@@ -502,6 +520,7 @@ public class ProductController {
 		String redi = "redirect:productManagement.do?pCd="+prdCd;
 		return redi;
 	}
+	
 	/**
 	 * 배송-배송목록
 	 */

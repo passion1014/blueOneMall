@@ -298,7 +298,7 @@ public class ProductManageServiceImpl implements IProductManageService {
 	}
 	
 	/*
-	 * 분류 삭제
+	 * 상품 삭제
 	 */
 	@Override
 	public int deleteProductInf(ProductInfo productInfo){
@@ -319,6 +319,29 @@ public class ProductManageServiceImpl implements IProductManageService {
 		return rst;
 	}
 
+	/*
+	 * 상품 옵션 삭제
+	 */
+	@Override
+	public int deleteProductOptionInf(ProductInfo productInfo){
+		
+		int rst = -1;
+		
+		
+			SqlSession sqlSession = sqlSessionFactory.openSession();
+			try {
+				// DB 수행
+				rst = sqlSession.delete("product.deleteBomProductOptionTb0001", productInfo);
+				
+			} finally {
+				sqlSession.close();
+			}
+		
+		
+		return rst;
+	}
+
+		
 
 	
 }

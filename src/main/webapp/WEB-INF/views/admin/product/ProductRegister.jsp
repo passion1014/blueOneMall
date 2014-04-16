@@ -37,7 +37,14 @@
 		
 	});
 	
+	function fnAddClick() {
+		var f = tx_editor_form;
+
+		f.action = 'productRegisterProc.do';
+
+		Editor.save(); // 다음 에디터
 	}
+
 
 
 </script>
@@ -304,7 +311,7 @@
 	</table>
 
 	<div class="Btn_area">
-		<input type="submit" value="등록하기" 	class="Button Gray"  > &nbsp; 
+		<input type="button" value="등록하기" 	class="Button Gray" onClick="fnAddClick();" / > &nbsp; 
 		<input type="button" value="취소"     class="Button Gray" onClick="history.back();">
 	</div>
 
