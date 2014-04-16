@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="account">
+	
+
+	<resultMap id="AccountInfoMap" type="accountInfo">
+		<id property="accIdx"       column="ACC_IDX"            javaType="int"/>
+		<id property="accShow"      column="ACC_SHOW"       	javaType="java.lang.String"/>
+		<id property="accGroup"  	column="ACC_GROUP"    		javaType="int"/>
+		<id property="accBank"      column="ACC_BANK"        	javaType="java.lang.String"/>
+		<id property="accNum"       column="ACC_ACCOUNT_NUM"    javaType="int"/>
+		<id property="accName"      column="ACC_ACCOUNT_NAME"   javaType="java.lang.String"/>
+		
+		<id property="bankType"   	column="BANK_TYPE"       	javaType="java.lang.String"/>
+		<id property="bankName"     column="BANK_NAME"       	javaType="java.lang.String"/>
+	</resultMap>
+	
+	
+	<select id="selectListBomBankTb0001" resultType="accountInfo" resultMap="AccountInfoMap">
+		SELECT
+			T1.BANK_TYPE     	AS bankType, 
+			T1.BANK_NAME     	AS bankName
+		FROM
+			BOM_BANK_TB AS T1
+	</select >	
+	
+	<select id="selectListBomAccountTb0001" resultType="accountInfo" resultMap="AccountInfoMap">
+		SELECT
+			T1.ACC_IDX     		AS accIdx, 
+			T1.ACC_SHOW     	AS accShow,
+			T1.ACC_GROUP     	AS accGroup, 
+			T1.ACC_BANK     	AS accBank,
+			T1.ACC_ACCOUNT_NUM  AS accNum, 
+			T1.ACC_ACCOUNT_NAME AS accName
+		FROM
+			BOM_ACCOUNT_TB AS T1
+	</select >	
+	
+	<insert id="insertBomAccountTb0001" parameterType="accountInfo" >
+		INSERT BOM_ACCOUNT_TB
+			(`ACC_SHOW`,`ACC_GROUP`,`ACC_BANK`,`ACC_ACCOUNT_NUM`,`ACC_ACCOUNT_NAME`)
+			VALUES
+			(#{accShow}, #{accGroup}, #{accBank}, #{accNum}, #{accName})
+	</insert>
+	
+		
+	<delete id="deleteBomAccountTb0001" parameterType="accountInfo">
+		DELETE FROM BOM_ACCOUNT_TB			
+		WHERE
+			`ACC_IDX`= #{accIdx}
+	</delete>
+	
+	
+
+</mapper>
