@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.blueone.category.domain.CategoryInfo;
 import com.blueone.common.domain.AttachFileInfo;
 import com.blueone.common.domain.ResultInfo;
+import com.blueone.common.service.IAttachFileManageService;
 import com.blueone.product.domain.ProductInfo;
 import com.blueone.product.domain.SearchProdInfo;
 
@@ -21,6 +22,7 @@ public class ProductManageServiceImpl implements IProductManageService {
 
 	@Autowired
 	private SqlSessionFactory sqlSessionFactory;
+	@Autowired IAttachFileManageService attFileManageService;
 	
 	 @SuppressWarnings({ "rawtypes", "unchecked" })
 	 public static List stringsToList(String[] strings) {
@@ -47,6 +49,11 @@ public class ProductManageServiceImpl implements IProductManageService {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
 			// DB 수행
+			//AttachFileInfo att = new AttachFileInfo();
+			//att.setAttCdKey(srchProdInfo.getPrdNm());
+			
+			//List<AttachFileInfo> attList= attFileManageService.getAttFileInfList(att);
+			//
 			prodBaseList = sqlSession.selectList("product.selectListBomProductTb0001", srchProdInfo);
 		} finally {
 			sqlSession.close();
