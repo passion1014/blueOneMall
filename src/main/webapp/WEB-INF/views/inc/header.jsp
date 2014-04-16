@@ -44,8 +44,17 @@
 	
 	<div class="gnb">
 		<ul>
-			<c:forEach var="largeList" items="<%=largeMenuList%>">
-				<li><a href="/product/productList.do?ctgCode=${largeList.ctgCode}">${largeList.ctgName}</a></li>
+			<c:set value="1" var="counterNumber" />
+			<c:forEach begin="1" end="8" step="1" var="largeList" items="<%=largeMenuList%>">
+				<c:choose>
+					<c:when test="${counterNumber == '1'}">
+						<li><a href="/product/productList.do?ctgCode=${largeList.ctgCode}">${largeList.ctgName}</a></li>
+					</c:when>
+					<c:otherwise>
+						<li class="gnb_list"><a href="/product/productList.do?ctgCode=${largeList.ctgCode}">${largeList.ctgName}</a></li>
+					</c:otherwise>
+				</c:choose>	
+				<c:set value="${counterNumber+1}" var="counterNumber" />
 			</c:forEach>
 		</ul>
 	</div>
