@@ -3,10 +3,15 @@
 
 <div class="lnb">
 	
-	<h3><c:out value="${largeInfo.ctgName}"></c:out></h3>
+	<h3>
+	
+		
+			${lMenuDetail.ctgName}
+	
+	</h3>
 	
 	<ul class="lnb_list">
-		<c:forEach items="${categoryList}" var="lList">
+		<%-- <c:forEach items="${categoryList}" var="lList">
 			<li><a href="#">${lList.ctgName}</a></li>
 			
 			
@@ -21,7 +26,15 @@
 			</c:forEach>
 			
 				
-		</c:forEach>
+		</c:forEach> --%>
+		
+		<c:forEach items="${middleCode}" var="middleCode">
+				<c:if test="${middleCode.ctgPCode} == ${lMenuDetail.ctgCode}">
+					<c:out value="${middleCode.ctgName}"></c:out>
+				</c:if>
+		</c:forEach> 
+		
+		
 		
 		
 		<!-- <li><a href="#">Multimedia(MM)</a></li>

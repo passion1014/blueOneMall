@@ -16,4 +16,5 @@ public interface ICategoryManageService {
 	public CategoryInfo getCategoryInfDetail(CategoryInfo categoryInfo);
 	public int deleteCategoryInf(CategoryInfo categoryInfo);
 	public List<CategoryInfo> getCategoryInfList4(CategoryInfo categoryInfo);
+	
 }
