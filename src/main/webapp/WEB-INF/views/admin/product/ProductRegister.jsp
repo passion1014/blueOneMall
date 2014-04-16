@@ -37,6 +37,7 @@
 		
 	});
 	
+<<<<<<< HEAD
 	function fnAddClick() {
 		var f = tx_editor_form;
 
@@ -45,6 +46,8 @@
 		Editor.save(); // 다음 에디터
 	}
 
+=======
+>>>>>>> c24423830cf3cdb8147b1d9d184fdf46d6048632
 
 
 </script>
@@ -216,8 +219,9 @@
 		<tr>
 			<th>상세내용</th>
 			<td colspan="3" style="text-align:left;">
-				<!--  <textarea name="prdConts" id="prdConts" class="Text" style="width:97%;height:300px;"></textarea>-->
+				
 				<jsp:include page="/resources/editor/editor.jsp" />
+				
 			</td>
 		</tr>
 		<tr>
@@ -292,14 +296,16 @@
 				<div style="margin-top:5px;">※ , 로 구분하여 입력하여 주십시오</div>
 			</td>
 		</tr>
-		
 		<tr>
 			<th>배송/반품/교환정보</th>
 			<td colspan="3" style="text-align:left;">
-				<div><input type="button" value="배송정보선택"></div>
+				<div><input type="button" value="배송상태등록" class="Small_Button Gray" onClick="openWin('./transferInfoPopup.do','transferInfoPopup',600,300,'scrollbars=no');">${transDetail.tTitle}</div>
+				<div>
+					<span id="transferInfoValue"></span>
+					<input type="hidden" id="prdTransInf" name="prdTransInf" value="">
+				</div>
 			</td>
 		</tr>
-
 		
 		<tr>
 			<th>관리 참고사항</th>
@@ -334,6 +340,7 @@ function chgOption(op,n){
 	      document.getElementById(targetField).style.display = "none" ;
 	   }
 	}
+	
 	
 <!--
 $(document).ready(function() {
@@ -381,5 +388,6 @@ function dialogUpdate() {
 
 }
 
-//-->
+
+-->
 </script>

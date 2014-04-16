@@ -24,4 +24,14 @@
 <!--[if lt IE 9]>
 <script src="js/jquery_html5shiv.js"></script>
 <![endif]-->
+<script type="text/javascript">
+function fnAddClick() {
+	var f = tx_editor_form;
+	
+
+	f.action = '/transferRegisterProc.do';
+
+	Editor.save(); // 다음 에디터
+}
+</script>
 </head>

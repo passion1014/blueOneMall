@@ -83,7 +83,7 @@ public class ProductController {
 	 * 상품등록 폼 구성
 	 */
 	@RequestMapping(value = "/admin/productRegister.do")
-	public String productRegister(@ModelAttribute("ProductInfo")ProductInfo productInfo, BindingResult result, Model model,HttpSession session) {
+	public String productRegister(@ModelAttribute("ProductInfo")ProductInfo productInfo,@ModelAttribute("transferInfo") TransferInfo transferInfo, BindingResult result, Model model,HttpSession session) {
 		/*
 		// -----------------------------------------------------------------
 		// 1. 세션정보를 확인해서 세션정보가 없을 경우 로그인 페이지로 이동한다.
@@ -93,6 +93,8 @@ public class ProductController {
 			return "redirect:adminLogin.do";
 		}
 */
+		
+		
 	
 		// -----------------------------------------------------------------
 		// 2. 상품등록을 위한 카테고리(대분류) 리스트를 넘긴다.
@@ -113,6 +115,7 @@ public class ProductController {
 			}
 			
 		}
+		
 		
 
 		
@@ -596,6 +599,44 @@ public class ProductController {
 		return "redirect:transferList.do";
 	}
 
+	
+	/**
+	 * 제품등록페이지의 배송관련팝업창
+	 */
+	@RequestMapping(value = "/admin/transferInfoPopup.do", method= RequestMethod.GET)
+	public String transferInfoPopup(@ModelAttribute("transferInfo")TransferInfo transferInfo, BindingResult result, Model model,HttpSession session) {
+		
+		
+		List<TransferInfo> transferList = new ArrayList<TransferInfo>();
+		
+		transferList = transferService.transferList(transferInfo);
+		
+		
+		model.addAttribute("transferList", transferList);
+		
+		
+		return "admin/product/transferInfoPopup";
+	}
+	
+	/**
+	 * 제품등록페이지의 배송관련팝업창처리
+	 */
+	@RequestMapping(value = "/admin/transferInfoPopupProc.do", method= RequestMethod.GET)
+	public String transferInfoPopupProc(@ModelAttribute("transferInfo")TransferInfo transferInfo, BindingResult result, Model model,HttpSession session,RedirectAttributes redirectAttributes) {
+		
+			TransferInfo transDetail = null; 
+			
+			transDetail = transferService.transferDetail(transferInfo);
+			
+			
+			
+			
+			
+			
+			redirectAttributes.addFlashAttribute("transDetail",transDetail);
+			
+		return "redirect:productRegister.do";
+	}
 /*
 	private List<CategoryInfo> getCategoryListByTypeCd(CategoryInfo categoryInfo, String ctgCodeType) {
 		List<CategoryInfo> list = categoryManageService.getCategoryInfList(categoryInfo);
