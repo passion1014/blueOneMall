@@ -51,6 +51,11 @@ public class UserController {
 	}
 	
 	
-	
+	//1:1문의하기 목록
+	@RequestMapping(value="/user/qnaList.do", method=RequestMethod.GET)
+	public String qnaList(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model){
+		return "user/qnaPage";
+	}
+
 	
 }

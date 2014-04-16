@@ -68,6 +68,22 @@ public class TestSession extends BlueoneTestCase {
 
 	}
 	
+	@Test
+	public void testMakeCookie() throws Exception {
+		mockMvc.perform(get("/makingCookie.do")
+				.param("custId", "custId"))
+		.andExpect(status().isOk())
+		.andDo(print());
+	}
+	
+	@Test
+	public void testGetCookie() throws Exception {
+		mockMvc.perform(get("/getCookie.do")
+				.param("custId", "custId"))
+		.andExpect(status().isOk())
+		.andDo(print());
+	}
+	
 	private void printSessionInfo(MockHttpSession session, String attributeName) {
 		
 		if (session.getAttribute(attributeName) != null) {
