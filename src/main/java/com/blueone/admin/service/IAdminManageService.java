@@ -15,6 +15,10 @@ public interface IAdminManageService {
 	public List<AdminInfo> getAdminInfList(AdminInfo adminInfo); 
 	public AdminInfo getAdminInfDetail(String id);
 	public List<AccountInfo> getAccountInfList(AccountInfo accountInfo);
-	public AdminInfo adminLogin(AdminLoginInfo adminLoginInfo);	
+	public AdminInfo adminLogin(AdminLoginInfo adminLoginInfo);
+	public List<AccountInfo> getBankInfList();
+	public int registAccountInf(AccountInfo attInfo);
+	public List<AccountInfo> getAccountInfList();
+	public int deleteAccountInf(AccountInfo attInfo);	
 	
 }

@@ -485,6 +485,7 @@ public class CategoryController {
 	
 	private List<CategoryInfo> getCategoryListByTypeCd(CategoryInfo categoryInfo, String ctgCodeType) {
 		List<CategoryInfo> list = categoryManageService.getCategoryInfList(categoryInfo);
+		
 		List<CategoryInfo> rstList = new ArrayList<CategoryInfo>();
 		for (CategoryInfo each : list) {
 			if (ctgCodeType.equals(each.getCtgCodeType())) {

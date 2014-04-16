@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.blueone.admin.domain.AccountInfo;
 import com.blueone.admin.domain.AdminInfo;
 import com.blueone.admin.domain.AdminLoginInfo;
+import com.blueone.category.domain.CategoryInfo;
 import com.blueone.common.util.MsgEnum;
 
 @Service
@@ -213,5 +214,83 @@ public class AdminManageServiceImpl implements IAdminManageService {
 		
 		return true;
 	}
+	
+	//은행 조회
+	@Override
+	public List<AccountInfo> getBankInfList() {
+		List<AccountInfo> rstList = new ArrayList<AccountInfo>();
+		// -----------------------------------------------
+		// DB Insert 수행
+		// -----------------------------------------------
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			// DB 수행
+			rstList = sqlSession.selectList("account.selectListBomBankTb0001");
+			
+		} finally {
+			sqlSession.close();
+		}
+		
+		return rstList;
+	}
+	
+	@Override
+	public int registAccountInf(AccountInfo attInfo) {
+        
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			
+			int rst = sqlSession.insert("account.insertBomAccountTb0001", attInfo);
+		} finally {
+			sqlSession.close();
+		}
+		
+ 		return MsgEnum.MsgEnum_SUCCESS.value();
+	}
 
+	
+	//은행 조회
+	@Override
+	public List<AccountInfo> getAccountInfList() {
+		List<AccountInfo> rstList = new ArrayList<AccountInfo>();
+			// -----------------------------------------------
+			// DB Insert 수행
+			// -----------------------------------------------
+			SqlSession sqlSession = sqlSessionFactory.openSession();
+			try {
+				// DB 수행
+				rstList = sqlSession.selectList("account.selectListBomAccountTb0001");
+				
+			} finally {
+				sqlSession.close();
+			}
+			
+			return rstList;
+	}
+	
+	/*
+	 * 계좌 삭제
+	 */
+	@Override
+	public int deleteAccountInf(AccountInfo attInfo){
+		
+		int rst = -1;
+		
+		
+			SqlSession sqlSession = sqlSessionFactory.openSession();
+			try {
+				// DB 수행
+				rst = sqlSession.delete("account.deleteBomAccountTb0001", attInfo);
+				
+			} finally {
+				sqlSession.close();
+			}
+		
+		
+		return rst;
+	}
+	
+	
+
+		
 }

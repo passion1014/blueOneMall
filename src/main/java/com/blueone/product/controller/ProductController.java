@@ -52,12 +52,12 @@ public class ProductController {
 	 */
 	@RequestMapping(value = "/admin/productList.do", method= RequestMethod.GET)
 	public String productList(@ModelAttribute("ProductInfo") SearchProdInfo srchProdInfo, BindingResult result, Model model,HttpSession session, String page) {
-		/*
+		
 		AdminInfo adminSession = (AdminInfo)session.getAttribute("adminSession");		
 		if(adminSession==null){
 		return "redirect:adminLogin.do";
 		}
-		*/
+		
 		
 		List<ProductInfo> list = productManageService.getProductInfList(srchProdInfo);
 		
@@ -99,7 +99,7 @@ public class ProductController {
 	 */
 	@RequestMapping(value = "/admin/productRegister.do")
 	public String productRegister(@ModelAttribute("ProductInfo")ProductInfo productInfo,@ModelAttribute("transferInfo") TransferInfo transferInfo, BindingResult result, Model model,HttpSession session) {
-		/*
+		
 		// -----------------------------------------------------------------
 		// 1. 세션정보를 확인해서 세션정보가 없을 경우 로그인 페이지로 이동한다.
 		// -----------------------------------------------------------------
@@ -107,7 +107,7 @@ public class ProductController {
 		if(adminSession == null){
 			return "redirect:adminLogin.do";
 		}
-*/
+
 		
 		
 	
