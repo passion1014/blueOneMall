@@ -91,7 +91,7 @@
 		</colgroup>
 		
 		<tr>
-			<th>상태설정</th>
+			<th>상태설정${prdInfo.content}</th>
 			<td style="text-align:left;">
 				<b>진열상태</b> :
 				<select name="prdDp">
