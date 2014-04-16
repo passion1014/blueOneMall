@@ -16,8 +16,7 @@
 	<div id="Contents">
 	
 		<h1>상품관리 &gt; 배송정보관리 &gt; <strong>배송정보등록</strong></h1>
-		
-		<form name="frm" method="post" action="transferRegisterProc.do">
+		<form name="tx_editor_form" method="post" enctype="multipart/form-data" action="http://posttestserver.com/post.php">
 		<div style="padding:10px 5px 2px 5px;"><b>배송정보</b></div>
 		
 		<table>
@@ -35,7 +34,9 @@
 			<tr>
 				<th>상세내용</th>
 				<td colspan="3" style="text-align:left;">
-					<textarea name="tContents" id="transferContents" class="Text" style="width:97%;height:300px;"></textarea>
+					<textarea name="tContents" id="transferContents" class="Text" style="width:97%;height:300px;">
+						<jsp:include page="/resources/editor/editor.jsp" />
+					</textarea>
 				</td>
 			</tr>		
 		</table>

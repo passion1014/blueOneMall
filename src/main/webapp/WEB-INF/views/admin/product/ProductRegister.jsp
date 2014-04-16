@@ -209,8 +209,9 @@
 		<tr>
 			<th>상세내용</th>
 			<td colspan="3" style="text-align:left;">
-				<!--  <textarea name="prdConts" id="prdConts" class="Text" style="width:97%;height:300px;"></textarea>-->
+				
 				<jsp:include page="/resources/editor/editor.jsp" />
+				
 			</td>
 		</tr>
 		<tr>
@@ -285,14 +286,12 @@
 				<div style="margin-top:5px;">※ , 로 구분하여 입력하여 주십시오</div>
 			</td>
 		</tr>
-		
 		<tr>
 			<th>배송/반품/교환정보</th>
 			<td colspan="3" style="text-align:left;">
-				<div><input type="button" value="배송정보선택"></div>
+				<div><input type="button" value="배송상태등록" class="Small_Button Gray" onClick="openWin('./transferInfoPopup.do','middleTypeForm','scrollbars=no');">${transDetail.tTitle}</div>
 			</td>
 		</tr>
-
 		
 		<tr>
 			<th>관리 참고사항</th>
@@ -327,6 +326,7 @@ function chgOption(op,n){
 	      document.getElementById(targetField).style.display = "none" ;
 	   }
 	}
+	
 	
 <!--
 $(document).ready(function() {
@@ -374,5 +374,6 @@ function dialogUpdate() {
 
 }
 
-//-->
+
+-->
 </script>

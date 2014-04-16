@@ -64,6 +64,7 @@ public class UserProductController {
 		model.addAttribute("productList", productList);	// 상품리스트
 		model.addAttribute("priceList", priceList);//상품가격
 		model.addAttribute("categoryList",lnbList);
+		model.addAttribute("categoryList",categoryList);
 		
 		return "product/productList";
 	}
