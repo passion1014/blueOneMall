@@ -37,8 +37,6 @@
 		
 	});
 	
-	}
-
 
 </script>
 
@@ -289,7 +287,11 @@
 		<tr>
 			<th>배송/반품/교환정보</th>
 			<td colspan="3" style="text-align:left;">
-				<div><input type="button" value="배송상태등록" class="Small_Button Gray" onClick="openWin('./transferInfoPopup.do','middleTypeForm','scrollbars=no');">${transDetail.tTitle}</div>
+				<div><input type="button" value="배송상태등록" class="Small_Button Gray" onClick="openWin('./transferInfoPopup.do','transferInfoPopup',600,300,'scrollbars=no');">${transDetail.tTitle}</div>
+				<div>
+					<span id="transferInfoValue"></span>
+					<input type="hidden" id="prdTransInf" name="prdTransInf" value="">
+				</div>
 			</td>
 		</tr>
 		

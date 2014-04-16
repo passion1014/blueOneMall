@@ -8,10 +8,9 @@
 	
 	<!-- 컨덴츠 -->
 	
-	<div id="Contents">
+	<div>배송정보</div>
 	
-		
-	<table>
+	<table class="tbl1">
 		<colgroup>
 			<col width="6%" />
 			<col width="*" />
@@ -29,9 +28,11 @@
 				<c:forEach items="${transferList}" var="transferList">
 					<tr>
 						<td style="text-align:center;">${transferList.idx}</td>
-						<td>${transferList.tContents}</td>
+						<td>${transferList.tTitle}</td>
 						<td style="text-align:center;">
-							<input type="button" value="등록" onClick="location.href='transferInfoPopupProc.do?idx=${transferList.idx}';" class="Button Gray">
+							<%-- <input type="button" value="등록" onClick="location.href='transferInfoPopupProc.do?idx=${transferList.idx}';" class="Button Gray"> --%>
+							<input type="button" value="등록" onClick="openTransferVal('${transferList.idx}')" class="Button Gray">
+							<textarea id="tContents_${transferList.idx}" name="tContents_${transferList.idx}" style="display:none;">${transferList.tContents}</textarea>							
 						</td>
 					</tr>
 				</c:forEach>
@@ -44,8 +45,18 @@
 		</c:choose>
 			
 	</table>
-
 	
-	</div>	
 </div>
 </body>
+
+<script>
+function openTransferVal(k){
+	var field_name  = "tContents_"+ k ;
+	var field_value = document.getElementById(field_name).value ;
+	
+	opener.document.getElementById("prdTransInf").value = k ;		
+	opener.document.getElementById("transferInfoValue").innerHTML = field_value ; 
+	
+	self.close();
+}
+</script>
