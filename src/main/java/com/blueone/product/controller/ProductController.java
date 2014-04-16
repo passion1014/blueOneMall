@@ -69,8 +69,23 @@ public class ProductController {
 		else pd.pageNum(page);
 		pd.setPrdList(list);
 		
+		List<ProductInfo> resultList =pd.getPrdList(3);
 
-		model.addAttribute("list", pd.getPrdList(3));
+		for(ProductInfo each : resultList){
+			AttachFileInfo att = new AttachFileInfo();
+			att.setAttCdKey(each.getPrdCd());
+			att.setAttImgType("01");
+			List<AttachFileInfo> attList = attFileManageService.getAttFileInfList(att);
+			
+			if(attList.isEmpty()){
+				each.setAttFilePath("");
+			}else { 
+				att = attList.get(0);
+				each.setAttFilePath(att.getAttFilePath());
+			}
+			
+		}
+		model.addAttribute("list", resultList);
 	
 
 		model.addAttribute("endNum",pd.getEndPageNum());
@@ -141,7 +156,8 @@ public class ProductController {
 		productInfo.setPrdConts(productInfo.getContent());
 		
 		
-		if(!productInfo.getProListImgUp().isEmpty()){
+		MultipartFile proListImgUp = productInfo.getProListImgUp();
+		if(proListImgUp != null && !proListImgUp.isEmpty()) {
 		//상품 리스트 이미지 등록
 		AttachFileInfo contImg = new AttachFileInfo();
 		FileUploadUtility utilList = new FileUploadUtility();
@@ -153,47 +169,51 @@ public class ProductController {
 		attFileManageService.registProductImgInfo(contImg);
 		}
 		
-		if(!productInfo.getProImg1Up().isEmpty()){
-		//상품 이미지 등록
-		AttachFileInfo contImg1 = new AttachFileInfo();
-		FileUploadUtility utilList1 = new FileUploadUtility();		
-		contImg1=utilList1.doFileUpload(7,productInfo.getProImg1Up(),false);
-		contImg1.setAttCdType("01");//등록유형 : 상품
-		contImg1.setAttCdKey(productInfo.getPrdCd()); //
-		contImg1.setAttImgType("02");//뷰
-		contImg1.setAttImgSeq(1);
+		MultipartFile proImg1Ip = productInfo.getProImg1Up();
+		if(proImg1Ip!=null && !proImg1Ip.isEmpty()){
+				//상품 이미지 등록
+			AttachFileInfo contImg1 = new AttachFileInfo();
+			FileUploadUtility utilList1 = new FileUploadUtility();		
+			contImg1=utilList1.doFileUpload(7,productInfo.getProImg1Up(),false);
+			contImg1.setAttCdType("01");//등록유형 : 상품
+			contImg1.setAttCdKey(productInfo.getPrdCd()); //
+			contImg1.setAttImgType("02");//뷰
+			contImg1.setAttImgSeq(1);
 		
 		attFileManageService.registProductImgInfo(contImg1);
 		}
 		
-		if(!productInfo.getProImg2Up().isEmpty()){
+		MultipartFile proImg2Ip = productInfo.getProImg2Up();
+		if(proImg2Ip!=null && !proImg2Ip.isEmpty()){
 		//상품 이미지 등록
-		AttachFileInfo contImg2 = new AttachFileInfo();
-		FileUploadUtility utilList2 = new FileUploadUtility();				
-		contImg2=FileUploadUtility.doFileUpload(7,productInfo.getProImg2Up(),false);
-		contImg2.setAttCdType("01");//등록유형 : 상품
-		contImg2.setAttCdKey(productInfo.getPrdCd()); //
-		contImg2.setAttImgType("02");//뷰
-		contImg2.setAttImgSeq(2);
+			AttachFileInfo contImg2 = new AttachFileInfo();
+			FileUploadUtility utilList2 = new FileUploadUtility();				
+			contImg2=FileUploadUtility.doFileUpload(7,productInfo.getProImg2Up(),false);
+			contImg2.setAttCdType("01");//등록유형 : 상품
+			contImg2.setAttCdKey(productInfo.getPrdCd()); //
+			contImg2.setAttImgType("02");//뷰
+			contImg2.setAttImgSeq(2);
 		
 		attFileManageService.registProductImgInfo(contImg2);
 		}
 		
-		if(!productInfo.getProImg3Up().isEmpty()){
-		//상품 이미지 등록
-		AttachFileInfo contImg3 = new AttachFileInfo();
-		FileUploadUtility utilList3 = new FileUploadUtility();				
-		contImg3=utilList3.doFileUpload(7,productInfo.getProImg3Up(),false);
-		contImg3.setAttCdType("01");//등록유형 : 상품
-		contImg3.setAttCdKey(productInfo.getPrdCd()); //
-		contImg3.setAttImgType("02");//뷰
-		contImg3.setAttImgSeq(3);
+		MultipartFile proImg3Ip = productInfo.getProImg3Up();
+		if(proImg3Ip!=null && !proImg3Ip.isEmpty()){
+			//상품 이미지 등록
+			AttachFileInfo contImg3 = new AttachFileInfo();
+			FileUploadUtility utilList3 = new FileUploadUtility();				
+			contImg3=utilList3.doFileUpload(7,productInfo.getProImg3Up(),false);
+			contImg3.setAttCdType("01");//등록유형 : 상품
+			contImg3.setAttCdKey(productInfo.getPrdCd()); //
+			contImg3.setAttImgType("02");//뷰
+			contImg3.setAttImgSeq(3);
 		
 		attFileManageService.registProductImgInfo(contImg3);
 		}
 		
 		
-		if(!productInfo.getProImg4Up().isEmpty()){
+		MultipartFile proImg4Ip = productInfo.getProImg4Up();
+		if(proImg4Ip!=null && !proImg4Ip.isEmpty()){
 		//상품 이미지 등록
 		AttachFileInfo contImg4 = new AttachFileInfo();
 		FileUploadUtility utilList4 = new FileUploadUtility();				

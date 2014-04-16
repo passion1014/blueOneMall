@@ -89,8 +89,7 @@
 			T3.CTG_CODE       AS t3ctgCode,
 			T3.CTG_NAME       AS t3ctgName,
 			T4.CTG_CODE       AS t4ctgCode,
-			T4.CTG_NAME       AS t4ctgName,
-			T5.ATT_FILE_PATH AS attFilePath
+			T4.CTG_NAME       AS t4ctgName
 			
 		FROM BOM_PRODUCT_TB AS T1
 				LEFT JOIN BOM_CATEGORY_TB T2
@@ -99,8 +98,7 @@
 					ON ( T1.PRD_CTG_M = T3.CTG_CODE )
 				LEFT JOIN BOM_CATEGORY_TB T4 
 					ON ( T1.PRD_CTG_S = T4.CTG_CODE )
-				LEFT JOIN BOM_ATTACHIFILE_TB T5
-					ON ( T1.PRD_CD = T5.ATT_CODE_KEY )
+			
 					
 					
 				
@@ -111,7 +109,7 @@
 			<if test="prdCtgM != null and prdCtgM != ''">AND T1.PRD_CTG_M LIKE CONCAT(#{prdCtgM},'%')</if>
 			<if test="prdCtgS != null and prdCtgS != ''">AND T1.PRD_CTG_S LIKE CONCAT(#{prdCtgS},'%')</if>
 			
-			 AND (T5.ATT_IMG_TYPE = 01)
+			
 	</select >
 	
 	<select id="selectListBomShopProductTb0001" parameterType="ProductInfo" resultMap="ProductBaseDtlMap">

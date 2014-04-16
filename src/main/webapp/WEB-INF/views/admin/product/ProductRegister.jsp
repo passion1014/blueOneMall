@@ -36,8 +36,6 @@
 		});
 		
 	});
-	
-<<<<<<< HEAD
 	function fnAddClick() {
 		var f = tx_editor_form;
 
@@ -45,9 +43,6 @@
 
 		Editor.save(); // 다음 에디터
 	}
-
-=======
->>>>>>> c24423830cf3cdb8147b1d9d184fdf46d6048632
 
 
 </script>
