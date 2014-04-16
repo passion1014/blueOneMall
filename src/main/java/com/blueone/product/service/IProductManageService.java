@@ -28,5 +28,6 @@ public interface IProductManageService {
 	public int deleteProductInf(ProductInfo productInfo);
 	public int manageProductInf(ProductInfo productInfo);
 	public List<ProductInfo> getProductOptionInfDetail(ProductInfo productInfo);
+	public int deleteProductOptionInf(ProductInfo productInfo);
 	
 }

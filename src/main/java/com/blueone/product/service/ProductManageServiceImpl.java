@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.blueone.category.domain.CategoryInfo;
 import com.blueone.common.domain.AttachFileInfo;
 import com.blueone.common.domain.ResultInfo;
+import com.blueone.common.service.IAttachFileManageService;
 import com.blueone.product.domain.ProductInfo;
 import com.blueone.product.domain.SearchProdInfo;
 
@@ -21,6 +22,7 @@ public class ProductManageServiceImpl implements IProductManageService {
 
 	@Autowired
 	private SqlSessionFactory sqlSessionFactory;
+	@Autowired IAttachFileManageService attFileManageService;
 	
 	 @SuppressWarnings({ "rawtypes", "unchecked" })
 	 public static List stringsToList(String[] strings) {
@@ -47,6 +49,11 @@ public class ProductManageServiceImpl implements IProductManageService {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
 			// DB 수행
+			//AttachFileInfo att = new AttachFileInfo();
+			//att.setAttCdKey(srchProdInfo.getPrdNm());
+			
+			//List<AttachFileInfo> attList= attFileManageService.getAttFileInfList(att);
+			//
 			prodBaseList = sqlSession.selectList("product.selectListBomProductTb0001", srchProdInfo);
 		} finally {
 			sqlSession.close();
@@ -106,7 +113,7 @@ public class ProductManageServiceImpl implements IProductManageService {
 				if(!productInfo.getOptionValue()[i].equals("")){
 					productInfo.setPropType(productInfo.getOptionKey()[i]);
 					productInfo.setPropName(productInfo.getOptionValue()[i]);
-					rst = sqlSession.insert("product.updateBomProductOptionTb0001", productInfo);
+					rst = sqlSession.insert("product.insertBomProductOptionTb0001", productInfo);
 				}
 			}
 			
@@ -168,12 +175,18 @@ public class ProductManageServiceImpl implements IProductManageService {
 				rst = sqlSession.update("product.updateBomProductTb0001", productInfo);
 				
 				for(int i=0; i<50; i++){
-					if(!productInfo.getOptionValue()[i].equals("")){
+					if(!productInfo.getOptionValue()[i].equals("") && productInfo.getOptionIdx()!=null){
 						productInfo.setPropType(productInfo.getOptionKey()[i]);
 						productInfo.setPropName(productInfo.getOptionValue()[i]);
 						productInfo.setPropIdx(productInfo.getOptionIdx()[i]);
 						rst = sqlSession.insert("product.updateBomProductTb0001", productInfo);
 					}
+					else if(!productInfo.getOptionValue()[i].equals("")  && productInfo.getOptionIdx()==null){
+						productInfo.setPropType(productInfo.getOptionKey()[i]);
+						productInfo.setPropName(productInfo.getOptionValue()[i]);
+						rst = sqlSession.insert("product.insertBomProductOptionTb0001", productInfo);
+					}
+					
 				}
 			} finally {
 				sqlSession.close();
@@ -298,7 +311,7 @@ public class ProductManageServiceImpl implements IProductManageService {
 	}
 	
 	/*
-	 * 분류 삭제
+	 * 상품 삭제
 	 */
 	@Override
 	public int deleteProductInf(ProductInfo productInfo){
@@ -319,6 +332,29 @@ public class ProductManageServiceImpl implements IProductManageService {
 		return rst;
 	}
 
+	/*
+	 * 상품 옵션 삭제
+	 */
+	@Override
+	public int deleteProductOptionInf(ProductInfo productInfo){
+		
+		int rst = -1;
+		
+		
+			SqlSession sqlSession = sqlSessionFactory.openSession();
+			try {
+				// DB 수행
+				rst = sqlSession.delete("product.deleteBomProductOptionTb0001", productInfo);
+				
+			} finally {
+				sqlSession.close();
+			}
+		
+		
+		return rst;
+	}
+
+		
 
 	
 }

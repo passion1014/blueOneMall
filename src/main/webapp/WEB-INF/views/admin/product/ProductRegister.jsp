@@ -36,7 +36,12 @@
 		});
 		
 	});
-	
+	function fnAddClick() {
+		var f = tx_editor_form;
+
+		f.action = 'productRegisterProc.do';
+
+		Editor.save(); // 다음 에디터
 	}
 
 
@@ -289,7 +294,11 @@
 		<tr>
 			<th>배송/반품/교환정보</th>
 			<td colspan="3" style="text-align:left;">
-				<div><input type="button" value="배송상태등록" class="Small_Button Gray" onClick="openWin('./transferInfoPopup.do','middleTypeForm','scrollbars=no');">${transDetail.tTitle}</div>
+				<div><input type="button" value="배송상태등록" class="Small_Button Gray" onClick="openWin('./transferInfoPopup.do','transferInfoPopup',600,300,'scrollbars=no');">${transDetail.tTitle}</div>
+				<div>
+					<span id="transferInfoValue"></span>
+					<input type="hidden" id="prdTransInf" name="prdTransInf" value="">
+				</div>
 			</td>
 		</tr>
 		
@@ -303,7 +312,7 @@
 	</table>
 
 	<div class="Btn_area">
-		<input type="submit" value="등록하기" 	class="Button Gray"  > &nbsp; 
+		<input type="button" value="등록하기" 	class="Button Gray" onClick="fnAddClick();" / > &nbsp; 
 		<input type="button" value="취소"     class="Button Gray" onClick="history.back();">
 	</div>
 

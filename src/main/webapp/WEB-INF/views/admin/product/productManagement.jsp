@@ -5,7 +5,9 @@
 <c:import  url="../inc/top.jsp" />
 
 <script type="text/javascript">
+
 	$(document).ready(function() {
+	
 		$('#prdCtgL').change(function() {
 			$.getJSON('/admin/categoryListByParent/' + $('#prdCtgL').val(), function(result) {
 //				alert('중분류 size=' + result.length + '    ctgCode=' + result[0].ctgCode);
@@ -40,6 +42,24 @@
 		
 	});
 	
+	function fnAddClick() {
+		var f = tx_editor_form;
+
+		f.action = 'productRegisterProc.do';
+
+		Editor.save(); // 다음 에디터
+	}
+
+
+	$(document).ready(function() {
+		
+	Editor.modify({
+	     "content":'${prdInfo.content}'
+	});
+	});
+	
+	
+		
 </script>
 
 
@@ -55,15 +75,15 @@
 	<div id="Contents">
 	<h1>제품관리 &gt; 상품관리 &gt; 상품목록 &gt; <strong>선택상품관리</strong></h1>
 	
-	<form name="frm" method="post" enctype="multipart/form-data" action="manageProductInfProc.do">
+	<form name="tx_editor_form" method="post" enctype="multipart/form-data" action="http://posttestserver.com/post.php">
 	<input type="hidden" name="Mode" value="add_goods">
-	<input type="hidden" id="prdCd"      name="prdCd"  value="${prdInfo.prdCd}">
+	<input type="hidden" id="prdCd"        name="prdCd"  value="${prdInfo.prdCd}">
 	<input type="hidden" id="fromDate"     name="fromDate" value="1900-01-01">
 	<input type="hidden" id="toDate"       name="toDate" value="9999-12-31">
-	<input type="hidden" id="prdTransInf"       name="prdTransInf" value="${prdInfo.prdTransInf}">
+	<input type="hidden" id="prdTransInf"  name="prdTransInf" value="${prdInfo.prdTransInf}">
 	<input type="hidden" id="modifyUserId" name="modifyUserId" value="${adminSession.id}">
 	
-	
+
 	
 	<div style="padding:10px 5px 2px 5px;"><b>상품 기본정보</b></div>
 	<table>
@@ -75,7 +95,7 @@
 		</colgroup>
 		
 		<tr>
-			<th>상태설정</th>
+			<th>상태설정${prdInfo.content}</th>
 			<td style="text-align:left;">
 				<b>진열상태</b> :
 				<select name="prdDp">
@@ -294,39 +314,36 @@
 		<tr>
 			<th>상세내용</th>
 			<td colspan="3" style="text-align:left;">
-				<textarea name="prdConts" id="prdConts" class="Text Kor" style="width:97%;height:300px;">${prdInfo.prdConts}
-				</textarea>
+				<jsp:include page="/resources/editor/editor.jsp" />	
 			</td>
 		</tr>
 		<th>옵션</th>
       		<td  colspan="3" style="text-align:left;">
-      		<ul id="optionField_1" style="display:block;">
-      		<select id="optionKey_1" name="optionKey">
+      		<ul id="optionField_0" style="display:block;">
+      		<select id="optionKey_0" name="optionKey">
       			<option value="01" <c:if test="${prdInfo.optionKey[0] eq '01'}">  selected </c:if>>색상</option>
       			<option value="02" <c:if test="${prdInfo.optionKey[0] eq '02'}">  selected </c:if>>크기</option>
       		</select>
-      			<input type="text" id="optionValue_1" name="optionValue" value="${prdInfo.optionValue[0]}">
+      			<input type="text" id="optionValue_0" name="optionValue" value="${prdInfo.optionValue[0]}">
       			<input type="button" value="추가" onClick="chgOption('add','2')">
       		</ul>
       		
       		<c:forEach var="opKey" items="${prdInfo.optionKey}" begin="1" end="49" varStatus="i">
       			<c:if test="${null ne prdInfo.optionValue[i.index]}">
-      				<ul id="optionField_${i.index+1}" style="display:block;">
+      				<ul id="optionField_${i.index}" style="display:block;">
       			</c:if>
       			
       			<c:if test="${null eq prdInfo.optionValue[i.index]}">
-      				<ul id="optionField_${i.index+1}" style="display:none;">
+      				<ul id="optionField_${i.index}" style="display:none;">
       			</c:if>
       		
-      		
-      		
-      			<select id="optionKey_${i.index+1}" name="optionKey">
+      			<select id="optionKey_${i.index}" name="optionKey">
       				<option value="01" <c:if test="${opKey eq '01'}">  selected </c:if>>색상</option>
       				<option value="02" <c:if test="${opKey eq '02'}">  selected </c:if>>크기</option>
       			</select> 
-      			<input type="text" id="optionValue_${i.index+1}" name="optionValue" value="${prdInfo.optionValue[i.index]}">
-      			<input type="button" value="추가" onClick="chgOption('add','${i.index+2}')">
-      			<input type="button" value="삭제" onClick="chgOption('del','${i.index+1}')">
+      			<input type="text" id="optionValue_${i.index}" name="optionValue" value="${prdInfo.optionValue[i.index]}">
+      			<input type="button" value="추가" onClick="chgOption('add','${i.index+1}','${prdInfo.optionIdx[i.index+1]}')">
+      			<input type="button" value="삭제" onClick="chgOption('del','${i.index}','${prdInfo.optionIdx[i.index]}')">
       		</ul>
       	</c:forEach>
       	
@@ -356,8 +373,8 @@
 	</table>
 
 	<div class="Btn_area">
-		<input type="submit" value="수정하기" class="Button Gray"> &nbsp; 
-		<input type="button" value="취소"     class="Button Gray" onClick="history.back();">
+		<input type="button" value="수정하기" 	class="Button Gray" onClick="fnAddClick();" / > &nbsp; 
+		<input type="button" value="취소하기"  class="Button Gray" onClick="history.back();">
 	</div>
 
 	</form>
@@ -371,12 +388,13 @@
 <c:import url="../inc/footer.jsp" />
 
 <script language="JavaScript" type="text/JavaScript">
-function chgOption(op,n){
+function chgOption(op,n,Idx){
 	   var targetField = "optionField_" + n ;
 	   if(op == "add"){
 	      document.getElementById(targetField).style.display = "block" ;
 	   }else{
 	      document.getElementById(targetField).style.display = "none" ;
+	      location.href='deletePrdOptionInf.do?idx='+Idx+','+${prdInfo.prdCd};
 	   }
 	}
 </script>

@@ -71,6 +71,7 @@ public class AttachFileServiceImpl implements IAttachFileManageService{
 			// DB Insert 수행
 			// -----------------------------------------------
 			SqlSession sqlSession = sqlSessionFactory.openSession();
+			
 			try {
 				// DB 수행
 				fileList = sqlSession.selectList("attFile.selectListBomAttFileTb0001",attFileInfo);

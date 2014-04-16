@@ -61,8 +61,16 @@ public class ProductInfo {
 	private String propName;
 	private String propPrdCD;
 	
+	private String content;
+	
 
 	
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
 	public int getPropIdx() {
 		return propIdx;
 	}
