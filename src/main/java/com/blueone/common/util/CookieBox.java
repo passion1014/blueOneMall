@@ -8,9 +8,11 @@ import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.web.bind.annotation.ResponseBody;
 
 public class CookieBox {
-	
 	private Map<String, Cookie> cookieMap = new HashMap<String, Cookie>();
 	
 	public CookieBox(HttpServletRequest request) {
@@ -27,9 +29,10 @@ public class CookieBox {
 	}
 	
 	public static Cookie createCookie(String name, String value, int maxAge) throws IOException {
-//		Cookie cookie = new Cookie(name, URLEncoder.encode(value, "euc-kr"));
-		Cookie cookie = new Cookie(name, value);
+		Cookie cookie = new Cookie(name, URLEncoder.encode(value, "euc-kr"));
+		cookie.setPath("/");
 		cookie.setMaxAge(maxAge);
+		
 		return cookie;
 	}
 
