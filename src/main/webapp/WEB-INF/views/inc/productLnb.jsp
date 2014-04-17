@@ -4,10 +4,7 @@
 <div class="lnb">
 	
 	<h3>
-	
-		
-			${lMenuDetail.ctgName}
-	
+		${largeCode.ctgName}
 	</h3>
 	
 	<ul class="lnb_list">
@@ -26,13 +23,13 @@
 			</c:forEach>
 			
 				
-		</c:forEach> --%>
+			</c:forEach> --%>
 		
-		<c:forEach items="${middleCode}" var="middleCode">
+			<c:forEach items="${middleCode}" var="middleCode">
 				<c:if test="${middleCode.ctgPCode} == ${lMenuDetail.ctgCode}">
 					<c:out value="${middleCode.ctgName}"></c:out>
 				</c:if>
-		</c:forEach> 
+			</c:forEach> 
 		
 		
 		

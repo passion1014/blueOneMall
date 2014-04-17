@@ -82,7 +82,7 @@ public class CategoryController {
 		
 		List<CategoryInfo> list = categoryManageService.getCategoryInfList(categoryInfo);
 		list = getCategoryListByTypeCd(categoryInfo, "01");
-	    
+		List<CategoryInfo> list1 = categoryManageService.getCategoryInfList5(categoryInfo);
 		PageDivision pd = new PageDivision();
 		
 
@@ -90,7 +90,7 @@ public class CategoryController {
 		else pd.pageNum(page);
 		pd.setCtList(list);
 		
-		
+		model.addAttribute("list1", list1);
 		model.addAttribute("list", pd.getCtList(2));
 		
 		model.addAttribute("endNum",pd.getEndPageNum());
