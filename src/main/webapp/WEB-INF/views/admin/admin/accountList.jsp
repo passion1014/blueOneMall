@@ -51,7 +51,13 @@
 						</td>
 						<td style="text-align:center;">
 							<input type="button" value="수정" onClick="dialogUpdate('${accList.accIdx}');" class="Button Gray">
+<<<<<<< HEAD
 							<input type="button" value="삭제" onClick="location.href='deleteAccountProc.do?accIdx=${accList.accIdx}';"  class="Button Gray">
+=======
+							<%-- <input type="button" value="삭제" onClick="confirm_process('','해당 계좌를 삭제하시겠습니까?','deleteAccountProc.do?accIdx=${accList.accIdx}');"  class="Button Gray"> --%>
+							<input type="button" value="삭제" onClick="confirm_process('','해당 계좌를 삭제하시겠습니까?','deleteAccountProc.do?accIdx=${accList.accIdx}');"  class="Button Gray">
+							
+>>>>>>> 1431bc1a2de04645bdead7764e258ba1bd7909c4
 						</td>
 					</tr>
 				</c:forEach>
