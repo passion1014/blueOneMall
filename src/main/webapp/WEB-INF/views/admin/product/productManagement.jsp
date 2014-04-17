@@ -49,11 +49,11 @@
 		Editor.save(); // 다음 에디터
 	}
 	
-	Editor.modify({
-			
-	      "content":"${prdInfo.content}"
-	      });
-	
+	$(document).ready(function() {
+		Editor.modify({
+	     	"content":'${prdInfo.content}'
+	     });
+	});
 </script>
 
 
@@ -300,8 +300,7 @@
 		<tr>
 			<th>목록내용</th>
 			<td colspan="3" style="text-align:left;">
-				<textarea name="prdListCmt" id="prdListCmt" class="Text Kor" style="width:97%;height:150px;">${prdInfo.prdListCmt}
-				</textarea>
+				<textarea name="prdListCmt" id="prdListCmt" class="Text Kor" style="width:97%;height:150px;">${prdInfo.prdListCmt}</textarea>
 			
 			</td>
 		</tr>

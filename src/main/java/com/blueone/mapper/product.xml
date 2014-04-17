@@ -147,9 +147,22 @@
 			T1.PRD_CONTENTS, 
 			T1.PRD_TRANSFOR_INF, 
 			T1.ADMIN_MEMO,
-			T1.MODIFY_USER_ID
+			T1.MODIFY_USER_ID,
+			T2.CTG_CODE       AS t2ctgCode,
+			T2.CTG_NAME       AS t2ctgName,
+			T3.CTG_CODE       AS t3ctgCode,
+			T3.CTG_NAME       AS t3ctgName,
+			T4.CTG_CODE       AS t4ctgCode,
+			T4.CTG_NAME       AS t4ctgName
 			
 		FROM BOM_PRODUCT_TB AS T1
+				LEFT JOIN BOM_CATEGORY_TB T2
+					ON ( T1.PRD_CTG_L = T2.CTG_CODE)
+				LEFT JOIN BOM_CATEGORY_TB T3 
+					ON ( T1.PRD_CTG_M = T3.CTG_CODE )
+				LEFT JOIN BOM_CATEGORY_TB T4 
+					ON ( T1.PRD_CTG_S = T4.CTG_CODE )
+		
 		WHERE
 			T1.PRD_CD = #{prdCd}
 	</select >
@@ -184,9 +197,9 @@
 
 	<insert id="insertBomProductOptionTb0001" parameterType="productInfo">
 		INSERT  BOM_PRODUCT_OPTION_TB
-			(`PROP_PRD_CD`,`PROP_OP_TYPE`,`PROP_OP_NAME`)
+			(`PROP_IDX`,`PROP_PRD_CD`,`PROP_OP_TYPE`,`PROP_OP_NAME`)
 			VALUES
-			(#{prdCd},#{propType},#{propName})
+			(#{propIdx},#{prdCd},#{propType},#{propName})
 	</insert>
 	
 		

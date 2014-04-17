@@ -2,6 +2,24 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:import  url="../inc/topSub.jsp" />
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#prdColor').change(function() {
+			$.getJSON('/admin/OptionValue/' + $('#prdColor').val(), function(result) {
+//				alert('중분류 size=' + result.length + '    ctgCode=' + result[0].ctgCode);
+				var options = '';
+				if (result != null && result.length > 0) {
+					for (var i = 0; i < result.length; i++) {
+						options += '<option value="' + result[i].ctgCode + '">' + result[i].ctgName + '</option>';
+					}
+				} else {
+					options = "<option value=''>없음</option>";
+				}
+				$("select#ctgPCode").html(options);
+			});
+		});
+	});
+</script>
 
 <body>
 <div class="wrap">
@@ -16,15 +34,43 @@
 		<div class="sub_content">
 			<form action="#" method="post">
 				<div class="product_view">
-					<span class="locat_box">Home&nbsp;>&nbsp;${pro.ctgLargeName}&nbsp;>&nbsp;${pro.ctgMiddleName}&nbsp;>&nbsp;${pro.ctgSmallName}</span>
+					<span class="locat_box">Home&nbsp;>&nbsp;
+					${pro.ctgLargeName}&nbsp;>&nbsp;
+					<c:if test="${'' eq pro.ctgMiddleName}"><c:out value="없음"/></c:if>
+					<c:if test="${'' ne pro.ctgMiddleName}"><c:out value="${pro.ctgMiddleName}"/></c:if>
+					&nbsp;>&nbsp;
+					<c:if test="${'' eq pro.ctgSmallName}"><c:out value="없음"/></c:if>
+					<c:if test="${'' ne pro.ctgSmallName}"><c:out value="${pro.ctgSmallName}"/></c:if>
 					<h4>${pro.prdCd}&nbsp;${pro.prdNm}</h4>
 					<div class="view_dbox1">
-						<p><img src="<c:url value='/resources/img/product/pro_mainimg.jpg'/>" alt="상품 큰이미지"/></p>
+						<p>
+							<c:forEach items="${imgList}" var="prdImg">
+								<c:if test="${'01' eq prdImg.attImgType}">
+									<img src="${prdImg.attFilePath}">
+								</c:if>
+							</c:forEach>
+						</p>
 						<button><img src="<c:url value='/resources/img/common/btn_viewpro.jpg'/>" alt="자세히보기"/></button>
-						<span class="mralign"><img src="<c:url value='/resources/img/product/pro_simg1.jpg'/>" alt="상품 작은이미지"/></span>
-						<span class="mralign"><img src="<c:url value='/resources/img/product/pro_simg2.jpg'/>" alt="상품 작은이미지"/></span>
-						<span class="mralign"><img src="<c:url value='/resources/img/product/pro_simg3.jpg'/>" alt="상품 작은이미지"/></span>
-						<span><img src="<c:url value='/resources/img/product/pro_simg4.jpg'/>" alt="상품 작은이미지"/></span>
+						<c:forEach items="${imgList}" var="prdImg">
+							<c:if test="${'02' eq prdImg.attImgType && 1 eq prdImg.attImgSeq}">
+								<span class="mralign"><img src="${prdImg.attFilePath}" alt="상품 작은이미지"></span>
+							</c:if>
+						</c:forEach>
+						<c:forEach items="${imgList}" var="prdImg">
+							<c:if test="${'02' eq prdImg.attImgType && 2 eq prdImg.attImgSeq}">
+								<span class="mralign"><img src="${prdImg.attFilePath}" alt="상품 작은이미지"></span>
+							</c:if>
+						</c:forEach>
+						<c:forEach items="${imgList}" var="prdImg">
+							<c:if test="${'02' eq prdImg.attImgType && 3 eq prdImg.attImgSeq}">
+								<span class="mralign"><img src="${prdImg.attFilePath}" alt="상품 작은이미지"></span>
+							</c:if>
+						</c:forEach>
+						<c:forEach items="${imgList}" var="prdImg">
+							<c:if test="${'02' eq prdImg.attImgType && 4 eq prdImg.attImgSeq}">
+								<span><img src="${prdImg.attFilePath}" alt="상품 작은이미지"></span>
+							</c:if>
+						</c:forEach>
 					</div>
 					<div class="view_dbox2">
 						<table class="detail_tbl" summary="제품에 대한 상세리스트표">
@@ -37,11 +83,11 @@
 							<tbody>
 								<tr>
 									<th>소비자 가격</th>
-									<td colspan="2"><span class="textline">89,000 원</span></td>
+									<td colspan="2"><span class="textline">${pro.prdPrice} 원</span></td>
 								</tr>
 								<tr>
 									<th>판매 가격</th>
-									<td colspan="2"><strong class="stext">66,700 원</strong></td>
+									<td colspan="2"><strong class="stext">${pro.prdSellPrc} 원</strong></td>
 								</tr>
 								<tr>
 									<th class="bottomline">배송비</th>
@@ -49,42 +95,48 @@
 								</tr>
 								<tr>
 									<th>모델명</th>
-									<td colspan="2">HBS-730</td>
+									<td colspan="2">${pro.prdModel}</td>
 								</tr>
 								<tr>
 									<th>브랜드</th>
-									<td colspan="2">LG 전자</td>
+									<td colspan="2">${pro.prdBrand}</td>
 								</tr>
 								<tr>
 									<th>모델번호</th>
-									<td colspan="2">SB200</td>
+									<td colspan="2">${pro.prdModelNo}</td>
 								</tr>
 								<tr>
 									<th>제조사</th>
-									<td colspan="2">중국</td>
+									<td colspan="2">${pro.prdBrand}</td>
 								</tr>
 								<tr>
 									<th class="bottomline">상품코드</th>
-									<td colspan="2" class="bottomline">339</td>
+									<td colspan="2" class="bottomline">${pro.prdCd}</td>
 								</tr>
 								<tr>
 									<th>옵션적용가</th>
-									<td colspan="2">66,700 원</td>
+									<td colspan="2">${pro.prdSellPrc} 원</td>
 								</tr>
 								<tr>
 									<th>색상</th>
-									<td colspan="2">
-										<select>
-											<option>옵션선택</option>
-										</select>
+									<td colspan="2" >
+										<select  id="prdColor" name="prdColor">
+											<c:forEach var="opKey" items="${pro.optionKey}" begin="0" end="49" varStatus="i">
+												<c:if test="${'01' eq opKey}"> 
+													<option value="${pro.optionIdx[i.index]}" >${pro.optionValue[i.index]}</option>
+      											</c:if>
+      										</c:forEach>
+      									</select>
 									</td>
 								</tr>
 								<tr>
 									<th>수량</th>
 									<td colspan="2">
 										<select>
-											<option>옵션선택</option>
-										</select>
+											<c:forEach var="i" begin="1" end="50" step="1">
+												<option value="<c:out value="${i}"></c:out>"><c:out value="${i}"></c:out></option>
+											</c:forEach>
+										</select>	
 									</td>
 								</tr>
 								<tr>
@@ -95,8 +147,14 @@
 										</select>
 									</td>
 								</tr>
+						
 								<tr>
-									<th class="bgcolor">블랙</th>
+									<c:forEach var="opKey" items="${pro.optionKey}" begin="0" end="49" varStatus="i">
+										<c:if test="${'01' eq opKey}"> 
+											<th class="bgcolor">${pro.optionValue[i.index]}</th>
+      									</c:if>
+      								</c:forEach>
+      								
 									<td class="bgcolor salign">
 										<select>
 											<option>1</option>
@@ -145,6 +203,7 @@
 						<li class="alignline">배송/반품/교환정보</li>
 					</ul>
 					<p class="image_section">
+						${pro.prdConts}
 						<img src="<c:url value='/resources/img/product/pro_detailimg.jpg'/>" alt="제품상세이미지"/>
 					</p>
 				</div>

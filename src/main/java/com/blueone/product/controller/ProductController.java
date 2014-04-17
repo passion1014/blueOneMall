@@ -5,8 +5,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
+
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartException;
+
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
@@ -17,8 +19,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -742,7 +746,32 @@ public class ProductController {
 		
 		*/
 		
+		//상품이미지보내기
 		productInfo = productManageService.getProductInfDetail(productInfo);
+		AttachFileInfo attFile= new AttachFileInfo();
+		attFile.setAttCdKey(productInfo.getPrdCd());
+		List<AttachFileInfo> imgList = attFileManageService.getAttFileInfList(attFile);
+		model.addAttribute("imgList", imgList);
+		
+		//상품정보보내기
+		productInfo = productManageService.getProductInfDetail(productInfo);
+		
+		//상품옵션보내기
+		List<ProductInfo> prdOpList = new ArrayList<ProductInfo>();
+		prdOpList=productManageService.getProductOptionInfDetail(productInfo);
+		int i=0;
+		
+		int[] opIdx=new int[50] ;
+		String[] opKey=new String[50];
+		String[] opValue=new String[50];
+		for(ProductInfo each : prdOpList){
+			opKey[i]=each.getPropType();
+			opValue[i]=each.getPropName();
+			opIdx[i]=each.getPropIdx();
+			i++;
+		}
+		productInfo.setOptionKey(opKey);
+		productInfo.setOptionValue(opValue);
 		
 		model.addAttribute("pro", productInfo);
 		
@@ -750,6 +779,23 @@ public class ProductController {
 		return "product/productView";
 	}
 	
+	
+	
+	
+	/**
+	 * 화면에서 콤보박스를 구성하기 위하여 호출하는 서비스
+	 * JSON 형식의 데이터로 반환한다.
+	 * @return
+	 */
+	@RequestMapping(value="/admin/OptionValue/{idx}", method= RequestMethod.GET)
+	@ResponseBody
+	public String getCategoryList4Combo(@PathVariable String idx) {
+		String res="";
+		
+		
+		
+		return res;
+	}
 	
 	
 	
