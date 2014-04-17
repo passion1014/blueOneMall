@@ -90,6 +90,10 @@ public class UserProductController {
 		model.addAttribute("largeCode",largeCode);
 		model.addAttribute("middleCode",middleCode);
 		model.addAttribute("lMenuDetail",categoryInfo);
+		
+		
+		
+		
 		return "product/productList";
 	}
 	
@@ -99,6 +103,7 @@ public class UserProductController {
 		return "/inc/header";
 	}
 	
+	/*
 	@RequestMapping(value="/product/productView.do")
 	public String productView(@ModelAttribute("productInfo") ProductInfo productInfo,@ModelAttribute("categoryInfo") CategoryInfo categoryInfo ,BindingResult result, Model model){
 		
@@ -153,7 +158,7 @@ public class UserProductController {
 		model.addAttribute("ctgList1", rstList1);
 		model.addAttribute("ctgList2", rstList2);
 		model.addAttribute("categoryInfo", categoryInfo);
-		model.addAttribute("list", list);*/
+		model.addAttribute("list", list);
 	
 		
 		
@@ -167,7 +172,7 @@ public class UserProductController {
 		return "product/productView";
 	}
 	
-
+	*/
 	
 	
 	

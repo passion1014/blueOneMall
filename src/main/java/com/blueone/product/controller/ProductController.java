@@ -676,6 +676,79 @@ public class ProductController {
 	}
 */
 	
+	@RequestMapping(value="/product/productView.do", method= RequestMethod.GET)
+	public String productView(@ModelAttribute("productInfo") ProductInfo productInfo,@ModelAttribute("categoryInfo") CategoryInfo categoryInfo ,BindingResult result, Model model){
+		
+		/*
+		categoryInfo = new CategoryInfo();
+		categoryInfo = categoryManageService.getCategoryInfDetail(categoryInfo);
+		model.addAttribute("categoryInfo", categoryInfo);
+		List<CategoryInfo> fullList = categoryManageService.getCategoryInfList(categoryInfo);
+		//대분류 조회
+		List<CategoryInfo> lFullList = new ArrayList<CategoryInfo>();
+		//중분류 조회
+		List<CategoryInfo> mFullList = new ArrayList<CategoryInfo>();
+		
+		String ctgLargeCode = categoryInfo.getCtgLargeCode();
+		
+		for(CategoryInfo large : fullList){
+			if("01".equals(large.getCtgCodeType())){
+				lFullList.add(large);
+			}
+			if("02".equals(large.getCtgCodeType())){
+				mFullList.add(large);
+			}
+			
+		}
+		
+		for(int idx=0; idx < mFullList.size(); idx++) {
+			CategoryInfo each = mFullList.get(idx);
+			if (!ctgLargeCode.equals(each.getCtgPCode())) {
+				mFullList.remove(idx);
+				idx--;
+			}
+		}
+		
+		
+		/*categoryInfo = categoryManageService.getCategoryInfDetail(categoryInfo);
+		List<CategoryInfo> list = categoryManageService.getCategoryInfList4(categoryInfo);
+		
+		List<CategoryInfo> rstList1 = getCategoryListByTypeCd(categoryInfo, "01");//대분류 list
+		List<CategoryInfo> rstList2 = getCategoryListByTypeCd(categoryInfo, "02");//중분류 list
+		
+		String ctgLargeCode = categoryInfo.getCtgLargeCode();
+		
+		for(int idx=0; idx < rstList2.size(); idx++) {
+			CategoryInfo each = rstList2.get(idx);
+			if (!ctgLargeCode.equals(each.getCtgPCode())) {
+				rstList2.remove(idx);
+				idx--;
+			}
+		}
+
+		
+		model.addAttribute("ctgList1", rstList1);
+		model.addAttribute("ctgList2", rstList2);
+		model.addAttribute("categoryInfo", categoryInfo);
+		model.addAttribute("list", list);
+	
+		
+		
+	
+		
+		model.addAttribute("lFullList", lFullList);
+		model.addAttribute("mFullList", mFullList);
+		
+		
+		*/
+		
+		productInfo = productManageService.getProductInfDetail(productInfo);
+		
+		model.addAttribute("pro", productInfo);
+		
+		
+		return "product/productView";
+	}
 	
 	
 	
