@@ -344,8 +344,30 @@ public class CategoryManageServiceImpl implements ICategoryManageService {
 		return rst;
 	}
 	
-
 	
+	/*
+	 * 대분류 코드가 넘어오지 않았을 경우 
+	 * 대분류 코드 1개를 획득
+	 */
+	@Override
+	public CategoryInfo getCategoryInfDetail2(CategoryInfo categoryInfo){
+		
+		CategoryInfo rstInfo = new CategoryInfo();
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			// -----------------------------------------------
+			// 1. 카테고리 기본값 조회
+			// -----------------------------------------------
+			rstInfo = sqlSession.selectOne("category.selectDtlBomCategoryTb0002", categoryInfo);
+			
+		} finally {
+			sqlSession.close();
+		}		
+		
+		return rstInfo;
+		
+	}
 	
 
 }

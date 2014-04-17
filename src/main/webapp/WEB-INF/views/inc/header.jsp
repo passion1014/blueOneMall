@@ -15,11 +15,7 @@
 	// 조회
 	CategoryInfo categoryInfo = new CategoryInfo();
 	List<CategoryInfo> largeMenuList = categoryService.getCategoryInfList2(categoryInfo);
-	
 %>
-
-<c:if test="${reloadVar=='yes'}"><script>opener.location.reload();</script></c:if>
-
 <!--  header 시작 -->
 <div class="header">
 	<div class="top">
@@ -45,7 +41,7 @@
 	<div class="gnb">
 		<ul>
 			<c:set value="1" var="counterNumber" />
-			<c:forEach begin="1" end="8" step="1" var="largeList" items="<%=largeMenuList%>">
+			<c:forEach begin="0" end="8" step="1" var="largeList" items="<%=largeMenuList%>">
 				<c:choose>
 					<c:when test="${counterNumber == '1'}">
 						<li><a href="/product/productList.do?ctgCode=${largeList.ctgCode}">${largeList.ctgName}</a></li>

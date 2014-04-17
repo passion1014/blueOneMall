@@ -32,70 +32,67 @@ public class UserProductController {
 	
 	
 	@RequestMapping(value="/product/productList.do")
-	public String productList(@ModelAttribute("productInfo") ProductInfo productInfo, @ModelAttribute("categoryInfo") CategoryInfo categoryInfo, String ctgCode, BindingResult result, Model model){
-		if(StringUtils.isEmpty(ctgCode))ctgCode="L2727";
-		
-		
-		CategoryInfo caIn = new CategoryInfo();
-		caIn.setCtgCode(ctgCode);
-		CategoryInfo caInRe =categoryManageService.getCategoryInfDetail(caIn);
-		
+	public String productList(@ModelAttribute("productInfo") ProductInfo productInfo, @ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model){
+
 		// ----------------------------------------------------------
-		// 1. 변수선언
+		// 변수선언
 		// ----------------------------------------------------------
-		List<ProductInfo> productList = null;
-		List<Object> priceList = new ArrayList<Object>();		
 		List<CategoryInfo> largeCode  = new ArrayList<CategoryInfo>();//대분류조회
-		List<CategoryInfo> middleCode  = new ArrayList<CategoryInfo>();//중분류조회
-		List<CategoryInfo> lnbList  = new ArrayList<CategoryInfo>();
+		List<CategoryInfo> middleCode = new ArrayList<CategoryInfo>();//중분류조회
+		List<CategoryInfo> lnbList    = new ArrayList<CategoryInfo>();
+				
+		List<ProductInfo> productList = null;
+		
 		
 		// ----------------------------------------------------------
-		// 2. 카테고리 조회
+		// 카테고리 조회
 		// ----------------------------------------------------------
 		List<CategoryInfo> categoryList = categoryManageService.getCategoryInfList(categoryInfo);
+		
+		
+		
+		// ----------------------------------------------------------
+		// 대분류 정보 조회
+		// 사용처는 LNB 대분류 정보용		
+		// ----------------------------------------------------------
+		CategoryInfo largeInf = new CategoryInfo();
+		if(categoryInfo.getCtgCode() == null){
+			largeInf = categoryManageService.getCategoryInfDetail2(categoryInfo);
+		}else{
+			largeInf = categoryManageService.getCategoryInfDetail(categoryInfo);		
+		}
+		
+		
 		for (CategoryInfo each : categoryList) {
-			if (ctgCode.equals(each.getCtgPCode())) {
+			if (largeInf.getCtgCode().equals(each.getCtgPCode())) {
 				lnbList.add(each);
-			}
-		}
-		
-		//대분류만 조회
-		for(CategoryInfo each : categoryList){
-			if("01".equals(each.getCtgCodeType())){
-				largeCode.add(each);
-			}
-		}
-		//중분류만 조회
-		for(CategoryInfo each : categoryList){
-			if("02".equals(each.getCtgCodeType())){
-				middleCode.add(each);
-			}
-		}
-		
+			}			
+		}		
 		
 				
 		// ----------------------------------------------------------
-		// 3. 상품+가격목록 조회
+		// 상품+가격목록 조회
 		// ----------------------------------------------------------
 		productList = iUserProductService.shopProductInfList(productInfo);
-		priceList= iUserProductService.shopProductByPriceList(productInfo);
 		
-		
-		categoryInfo = categoryManageService.getCategoryInfDetail(categoryInfo);
-		
-		model.addAttribute("productList", productList);	// 상품리스트
-		model.addAttribute("priceList", priceList);//상품가격
-		model.addAttribute("lnbList",lnbList);
 		model.addAttribute("categoryList",categoryList);//
-		model.addAttribute("largeCode",largeCode);
+		model.addAttribute("largeInf",largeInf);
+		model.addAttribute("lnbList",lnbList);
+		
 		model.addAttribute("middleCode",middleCode);
+		model.addAttribute("productList", productList);	// 상품리스트
 		model.addAttribute("lMenuDetail",categoryInfo);
 		
-		
-		
-		
 		return "product/productList";
+		
 	}
+	
+	
+	
+	
+	
+	
+	
 	
 	@RequestMapping(value="/include/header.do")
 	public String header() {

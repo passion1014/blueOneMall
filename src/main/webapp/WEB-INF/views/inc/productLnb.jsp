@@ -2,35 +2,20 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div class="lnb">
-	
-	<h3>
-		${largeCode.ctgName}
-	</h3>
-	
+	<h3>${largeInf.ctgName}</h3>
 	<ul class="lnb_list">
-		<%-- <c:forEach items="${categoryList}" var="lList">
-			<li><a href="#">${lList.ctgName}</a></li>
-			
-			
-			<c:forEach items="${list1}" var="sList">
-				<div class="onclick_list">				
-				<c:if test="${sList.ctgCodeType == '03'}">
-					<c:if test="${sList.ctgPCode} == ${lList.ctgCode}">
-						<a href="#">${sList.ctgName}</a>
-					</c:if>					
-				</c:if>
-				</div>					
-			</c:forEach>
-			
-				
-			</c:forEach> --%>
-		
-			<c:forEach items="${middleCode}" var="middleCode">
-				<c:if test="${middleCode.ctgPCode} == ${lMenuDetail.ctgCode}">
-					<c:out value="${middleCode.ctgName}"></c:out>
-				</c:if>
-			</c:forEach> 
-		
+		<c:forEach items="${lnbList}" var="lnbList">
+			<li><a href="#" onClick="document.getElementById('ss_1').style.display='block';"><c:out value="${lnbList.ctgName}"></c:out></a></li>
+			<div id="ss_1" class="onclick_list" style="display:block;">
+				<c:forEach items="${categoryList}" var="smallList">
+				${smallList.ctgPCode} =====
+				${lnbList.ctgCode} <br />
+					<c:if test="${smallList.ctgPCode} == ${lnbList.ctgCode}">
+						<a href="#">${smallList.ctgName}</a>
+					</c:if>
+				</c:forEach>
+			</div>			
+		</c:forEach>
 		
 		
 		
