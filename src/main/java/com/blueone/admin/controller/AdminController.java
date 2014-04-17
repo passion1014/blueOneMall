@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +21,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.blueone.admin.domain.AccountInfo;
 import com.blueone.admin.domain.AdminInfo;
 import com.blueone.admin.domain.AdminLoginInfo;
 import com.blueone.admin.service.IAdminManageService;
+import com.blueone.category.domain.CategoryInfo;
+import com.blueone.common.util.PageDivision;
 
 @SessionAttributes("adminSession")
 @Controller
@@ -189,6 +194,105 @@ public class AdminController {
 	}
 	
 	
+	/**
+	 * 계좌 목록 리스트
+	 */
+	@RequestMapping(value="/accountList.do", method= RequestMethod.GET)
+	public String adminAccountList(@ModelAttribute("accountInfo") AccountInfo accInfo, BindingResult result, Model model,HttpSession session,String page){
+		/*
+		AdminInfo adminSession = (AdminInfo)session.getAttribute("adminSession");
+		
+		if(adminSession == null){
+		return "redirect:adminLogin.do";
+		}
+		*/
+		List<AccountInfo> accList = adminManageService.getAccountInfList();
+		
+		PageDivision pd = new PageDivision();
+		
+
+		if(StringUtils.isEmpty(page)) pd.pageNum("1");
+		else pd.pageNum(page);
+		
+		pd.setAccList(accList);
+		
+		
+		model.addAttribute("list", pd.getAccList(2));
+		model.addAttribute("endNum",pd.getEndPageNum());
+		
+		
+		return "admin/admin/accountList";
+			
+	}
+	
+	
+	
+	/**
+	 * 계좌 등록폼
+	 */
+	@RequestMapping(value="/accountRegister.do", method= RequestMethod.GET)
+	public String largeTypeRegister(@ModelAttribute("accountInfo") AccountInfo accInfo, BindingResult result, Model model){
+		
+		List<AccountInfo> rstList = adminManageService.getBankInfList();
+		model.addAttribute("bankList", rstList);
+		
+		
+		return "admin/admin/accountRegister";
+		
+	}
+		
+	/**
+	 * 계좌 등록처리
+	 */
+	@RequestMapping(value = "/accountRegisterProc.do", method = RequestMethod.POST)
+	public String largeTypeRegisterProc(@ModelAttribute("accountInfo") AccountInfo accInfo, BindingResult result, Model model,RedirectAttributes redirectAttributes) {
+		
+		adminManageService.registAccountInf(accInfo);
+		
+		redirectAttributes.addFlashAttribute("reloadVar", "yes");
+		return "redirect:accountRegister.do";
+		
+	}
+	
+	
+	/**
+	 * 계좌 삭제
+	 */
+	@RequestMapping(value = "/deleteAccountProc.do", method = RequestMethod.GET)
+	public String deletesAccountInfo(@ModelAttribute("accountInfo") AccountInfo accInfo, BindingResult result, Model model) {
+		
+		adminManageService.deleteAccountInf(accInfo);
+		
+		return "redirect:accountList.do";
+	}
+	
+	/**
+	 * 계좌 수정폼
+	 */		
+	@RequestMapping(value="/accountEdit.do", method=RequestMethod.GET)
+	public String accountModify(@ModelAttribute("accountInfo") AccountInfo accInfo, BindingResult result, Model model){
+		
+		AccountInfo resInf = adminManageService.getAccountInfDetail(accInfo);
+		model.addAttribute("acc", resInf);
+		List<AccountInfo> rstList = adminManageService.getBankInfList();
+		model.addAttribute("bankList", rstList);
+		
+	
+		
+		return "admin/admin/accountEdit";
+	}
+	
+	/**
+	 * 계좌 수정처리
+	 */		
+	@RequestMapping(value="/editAccountInfProc.do", method=RequestMethod.POST)
+	public String accountEditProc(@ModelAttribute("accountInfo") AccountInfo accInfo, BindingResult result, Model model){
+		
+		adminManageService.editAccountInf(accInfo);
+		
+		
+		return "redirect:accountList.do";
+	}
 	
 	
 	

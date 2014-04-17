@@ -16,8 +16,8 @@
 		<div class="sub_content">
 			<form action="#" method="post">
 				<div class="product_view">
-					<span class="locat_box">Home&nbsp;>&nbsp;블루투&nbsp;>&nbsp;LG&nbsp;>&nbsp;스테레오</span>
-					<h4>HBS730 (TONE PLUS) 스테레오 블루투스/APT-X 최강음질지원</h4>
+					<span class="locat_box">Home&nbsp;>&nbsp;${pro.ctgLargeName}&nbsp;>&nbsp;${pro.ctgMiddleName}&nbsp;>&nbsp;${pro.ctgSmallName}</span>
+					<h4>${pro.prdCd}&nbsp;${pro.prdNm}</h4>
 					<div class="view_dbox1">
 						<p><img src="<c:url value='/resources/img/product/pro_mainimg.jpg'/>" alt="상품 큰이미지"/></p>
 						<button><img src="<c:url value='/resources/img/common/btn_viewpro.jpg'/>" alt="자세히보기"/></button>

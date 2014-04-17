@@ -41,25 +41,19 @@
 		});
 		
 	});
-	
 	function fnAddClick() {
 		var f = tx_editor_form;
 
-		f.action = 'productRegisterProc.do';
+		f.action = 'manageProductInfProc.do';
 
 		Editor.save(); // 다음 에디터
 	}
-
-
-	$(document).ready(function() {
-		
+	
 	Editor.modify({
-	     "content":'${prdInfo.content}'
-	});
-	});
+			
+	      "content":"${prdInfo.content}"
+	      });
 	
-	
-		
 </script>
 
 
@@ -314,7 +308,10 @@
 		<tr>
 			<th>상세내용</th>
 			<td colspan="3" style="text-align:left;">
-				<jsp:include page="/resources/editor/editor.jsp" />	
+				<jsp:include page="/resources/editor/editor.jsp" />
+				
+				
+				
 			</td>
 		</tr>
 		<th>옵션</th>
@@ -373,8 +370,8 @@
 	</table>
 
 	<div class="Btn_area">
-		<input type="button" value="수정하기" 	class="Button Gray" onClick="fnAddClick();" / > &nbsp; 
-		<input type="button" value="취소하기"  class="Button Gray" onClick="history.back();">
+		<input type="button" value="수정하기" class="Button Gray" onClick="fnAddClick();" /> &nbsp; 
+		<input type="button" value="취소"     class="Button Gray" onClick="history.back();">
 	</div>
 
 	</form>
