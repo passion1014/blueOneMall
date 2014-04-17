@@ -158,10 +158,10 @@ public class EtcController {
 	
 	
 	//1:1문의하기
-		@RequestMapping(value="/community/qnaList.do", method=RequestMethod.GET)
-		public String qnaList(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model){
-			return "community/qnaPage";
-		}
+	@RequestMapping(value="/community/qnaList.do", method=RequestMethod.GET)
+	public String qnaList(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model){
+		return "community/qnaPage";
+	}
 	
 	
 	
