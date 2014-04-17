@@ -2,24 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:import  url="../inc/topSub.jsp" />
-<script type="text/javascript">
-	$(document).ready(function() {
-		$('#prdColor').change(function() {
-			$.getJSON('/admin/OptionValue/' + $('#prdColor').val(), function(result) {
-//				alert('중분류 size=' + result.length + '    ctgCode=' + result[0].ctgCode);
-				var options = '';
-				if (result != null && result.length > 0) {
-					for (var i = 0; i < result.length; i++) {
-						options += '<option value="' + result[i].ctgCode + '">' + result[i].ctgName + '</option>';
-					}
-				} else {
-					options = "<option value=''>없음</option>";
-				}
-				$("select#ctgPCode").html(options);
-			});
-		});
-	});
-</script>
 
 <body>
 <div class="wrap">
@@ -32,7 +14,8 @@
 		<c:import url="../inc/productLnb.jsp"/>
 		
 		<div class="sub_content">
-			<form action="#" method="post">
+			<form action="/order/cartList.do" method="get">
+			<input type="hidden" id="prdCd"  name="prdCd"  value="${pro.prdCd}">
 				<div class="product_view">
 					<span class="locat_box">Home&nbsp;>&nbsp;
 					${pro.ctgLargeName}&nbsp;>&nbsp;
@@ -147,14 +130,9 @@
 										</select>
 									</td>
 								</tr>
-						
+								
 								<tr>
-									<c:forEach var="opKey" items="${pro.optionKey}" begin="0" end="49" varStatus="i">
-										<c:if test="${'01' eq opKey}"> 
-											<th class="bgcolor">${pro.optionValue[i.index]}</th>
-      									</c:if>
-      								</c:forEach>
-      								
+									<th class="bgcolor"></th>
 									<td class="bgcolor salign">
 										<select>
 											<option>1</option>
@@ -165,6 +143,7 @@
 										<strong class="stext">66,700 원</strong>
 									</td>
 								</tr>
+								
 								<tr>
 									<th class="bgcolor">화이트</th>
 									<td class="bgcolor salign">
@@ -186,7 +165,7 @@
 								<tr>
 									<td colspan="3" class="btn_box">
 										<input type="submit" value="바로 구매하기" class="btn_buy" title="구매하기"/>
-										<button class="shop_basket">장바구니</button>
+										<input type="submit" class="btn_buy" value="장바구니">
 									</td>
 								</tr>
 							</tbody>

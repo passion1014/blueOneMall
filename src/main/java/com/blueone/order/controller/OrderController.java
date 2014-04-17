@@ -1,7 +1,9 @@
 package com.blueone.order.controller;
 
+import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +14,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.blueone.common.util.CookieBox;
 import com.blueone.order.domain.OrderInfo;
 import com.blueone.order.domain.OrderSrchInfo;
 import com.blueone.order.service.IOrderManageService;
+import com.blueone.product.domain.ProductInfo;
 import com.blueone.user.domain.UserInfo;
 
 @Controller
@@ -39,10 +43,20 @@ public class OrderController {
 	
 	//장바구니페이지
 	@RequestMapping(value="/order/cartList.do", method=RequestMethod.GET)
-	public String order(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model){
+	public String order(@ModelAttribute("productInfo") ProductInfo productInfo,BindingResult result, Model model,HttpServletRequest request) throws IOException{
+		
+		CookieBox cki = new CookieBox(request);
+		
+		cki.createCookie(productInfo.getPrdCd(),"장바구니 물건들어왓음",100);
+		
+		
+		System.out.println(cki.getValue(productInfo.getPrdCd()));
+		
 		return "order/cartList";
 	}
 	
+	
+
 	//결제페이지
 	@RequestMapping(value="/order/orderRegister.do")
 	public String orderRegister(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model){

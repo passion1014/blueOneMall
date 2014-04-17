@@ -179,6 +179,17 @@
 			T1.PROP_PRD_CD = #{prdCd}
 	</select >
 	
+	<select id="selectDtlBomProductOptionTb0002" parameterType="hashmap" resultType="ProductInfo" resultMap="ProductBaseDtlMap">
+		SELECT 
+			T1.PROP_OP_TYPE, 
+			T1.PROP_OP_NAME
+			
+		FROM BOM_PRODUCT_OPTION_TB AS T1
+		WHERE
+			T1.PROP_IDX = #{propIdx}
+	</select >
+	
+	
 
 	
 	<insert id="insertBomProductTb0001" parameterType="productInfo">

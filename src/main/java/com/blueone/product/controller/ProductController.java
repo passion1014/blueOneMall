@@ -781,23 +781,7 @@ public class ProductController {
 	
 	
 	
-	
-	/**
-	 * 화면에서 콤보박스를 구성하기 위하여 호출하는 서비스
-	 * JSON 형식의 데이터로 반환한다.
-	 * @return
-	 */
-	@RequestMapping(value="/admin/OptionValue/{idx}", method= RequestMethod.GET)
-	@ResponseBody
-	public String getCategoryList4Combo(@PathVariable String idx) {
-		String res="";
-		
-		
-		
-		return res;
-	}
-	
-	
+
 	
 	
 

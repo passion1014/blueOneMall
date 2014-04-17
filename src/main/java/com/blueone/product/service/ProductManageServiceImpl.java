@@ -311,6 +311,30 @@ public class ProductManageServiceImpl implements IProductManageService {
 	}
 	
 	/*
+	 * 인덱스에 따라 옵션조회 
+	 */
+	@Override
+	public ProductInfo getProductOptionInfDetail2(ProductInfo productInfo) {
+		                 
+		ProductInfo prdOp = new ProductInfo();
+		
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			// -----------------------------------------------
+			// 1. 상품코드 기본값 조회
+			// -----------------------------------------------
+			prdOp = sqlSession.selectOne("product.selectDtlBomProductOptionTb0002", productInfo);
+			
+		} finally {
+			sqlSession.close();
+		}
+		
+		
+		return prdOp;
+	}
+	
+	/*
 	 * 상품 삭제
 	 */
 	@Override
@@ -354,7 +378,7 @@ public class ProductManageServiceImpl implements IProductManageService {
 		return rst;
 	}
 
-		
+
 
 	
 }
