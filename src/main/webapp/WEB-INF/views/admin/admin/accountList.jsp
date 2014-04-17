@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:if test="${reloadVar=='yes'}"><script>opener.location.reload();</script></c:if>
-<c:import  url="../inc/adminChecker.jsp" />
 <c:import  url="../inc/top.jsp" />
 <body>
 <div id="dialog-form"></div>
@@ -13,7 +12,7 @@
 	<!-- 컨덴츠 -->
 	
 	<div id="Contents">
-	<h1>환경설정&gt;계좌관리&gt;<strong>계좌목록</strong></h1>
+	<h1>환경설정 &gt; 계좌관리 &gt; <strong>계좌목록</strong></h1>
 		
 	<div class="right">
 		<input type="button" value="계좌 등록" class="Small_Button Gray" onClick="openWin('./accountRegister.do','accountForm',600,450,'scrollbars=no');">
@@ -37,8 +36,8 @@
 		</tr>
 			
 		<c:choose>
-			<c:when test="${accList.size() != 0}">
-				<c:forEach items="${accList}" var="accList">
+			<c:when test="${list.size() != 0}">
+				<c:forEach items="${list}" var="accList">
 					<tr>
 						<td style="text-align:center;">${accList.accIdx}</td>
 						<td style="text-align:center;">
@@ -46,14 +45,13 @@
 						<c:if test="${'n' eq accList.accShow}">숨김</c:if>
 						</td>
 						<td style="text-align:center;">${accList.accGroup}</td>
-						<td style="text-align:center;">${accList.accBank}</td>
+						<td style="text-align:center;">${accList.bankName}</td>
 						<td>계좌번호 : ${accList.accNum}<br>
 							계 좌 주 : ${accList.accName}
 						</td>
 						<td style="text-align:center;">
 							<input type="button" value="수정" onClick="dialogUpdate('${accList.accIdx}');" class="Button Gray">
-							<input type="button" value="삭제" onClick="confirm_process('','해당 계좌를 삭제하시겠습니까?','deleteAccountProc.do?accIdx=${accList.accIdx}');"  class="Button Gray">
-							
+							<input type="button" value="삭제" onClick="location.href='deleteAccountProc.do?accIdx=${accList.accIdx}';"  class="Button Gray">
 						</td>
 					</tr>
 				</c:forEach>
@@ -66,13 +64,11 @@
 		</c:choose>
 			
 	</table>
-	<!--
+
 	<c:forEach var="i" begin="1" end="${endNum}">
-		<input type="button" value="${i}" onClick="javascript:location.href='largeTypeList.do?page=${i}'">				
+		<input type="button" value="${i}" onClick="javascript:location.href='accountList.do?page=${i}'">				
 	</c:forEach>
-	<div id="Paser">
-	</div>
-	-->
+	
 	</div>	
 </div>
 </body>
@@ -108,14 +104,14 @@ function closeDialog() {
 	$("#dialog-form").dialog("close");
 }
 
-function dialogUpdate(cCode) {
+function dialogUpdate(idx) {
 	$.ajax({
-		type: "POST",
-		url: "largeTypeEdit.do",
+		type: "GET",
+		url: "accountEdit.do",
 		cache: false,
 		async: false,
 		data: {
-			ctgCode : cCode
+			accIdx : idx
 		},
 		dataType: "html",
 		success: function(e) {
@@ -124,8 +120,6 @@ function dialogUpdate(cCode) {
 		}
 	});
 }
-
-
 
 //-->
 </script>

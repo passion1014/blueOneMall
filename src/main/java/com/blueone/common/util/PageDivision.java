@@ -3,6 +3,7 @@ package com.blueone.common.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.blueone.admin.domain.AccountInfo;
 import com.blueone.category.domain.CategoryInfo;
 import com.blueone.product.domain.ProductInfo;
 import com.blueone.product.domain.TransferInfo;
@@ -22,8 +23,34 @@ public class PageDivision {
 	List<ProductInfo> prdExList;
 	List<TransferInfo> trList;
 	List<TransferInfo> trExList;
+	List<AccountInfo> accList;
+	List<AccountInfo> accExList;
 	
 	
+	
+	
+	public List<AccountInfo> getAccList(int item) {
+		int startIdx=pNum*item-item;
+		int forend=pNum*item-1;
+		for(int i=startIdx; i<=forend && i<accList.size(); i++){
+			accExList.add(accList.get(i));
+		}
+		return accExList;
+	}
+	
+	public void setAccList(List<AccountInfo> accList) {
+		this.accList = accList;
+		
+		accExList=new ArrayList<AccountInfo>();
+		
+		if(accList.size()%2==0) {
+			endNum=accList.size()/2;
+		}
+		else{
+			endNum=accList.size()/2+1;
+			}
+		
+	}
 	
 	
 	public List<TransferInfo> getTrList(int item) {

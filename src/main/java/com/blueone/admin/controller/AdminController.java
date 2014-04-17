@@ -198,8 +198,7 @@ public class AdminController {
 	 * 계좌 목록 리스트
 	 */
 	@RequestMapping(value="/accountList.do", method= RequestMethod.GET)
-	public String adminAccountList(@ModelAttribute("accountInfo") AccountInfo accInfo, BindingResult result, Model model,HttpSession session){
-		
+	public String adminAccountList(@ModelAttribute("accountInfo") AccountInfo accInfo, BindingResult result, Model model,HttpSession session,String page){
 		/*
 		AdminInfo adminSession = (AdminInfo)session.getAttribute("adminSession");
 		
@@ -207,24 +206,19 @@ public class AdminController {
 		return "redirect:adminLogin.do";
 		}
 		*/
-		/*List<CategoryInfo> list = categoryManageService.getCategoryInfList(categoryInfo);
-		list = getCategoryListByTypeCd(categoryInfo, "01");
-	    
+		List<AccountInfo> accList = adminManageService.getAccountInfList();
+		
 		PageDivision pd = new PageDivision();
 		
 
 		if(StringUtils.isEmpty(page)) pd.pageNum("1");
 		else pd.pageNum(page);
-		pd.setCtList(list);
+		
+		pd.setAccList(accList);
 		
 		
-		model.addAttribute("list", pd.getCtList(2));
-		
+		model.addAttribute("list", pd.getAccList(2));
 		model.addAttribute("endNum",pd.getEndPageNum());
-		*/
-		
-		List<AccountInfo> accList = adminManageService.getAccountInfList();
-		model.addAttribute("accList", accList);
 		
 		
 		return "admin/admin/accountList";
@@ -275,15 +269,28 @@ public class AdminController {
 	/**
 	 * 계좌 수정폼
 	 */		
-	@RequestMapping(value="/accountEdit.do", method=RequestMethod.POST)
-	public String middleTypeModify(@ModelAttribute("accountInfo") AccountInfo accInfo, BindingResult result, Model model){
+	@RequestMapping(value="/accountEdit.do", method=RequestMethod.GET)
+	public String accountModify(@ModelAttribute("accountInfo") AccountInfo accInfo, BindingResult result, Model model){
 		
-		/*
-		accInfo = categoryManageService.getCategoryInfDetail(categoryInfo);
-		List<CategoryInfo> list = categoryManageService.getCategoryInfList(categoryInfo);
-		model.addAttribute("middleTypeObj", categoryInfo);
-		model.addAttribute("list", list);
-		*/
+		AccountInfo resInf = adminManageService.getAccountInfDetail(accInfo);
+		model.addAttribute("acc", resInf);
+		List<AccountInfo> rstList = adminManageService.getBankInfList();
+		model.addAttribute("bankList", rstList);
+		
+	
+		
+		return "admin/admin/accountEdit";
+	}
+	
+	/**
+	 * 계좌 수정처리
+	 */		
+	@RequestMapping(value="/editAccountInfProc.do", method=RequestMethod.POST)
+	public String accountEditProc(@ModelAttribute("accountInfo") AccountInfo accInfo, BindingResult result, Model model){
+		
+		adminManageService.editAccountInf(accInfo);
+		
+		
 		return "redirect:accountList.do";
 	}
 	
