@@ -156,7 +156,7 @@ public class CategoryManageServiceImpl implements ICategoryManageService {
 			// -----------------------------------------------
 			// 2. 부모카테고리 조회 - 대분류일 경우 조회가 필요없음
 			// -----------------------------------------------
-	/*		if (!"01".equals(categoryInfo.getCtgCodeType())) {
+			if (!"01".equals(categoryInfo.getCtgCodeType())) {
 				List<CategoryInfo> ctgFullList = sqlSession.selectList("category.selectListBomCategoryTb0006", categoryInfo);
 				
 				String ctgCode = categoryInfo.getCtgCode();
@@ -168,7 +168,7 @@ public class CategoryManageServiceImpl implements ICategoryManageService {
 						rstInfo.setCtgMiddleName(each.getCtgMiddleName());
 					}
 				}
-			}*/
+			}
 		} finally {
 			sqlSession.close();
 		}
@@ -281,6 +281,23 @@ public class CategoryManageServiceImpl implements ICategoryManageService {
 		}
 		
 		return rstList;
+	}
+	
+	@Override
+	public List<CategoryInfo> getCategoryInfList5(CategoryInfo categoryInfo){
+		List<CategoryInfo> rstList = new ArrayList<CategoryInfo>();
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			// DB 수행
+			rstList = sqlSession.selectList("category.selectListBomCategoryTb0006", categoryInfo);
+			
+		} finally {
+			sqlSession.close();
+		}
+		
+		return rstList;
+		
 	}
 	
 	
