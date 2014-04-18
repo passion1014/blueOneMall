@@ -24,8 +24,17 @@ public class OrderInfo {
 	private String regDate;		// 등록일
 	private String lastDate;	// 최종수정일
 	private String modifyUserId;// 최종수정자
+	private String prdCD;
 	
 	
+	
+	public String getPrdCD() {
+		return prdCD;
+	}
+	public void setPrdCD(String prdCD) {
+		this.prdCD = prdCD;
+	}
+
 	public int getIdx() {
 		return idx;
 	}

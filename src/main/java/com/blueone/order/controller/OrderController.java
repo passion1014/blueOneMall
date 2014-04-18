@@ -1,8 +1,10 @@
 package com.blueone.order.controller;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.blueone.common.util.CookieBox;
 import com.blueone.order.domain.OrderInfo;
+import com.blueone.order.domain.OrderProductInfo;
 import com.blueone.order.domain.OrderSrchInfo;
 import com.blueone.order.service.IOrderManageService;
 import com.blueone.product.domain.ProductInfo;
@@ -49,79 +52,76 @@ public class OrderController {
 	
 	//장바구니페이지
 	@RequestMapping(value="/order/cartList.do", method=RequestMethod.POST)
-	public String order(@ModelAttribute("productInfo") ProductInfo productInfo,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
+	public String order(@ModelAttribute("orderProductInfo") OrderProductInfo orderProductInfo,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
 		
 		CookieBox cki = new CookieBox(request);
 		
-		String value = productInfo.getPrdColor()+","+productInfo.getPrdMany();
+		String value = orderProductInfo.getPrdOpColor()+","+orderProductInfo.getBuyCnt();
 		
-		Cookie cookie =cki.createCookie(productInfo.getPrdCd(),value,100);
+		Cookie cookie =cki.createCookie(orderProductInfo.getPrdCd(),value,100);
 		response.addCookie(cookie);
 		
 		// 주문 코드 채번
-		int code= (int)(Math.random()*1000000)+1;
-		Date to = new Date();
-		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
-		String today = date.format(to);
-		StringTokenizer st1 = new StringTokenizer(today,"-");
-		String[] d = new String[3];
-		int i=0;
-		while(st1.hasMoreTokens()){
-			if(i==0){
-				d[i]=st1.nextToken();
-			}
-			else if(i==1){
-				switch(Integer.getInteger(st1.nextToken())){
-				case 1:
-					d[i]="J";
-					break;
-				case 2:
-					d[i]="F";
-					break;
-				case 3:
-					d[i]="M";
-					break;
-				case 4:
-					d[i]="A";
-					break;
-				case 5:
-					d[i]="M";
-					break;
-				case 6:
-					d[i]="J";
-					break;
-				case 7:
-					d[i]="J";
-					break;
-				case 8:
-					d[i]="A";
-					break;
-				case 9:
-					d[i]="S";
-					break;
-				case 10:
-					d[i]="O";
-					break;
-				case 11:
-					d[i]="N";
-					break;
-				case 12:
-					d[i]="D";
-					break;
-				
-				}
-			}
-			else if(i==2){
-				d[i]=st1.nextToken();
-			}
-			i++;
+		int code= (int)(Math.random()*100000)+1;
+		Calendar cal = Calendar.getInstance();
+		int year  = cal.get(Calendar.YEAR)-2000;
+		int month = cal.get(Calendar.MONTH);
+		String mon="";
+		switch(month){
+		case 1:
+			mon="J";
+			break;
+		case 2:
+			mon="F";
+			break;
+		case 3:
+			mon="M";
+			break;
+		case 4:
+			mon="A";
+			break;
+		case 5:
+			mon="M";
+			break;
+		case 6:
+			mon="J";
+			break;
+		case 7:
+			mon="J";
+			break;
+		case 8:
+			mon="A";
+			break;
+		case 9:
+			mon="S";
+			break;
+		case 10:
+			mon="O";
+			break;
+		case 11:
+			mon="N";
+			break;
+		case 12:
+			mon="D";
+			break;
+		
 		}
+		String day = Integer.toString((cal.DAY_OF_MONTH)+1);
+		day=day.length()>1?day:"0"+day;
+		String odCode = "BOM"+year+mon+day+code;
+		OrderInfo orderInfo = new OrderInfo();
+		orderInfo.setOrderNo(odCode);
+		orderInfo.setOrderStatCd("01");
 		
-		String odCode = "BOM"+d[0]+d[1]+d[2]+code;
+		/* 총 주문금액 보여주는 부분
+		BigDecimal totalPrice = orderProductInfo.getSellPrice()*orderProductInfo.getBuyCnt();
+		orderProductInfo.setTotalPrice(totalPrice);
+		*/
 		
-		System.out.println(odCode);
 		
-		//System.out.println(cki.getValue(productInfo.getPropPrdCD()));
+		model.addAttribute("odPrdInfo",orderProductInfo);
+		
+		
 		return "order/cartList";
 	}
 	

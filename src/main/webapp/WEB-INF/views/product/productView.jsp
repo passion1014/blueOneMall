@@ -16,6 +16,9 @@
 		<div class="sub_content">
 			<form action="/order/cartList.do" method="post">
 			<input type="hidden" id="prdCd"  name="prdCd"  value="${pro.prdCd}">
+			<input type="hidden" id="prdNm"  name="prdNm"  value="${pro.prdNm}">
+			<input type="hidden" id="prdSellPrc"  name="prdSellPrc"  value="${pro.prdSellPrc}">
+			
 				<div class="product_view">
 					<span class="locat_box">Home&nbsp;>&nbsp;
 					${pro.ctgLargeName}&nbsp;>&nbsp;
@@ -30,6 +33,7 @@
 							<c:forEach items="${imgList}" var="prdImg">
 								<c:if test="${'01' eq prdImg.attImgType}">
 									<img src="${prdImg.attFilePath}">
+									<input type="hidden" id="prdSmallImg"  name="prdSmallImg"  value="${prdImg.attFilePath}">
 								</c:if>
 							</c:forEach>
 						</p>
@@ -103,7 +107,7 @@
 								<tr>
 									<th>색상</th>
 									<td colspan="2" >
-										<select  id="prdColor" name="prdColor">
+										<select  id="prdOpColor" name="prdOpColor">
 											<c:forEach var="opKey" items="${pro.optionKey}" begin="0" end="49" varStatus="i">
 												<c:if test="${'01' eq opKey}"> 
 													<option value="${pro.optionIdx[i.index]}" >${pro.optionValue[i.index]}</option>
@@ -115,7 +119,7 @@
 								<tr>
 									<th>수량</th>
 									<td colspan="2">
-										<select id="prdMany" name="prdMany">
+										<select id="buyCnt" name="buyCnt">
 											<c:forEach var="i" begin="1" end="50" step="1">
 												<option value="<c:out value="${i}"></c:out>"><c:out value="${i}"></c:out></option>
 											</c:forEach>
