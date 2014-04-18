@@ -29,7 +29,8 @@ public class ProductInfo {
 	private int prdTransInf;	//배송,반품,교환정보
 	private String admMemo;		//관리자메모
 	private String modifyUserId;// 최종수정자
-	
+	private String prdMany;
+	private String prdColor;
 	
 	//상품 옵션
 	private String optionKey[];
@@ -65,6 +66,18 @@ public class ProductInfo {
 	
 
 	
+	public String getPrdColor() {
+		return prdColor;
+	}
+	public void setPrdColor(String prdColor) {
+		this.prdColor = prdColor;
+	}
+	public String getPrdMany() {
+		return prdMany;
+	}
+	public void setPrdMany(String prdMany) {
+		this.prdMany = prdMany;
+	}
 	public String getContent() {
 		return content;
 	}

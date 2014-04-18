@@ -29,7 +29,9 @@ public class CookieBox {
 	public static Cookie createCookie(String name, String value, int maxAge) throws IOException {
 //		Cookie cookie = new Cookie(name, URLEncoder.encode(value, "euc-kr"));
 		Cookie cookie = new Cookie(name, value);
+		
 		cookie.setMaxAge(maxAge);
+		//response.addCookie(cookie);
 		return cookie;
 	}
 
@@ -56,7 +58,7 @@ public class CookieBox {
 	public String getValue(String name) throws IOException {
 		Cookie cookie = (Cookie)cookieMap.get(name);
 		if (cookie == null) return null;
-		return URLDecoder.decode(cookie.getValue(), "euc-kr");
+		return cookie.getValue();
 	}
 	
 	public boolean exists(String name) {

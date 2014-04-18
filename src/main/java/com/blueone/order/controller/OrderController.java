@@ -1,10 +1,16 @@
 package com.blueone.order.controller;
 
 import java.io.IOException;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.StringTokenizer;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import javax.xml.ws.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,16 +48,80 @@ public class OrderController {
 	}
 	
 	//장바구니페이지
-	@RequestMapping(value="/order/cartList.do", method=RequestMethod.GET)
-	public String order(@ModelAttribute("productInfo") ProductInfo productInfo,BindingResult result, Model model,HttpServletRequest request) throws IOException{
+	@RequestMapping(value="/order/cartList.do", method=RequestMethod.POST)
+	public String order(@ModelAttribute("productInfo") ProductInfo productInfo,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
 		
 		CookieBox cki = new CookieBox(request);
 		
-		cki.createCookie(productInfo.getPrdCd(),"장바구니 물건들어왓음",100);
+		String value = productInfo.getPrdColor()+","+productInfo.getPrdMany();
 		
+		Cookie cookie =cki.createCookie(productInfo.getPrdCd(),value,100);
+		response.addCookie(cookie);
 		
-		System.out.println(cki.getValue(productInfo.getPrdCd()));
+		// 주문 코드 채번
+		int code= (int)(Math.random()*1000000)+1;
+		Date to = new Date();
+		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+		String today = date.format(to);
+		StringTokenizer st1 = new StringTokenizer(today,"-");
+		String[] d = new String[3];
+		int i=0;
+		while(st1.hasMoreTokens()){
+			if(i==0){
+				d[i]=st1.nextToken();
+			}
+			else if(i==1){
+				switch(Integer.getInteger(st1.nextToken())){
+				case 1:
+					d[i]="J";
+					break;
+				case 2:
+					d[i]="F";
+					break;
+				case 3:
+					d[i]="M";
+					break;
+				case 4:
+					d[i]="A";
+					break;
+				case 5:
+					d[i]="M";
+					break;
+				case 6:
+					d[i]="J";
+					break;
+				case 7:
+					d[i]="J";
+					break;
+				case 8:
+					d[i]="A";
+					break;
+				case 9:
+					d[i]="S";
+					break;
+				case 10:
+					d[i]="O";
+					break;
+				case 11:
+					d[i]="N";
+					break;
+				case 12:
+					d[i]="D";
+					break;
+				
+				}
+			}
+			else if(i==2){
+				d[i]=st1.nextToken();
+			}
+			i++;
+		}
 		
+		String odCode = "BOM"+d[0]+d[1]+d[2]+code;
+		
+		System.out.println(odCode);
+		
+		//System.out.println(cki.getValue(productInfo.getPropPrdCD()));
 		return "order/cartList";
 	}
 	

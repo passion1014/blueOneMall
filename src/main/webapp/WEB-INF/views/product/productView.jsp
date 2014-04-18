@@ -14,7 +14,7 @@
 		<c:import url="../inc/productLnb.jsp"/>
 		
 		<div class="sub_content">
-			<form action="/order/cartList.do" method="get">
+			<form action="/order/cartList.do" method="post">
 			<input type="hidden" id="prdCd"  name="prdCd"  value="${pro.prdCd}">
 				<div class="product_view">
 					<span class="locat_box">Home&nbsp;>&nbsp;
@@ -115,7 +115,7 @@
 								<tr>
 									<th>수량</th>
 									<td colspan="2">
-										<select>
+										<select id="prdMany" name="prdMany">
 											<c:forEach var="i" begin="1" end="50" step="1">
 												<option value="<c:out value="${i}"></c:out>"><c:out value="${i}"></c:out></option>
 											</c:forEach>
