@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -60,6 +61,47 @@ public class OrderController {
 		
 		Cookie cookie =cki.createCookie(orderProductInfo.getPrdCd(),value,100);
 		response.addCookie(cookie);
+	
+		OrderInfo orderInfo = new OrderInfo();
+		orderInfo.setOrderNo(getOrderCode());
+		orderInfo.setOrderStatCd("01");
+		
+		/* 총 주문금액 보여주는 부분
+		BigDecimal totalPrice = orderProductInfo.getSellPrice()*orderProductInfo.getBuyCnt();
+		orderProductInfo.setTotalPrice(totalPrice);
+		*/
+		
+		
+		
+		model.addAttribute("odPrdInfo",orderProductInfo);
+		
+		
+		return "order/cartList";
+	}
+	
+	
+
+	//결제페이지
+	@RequestMapping(value="/order/orderRegister.do")
+	public String orderRegister(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model){
+		return "order/order";
+	}
+	
+	//주문성공페이지
+	@RequestMapping(value="/order/orderComplete.do")
+	public String orderComplete(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model){
+		return "order/orderComplete";
+	}
+	
+	//주문실패페이지
+	@RequestMapping(value="/order/orderError.do")
+	public String orderError(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model){
+		return "order/orderError";
+	}
+	
+	
+	//주문코드 생성
+	public String getOrderCode(){
 		
 		// 주문 코드 채번
 		int code= (int)(Math.random()*100000)+1;
@@ -109,39 +151,7 @@ public class OrderController {
 		String day = Integer.toString((cal.DAY_OF_MONTH)+1);
 		day=day.length()>1?day:"0"+day;
 		String odCode = "BOM"+year+mon+day+code;
-		OrderInfo orderInfo = new OrderInfo();
-		orderInfo.setOrderNo(odCode);
-		orderInfo.setOrderStatCd("01");
 		
-		/* 총 주문금액 보여주는 부분
-		BigDecimal totalPrice = orderProductInfo.getSellPrice()*orderProductInfo.getBuyCnt();
-		orderProductInfo.setTotalPrice(totalPrice);
-		*/
-		
-		
-		model.addAttribute("odPrdInfo",orderProductInfo);
-		
-		
-		return "order/cartList";
-	}
-	
-	
-
-	//결제페이지
-	@RequestMapping(value="/order/orderRegister.do")
-	public String orderRegister(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model){
-		return "order/order";
-	}
-	
-	//주문성공페이지
-	@RequestMapping(value="/order/orderComplete.do")
-	public String orderComplete(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model){
-		return "order/orderComplete";
-	}
-	
-	//주문실패페이지
-	@RequestMapping(value="/order/orderError.do")
-	public String orderError(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model){
-		return "order/orderError";
+		return odCode;
 	}
 }

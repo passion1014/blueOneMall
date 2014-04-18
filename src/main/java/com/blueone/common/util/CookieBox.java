@@ -3,7 +3,9 @@ package com.blueone.common.util;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
@@ -48,6 +50,7 @@ public class CookieBox {
 		cookie.setDomain(domain);
 		cookie.setPath(path);
 		cookie.setMaxAge(maxAge);
+		
 		return cookie;
 	}
 	
@@ -64,4 +67,6 @@ public class CookieBox {
 	public boolean exists(String name) {
 		return cookieMap.get(name) != null;
 	}
+	
+	
 }
