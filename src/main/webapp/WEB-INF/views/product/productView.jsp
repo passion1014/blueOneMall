@@ -14,17 +14,50 @@
 		<c:import url="../inc/productLnb.jsp"/>
 		
 		<div class="sub_content">
-			<form action="#" method="post">
+			<form action="/order/cartList.do" method="post">
+			<input type="hidden" id="prdCd"  name="prdCd"  value="${pro.prdCd}">
+			<input type="hidden" id="prdNm"  name="prdNm"  value="${pro.prdNm}">
+			<input type="hidden" id="prdSellPrc"  name="prdSellPrc"  value="${pro.prdSellPrc}">
+			
 				<div class="product_view">
-					<span class="locat_box">Home&nbsp;>&nbsp;블루투&nbsp;>&nbsp;LG&nbsp;>&nbsp;스테레오</span>
-					<h4>HBS730 (TONE PLUS) 스테레오 블루투스/APT-X 최강음질지원</h4>
+					<span class="locat_box">Home&nbsp;>&nbsp;
+					${pro.ctgLargeName}&nbsp;>&nbsp;
+					<c:if test="${'' eq pro.ctgMiddleName}"><c:out value="없음"/></c:if>
+					<c:if test="${'' ne pro.ctgMiddleName}"><c:out value="${pro.ctgMiddleName}"/></c:if>
+					&nbsp;>&nbsp;
+					<c:if test="${'' eq pro.ctgSmallName}"><c:out value="없음"/></c:if>
+					<c:if test="${'' ne pro.ctgSmallName}"><c:out value="${pro.ctgSmallName}"/></c:if>
+					<h4>${pro.prdCd}&nbsp;${pro.prdNm}</h4>
 					<div class="view_dbox1">
-						<p><img src="<c:url value='/resources/img/product/pro_mainimg.jpg'/>" alt="상품 큰이미지"/></p>
+						<p>
+							<c:forEach items="${imgList}" var="prdImg">
+								<c:if test="${'01' eq prdImg.attImgType}">
+									<img src="${prdImg.attFilePath}">
+									<input type="hidden" id="prdSmallImg"  name="prdSmallImg"  value="${prdImg.attFilePath}">
+								</c:if>
+							</c:forEach>
+						</p>
 						<button><img src="<c:url value='/resources/img/common/btn_viewpro.jpg'/>" alt="자세히보기"/></button>
-						<span class="mralign"><img src="<c:url value='/resources/img/product/pro_simg1.jpg'/>" alt="상품 작은이미지"/></span>
-						<span class="mralign"><img src="<c:url value='/resources/img/product/pro_simg2.jpg'/>" alt="상품 작은이미지"/></span>
-						<span class="mralign"><img src="<c:url value='/resources/img/product/pro_simg3.jpg'/>" alt="상품 작은이미지"/></span>
-						<span><img src="<c:url value='/resources/img/product/pro_simg4.jpg'/>" alt="상품 작은이미지"/></span>
+						<c:forEach items="${imgList}" var="prdImg">
+							<c:if test="${'02' eq prdImg.attImgType && 1 eq prdImg.attImgSeq}">
+								<span class="mralign"><img src="${prdImg.attFilePath}" alt="상품 작은이미지"></span>
+							</c:if>
+						</c:forEach>
+						<c:forEach items="${imgList}" var="prdImg">
+							<c:if test="${'02' eq prdImg.attImgType && 2 eq prdImg.attImgSeq}">
+								<span class="mralign"><img src="${prdImg.attFilePath}" alt="상품 작은이미지"></span>
+							</c:if>
+						</c:forEach>
+						<c:forEach items="${imgList}" var="prdImg">
+							<c:if test="${'02' eq prdImg.attImgType && 3 eq prdImg.attImgSeq}">
+								<span class="mralign"><img src="${prdImg.attFilePath}" alt="상품 작은이미지"></span>
+							</c:if>
+						</c:forEach>
+						<c:forEach items="${imgList}" var="prdImg">
+							<c:if test="${'02' eq prdImg.attImgType && 4 eq prdImg.attImgSeq}">
+								<span><img src="${prdImg.attFilePath}" alt="상품 작은이미지"></span>
+							</c:if>
+						</c:forEach>
 					</div>
 					<div class="view_dbox2">
 						<table class="detail_tbl" summary="제품에 대한 상세리스트표">
@@ -37,11 +70,11 @@
 							<tbody>
 								<tr>
 									<th>소비자 가격</th>
-									<td colspan="2"><span class="textline">89,000 원</span></td>
+									<td colspan="2"><span class="textline">${pro.prdPrice} 원</span></td>
 								</tr>
 								<tr>
 									<th>판매 가격</th>
-									<td colspan="2"><strong class="stext">66,700 원</strong></td>
+									<td colspan="2"><strong class="stext">${pro.prdSellPrc} 원</strong></td>
 								</tr>
 								<tr>
 									<th class="bottomline">배송비</th>
@@ -49,42 +82,48 @@
 								</tr>
 								<tr>
 									<th>모델명</th>
-									<td colspan="2">HBS-730</td>
+									<td colspan="2">${pro.prdModel}</td>
 								</tr>
 								<tr>
 									<th>브랜드</th>
-									<td colspan="2">LG 전자</td>
+									<td colspan="2">${pro.prdBrand}</td>
 								</tr>
 								<tr>
 									<th>모델번호</th>
-									<td colspan="2">SB200</td>
+									<td colspan="2">${pro.prdModelNo}</td>
 								</tr>
 								<tr>
 									<th>제조사</th>
-									<td colspan="2">중국</td>
+									<td colspan="2">${pro.prdBrand}</td>
 								</tr>
 								<tr>
 									<th class="bottomline">상품코드</th>
-									<td colspan="2" class="bottomline">339</td>
+									<td colspan="2" class="bottomline">${pro.prdCd}</td>
 								</tr>
 								<tr>
 									<th>옵션적용가</th>
-									<td colspan="2">66,700 원</td>
+									<td colspan="2">${pro.prdSellPrc} 원</td>
 								</tr>
 								<tr>
 									<th>색상</th>
-									<td colspan="2">
-										<select>
-											<option>옵션선택</option>
-										</select>
+									<td colspan="2" >
+										<select  id="prdOpColor" name="prdOpColor">
+											<c:forEach var="opKey" items="${pro.optionKey}" begin="0" end="49" varStatus="i">
+												<c:if test="${'01' eq opKey}"> 
+													<option value="${pro.optionIdx[i.index]}" >${pro.optionValue[i.index]}</option>
+      											</c:if>
+      										</c:forEach>
+      									</select>
 									</td>
 								</tr>
 								<tr>
 									<th>수량</th>
 									<td colspan="2">
-										<select>
-											<option>옵션선택</option>
-										</select>
+										<select id="buyCnt" name="buyCnt">
+											<c:forEach var="i" begin="1" end="50" step="1">
+												<option value="<c:out value="${i}"></c:out>"><c:out value="${i}"></c:out></option>
+											</c:forEach>
+										</select>	
 									</td>
 								</tr>
 								<tr>
@@ -95,8 +134,9 @@
 										</select>
 									</td>
 								</tr>
+								
 								<tr>
-									<th class="bgcolor">블랙</th>
+									<th class="bgcolor"></th>
 									<td class="bgcolor salign">
 										<select>
 											<option>1</option>
@@ -107,6 +147,7 @@
 										<strong class="stext">66,700 원</strong>
 									</td>
 								</tr>
+								
 								<tr>
 									<th class="bgcolor">화이트</th>
 									<td class="bgcolor salign">
@@ -128,7 +169,7 @@
 								<tr>
 									<td colspan="3" class="btn_box">
 										<input type="submit" value="바로 구매하기" class="btn_buy" title="구매하기"/>
-										<button class="shop_basket">장바구니</button>
+										<input type="submit" class="btn_buy" value="장바구니">
 									</td>
 								</tr>
 							</tbody>
@@ -145,6 +186,7 @@
 						<li class="alignline">배송/반품/교환정보</li>
 					</ul>
 					<p class="image_section">
+						${pro.prdConts}
 						<img src="<c:url value='/resources/img/product/pro_detailimg.jpg'/>" alt="제품상세이미지"/>
 					</p>
 				</div>

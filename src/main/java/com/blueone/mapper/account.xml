@@ -34,10 +34,40 @@
 			T1.ACC_GROUP     	AS accGroup, 
 			T1.ACC_BANK     	AS accBank,
 			T1.ACC_ACCOUNT_NUM  AS accNum, 
+			T1.ACC_ACCOUNT_NAME AS accName,
+			T2.BANK_TYPE       	AS bankType,
+			T2.BANK_NAME      	AS bankName
+		FROM BOM_ACCOUNT_TB AS T1
+			LEFT JOIN BOM_BANK_TB T2 
+				ON ( T1.ACC_BANK = T2.BANK_TYPE)
+		
+	</select >	
+	
+	<select id="selectListBomAccountTb0002" resultType="accountInfo" resultMap="AccountInfoMap">
+		SELECT
+			T1.ACC_IDX     		AS accIdx, 
+			T1.ACC_SHOW     	AS accShow,
+			T1.ACC_GROUP     	AS accGroup, 
+			T1.ACC_BANK     	AS accBank,
+			T1.ACC_ACCOUNT_NUM  AS accNum, 
 			T1.ACC_ACCOUNT_NAME AS accName
 		FROM
 			BOM_ACCOUNT_TB AS T1
+		WHERE
+			T1.ACC_IDX = #{accIdx}
 	</select >	
+	
+	<update id="updateBomAccountTb0001" parameterType="accountInfo" >
+		UPDATE BOM_ACCOUNT_TB
+			SET
+				<if test="accShow != null and accShow != ''">`ACC_SHOW` = #{accShow}</if>
+				<if test="accGroup != null and accGroup != ''">,`ACC_GROUP` = #{accGroup}</if>
+				<if test="accBank != null and accBank != ''">,`ACC_BANK` = #{accBank}</if>
+				<if test="accNum != null and accNum != ''">,`ACC_ACCOUNT_NUM` = #{accNum}</if>
+				<if test="accName != null and accName != ''">,`ACC_ACCOUNT_NAME` = #{accName}</if>
+			WHERE
+				`ACC_IDX`= #{accIdx}
+	</update>
 	
 	<insert id="insertBomAccountTb0001" parameterType="accountInfo" >
 		INSERT BOM_ACCOUNT_TB

@@ -2,58 +2,58 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div class="lnb">
-	
-	<h3>
-	
-		
-			${lMenuDetail.ctgName}
-	
-	</h3>
-	
+	<h3>${largeInf.ctgName}</h3>
 	<ul class="lnb_list">
-		<%-- <c:forEach items="${categoryList}" var="lList">
-			<li><a href="#">${lList.ctgName}</a></li>
+	
+		<c:forEach items="${lnbList}" var="lnbList">
+			<li><a href="productList.do?ctgCode=${largeInf.ctgCode}&ctgMiddleCode=${lnbList.ctgCode}"><c:out value="${lnbList.ctgName}"></c:out></a></li>
+			<c:if test="${lnbSList.size() != 0 && lnbList.ctgCode == chkMiddleCode}">
+				<div class="onclick_list">
+					<c:forEach items="${lnbSList}" var="lnbSList">
+							<a href="#">${lnbSList.ctgName}</a>
+					</c:forEach>	
+				</div>			
+			</c:if>			
+		</c:forEach>
+	
+		<%-- <c:forEach items="${lnbList}" var="lnbList">
+			<c:if test="${lnbList.ctgCode eq chkMiddleCode}">
+				<li><a href="productList.do?ctgCode=${largeInf.ctgCode}&ctgMiddleCode=${lnbList.ctgCode}"><c:out value="${lnbList.ctgName} 1"></c:out></a></li>
+				<div id="ss_${lnbList.ctgCode}" class="onclick_list" style="display:block;">
+					<c:forEach items="${categoryList}" var="smallList">
+						<c:if test="${smallList.ctgPCode eq lnbList.ctgCode}">
+							<a href="#">${smallList.ctgName}</a>
+						</c:if>
+					</c:forEach>	
+				</div>			
+			</c:if>
 			
-			
-			<c:forEach items="${list1}" var="sList">
-				<div class="onclick_list">				
-				<c:if test="${sList.ctgCodeType == '03'}">
-					<c:if test="${sList.ctgPCode} == ${lList.ctgCode}">
-						<a href="#">${sList.ctgName}</a>
-					</c:if>					
-				</c:if>
-				</div>					
-			</c:forEach>
-			
-				
+			<c:if test="${lnbList.ctgCode ne chkMiddleCode}">
+				<li><a href="productList.do?ctgCode=${largeInf.ctgCode}&ctgMiddleCode=${lnbList.ctgCode}"><c:out value="${lnbList.ctgName}"></c:out></a></li>
+			</c:if>			
 		</c:forEach> --%>
 		
-		<c:forEach items="${middleCode}" var="middleCode">
-				<c:if test="${middleCode.ctgPCode} == ${lMenuDetail.ctgCode}">
-					<c:out value="${middleCode.ctgName}"></c:out>
+		
+		<%-- <c:forEach items="${lnbList}" var="lnbList">
+			<c:set value="0" var="smallCounter"></c:set>					
+			<c:forEach items="${categoryList}" var="countList">
+				<c:if test="${countList.ctgPCode eq lnbList.ctgCode}">
+					<c:set value="${smallCounter+1}" var="smallCounter" />					
 				</c:if>
-		</c:forEach> 
-		
-		
-		
-		
-		<!-- <li><a href="#">Multimedia(MM)</a></li>
-		<li><a href="#">Amp</a></li>
-		<div class="onclick_list">
-			<a href="#">인디앰프</a>
-			<a href="#">프리앰프</a>
-			<a href="#">파워앰프</a>
-			<a href="#">올인원앰프/시스템</a>
-			<a href="#">포노앰프</a>
-			<a href="#">홈시어터앰프</a>
-		</div>
-		<li><a href="#">Speaker</a></li>
-		<div class="onclick_list">
-			<a href="#">Hi-Fi Collecion</a>
-			<a href="#">톨보이스커</a>
-			<a href="#">북셀프스피커</a>
-			<a href="#">멀티채널스피커</a>
-			<a href="#">사운드바</a>
-		</div> -->
+			</c:forEach>
+			<c:if test="${smallCounter > 0}">
+				<li><a href="productList.do?ctgCode=${largeInf.ctgCode}" onClick="document.getElementById('ss_${lnbList.ctgCode}').style.display='block';"><c:out value="${lnbList.ctgName}"></c:out></a></li>
+				<div id="ss_${lnbList.ctgCode}" class="onclick_list" style="display:none;">
+					<c:forEach items="${categoryList}" var="smallList">
+						<c:if test="${smallList.ctgPCode eq lnbList.ctgCode}">
+							<a href="#">${smallList.ctgName}</a>
+						</c:if>
+					</c:forEach>	
+				</div>			
+			</c:if>
+			<c:if test="${smallCounter < 1}">
+				<li><a href="productList.do?ctgCode=${largeInf.ctgCode}"><c:out value="${lnbList.ctgName}"></c:out></a></li>			
+			</c:if>
+		</c:forEach> --%>
 	</ul>
 </div>

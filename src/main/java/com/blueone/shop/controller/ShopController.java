@@ -26,6 +26,14 @@ public class ShopController {
 	ShopService shopService;
 	
 	
+	@RequestMapping(value ="/worklist.do", method = RequestMethod.GET)
+	public String workList(@ModelAttribute("ShopInfo") ShopInfo shopInfo, BindingResult result, Model model){
+		
+		return "worklist";
+	}
+	
+	
+	
 	@RequestMapping(value ="/main.do", method = RequestMethod.GET)
 	public String read(@ModelAttribute("ShopInfo") ShopInfo shopInfo, BindingResult result, Model model){
 		

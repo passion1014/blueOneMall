@@ -13,8 +13,12 @@ public interface ICategoryManageService {
 	public List<CategoryInfo> getCategoryInfList2(CategoryInfo categoryInfo);
 	public List<CategoryInfo> getCategoryInfList3(CategoryInfo categoryInfo);
 	public List<CategoryInfo> getCategoryInfListByPCode(CategoryInfo categoryInfo);
-	public CategoryInfo getCategoryInfDetail(CategoryInfo categoryInfo);
-	public int deleteCategoryInf(CategoryInfo categoryInfo);
 	public List<CategoryInfo> getCategoryInfList4(CategoryInfo categoryInfo);
+	public List<CategoryInfo> getCategoryInfList5(CategoryInfo categoryInfo);	
+	public CategoryInfo getCategoryInfDetail(CategoryInfo categoryInfo);
+	public CategoryInfo getCategoryInfDetail2(CategoryInfo categoryInfo);
+	public int deleteCategoryInf(CategoryInfo categoryInfo);
+	
+	
 	
 }

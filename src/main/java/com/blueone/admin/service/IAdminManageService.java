@@ -19,6 +19,8 @@ public interface IAdminManageService {
 	public List<AccountInfo> getBankInfList();
 	public int registAccountInf(AccountInfo attInfo);
 	public List<AccountInfo> getAccountInfList();
-	public int deleteAccountInf(AccountInfo attInfo);	
+	public int deleteAccountInf(AccountInfo attInfo);
+	public AccountInfo getAccountInfDetail(AccountInfo accInfo);
+	public int editAccountInf(AccountInfo accInfo);	
 	
 }

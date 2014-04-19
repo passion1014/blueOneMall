@@ -59,17 +59,17 @@
 									</th>
 									<td class="product_area">
 										<span>
-										<img src="<c:url value='/resources/img/sub/product_img1.jpg'/>"  alt="상품이미지"/></span>
+										<img src="${odPrdInfo.prdSmallImg}"  alt="상품이미지"/></span>
 										<span>
-											[Harman Kardon] HAR/KAR-AE 이어폰
+											${odPrdInfo.prdNm}
 										</span>
 									</td>
-									<td>124,000</td>
+									<td>${odPrdInfo.sellPrice}</td>
 									<td>
-										<span class="input_text"><input type="text" value="1" title="수량기입"><button class="btn_triangle1"></button></span>
+										<span class="input_text"><input type="text" value="${odPrdInfo.buyCnt}" title="수량기입"><button class="btn_triangle1"></button></span>
 										<span class="input_btn"><input type="button" value="수정" title="수정"><button class="btn_triangle2"></button></span>
 									</td>
-									<td>124,000</td>
+									<td>>${odPrdInfo.sellPrice}</td>
 									<td>
 										<button class="btn_choice1">구매하기</button>
 										<button class="btn_choice2">삭제하기</button>

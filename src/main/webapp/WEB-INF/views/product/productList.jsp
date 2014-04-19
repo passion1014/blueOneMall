@@ -58,8 +58,8 @@
 						<a href="#">제조사순</a>
 					</span>
 					<ul class="product_list">
-						<c:forEach var="list" items="${list}">
-							<li><a href="#">
+						<c:forEach var="list" items="${productList}">
+							<li><a href="javascript:location.href='productView.do?prdCd=${list.prdCd}';">
 								<dl class="list_product">
 									<dd>${list.prdPrice}<img src="<c:url value='/resources/img/sub/sub_proimg1.jpg'/>" alt="product image"/></dd>
 									<dd></dd>

@@ -19,6 +19,23 @@ public class OrderProductInfo {
 	private String regDate;			// 등록일
 	private String lastDate;		// 최종수정일
 	private String modifyUserId;	// 최종수정자
+	private String prdOpColor;		// 옵션-색상
+	private String prdOpSize;		// 옵션-크기
+	
+	
+	
+	public String getPrdOpColor() {
+		return prdOpColor;
+	}
+	public void setPrdOpColor(String prdOpColor) {
+		this.prdOpColor = prdOpColor;
+	}
+	public String getPrdOpSize() {
+		return prdOpSize;
+	}
+	public void setPrdOpSize(String prdOpSize) {
+		this.prdOpSize = prdOpSize;
+	}
 	
 	public int getIdx() {
 		return idx;

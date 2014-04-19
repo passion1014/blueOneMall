@@ -234,6 +234,8 @@ public class AdminManageServiceImpl implements IAdminManageService {
 		return rstList;
 	}
 	
+	
+	//계좌등록
 	@Override
 	public int registAccountInf(AccountInfo attInfo) {
         
@@ -249,7 +251,7 @@ public class AdminManageServiceImpl implements IAdminManageService {
 	}
 
 	
-	//은행 조회
+	//계좌 전체 조회
 	@Override
 	public List<AccountInfo> getAccountInfList() {
 		List<AccountInfo> rstList = new ArrayList<AccountInfo>();
@@ -269,7 +271,7 @@ public class AdminManageServiceImpl implements IAdminManageService {
 	}
 	
 	/*
-	 * 계좌 삭제
+	 * 계좌  삭제
 	 */
 	@Override
 	public int deleteAccountInf(AccountInfo attInfo){
@@ -290,7 +292,49 @@ public class AdminManageServiceImpl implements IAdminManageService {
 		return rst;
 	}
 	
+	/* 
+	 * 계좌 정보 조회
+	 * 
+	 */
+	@Override
+	public AccountInfo getAccountInfDetail(AccountInfo accInfo) {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		
+		AccountInfo resultInfo = new AccountInfo();
+		try {
+			resultInfo = sqlSession.selectOne("account.selectListBomAccountTb0002", accInfo);
+		} finally {
+			sqlSession.close();
+		}
+
+		return resultInfo;
+	}
 	
+	@Override
+	public int editAccountInf(AccountInfo accInfo) {
+		int rst = -1;
+		
+		// -----------------------------------------------
+		// 해당하는 카테고리 데이터가 있는지 확인
+		// -----------------------------------------------
+		AccountInfo searchRstInf = getAccountInfDetail(accInfo);
+		
+		// -----------------------------------------------
+		// 조회한 결과값이 있으면 DB업데이트
+		// -----------------------------------------------
+		if (searchRstInf != null ) {
+			SqlSession sqlSession = sqlSessionFactory.openSession();
+			try {
+				// DB 수행
+				rst = sqlSession.update("account.updateBomAccountTb0001", accInfo);
+				
+			} finally {
+				sqlSession.close();
+			}
+		}
+		
+		return rst;
+	}
 
 		
 }

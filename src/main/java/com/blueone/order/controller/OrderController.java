@@ -1,8 +1,19 @@
 package com.blueone.order.controller;
 
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.StringTokenizer;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import javax.xml.ws.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,9 +23,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.blueone.common.util.CookieBox;
 import com.blueone.order.domain.OrderInfo;
+import com.blueone.order.domain.OrderProductInfo;
 import com.blueone.order.domain.OrderSrchInfo;
 import com.blueone.order.service.IOrderManageService;
+import com.blueone.product.domain.ProductInfo;
 import com.blueone.user.domain.UserInfo;
 
 @Controller
@@ -38,11 +52,35 @@ public class OrderController {
 	}
 	
 	//장바구니페이지
-	@RequestMapping(value="/order/cartList.do", method=RequestMethod.GET)
-	public String order(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model){
+	@RequestMapping(value="/order/cartList.do", method=RequestMethod.POST)
+	public String order(@ModelAttribute("orderProductInfo") OrderProductInfo orderProductInfo,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
+		
+		CookieBox cki = new CookieBox(request);
+		
+		String value = orderProductInfo.getPrdOpColor()+","+orderProductInfo.getBuyCnt();
+		
+		Cookie cookie =cki.createCookie(orderProductInfo.getPrdCd(),value,100);
+		response.addCookie(cookie);
+	
+		OrderInfo orderInfo = new OrderInfo();
+		orderInfo.setOrderNo(getOrderCode());
+		orderInfo.setOrderStatCd("01");
+		
+		/* 총 주문금액 보여주는 부분
+		BigDecimal totalPrice = orderProductInfo.getSellPrice()*orderProductInfo.getBuyCnt();
+		orderProductInfo.setTotalPrice(totalPrice);
+		*/
+		
+		
+		
+		model.addAttribute("odPrdInfo",orderProductInfo);
+		
+		
 		return "order/cartList";
 	}
 	
+	
+
 	//결제페이지
 	@RequestMapping(value="/order/orderRegister.do")
 	public String orderRegister(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model){
@@ -59,5 +97,61 @@ public class OrderController {
 	@RequestMapping(value="/order/orderError.do")
 	public String orderError(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model){
 		return "order/orderError";
+	}
+	
+	
+	//주문코드 생성
+	public String getOrderCode(){
+		
+		// 주문 코드 채번
+		int code= (int)(Math.random()*100000)+1;
+		Calendar cal = Calendar.getInstance();
+		int year  = cal.get(Calendar.YEAR)-2000;
+		int month = cal.get(Calendar.MONTH);
+		String mon="";
+		switch(month){
+		case 1:
+			mon="J";
+			break;
+		case 2:
+			mon="F";
+			break;
+		case 3:
+			mon="M";
+			break;
+		case 4:
+			mon="A";
+			break;
+		case 5:
+			mon="M";
+			break;
+		case 6:
+			mon="J";
+			break;
+		case 7:
+			mon="J";
+			break;
+		case 8:
+			mon="A";
+			break;
+		case 9:
+			mon="S";
+			break;
+		case 10:
+			mon="O";
+			break;
+		case 11:
+			mon="N";
+			break;
+		case 12:
+			mon="D";
+			break;
+		
+		}
+		String day = Integer.toString((cal.DAY_OF_MONTH)+1);
+		day=day.length()>1?day:"0"+day;
+		String odCode = "BOM"+year+mon+day+code;
+		
+		return odCode;
 	}
 }
