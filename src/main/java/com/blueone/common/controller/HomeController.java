@@ -79,7 +79,7 @@ public class HomeController {
 		
 		try {
 			CookieBox cookieBox = new CookieBox(request);
-			Cookie cookie = cookieBox.createCookie("name", "daniel", 30000);
+			Cookie cookie = cookieBox.createCookie("name3", "이성욱!@#!", 30000);
 			response.addCookie(cookie);
 		} catch (IOException ioe) {
 			
@@ -95,9 +95,10 @@ public class HomeController {
 		
 		try {
 			CookieBox cookieBox = new CookieBox(request);
-			String rst = cookieBox.getValue("name");
-			
-			System.out.println("cookie value = " + rst);
+			String rst = cookieBox.getValue("name3");
+
+			System.out.println("cookie value3 = " + rst);
+
 		} catch (IOException ioe) {
 			
 		}

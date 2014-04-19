@@ -37,11 +37,15 @@ public class UserProductController {
 		// ----------------------------------------------------------
 		// 변수선언
 		// ----------------------------------------------------------
-		List<CategoryInfo> largeCode  = new ArrayList<CategoryInfo>();//대분류조회
-		List<CategoryInfo> middleCode = new ArrayList<CategoryInfo>();//중분류조회
+		List<CategoryInfo> largeCode  = new ArrayList<CategoryInfo>(); //대분류조회
+		List<CategoryInfo> middleCode = new ArrayList<CategoryInfo>(); //중분류조회
+		
 		List<CategoryInfo> lnbList    = new ArrayList<CategoryInfo>();
+		List<CategoryInfo> lnbSList   = new ArrayList<CategoryInfo>(); //소분류리스트
 				
 		List<ProductInfo> productList = null;
+		
+		String chkMiddleCode;
 		
 		
 		// ----------------------------------------------------------
@@ -61,13 +65,25 @@ public class UserProductController {
 		}else{
 			largeInf = categoryManageService.getCategoryInfDetail(categoryInfo);		
 		}
-		
-		
+				
 		for (CategoryInfo each : categoryList) {
 			if (largeInf.getCtgCode().equals(each.getCtgPCode())) {
 				lnbList.add(each);
 			}			
-		}		
+		}
+		
+		chkMiddleCode = categoryInfo.getCtgMiddleCode() ;
+		
+		if(chkMiddleCode != null){
+			for (CategoryInfo each : categoryList) {
+				if (categoryInfo.getCtgMiddleCode().equals(each.getCtgPCode())) {
+					lnbSList.add(each);
+				}
+			}
+		}
+		
+		
+		
 		
 				
 		// ----------------------------------------------------------
@@ -78,10 +94,13 @@ public class UserProductController {
 		model.addAttribute("categoryList",categoryList);//
 		model.addAttribute("largeInf",largeInf);
 		model.addAttribute("lnbList",lnbList);
+		model.addAttribute("lnbSList",lnbSList);
 		
 		model.addAttribute("middleCode",middleCode);
 		model.addAttribute("productList", productList);	// 상품리스트
 		model.addAttribute("lMenuDetail",categoryInfo);
+		
+		model.addAttribute("chkMiddleCode",chkMiddleCode);
 		
 		return "product/productList";
 		
