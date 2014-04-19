@@ -31,18 +31,10 @@ public class CookieBox {
 	}
 	
 	public static Cookie createCookie(String name, String value, int maxAge) throws IOException {
-<<<<<<< HEAD
 		Cookie cookie = new Cookie(name, URLEncoder.encode(value, "euc-kr"));
 		cookie.setPath("/");
 		cookie.setMaxAge(maxAge);
 		
-=======
-//		Cookie cookie = new Cookie(name, URLEncoder.encode(value, "euc-kr"));
-		Cookie cookie = new Cookie(name, value);
-		
-		cookie.setMaxAge(maxAge);
-		//response.addCookie(cookie);
->>>>>>> 1427c12e37e2e7be0f8667c933ced478c82c2472
 		return cookie;
 	}
 
