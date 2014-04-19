@@ -108,6 +108,7 @@
 									<th>색상</th>
 									<td colspan="2" >
 										<select  id="prdOpColor" name="prdOpColor">
+											<option value="">색상을 선택해주세요</option>
 											<c:forEach var="opKey" items="${pro.optionKey}" begin="0" end="49" varStatus="i">
 												<c:if test="${'01' eq opKey}"> 
 													<option value="${pro.optionIdx[i.index]}" >${pro.optionValue[i.index]}</option>

@@ -20,4 +20,16 @@ public class TestOrderService extends BlueoneTestCase {
 		.andExpect(status().isOk())
 		.andDo(print());
 	}
+	
+	
+	@Test
+	public void testCartList() throws Exception {
+		// Spring MVC Test!
+		mockMvc.perform(post("/order/cartList.do")
+				.param("prdOpColor", "RED")
+				.param("buyCnt", "10"))
+		.andExpect(status().isOk())
+		.andDo(print());
+	}
+	
 }

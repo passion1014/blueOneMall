@@ -57,25 +57,40 @@ public class OrderController {
 		
 		CookieBox cki = new CookieBox(request);
 		
-		String value = orderProductInfo.getPrdOpColor()+","+orderProductInfo.getBuyCnt();
+		//상품이 선택되서 장바구니 페이지로 들어왔을 경우 해당
+		if(orderProductInfo !=null && orderProductInfo.getPrdCd()!=null){
+		String value="";
+		if(orderProductInfo.getPrdOpColor()!=null){
+			value+="01="+orderProductInfo.getPrdOpColor()+",";
+		}
+		if(orderProductInfo.getPrdOpSize()!=null){
+			value+="02="+orderProductInfo.getPrdOpSize()+",";
+		}
+		value+="count="+orderProductInfo.getBuyCnt();
 		
-		Cookie cookie =cki.createCookie(orderProductInfo.getPrdCd(),value,100);
+		Cookie cookie =cki.createCookie("BOM_"+orderProductInfo.getPrdCd(),value,500000);
 		response.addCookie(cookie);
 	
 		OrderInfo orderInfo = new OrderInfo();
 		orderInfo.setOrderNo(getOrderCode());
 		orderInfo.setOrderStatCd("01");
-		
-		/* 총 주문금액 보여주는 부분
-		BigDecimal totalPrice = orderProductInfo.getSellPrice()*orderProductInfo.getBuyCnt();
-		orderProductInfo.setTotalPrice(totalPrice);
-		*/
+		}
 		
 		
+		List<String> ckKey = cki.getKey();
+		List<OrderProductInfo> ord = new ArrayList<OrderProductInfo>();
 		
-		model.addAttribute("odPrdInfo",orderProductInfo);
+		for(String each : ckKey){
+			OrderProductInfo odPrdInfo = new OrderProductInfo();
+			odPrdInfo.setPrdCd(each.substring(0, 3));
+			
+			
+		}
 		
 		
+		
+		
+		model.addAttribute("odPrdInfo",ord);
 		return "order/cartList";
 	}
 	

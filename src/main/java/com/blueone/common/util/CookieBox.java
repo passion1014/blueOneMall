@@ -24,6 +24,19 @@ public class CookieBox {
 		}
 	}
 	
+	public List<Cookie> getCookieListByPath(HttpServletRequest request) {
+		List<Cookie> rstList = new ArrayList<Cookie>();
+		
+		Cookie[] cookies = request.getCookies();
+		for (Cookie c : cookies) {
+			if ("/product".equals(c.getPath())) {
+				rstList.add(c);
+			}
+		}
+		
+		return rstList;
+	}
+	
 	public static Cookie createCookie(String name, String value) throws IOException {
 		return new Cookie(name, URLEncoder.encode(value, "euc-kr"));
 	}
@@ -60,8 +73,18 @@ public class CookieBox {
 	
 	public String getValue(String name) throws IOException {
 		Cookie cookie = (Cookie)cookieMap.get(name);
+		
+		
+		
 		if (cookie == null) return null;
 		return cookie.getValue();
+	}
+	
+	public List<String> getKey(){
+		List<String> key = (ArrayList<String>)cookieMap.keySet();
+		
+		return key;
+		
 	}
 	
 	public boolean exists(String name) {
