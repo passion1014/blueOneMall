@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.blueone.category.domain.CategoryInfo;
 import com.blueone.category.service.ICategoryManageService;
 import com.blueone.product.domain.ProductInfo;
+import com.blueone.product.domain.SearchProdInfo;
+import com.blueone.product.service.IProductManageService;
 import com.blueone.product.service.IUserProductService;
 
 @Controller
@@ -29,82 +31,112 @@ public class UserProductController {
 	private ICategoryManageService categoryManageService;
 	@Autowired
 	private SqlSessionFactory sqlSessionFactory;
+	@Autowired
+	private IProductManageService productManageService;
 	
-	
-	@RequestMapping(value="/product/productList.do")
+	/*@RequestMapping(value="/product/productList.do")
 	public String productList(@ModelAttribute("productInfo") ProductInfo productInfo, @ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model){
 
 		// ----------------------------------------------------------
 		// 변수선언
 		// ----------------------------------------------------------
-		List<CategoryInfo> largeCode  = new ArrayList<CategoryInfo>(); //대분류조회
 		List<CategoryInfo> middleCode = new ArrayList<CategoryInfo>(); //중분류조회
 		
 		List<CategoryInfo> lnbList    = new ArrayList<CategoryInfo>();
 		List<CategoryInfo> lnbSList   = new ArrayList<CategoryInfo>(); //소분류리스트
 				
-		List<ProductInfo> productList = null;
+		List<ProductInfo> prdLList = new ArrayList<ProductInfo>();
+		List<ProductInfo> prdMList = new ArrayList<ProductInfo>();
+		List<ProductInfo> prdSList = new ArrayList<ProductInfo>();
+		SearchProdInfo searchProdInfo = new SearchProdInfo();
 		
-		String chkMiddleCode;
-		
+		String chkMiddleCode=null;
+		String prdCtgS = null;
 		
 		// ----------------------------------------------------------
 		// 카테고리 조회
 		// ----------------------------------------------------------
 		List<CategoryInfo> categoryList = categoryManageService.getCategoryInfList(categoryInfo);
-		
-		
+		// product 조회
+		List<ProductInfo> productList = productManageService.getProductInfList(searchProdInfo);
 		
 		// ----------------------------------------------------------
 		// 대분류 정보 조회
 		// 사용처는 LNB 대분류 정보용		
 		// ----------------------------------------------------------
 		CategoryInfo largeInf = new CategoryInfo();
-		if(categoryInfo.getCtgCode() == null){
+		if(categoryInfo.getCtgCode() == null && chkMiddleCode == null && prdCtgS == null){
 			largeInf = categoryManageService.getCategoryInfDetail2(categoryInfo);
-		}else{
-			largeInf = categoryManageService.getCategoryInfDetail(categoryInfo);		
+			
+			for(ProductInfo each: productList){
+				if(largeInf.getCtgCode().equals(each.getPrdCtgL())){
+					prdLList.add(each);
+				}
+			}
+			
+		}else {
+			largeInf = categoryManageService.getCategoryInfDetail(categoryInfo);
+			
+			for(ProductInfo each: productList){
+				if(largeInf.getCtgCode().equals(each.getPrdCtgL())){
+					prdLList.add(each);
+				}
+			}
+			
 		}
-				
+		
+		//중분류리스트		
 		for (CategoryInfo each : categoryList) {
 			if (largeInf.getCtgCode().equals(each.getCtgPCode())) {
 				lnbList.add(each);
 			}			
 		}
 		
-		chkMiddleCode = categoryInfo.getCtgMiddleCode() ;
 		
+
+		chkMiddleCode = categoryInfo.getCtgMiddleCode() ;
+		prdCtgS = productInfo.getPrdCtgS();
+		
+		
+		//상품 중분류리스트
 		if(chkMiddleCode != null){
 			for (CategoryInfo each : categoryList) {
 				if (categoryInfo.getCtgMiddleCode().equals(each.getCtgPCode())) {
 					lnbSList.add(each);
 				}
 			}
+			for(ProductInfo each: productList){
+				if(chkMiddleCode.equals(each.getPrdCtgM())){
+					prdMList.add(each);
+				}
+			}
 		}
 		
 		
 		
+		//상품 소분류리스트
+		if(prdCtgS != null){
+			for(ProductInfo each : productList){
+				if(prdCtgS.equals(each.getPrdCtgS())){
+					prdSList.add(each);
+				}
+			}
+		}
 		
-				
-		// ----------------------------------------------------------
-		// 상품+가격목록 조회
-		// ----------------------------------------------------------
-		productList = iUserProductService.shopProductInfList(productInfo);
-		
-		model.addAttribute("categoryList",categoryList);//
+		model.addAttribute("categoryList",categoryList);
 		model.addAttribute("largeInf",largeInf);
 		model.addAttribute("lnbList",lnbList);
 		model.addAttribute("lnbSList",lnbSList);
-		
 		model.addAttribute("middleCode",middleCode);
-		model.addAttribute("productList", productList);	// 상품리스트
 		model.addAttribute("lMenuDetail",categoryInfo);
-		
 		model.addAttribute("chkMiddleCode",chkMiddleCode);
-		
+		model.addAttribute("prdCtgS",prdCtgS);
+		model.addAttribute("prdLList",prdLList);
+		model.addAttribute("prdMList",prdMList);
+		model.addAttribute("prdSList",prdSList);
 		return "product/productList";
 		
-	}
+	}*/
 	
 	
 	

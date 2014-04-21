@@ -10,7 +10,7 @@
 			<c:if test="${lnbSList.size() != 0 && lnbList.ctgCode == chkMiddleCode}">
 				<div class="onclick_list">
 					<c:forEach items="${lnbSList}" var="lnbSList">
-							<a href="#">${lnbSList.ctgName}</a>
+							<a href="productList.do?ctgCode=${largeInf.ctgCode}&ctgMiddleCode=${lnbList.ctgCode}&prdCtgS=${lnbSList.ctgCode}">${lnbSList.ctgName}</a>
 					</c:forEach>	
 				</div>			
 			</c:if>			
