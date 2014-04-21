@@ -113,6 +113,7 @@ public class BoardController {
 		
 		if(boardService.insertBoard(boardInfo)){
 			mav.addObject("errCode", 3);
+			mav.addObject("srchBrdTyp", boardInfo.getBrdTyp());
 			mav.setViewName("redirect:/board/list.do");
 			return mav;
 		} else {
