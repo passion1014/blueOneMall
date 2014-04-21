@@ -2,6 +2,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:choose>
+	<c:when test="${param.slot == 'img'}"> 
+		<div id="LNB">
+			<h1>메인 관리</h1>
+			<ul>
+				<h2>메인디자인 관리</h2>
+				<li><a href="adminDesign.do">디자인 관리</a></li>
+			</ul>
+			<ul>
+				<h2>배너 관리</h2>
+				<li><a href="adminBanner.do">배너 관리</a></li>
+			</ul>
+		</div>
+	</c:when>
 	<c:when test="${param.slot == 'conf'}"> 
 	<div id="LNB">
 		<h1>환경설정</h1>

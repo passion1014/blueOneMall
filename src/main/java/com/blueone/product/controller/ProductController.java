@@ -885,6 +885,94 @@ public class ProductController {
 	
 	
 	
+	//메인화면 메인이미지와 배너이미지
+	//메인화면에 메인이미지 등록
+		@RequestMapping(value="/admin/adminDesign.do")
+		public String adminDesign(){
+			return "admin/admin/adminDesign";
+		}
+		
+		//메인화면에 메인이미지 등록처리
+		@RequestMapping(value="/admin/adminDesignProc.do", method = RequestMethod.POST)
+		public String adminImage(@ModelAttribute("productInfo") ProductInfo productInfo, BindingResult result, Model model)throws FileNotFoundException, IOException{
+			
+			// 상품 코드 채번
+			int code= (int)(Math.random()*10000)+1;
+			productInfo.setPrdCd("P"+code);
+			
+			
+			
+			MultipartFile proMainImg1Up = productInfo.getProMainImg1Up();
+			if(proMainImg1Up != null && !proMainImg1Up.isEmpty()) {
+			//메인페이지 이미지 등록
+			AttachFileInfo contImg = new AttachFileInfo();
+			FileUploadUtility utilList = new FileUploadUtility();
+			contImg=utilList.doFileUpload(7,productInfo.getProMainImg1Up(),false);
+			contImg.setAttCdKey(productInfo.getPrdCd()); //
+			contImg.setAttCdType("03");//등록유형 : 메인페이지의 메인이미지
+			contImg.setAttImgType("02");//뷰이미지
+			contImg.setAttImgSeq(1);
+			attFileManageService.registProductImgInfo(contImg);
+			}
+			MultipartFile proMainImg2Up = productInfo.getProMainImg2Up();
+			if(proMainImg2Up != null && !proMainImg2Up.isEmpty()) {
+				//메인페이지 이미지 등록
+				AttachFileInfo contImg = new AttachFileInfo();
+				FileUploadUtility utilList = new FileUploadUtility();
+				contImg = utilList.doFileUpload(7,productInfo.getProMainImg2Up(),false);
+				contImg.setAttCdType("03");//등록유형 : 메인페이지의 메인이미지
+				contImg.setAttCdKey(productInfo.getPrdCd()); //
+				contImg.setAttImgType("02");//뷰이미지
+				contImg.setAttImgSeq(2);
+				attFileManageService.registProductImgInfo(contImg);
+			}
+			MultipartFile proMainImg3Up = productInfo.getProMainImg3Up();
+			if(proMainImg3Up != null && !proMainImg3Up.isEmpty()) {
+				//메인페이지 이미지 등록
+				AttachFileInfo contImg = new AttachFileInfo();
+				FileUploadUtility utilList = new FileUploadUtility();
+				contImg = utilList.doFileUpload(7,productInfo.getProMainImg3Up(),false);
+				contImg.setAttCdType("03");//등록유형 : 메인페이지의 메인이미지
+				contImg.setAttCdKey(productInfo.getPrdCd()); //
+				contImg.setAttImgType("02");//뷰이미지
+				contImg.setAttImgSeq(3);
+				attFileManageService.registProductImgInfo(contImg);
+			}
+			MultipartFile proMainImg4Up = productInfo.getProMainImg4Up();
+			if(proMainImg4Up != null && !proMainImg4Up.isEmpty()) {
+				//메인페이지 이미지 등록
+				AttachFileInfo contImg = new AttachFileInfo();
+				FileUploadUtility utilList = new FileUploadUtility();
+				contImg = utilList.doFileUpload(7,productInfo.getProMainImg4Up(),false);
+				contImg.setAttCdType("03");//등록유형 : 메인페이지의 메인이미지
+				contImg.setAttCdKey(productInfo.getPrdCd()); //
+				contImg.setAttImgType("02");//뷰이미지
+				contImg.setAttImgSeq(1);
+				attFileManageService.registProductImgInfo(contImg);
+			}
+			MultipartFile proMainImg5Up = productInfo.getProMainImg5Up();
+			if(proMainImg5Up != null && !proMainImg5Up.isEmpty()) {
+				//메인페이지 이미지 등록
+				AttachFileInfo contImg = new AttachFileInfo();
+				FileUploadUtility utilList = new FileUploadUtility();
+				contImg = utilList.doFileUpload(7,productInfo.getProMainImg5Up(),false);
+				contImg.setAttCdType("03");//등록유형 : 메인페이지의 메인이미지
+				contImg.setAttCdKey(productInfo.getPrdCd()); //
+				contImg.setAttImgType("02");//뷰이미지
+				contImg.setAttImgSeq(1);
+				attFileManageService.registProductImgInfo(contImg);
+			}
+			
+			return "redirect:adminDesign.do";
+		}
+		
+		@RequestMapping(value="/admin/adminBanner.do")
+		public String adminBanner(){
+			return "admin/admin/adminBanner";
+		}
+	
+	
+	
 
 	
 	

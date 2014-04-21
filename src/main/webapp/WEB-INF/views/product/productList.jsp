@@ -43,19 +43,19 @@
 			<div class="cont_section">
 				<ul class="cont_list">
 					<c:choose>
-						<c:when test="${lnbList.size() != 0}">
+						<c:when test="${lnbList.size() != 0 && chkMiddleCode == null}">
 							<c:forEach items="${lnbList}" var="lnbList">
 								<li>
-									<a href="#" class="leftline">
+									<a href="productList.do?ctgMiddleCode=${lnbList.ctgCode}" class="leftline">
 										<c:out value="${lnbList.ctgName}"></c:out>
 									</a>	
 								</li>		
 							</c:forEach>
 						</c:when>
-						<c:when test="${lnbSList.size() != 0 && lnbList.size() != 0}">
+						<c:when test="${lnbSList.size() != 0 && chkMiddleCode != null}">
 							<c:forEach items="${lnbSList}" var="lnbSList">
 								<li>
-									<a href="#" class="leftline">
+									<a href="productList.do?ctgCode=${largeInf.ctgCode}&ctgMiddleCode=${ctgMiddleCode}&prdCtgS=${lnbSList.ctgCode}" class="leftline">
 										<c:out value="${lnbSList.ctgName}"></c:out>
 									</a>
 								</li>	
