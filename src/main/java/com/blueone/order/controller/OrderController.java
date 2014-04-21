@@ -82,9 +82,17 @@ public class OrderController {
 		
 		for(String each : ckKey){
 			OrderProductInfo odPrdInfo = new OrderProductInfo();
-			odPrdInfo.setPrdCd(each.substring(0, 3));
+			String key=each.substring(0, 3);
+			odPrdInfo.setPrdCd(key);
+			String vlaue=cki.getValue(key);
 			
-			
+			StringTokenizer st = new StringTokenizer(vlaue);
+			while(st.hasMoreElements()) {
+				if("01".equals(st.nextToken().substring(0, 1))){
+					
+					
+				}
+			}
 		}
 		
 		
