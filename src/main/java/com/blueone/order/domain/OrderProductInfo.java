@@ -22,8 +22,14 @@ public class OrderProductInfo {
 	private String prdOpColor;		// 옵션-색상
 	private String prdOpSize;		// 옵션-크기
 	
+	private String oderDelete;
 	
-	
+	public String getOderDelete() {
+		return oderDelete;
+	}
+	public void setOderDelete(String oderDelete) {
+		this.oderDelete = oderDelete;
+	}
 	public String getPrdOpColor() {
 		return prdOpColor;
 	}

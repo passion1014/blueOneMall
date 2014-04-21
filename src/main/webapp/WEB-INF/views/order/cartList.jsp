@@ -1,9 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-    
-    
-    
+
+
 <c:import  url="../inc/topSub.jsp" />
 <c:import  url="../inc/topMain.jsp" />     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -53,6 +52,9 @@
 								</tr>
 							</thead>
 							<tbody>
+								<c:choose>
+									<c:when test="${odPrdInfo.size() != 0}">
+										<c:forEach items="${odPrdInfo}" var="odPrdInfo">
 								<tr>
 									<th>
 										<input type="checkbox" title="상품선택"/>
@@ -62,6 +64,9 @@
 										<img src="${odPrdInfo.prdSmallImg}"  alt="상품이미지"/></span>
 										<span>
 											${odPrdInfo.prdNm}
+											<c:if test="${'NULL' ne odPrdInfo.prdOpColor}">/${odPrdInfo.prdOpColor}</c:if>
+											<c:if test="${'NULL' eq odPrdInfo.prdOpSize}">/${odPrdInfo.prdOpSize}</c:if>
+											
 										</span>
 									</td>
 									<td>${odPrdInfo.sellPrice}</td>
@@ -69,10 +74,10 @@
 										<span class="input_text"><input type="text" value="${odPrdInfo.buyCnt}" title="수량기입"><button class="btn_triangle1"></button></span>
 										<span class="input_btn"><input type="button" value="수정" title="수정"><button class="btn_triangle2"></button></span>
 									</td>
-									<td>>${odPrdInfo.sellPrice}</td>
+									<td>>${odPrdInfo.totalPrice}</td>
 									<td>
 										<button class="btn_choice1">구매하기</button>
-										<button class="btn_choice2">삭제하기</button>
+										<button class="btn_choice2" onClick="alert();confirm_process('','해당 상품을 삭제하시겠습니까?','deleteCartList.do?prdCd=${odPrdInfo.prdCd}');" >삭제하기</button>
 									</td>
 								</tr>
 								<tr>
@@ -85,6 +90,11 @@
 										총 주문금액 : 124,000원 + 배송비 : 0원 = 합계 <strong>124,000</strong>원
 									</td>
 								</tr>
+								</c:forEach>
+								</c:when>
+								<c:otherwise><tr><td>장바구니에 상품이 없습니다.</td></tr></c:otherwise>
+								</c:choose>
+		
 							</tbody>
 						</table>
 						<span class="btn_bottom1">

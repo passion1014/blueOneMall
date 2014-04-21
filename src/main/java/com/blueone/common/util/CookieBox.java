@@ -7,12 +7,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Iterator;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.hibernate.mapping.Set;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 
 public class CookieBox {
 	private Map<String, Cookie> cookieMap = new HashMap<String, Cookie>();
@@ -40,11 +43,11 @@ public class CookieBox {
 	}
 	
 	public static Cookie createCookie(String name, String value) throws IOException {
-		return new Cookie(name, URLEncoder.encode(value, "euc-kr"));
+		return new Cookie(name,value);
 	}
 	
 	public static Cookie createCookie(String name, String value, int maxAge) throws IOException {
-		Cookie cookie = new Cookie(name, URLEncoder.encode(value, "euc-kr"));
+		Cookie cookie = new Cookie(name, value);
 		cookie.setPath("/");
 		cookie.setMaxAge(maxAge);
 		
@@ -56,6 +59,7 @@ public class CookieBox {
 		Cookie cookie = new Cookie(name, URLEncoder.encode(value, "euc-kr"));
 		cookie.setPath(path);
 		cookie.setMaxAge(maxAge);
+		
 		return cookie;
 	}
 	
@@ -82,7 +86,13 @@ public class CookieBox {
 	}
 	
 	public List<String> getKey(){
-		List<String> key = (ArrayList<String>)cookieMap.keySet();
+		
+		Iterator mk =  cookieMap.keySet().iterator();
+		List<String> key = new ArrayList<String>();
+		
+		while ( mk.hasNext()) {
+			key.add((String)mk.next());
+		}
 		
 		return key;
 		
@@ -92,5 +102,9 @@ public class CookieBox {
 		return cookieMap.get(name) != null;
 	}
 	
+	public boolean delete(String name) {
+		cookieMap.remove(name);
+		return cookieMap.remove(name) != null;
+	}
 	
 }
