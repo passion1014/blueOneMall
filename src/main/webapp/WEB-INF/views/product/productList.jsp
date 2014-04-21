@@ -30,7 +30,7 @@
 <body>
 <div class="wrap">
 	<c:import url="../inc/header.jsp"/>
-<!--  header 끝   -->
+	<!--  header 끝   -->
 
 	<div class="container">
 	
@@ -42,30 +42,48 @@
 			</div>
 			<div class="cont_section">
 				<ul class="cont_list">
-					<c:choose>
-						<c:when test="${lnbList.size() != 0 && chkMiddleCode == null}">
-							<c:forEach items="${lnbList}" var="lnbList">
-								<li>
-									<a href="productList.do?ctgMiddleCode=${lnbList.ctgCode}" class="leftline">
-										<c:out value="${lnbList.ctgName}"></c:out>
-									</a>	
-								</li>		
-							</c:forEach>
-						</c:when>
-						<c:when test="${lnbSList.size() != 0 && chkMiddleCode != null}">
+					<c:choose>					
+					
+						<c:when test="${prdCtgS != null}">
+							<c:set var="whenCount" value="1"></c:set>
 							<c:forEach items="${lnbSList}" var="lnbSList">
+								<c:if test="${whenCount == 1}">
+									<c:set var="whenClass" value=""></c:set>
+								</c:if>
+								<c:if test="${whenCount != 1}">
+									<c:set var="whenClass" value="leftline"></c:set>
+								</c:if>
+								
 								<li>
-									<a href="productList.do?ctgCode=${largeInf.ctgCode}&ctgMiddleCode=${ctgMiddleCode}&prdCtgS=${lnbSList.ctgCode}" class="leftline">
+									<a href="productList.do?ctgCode=${largeInf.ctgCode}&ctgMiddleCode=${lnbSList.ctgPCode}&prdCtgS=${lnbSList.ctgCode}" class="${whenClass}">
 										<c:out value="${lnbSList.ctgName}"></c:out>
 									</a>
-								</li>	
+								</li>
+								<c:set var="whenCount" value="${whenCount + 1}"></c:set>	
 							</c:forEach>
 						</c:when>
+						
 						<c:otherwise>
-							<span></span>
-						</c:otherwise>		 
+							<c:set var="whenCount" value="1"></c:set>
+							<c:forEach items="${lnbList}" var="lnbList">
+								<c:if test="${whenCount == 1}">
+									<c:set var="whenClass" value=""></c:set>
+								</c:if>
+								<c:if test="${whenCount != 1}">
+									<c:set var="whenClass" value="leftline"></c:set>
+								</c:if>
+								<li>
+									<a href="productList.do?ctgCode=${largeInf.ctgCode}&ctgMiddleCode=${lnbList.ctgCode}" class="${whenClass}">
+										<c:out value="${lnbList.ctgName}"></c:out>
+									</a>	
+								</li>
+								<c:set var="whenCount" value="${whenCount + 1}"></c:set>		
+							</c:forEach>
+						</c:otherwise>
+								 
 					</c:choose>
 				</ul>
+				
 				<div class="product_section">
 					<p class="pro_total">
 						총&nbsp;<span>700</span>&nbsp;중&nbsp;<span>100</span>&nbsp;개
