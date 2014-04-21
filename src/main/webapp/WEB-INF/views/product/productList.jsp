@@ -42,10 +42,29 @@
 			</div>
 			<div class="cont_section">
 				<ul class="cont_list">
-					<li><a href="#" class="on">분류1</a></li>
-					<li><a href="#" class="leftline">분류2</a></li>
-					<li><a href="#" class="leftline">분류3</a></li>
-					<li><a href="#" class="leftline">분류4</a></li>
+					<c:choose>
+						<c:when test="${lnbList.size() != 0}">
+							<c:forEach items="${lnbList}" var="lnbList">
+								<li>
+									<a href="#" class="leftline">
+										<c:out value="${lnbList.ctgName}"></c:out>
+									</a>	
+								</li>		
+							</c:forEach>
+						</c:when>
+						<c:when test="${lnbSList.size() != 0 && lnbList.size() != 0}">
+							<c:forEach items="${lnbSList}" var="lnbSList">
+								<li>
+									<a href="#" class="leftline">
+										<c:out value="${lnbSList.ctgName}"></c:out>
+									</a>
+								</li>	
+							</c:forEach>
+						</c:when>
+						<c:otherwise>
+							<span></span>
+						</c:otherwise>		 
+					</c:choose>
 				</ul>
 				<div class="product_section">
 					<p class="pro_total">
@@ -58,17 +77,53 @@
 						<a href="#">제조사순</a>
 					</span>
 					<ul class="product_list">
-						<c:forEach var="list" items="${productList}">
-							<li><a href="javascript:location.href='productView.do?prdCd=${list.prdCd}';">
-								<dl class="list_product">
-									<dd>${list.prdPrice}<img src="<c:url value='/resources/img/sub/sub_proimg1.jpg'/>" alt="product image"/></dd>
-									<dd></dd>
-									<dd>BUS AG USB 케이블</dd>
-									<dd>510,000&nbsp;↓&nbsp;<span>200,000원</span></dd>
-								</dl>
-							</a></li>
-							
-						</c:forEach>	
+						<c:choose>
+							<c:when test="${prdLList.size() != 0 && chkMiddleCode == null && prdCtgS == null}">
+								<c:forEach var="prdLList" items="${prdLList}">
+									<li class="mlalign">
+										<a href="javascript:location.href='productView.do?prdCd=${prdLList.prdCd}';">
+											<dl class="list_product">
+												<dd><img src="<c:url value='/resources/img/sub/sub_proimg1.jpg'/>" alt="product image"/></dd>
+												<dd>${prdLList.prdBrand}</dd>
+												<dd>${prdLList.prdNm}</dd>
+												<dd>${prdLList.prdPrice}&nbsp;↓&nbsp;<span>${prdLList.prdSellPrc}원</span></dd>
+											</dl>
+										</a>
+									</li>
+								</c:forEach>
+							</c:when>
+							<c:when test="${prdLList.size() != 0 && chkMiddleCode != null && prdCtgS == null}" >
+								<c:forEach var="prdMList" items="${prdMList}">
+									<li class="mlalign">
+										<a href="javascript:location.href='productView.do?prdCd=${prdMList.prdCd}';">
+											<dl class="list_product">
+												<dd><img src="<c:url value='/resources/img/sub/sub_proimg1.jpg'/>" alt="product image"/></dd>
+												<dd>${prdMList.prdBrand}</dd>
+												<dd>${prdMList.prdNm}</dd>
+												<dd>${prdMList.prdPrice}&nbsp;↓&nbsp;<span>${prdMList.prdSellPrc}원</span></dd>
+											</dl>
+										</a>
+									</li>
+								</c:forEach>
+							</c:when>
+							<c:when test="${prdLList.size() != 0 && chkMiddleCode != null && prdCtgS != null}" >
+								<c:forEach var="prdSList" items="${prdSList}">
+									<li class="mlalign">
+										<a href="javascript:location.href='productView.do?prdCd=${prdSList.prdCd}';">
+											<dl class="list_product">
+												<dd><img src="<c:url value='/resources/img/sub/sub_proimg1.jpg'/>" alt="product image"/></dd>
+												<dd>${prdSList.prdBrand}</dd>
+												<dd>${prdSList.prdNm}</dd>
+												<dd>${prdSList.prdPrice}&nbsp;↓&nbsp;<span>${prdSList.prdSellPrc}원</span></dd>
+											</dl>
+										</a>
+									</li>
+								</c:forEach>
+							</c:when>
+							<c:otherwise>
+								<span></span>
+							</c:otherwise>	
+						</c:choose>		
 					</ul>
 					<div class="paging">
 						<a href="#" class="palign1"><img src="<c:url value='/resources/img/common/btn_first.gif'/>" alt="처음으로"></a>

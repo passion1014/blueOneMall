@@ -26,6 +26,9 @@ public class CategoryInfo {
 	private String ctgLargeName;
 	private String ctgMiddleCode;
 	private String ctgMiddleName;
+	private String ctgSmallCode;
+	private String ctgSmallName;
+
 	private String srchFullYn;
 	private String chooseYn;	// 선택된중분류일경우 Y
 	
@@ -139,6 +142,19 @@ public class CategoryInfo {
 	public void setCtgMiddleName(String ctgMiddleName) {
 		this.ctgMiddleName = ctgMiddleName;
 	}
+	public String getCtgSmallCode() {
+		return ctgSmallCode;
+	}
+	public void setCtgSmallCode(String ctgSmallCode) {
+		this.ctgSmallCode = ctgSmallCode;
+	}
+	public String getCtgSmallName() {
+		return ctgSmallName;
+	}
+	public void setCtgSmallName(String ctgSmallName) {
+		this.ctgSmallName = ctgSmallName;
+	}
+	
 	
 	
 }
