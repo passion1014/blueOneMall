@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.xml.ws.Response;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -52,46 +53,80 @@ public class OrderController {
 	}
 	
 	//장바구니페이지
-	@RequestMapping(value="/order/cartList.do", method=RequestMethod.POST)
+	@RequestMapping(value="/order/cartList.do")
 	public String order(@ModelAttribute("orderProductInfo") OrderProductInfo orderProductInfo,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
 		
 		CookieBox cki = new CookieBox(request);
 		
 		//상품이 선택되서 장바구니 페이지로 들어왔을 경우 해당
-		if(orderProductInfo !=null && orderProductInfo.getPrdCd()!=null){
-		String value="";
-		if(orderProductInfo.getPrdOpColor()!=null){
-			value+="01="+orderProductInfo.getPrdOpColor()+",";
-		}
-		if(orderProductInfo.getPrdOpSize()!=null){
-			value+="02="+orderProductInfo.getPrdOpSize()+",";
-		}
-		value+="count="+orderProductInfo.getBuyCnt();
+			String value="";
+			
+			if(orderProductInfo.getPrdOpColor()!=null){
+				value+="01="+orderProductInfo.getPrdOpColor()+",";
+			}
+			if(orderProductInfo.getPrdOpSize()!=null){
+				value+="02="+orderProductInfo.getPrdOpSize()+",";
+			}
+			if(orderProductInfo.getPrdSmallImg()!=null){
+				value+="nm="+orderProductInfo.getPrdNm()+",";
+				value+="ig="+orderProductInfo.getPrdSmallImg()+",";
+				value+="se="+orderProductInfo.getSellPrice()+",";
+				value+="cn="+orderProductInfo.getBuyCnt()+",";
+				value+="to="+orderProductInfo.getSellPrice().multiply(new BigDecimal(orderProductInfo.getBuyCnt()));
+				Cookie cookie =cki.createCookie("BOM_"+orderProductInfo.getPrdCd(),value,1000);//여기까지 디버깅으로 값이 들어가는것확인
+				response.addCookie(cookie);//<-이부분이 하나도 안먹힘
 		
-		Cookie cookie =cki.createCookie("BOM_"+orderProductInfo.getPrdCd(),value,500000);
-		response.addCookie(cookie);
+			
+			}
+			
+		
 	
-		OrderInfo orderInfo = new OrderInfo();
-		orderInfo.setOrderNo(getOrderCode());
-		orderInfo.setOrderStatCd("01");
-		}
 		
 		
-		List<String> ckKey = cki.getKey();
+		List<String> ckKey = cki.getKey();//키를 불러옴, 우리꺼 빼고 다불러옴,쿠키가 안들어가서 불러올수가읎음
 		List<OrderProductInfo> ord = new ArrayList<OrderProductInfo>();
 		
+		// 키를불러오면 처리해줄 부분
 		for(String each : ckKey){
-			OrderProductInfo odPrdInfo = new OrderProductInfo();
-			String key=each.substring(0, 3);
-			odPrdInfo.setPrdCd(key);
-			String vlaue=cki.getValue(key);
 			
-			StringTokenizer st = new StringTokenizer(vlaue);
-			while(st.hasMoreElements()) {
-				if("01".equals(st.nextToken().substring(0, 1))){
+			if("BOM".equals(each.substring(0, 3))){
+			OrderProductInfo odPrdInfo = new OrderProductInfo();
+			String key=each.substring(4);
+			odPrdInfo.setPrdCd(key);
+			String vl=cki.getValue(each);
+			
+				StringTokenizer st = new StringTokenizer(vl,",");
+				while(st.hasMoreElements()) {
 					
+					String s = st.nextToken();
+					
+					if("01".equals(s.substring(0, 2))){
+						odPrdInfo.setPrdOpColor(s.substring(3));
+					}
+					if("02".equals(s.substring(0, 2))){
+						odPrdInfo.setPrdOpSize(s.substring(3));
+					}
+					if("nm".equals(s.substring(0, 2))){
+						odPrdInfo.setPrdNm(s.substring(3));
+					}
+					if("ig".equals(s.substring(0, 2))){
+						odPrdInfo.setPrdSmallImg(s.substring(3));
+					}
+					if("se".equals(s.substring(0, 2))){
+						odPrdInfo.setSellPrice(new BigDecimal(s.substring(3)));
+					}
+					if("cn".equals(s.substring(0, 2))){
+						odPrdInfo.setBuyCnt(Integer.parseInt(s.substring(3)));
+					}
+					if("to".equals(s.substring(0, 2))){
+						odPrdInfo.setTotalPrice(new BigDecimal(s.substring(3)));
+					}				
+				
 					
 				}
+				
+				if(vl.equals("")) ;
+				else ord.add(odPrdInfo);
 			}
 		}
 		
@@ -102,13 +137,24 @@ public class OrderController {
 		return "order/cartList";
 	}
 	
-	
+	//장바구니 상품 삭제
+	@RequestMapping(value="/order/deleteCartList.do", method = RequestMethod.GET)
+	public String deleteCartList(@ModelAttribute("orderProductInfo") OrderProductInfo orderProductInfo,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
+		CookieBox cki = new CookieBox(request);
+		
+		Cookie cookie =cki.createCookie("BOM_"+orderProductInfo.getPrdCd(),"",-1);
+		response.addCookie(cookie);//<-이부분이 하나도 안먹힘
+		
 
+		return "redirect:cartList.do";
+	}
+			
 	//결제페이지
 	@RequestMapping(value="/order/orderRegister.do")
 	public String orderRegister(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model){
 		return "order/order";
 	}
+	
 	
 	//주문성공페이지
 	@RequestMapping(value="/order/orderComplete.do")

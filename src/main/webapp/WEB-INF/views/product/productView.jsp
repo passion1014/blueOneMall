@@ -17,7 +17,7 @@
 			<form action="/order/cartList.do" method="post">
 			<input type="hidden" id="prdCd"  name="prdCd"  value="${pro.prdCd}">
 			<input type="hidden" id="prdNm"  name="prdNm"  value="${pro.prdNm}">
-			<input type="hidden" id="prdSellPrc"  name="prdSellPrc"  value="${pro.prdSellPrc}">
+			<input type="hidden" id="sellPrice"  name="sellPrice"  value="${pro.prdSellPrc}">
 			
 				<div class="product_view">
 					<span class="locat_box">Home&nbsp;>&nbsp;
@@ -111,7 +111,7 @@
 											<option value="">색상을 선택해주세요</option>
 											<c:forEach var="opKey" items="${pro.optionKey}" begin="0" end="49" varStatus="i">
 												<c:if test="${'01' eq opKey}"> 
-													<option value="${pro.optionIdx[i.index]}" >${pro.optionValue[i.index]}</option>
+													<option value="${pro.optionValue[i.index]}" >${pro.optionValue[i.index]}</option>
       											</c:if>
       										</c:forEach>
       									</select>
