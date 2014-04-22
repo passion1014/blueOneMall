@@ -58,7 +58,7 @@ public class OrderController {
 		return viewName;
 	}
 	
-	//장바구니페이지
+	//장바구니에 들어가기
 	@RequestMapping(value="/order/cartList.do")
 	public String order(@ModelAttribute("orderProductInfo") OrderProductInfo orderProductInfo,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
 		
@@ -83,7 +83,14 @@ public class OrderController {
 			
 		
 	
-		
+		return "redirect:cartListView.do";
+	}
+	
+	//장바구니 보여줌
+	@RequestMapping(value="/order/cartListView.do")
+	public String orderView(@ModelAttribute("orderProductInfo") OrderProductInfo orderProductInfo,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
+
+		CookieBox cki = new CookieBox(request);
 		
 		List<String> ckKey = cki.getKey();//키를 불러옴, 우리꺼 빼고 다불러옴,쿠키가 안들어가서 불러올수가읎음
 		List<OrderProductInfo> ord = new ArrayList<OrderProductInfo>();
@@ -157,7 +164,7 @@ public class OrderController {
 		response.addCookie(cookie);//<-이부분이 하나도 안먹힘
 		
 
-		return "redirect:cartList.do";
+		return "redirect:cartListView.do";
 	}
 			
 	//결제페이지
