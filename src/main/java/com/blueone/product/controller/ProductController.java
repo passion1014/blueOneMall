@@ -782,7 +782,7 @@ public class ProductController {
 		
 		return "product/productView";
 	}
-	
+/*
 	@RequestMapping(value="/product/productList.do")
 	public String productList(@ModelAttribute("productInfo") ProductInfo productInfo, @ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model){
 
@@ -888,7 +888,7 @@ public class ProductController {
 	}
 	
 	
-	
+	*/
 	//메인화면 메인이미지와 배너이미지
 	//메인화면에 메인이미지 등록
 		@RequestMapping(value="/admin/adminDesign.do")

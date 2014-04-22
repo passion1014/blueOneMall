@@ -30,5 +30,9 @@ public interface IProductManageService {
 	public List<ProductInfo> getProductOptionInfDetail(ProductInfo productInfo);
 	public int deleteProductOptionInf(ProductInfo productInfo);
 	public ProductInfo getProductOptionInfDetail2(ProductInfo productInfo);
+	public List<ProductInfo> oderByLowSellPriceList();
+	public List<ProductInfo> oderByHighSellPriceList();
+	public List<ProductInfo> oderByNamePriceList();
+	public List<ProductInfo> oderByBrdPriceList();
 	
 }
