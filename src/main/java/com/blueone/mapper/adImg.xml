@@ -4,7 +4,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="adImg">
-	<resultMap id="AdImgInfoMap" type="com.blueone.product.domain.AdImgInfo">
+	<resultMap id="AdImgInfoMap" type="com.blueone.admin.domain.AdImgInfo">
 		<result property="mdImg1" column="MD_IMG_1" javaType="java.lang.String"/>
 		<result property="mdUrl1" column="MD_URL_1" javaType="java.lang.String"/>
 		<result property="mdImg2" column="MD_IMG_2" javaType="java.lang.String"/>
@@ -15,6 +15,7 @@
 		<result property="mdUrl4" column="MD_URL_4" javaType="java.lang.String"/>
 		<result property="mdImg5" column="MD_IMG_5" javaType="java.lang.String"/>
 		<result property="mdUrl5" column="MD_URL_5" javaType="java.lang.String"/>
+		
 		<result property="bnImg1" column="BN_IMG_1" javaType="java.lang.String"/>
 		<result property="bnUrl1" column="BN_URL_1" javaType="java.lang.String"/>
 		<result property="bnImg2" column="BN_IMG_2" javaType="java.lang.String"/>
@@ -30,32 +31,28 @@
 		<result property="bnImg7" column="BN_IMG_7" javaType="java.lang.String"/>
 		<result property="bnUrl7" column="BN_URL_7" javaType="java.lang.String"/>
 		
-		
-		<result property="idx" column="IDX" javaType="int"/>
-		<result property="attCdType" column="ATT_CODE_TYPE" javaType="java.lang.String"/>
-		<result property="attCdKey" column="ATT_CODE_KEY" javaType="java.lang.String"/>
-		<result property="attImgType" column="ATT_IMG_TYPE" javaType="java.lang.String"/>
-		<result property="attSaveFileNm" column="ATT_SAVE_FILENAME" javaType="java.lang.String"/>
-		<result property="attRealFileNm" column="ATT_REAL_FILENAME" javaType="java.lang.String"/>
-		<result property="attFilePath"  column="ATT_FILE_PATH"   javaType="java.lang.String"/>
-		<result property="attFileSize"  column="ATT_FILE_SIZE"   javaType="int"/>
-		<result property="attFileExt"  column="ATT_FILE_EXT"   javaType="java.lang.String"/>
-		<result property="attImgSeq"  column="ATT_IMG_SEQ"   javaType="int"/>	
 	</resultMap>
 
 	
 
-	<insert id="insertBomAdImgTb0001" parameterType="com.blueone.product.domain.AdImgInfo">
+	<insert id="insertBomAdImgTb0001" parameterType="com.blueone.admin.domain.AdImgInfo">
 	
 		INSERT  BOM_AD_IMG_TB
 			(`MD_IMG_1`,`MD_URL_1`,`MD_IMG_2`,`MD_URL_2`,`MD_IMG_3`,`MD_URL_3`,`MD_IMG_4`,
-			 `MD_URL_4`,`MD_IMG_5`,`MD_URL_5`,`BN_IMG_1`,`BN_URL_1`,`BN_IMG_2`,`BN_URL_2`,
-			 `BN_IMG_3`,`BN_URL_3`,`BN_IMG_4`,`BN_URL_4`,`BN_IMG_5`,`BN_URL_5`,`BN_IMG_6`,
-			 `BN_URL_6`,`BN_IMG_7`,`BN_URL_7`)
+			 `MD_URL_4`,`MD_IMG_5`,`MD_URL_5`)
 			VALUES
-			( #{mdImg1},#{mdUrl1},#{mdImg2},#{mdUrl2},#{mdImg3},#{mdUrl3},#{mdImg4},#{mdUrl4},
-			  #{mdImg5},#{mdUrl5},#{bnImg1},#{bnUrl1},#{bnImg2},#{bnUrl2},#{bnImg3},#{bnUrl3},
-			  #{bnImg4},#{bnUrl4},#{bnImg5},#{bnUrl5},#{bnImg6},#{bnUrl6},#{bnImg7},#{bnUrl7})
+			( #{mdImg1},#{mdUrl1},#{mdImg2},#{mdUrl2},#{mdImg3},#{mdUrl3},#{mdImg4},
+			  #{mdUrl4}, #{mdImg5},#{mdUrl5})
+	</insert>
+
+	<insert id="insertBomAdImgTb0002" parameterType="com.blueone.admin.domain.AdImgInfo">
+	
+		INSERT  BOM_AD_IMG_TB
+			(`BN_IMG_1`,`BN_URL_1`,`BN_IMG_2`,`BN_URL_2`,`BN_IMG_3`,`BN_URL_3`,`BN_IMG_4`,
+			 `BN_URL_4`,`BN_IMG_5`,`BN_URL_5`,`BN_IMG_6`,`BN_URL_6`,`BN_IMG_7`,`BN_URL_7`)
+			VALUES
+			( #{bnImg1},#{bnUrl1},#{bnImg2},#{bnUrl2},#{bnImg3},#{bnUrl3},#{bnImg4},
+			  #{bnUrl4}, #{bnImg5},#{bnUrl5}, #{bnImg6},#{bnUrl6}, #{bnImg7},#{bnUrl7})
 	</insert>
 
 

@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.blueone.admin.domain.AdImgInfo;
 import com.blueone.admin.domain.AdminInfo;
 import com.blueone.category.domain.CategoryInfo;
 import com.blueone.category.service.ICategoryManageService;
@@ -37,7 +38,6 @@ import com.blueone.common.service.IAttachFileManageService;
 import com.blueone.common.util.FileUploadUtility;
 import com.blueone.common.util.PageDivision;
 import com.blueone.common.util.Utility;
-import com.blueone.product.domain.AdImgInfo;
 import com.blueone.product.domain.ProductInfo;
 import com.blueone.product.domain.SearchProdInfo;
 import com.blueone.product.domain.TransferInfo;

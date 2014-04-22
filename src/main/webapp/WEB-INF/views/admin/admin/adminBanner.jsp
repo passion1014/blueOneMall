@@ -19,7 +19,7 @@
 	<div id="Contents">
 	<h1>메인관리 &gt; 배너 관리 &gt; <strong>배너관리</strong></h1>
 	
-	<form name="tx_editor_form" method="post"  action="adminBnImgProc.do">
+	<form name="tx_editor_form" method="post" enctype="multipart/form-data" action="adminBnImgProc.do">
 	<input type="hidden" id="modifyUserId" name="modifyUserId" value="${adminSession.id}">
 	
 	
@@ -35,10 +35,11 @@
 		</colgroup>
 		
 		
+		
 		<tr>
 			<th>배너이미지1</th>
-			<td colspan="2" class="left">
-				<input type="file" id="bnImg1" name="bnImg1" style="width:80%;"> 
+			<td colspan="3" class="left">
+				<input type="file" id="ban1Up" name="ban1Up" style="width:80%;">
 			</td>
 		</tr>
 		<tr>	
@@ -47,10 +48,11 @@
 				<input type="text" id="bnUrl1" name="bnUrl1" style="width:80%;"> 
 			</td>
 		</tr>
+		
 		<tr>
 			<th>배너이미지2</th>
-			<td colspan="2" class="left">
-				<input type="file" id="bnImg2" name="bnImg2" style="width:80%;">
+			<td colspan="3" class="left">
+				<input type="file" id="ban2Up" name="ban2Up" style="width:80%;">
 			</td>
 		</tr>
 		<tr>	
@@ -59,10 +61,12 @@
 				<input type="text" id="bnUrl2" name="bnUrl2" style="width:80%;"> 
 			</td>
 		</tr>
+		
+		
 		<tr>
 			<th>배너이미지3</th>
-			<td colspan="2" class="left">
-				<input type="file" id="bnImg3" name="bnImg3" style="width:80%;"> 
+			<td colspan="3" class="left">
+				<input type="file" id="ban3Up" name="ban3Up" style="width:80%;">
 			</td>
 		</tr>
 		<tr>	
@@ -71,10 +75,12 @@
 				<input type="text" id="bnUrl3" name="bnUrl3" style="width:80%;"> 
 			</td>
 		</tr>
+		
+		
 		<tr>
 			<th>배너이미지4</th>
-			<td colspan="2" class="left">
-				<input type="file" id="bnImg4" name="bnImg4" style="width:80%;"> 
+			<td colspan="3" class="left">
+				<input type="file" id="ban4Up" name="ban4Up" style="width:80%;">
 			</td>
 		</tr>
 		<tr>	
@@ -83,10 +89,12 @@
 				<input type="text" id="bnUrl4" name="bnUrl4" style="width:80%;"> 
 			</td>
 		</tr>
+		
+		
 		<tr>
 			<th>배너이미지5</th>
-			<td colspan="2" class="left">
-				<input type="file" id="bnImg5" name="bnImg5" style="width:80%;"> 
+			<td colspan="3" class="left">
+				<input type="file" id="ban5Up" name="ban5Up" style="width:80%;">
 			</td>
 		</tr>
 		<tr>	
@@ -97,8 +105,8 @@
 		</tr>
 		<tr>
 			<th>배너이미지6</th>
-			<td colspan="2" class="left">
-				<input type="file" id="bnImg6" name="bnImg6" style="width:80%;"> 
+			<td colspan="3" class="left">
+				<input type="file" id="ban6Up" name="ban6Up" style="width:80%;">
 			</td>
 		</tr>
 		<tr>	
@@ -107,10 +115,12 @@
 				<input type="text" id="bnUrl6" name="bnUrl6" style="width:80%;"> 
 			</td>
 		</tr>
+		
+		
 		<tr>
 			<th>배너이미지7</th>
-			<td colspan="2" class="left">
-				<input type="file" id="bnImg7" name="bnImg7" style="width:80%;"> 
+			<td colspan="3" class="left">
+				<input type="file" id="ban7Up" name="ban7Up" style="width:80%;">
 			</td>
 		</tr>
 		<tr>	
@@ -119,6 +129,8 @@
 				<input type="text" id="bnUrl7" name="bnUrl7" style="width:80%;"> 
 			</td>
 		</tr>
+		
+		
 		
 	
 		

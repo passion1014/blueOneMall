@@ -98,7 +98,7 @@ public class FileUploadUtility {
 				break;
 			case UPLOAD_TYP_MAINIMG_IMAGE :
 				fullSaveFilename = DateUtil.getDate("yyyyMM") + "/";
-				savePath = FILE_UPLOAD_DIR + "/" + fullSaveFilename;
+				savePath = FILE_UPLOAD_DIR + "/main/" + fullSaveFilename;
 				break;	
 					
 			default : 
