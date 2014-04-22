@@ -26,14 +26,16 @@
 	<resultMap id="OrderInfoMap" type="orderInfo">
 		<id property="idx" column="ordIdx" javaType="int"/>
 		<id property="orderNo" column="ORDER_NO" javaType="java.lang.String"/>
-		<id property="orderStatCd" column="ordStatCd" javaType="java.lang.String"/>
-		<id property="orderDate" column="ordDate" javaType="java.lang.String"/>
-		<id property="regDate" column="ordRegDate" javaType="java.lang.String"/>
-		<id property="lastDate" column="ordLastDate" javaType="java.lang.String"/>
-		<id property="modifyUserId" column="ordModifyUserId" javaType="java.lang.String"/>
+		<id property="orderStatCd" column="ORDER_STAT_CD" javaType="java.lang.String"/>
+		<id property="orderDate" column="ORDER_DATE" javaType="java.lang.String"/>
+		<id property="regDate" column="REG_DATE" javaType="java.lang.String"/>
+		<id property="lastDate" column="LAST_DATE" javaType="java.lang.String"/>
+		<id property="modifyUserId" column="MODIFY_USER_ID" javaType="java.lang.String"/>
 		
 		<!-- 고객정보 셋팅 -->
-		<association property="customerInfo" column="ordCustId" javaType="customerInfo" resultMap="CustomerInfoMap"/>
+		<association property="customerInfo" column="custId" javaType="customerInfo" resultMap="CustomerInfoMap"/>
+		<association property="customerContactInfo" column="contactSeq" javaType="customerContactInfo" resultMap="CustomerContactInfoMap"/>
+		
 
 		<!-- 주문상품정보 셋팅 -->
 		<collection property="orderProductList" ofType="orderProductInfo" resultMap="OrdProductInfo"/>
@@ -45,12 +47,13 @@
 	</resultMap>
 
 	<resultMap id="OrdProductInfo" type="orderProductInfo">
+		<id property="orderNo" column="ORDER_NO" javaType="java.lang.String"/>
 		<id property="prdCd" column="PRD_CD" javaType="java.lang.String"/>
 		<id property="regDate" column="REG_DATE" javaType="java.lang.String"/>
 		<id property="lastDate" column="LAST_DATE" javaType="java.lang.String"/>
 		<id property="modiUser" column="MODIFY_USER_ID" javaType="java.lang.String"/>
 		<id property="prdOption" column="PRD_OPTION" javaType="java.lang.String"/>
-		<id property="bytCn" column="BUY_COUNT" javaType="int"/>
+		<id property="buyCnt" column="BUY_COUNT" javaType="int"/>
 	</resultMap>
 
 
@@ -105,10 +108,17 @@
 		INSERT BOM_ORD_PRD_TB
 			(`ORDER_NO`,`PRD_CD`,`REG_DATE`,`LAST_DATE`,`MODIFY_USER_ID`,`PRD_OPTION`,`BUY_COUNT`)
 			VALUES
-			(#{orderNo}, #{prdCd}, sysdate(), sysdate(), #{modiUser}, #{prdOption},#{bytCn})
+			(#{orderNo}, #{prdCd}, sysdate(), sysdate(), #{modiUser}, #{prdOption},#{buyCnt})
 	</insert>
 	
 
+	<insert id="insertBomOrderTb0001" parameterType="orderInfo" >
+		INSERT BOM_ORDER_TB
+			(`ORDER_NO`,`CUST_ID`,`CUST_CONTACT_NO`,`ORDER_DATE`,`REG_DATE`,`LAST_DATE`,`MODIFY_USER_ID`)
+			VALUES
+			(#{orderNo}, #{customerInfo.custId}, #{customerContactInfo.contactSeq},sysdate(), sysdate(), sysdate(),#{modifyUserId})
+	</insert>
+	
 
 
 </mapper>
