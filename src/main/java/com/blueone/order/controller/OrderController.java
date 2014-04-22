@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.blueone.common.domain.AttachFileInfo;
 import com.blueone.common.service.IAttachFileManageService;
 import com.blueone.common.util.CookieBox;
+import com.blueone.customer.domain.CustomerInfo;
 import com.blueone.order.domain.OrderInfo;
 import com.blueone.order.domain.OrderProductInfo;
 import com.blueone.order.domain.OrderSrchInfo;
@@ -81,9 +82,15 @@ public class OrderController {
 			
 			}
 			
+		/*
+		if(pass.equals("y")){
+		}else{
+			return "redirect:cartListView.do";
+		}
+		*/
+			return "redirect:orderRegister.do";
+			
 		
-	
-		return "redirect:cartListView.do";
 	}
 	
 	//장바구니 보여줌
@@ -91,7 +98,137 @@ public class OrderController {
 	public String orderView(@ModelAttribute("orderProductInfo") OrderProductInfo orderProductInfo,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
 
 		CookieBox cki = new CookieBox(request);
+		List<OrderProductInfo> ord = getCartList(cki);
+		model.addAttribute("odPrdInfo",ord);
 		
+		return "order/cartList";
+	}
+	
+	//장바구니 상품 삭제
+	@RequestMapping(value="/order/deleteCartList.do", method = RequestMethod.GET)
+	public String deleteCartList(@ModelAttribute("orderProductInfo") OrderProductInfo orderProductInfo,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
+		CookieBox cki = new CookieBox(request);
+		
+		Cookie cookie =cki.createCookie("BOM_"+orderProductInfo.getPrdCd(),"",-1);
+		response.addCookie(cookie);
+		
+
+		return "redirect:cartListView.do";
+	}
+			
+	//결제페이지
+	@RequestMapping(value="/order/orderRegister.do")
+	public String orderRegister(@ModelAttribute("orderProductInfo") OrderProductInfo orderProductInfo,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
+		//결제상품 보여주기
+		CookieBox cki = new CookieBox(request);
+		List<OrderProductInfo> ord = getCartList(cki);
+		model.addAttribute("odPrdInfo",ord);
+		
+		//고객정보 세팅
+		CustomerInfo custom = new CustomerInfo();
+		custom.setCustNm("dana");
+		custom.setTelNo1("02");
+		custom.setTelNo2("123");
+		custom.setTelNo3("4567");
+		custom.setHpNo1("010");
+		custom.setHpNo2("1231");
+		custom.setHpNo3("4567");
+		custom.seteMail("yangs@naver.com");
+		
+		model.addAttribute("cus",custom);
+		
+		return "order/order";
+	}
+	
+	//결제페이지-처리
+	@RequestMapping(value="/order/orderRegisterProc.do")
+	public String orderRegisteProc(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
+		
+		//결제상품
+		CookieBox cki = new CookieBox(request);
+		List<OrderProductInfo> ord = getCartList(cki);
+		for(OrderProductInfo each : ord){
+			
+			orderManageService.registOrderProductInfo(each);
+		}
+		
+		
+	return "redirect:orderComplete.do";
+}
+
+
+	
+	//주문성공페이지
+	@RequestMapping(value="/order/orderComplete.do")
+	public String orderComplete(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model){
+		return "order/orderComplete";
+	}
+	
+	//주문실패페이지
+	@RequestMapping(value="/order/orderError.do")
+	public String orderError(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model){
+		return "order/orderError";
+	}
+	
+	
+	//주문코드 생성
+	public String getOrderCode(){
+
+		// 주문 코드 채번
+		int code= (int)(Math.random()*100000)+1;
+		Calendar cal = Calendar.getInstance();
+		int year  = cal.get(Calendar.YEAR)-2000;
+		int month = cal.get(Calendar.MONTH);
+		String mon="";
+		switch(month){
+		case 1:
+			mon="J";
+			break;
+		case 2:
+			mon="F";
+			break;
+		case 3:
+			mon="M";
+			break;
+		case 4:
+			mon="A";
+			break;
+		case 5:
+			mon="M";
+			break;
+		case 6:
+			mon="J";
+			break;
+		case 7:
+			mon="J";
+			break;
+		case 8:
+			mon="A";
+			break;
+		case 9:
+			mon="S";
+			break;
+		case 10:
+			mon="O";
+			break;
+		case 11:
+			mon="N";
+			break;
+		case 12:
+			mon="D";
+			break;
+		
+		}
+		String day = Integer.toString((cal.DAY_OF_MONTH)+1);
+		day=day.length()>1?day:"0"+day;
+		String odCode = "BOM"+year+mon+day+code;
+		
+		return odCode;
+	}
+	
+	
+	public List<OrderProductInfo> getCartList(CookieBox cki) throws IOException{
+
 		List<String> ckKey = cki.getKey();//키를 불러옴, 우리꺼 빼고 다불러옴,쿠키가 안들어가서 불러올수가읎음
 		List<OrderProductInfo> ord = new ArrayList<OrderProductInfo>();
 		
@@ -151,94 +288,10 @@ public class OrderController {
 		
 		
 		
-		model.addAttribute("odPrdInfo",ord);
-		return "order/cartList";
+		return ord;
 	}
-	
-	//장바구니 상품 삭제
-	@RequestMapping(value="/order/deleteCartList.do", method = RequestMethod.GET)
-	public String deleteCartList(@ModelAttribute("orderProductInfo") OrderProductInfo orderProductInfo,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
-		CookieBox cki = new CookieBox(request);
-		
-		Cookie cookie =cki.createCookie("BOM_"+orderProductInfo.getPrdCd(),"",-1);
-		response.addCookie(cookie);//<-이부분이 하나도 안먹힘
-		
 
-		return "redirect:cartListView.do";
-	}
-			
-	//결제페이지
-	@RequestMapping(value="/order/orderRegister.do")
-	public String orderRegister(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model){
-		return "order/order";
-	}
-	
-	
-	//주문성공페이지
-	@RequestMapping(value="/order/orderComplete.do")
-	public String orderComplete(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model){
-		return "order/orderComplete";
-	}
-	
-	//주문실패페이지
-	@RequestMapping(value="/order/orderError.do")
-	public String orderError(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model){
-		return "order/orderError";
-	}
-	
-	
-	//주문코드 생성
-	public String getOrderCode(){
-		
-		// 주문 코드 채번
-		int code= (int)(Math.random()*100000)+1;
-		Calendar cal = Calendar.getInstance();
-		int year  = cal.get(Calendar.YEAR)-2000;
-		int month = cal.get(Calendar.MONTH);
-		String mon="";
-		switch(month){
-		case 1:
-			mon="J";
-			break;
-		case 2:
-			mon="F";
-			break;
-		case 3:
-			mon="M";
-			break;
-		case 4:
-			mon="A";
-			break;
-		case 5:
-			mon="M";
-			break;
-		case 6:
-			mon="J";
-			break;
-		case 7:
-			mon="J";
-			break;
-		case 8:
-			mon="A";
-			break;
-		case 9:
-			mon="S";
-			break;
-		case 10:
-			mon="O";
-			break;
-		case 11:
-			mon="N";
-			break;
-		case 12:
-			mon="D";
-			break;
-		
-		}
-		String day = Integer.toString((cal.DAY_OF_MONTH)+1);
-		day=day.length()>1?day:"0"+day;
-		String odCode = "BOM"+year+mon+day+code;
-		
-		return odCode;
-	}
+
+
+
 }

@@ -25,7 +25,7 @@
  -->
 	<resultMap id="OrderInfoMap" type="orderInfo">
 		<id property="idx" column="ordIdx" javaType="int"/>
-		<id property="orderNo" column="ordNo" javaType="java.lang.String"/>
+		<id property="orderNo" column="ORDER_NO" javaType="java.lang.String"/>
 		<id property="orderStatCd" column="ordStatCd" javaType="java.lang.String"/>
 		<id property="orderDate" column="ordDate" javaType="java.lang.String"/>
 		<id property="regDate" column="ordRegDate" javaType="java.lang.String"/>
@@ -45,13 +45,12 @@
 	</resultMap>
 
 	<resultMap id="OrdProductInfo" type="orderProductInfo">
-		<id property="prdCd" column="prdCd" javaType="java.lang.String"/>
-		<id property="prdNm" column="prdNm" javaType="java.lang.String"/>
-		<id property="prdCtgL" column="prdCtgL" javaType="java.lang.String"/>
-		<id property="prdCtgM" column="prdCtgM" javaType="java.lang.String"/>
-		<id property="prdCtgS" column="prdCtgS" javaType="java.lang.String"/>
-		<id property="fromDate" column="prdFromDate" javaType="java.lang.String"/>
-		<id property="toDate" column="prdToDate" javaType="java.lang.String"/>
+		<id property="prdCd" column="PRD_CD" javaType="java.lang.String"/>
+		<id property="regDate" column="REG_DATE" javaType="java.lang.String"/>
+		<id property="lastDate" column="LAST_DATE" javaType="java.lang.String"/>
+		<id property="modiUser" column="MODIFY_USER_ID" javaType="java.lang.String"/>
+		<id property="prdOption" column="PRD_OPTION" javaType="java.lang.String"/>
+		<id property="bytCn" column="BUY_COUNT" javaType="int"/>
 	</resultMap>
 
 
@@ -99,4 +98,17 @@
 		WHERE
 			T1.ORDER_DATE BETWEEN #{srchStdDt} AND #{srchEdDt}
 	</select >
+
+
+
+	<insert id="insertBomOrderPrdTb0001" parameterType="orderProductInfo" >
+		INSERT BOM_ORD_PRD_TB
+			(`ORDER_NO`,`PRD_CD`,`REG_DATE`,`LAST_DATE`,`MODIFY_USER_ID`,`PRD_OPTION`,`BUY_COUNT`)
+			VALUES
+			(#{orderNo}, #{prdCd}, sysdate(), sysdate(), #{modiUser}, #{prdOption},#{bytCn})
+	</insert>
+	
+
+
+
 </mapper>

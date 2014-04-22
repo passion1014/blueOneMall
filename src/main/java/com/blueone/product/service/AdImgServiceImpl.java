@@ -5,7 +5,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.blueone.product.domain.AdImgInfo;
+import com.blueone.admin.domain.AdImgInfo;
 
 @Service
 public class AdImgServiceImpl implements IAdImgService{
@@ -29,5 +29,20 @@ public class AdImgServiceImpl implements IAdImgService{
 		return result;
 	}
 
-	
+	@Override
+	public int insertAdImg2(AdImgInfo adImgInfo){
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		int result = 0;
+		try{
+			
+			result = sqlSession.insert("adImg.insertBomAdImgTb0002", adImgInfo);
+			
+		}finally{
+			sqlSession.close();
+		}
+		
+		return result;
+	}
+
 }

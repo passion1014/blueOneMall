@@ -18,7 +18,7 @@
 .product_list {display:block; padding:10px 0; border-top:2px solid #bbb; border-bottom:2px solid #bbb;}
 .product_list:after {height:0; content:""; clear:both; display:block;}
 .product_list li {float:left; margin:20px 0;}
-.product_list li.mlalign {margin-left:30px;}
+.product_list li.mlalign {margin:0 12px 0 12px;}
 .product_list li a {color:#666666;}
 .product_list li dl.list_product dd {font-size:13px; text-align:right; font-family:"NanumGothicBold"; line-height:16px;}
 .product_list li dl.list_product dd span {color:#c81c1c;}
@@ -401,3 +401,19 @@ font-family:"NanumGothicBold"; color:#666666;}
 .membership_section .complet_box span.btn_complete {margin-right:50px;}
 .membership_section .complet_box span.btn_complete input {background:#2c9dde; border:1px solid #0083ce;}
 .membership_section .complet_box span.btn_cancle input {background:#888888; border:1px solid #888;}
+
+
+/* ------------- product searchpage ------------- */
+.pro_content .pro_contbox {border-top:2px solid #969696; margin:20px 0; padding:10px 0 10px 0;}
+.pro_content .pro_contbox:after {height:0; content:""; clear:both; display:block;}
+.pro_content .pro_contbox .cont_box {float:left; width:500px; position:relative;}
+.pro_content .pro_contbox .cont_box p.pro_contlocation {margin:20px 0 0 145px;}
+.pro_content .pro_contbox dl {display:block; min-height:135px; border-bottom:1px solid #ccc;}
+.pro_content .pro_contbox dl dt {margin-left:145px; font-weight:bold; font-size:24px; margin-top:15px; color:#2c9dde;}
+.pro_content .pro_contbox dl dt span.tit_code {font-weight:normal; font-size:16px; color:#333;}
+.pro_content .pro_contbox dl dd.pro_imgarea {position:absolute; top:20px; left:0;}
+.pro_content .pro_contbox dl dd.pro_imgarea img {border:1px solid #ccc;}
+.pro_content .pro_contbox dl dd.pro_textarea {margin:10px 0 0 145px; line-height:18px;}
+.pro_content .pro_contbox dl dd.pro_textarea span strong {margin-right:10px;}
+.pro_content .pro_contbox dl dd.pro_linkarea {text-align:right; margin-right:15px;}
+.pro_content .pro_contbox dl dd.pro_linkarea a {display:inline-block; background:#2c9dde; color:#fff; font-weight:bold; line-height:30px; width:80px; text-align:center;}
