@@ -33,7 +33,7 @@
 	<!--  header 끝   -->
 
 	<div class="container">
-	
+	<form> </form>
 		<c:import url="../inc/productLnb.jsp"/>
 		
 		<div class="sub_content">
@@ -43,7 +43,6 @@
 			<div class="cont_section">
 				<ul class="cont_list">
 					<c:choose>					
-					
 						<c:when test="${prdCtgS != null}">
 							<c:set var="whenCount" value="1"></c:set>
 							<c:forEach items="${lnbSList}" var="lnbSList">
@@ -74,6 +73,7 @@
 								</c:if>
 								<li>
 									<a href="productList.do?ctgCode=${largeInf.ctgCode}&ctgMiddleCode=${lnbList.ctgCode}" class="${whenClass}">
+									
 										<c:out value="${lnbList.ctgName}"></c:out>
 									</a>	
 								</li>
@@ -89,10 +89,10 @@
 						총&nbsp;<span>700</span>&nbsp;중&nbsp;<span>100</span>&nbsp;개
 					</p>
 					<span class="pro_class">
-						<a href="#" class="rightline">낮은 가격</a>
-						<a href="#" class="rightline">높은 가격</a>
-						<a href="#" class="rightline">제품명</a>
-						<a href="#">제조사순</a>
+						<a href="productList.do?orderBy=low" class="rightline">낮은 가격</a>
+						<a href="productList.do?orderBy=high" class="rightline">높은 가격</a>
+						<a href="productList.do?orderBy=name" class="rightline">제품명</a>
+						<a href="productList.do?orderBy=brd">제조사순</a>
 					</span>
 					<ul class="product_list">
 						<c:choose>
@@ -101,7 +101,7 @@
 									<li class="mlalign">
 										<a href="javascript:location.href='productView.do?prdCd=${prdLList.prdCd}';">
 											<dl class="list_product">
-												<dd><img src="<c:url value='/resources/img/sub/sub_proimg1.jpg'/>" alt="product image"/></dd>
+												<dd><img src="${prdLList.attFilePath}" alt="product image"/></dd>
 												<dd>${prdLList.prdBrand}</dd>
 												<dd>${prdLList.prdNm}</dd>
 												<dd>${prdLList.prdPrice}&nbsp;↓&nbsp;<span>${prdLList.prdSellPrc}원</span></dd>
@@ -115,7 +115,7 @@
 									<li class="mlalign">
 										<a href="javascript:location.href='productView.do?prdCd=${prdMList.prdCd}';">
 											<dl class="list_product">
-												<dd><img src="<c:url value='/resources/img/sub/sub_proimg1.jpg'/>" alt="product image"/></dd>
+												<dd><img src="${prdLList.attFilePath}" alt="product image"/></dd>
 												<dd>${prdMList.prdBrand}</dd>
 												<dd>${prdMList.prdNm}</dd>
 												<dd>${prdMList.prdPrice}&nbsp;↓&nbsp;<span>${prdMList.prdSellPrc}원</span></dd>
@@ -129,7 +129,7 @@
 									<li class="mlalign">
 										<a href="javascript:location.href='productView.do?prdCd=${prdSList.prdCd}';">
 											<dl class="list_product">
-												<dd><img src="<c:url value='/resources/img/sub/sub_proimg1.jpg'/>" alt="product image"/></dd>
+												<dd><img src="${prdLList.attFilePath}" alt="product image"/></dd>
 												<dd>${prdSList.prdBrand}</dd>
 												<dd>${prdSList.prdNm}</dd>
 												<dd>${prdSList.prdPrice}&nbsp;↓&nbsp;<span>${prdSList.prdSellPrc}원</span></dd>
@@ -146,16 +146,9 @@
 					<div class="paging">
 						<a href="#" class="palign1"><img src="<c:url value='/resources/img/common/btn_first.gif'/>" alt="처음으로"></a>
 						<a href="#" class="palign2"><img src="<c:url value='/resources/img/common/btn_prev.gif'/>" alt="이전"></a>
-						<a href="#" class="on">1</a>
-						<a href="#">2</a>
-						<a href="#">3</a>
-						<a href="#">4</a>
-						<a href="#">5</a>
-						<a href="#">6</a>
-						<a href="#">7</a>
-						<a href="#">8</a>
-						<a href="#">9</a>
-						<a href="#">10</a>
+						<c:forEach var="i" begin="1" end="${endNum}">
+							<a href="productList.do?page=${i}">${i}</a>	
+						</c:forEach>
 						<a href="#" class="palign1"><img src="<c:url value='/resources/img/common/btn_next.gif'/>" alt="다음"></a>
 						<a href="#" class="palign2"><img src="<c:url value='/resources/img/common/btn_end.gif'/>" alt="끝으로"></a>
 					</div>

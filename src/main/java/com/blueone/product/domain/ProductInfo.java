@@ -72,9 +72,15 @@ public class ProductInfo {
 	private String propPrdCD;
 	
 	private String content;
-	
+	private String orderBy;//정렬
 
 	
+	public String getOrderBy() {
+		return orderBy;
+	}
+	public void setOrderBy(String orderBy) {
+		this.orderBy = orderBy;
+	}
 	public String getPrdSize() {
 		return prdSize;
 	}

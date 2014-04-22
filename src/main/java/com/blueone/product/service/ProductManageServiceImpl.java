@@ -84,11 +84,116 @@ public class ProductManageServiceImpl implements IProductManageService {
 		} finally {
 			sqlSession.close();
 		}
+
 		
 		return productList;
 	}
 
+	//상품 낮은가격순 정렬
+	@Override
+	public List<ProductInfo> oderByLowSellPriceList() {
+		
+		List<ProductInfo> productList = new ArrayList<ProductInfo>();
+		
+//		String srchSqlTp = "";
+//		if (StringUtils.isNotEmpty(searchProdInfo.getProdNm())) {
+//			
+//		}
+		
+		// -----------------------------------------------
+		// DB Insert 수행
+		// -----------------------------------------------
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			
+			// DB 수행
+			productList = sqlSession.selectList("product.orderByListBomProductTb0001");
+		} finally {
+			sqlSession.close();
+		}
+		
+		return productList;
+	}
+	
+	//상품 높은가격순 정렬
+	@Override
+	public List<ProductInfo> oderByHighSellPriceList() {
+		
+		List<ProductInfo> productList = new ArrayList<ProductInfo>();
+		
+//		String srchSqlTp = "";
+//		if (StringUtils.isNotEmpty(searchProdInfo.getProdNm())) {
+//			
+//		}
+		
+		// -----------------------------------------------
+		// DB Insert 수행
+		// -----------------------------------------------
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			
+			// DB 수행
+			productList = sqlSession.selectList("product.orderByListBomProductTb0002");
+		} finally {
+			sqlSession.close();
+		}
+		
+		return productList;
+	}
 
+	//상품 이름순 정렬
+	@Override
+	public List<ProductInfo> oderByNamePriceList() {
+		
+		List<ProductInfo> productList = new ArrayList<ProductInfo>();
+		
+//		String srchSqlTp = "";
+//		if (StringUtils.isNotEmpty(searchProdInfo.getProdNm())) {
+//			
+//		}
+		
+		// -----------------------------------------------
+		// DB Insert 수행
+		// -----------------------------------------------
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			
+			// DB 수행
+			productList = sqlSession.selectList("product.orderByListBomProductTb0003");
+		} finally {
+			sqlSession.close();
+		}
+		
+		return productList;
+	}
+
+	//상품 브랜드순 정렬
+	@Override
+	public List<ProductInfo> oderByBrdPriceList() {
+		
+		List<ProductInfo> productList = new ArrayList<ProductInfo>();
+		
+//		String srchSqlTp = "";
+//		if (StringUtils.isNotEmpty(searchProdInfo.getProdNm())) {
+//			
+//		}
+		
+		// -----------------------------------------------
+		// DB Insert 수행
+		// -----------------------------------------------
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			
+			// DB 수행
+			productList = sqlSession.selectList("product.orderByListBomProductTb0004");
+		} finally {
+			sqlSession.close();
+		}
+		
+		return productList;
+	}
+
+		
 	
 	@Override
 	public ProductInfo registProductInfo(ProductInfo productInfo) {

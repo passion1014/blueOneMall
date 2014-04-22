@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.blueone.category.domain.CategoryInfo;
 import com.blueone.category.service.ICategoryManageService;
+import com.blueone.common.domain.AttachFileInfo;
+import com.blueone.common.service.IAttachFileManageService;
+import com.blueone.common.util.PageDivision;
 import com.blueone.product.domain.ProductInfo;
 import com.blueone.product.domain.SearchProdInfo;
 import com.blueone.product.service.IProductManageService;
@@ -27,6 +30,7 @@ public class UserProductController {
 	
 	@Autowired
 	private IUserProductService iUserProductService;
+	@Autowired IAttachFileManageService attFileManageService;
 	@Autowired
 	private ICategoryManageService categoryManageService;
 	@Autowired
@@ -34,9 +38,19 @@ public class UserProductController {
 	@Autowired
 	private IProductManageService productManageService;
 	
-	/*@RequestMapping(value="/product/productList.do")
-	public String productList(@ModelAttribute("productInfo") ProductInfo productInfo, @ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model){
+	@RequestMapping(value="/product/productList.do")
+	public String productList(@ModelAttribute("productInfo") ProductInfo productInfo, @ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model,String page){
 
+
+		PageDivision pd = new PageDivision();
+		
+		if(StringUtils.isEmpty(page)) pd.pageNum("1");
+		else pd.pageNum(page);
+		String orderBy=productInfo.getOrderBy();
+		if(StringUtils.isEmpty(orderBy)) orderBy="low";
+		
+		
+		
 		// ----------------------------------------------------------
 		// 변수선언
 		// ----------------------------------------------------------
@@ -57,8 +71,22 @@ public class UserProductController {
 		// 카테고리 조회
 		// ----------------------------------------------------------
 		List<CategoryInfo> categoryList = categoryManageService.getCategoryInfList(categoryInfo);
+		List<ProductInfo> productList=null;
 		// product 조회
-		List<ProductInfo> productList = productManageService.getProductInfList(searchProdInfo);
+		if(orderBy.equals("low")){
+			productList = productManageService.oderByLowSellPriceList();
+		}
+		if(orderBy.equals("high")){
+			productList = productManageService.oderByHighSellPriceList();
+		}
+		if(orderBy.equals("name")){
+			productList = productManageService.oderByNamePriceList();
+		}
+		if(orderBy.equals("brd")){
+			productList = productManageService.oderByBrdPriceList();
+		}
+		
+		//List<ProductInfo> productList = productManageService.getProductInfList(searchProdInfo);
 		
 		// ----------------------------------------------------------
 		// 대분류 정보 조회
@@ -79,6 +107,7 @@ public class UserProductController {
 			
 			for(ProductInfo each: productList){
 				if(largeInf.getCtgCode().equals(each.getPrdCtgL())){
+					
 					prdLList.add(each);
 				}
 			}
@@ -123,6 +152,23 @@ public class UserProductController {
 			}
 		}
 		
+		pd.setPrdList(prdLList);
+		
+		List<ProductInfo> resultList =pd.getPrdList(3);
+
+		for(ProductInfo each : resultList){
+			AttachFileInfo att = new AttachFileInfo();
+			att.setAttCdKey(each.getPrdCd());
+			att = attFileManageService.getAttFileInfListImg(att);
+			
+			if(att==null){
+				each.setAttFilePath("");
+			}else { 
+				
+				each.setAttFilePath(att.getAttFilePath());
+			}
+			
+		}
 		model.addAttribute("categoryList",categoryList);
 		model.addAttribute("largeInf",largeInf);
 		model.addAttribute("lnbList",lnbList);
@@ -131,15 +177,13 @@ public class UserProductController {
 		model.addAttribute("lMenuDetail",categoryInfo);
 		model.addAttribute("chkMiddleCode",chkMiddleCode);
 		model.addAttribute("prdCtgS",prdCtgS);
-		model.addAttribute("prdLList",prdLList);
+		model.addAttribute("prdLList",resultList);
 		model.addAttribute("prdMList",prdMList);
 		model.addAttribute("prdSList",prdSList);
+		model.addAttribute("endNum",pd.getEndPageNum());
 		return "product/productList";
 		
-	}*/
-	
-	
-	
+	}
 	
 	
 	
