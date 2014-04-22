@@ -20,7 +20,7 @@
 	<div class="container">
 		<c:import url="../inc/orderLnb.jsp" />
 		<div class="sub_content">
-			<form action="#" method="post">
+			<form action="orderRegisterProc.do" method="post">
 				<div class="porder_section">
 					<h4>제품주문</h4>
 					<div class="porder_step">
@@ -53,26 +53,33 @@
 								</tr>
 							</thead>
 							<tbody>
+								<c:choose>
+									<c:when test="${odPrdInfo.size() != 0}">
+										<c:forEach items="${odPrdInfo}" var="odPrdInfo">
 								<tr>
 									<th>
 										<input type="checkbox" title="상품선택"/>
 									</th>
 									<td class="product_area">
 										<span>
-										<img src="<c:url value='/resources/img/sub/product_img1.jpg'/>" alt="상품이미지"/></span>
+										<img src="${odPrdInfo.prdSmallImg}"  alt="상품이미지"/></span>
 										<span>
-											[Harman Kardon] HAR/KAR-AE 이어폰
+											${odPrdInfo.prdNm}
+											<c:if test="${'NULL' ne odPrdInfo.prdOpColor}">/${odPrdInfo.prdOpColor}</c:if>
+											<c:if test="${'NULL' eq odPrdInfo.prdOpSize}">/${odPrdInfo.prdOpSize}</c:if>
+											
 										</span>
 									</td>
-									<td>124,000</td>
+									<td>${odPrdInfo.sellPrice}</td>
 									<td>
-										<span class="input_text"><input type="text" value="1" title="수량기입"><button class="btn_triangle1"></button></span>
+										<span class="input_text"><input type="text" value="${odPrdInfo.buyCnt}" title="수량기입"><button class="btn_triangle1"></button></span>
 										<span class="input_btn"><input type="button" value="수정" title="수정"><button class="btn_triangle2"></button></span>
 									</td>
-									<td>124,000</td>
+									<td>>${odPrdInfo.totalPrice}</td>
 									<td>
 										<button class="btn_choice1">구매하기</button>
-										<button class="btn_choice2">삭제하기</button>
+										<!-- <button class="btn_choice2" onClick="confirm_process('','해당 상품을 삭제하시겠습니까?','deleteCartList.do?prdCd=${odPrdInfo.prdCd}');" >삭제하기</button> -->
+										<a href="deleteCartList.do?prdCd=${odPrdInfo.prdCd}">[삭제하기]</a>
 									</td>
 								</tr>
 								<tr>
@@ -85,6 +92,11 @@
 										총 주문금액 : 124,000원 + 배송비 : 0원 = 합계 <strong>124,000</strong>원
 									</td>
 								</tr>
+								</c:forEach>
+								</c:when>
+								<c:otherwise><tr><td>장바구니에 상품이 없습니다.</td></tr></c:otherwise>
+								</c:choose>
+		
 							</tbody>
 						</table>
 						<h5>주문서 작성 및 결제</h5>
@@ -102,29 +114,48 @@
 								<tr>
 									<th>성명</th>
 									<td class="in_text">
-										<input type="text" title="성명"/>
+										<input type="text" name="customerInfo.custNm" id="customerInfo.custNm" title="성명" value="${cus.custNm}"/>
 									</td>
 									<th>전화번호</th>
 									<td class="in_sectext">
-										<select>
-											<option>02</option>
+										<select  name="customerInfo.telNo1" id="customerInfo.telNo1">
+											<option <c:if test="${cus.telNo1}">selected</c:if>>02</option>
+											<option <c:if test="${cus.telNo1}">selected</c:if>>031</option>
+											<option <c:if test="${cus.telNo1}">selected</c:if>>032</option>
+											<option <c:if test="${cus.telNo1}">selected</c:if>>033</option>
+											<option <c:if test="${cus.telNo1}">selected</c:if>>041</option>
+											<option <c:if test="${cus.telNo1}">selected</c:if>>042</option>
+											<option <c:if test="${cus.telNo1}">selected</c:if>>043</option>
+											<option <c:if test="${cus.telNo1}">selected</c:if>>051</option>
+											<option <c:if test="${cus.telNo1}">selected</c:if>>052</option>
+											<option <c:if test="${cus.telNo1}">selected</c:if>>053</option>
+											<option <c:if test="${cus.telNo1}">selected</c:if>>054</option>
+											<option <c:if test="${cus.telNo1}">selected</c:if>>061</option>
+											<option <c:if test="${cus.telNo1}">selected</c:if>>062</option>
+											<option <c:if test="${cus.telNo1}">selected</c:if>>063</option>
+											<option <c:if test="${cus.telNo1}">selected</c:if>>064</option>
 										</select>
-										-<input type="text" title="전화번호"/>-
-										<input type="text" title="전화번호"/>
+										-<input type="text" title="전화번호" name="customerInfo.telNo2" id="customerInfo.telNo2" value="${cus.telNo2}" />-
+										<input type="text" title="전화번호" name="customerInfo.telNo3" id="customerInfo.telNo3" value="${cus.telNo3}"/>
 									</td>
 								</tr>
 								<tr>
 									<th>휴대전화</th>
 									<td class="in_sectext">
-										<select>
-											<option>010</option>
+										<select  name="customerInfo.hpNo1" id="customerInfo.hpNo1">
+											<option <c:if test="${cus.hpNo1}">selected</c:if>>010</option>
+											<option <c:if test="${cus.hpNo1}">selected</c:if>>011</option>
+											<option <c:if test="${cus.hpNo1}">selected</c:if>>017</option>
+											<option <c:if test="${cus.hpNo1}">selected</c:if>>016</option>
+											<option <c:if test="${cus.hpNo1}">selected</c:if>>019</option>
+											<option <c:if test="${cus.hpNo1}">selected</c:if>>018</option>
 										</select>
-										-<input type="text" title="휴대전화번호"/>-
-										<input type="text" title="휴대전화번호"/>
+										-<input type="text"  name="customerInfo.hpNo2" id="customerInfo.hpNo2"title="휴대전화번호" value="${cus.hpNo2}"/>-
+										<input type="text"  name="customerInfo.hpNo3" id="customerInfo.hpNo3" title="휴대전화번호" value="${cus.hpNo3}"/>
 									</td>
 									<th>이메일</th>
 									<td class="in_text">
-										<input type="text" title="이메일"/>
+										<input type="text" name="customerInfo.eMail" id="customerInfo.eMail" title="이메일" value="${cus.eMail}"/>
 									</td>
 								</tr>
 							</tbody>
@@ -148,44 +179,63 @@
 									</td>
 									<th>받으시는분</th>
 									<td class="in_text">
-										<input type="text" title="받으시는분 성명 기입"/>
+										<input type="text" id="customerContactInfo.contactNm" name="customerContactInfo.contactNm" title="받으시는분 성명 기입"/>
 									</td>
 								</tr>
 								<tr>
 									<th>전화번호</th>
 									<td class="in_sectext">
-										<select>
-											<option>02</option>
+										<select  id="customerContactInfo.phone1" name="customerContactInfo.phone1" >
+											<option selected>02</option>
+											<option>031</option>
+											<option>032</option>
+											<option>033</option>
+											<option>041</option>
+											<option>042</option>
+											<option>043</option>
+											<option>051</option>
+											<option>052</option>
+											<option>053</option>
+											<option>054</option>
+											<option>061</option>
+											<option>062</option>
+											<option>063</option>
+											<option>064</option>
 										</select>
-										-<input type="text" title="전화번호"/>-
-										<input type="text" title="전화번호"/>
+										-<input type="text" id="customerContactInfo.phone2" name="customerContactInfo.phone2" title="전화번호"/>-
+										<input type="text"  id="customerContactInfo.phone3" name="customerContactInfo.phone3" title="전화번호"/>
 									</td>
 									<th>휴대전화번호</th>
 									<td class="in_sectext">
-										<select>
-											<option>010</option>
+										<select  id="customerContactInfo.mobile1" name="customerContactInfo.mobile1"  >
+											<option selected>010</option>
+											<option>011</option>
+											<option>017</option>
+											<option>016</option>
+											<option>019</option>
+											<option>018</option>
 										</select>
-										-<input type="text" title="휴대전화번호"/>-
-										<input type="text" title="휴대전화번호"/>
+										-<input type="text" id="customerContactInfo.mobile2" name="customerContactInfo.mobile2" title="휴대전화번호"/>-
+										<input type="text" id="customerContactInfo.mobile3" name="customerContactInfo.mobile3"  title="휴대전화번호"/>
 									</td>
 								</tr>
 								<tr>
 									<th>주소</th>
 									<td colspan="3" class="address_box">
 										<span class="adr_box1">
-											<input type="text" title="우편번호"/>
+											<input type="text" title="우편번호"  id="customerContactInfo.zipCd1" name="customerContactInfo.zipCd1" />
 											<button>우편번호 찾기</button>
 										</span>
 										<span class="adr_box2">
-											<input type="text" title="우편번호"/>
-											<input type="text" title="우편번호"/>
+											<input type="text" title="우편번호" id="customerContactInfo.addrDesc1" name="customerContactInfo.addrDesc1" />
+											<input type="text" title="우편번호" id="customerContactInfo.addrDesc2" name="customerContactInfo.addrDesc2" />
 										</span>
 									</td>
 								</tr>
 								<tr>
 									<th>배송시 요청사항</th>
 									<td colspan="3" class="arrive_box">
-										<input type="text" title="배송시 요청사항 기입"/>
+										<input type="text" id="customerContactInfo.reqtMent" name="customerContactInfo.reqtMent title="배송시 요청사항 기입"/>
 									</td>
 								</tr>
 							</tbody>

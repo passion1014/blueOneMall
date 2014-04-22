@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 public class OrderProductInfo {
 
 	private int idx;
+	private String orderNo;	
 	private String prdCd;			// 상품코드
 	private String prdNm;			// 상품명
 	private String prdSmallImg;		// 상품이미지(작은이미지)
@@ -21,9 +22,22 @@ public class OrderProductInfo {
 	private String modifyUserId;	// 최종수정자
 	private String prdOpColor;		// 옵션-색상
 	private String prdOpSize;		// 옵션-크기
-	
+	private String prdOption;
 	private String oderDelete;
 	
+	
+	public String getPrdOption() {
+		return prdOption;
+	}
+	public void setPrdOption(String prdOption) {
+		this.prdOption = prdOption;
+	}
+	public String getOrderNo() {
+		return orderNo;
+	}
+	public void setOrderNo(String orderNo) {
+		this.orderNo = orderNo;
+	}
 	public String getOderDelete() {
 		return oderDelete;
 	}

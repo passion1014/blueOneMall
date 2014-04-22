@@ -37,8 +37,52 @@ public class CustomerInfo {
 //	private MultipartFile excelFile;// 첨부 대표이미지
 	private String virtualNo;		// 개인식별번호
 	
+	private String telNo1;			// 전화번호-국번
+	private String telNo2;			// 전화번호-중간번호
+	private String telNo3;			// 전화번호-끝번호
+	private String hpNo1;
+	private String hpNo2;
+	private String hpNo3;
+	
 	private List<CustomerContactInfo> customerContactList;
 	
+	
+	public String getHpNo1() {
+		return hpNo1;
+	}
+	public void setHpNo1(String hpNo1) {
+		this.hpNo1 = hpNo1;
+	}
+	public String getHpNo2() {
+		return hpNo2;
+	}
+	public void setHpNo2(String hpNo2) {
+		this.hpNo2 = hpNo2;
+	}
+	public String getHpNo3() {
+		return hpNo3;
+	}
+	public void setHpNo3(String hpNo3) {
+		this.hpNo3 = hpNo3;
+	}
+	public String getTelNo1() {
+		return telNo1;
+	}
+	public void setTelNo1(String telNo1) {
+		this.telNo1 = telNo1;
+	}
+	public String getTelNo2() {
+		return telNo2;
+	}
+	public void setTelNo2(String telNo2) {
+		this.telNo2 = telNo2;
+	}
+	public String getTelNo3() {
+		return telNo3;
+	}
+	public void setTelNo3(String telNo3) {
+		this.telNo3 = telNo3;
+	}
 	public List<CustomerContactInfo> getCustomerContactList() {
 		return customerContactList;
 	}

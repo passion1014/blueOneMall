@@ -22,6 +22,15 @@ public class CustomerContactInfo {
 	private String addrDesc1;	// 기본주소
 	private String addrDesc2;	// 상세주소
 	
+	private String reqtMent;	// 상세주소
+	
+	
+	public String getReqtMent() {
+		return reqtMent;
+	}
+	public void setReqtMent(String reqtMent) {
+		this.reqtMent = reqtMent;
+	}
 	public String getCustId() {
 		return custId;
 	}

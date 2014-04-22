@@ -260,7 +260,7 @@ public class ProductController {
 		List<ProductInfo> list = productManageService.getProductSearchList(searchProdInfo);
 	    model.addAttribute("list", list);
 	    
-		return "product/result";
+		return "product/productSearch";
 	}
 	
 	
