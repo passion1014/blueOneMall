@@ -71,4 +71,12 @@
 			T1.CUST_ID = #{custId}
 		ORDER BY T2.CUST_CONTACT_NO
 	</select >
+	
+	
+	<insert id="insertBomCustContactTb0001" parameterType="customerContactInfo" >
+		INSERT BOM_ORDER_TB
+			(`ORDER_NO`,`CUST_ID`,`CUST_CONTACT_NO`,`ORDER_DATE`,`REG_DATE`,`LAST_DATE`,`MODIFY_USER_ID`)
+			VALUES
+			(#{orderNo}, #{customerInfo.custId}, #{customerContactInfo.contactSeq},sysdate(), sysdate(), sysdate(),#{modifyUserId})
+	</insert>
 </mapper>

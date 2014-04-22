@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="recipient">
+
+	<resultMap id="RecipientInfoMap" type="RecipientInfo">
+	
+		<id property="reciOdNum" column="RECI_ORDER_NUM" javaType="java.lang.String"/>
+		<id property="reciNm" column="RECI_NAME" javaType="java.lang.String"/>
+		<id property="reciPh" column="RECI_PHONE" javaType="java.lang.String"/>
+		<id property="reciMb" column="RECI_MOBILE" javaType="java.lang.String"/>
+		<id property="reciAdd" column="RECI_ADDRESS" javaType="java.lang.String"/>
+		<id property="reciReq" column="RECI_REQUEST_MEMO" javaType="java.lang.String"/>
+		
+	</resultMap>
+	
+	
+	<insert id="insertBomRecipientTb0001" parameterType="recipientInfo" >
+		INSERT BOM_RECIPIENT_TB
+			(`RECI_ORDER_NUM`,`RECI_NAME`,`RECI_PHONE`,`RECI_MOBILE`,`RECI_ADDRESS`,`RECI_REQUEST_MEMO`)
+			VALUES
+			(#{reciOdNum},#{reciNm},#{reciPh},#{reciMb},#{reciAdd},#{reciReq})
+	</insert>
+	<select id="selectListBomRecipientTb0001" resultType="RecipientInfo" resultMap="RecipientInfoMap" parameterType="RecipientInfo">
+		SELECT
+			T1.RECI_ORDER_NUM,
+			T1.RECI_NAME,
+			T1.RECI_PHONE,
+			T1.RECI_MOBILE,
+			T1.RECI_ADDRESS,
+			T1.RECI_REQUEST_MEMO
+			
+		FROM 
+				BOM_RECIPIENT_TB T1
+		WHERE
+			T1.RECI_ORDER_NUM = #{reciOdNum}
+	</select >
+	
+	
+</mapper>

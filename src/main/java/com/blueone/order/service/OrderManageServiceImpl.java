@@ -12,6 +12,7 @@ import com.blueone.common.domain.ResultInfo;
 import com.blueone.customer.domain.CustomerContactInfo;
 import com.blueone.customer.domain.CustomerInfo;
 import com.blueone.customer.domain.CustomerSrchInfo;
+import com.blueone.customer.domain.RecipientInfo;
 import com.blueone.customer.service.CustomerManageServiceImpl;
 import com.blueone.customer.service.ICustomerManageService;
 import com.blueone.order.domain.OrderInfo;
@@ -97,6 +98,7 @@ public class OrderManageServiceImpl implements IOrderManageService{
 		return rst;
 	}
 	
+	
 	//주문-등록
 	@Override
 	public int registOrderInfo(OrderInfo odInfo) {
@@ -119,6 +121,74 @@ public class OrderManageServiceImpl implements IOrderManageService{
 			}
 			
 			return rst;
+	
+	}
+	
+	//주문-받는사람
+	@Override
+	public int registRecipientInfo(RecipientInfo reciInfo) {
+				
+				
+			int rst=0;
+			// -----------------------------------------------
+			// DB Insert 수행
+			// -----------------------------------------------
+			SqlSession sqlSession = sqlSessionFactory.openSession();
+				try {
+					
+					
+					rst = sqlSession.insert("recipient.insertBomRecipientTb0001", reciInfo);
+					
+					
+					
+				} finally {
+					sqlSession.close();
+				}
+				
+				return rst;
+		
 		}
+	
+	@Override
+	//주문코드로 주문상품 조회
+	public OrderProductInfo selectOrderPrdInfo(OrderProductInfo odPrdInfo){
+		OrderProductInfo result = new OrderProductInfo();
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			// -----------------------------------------------
+			// 1. 상품코드 기본값 조회
+			// -----------------------------------------------
+			result = sqlSession.selectOne("order.selectListBomOrderPrdTb0001", odPrdInfo);
+			
+		} finally {
+			sqlSession.close();
+		}
+		return result;
+		
+		
+	}
+	
+	@Override
+	//주문코드로 받는사람 조회
+	public RecipientInfo selectRecipientInfo(RecipientInfo reciInfo){
+		RecipientInfo result = new RecipientInfo();
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			// -----------------------------------------------
+			// 1. 상품코드 기본값 조회
+			// -----------------------------------------------
+			result = sqlSession.selectOne("recipient.selectListBomRecipientTb0001", reciInfo);
+			
+		} finally {
+			sqlSession.close();
+		}
+		return result;
+		
+		
+	}
+	
+	
 	
 }

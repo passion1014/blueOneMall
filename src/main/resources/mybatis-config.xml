@@ -91,6 +91,7 @@
 		<!-- [START] 삭제예정(User 패키지로 대체함) -->
 		<typeAlias alias="customerSrchInfo" type="com.blueone.customer.domain.CustomerSrchInfo" /> 
 		<typeAlias alias="customerInfo" type="com.blueone.customer.domain.CustomerInfo" /> 
+		<typeAlias alias="recipientInfo" type="com.blueone.customer.domain.RecipientInfo" /> 
 		<typeAlias alias="customerContactInfo" type="com.blueone.customer.domain.CustomerContactInfo" />
 		<!-- [END] 삭제예정(User 패키지로 대체함) -->
 		
