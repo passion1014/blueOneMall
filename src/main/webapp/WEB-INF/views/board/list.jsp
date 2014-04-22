@@ -29,19 +29,19 @@ function fnDetail(brdSeq, passwdYn, insUser) {
 
 // 등록
 function fnAdd() {
-	if (${brdTypInfo.writeAuth == '20' && sessionScope.userInfo.userId == null}) {
+//	if (${brdTypInfo.writeAuth == '20' && sessionScope.userInfo.userId == null}) {
 		/*
 		if (!confirm('회원만 등록이 가능합니다.\n\n로그인 페이지로 이동하시겠습니까?')) {
 			return false;
 		}
 		location.href = '${pageContext.request.contextPath}/login.do';
 		*/
-		if (!confirm('회원 또는 인증 후 등록이 가능합니다.\n\n아이핀 인증을 하시겠습니까?')) {
-			return false;
-		}
-		fnCheckGpin();
-		return false;
-	} 
+//		if (!confirm('회원 또는 인증 후 등록이 가능합니다.\n\n아이핀 인증을 하시겠습니까?')) {
+//			return false;
+//		}
+//		fnCheckGpin();
+//		return false;
+//	} 
 	
 	var f = boardForm;
 	f.action = '${pgmId}write.do';
@@ -73,82 +73,137 @@ function fnGotoPage(page) {
 		
 		<!-- 일반게시판 -->
 		<c:if test="${brdTypInfo.imgUseYn != 'T'}">
-		<table class="boardNormal" summary="묻고답하기 목록">
-		<caption>묻고답하기 목록</caption>
-		<colgroup>
-		<col width="60" />
-		<col width="505" />
-		<col width="65" />
-		<col width="80" />
-		<col width="65" />
-		</colgroup>
-		<thead>
-		<tr>
-			<th scope="col" class="first">번호</th>
-			<th scope="col">제목</th>
-			<th scope="col">작성자</th>
-			<th scope="col">작성일</th>
-			<th scope="col">조회수</th>
-		</tr>
-		</thead>
-		<tbody>
-		<!-- 공지 -->
-		<c:forEach var="notice" items="${noticeList}">
-		<tr>
-			<td><strong>[공지]</strong></td>
-			<td class="title mousePoint" onclick="fnDetail(${notice.brdSeq}, ${notice.passwd != null}, '${notice.insUser}')">
-				${notice.title} <c:if test="${brdTypInfo.commViewYn == 'T'}"><c:if test="${notice.commCnt > 0}"><span class="cmtCnt">[덧글:${notice.commCnt}]</span></c:if></c:if>
-				<c:if test="${notice.passwd != null && notice.passwd != ''}"><img class="icon" src="../images/board/icon/icon_secret.gif" alt="비밀글" /></c:if>
-				<c:if test="${brdTypInfo.attaViewYn == 'T'}">
-				<c:forEach var="attachFile" items="${notice.attachFiles}">
-					<c:if test="${attachFile.attaKnd == 'AF'}">
-						<c:if test="${attachFile.iconImage != null && attachFile.iconImage != ''}"><img class="icon" src="../images/board/icon/${attachFile.iconImage}" alt="첨부파일" /></c:if>
-					</c:if>
-				</c:forEach>
-				</c:if>
+			<table class="boardNormal" summary="묻고답하기 목록">
+				<caption>묻고답하기 목록</caption>
 				
-				<!-- 신규글표기 -->
-				<c:if test="${brdTypInfo.newViewYn == 'T'}">
-					<c:if test="${notice.todayYn == 'T'}"><img class="icon" src="../images/board/icon/icon_new.gif" alt="신규글" /></c:if>
-				</c:if>&nbsp;
-			</td>
-			<td>${notice.userNm}<c:if test="${notice.userNm == null || notice.userNm == ''}">&nbsp;</c:if></td>
-			<td>${notice.insDt}</td>
-			<td class="hit">${notice.hit}</td>
-		</tr>
-		</c:forEach>
-		
-		<!-- 일반 -->
-		<c:forEach var="board" items="${boardList}">
-		<tr>
-			<td>${board.brdSeq}</td>
-			<td class="title mousePoint" onclick="fnDetail(${board.brdSeq}, ${board.passwd != null}, '${board.insUser}')">
-				<c:if test="${board.depth > 0}">
-					<img class="reply" src="../images/board/icon/icon_reply.gif" alt="답변글" />
-				</c:if>${board.title} <c:if test="${brdTypInfo.commViewYn == 'T'}"><c:if test="${board.commCnt > 0}"><span class="cmtCnt">[덧글:${board.commCnt}]</span></c:if></c:if>
-				<c:if test="${board.passwd != null && board.passwd != ''}"><img class="icon" src="../images/board/icon/icon_secret.gif" alt="비밀글" /></c:if>
-				<c:if test="${brdTypInfo.attaViewYn == 'T'}">
-				<c:forEach var="attachFile" items="${board.attachFiles}">
-					<c:if test="${attachFile.attaKnd == 'AF'}">
-						<c:if test="${attachFile.iconImage != null && attachFile.iconImage != ''}"><img class="icon" src="../images/board/icon/${attachFile.iconImage}" alt="첨부파일" /></c:if>
-					</c:if>
-				</c:forEach>
-				</c:if>
+				<colgroup>
+					<col width="60" />
+					<col width="505" />
+					<col width="65" />
+					<col width="80" />
+					<col width="65" />
+				</colgroup>
 				
-				<!-- 신규글표기 -->
-				<c:if test="${brdTypInfo.newViewYn == 'T'}">
-					<c:if test="${board.todayYn == 'T'}"><img class="icon" src="../images/board/icon/icon_new.gif" alt="신규글" /></c:if>
-				</c:if>&nbsp;
-			</td>
-			<td>${board.userNm}<c:if test="${board.userNm == null || board.userNm == ''}">&nbsp;</c:if></td>
-			<td>${board.insDt}</td>
-			<td class="hit">${board.hit}</td>
-		</tr>
-		</c:forEach>
-		</tbody>		
-		</table>
+				<thead>
+				<tr>
+					<th scope="col" class="first">번호</th>
+					<th scope="col">제목</th>
+					<th scope="col">작성자</th>
+					<th scope="col">작성일</th>
+					<th scope="col">조회수</th>
+				</tr>
+				</thead>
+				
+				<tbody>
+				
+				<!-- 공지 -->
+				<c:forEach var="notice" items="${noticeList}">
+				<tr>
+					<td><strong>[공지]</strong></td>
+					<td class="title mousePoint" onclick="fnDetail(${notice.brdSeq}, ${notice.passwd != null}, '${notice.insUser}')">
+						${notice.title} <c:if test="${brdTypInfo.commViewYn == 'T'}"><c:if test="${notice.commCnt > 0}"><span class="cmtCnt">[덧글:${notice.commCnt}]</span></c:if></c:if>
+						<c:if test="${notice.passwd != null && notice.passwd != ''}"><img class="icon" src="../images/board/icon/icon_secret.gif" alt="비밀글" /></c:if>
+						<c:if test="${brdTypInfo.attaViewYn == 'T'}">
+						<c:forEach var="attachFile" items="${notice.attachFiles}">
+							<c:if test="${attachFile.attaKnd == 'AF'}">
+								<c:if test="${attachFile.iconImage != null && attachFile.iconImage != ''}"><img class="icon" src="../images/board/icon/${attachFile.iconImage}" alt="첨부파일" /></c:if>
+							</c:if>
+						</c:forEach>
+						</c:if>
+						
+						<!-- 신규글표기 -->
+						<c:if test="${brdTypInfo.newViewYn == 'T'}">
+							<c:if test="${notice.todayYn == 'T'}"><img class="icon" src="../images/board/icon/icon_new.gif" alt="신규글" /></c:if>
+						</c:if>&nbsp;
+					</td>
+					<td>${notice.userNm}<c:if test="${notice.userNm == null || notice.userNm == ''}">&nbsp;</c:if></td>
+					<td>${notice.insDt}</td>
+					<td class="hit">${notice.hit}</td>
+				</tr>
+				</c:forEach>
+				
+				<!-- 일반 -->
+				<c:forEach var="board" items="${boardList}">
+				<tr>
+					<td>${board.brdSeq}</td>
+					<td class="title mousePoint" onclick="fnDetail(${board.brdSeq}, ${board.passwd != null}, '${board.insUser}')">
+						<c:if test="${board.depth > 0}">
+							<img class="reply" src="../images/board/icon/icon_reply.gif" alt="답변글" />
+						</c:if>${board.title} <c:if test="${brdTypInfo.commViewYn == 'T'}"><c:if test="${board.commCnt > 0}"><span class="cmtCnt">[덧글:${board.commCnt}]</span></c:if></c:if>
+						<c:if test="${board.passwd != null && board.passwd != ''}"><img class="icon" src="../images/board/icon/icon_secret.gif" alt="비밀글" /></c:if>
+						<c:if test="${brdTypInfo.attaViewYn == 'T'}">
+						<c:forEach var="attachFile" items="${board.attachFiles}">
+							<c:if test="${attachFile.attaKnd == 'AF'}">
+								<c:if test="${attachFile.iconImage != null && attachFile.iconImage != ''}"><img class="icon" src="../images/board/icon/${attachFile.iconImage}" alt="첨부파일" /></c:if>
+							</c:if>
+						</c:forEach>
+						</c:if>
+						
+						<!-- 신규글표기 -->
+						<c:if test="${brdTypInfo.newViewYn == 'T'}">
+							<c:if test="${board.todayYn == 'T'}"><img class="icon" src="../images/board/icon/icon_new.gif" alt="신규글" /></c:if>
+						</c:if>&nbsp;
+					</td>
+					<td>${board.userNm}<c:if test="${board.userNm == null || board.userNm == ''}">&nbsp;</c:if></td>
+					<td>${board.insDt}</td>
+					<td class="hit">${board.hit}</td>
+				</tr>
+				</c:forEach>
+				
+				</tbody>		
+			</table>
 		</c:if>
 		
+		<!-- 이미지게시판 -->
+		<c:if test="${brdTypInfo.imgUseYn == 'T'}">
+			<table class="boardPhoto" summary="발간자료 목록">
+				<caption>발간자료 목록</caption>
+				
+				<colgroup>
+				<col width="60" />
+				<col width="90" />
+				<col width="625" />
+				</colgroup>
+				
+				<thead>
+				<tr>
+					<th scope="col"></th>
+					<th scope="col"></th>
+					<th scope="col"></th>
+				</tr>
+				</thead>
+				
+				<tbody>
+				<c:forEach var="board" items="${boardList}" varStatus="loop">
+					<tr <c:if test="${loop.index == 0}">class="first"</c:if>>
+						<td>${board.brdSeq}</td>
+						<td>
+							<c:if test="${board.repreImage != null}">
+								<img src="../userfiles/board/${board.repreImage}" width="86" height="86" alt="이미지" />
+							</c:if>
+							<c:if test="${board.repreImage == null}">
+								<img src="../images/common/noimg.gif" alt="이미지" />
+							</c:if>
+						</td>
+						<td valign="top">
+							<ul>
+								<li class="<c:if test="${brdTypInfo.brdTyp == 6}">data_tit</c:if><c:if test="${brdTypInfo.brdTyp != 6}">photo_tit</c:if> mousePoint" onclick="fnDetail(${board.brdSeq})"><strong>${fn:substring(board.title, 0, (brdTypInfo.brdTyp == 6 ? 20 : 36))}</strong></li>
+								<c:if test="${brdTypInfo.publicUseYn == 'T'}">
+								<li class="data_other">
+									<p class="title01"><strong>발간일</strong> : <span class="color_3593e5">${board.publicYmd}</span></p>
+									<p class="title02"><strong>발간자</strong> : ${fn:substring(board.publicNm, 0, 3)}</p>
+								</li>
+								</c:if>
+								<li id="idCont${loop.index}" class="ctent" style="display:none">${board.contText}</li>
+							</ul>
+						</td>
+					</tr>
+				</c:forEach>
+				</tbody>
+				
+			</table>
+		</c:if>		
+
 		<div id="pagingWrap">
 			${pageHtml}
 			<c:if test="${brdTypInfo.writeAuth == '10' || brdTypInfo.writeAuth == '20'}">

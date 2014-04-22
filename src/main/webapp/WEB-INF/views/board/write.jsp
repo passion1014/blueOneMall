@@ -16,6 +16,9 @@ function fnAddClick() {
 
 
 <form name="tx_editor_form" method="post" enctype="multipart/form-data" action="http://posttestserver.com/post.php">
+<input type="hidden" name="currentPage" value="${srchInfo.currentPage}" />
+<input type="hidden" name="srchBrdTyp" value="${srchBrdTyp}" />
+
 <table class="boardNormal" summary="묻고답하기 등록">
 	<caption>묻고답하기 등록</caption>
 	<colgroup>
@@ -46,14 +49,17 @@ function fnAddClick() {
 			</td>
 		</tr>
 		</c:if>
-		<c:if test="${brdTypInfo.imgUseYn == 'T'}">
+		
+		<!-- 이미지 첨부기능은 삭제 -->
+		<%-- <c:if test="${brdTypInfo.imgUseYn == 'T'}">
 		<tr>
 			<th>이미지</th>
 			<td colspan="3">
 				<input type="file" name="imgFile" class="inp_500" title="이미지" />
 			</td>
 		</tr>
-		</c:if>
+		</c:if> --%>
+		
 		<c:if test="${sessionScope.userInfo.userId == null}">
 		<tr>
 			<th>작성자</th>
@@ -77,14 +83,16 @@ function fnAddClick() {
 				<jsp:include page="/resources/editor/editor.jsp" />
 			</td>
 		</tr>
-		<c:if test="${brdTypInfo.attaYn == 'T'}">
+		
+		<!-- 파일 첨부기능은 삭제 -->
+		<%-- <c:if test="${brdTypInfo.attaYn == 'T'}">
 		<tr>
 			<th>첨부파일</th>
 			<td id="idAttaInfo" colspan="3">
 				<p><input type="file" name="uploadFile" class="inp_500" title="첨부파일" /><label><img class="mousePoint" src="../images/board/btn/btn_fadd.gif" onclick="addAttaLine()" alt="파일추가"/></label></p>
 			</td>
 		</tr>
-		</c:if>
+		</c:if> --%>
 		<tr>
 			<th>저장</th>
 			<td id="idAttaInfo" colspan="3">

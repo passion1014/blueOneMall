@@ -24,19 +24,25 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.blueone.common.domain.AttachFileInfo;
+import com.blueone.common.service.IAttachFileManageService;
 import com.blueone.common.util.CookieBox;
 import com.blueone.order.domain.OrderInfo;
 import com.blueone.order.domain.OrderProductInfo;
 import com.blueone.order.domain.OrderSrchInfo;
 import com.blueone.order.service.IOrderManageService;
 import com.blueone.product.domain.ProductInfo;
+import com.blueone.product.service.IProductManageService;
 import com.blueone.user.domain.UserInfo;
+import com.jidesoft.converter.BigDecimalConverter;
 
 @Controller
 public class OrderController {
 	
 	@Autowired IOrderManageService orderManageService;
-
+	@Autowired IProductManageService productManageService;
+	@Autowired IAttachFileManageService attFileManageService;
+	
 	@RequestMapping(value = "/order/getOrderList.do", method = RequestMethod.GET)
 	public String getOrderInfoListByDuration(@ModelAttribute("orderSrchInfo") @Valid OrderSrchInfo orderSrchInfo, BindingResult result, Model model) {
 		String viewName = "";
@@ -68,11 +74,7 @@ public class OrderController {
 				value+="02="+orderProductInfo.getPrdOpSize()+",";
 			}
 			if(orderProductInfo.getPrdSmallImg()!=null){
-				value+="nm="+orderProductInfo.getPrdNm()+",";
-				value+="ig="+orderProductInfo.getPrdSmallImg()+",";
-				value+="se="+orderProductInfo.getSellPrice()+",";
-				value+="cn="+orderProductInfo.getBuyCnt()+",";
-				value+="to="+orderProductInfo.getSellPrice().multiply(new BigDecimal(orderProductInfo.getBuyCnt()));
+				value+="cn="+orderProductInfo.getBuyCnt();
 				Cookie cookie =cki.createCookie("BOM_"+orderProductInfo.getPrdCd(),value,1000);//여기까지 디버깅으로 값이 들어가는것확인
 				response.addCookie(cookie);//<-이부분이 하나도 안먹힘
 		
@@ -93,8 +95,26 @@ public class OrderController {
 			OrderProductInfo odPrdInfo = new OrderProductInfo();
 			String key=each.substring(4);
 			odPrdInfo.setPrdCd(key);
-			String vl=cki.getValue(each);
+			ProductInfo prdInfo = new ProductInfo();
+			prdInfo.setPrdCd(key);
+			prdInfo=productManageService.getProductInfDetail(prdInfo);
 			
+			odPrdInfo.setPrdNm(prdInfo.getPrdNm());
+			odPrdInfo.setSellPrice(new BigDecimal(prdInfo.getPrdSellPrc()));
+			
+			AttachFileInfo att = new AttachFileInfo();
+			att.setAttCdKey(prdInfo.getPrdCd());
+			att.setAttImgType("01");
+			att = attFileManageService.getAttFileInfListImg(att);
+			if(att==null){
+				odPrdInfo.setPrdSmallImg("");
+			}else { 
+				
+				odPrdInfo.setPrdSmallImg(att.getAttFilePath());
+			}
+			
+			
+			String vl=cki.getValue(each);
 				StringTokenizer st = new StringTokenizer(vl,",");
 				while(st.hasMoreElements()) {
 					
@@ -106,24 +126,15 @@ public class OrderController {
 					if("02".equals(s.substring(0, 2))){
 						odPrdInfo.setPrdOpSize(s.substring(3));
 					}
-					if("nm".equals(s.substring(0, 2))){
-						odPrdInfo.setPrdNm(s.substring(3));
-					}
-					if("ig".equals(s.substring(0, 2))){
-						odPrdInfo.setPrdSmallImg(s.substring(3));
-					}
-					if("se".equals(s.substring(0, 2))){
-						odPrdInfo.setSellPrice(new BigDecimal(s.substring(3)));
-					}
 					if("cn".equals(s.substring(0, 2))){
 						odPrdInfo.setBuyCnt(Integer.parseInt(s.substring(3)));
+						BigDecimal total = new BigDecimal(odPrdInfo.getSellPrice().toString()) ;
+						total.multiply(new BigDecimal(odPrdInfo.getBuyCnt()));
+						odPrdInfo.setTotalPrice(total);
 					}
-					if("to".equals(s.substring(0, 2))){
-						odPrdInfo.setTotalPrice(new BigDecimal(s.substring(3)));
-					}				
-				
 					
 				}
+				
 				
 				if(vl.equals("")) ;
 				else ord.add(odPrdInfo);
