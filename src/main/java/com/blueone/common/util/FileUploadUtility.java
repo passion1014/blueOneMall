@@ -32,7 +32,7 @@ public class FileUploadUtility {
 //	public final static String FILE_UPLOAD_DIR = Configuration.getInstance().getProperty("file.upload.dir");
 //	public final static String WEBROOT_DIR = Configuration.getInstance().getProperty("webroot.dir");
 //	public final static String FILE_UPLOAD_DIR = "D:/KLACEDU/upload";
-	public final static String FILE_UPLOAD_DIR = "C:/Users/jeon/Documents/GitHub/blueOneMall/src/main/webapp/upload";
+	public final static String FILE_UPLOAD_DIR = "C:/Users/note/Documents/GitHub/blueOneMall/src/main/webapp/upload";
 	public final static String WEBROOT_DIR = "D:/KLACEDU/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/LCECH";
 	
 	
@@ -98,7 +98,7 @@ public class FileUploadUtility {
 				break;
 			case UPLOAD_TYP_MAINIMG_IMAGE :
 				fullSaveFilename = DateUtil.getDate("yyyyMM") + "/";
-				savePath = FILE_UPLOAD_DIR + "/" + fullSaveFilename;
+				savePath = FILE_UPLOAD_DIR + "/main/" + fullSaveFilename;
 				break;	
 					
 			default : 

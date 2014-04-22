@@ -24,19 +24,26 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.blueone.common.domain.AttachFileInfo;
+import com.blueone.common.service.IAttachFileManageService;
 import com.blueone.common.util.CookieBox;
+import com.blueone.customer.domain.CustomerInfo;
 import com.blueone.order.domain.OrderInfo;
 import com.blueone.order.domain.OrderProductInfo;
 import com.blueone.order.domain.OrderSrchInfo;
 import com.blueone.order.service.IOrderManageService;
 import com.blueone.product.domain.ProductInfo;
+import com.blueone.product.service.IProductManageService;
 import com.blueone.user.domain.UserInfo;
+import com.jidesoft.converter.BigDecimalConverter;
 
 @Controller
 public class OrderController {
 	
 	@Autowired IOrderManageService orderManageService;
-
+	@Autowired IProductManageService productManageService;
+	@Autowired IAttachFileManageService attFileManageService;
+	
 	@RequestMapping(value = "/order/getOrderList.do", method = RequestMethod.GET)
 	public String getOrderInfoListByDuration(@ModelAttribute("orderSrchInfo") @Valid OrderSrchInfo orderSrchInfo, BindingResult result, Model model) {
 		String viewName = "";
@@ -52,7 +59,7 @@ public class OrderController {
 		return viewName;
 	}
 	
-	//장바구니페이지
+	//장바구니에 들어가기
 	@RequestMapping(value="/order/cartList.do")
 	public String order(@ModelAttribute("orderProductInfo") OrderProductInfo orderProductInfo,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
 		
@@ -68,72 +75,32 @@ public class OrderController {
 				value+="02="+orderProductInfo.getPrdOpSize()+",";
 			}
 			if(orderProductInfo.getPrdSmallImg()!=null){
-				value+="nm="+orderProductInfo.getPrdNm()+",";
-				value+="ig="+orderProductInfo.getPrdSmallImg()+",";
-				value+="se="+orderProductInfo.getSellPrice()+",";
-				value+="cn="+orderProductInfo.getBuyCnt()+",";
-				value+="to="+orderProductInfo.getSellPrice().multiply(new BigDecimal(orderProductInfo.getBuyCnt()));
+				value+="cn="+orderProductInfo.getBuyCnt();
 				Cookie cookie =cki.createCookie("BOM_"+orderProductInfo.getPrdCd(),value,1000);//여기까지 디버깅으로 값이 들어가는것확인
 				response.addCookie(cookie);//<-이부분이 하나도 안먹힘
 		
 			
 			}
 			
-		
-	
-		
-		
-		List<String> ckKey = cki.getKey();//키를 불러옴, 우리꺼 빼고 다불러옴,쿠키가 안들어가서 불러올수가읎음
-		List<OrderProductInfo> ord = new ArrayList<OrderProductInfo>();
-		
-		// 키를불러오면 처리해줄 부분
-		for(String each : ckKey){
-			
-			if("BOM".equals(each.substring(0, 3))){
-			OrderProductInfo odPrdInfo = new OrderProductInfo();
-			String key=each.substring(4);
-			odPrdInfo.setPrdCd(key);
-			String vl=cki.getValue(each);
-			
-				StringTokenizer st = new StringTokenizer(vl,",");
-				while(st.hasMoreElements()) {
-					
-					String s = st.nextToken();
-					
-					if("01".equals(s.substring(0, 2))){
-						odPrdInfo.setPrdOpColor(s.substring(3));
-					}
-					if("02".equals(s.substring(0, 2))){
-						odPrdInfo.setPrdOpSize(s.substring(3));
-					}
-					if("nm".equals(s.substring(0, 2))){
-						odPrdInfo.setPrdNm(s.substring(3));
-					}
-					if("ig".equals(s.substring(0, 2))){
-						odPrdInfo.setPrdSmallImg(s.substring(3));
-					}
-					if("se".equals(s.substring(0, 2))){
-						odPrdInfo.setSellPrice(new BigDecimal(s.substring(3)));
-					}
-					if("cn".equals(s.substring(0, 2))){
-						odPrdInfo.setBuyCnt(Integer.parseInt(s.substring(3)));
-					}
-					if("to".equals(s.substring(0, 2))){
-						odPrdInfo.setTotalPrice(new BigDecimal(s.substring(3)));
-					}				
-				
-					
-				}
-				
-				if(vl.equals("")) ;
-				else ord.add(odPrdInfo);
-			}
+		/*
+		if(pass.equals("y")){
+		}else{
+			return "redirect:cartListView.do";
 		}
+		*/
+			return "redirect:orderRegister.do";
+			
 		
-		
-		
-		
+	}
+	
+	//장바구니 보여줌
+	@RequestMapping(value="/order/cartListView.do")
+	public String orderView(@ModelAttribute("orderProductInfo") OrderProductInfo orderProductInfo,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
+
+		CookieBox cki = new CookieBox(request);
+		List<OrderProductInfo> ord = getCartList(cki);
 		model.addAttribute("odPrdInfo",ord);
+		
 		return "order/cartList";
 	}
 	
@@ -143,18 +110,53 @@ public class OrderController {
 		CookieBox cki = new CookieBox(request);
 		
 		Cookie cookie =cki.createCookie("BOM_"+orderProductInfo.getPrdCd(),"",-1);
-		response.addCookie(cookie);//<-이부분이 하나도 안먹힘
+		response.addCookie(cookie);
 		
 
-		return "redirect:cartList.do";
+		return "redirect:cartListView.do";
 	}
 			
 	//결제페이지
 	@RequestMapping(value="/order/orderRegister.do")
-	public String orderRegister(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model){
+	public String orderRegister(@ModelAttribute("orderProductInfo") OrderProductInfo orderProductInfo,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
+		//결제상품 보여주기
+		CookieBox cki = new CookieBox(request);
+		List<OrderProductInfo> ord = getCartList(cki);
+		model.addAttribute("odPrdInfo",ord);
+		
+		//고객정보 세팅
+		CustomerInfo custom = new CustomerInfo();
+		custom.setCustNm("dana");
+		custom.setTelNo1("02");
+		custom.setTelNo2("123");
+		custom.setTelNo3("4567");
+		custom.setHpNo1("010");
+		custom.setHpNo2("1231");
+		custom.setHpNo3("4567");
+		custom.seteMail("yangs@naver.com");
+		
+		model.addAttribute("cus",custom);
+		
 		return "order/order";
 	}
 	
+	//결제페이지-처리
+	@RequestMapping(value="/order/orderRegisterProc.do")
+	public String orderRegisteProc(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
+		
+		//결제상품
+		CookieBox cki = new CookieBox(request);
+		List<OrderProductInfo> ord = getCartList(cki);
+		for(OrderProductInfo each : ord){
+			each.setOrderNo(getOrderCode());
+			orderManageService.registOrderProductInfo(each);
+		}
+		
+		
+	return "redirect:orderComplete.do";
+}
+
+
 	
 	//주문성공페이지
 	@RequestMapping(value="/order/orderComplete.do")
@@ -171,7 +173,7 @@ public class OrderController {
 	
 	//주문코드 생성
 	public String getOrderCode(){
-		
+
 		// 주문 코드 채번
 		int code= (int)(Math.random()*100000)+1;
 		Calendar cal = Calendar.getInstance();
@@ -223,4 +225,77 @@ public class OrderController {
 		
 		return odCode;
 	}
+	
+	
+	public List<OrderProductInfo> getCartList(CookieBox cki) throws IOException{
+
+		List<String> ckKey = cki.getKey();//키를 불러옴, 우리꺼 빼고 다불러옴,쿠키가 안들어가서 불러올수가읎음
+		List<OrderProductInfo> ord = new ArrayList<OrderProductInfo>();
+		
+		// 키를불러오면 처리해줄 부분
+		for(String each : ckKey){
+			
+			if("BOM".equals(each.substring(0, 3))){
+			OrderProductInfo odPrdInfo = new OrderProductInfo();
+			String key=each.substring(4);
+			odPrdInfo.setPrdCd(key);
+			ProductInfo prdInfo = new ProductInfo();
+			prdInfo.setPrdCd(key);
+			prdInfo=productManageService.getProductInfDetail(prdInfo);
+			
+			odPrdInfo.setPrdNm(prdInfo.getPrdNm());
+			odPrdInfo.setSellPrice(new BigDecimal(prdInfo.getPrdSellPrc()));
+			
+			AttachFileInfo att = new AttachFileInfo();
+			att.setAttCdKey(prdInfo.getPrdCd());
+			att.setAttImgType("01");
+			att = attFileManageService.getAttFileInfListImg(att);
+			if(att==null){
+				odPrdInfo.setPrdSmallImg("");
+			}else { 
+				
+				odPrdInfo.setPrdSmallImg(att.getAttFilePath());
+			}
+			
+			
+			String vl=cki.getValue(each);
+			StringTokenizer st = new StringTokenizer(vl,",");
+			String option="";
+			while(st.hasMoreElements()) {
+					
+					String s = st.nextToken();
+					
+					if("01".equals(s.substring(0, 2))){
+						option+=s+",";
+						odPrdInfo.setPrdOpColor(s.substring(3));
+					}
+					if("02".equals(s.substring(0, 2))){
+						option+=s+",";
+						odPrdInfo.setPrdOpSize(s.substring(3));
+					}
+					if("cn".equals(s.substring(0, 2))){
+						odPrdInfo.setBuyCnt(Integer.parseInt(s.substring(3)));
+						BigDecimal total = new BigDecimal(odPrdInfo.getSellPrice().toString()) ;
+						total.multiply(new BigDecimal(odPrdInfo.getBuyCnt()));
+						odPrdInfo.setTotalPrice(total);
+					}
+					
+					odPrdInfo.setPrdOption(option);
+				}
+				
+				
+				if(vl.equals("")) ;
+				else ord.add(odPrdInfo);
+			}
+		}
+		
+		
+		
+		
+		return ord;
+	}
+
+
+
+
 }

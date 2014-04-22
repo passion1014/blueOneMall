@@ -20,7 +20,6 @@
 	<h1>메인관리 &gt; 메인디자인 관리 &gt; <strong>디자인관리</strong></h1>
 	
 	<form name="tx_editor_form" method="post" enctype="multipart/form-data" action="adminDesignProc.do">
-	<input type="hidden" id="prdCd"      name="prdCd"  value="${prdCd}">
 	<input type="hidden" id="modifyUserId" name="modifyUserId" value="${adminSession.id}">
 	
 	
@@ -38,64 +37,76 @@
 		
 		<tr>
 			<th>메인이미지1</th>
-			<td colspan="2" class="left">
-				<input type="file" id="mainImg1" name="mainImg1" style="width:80%;"> 
+			<td colspan="3" class="left">
+				<input type="file" id="main1Up" name="main1Up" style="width:80%;">
 			</td>
 		</tr>
 		<tr>	
-			<th>메인이미지1URL</th>
+			<th>메인이미지1-URL</th>
 			<td colspan="2" class="left">
-				<input type="text" id="proImg1Up" name="proMainImg1Up" style="width:80%;"> 
+				<input type="text" id="mdUrl1" name="mdUrl1" style="width:80%;"> 
 			</td>
 		</tr>
+		
 		<tr>
 			<th>메인이미지2</th>
-			<td colspan="2" class="left">
-				<input type="file" id="proImg1Up" name="proMainImg2Up" style="width:80%;"> 
+			<td colspan="3" class="left">
+				<input type="file" id="main2Up" name="main2Up" style="width:80%;">
 			</td>
 		</tr>
 		<tr>	
-			<th>메인이미지2URL</th>
+			<th>메인이미지2-URL</th>
 			<td colspan="2" class="left">
-				<input type="text" id="proImg1Up" name="proMainImg2Up" style="width:80%;"> 
+				<input type="text" id="mdUrl2" name="mdUrl2" style="width:80%;"> 
 			</td>
 		</tr>
+		
+		
 		<tr>
 			<th>메인이미지3</th>
-			<td colspan="2" class="left">
-				<input type="file" id="proImg1Up" name="proMainImg3Up" style="width:80%;"> 
+			<td colspan="3" class="left">
+				<input type="file" id="main3Up" name="main3Up" style="width:80%;">
 			</td>
 		</tr>
 		<tr>	
-			<th>메인이미지3URL</th>
+			<th>메인이미지3-URL</th>
 			<td colspan="2" class="left">
-				<input type="text" id="proImg1Up" name="proMainImg3Up" style="width:80%;"> 
+				<input type="text" id="mdUrl3" name="mdUrl3" style="width:80%;"> 
 			</td>
 		</tr>
+		
+		
 		<tr>
 			<th>메인이미지4</th>
-			<td colspan="2" class="left">
-				<input type="file" id="proImg1Up" name="proMainImg4Up" style="width:80%;"> 
+			<td colspan="3" class="left">
+				<input type="file" id="main4Up" name="main4Up" style="width:80%;">
 			</td>
 		</tr>
 		<tr>	
-			<th>메인이미지4URL</th>
+			<th>메인이미지4-URL</th>
 			<td colspan="2" class="left">
-				<input type="text" id="proImg1Up" name="proMainImg4Up" style="width:80%;"> 
+				<input type="text" id="mdUrl4" name="mdUrl4" style="width:80%;"> 
 			</td>
 		</tr>
+		
+		
 		<tr>
 			<th>메인이미지5</th>
-			<td colspan="2" class="left">
-				<input type="file" id="proImg1Up" name="proMainImg5Up" style="width:80%;"> 
+			<td colspan="3" class="left">
+				<input type="file" id="main5Up" name="main5Up" style="width:80%;">
 			</td>
 		</tr>
 		<tr>	
-			<th>메인이미지5URL</th>
+			<th>메인이미지5-URL</th>
 			<td colspan="2" class="left">
-				<input type="text" id="proImg1Up" name="proMainImg5Up" style="width:80%;"> 
+				<input type="text" id="mdUrl5" name="mdUrl5" style="width:80%;"> 
 			</td>
 		</tr>
+		
+		
+	
+		
+		
 		
 		
 		

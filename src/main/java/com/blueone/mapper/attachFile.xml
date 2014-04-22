@@ -34,6 +34,23 @@
 		WHERE
 			T1.ATT_CODE_KEY = #{attCdKey}
 	</select>
+	<select id="selectListBomAttFileTb0002" parameterType="attFileInfo" resultMap="AttachFileMap">
+		SELECT 
+			T1.IDX,
+			T1.ATT_CODE_TYPE,
+			T1.ATT_CODE_KEY,
+			T1.ATT_IMG_TYPE,
+			T1.ATT_SAVE_FILENAME,
+			T1.ATT_REAL_FILENAME,
+			T1.ATT_FILE_PATH,
+			T1.ATT_FILE_SIZE,
+			T1.ATT_FILE_EXT,
+			T1.ATT_IMG_SEQ
+		FROM BOM_ATTACHIFILE_TB AS T1
+		WHERE
+			T1.ATT_CODE_KEY = #{attCdKey} AND T1.ATT_IMG_TYPE = 01
+	</select>
+	
 	
    	<insert id="insertBomAttachFileTb0001" parameterType="attFileInfo">
 		INSERT  BOM_ATTACHIFILE_TB
@@ -64,7 +81,7 @@
 				<if test="attFileExt != null and attFileExt != ''">,`ATT_FILE_EXT` = #{attFileExt}</if>
 				<if test="idx != null and idx != ''">,`IDX` = #{idx}</if>
 		WHERE
-			`attCdKey`= #{ATT_CODE_KEY}
+			`ATT_CODE_KEY`= #{ATT_CODE_KEY}
 	</update>
 	
    	

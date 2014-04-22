@@ -6,6 +6,13 @@
 <c:import  url="../inc/topSub.jsp" />
 <c:import  url="../inc/topMain.jsp" />     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		document.cookie;
+	});
+</script>
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -77,7 +84,8 @@
 									<td>>${odPrdInfo.totalPrice}</td>
 									<td>
 										<button class="btn_choice1">구매하기</button>
-										<button class="btn_choice2" onClick="alert();confirm_process('','해당 상품을 삭제하시겠습니까?','deleteCartList.do?prdCd=${odPrdInfo.prdCd}');" >삭제하기</button>
+										<!-- <button class="btn_choice2" onClick="confirm_process('','해당 상품을 삭제하시겠습니까?','deleteCartList.do?prdCd=${odPrdInfo.prdCd}');" >삭제하기</button> -->
+										<a href="deleteCartList.do?prdCd=${odPrdInfo.prdCd}">[삭제하기]</a>
 									</td>
 								</tr>
 								<tr>
@@ -102,7 +110,7 @@
 							<button>단품/품절 상품삭제</button>
 						</span>
 						<span class="btn_bottom2">
-							<button class="btn_boximg1">쇼핑계속</button>
+							<button class="btn_boximg1" onClick="location.href='productList.do'">쇼핑계속</button>
 							<button class="btn_boximg2">선택상품주문</button>
 							<button class="btn_boximg3">전체상품주문</button>
 						</span>

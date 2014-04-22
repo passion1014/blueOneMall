@@ -56,7 +56,7 @@
 			
 	</table>
 	<c:forEach var="i" begin="1" end="${endNum}">
-		<input type="button" value="${i}" onClick="javascript:location.href='largeTypeList.do?page=${i}'">				
+		<input type="button" value="${i}" onClick="javascript:location.href='largeTypeList.do?page=${i}';">				
 	</c:forEach>
 	<div id="Paser">
 	</div>

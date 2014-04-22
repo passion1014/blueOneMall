@@ -1,5 +1,7 @@
 package com.blueone.product.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,6 +29,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.blueone.admin.domain.AdImgInfo;
 import com.blueone.admin.domain.AdminInfo;
 import com.blueone.category.domain.CategoryInfo;
 import com.blueone.category.service.ICategoryManageService;
@@ -38,6 +41,7 @@ import com.blueone.common.util.Utility;
 import com.blueone.product.domain.ProductInfo;
 import com.blueone.product.domain.SearchProdInfo;
 import com.blueone.product.domain.TransferInfo;
+import com.blueone.product.service.IAdImgService;
 import com.blueone.product.service.IProductManageService;
 import com.blueone.product.service.ITransferService;
 
@@ -51,6 +55,7 @@ public class ProductController {
 	@Autowired ICategoryManageService categoryManageService;
 	@Autowired IAttachFileManageService attFileManageService;
 	@Autowired ITransferService transferService;
+	
 	/*
 	 * 관리자 물품 리스트
 	 */
@@ -78,13 +83,12 @@ public class ProductController {
 		for(ProductInfo each : resultList){
 			AttachFileInfo att = new AttachFileInfo();
 			att.setAttCdKey(each.getPrdCd());
-			att.setAttImgType("01");
-			List<AttachFileInfo> attList = attFileManageService.getAttFileInfList(att);
+			att = attFileManageService.getAttFileInfListImg(att);
 			
-			if(attList.isEmpty()){
+			if(att==null){
 				each.setAttFilePath("");
 			}else { 
-				att = attList.get(0);
+				
 				each.setAttFilePath(att.getAttFilePath());
 			}
 			
@@ -256,7 +260,7 @@ public class ProductController {
 		List<ProductInfo> list = productManageService.getProductSearchList(searchProdInfo);
 	    model.addAttribute("list", list);
 	    
-		return "product/result";
+		return "product/productSearch";
 	}
 	
 	
@@ -778,7 +782,7 @@ public class ProductController {
 		
 		return "product/productView";
 	}
-	
+/*
 	@RequestMapping(value="/product/productList.do")
 	public String productList(@ModelAttribute("productInfo") ProductInfo productInfo, @ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model){
 
@@ -885,91 +889,10 @@ public class ProductController {
 	
 	
 	
-	//메인화면 메인이미지와 배너이미지
-	//메인화면에 메인이미지 등록
-		@RequestMapping(value="/admin/adminDesign.do")
-		public String adminDesign(){
-			return "admin/admin/adminDesign";
-		}
+	*/
+	
 		
-		//메인화면에 메인이미지 등록처리
-		@RequestMapping(value="/admin/adminDesignProc.do", method = RequestMethod.POST)
-		public String adminImage(@ModelAttribute("productInfo") ProductInfo productInfo, BindingResult result, Model model)throws FileNotFoundException, IOException{
-			
-			// 상품 코드 채번
-			int code= (int)(Math.random()*10000)+1;
-			productInfo.setPrdCd("P"+code);
-			
-			
-			
-			MultipartFile proMainImg1Up = productInfo.getProMainImg1Up();
-			if(proMainImg1Up != null && !proMainImg1Up.isEmpty()) {
-			//메인페이지 이미지 등록
-			AttachFileInfo contImg = new AttachFileInfo();
-			FileUploadUtility utilList = new FileUploadUtility();
-			contImg=utilList.doFileUpload(7,productInfo.getProMainImg1Up(),false);
-			contImg.setAttCdKey(productInfo.getPrdCd()); //
-			contImg.setAttCdType("03");//등록유형 : 메인페이지의 메인이미지
-			contImg.setAttImgType("02");//뷰이미지
-			contImg.setAttImgSeq(1);
-			attFileManageService.registProductImgInfo(contImg);
-			}
-			MultipartFile proMainImg2Up = productInfo.getProMainImg2Up();
-			if(proMainImg2Up != null && !proMainImg2Up.isEmpty()) {
-				//메인페이지 이미지 등록
-				AttachFileInfo contImg = new AttachFileInfo();
-				FileUploadUtility utilList = new FileUploadUtility();
-				contImg = utilList.doFileUpload(7,productInfo.getProMainImg2Up(),false);
-				contImg.setAttCdType("03");//등록유형 : 메인페이지의 메인이미지
-				contImg.setAttCdKey(productInfo.getPrdCd()); //
-				contImg.setAttImgType("02");//뷰이미지
-				contImg.setAttImgSeq(2);
-				attFileManageService.registProductImgInfo(contImg);
-			}
-			MultipartFile proMainImg3Up = productInfo.getProMainImg3Up();
-			if(proMainImg3Up != null && !proMainImg3Up.isEmpty()) {
-				//메인페이지 이미지 등록
-				AttachFileInfo contImg = new AttachFileInfo();
-				FileUploadUtility utilList = new FileUploadUtility();
-				contImg = utilList.doFileUpload(7,productInfo.getProMainImg3Up(),false);
-				contImg.setAttCdType("03");//등록유형 : 메인페이지의 메인이미지
-				contImg.setAttCdKey(productInfo.getPrdCd()); //
-				contImg.setAttImgType("02");//뷰이미지
-				contImg.setAttImgSeq(3);
-				attFileManageService.registProductImgInfo(contImg);
-			}
-			MultipartFile proMainImg4Up = productInfo.getProMainImg4Up();
-			if(proMainImg4Up != null && !proMainImg4Up.isEmpty()) {
-				//메인페이지 이미지 등록
-				AttachFileInfo contImg = new AttachFileInfo();
-				FileUploadUtility utilList = new FileUploadUtility();
-				contImg = utilList.doFileUpload(7,productInfo.getProMainImg4Up(),false);
-				contImg.setAttCdType("03");//등록유형 : 메인페이지의 메인이미지
-				contImg.setAttCdKey(productInfo.getPrdCd()); //
-				contImg.setAttImgType("02");//뷰이미지
-				contImg.setAttImgSeq(1);
-				attFileManageService.registProductImgInfo(contImg);
-			}
-			MultipartFile proMainImg5Up = productInfo.getProMainImg5Up();
-			if(proMainImg5Up != null && !proMainImg5Up.isEmpty()) {
-				//메인페이지 이미지 등록
-				AttachFileInfo contImg = new AttachFileInfo();
-				FileUploadUtility utilList = new FileUploadUtility();
-				contImg = utilList.doFileUpload(7,productInfo.getProMainImg5Up(),false);
-				contImg.setAttCdType("03");//등록유형 : 메인페이지의 메인이미지
-				contImg.setAttCdKey(productInfo.getPrdCd()); //
-				contImg.setAttImgType("02");//뷰이미지
-				contImg.setAttImgSeq(1);
-				attFileManageService.registProductImgInfo(contImg);
-			}
-			
-			return "redirect:adminDesign.do";
-		}
 		
-		@RequestMapping(value="/admin/adminBanner.do")
-		public String adminBanner(){
-			return "admin/admin/adminBanner";
-		}
 	
 	
 	

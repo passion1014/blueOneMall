@@ -8,13 +8,16 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.blueone.common.domain.ResultInfo;
 import com.blueone.customer.domain.CustomerContactInfo;
 import com.blueone.customer.domain.CustomerInfo;
 import com.blueone.customer.domain.CustomerSrchInfo;
 import com.blueone.customer.service.CustomerManageServiceImpl;
 import com.blueone.customer.service.ICustomerManageService;
 import com.blueone.order.domain.OrderInfo;
+import com.blueone.order.domain.OrderProductInfo;
 import com.blueone.order.domain.OrderSrchInfo;
+import com.blueone.product.domain.ProductInfo;
 
 @Service
 public class OrderManageServiceImpl implements IOrderManageService{
@@ -68,6 +71,30 @@ public class OrderManageServiceImpl implements IOrderManageService{
 		}
 		
 		return null;
+	}
+	
+	//주문-상품-등록
+	@Override
+	public int registOrderProductInfo(OrderProductInfo odPrdInfo) {
+		
+		
+		int rst=0;
+		// -----------------------------------------------
+		// DB Insert 수행
+		// -----------------------------------------------
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			
+			
+			rst = sqlSession.insert("product.insertBomProductTb0001", odPrdInfo);
+			
+			
+			
+		} finally {
+			sqlSession.close();
+		}
+		
+		return rst;
 	}
 	
 }

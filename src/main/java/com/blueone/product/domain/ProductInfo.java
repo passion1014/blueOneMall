@@ -31,6 +31,7 @@ public class ProductInfo {
 	private String modifyUserId;// 최종수정자
 	private String prdMany;
 	private String prdColor;
+	private String prdSize;
 	
 	//상품 옵션
 	private String optionKey[];
@@ -54,12 +55,7 @@ public class ProductInfo {
 	private MultipartFile proImg3Up;
 	private MultipartFile proImg4Up;
 	
-	
-	private MultipartFile proMainImg1Up;
-	private MultipartFile proMainImg2Up;
-	private MultipartFile proMainImg3Up;
-	private MultipartFile proMainImg4Up;
-	private MultipartFile proMainImg5Up;
+
 	
 	
 	private String unit_chk; //다중 checkbox
@@ -71,9 +67,21 @@ public class ProductInfo {
 	private String propPrdCD;
 	
 	private String content;
-	
+	private String orderBy;//정렬
 
 	
+	public String getOrderBy() {
+		return orderBy;
+	}
+	public void setOrderBy(String orderBy) {
+		this.orderBy = orderBy;
+	}
+	public String getPrdSize() {
+		return prdSize;
+	}
+	public void setPrdSize(String prdSize) {
+		this.prdSize = prdSize;
+	}
 	public String getPrdColor() {
 		return prdColor;
 	}
@@ -359,37 +367,6 @@ public class ProductInfo {
 	public void setCtgSmallName(String ctgSmallName) {
 		this.ctgSmallName = ctgSmallName;
 	}
-	public MultipartFile getProMainImg1Up() {
-		return proMainImg1Up;
-	}
-	public void setProMainImg1Up(MultipartFile proMainImg1Up) {
-		this.proMainImg1Up = proMainImg1Up;
-	}
-	public MultipartFile getProMainImg2Up() {
-		return proMainImg2Up;
-	}
-	public void setProMainImg2Up(MultipartFile proMainImg2Up) {
-		this.proMainImg2Up = proMainImg2Up;
-	}
-	public MultipartFile getProMainImg3Up() {
-		return proMainImg3Up;
-	}
-	public void setProMainImg3Up(MultipartFile proMainImg3Up) {
-		this.proMainImg3Up = proMainImg3Up;
-	}
-	public MultipartFile getProMainImg4Up() {
-		return proMainImg4Up;
-	}
-	public void setProMainImg4Up(MultipartFile proMainImg4Up) {
-		this.proMainImg4Up = proMainImg4Up;
-	}
-	public MultipartFile getProMainImg5Up() {
-		return proMainImg5Up;
-	}
-	public void setProMainImg5Up(MultipartFile proMainImg5Up) {
-		this.proMainImg5Up = proMainImg5Up;
-	}
-	
-	
+
 	
 }
