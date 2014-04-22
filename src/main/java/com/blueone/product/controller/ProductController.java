@@ -254,7 +254,7 @@ public class ProductController {
 		return "product/result";
 	}
 
-	@RequestMapping(value = "/searchProductList.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/product/searchProductList.do", method = RequestMethod.GET)
 	public String getAdminInfoList(@ModelAttribute("searchProdInfo") SearchProdInfo searchProdInfo, BindingResult result, Model model) {
 
 		List<ProductInfo> list = productManageService.getProductSearchList(searchProdInfo);

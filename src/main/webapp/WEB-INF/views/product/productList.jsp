@@ -90,25 +90,29 @@
 					</p>
 							
 							<span class="pro_class">
-								
-										<c:if test="${largeInf.ctgCode ne 'NULL' && chkMiddleCode eq 'NULL' && prdCtgS eq 'NULL'}" >
+									<c:choose>
+									<c:when test="${largeInf.ctgCode ne 'NULL' && chkMiddleCode eq 'NULL' && prdCtgS eq 'NULL'}"> 
 											<a href="productList.do?orderBy=low&ctgCode=${largeInf.ctgCode}" class="rightline">낮은 가격</a>
 											<a href="productList.do?orderBy=high&ctgCode=${largeInf.ctgCode}" class="rightline">높은 가격</a>
 											<a href="productList.do?orderBy=name&ctgCode=${largeInf.ctgCode}" class="rightline">제품명</a>
 											<a href="productList.do?orderBy=brd&ctgCode=${largeInf.ctgCode}">제조사순</a>
-										</c:if>
-										<c:if test="${largeInf.ctgCode ne 'NULL' && chkMiddleCode ne 'NULL' && prdCtgS eq 'NULL'}" >
+									</c:when>
+									<c:when test="${largeInf.ctgCode ne 'NULL' && chkMiddleCode ne 'NULL' && prdCtgS eq 'NULL'}">
 											<a href="productList.do?orderBy=low&ctgCode=${largeInf.ctgCode}&ctgMiddleCode=${chkMiddleCode}" class="rightline">낮은 가격</a>
 											<a href="productList.do?orderBy=high&ctgCode=${largeInf.ctgCode}&ctgMiddleCode=${chkMiddleCode}" class="rightline">높은 가격</a>
 											<a href="productList.do?orderBy=name&ctgCode=${largeInf.ctgCode}&ctgMiddleCode=${chkMiddleCode}" class="rightline">제품명</a>
 											<a href="productList.do?orderBy=brd&ctgCode=${largeInf.ctgCode}&ctgMiddleCode=${chkMiddleCode}">제조사순</a>
-										</c:if>
-										<c:if test="${largeInf.ctgCode ne 'NULL' && chkMiddleCode ne 'NULL' && prdCtgS ne 'NULL'}" >
+									</c:when>
+									<c:when test="${largeInf.ctgCode ne 'NULL' && chkMiddleCode ne 'NULL' && prdCtgS ne 'NULL'}">
 											<a href="productList.do?orderBy=low&ctgCode=${largeInf.ctgCode}&ctgMiddleCode=${chkMiddleCode}&prdCtgS=${prdCtgS}" class="rightline">낮은 가격</a>
 											<a href="productList.do?orderBy=high&ctgCode=${largeInf.ctgCode}&ctgMiddleCode=${chkMiddleCode}&prdCtgS=${prdCtgS}" class="rightline">높은 가격</a>
 											<a href="productList.do?orderBy=name&ctgCode=${largeInf.ctgCode}&ctgMiddleCode=${chkMiddleCode}&prdCtgS=${prdCtgS}" class="rightline">제품명</a>
 											<a href="productList.do?orderBy=brd&ctgCode=${largeInf.ctgCode}&ctgMiddleCode=${chkMiddleCode}&prdCtgS=${prdCtgS}">제조사순</a>
-										</c:if>
+									</c:when>
+									<c:otherwise>
+									
+									</c:otherwise>
+									</c:choose>	
 							</span>
 					<ul class="product_list">
 						<c:choose>
