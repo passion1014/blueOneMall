@@ -7,7 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class AdImgInfo {
 
 	
-	private FileInputStream mdImg1;
+	private String mdImg1;
 	private String mdUrl1;
 	private String mdImg2;
 	private String mdUrl2;
@@ -97,8 +97,8 @@ public class AdImgInfo {
 	public String getBnImg1() {
 		return bnImg1;
 	}
-	public void setBnImg1(FileInputStream in) {
-		this.bnImg1 = in;
+	public void setBnImg1(String bnImg1) {
+		this.bnImg1 = bnImg1;
 	}
 	public String getBnUrl1() {
 		return bnUrl1;

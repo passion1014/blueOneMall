@@ -55,7 +55,7 @@ public class ProductController {
 	@Autowired ICategoryManageService categoryManageService;
 	@Autowired IAttachFileManageService attFileManageService;
 	@Autowired ITransferService transferService;
-	@Autowired IAdImgService adImgService;
+	
 	/*
 	 * 관리자 물품 리스트
 	 */
@@ -889,33 +889,8 @@ public class ProductController {
 	
 	
 	
-	//메인화면 메인이미지와 배너이미지
-	//메인화면에 메인이미지 등록
-		@RequestMapping(value="/admin/adminDesign.do")
-		public String adminDesign(){
-			return "admin/admin/adminDesign";
-		}
 		
-		//메인화면에 메인이미지 등록처리
-		@RequestMapping(value="/admin/adminDesignProc.do", method = RequestMethod.POST)
-		public String adminImage(@ModelAttribute("adImgInfo") AdImgInfo adImgInfo , BindingResult result, Model model)throws FileNotFoundException, IOException{
-			
-			
-			
-			
-			
-			
-			adImgService.insertAdImg(adImgInfo);
-
-			
-			
-			return "redirect:adminDesign.do";
-		}
 		
-		@RequestMapping(value="/admin/adminBanner.do")
-		public String adminBanner(){
-			return "admin/admin/adminBanner";
-		}
 	
 	
 	

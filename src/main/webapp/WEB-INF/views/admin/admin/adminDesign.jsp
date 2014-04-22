@@ -42,7 +42,7 @@
 			</td>
 		</tr>
 		<tr>	
-			<th>메인이미지1URL</th>
+			<th>메인이미지1-URL</th>
 			<td colspan="2" class="left">
 				<input type="text" id="mdUrl1" name="mdUrl1" style="width:80%;"> 
 			</td>
@@ -55,7 +55,7 @@
 			</td>
 		</tr>
 		<tr>	
-			<th>메인이미지2URL</th>
+			<th>메인이미지2-URL</th>
 			<td colspan="2" class="left">
 				<input type="text" id="mdUrl2" name="mdUrl2" style="width:80%;"> 
 			</td>
@@ -67,7 +67,7 @@
 			</td>
 		</tr>
 		<tr>	
-			<th>메인이미지3URL</th>
+			<th>메인이미지3-URL</th>
 			<td colspan="2" class="left">
 				<input type="text" id="mdUrl3" name="mdUrl3" style="width:80%;"> 
 			</td>
@@ -79,7 +79,7 @@
 			</td>
 		</tr>
 		<tr>	
-			<th>메인이미지4URL</th>
+			<th>메인이미지4-URL</th>
 			<td colspan="2" class="left">
 				<input type="text" id="mdUrl4" name="mdUrl4" style="width:80%;"> 
 			</td>
@@ -91,7 +91,7 @@
 			</td>
 		</tr>
 		<tr>	
-			<th>메인이미지5URL</th>
+			<th>메인이미지5-URL</th>
 			<td colspan="2" class="left">
 				<input type="text" id="mdUrl5" name="mdUrl5" style="width:80%;"> 
 			</td>
