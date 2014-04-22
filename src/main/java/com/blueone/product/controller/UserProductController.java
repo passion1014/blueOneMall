@@ -42,37 +42,58 @@ public class UserProductController {
 	@RequestMapping(value="/product/productList.do")
 	public String productList(@ModelAttribute("productInfo") ProductInfo productInfo, @ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model,String page){
 
-
 		PageDivision pd = new PageDivision();
 		
 		if(StringUtils.isEmpty(page)) pd.pageNum("1");
 		else pd.pageNum(page);
 		String orderBy=productInfo.getOrderBy();
 		if(StringUtils.isEmpty(orderBy)) orderBy="low";
-		
-		
+				
 		
 		// ----------------------------------------------------------
 		// 변수선언
 		// ----------------------------------------------------------
 		List<CategoryInfo> middleCode = new ArrayList<CategoryInfo>(); //중분류조회
 		
-		List<CategoryInfo> lnbList    = new ArrayList<CategoryInfo>();
+		List<CategoryInfo> lnbList    = new ArrayList<CategoryInfo>(); //중분류리스트
 		List<CategoryInfo> lnbSList   = new ArrayList<CategoryInfo>(); //소분류리스트
 				
 		List<ProductInfo> prdLList = new ArrayList<ProductInfo>();
 		List<ProductInfo> prdMList = new ArrayList<ProductInfo>();
 		List<ProductInfo> prdSList = new ArrayList<ProductInfo>();
+		
+		List<ProductInfo> prdList  = new ArrayList<ProductInfo>();
+		
 		SearchProdInfo searchProdInfo = new SearchProdInfo();
 		
-		String chkMiddleCode=null;
+		String chkMiddleCode = null;
 		String prdCtgS = null;
+		
+		//---------------------------------------------------------
+		// 변수 세팅 
+		// 최초 넘어오는 변수 값 세팅 
+		//---------------------------------------------------------
+		chkMiddleCode = categoryInfo.getCtgMiddleCode() ;
+				
+		if(chkMiddleCode == null || chkMiddleCode == ""){
+			chkMiddleCode = null ;					
+		}
+		
+		prdCtgS = productInfo.getPrdCtgS();
+		
+		if(prdCtgS == null || prdCtgS == ""){
+			prdCtgS = null ;					
+		}
+		
+		
+		
 		
 		// ----------------------------------------------------------
 		// 카테고리 조회
 		// ----------------------------------------------------------
 		List<CategoryInfo> categoryList = categoryManageService.getCategoryInfList(categoryInfo);
 		List<ProductInfo> productList=null;
+		
 		// product 조회
 		if(orderBy.equals("low")){
 			productList = productManageService.oderByLowSellPriceList();
@@ -89,75 +110,75 @@ public class UserProductController {
 		
 		//List<ProductInfo> productList = productManageService.getProductInfList(searchProdInfo);
 		
+		
 		// ----------------------------------------------------------
-		// 대분류 정보 조회
-		// 사용처는 LNB 대분류 정보용		
+		// LNB 정보 조회 및 중간네비게이션용		
 		// ----------------------------------------------------------
 		CategoryInfo largeInf = new CategoryInfo();
-		if(categoryInfo.getCtgCode() == null && chkMiddleCode == null && prdCtgS == null){
-			largeInf = categoryManageService.getCategoryInfDetail2(categoryInfo);
-			
-			for(ProductInfo each: productList){
-				if(largeInf.getCtgCode().equals(each.getPrdCtgL())){
-					prdLList.add(each);
-				}
-			}
-			pd.setPrdList(prdLList);
-			
-		}else {
-			largeInf = categoryManageService.getCategoryInfDetail(categoryInfo);
-			
-			for(ProductInfo each: productList){
-				if(largeInf.getCtgCode().equals(each.getPrdCtgL())){
-					
-					prdLList.add(each);
-				}
-			}
-			pd.setPrdList(prdLList);
-			
+		
+		if(categoryInfo.getCtgCode() == null || categoryInfo.getCtgCode() == ""){
+			largeInf = categoryManageService.getCategoryInfDetail2(categoryInfo);			
+		}else{
+			largeInf = categoryManageService.getCategoryInfDetail(categoryInfo);			
 		}
 		
-		//중분류리스트		
+		//중분류 LNB 
 		for (CategoryInfo each : categoryList) {
 			if (largeInf.getCtgCode().equals(each.getCtgPCode())) {
 				lnbList.add(each);
-			}	
-			
-		}
+			}
+		}			
 		
-		
-
-		chkMiddleCode = categoryInfo.getCtgMiddleCode() ;
-		prdCtgS = productInfo.getPrdCtgS();
-		
-		
-		//상품 중분류리스트
+		//소분류 LNB 
 		if(chkMiddleCode != null){
 			for (CategoryInfo each : categoryList) {
 				if (categoryInfo.getCtgMiddleCode().equals(each.getCtgPCode())) {
 					lnbSList.add(each);
 				}
 			}
-			for(ProductInfo each: productList){
-				if(chkMiddleCode.equals(each.getPrdCtgM())){
-					prdMList.add(each);
-				}
-				pd.setPrdList(prdMList);
-			}
 		}
 		
 		
-		
-		//상품 소분류리스트
-		if(prdCtgS != null){
-			for(ProductInfo each : productList){
-				if(prdCtgS.equals(each.getPrdCtgS())){
-					prdSList.add(each);
+		// 대분류가 없을 수 없다. 		
+		if(largeInf.getCtgCode() != null){
+			
+			if(chkMiddleCode != null){
+				
+				if(prdCtgS != null){
+					
+					// 소분류와 같은 제품					
+					for(ProductInfo each: productList){
+						if(prdCtgS.equals(each.getPrdCtgS())){
+							prdList.add(each);
+						}
+					}
+					pd.setPrdList(prdList);
+					
+				}else{
+					
+					// 중분류와 같은 제품					
+					for(ProductInfo each: productList){
+						if(chkMiddleCode.equals(each.getPrdCtgM())){
+							prdList.add(each);
+						}
+					}
+					pd.setPrdList(prdList);
+					
+				}				
+					
+			}else{
+				// 대분류와 같은 제품				
+				for(ProductInfo each: productList){
+					if(largeInf.getCtgCode().equals(each.getPrdCtgL())){
+						prdList.add(each);
+					}
 				}
-				pd.setPrdList(prdSList);
+				pd.setPrdList(prdList);
+				
 			}
+			
 		}
-		
+				
 		
 		List<ProductInfo> resultList =pd.getPrdList(3);
 
@@ -174,6 +195,7 @@ public class UserProductController {
 			}
 			
 		}
+		
 		model.addAttribute("categoryList",categoryList);
 		model.addAttribute("largeInf",largeInf);
 		model.addAttribute("lnbList",lnbList);
@@ -182,9 +204,7 @@ public class UserProductController {
 		model.addAttribute("lMenuDetail",categoryInfo);
 		model.addAttribute("chkMiddleCode",chkMiddleCode);
 		model.addAttribute("prdCtgS",prdCtgS);
-		model.addAttribute("prdLList",prdLList);
-		model.addAttribute("prdMList",prdMList);
-		model.addAttribute("prdSList",prdSList);
+		model.addAttribute("prdList",prdList);
 		model.addAttribute("endNum",pd.getEndPageNum());
 		return "product/productList";
 		

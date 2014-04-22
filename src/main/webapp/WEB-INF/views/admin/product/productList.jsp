@@ -182,8 +182,7 @@ function list_Submit(key){
 			<c:otherwise>
 				<tr>
 					<td colspan="6" height="200"> 등록된 상품이 없습니다.</td>
-				</tr>
-					
+				</tr>					
 		    </c:otherwise>
 		</c:choose>
 	
