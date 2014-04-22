@@ -86,7 +86,7 @@ public class OrderManageServiceImpl implements IOrderManageService{
 		try {
 			
 			
-			rst = sqlSession.insert("product.insertBomProductTb0001", odPrdInfo);
+			rst = sqlSession.insert("order.insertBomOrderPrdTb0001", odPrdInfo);
 			
 			
 			
@@ -96,5 +96,29 @@ public class OrderManageServiceImpl implements IOrderManageService{
 		
 		return rst;
 	}
+	
+	//주문-등록
+	@Override
+	public int registOrderInfo(OrderInfo odInfo) {
+			
+			
+		int rst=0;
+		// -----------------------------------------------
+		// DB Insert 수행
+		// -----------------------------------------------
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+			try {
+				
+				
+				rst = sqlSession.insert("order.insertBomOrderTb0001", odInfo);
+				
+				
+				
+			} finally {
+				sqlSession.close();
+			}
+			
+			return rst;
+		}
 	
 }

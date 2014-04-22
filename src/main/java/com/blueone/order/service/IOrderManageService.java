@@ -10,5 +10,7 @@ public interface IOrderManageService {
 	public List<OrderInfo> getOrderInfoListByPeriod(OrderSrchInfo orderSrchInfo);
 
 	public int registOrderProductInfo(OrderProductInfo odPrdInfo);
+
+	public int registOrderInfo(OrderInfo odInfo);
 	
 }
