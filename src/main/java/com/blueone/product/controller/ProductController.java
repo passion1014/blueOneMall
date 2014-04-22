@@ -78,13 +78,12 @@ public class ProductController {
 		for(ProductInfo each : resultList){
 			AttachFileInfo att = new AttachFileInfo();
 			att.setAttCdKey(each.getPrdCd());
-			att.setAttImgType("01");
-			List<AttachFileInfo> attList = attFileManageService.getAttFileInfList(att);
+			att = attFileManageService.getAttFileInfListImg(att);
 			
-			if(attList.isEmpty()){
+			if(att==null){
 				each.setAttFilePath("");
 			}else { 
-				att = attList.get(0);
+				
 				each.setAttFilePath(att.getAttFilePath());
 			}
 			

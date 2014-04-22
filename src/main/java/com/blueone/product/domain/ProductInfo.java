@@ -31,6 +31,7 @@ public class ProductInfo {
 	private String modifyUserId;// 최종수정자
 	private String prdMany;
 	private String prdColor;
+	private String prdSize;
 	
 	//상품 옵션
 	private String optionKey[];
@@ -74,6 +75,12 @@ public class ProductInfo {
 	
 
 	
+	public String getPrdSize() {
+		return prdSize;
+	}
+	public void setPrdSize(String prdSize) {
+		this.prdSize = prdSize;
+	}
 	public String getPrdColor() {
 		return prdColor;
 	}

@@ -61,7 +61,7 @@ public class AttachFileServiceImpl implements IAttachFileManageService{
 		}
 	 
 
-		//상품 목록 이미지 불러옴
+		//상품 이미지 불러옴
 		@Override
 		public List<AttachFileInfo> getAttFileInfList(AttachFileInfo attFileInfo) {
 			
@@ -75,6 +75,27 @@ public class AttachFileServiceImpl implements IAttachFileManageService{
 			try {
 				// DB 수행
 				fileList = sqlSession.selectList("attFile.selectListBomAttFileTb0001",attFileInfo);
+			} finally {
+				sqlSession.close();
+			}
+			
+			return fileList;
+		}
+
+		//상품 목록 이미지 불러옴
+		@Override
+		public AttachFileInfo getAttFileInfListImg(AttachFileInfo attFileInfo) {
+			
+			AttachFileInfo fileList = new AttachFileInfo();
+			
+			// -----------------------------------------------
+			// DB Insert 수행
+			// -----------------------------------------------
+			SqlSession sqlSession = sqlSessionFactory.openSession();
+			
+			try {
+				// DB 수행
+				fileList = sqlSession.selectOne("attFile.selectListBomAttFileTb0002",attFileInfo);
 			} finally {
 				sqlSession.close();
 			}
