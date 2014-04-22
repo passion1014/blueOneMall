@@ -21,13 +21,17 @@
 		<c:import url="../inc/orderLnb.jsp" />
 		<div class="sub_content">
 			<form action="orderRegisterProc.do" method="post">
+			<input type="hidden" id="customerInfo.custId"  name="customerInfo.custId"  value="dana">
+			<input type="hidden" id="modifyUserId"  name="modifyUserId"  value="dana">
+			<input type="hidden" id="customerContactInfo.contactSeq"  name="customerContactInfo.contactSeq"  value="1">
+			
 				<div class="porder_section">
 					<h4>제품주문</h4>
 					<div class="porder_step">
 						<ul>
-							<li><img src="<c:url value='/resources/img/./images/sub/shopping_loc3_off.png'/>"  alt="SETP3 주문완료이미지"/></li>
-							<li class="mmargin"><img src="<c:url value='/resources/img//images/sub/shopping_loc2_on.png'/>"  alt="SETP2 주문/결제이미지"/></li>
-							<li class="mmargin"><img src="<c:url value='/resources/img/./images/sub/shopping_loc1_off.png'/>"  alt="SETP1 카트이미지"/></li>
+							<li><img src="<c:url value='/resources/img/sub/shopping_loc3_off.png'/>"  alt="SETP3 주문완료이미지"/></li>
+							<li class="mmargin"><img src="<c:url value='/resources/img/sub/shopping_loc2_on.png'/>"  alt="SETP2 주문/결제이미지"/></li>
+							<li class="mmargin"><img src="<c:url value='/resources/img/sub/shopping_loc1_off.png'/>"  alt="SETP1 카트이미지"/></li>
 						</ul>
 						<h5>주문하실 상품</h5>
 						<table class="order_tbl" summary="주문상품 리스트">
@@ -75,7 +79,7 @@
 										<span class="input_text"><input type="text" value="${odPrdInfo.buyCnt}" title="수량기입"><button class="btn_triangle1"></button></span>
 										<span class="input_btn"><input type="button" value="수정" title="수정"><button class="btn_triangle2"></button></span>
 									</td>
-									<td>>${odPrdInfo.totalPrice}</td>
+									<td>${odPrdInfo.totalPrice}</td>
 									<td>
 										<button class="btn_choice1">구매하기</button>
 										<!-- <button class="btn_choice2" onClick="confirm_process('','해당 상품을 삭제하시겠습니까?','deleteCartList.do?prdCd=${odPrdInfo.prdCd}');" >삭제하기</button> -->

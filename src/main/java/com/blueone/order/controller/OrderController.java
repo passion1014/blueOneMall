@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.blueone.common.domain.AttachFileInfo;
 import com.blueone.common.service.IAttachFileManageService;
 import com.blueone.common.util.CookieBox;
+import com.blueone.customer.domain.CustomerContactInfo;
 import com.blueone.customer.domain.CustomerInfo;
 import com.blueone.order.domain.OrderInfo;
 import com.blueone.order.domain.OrderProductInfo;
@@ -134,7 +135,6 @@ public class OrderController {
 		custom.setHpNo2("1231");
 		custom.setHpNo3("4567");
 		custom.seteMail("yangs@naver.com");
-		
 		model.addAttribute("cus",custom);
 		
 		return "order/order";
@@ -144,13 +144,22 @@ public class OrderController {
 	@RequestMapping(value="/order/orderRegisterProc.do")
 	public String orderRegisteProc(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
 		
-		//결제상품
+		//주문번호
+		String orderNum=getOrderCode();
+		
+		//결제상품 저장
 		CookieBox cki = new CookieBox(request);
 		List<OrderProductInfo> ord = getCartList(cki);
 		for(OrderProductInfo each : ord){
-			each.setOrderNo(getOrderCode());
+			each.setOrderNo(orderNum);
+			each.setModiUser("daba");
 			orderManageService.registOrderProductInfo(each);
 		}
+		
+		//주문 저장
+		orderInfo.setOrderNo(orderNum);
+		orderInfo.setOrderStatCd("02");
+		orderManageService.registOrderInfo(orderInfo);
 		
 		
 	return "redirect:orderComplete.do";
@@ -275,8 +284,8 @@ public class OrderController {
 					}
 					if("cn".equals(s.substring(0, 2))){
 						odPrdInfo.setBuyCnt(Integer.parseInt(s.substring(3)));
-						BigDecimal total = new BigDecimal(odPrdInfo.getSellPrice().toString()) ;
-						total.multiply(new BigDecimal(odPrdInfo.getBuyCnt()));
+						BigDecimal total = new BigDecimal(prdInfo.getPrdSellPrc()) ;
+						total=total.multiply(new BigDecimal(odPrdInfo.getBuyCnt()));
 						odPrdInfo.setTotalPrice(total);
 					}
 					
