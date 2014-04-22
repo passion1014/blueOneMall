@@ -97,14 +97,6 @@ public class AdImgInfo {
 	public String getBnImg1() {
 		return bnImg1;
 	}
-<<<<<<< HEAD
-	public void setBnImg1(String bnImg1) {
-		this.bnImg1 = bnImg1;
-=======
-	public void setBnImg1(String in) {
-		this.bnImg1 = in;
->>>>>>> 35631782389ca11a547e8bcaa05e0e5e62562bfd
-	}
 	public String getBnUrl1() {
 		return bnUrl1;
 	}

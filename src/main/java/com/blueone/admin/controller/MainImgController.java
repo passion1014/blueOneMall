@@ -43,38 +43,6 @@ public class MainImgController {
 				
 				
 				
-				String savePath = null;
-				String saveFilename = null;
-				String fullSaveFilename = null;
-				String fileExt = null;
-				AttachFileInfo fileModel = null;
-				
-				
-				
-				try {
-					
-					File dir = new File(savePath);
-					
-					// 저장할 폴더가 없을경우 생성
-					if(!dir.exists()) dir.mkdirs();
-					
-					// 저장할 파일이 이미 있는지 체크
-					fileExt = getFileExt(file.getOriginalFilename());
-					saveFilename = Utility.getCurrentDate("yyyyMMddHHmmssSSS") + Math.round(Math.random() * 1000) + "." + fileExt;
-					fullSaveFilename = fullSaveFilename + saveFilename;
-					File saveFile = new File(savePath + saveFilename);
-				
-					
-					file.transferTo(saveFile);
-					
-					adImgInfo = new AdImgInfo();
-					adImgInfo.setBnImg1(fullSaveFilename);
-					
-					
-				} catch(FileNotFoundException fe) {
-					fe.printStackTrace();
-				}
-				
 				
 				
 				adImgService.insertAdImg(adImgInfo);
