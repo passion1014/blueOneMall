@@ -148,7 +148,7 @@ public class OrderController {
 		CookieBox cki = new CookieBox(request);
 		List<OrderProductInfo> ord = getCartList(cki);
 		for(OrderProductInfo each : ord){
-			
+			each.setOrderNo(getOrderCode());
 			orderManageService.registOrderProductInfo(each);
 		}
 		
@@ -259,15 +259,18 @@ public class OrderController {
 			
 			
 			String vl=cki.getValue(each);
-				StringTokenizer st = new StringTokenizer(vl,",");
-				while(st.hasMoreElements()) {
+			StringTokenizer st = new StringTokenizer(vl,",");
+			String option="";
+			while(st.hasMoreElements()) {
 					
 					String s = st.nextToken();
 					
 					if("01".equals(s.substring(0, 2))){
+						option+=s+",";
 						odPrdInfo.setPrdOpColor(s.substring(3));
 					}
 					if("02".equals(s.substring(0, 2))){
+						option+=s+",";
 						odPrdInfo.setPrdOpSize(s.substring(3));
 					}
 					if("cn".equals(s.substring(0, 2))){
@@ -277,6 +280,7 @@ public class OrderController {
 						odPrdInfo.setTotalPrice(total);
 					}
 					
+					odPrdInfo.setPrdOption(option);
 				}
 				
 				
