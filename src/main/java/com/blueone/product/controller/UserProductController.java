@@ -31,6 +31,7 @@ public class UserProductController {
 	@Autowired
 	private IUserProductService iUserProductService;
 	@Autowired IAttachFileManageService attFileManageService;
+	
 	@Autowired
 	private ICategoryManageService categoryManageService;
 	@Autowired
@@ -101,6 +102,7 @@ public class UserProductController {
 					prdLList.add(each);
 				}
 			}
+			pd.setPrdList(prdLList);
 			
 		}else {
 			largeInf = categoryManageService.getCategoryInfDetail(categoryInfo);
@@ -111,6 +113,7 @@ public class UserProductController {
 					prdLList.add(each);
 				}
 			}
+			pd.setPrdList(prdLList);
 			
 		}
 		
@@ -118,7 +121,8 @@ public class UserProductController {
 		for (CategoryInfo each : categoryList) {
 			if (largeInf.getCtgCode().equals(each.getCtgPCode())) {
 				lnbList.add(each);
-			}			
+			}	
+			
 		}
 		
 		
@@ -138,6 +142,7 @@ public class UserProductController {
 				if(chkMiddleCode.equals(each.getPrdCtgM())){
 					prdMList.add(each);
 				}
+				pd.setPrdList(prdMList);
 			}
 		}
 		
@@ -149,10 +154,10 @@ public class UserProductController {
 				if(prdCtgS.equals(each.getPrdCtgS())){
 					prdSList.add(each);
 				}
+				pd.setPrdList(prdSList);
 			}
 		}
 		
-		pd.setPrdList(prdLList);
 		
 		List<ProductInfo> resultList =pd.getPrdList(3);
 
@@ -177,7 +182,7 @@ public class UserProductController {
 		model.addAttribute("lMenuDetail",categoryInfo);
 		model.addAttribute("chkMiddleCode",chkMiddleCode);
 		model.addAttribute("prdCtgS",prdCtgS);
-		model.addAttribute("prdLList",resultList);
+		model.addAttribute("prdLList",prdLList);
 		model.addAttribute("prdMList",prdMList);
 		model.addAttribute("prdSList",prdSList);
 		model.addAttribute("endNum",pd.getEndPageNum());
