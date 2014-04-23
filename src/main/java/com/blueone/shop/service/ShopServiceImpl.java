@@ -1,96 +1,71 @@
 package com.blueone.shop.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
-import com.blueone.shop.domain.ShopInfo;
-import com.blueone.admin.domain.AdminInfo;
-import com.blueone.common.util.MsgEnum;
+import com.blueone.admin.domain.AdImgInfo;
+import com.blueone.category.domain.CategoryInfo;
+import com.blueone.product.domain.ProductInfo;
+
+
 
 @Service
-public class ShopServiceImpl implements ShopService{
+public class ShopServiceImpl implements IShopService{
 
 	
 	@Autowired
 	private SqlSessionFactory sqlSessionFactory;
 	
 	
-	
-	
-		
+	//메인화면에 배너이미지출력
 	@Override
-	public int shopInsert(ShopInfo shopInfo){
+	public AdImgInfo getAdImg(AdImgInfo adImgInfo){
 		
+		
+		AdImgInfo adImg = new AdImgInfo();
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		
 		
 		try{
 			
+			adImg = sqlSession.selectOne("adImg.selectBomAdImgTb0001", adImgInfo);
 			
-			int rst = sqlSession.insert("shop.insertBomShopTb0001", shopInfo);
-			
-			
-			
-		}finally{ 
-			
+		}finally{
 			sqlSession.close();
 		}
-		return MsgEnum.MsgEnum_SUCCESS.value();
+		
+		
+		return adImg;
 		
 		
 		
 	}
 	
-	
+	//메인화면에 상품이미지 출력
 	@Override
-	public List<ShopInfo>  getList(ShopInfo shopInfo){
+	public List<ProductInfo> getImgList(ProductInfo productInfo){
 		
-		
+		List<ProductInfo> rstInfo = new ArrayList<ProductInfo>();
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		
-		List<ShopInfo> list = new ArrayList<ShopInfo>();
 		
 		try{
 			
-			Map<String, ShopInfo> map = new HashMap<String , ShopInfo>();
+			rstInfo = sqlSession.selectList("product.selectListBomProductTb0001", productInfo);
 			
-			list = sqlSession.selectList("shop.selectListBomShopTb0001", map);
 		}finally{
 			
 			sqlSession.close();
+			
 		}
-		
-		
-		  
-		
-		return list;
-		
-		
-		
-		
-		
+		return rstInfo;
 		
 	}
 	
-	/*
-	@Override
-	public ShopInfo getInfo(String data){
-		
-		SqlSession sqlSession = sqlSessionFactory.openSession();
-		
-		
-		
-		
-	}
-	*/
+	
 
 	
 	

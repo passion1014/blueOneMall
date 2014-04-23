@@ -1,6 +1,9 @@
 package com.blueone.shop.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,8 +15,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.blueone.admin.domain.AdImgInfo;
+import com.blueone.admin.service.IAdImgService;
+import com.blueone.category.domain.CategoryInfo;
+import com.blueone.category.service.ICategoryManageService;
+import com.blueone.product.domain.ProductInfo;
+import com.blueone.product.service.IProductManageService;
 import com.blueone.shop.domain.ShopInfo;
-import com.blueone.shop.service.ShopService;
+import com.blueone.shop.service.IShopService;
 
 
 
@@ -23,8 +32,11 @@ public class ShopController {
 	
 	
 	@Autowired
-	ShopService shopService;
-	
+	private IShopService shopService;
+	@Autowired
+	private IProductManageService productManageService;
+	@Autowired
+	private ICategoryManageService categoryManageService;
 	
 	@RequestMapping(value ="/worklist.do", method = RequestMethod.GET)
 	public String workList(@ModelAttribute("ShopInfo") ShopInfo shopInfo, BindingResult result, Model model){
@@ -34,43 +46,46 @@ public class ShopController {
 	
 	
 	
-	@RequestMapping(value ="/main.do", method = RequestMethod.GET)
-	public String read(@ModelAttribute("ShopInfo") ShopInfo shopInfo, BindingResult result, Model model){
+	@RequestMapping(value ="/", method = RequestMethod.GET)
+	public String read(@ModelAttribute("adImgInfo") AdImgInfo adImgInfo, @ModelAttribute("productInfo") ProductInfo productInfo, @ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model){
+		
+		
+		List<ProductInfo> productList = shopService.getImgList(productInfo);
+		List<ProductInfo> pdSList = new ArrayList<ProductInfo>();
+		
+		
+		
+		CategoryInfo largeInf = new CategoryInfo();
+		
+		if(categoryInfo.getCtgCode() == null || categoryInfo.getCtgCode() == ""){
+			largeInf = categoryManageService.getCategoryInfDetail2(categoryInfo);			
+		}else{
+			largeInf = categoryManageService.getCategoryInfDetail(categoryInfo);			
+		}
+		
+		
+		
+		productInfo = new ProductInfo();
+		
+		String prdCtgL = largeInf.getCtgCode();
+		
+		
+		//대분류에 대한 상품출력
+		for(ProductInfo each: productList){
+			if(prdCtgL.equals(each.getPrdCtgL())){
+				pdSList.add(each);
+			}
+		}
+		
+		model.addAttribute("pdSList", pdSList);
+		model.addAttribute("List", productList);
 		
 		return "shop/main";
 	}
 	
 	
 	
-	@RequestMapping(value="/shop/insertform.do" , method=RequestMethod.GET)
-	public String insertForm(@ModelAttribute("ShopInfo") ShopInfo shopInfo, BindingResult result, Model model){
 	
-		
-		
-		return "shop/insertform";
-    }
-	
-	@RequestMapping(value="/shop/insert.do", method=RequestMethod.POST)
-	public String insert(@ModelAttribute("ShopInfo") ShopInfo shopInfo, BindingResult result, Model model){
-		
-		
-		shopService.shopInsert(shopInfo);
-		
-		return "redirect:/shop/list.do";
-		
-	}
-	
-	@RequestMapping(value="/shop/list.do",method=RequestMethod.GET)
-	public String getList(@ModelAttribute("shopInfo") ShopInfo shopInfo, BindingResult result, Model model){
-		
-		List<ShopInfo>  list = shopService.getList(shopInfo);
-		
-		model.addAttribute("list", list);
-		
-		return "shop/list";
-		
-		
-	}
 	
 	
 	

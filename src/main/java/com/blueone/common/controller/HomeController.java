@@ -42,19 +42,20 @@ public class HomeController {
 	private MessageSourceAccessor messageSourceAccessor;
 
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+/*	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
+//		logger.info("Welcome home! The client locale is {}.", locale);
 		
 //		String resourceHost = messageSourceAccessor.getMessage("DataDrivenEnumerationValueImpl_friendyName", "");
 //		System.out.println("==================[" + resourceHost + "]==================");
 		
-		List<String> list = sqlSession.selectList("myBatis.test.getTest");
+//		List<String> list = sqlSession.selectList("myBatis.test.getTest");
+		
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("shop/main");
 		return mav;
-	}
+	}*/
 	
 	@RequestMapping(value = "/sessionTest.do", method = RequestMethod.GET)
 	public ModelAndView sessionTest(Locale locale, Model model) {

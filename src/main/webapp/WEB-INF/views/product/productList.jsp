@@ -88,7 +88,6 @@
 					<p class="pro_total">
 						총&nbsp;<span>700</span>&nbsp;중&nbsp;<span>100</span>&nbsp;개
 					</p>
-							
 							<span class="pro_class">
 											<a href="productList.do?orderBy=low&ctgCode=${largeInf.ctgCode}&ctgMiddleCode=${chkMiddleCode}&prdCtgS=${prdCtgS}" class="rightline">낮은 가격</a>
 											<a href="productList.do?orderBy=high&ctgCode=${largeInf.ctgCode}&ctgMiddleCode=${chkMiddleCode}&prdCtgS=${prdCtgS}" class="rightline">높은 가격</a>
