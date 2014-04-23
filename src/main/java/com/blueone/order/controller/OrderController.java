@@ -136,7 +136,6 @@ public class OrderController {
 		custom.setHpNo1("010");
 		custom.setHpNo2("1231");
 		custom.setHpNo3("4567");
-		custom.seteMail("yangs@naver.com");
 		model.addAttribute("cus",custom);
 		
 		return "order/order";

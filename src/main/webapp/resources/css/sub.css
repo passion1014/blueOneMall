@@ -188,9 +188,9 @@
 .mypage_section h4 {margin-top:20px; font-size:24px; font-family:"NanumGothicBold";}
 .mypage_section p.sub_tit {color:#0372b3; font-family:"NanumGothicBold"; margin:20px 0 30px 0;}
 .mypage_section h5.basic_infotit {background:url('../img/common/bullet_tit.gif') no-repeat center left; padding-left:10px; line-height:18px; margin-bottom:10px; font-size:14px; font-family:"NanumGothicBold";}
-.mypage_section table.myinfo_tbl th {text-align:left; height:30px; border-bottom:1px solid #bbb; background:#eef1f2; padding-left:10px; color:#666666;}
+.mypage_section table.myinfo_tbl th {text-align:left; height:30px; border-bottom:1px solid #bbb; font-size:12px; background:#eef1f2; padding-left:10px; color:#666666;}
 .mypage_section table.myinfo_tbl th.topline ,.mypage_section table.myinfo_tbl td.topline {border-top:2px solid #888;}
-.mypage_section table.myinfo_tbl td {text-align:left; height:30px; border-bottom:1px solid #bbb; padding-left:5px;}
+.mypage_section table.myinfo_tbl td {text-align:left; font-size:12px; height:30px; border-bottom:1px solid #bbb; padding-left:5px;}
 .mypage_section table.myinfo_tbl td span.in_text input {width:35px; height:20px; border:1px solid #888;}
 .mypage_section table.myinfo_tbl td span.in_radio input {vertical-align:middle;}
 .mypage_section table.myinfo_tbl td span.in_radio label {margin:0 2px;}

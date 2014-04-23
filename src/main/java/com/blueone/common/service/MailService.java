@@ -40,7 +40,7 @@ public class MailService implements IMailService {
 		if (memberList != null && memberList.size() > 0) {
 			for (int i = 0; i < memberList.size(); i++) {
 				if (i>0) eMailInfo.append(";");
-				eMailInfo.append(memberList.get(i).geteMail());
+				eMailInfo.append(memberList.get(i).getCustEmail());
 			}
 		}
 		
@@ -86,7 +86,7 @@ public class MailService implements IMailService {
 		MailInfo mailModel = new MailInfo();
 		mailModel.setFromNm(webmasterName);
 		mailModel.setFromAddr(webmasterEmail);
-		mailModel.setToAddr(member.geteMail());
+		mailModel.setToAddr(member.getCustEmail());
 		mailModel.setSubject("[踰뺣Ц�붽탳�≪꽱�� �뚯썝�뺣낫 - �꾩씠��");
 		mailModel.setCont(cont);
 		mailModel.setInsUser("admin");
@@ -139,7 +139,7 @@ public class MailService implements IMailService {
 			MailInfo mailModel = new MailInfo();
 			mailModel.setFromNm(webmasterName);
 			mailModel.setFromAddr(webmasterEmail);
-			mailModel.setToAddr(member.geteMail());
+			mailModel.setToAddr(member.getCustEmail());
 			mailModel.setSubject("[踰뺣Ц�붽탳�≪꽱�� �뚯썝�뺣낫 - 鍮꾨�踰덊샇");
 			mailModel.setCont(cont);
 			mailModel.setInsUser("admin");
@@ -188,7 +188,7 @@ public class MailService implements IMailService {
 			MailInfo mailModel = new MailInfo();
 			mailModel.setFromNm(webmasterName);
 			mailModel.setFromAddr(webmasterEmail);
-			mailModel.setToAddr(member.geteMail());
+			mailModel.setToAddr(member.getCustEmail());
 			mailModel.setSubject("[踰뺣Ц�붽탳�≪꽱�� �뚯썝�뺣낫");
 			mailModel.setCont(cont);
 			mailModel.setInsUser("admin");
