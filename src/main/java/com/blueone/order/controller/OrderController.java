@@ -79,13 +79,14 @@ public class OrderController {
 			if(orderProductInfo.getPrdSmallImg()!=null){
 				value+="cn="+orderProductInfo.getBuyCnt();
 				Cookie cookie =cki.createCookie("BOM_"+orderProductInfo.getPrdCd(),value,1000);//여기까지 디버깅으로 값이 들어가는것확인
-				response.addCookie(cookie);//<-이부분이 하나도 안먹힘
+				response.addCookie(cookie);//
 		
 			
 			}
 			
 		/*
 		if(pass.equals("y")){
+			return "redirect:orderRegister.do";
 		}else{
 			return "redirect:cartListView.do";
 		}
@@ -186,7 +187,7 @@ public class OrderController {
 		//결제상품 보여주기
 		String odNo=orderInfo.getOrderNo();
 		
-		/*
+		
 		OrderProductInfo opResInf = new OrderProductInfo();
 		opResInf.setOrderNo(odNo);
 		opResInf = orderManageService.selectOrderPrdInfo(opResInf);
@@ -216,6 +217,7 @@ public class OrderController {
 				}
 		
 		}
+		
 		//수량 및 금액
 		opResInf.setSellPrice(new BigDecimal(prInf.getPrdSellPrc()));
 		BigDecimal total = new BigDecimal(prInf.getPrdSellPrc()) ;
@@ -235,15 +237,6 @@ public class OrderController {
 		}
 		
 		model.addAttribute("odPrdInfo",opResInf);
-		*/
-		//결제상품 보여주기
-		CookieBox cki = new CookieBox(request);
-		List<OrderProductInfo> ord = getCartList(cki);
-		model.addAttribute("odPrdInfo",ord);
-		for(OrderProductInfo each : ord){
-			Cookie cookie =cki.createCookie("BOM_"+each.getPrdCd(),"",-1);
-			response.addCookie(cookie);
-		}
 		
 		RecipientInfo reInf = new RecipientInfo();
 		reInf.setReciOdNum(odNo);
