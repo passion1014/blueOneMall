@@ -45,11 +45,22 @@ public class UserController {
 	}
 	
 	//적립금현황
+	@RequestMapping(value="/user/userPointSaving.do", method=RequestMethod.GET)
+	public String userPointSaving(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model){
+		return "user/userPointSaving";
+	}
+	//립금현황
 	@RequestMapping(value="/user/userPoint.do", method=RequestMethod.GET)
 	public String userPoint(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model){
-		return "user/userPoint";
+			return "user/userPoint";
 	}
+		
 	
+	//주문내역관리
+	@RequestMapping(value="/user/orderListView.do", method=RequestMethod.GET)
+	public String orderListView(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model){
+		return "user/orderListView";
+	}
 	
 	//1:1문의하기 목록
 	@RequestMapping(value="/user/qnaList.do", method=RequestMethod.GET)

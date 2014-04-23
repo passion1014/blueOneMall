@@ -27,8 +27,8 @@
 			<div class="search_area">
 				<span class="search_menu">
 					<a href="/order/cartListView.do" class="menu_site">장바구니</a>
-					<a href="#" class="menu_site">주문배송 조회</a>
-					<a href="#">마이페이지</a>
+					<a href="/user/orderListView.do" class="menu_site">주문배송 조회</a>
+					<a href="/user/userEdit.do">마이페이지</a>
 				</span>
 				<span class="search_box">
 					<input type="text" title="서치텍스트박스"/>

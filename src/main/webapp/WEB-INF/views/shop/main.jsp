@@ -572,7 +572,7 @@
 		</div>
 		<div class="cont_banner">
 			<a href="#" class="marginright"><img src="<c:url value='/resources/img/main/main/main_banner1.jpg'/>" alt="main banner image"/></a>
-			<a href="#" class="marginright"><img src="<c:url value='/resources/img/main/main/main_banner2.jpg'/>" alt="main banner image"/></a>
+			<a href="#"><img src="<c:url value='/resources/img/main/main/main_banner2.jpg'/>" alt="main banner image"/></a>
 		</div>
 		<div class="cont_bottom">
 		 <dl class="cont_botbox1">
@@ -595,7 +595,7 @@
 			<dd>
 				<a href="#" class="mart"><img src="<c:url value='/resources/img/main/main/store_img1.jpg'/>" alt="store image"/></a>
 				<a href="#" class="mart"><img src="<c:url value='/resources/img/main/main/store_img2.jpg'/>" alt="store image"/></a>
-				<a href="#"><img src="<c:url value='/resources/img/main/main/store_img3.jpg'/>" alt="store image"/></a>
+				<a href="#"><img src="<c:url value='/resources/img/main/main/store_img3.jpg'/>" alt="store image"/git ></a>
 			</dd>
 		 </dl>
 		</div>
