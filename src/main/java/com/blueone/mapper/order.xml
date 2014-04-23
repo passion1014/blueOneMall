@@ -34,7 +34,6 @@
 		
 		<!-- 고객정보 셋팅 -->
 		<association property="customerInfo" column="custId" javaType="customerInfo" resultMap="CustomerInfoMap"/>
-		<association property="customerContactInfo" column="contactSeq" javaType="customerContactInfo" resultMap="CustomerContactInfoMap"/>
 		
 
 		<!-- 주문상품정보 셋팅 -->
@@ -102,7 +101,18 @@
 			T1.ORDER_DATE BETWEEN #{srchStdDt} AND #{srchEdDt}
 	</select >
 
-
+	<select id="selectListBomOrderPrdTb0001" resultType="orderProductInfo" resultMap="OrdProductInfo" parameterType="orderProductInfo">
+		SELECT
+			T1.ORDER_NO,
+			T1.PRD_CD,
+			T1.PRD_OPTION,
+			T1.BUY_COUNT
+			
+		FROM 
+				BOM_ORD_PRD_TB T1
+		WHERE
+			T1.ORDER_NO = #{orderNo}
+	</select >
 
 	<insert id="insertBomOrderPrdTb0001" parameterType="orderProductInfo" >
 		INSERT BOM_ORD_PRD_TB
@@ -114,9 +124,9 @@
 
 	<insert id="insertBomOrderTb0001" parameterType="orderInfo" >
 		INSERT BOM_ORDER_TB
-			(`ORDER_NO`,`CUST_ID`,`CUST_CONTACT_NO`,`ORDER_DATE`,`REG_DATE`,`LAST_DATE`,`MODIFY_USER_ID`)
+			(`ORDER_NO`,`CUST_ID`,`ORDER_STAT_CD`,`ORDER_DATE`,`REG_DATE`,`LAST_DATE`,`MODIFY_USER_ID`)
 			VALUES
-			(#{orderNo}, #{customerInfo.custId}, #{customerContactInfo.contactSeq},sysdate(), sysdate(), sysdate(),#{modifyUserId})
+			(#{orderNo}, #{customerInfo.custId},#{orderStatCd},sysdate(), sysdate(), sysdate(),#{modifyUserId})
 	</insert>
 	
 

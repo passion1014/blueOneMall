@@ -29,6 +29,7 @@ import com.blueone.common.service.IAttachFileManageService;
 import com.blueone.common.util.CookieBox;
 import com.blueone.customer.domain.CustomerContactInfo;
 import com.blueone.customer.domain.CustomerInfo;
+import com.blueone.customer.domain.RecipientInfo;
 import com.blueone.order.domain.OrderInfo;
 import com.blueone.order.domain.OrderProductInfo;
 import com.blueone.order.domain.OrderSrchInfo;
@@ -156,20 +157,101 @@ public class OrderController {
 			orderManageService.registOrderProductInfo(each);
 		}
 		
+		//받는사람 저장
+		RecipientInfo reInf= orderInfo.getReciInfo();
+		String phone = reInf.getPhone1()+reInf.getPhone2()+reInf.getPhone3();
+		reInf.setReciPh(phone);
+		String mobile = reInf.getMobile1()+reInf.getMobile2()+reInf.getMobile3();
+		reInf.setReciMb(mobile);
+		reInf.setReciOdNum(orderNum);
+		String address=reInf.getZipCd1()+" "+reInf.getAdd1()+" "+reInf.getAdd2();
+		reInf.setReciAdd(address);
+		orderInfo.setReciInfo(reInf);
+		orderManageService.registRecipientInfo(reInf);
+		
 		//주문 저장
 		orderInfo.setOrderNo(orderNum);
 		orderInfo.setOrderStatCd("02");
 		orderManageService.registOrderInfo(orderInfo);
 		
-		
-	return "redirect:orderComplete.do";
+	return "redirect:orderComplete.do?orderNo="+orderNum;
 }
 
 
 	
 	//주문성공페이지
 	@RequestMapping(value="/order/orderComplete.do")
-	public String orderComplete(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model){
+	public String orderComplete(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
+		
+		//결제상품 보여주기
+		String odNo=orderInfo.getOrderNo();
+		
+		/*
+		OrderProductInfo opResInf = new OrderProductInfo();
+		opResInf.setOrderNo(odNo);
+		opResInf = orderManageService.selectOrderPrdInfo(opResInf);
+		
+		String prdCd = opResInf.getPrdCd();
+		ProductInfo prInf = new ProductInfo();
+		prInf.setPrdCd(prdCd);
+		prInf=productManageService.getProductInfDetail(prInf);
+		
+		//상품 이름
+		opResInf.setPrdNm(prInf.getPrdNm());
+		
+		//옵션
+		String option=opResInf.getPrdOption();
+		StringTokenizer st = new StringTokenizer(option,",");
+		while(st.hasMoreElements()) {
+				
+				String s = st.nextToken();
+				
+				if("01".equals(s.substring(0, 2))){
+					option+=s+",";
+					opResInf.setPrdOpColor(s.substring(3));
+				}
+				if("02".equals(s.substring(0, 2))){
+					option+=s+",";
+					opResInf.setPrdOpSize(s.substring(3));
+				}
+		
+		}
+		//수량 및 금액
+		opResInf.setSellPrice(new BigDecimal(prInf.getPrdSellPrc()));
+		BigDecimal total = new BigDecimal(prInf.getPrdSellPrc()) ;
+		total=total.multiply(new BigDecimal(opResInf.getBuyCnt()));
+		opResInf.setTotalPrice(total);
+		
+		//사진
+		AttachFileInfo att = new AttachFileInfo();
+		att.setAttCdKey(prInf.getPrdCd());
+		att.setAttImgType("01");
+		att = attFileManageService.getAttFileInfListImg(att);
+		if(att==null){
+			opResInf.setPrdSmallImg("");
+		}else { 
+			
+			opResInf.setPrdSmallImg(att.getAttFilePath());
+		}
+		
+		model.addAttribute("odPrdInfo",opResInf);
+		*/
+		//결제상품 보여주기
+		CookieBox cki = new CookieBox(request);
+		List<OrderProductInfo> ord = getCartList(cki);
+		model.addAttribute("odPrdInfo",ord);
+		for(OrderProductInfo each : ord){
+			Cookie cookie =cki.createCookie("BOM_"+each.getPrdCd(),"",-1);
+			response.addCookie(cookie);
+		}
+		
+		RecipientInfo reInf = new RecipientInfo();
+		reInf.setReciOdNum(odNo);
+		reInf = orderManageService.selectRecipientInfo(reInf);
+		model.addAttribute("reInfo",reInf);
+			
+	
+		
 		return "order/orderComplete";
 	}
 	
@@ -184,7 +266,7 @@ public class OrderController {
 	public String getOrderCode(){
 
 		// 주문 코드 채번
-		int code= (int)(Math.random()*100000)+1;
+		int code= (int) Math.round(Math.random() * 100000);
 		Calendar cal = Calendar.getInstance();
 		int year  = cal.get(Calendar.YEAR)-2000;
 		int month = cal.get(Calendar.MONTH);

@@ -9,9 +9,12 @@ public class CustomerContactInfo {
 	private String defaultYn;	// 기본값 여부
 
 	private String email;
+	private String mobile;
 	private String mobile1;
 	private String mobile2;
 	private String mobile3;
+	
+	private String phone;
 	private String phone1;
 	private String phone2;
 	private String phone3;

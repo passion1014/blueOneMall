@@ -23,7 +23,6 @@
 			<form action="orderRegisterProc.do" method="post">
 			<input type="hidden" id="customerInfo.custId"  name="customerInfo.custId"  value="dana">
 			<input type="hidden" id="modifyUserId"  name="modifyUserId"  value="dana">
-			<input type="hidden" id="customerContactInfo.contactSeq"  name="customerContactInfo.contactSeq"  value="1">
 			
 				<div class="porder_section">
 					<h4>제품주문</h4>
@@ -183,13 +182,13 @@
 									</td>
 									<th>받으시는분</th>
 									<td class="in_text">
-										<input type="text" id="customerContactInfo.contactNm" name="customerContactInfo.contactNm" title="받으시는분 성명 기입"/>
+										<input type="text" id="reciInfo.reciNm" name="reciInfo.reciNm" title="받으시는분 성명 기입"/>
 									</td>
 								</tr>
 								<tr>
 									<th>전화번호</th>
 									<td class="in_sectext">
-										<select  id="customerContactInfo.phone1" name="customerContactInfo.phone1" >
+										<select  id="reciInfo.phone1" name="reciInfo.phone1" >
 											<option selected>02</option>
 											<option>031</option>
 											<option>032</option>
@@ -206,12 +205,12 @@
 											<option>063</option>
 											<option>064</option>
 										</select>
-										-<input type="text" id="customerContactInfo.phone2" name="customerContactInfo.phone2" title="전화번호"/>-
-										<input type="text"  id="customerContactInfo.phone3" name="customerContactInfo.phone3" title="전화번호"/>
+										-<input type="text" id="reciInfo.phone2" name="reciInfo.phone2" title="전화번호"/>-
+										<input type="text"  id="reciInfo.phone3" name="reciInfo.phone3" title="전화번호"/>
 									</td>
 									<th>휴대전화번호</th>
 									<td class="in_sectext">
-										<select  id="customerContactInfo.mobile1" name="customerContactInfo.mobile1"  >
+										<select  id="reciInfo.mobile1" name="reciInfo.mobile1"  >
 											<option selected>010</option>
 											<option>011</option>
 											<option>017</option>
@@ -219,27 +218,27 @@
 											<option>019</option>
 											<option>018</option>
 										</select>
-										-<input type="text" id="customerContactInfo.mobile2" name="customerContactInfo.mobile2" title="휴대전화번호"/>-
-										<input type="text" id="customerContactInfo.mobile3" name="customerContactInfo.mobile3"  title="휴대전화번호"/>
+										-<input type="text" id="reciInfo.mobile2" name="reciInfo.mobile2" title="휴대전화번호"/>-
+										<input type="text" id="reciInfo.mobile3" name="reciInfo.mobile3"  title="휴대전화번호"/>
 									</td>
 								</tr>
 								<tr>
 									<th>주소</th>
 									<td colspan="3" class="address_box">
 										<span class="adr_box1">
-											<input type="text" title="우편번호"  id="customerContactInfo.zipCd1" name="customerContactInfo.zipCd1" />
+											<input type="text" title="우편번호"  id="reciInfo.zipCd1" name="reciInfo.zipCd1" />
 											<button>우편번호 찾기</button>
 										</span>
 										<span class="adr_box2">
-											<input type="text" title="우편번호" id="customerContactInfo.addrDesc1" name="customerContactInfo.addrDesc1" />
-											<input type="text" title="우편번호" id="customerContactInfo.addrDesc2" name="customerContactInfo.addrDesc2" />
+											<input type="text" title="자동주소" id="reciInfo.add1" name="reciInfo.add1" />
+											<input type="text" title="상세주소" id="reciInfo.add2" name="reciInfo.add2" />
 										</span>
 									</td>
 								</tr>
 								<tr>
 									<th>배송시 요청사항</th>
 									<td colspan="3" class="arrive_box">
-										<input type="text" id="customerContactInfo.reqtMent" name="customerContactInfo.reqtMent title="배송시 요청사항 기입"/>
+										<input type="text" id="reciInfo.reciReq" name="reciInfo.reciReq" title="배송시 요청사항 기입"/>
 									</td>
 								</tr>
 							</tbody>

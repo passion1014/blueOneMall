@@ -52,18 +52,21 @@
 								<tr>
 									<td class="product_area leftalign">
 										<span>
-										<img src="<c:url value='/resources/img/sub/product_img1.jpg'/>" alt="상품이미지"/></span>
+										<img src="${odPrdInfo.prdSmallImg}" alt="상품이미지"/></span>
 										<span>
-											[Harman Kardon] HAR/KAR-AE 이어폰
+											${odPrdInfo.prdNm}
+											<c:if test="${'NULL' ne odPrdInfo.prdOpColor}">/${odPrdInfo.prdOpColor}</c:if>
+											<c:if test="${'NULL' eq odPrdInfo.prdOpSize}">/${odPrdInfo.prdOpSize}</c:if>
+											
 										</span>
 									</td>
-									<td>124,000</td>
-									<td>1개</td>
-									<td>124,000</td>
+									<td>${odPrdInfo.sellPrice}</td>
+									<td>${odPrdInfo.buyCnt}개</td>
+									<td>${odPrdInfo.totalPrice}</td>
 								</tr>
 								<tr>
 									<td class="one_choice" colspan="4">
-										상품가격 : 124,000원 + 배송비 : 0원 = 합계 124,000원
+										상품가격 : ${odPrdInfo.sellPrice} + 배송비 : 0원 = 합계 124,000원
 									</td>
 								</tr>
 								<tr>
@@ -85,26 +88,21 @@
 							<tbody>
 								<tr>
 									<th>받으시는분</th>
-									<td class="in_text" colspan="3">
-									</td>
+									<td class="in_text" colspan="3">${reInfo.reciNm}</td>
 								</tr>
 								<tr>
 									<th>전화번호</th>
-									<td class="in_sectext">
-									</td>
+									<td class="in_sectext">${reInfo.reciPh}</td>
 									<th>휴대전화번호</th>
-									<td class="in_sectext">
-									</td>
+									<td class="in_sectext">${reInfo.reciMb}</td>
 								</tr>
 								<tr>
 									<th>배송지 주소</th>
-									<td colspan="3" class="address_box">
-									</td>
+									<td colspan="3" class="address_box">${reInfo.reciAdd}</td>
 								</tr>
 								<tr>
 									<th>배송시 요청사항</th>
-									<td colspan="3" class="arrive_box">
-									</td>
+									<td colspan="3" class="arrive_box">${reInfo.reciReq}</td>
 								</tr>
 							</tbody>
 						</table>

@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.blueone.customer.domain.CustomerContactInfo;
 import com.blueone.customer.domain.CustomerInfo;
+import com.blueone.customer.domain.RecipientInfo;
 
 public class OrderInfo {
 	private int idx;
@@ -18,6 +19,7 @@ public class OrderInfo {
 	
 	private CustomerInfo customerInfo;	// 고객정보
 	private CustomerContactInfo customerContactInfo;	// 고객배송지+연락처정보
+	private RecipientInfo reciInfo;
 	private List<OrderProductInfo> orderProductList;	// 주문상품정보
 	private List<PaymentInfo> paymentLisit;				// 결제정보
 	
@@ -28,6 +30,12 @@ public class OrderInfo {
 	
 	
 	
+	public RecipientInfo getReciInfo() {
+		return reciInfo;
+	}
+	public void setReciInfo(RecipientInfo reciInfo) {
+		this.reciInfo = reciInfo;
+	}
 	public String getPrdCD() {
 		return prdCD;
 	}
