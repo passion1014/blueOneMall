@@ -13,36 +13,7 @@
 <link type="text/css" rel="stylesheet" href="<c:url value='/resources/css/default.css'/>" />
 <link type="text/css" rel="stylesheet" href="<c:url value='/resources/css/main.css'/>" />
 <link type="text/css" rel="stylesheet" href="<c:url value='/resources/css/sub.css'/>" />
-<script type="text/javascript" src="<c:url value='/resources/js/jquery-ui.custom.js'/>"> </script>
 <script type="text/javascript" src="<c:url value='/resources/js/jquery.js'/>"> </script>
+<script type="text/javascript" src="<c:url value='/resources/js/jquery.bxslider.min.js'/>"> </script>
 
-<script type="text/javascript">
-	<!-- tab module -->
-	$(function() {
-		$( ".mcont" ).tabs();
-	});
-
-	function change_area(n){
-		for(var i=1;i<=6;i++){
-			area_id = "area_"+i ;
-			if(i == n){
-				document.getElementById(area_id).style.display = "block";
-			}else{
-				document.getElementById(area_id).style.display = "none";
-			}
-		}
-	}
-
-		function change_area1(n){
-		for(var i=1;i<=3;i++){
-			area_id = "area_"+i ;
-			if(i == n){
-				document.getElementById(area_id).style.display = "block";
-			}else{
-				document.getElementById(area_id).style.display = "none";
-			}
-		}
-	}
-	<!--// tab module -->
-</script>
 </head>

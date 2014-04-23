@@ -180,7 +180,7 @@ public class UserProductController {
 		}
 				
 		
-		List<ProductInfo> resultList =pd.getPrdList(3);
+		List<ProductInfo> resultList =pd.getPrdList(4);
 
 		for(ProductInfo each : resultList){
 			AttachFileInfo att = new AttachFileInfo();
@@ -195,7 +195,7 @@ public class UserProductController {
 			}
 			
 		}
-		
+		model.addAttribute("total",prdList.size());
 		model.addAttribute("categoryList",categoryList);
 		model.addAttribute("largeInf",largeInf);
 		model.addAttribute("lnbList",lnbList);
@@ -204,7 +204,7 @@ public class UserProductController {
 		model.addAttribute("lMenuDetail",categoryInfo);
 		model.addAttribute("chkMiddleCode",chkMiddleCode);
 		model.addAttribute("prdCtgS",prdCtgS);
-		model.addAttribute("prdList",prdList);
+		model.addAttribute("prdList",resultList);
 		model.addAttribute("endNum",pd.getEndPageNum());
 		return "product/productList";
 		

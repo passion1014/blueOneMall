@@ -52,7 +52,7 @@
 								<tr>
 									<td class="product_area leftalign">
 										<span>
-										<img src="${odPrdInfo.prdSmallImg}" alt="상품이미지"/></span>
+										<img src="${odPrdInfo.prdSmallImg}" alt="상품이미지"  width="71" height="71"></span>
 										<span>
 											${odPrdInfo.prdNm}
 											<c:if test="${'NULL' ne odPrdInfo.prdOpColor}">/${odPrdInfo.prdOpColor}</c:if>

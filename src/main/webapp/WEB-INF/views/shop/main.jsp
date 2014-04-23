@@ -10,66 +10,44 @@
 	<div class="container">
 		<div class="cont_main">
 		
-		<!-- 
+
 	 		<div class="mcont">
-				<ul class="mcont_nav">
-					<li><a href="#" onClick="change_area('1')">event 1</a></li>
-					<li><a href="#" onClick="change_area('2')">event 2</a></li>
-					<li><a href="#" onClick="change_area('3')">event 3</a></li>
-					<li><a href="#" onClick="change_area('4')">event 4</a></li>
-					<li><a href="#" onClick="change_area('5')">event 5</a></li>
-					<li><a href="#" onClick="change_area('6')">event 6</a></li>
+				<ul class="bxslider">
+					<li><a href="#"><img src="<c:url value='/resources/img/main/main/main_img.jpg'/>" alt="메인이미지1"/></a></li>
+					<li><a href="#"><img src="<c:url value='/resources/img/main/main/main_img.jpg'/>" alt="메인이미지1"/></a></li>
+					<li><a href="#"><img src="<c:url value='/resources/img/main/main/main_img.jpg'/>" alt="메인이미지1"/></a></li>
+					<li><a href="#"><img src="<c:url value='/resources/img/main/main/main_img.jpg'/>" alt="메인이미지1"/></a></li>
+					<li><a href="#"><img src="<c:url value='/resources/img/main/main/main_img.jpg'/>" alt="메인이미지1"/></a></li>
+					<li><a href="#"><img src="<c:url value='/resources/img/main/main/main_img.jpg'/>" alt="메인이미지1"/></a></li>
 				</ul>
-				<div id="area_1" class="click_nav" style="display:block;">
-					<ul>                
-						<li><a href="#"><img src="<c:url value='/resources/img/main/main/smain_img1.jpg'/>"/></a></li>
-						<li class="leftline"><a href="#"><img src="<c:url value='/resources/img/main/main/smain_img2.jpg'/>"/></a></li>
-						<li class="leftline"><a href="#"><img src="<c:url value='/resources/img//main/main/smain_img3.jpg'/>"/></a></li>
-					</ul>
-					<p><img src="<c:url value='/resources/img/main/main/main_img.jpg'/>"/></p>
-				</div>
-				<div id="area_2" class="click_nav" style="display:none;">
-					<ul>
-						<li><a href="#"><img src="<c:url value='/resources/img/main/main/smain_img1.jpg'/>"/></a></li>
-						<li class="leftline"><a href="#"><img src="<c:url value='/resources/img/main/main/smain_img2.jpg'/>"/></a></li>
-						<li class="leftline"><a href="#"><img src="<c:url value='/resources/img/main/main/smain_img3.jpg'/>"/></a></li>
-					</ul>
-					<p><img src="<c:url value='/resources/img/main/main/main_img.jpg'/>"/></p>
-				</div>
-				<div id="area_3" class="click_nav" style="display:none;">
-					<ul>
-						<li><a href="#"><img src="<c:url value='/resources/img/main/main/smain_img1.jpg'/>"/></a></li>
-						<li class="leftline"><a href="#"><img src="<c:url value='/resources/img/main/main/smain_img2.jpg'/>"/></a></li>
-						<li class="leftline"><a href="#"><img src="<c:url value='/resources/img/main/main/smain_img3.jpg'/>"/></a></li>
-					</ul>
-					<p><img src="<c:url value='/resources/img/main/main/main_img.jpg'/>"/></p>
-				</div>
-				<div id="area_4" class="click_nav" style="display:none;">
-					<ul>
-						<li><a href="#"><img src="<c:url value='/resources/img/main/main/smain_img1.jpg'/>"/></a></li>
-						<li class="leftline"><a href="#"><img src="<c:url value='/resources/img/main/main/smain_img2.jpg'/>"/></a></li>
-						<li class="leftline"><a href="#"><img src="<c:url value='/resources/img/main/main/smain_img3.jpg'/>"/></a></li>
-					</ul>
-					<p><img src="<c:url value='/resources/img/main/main/main_img.jpg'/>"/></p>
-				</div>
-				<div id="area_5" class="click_nav" style="display:none;">
-					<ul>
-						<li><a href="#"><img src="<c:url value='/resources/img/main/main/smain_img1.jpg'/>"/></a></li>
-						<li class="leftline"><a href="#"><img src="<c:url value='/resources/img/main/main/smain_img2.jpg'/>"/></a></li>
-						<li class="leftline"><a href="#"><img src="<c:url value='/resources/img/main/main/smain_img3.jpg'/>"/></a></li>
-					</ul>
-					<p><img src="<c:url value='/resources/img/main/main/main_img.jpg'/>"/></p>
-				</div>
-				<div id="area_6" class="click_nav" style="display:none;">
-					<ul>
-						<li><a href="#"><img src="<c:url value='/resources/img/main/main/smain_img1.jpg'/>"/></a></li>
-						<li class="leftline"><a href="#"><img src="<c:url value='/resources/img/main/main/smain_img2.jpg'/>"/></a></li>
-						<li class="leftline"><a href="#"><img src="<c:url value='/resources/img/main/main/smain_img3.jpg'/>"/></a></li>
-					</ul>
-					<p><img src="<c:url value='/resources/img/main/main/main_img.jpg'/>"/></p>
+				<div id="mcont_nav">
+					<ol>
+						<li><a data-slide-index="0" href="">main_visual1</a></li>
+						<li><a data-slide-index="1" href="">main_visual2</a></li>
+						<li><a data-slide-index="2" href="">main_visual3</a></li>
+						<li><a data-slide-index="3" href="">main_visual4</a></li>
+						<li><a data-slide-index="4" href="">main_visual5</a></li>
+						<li><a data-slide-index="5" href="">main_visual6</a></li>
+					</ol>
 				</div>
 			</div>
-			//-->
+
+				<script type="text/javascript">
+					$(document).ready(function(){
+						$('.bxslider').bxSlider({
+							pagerCustom: '#mcont_nav',
+							auto: true,
+							pause: 4000,
+							autoHover: true,
+							speed: 500,
+							captions: false,
+							prevText: '',
+							nextText: ''
+						});
+					});
+				</script>
+
+
 			
 			
 			
@@ -87,6 +65,90 @@
 			
 		</div>
 		<div class="cont_product">
+			<div class="product_listbox1">
+				<ul class="plist_area">
+					<li><a href="#" class="wpadding1 on">EARPHONE</a></li>
+					<li><a href="#" class="wpadding2">HEADPHONE</a></li>
+					<li><a href="#" class="wpadding3">MULTMEDIA</a></li>
+				</ul>
+				<div class="product_elist">
+					<p class="tit_loc"><span class="loc_text1">BEST ITEM</span><span class="loc_text2">오늘의 딜</span></p>
+					<ul class="pro_list">
+						<li><a href="#">
+							<dl class="list_product">
+								<dd><img src="<c:url value='/resources/img/main/main/pro_img1.jpg'/>" alt="product image"/></dd>
+								<dd>[Sonus Faber│소너스 파베르]</dd>
+								<dd>BUS AG USB 케이블</dd>
+								<dd><strong class="textline"> 510,000</strong>↓<span>200,000원</span></dd>
+							</dl>
+						</a></li>
+						<li><a href="#">
+							<dl class="list_product">
+								<dd><img src="<c:url value='/resources/img/main/main/pro_img2.jpg'/>"  alt="product image"/></dd>
+								<dd>[Sonus Faber│소너스 파베르]</dd>
+								<dd>BUS AG USB 케이블</dd>
+								<dd><strong class="textline"> 510,000</strong>↓<span>200,000원</span></dd>
+							</dl>
+						</a></li>
+						<li><a href="#">
+							<dl class="list_product">
+								<dd><img src="<c:url value='/resources/img/main/main/pro_img3.jpg'/>" alt="product image"/></dd>
+								<dd>[Sonus Faber│소너스 파베르]</dd>
+								<dd>BUS AG USB 케이블</dd>
+								<dd><strong class="textline"> 510,000</strong>↓<span>200,000원</span></dd>
+							</dl>
+						</a></li>
+						<li><a href="#">
+							<dl class="list_product">
+								<dd><img src="<c:url value='/resources/img/main/main/pro_img1.jpg'/>" alt="product image"/></dd>
+								<dd>[Sonus Faber│소너스 파베르]</dd>
+								<dd>BUS AG USB 케이블</dd>
+								<dd><strong class="textline"> 510,000</strong>↓<span>200,000원</span></dd>
+							</dl>
+						</a></li>
+						<li><a href="#">
+							<dl class="list_product">
+								<dd><img src="<c:url value='/resources/img/main/main/pro_img2.jpg'/>"  alt="product image"/></dd>
+								<dd>[Sonus Faber│소너스 파베르]</dd>
+								<dd>BUS AG USB 케이블</dd>
+								<dd><strong class="textline"> 510,000</strong>↓<span>200,000원</span></dd>
+							</dl>
+						</a></li>
+						<li><a href="#">
+							<dl class="list_product">
+								<dd><img src="<c:url value='/resources/img/main/main/pro_img3.jpg'/>" alt="product image"/></dd>
+								<dd>[Sonus Faber│소너스 파베르]</dd>
+								<dd>BUS AG USB 케이블</dd>
+								<dd><strong class="textline"> 510,000</strong>↓<span>200,000원</span></dd>
+							</dl>
+						</a></li>
+						<li><a href="#">
+							<dl class="list_product">
+								<dd><img src="<c:url value='/resources/img/main/main/pro_img1.jpg'/>"  alt="product image"/></dd>
+								<dd>[Sonus Faber│소너스 파베르]</dd>
+								<dd>BUS AG USB 케이블</dd>
+								<dd><strong class="textline"> 510,000</strong>↓<span>200,000원</span></dd>
+							</dl>
+						</a></li>
+						<li><a href="#">
+							<dl class="list_product">
+								<dd><img src="<c:url value='/resources/img/main/main/pro_img2.jpg'/>" alt="product image"/></dd>
+								<dd>[Sonus Faber│소너스 파베르]</dd>
+								<dd>BUS AG USB 케이블</dd>
+								<dd><strong class="textline"> 510,000</strong>↓<span>200,000원</span></dd>
+							</dl>
+						</a></li>
+						<li><a href="#">
+							<dl class="list_product">
+								<dd><img src="<c:url value='/resources/img/main/main/pro_img3.jpg'/>"  alt="product image"/></dd>
+								<dd>[Sonus Faber│소너스 파베르]</dd>
+								<dd>BUS AG USB 케이블</dd>
+								<dd><strong class="textline"> 510,000</strong>↓<span>200,000원</span></dd>
+							</dl>
+						</a></li>
+					</ul>
+				</div>
+			</div>
 			<div class="product_listbox1">
 				<ul class="plist_area">
 					<li><a href="#" class="wpadding1">EARPHONE</a></li>
@@ -171,11 +233,263 @@
 					</ul>
 				</div>
 			</div>
+			<div class="product_listbox1">
+				<ul class="plist_area">
+					<li><a href="#" class="wpadding1">EARPHONE</a></li>
+					<li><a href="#" class="wpadding2">HEADPHONE</a></li>
+					<li><a href="#" class="wpadding3 on">MULTMEDIA</a></li>
+				</ul>
+				<div class="product_elist">
+					<p class="tit_loc"><span class="loc_text1">BEST ITEM</span><span class="loc_text2">오늘의 딜</span></p>
+					<ul class="pro_list">
+						<li><a href="#">
+							<dl class="list_product">
+								<dd><img src="<c:url value='/resources/img/main/main/pro_img1.jpg'/>" alt="product image"/></dd>
+								<dd>[Sonus Faber│소너스 파베르]</dd>
+								<dd>BUS AG USB 케이블</dd>
+								<dd><strong class="textline"> 510,000</strong>↓<span>200,000원</span></dd>
+							</dl>
+						</a></li>
+						<li><a href="#">
+							<dl class="list_product">
+								<dd><img src="<c:url value='/resources/img/main/main/pro_img2.jpg'/>"  alt="product image"/></dd>
+								<dd>[Sonus Faber│소너스 파베르]</dd>
+								<dd>BUS AG USB 케이블</dd>
+								<dd><strong class="textline"> 510,000</strong>↓<span>200,000원</span></dd>
+							</dl>
+						</a></li>
+						<li><a href="#">
+							<dl class="list_product">
+								<dd><img src="<c:url value='/resources/img/main/main/pro_img3.jpg'/>" alt="product image"/></dd>
+								<dd>[Sonus Faber│소너스 파베르]</dd>
+								<dd>BUS AG USB 케이블</dd>
+								<dd><strong class="textline"> 510,000</strong>↓<span>200,000원</span></dd>
+							</dl>
+						</a></li>
+						<li><a href="#">
+							<dl class="list_product">
+								<dd><img src="<c:url value='/resources/img/main/main/pro_img1.jpg'/>" alt="product image"/></dd>
+								<dd>[Sonus Faber│소너스 파베르]</dd>
+								<dd>BUS AG USB 케이블</dd>
+								<dd><strong class="textline"> 510,000</strong>↓<span>200,000원</span></dd>
+							</dl>
+						</a></li>
+						<li><a href="#">
+							<dl class="list_product">
+								<dd><img src="<c:url value='/resources/img/main/main/pro_img2.jpg'/>"  alt="product image"/></dd>
+								<dd>[Sonus Faber│소너스 파베르]</dd>
+								<dd>BUS AG USB 케이블</dd>
+								<dd><strong class="textline"> 510,000</strong>↓<span>200,000원</span></dd>
+							</dl>
+						</a></li>
+						<li><a href="#">
+							<dl class="list_product">
+								<dd><img src="<c:url value='/resources/img/main/main/pro_img3.jpg'/>" alt="product image"/></dd>
+								<dd>[Sonus Faber│소너스 파베르]</dd>
+								<dd>BUS AG USB 케이블</dd>
+								<dd><strong class="textline"> 510,000</strong>↓<span>200,000원</span></dd>
+							</dl>
+						</a></li>
+						<li><a href="#">
+							<dl class="list_product">
+								<dd><img src="<c:url value='/resources/img/main/main/pro_img1.jpg'/>"  alt="product image"/></dd>
+								<dd>[Sonus Faber│소너스 파베르]</dd>
+								<dd>BUS AG USB 케이블</dd>
+								<dd><strong class="textline"> 510,000</strong>↓<span>200,000원</span></dd>
+							</dl>
+						</a></li>
+						<li><a href="#">
+							<dl class="list_product">
+								<dd><img src="<c:url value='/resources/img/main/main/pro_img2.jpg'/>" alt="product image"/></dd>
+								<dd>[Sonus Faber│소너스 파베르]</dd>
+								<dd>BUS AG USB 케이블</dd>
+								<dd><strong class="textline"> 510,000</strong>↓<span>200,000원</span></dd>
+							</dl>
+						</a></li>
+						<li><a href="#">
+							<dl class="list_product">
+								<dd><img src="<c:url value='/resources/img/main/main/pro_img3.jpg'/>"  alt="product image"/></dd>
+								<dd>[Sonus Faber│소너스 파베르]</dd>
+								<dd>BUS AG USB 케이블</dd>
+								<dd><strong class="textline"> 510,000</strong>↓<span>200,000원</span></dd>
+							</dl>
+						</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="product_listbox2">
+				<ul class="plist_area">
+					<li><a href="#" class="wpadding1 on">BLUETOOTH</a></li>
+					<li><a href="#" class="wpadding2">CASE</a></li>
+					<li><a href="#" class="wpadding3">ETC</a></li>
+				</ul>
+				<div class="product_elist">
+					<p class="tit_loc"><span class="loc_text1">BEST ITEM</span><span class="loc_text2">오늘의 딜</span></p>
+					<ul class="pro_list">
+						<li><a href="#">
+							<dl class="list_product">
+								<dd><img src="<c:url value='/resources/img/main/main/pro_img1.jpg'/>"  alt="product image"/></dd>
+								<dd>[Sonus Faber│소너스 파베르]</dd>
+								<dd>BUS AG USB 케이블</dd>
+								<dd><strong class="textline"> 510,000</strong>↓<span>200,000원</span></dd>
+							</dl>
+						</a></li>
+						<li><a href="#">
+							<dl class="list_product">
+								<dd><img src="<c:url value='/resources/img/main/main/pro_img2.jpg'/>"  alt="product image"/></dd>
+								<dd>[Sonus Faber│소너스 파베르]</dd>
+								<dd>BUS AG USB 케이블</dd>
+								<dd><strong class="textline"> 510,000</strong>↓<span>200,000원</span></dd>
+							</dl>
+						</a></li>
+						<li><a href="#">
+							<dl class="list_product">
+								<dd><img src="<c:url value='/resources/img/main/main/pro_img3.jpg'/>" alt="product image"/></dd>
+								<dd>[Sonus Faber│소너스 파베르]</dd>
+								<dd>BUS AG USB 케이블</dd>
+								<dd><strong class="textline"> 510,000</strong>↓<span>200,000원</span></dd>
+							</dl>
+						</a></li>
+						<li><a href="#">
+							<dl class="list_product">
+								<dd><img src="<c:url value='/resources/img/main/main/pro_img1.jpg'/>"  alt="product image"/></dd>
+								<dd>[Sonus Faber│소너스 파베르]</dd>
+								<dd>BUS AG USB 케이블</dd>
+								<dd><strong class="textline"> 510,000</strong>↓<span>200,000원</span></dd>
+							</dl>
+						</a></li>
+						<li><a href="#">
+							<dl class="list_product">
+								<dd><img src="<c:url value='/resources/img/main/main/pro_img2.jpg'/>"  alt="product image"/></dd>
+								<dd>[Sonus Faber│소너스 파베르]</dd>
+								<dd>BUS AG USB 케이블</dd>
+								<dd><strong class="textline"> 510,000</strong>↓<span>200,000원</span></dd>
+							</dl>
+						</a></li>
+						<li><a href="#">
+							<dl class="list_product">
+								<dd><img src="<c:url value='/resources/img/main/main/pro_img3.jpg'/>"  alt="product image"/></dd>
+								<dd>[Sonus Faber│소너스 파베르]</dd>
+								<dd>BUS AG USB 케이블</dd>
+								<dd><strong class="textline"> 510,000</strong>↓<span>200,000원</span></dd>
+							</dl>
+						</a></li>
+						<li><a href="#">
+							<dl class="list_product">
+								<dd><img src="<c:url value='/resources/img/main/main/pro_img1.jpg'/>"  alt="product image"/></dd>
+								<dd>[Sonus Faber│소너스 파베르]</dd>
+								<dd>BUS AG USB 케이블</dd>
+								<dd><strong class="textline"> 510,000</strong>↓<span>200,000원</span></dd>
+							</dl>
+						</a></li>
+						<li><a href="#">
+							<dl class="list_product">
+								<dd><img src="<c:url value='/resources/img/main/main/pro_img2.jpg'/>"  alt="product image"/></dd>
+								<dd>[Sonus Faber│소너스 파베르]</dd>
+								<dd>BUS AG USB 케이블</dd>
+								<dd><strong class="textline"> 510,000</strong>↓<span>200,000원</span></dd>
+							</dl>
+						</a></li>
+						<li><a href="#">
+							<dl class="list_product">
+								<dd><img src="<c:url value='/resources/img/main/main/pro_img3.jpg'/>"  alt="product image"/></dd>
+								<dd>[Sonus Faber│소너스 파베르]</dd>
+								<dd>BUS AG USB 케이블</dd>
+								<dd><strong class="textline"> 510,000</strong>↓<span>200,000원</span></dd>
+							</dl>
+						</a></li>
+					</ul>
+				</div>
+			</div>
 			<div class="product_listbox2">
 				<ul class="plist_area">
 					<li><a href="#" class="wpadding1">BLUETOOTH</a></li>
 					<li><a href="#" class="wpadding2 on">CASE</a></li>
 					<li><a href="#" class="wpadding3">ETC</a></li>
+				</ul>
+				<div class="product_elist">
+					<p class="tit_loc"><span class="loc_text1">BEST ITEM</span><span class="loc_text2">오늘의 딜</span></p>
+					<ul class="pro_list">
+						<li><a href="#">
+							<dl class="list_product">
+								<dd><img src="<c:url value='/resources/img/main/main/pro_img1.jpg'/>"  alt="product image"/></dd>
+								<dd>[Sonus Faber│소너스 파베르]</dd>
+								<dd>BUS AG USB 케이블</dd>
+								<dd><strong class="textline"> 510,000</strong>↓<span>200,000원</span></dd>
+							</dl>
+						</a></li>
+						<li><a href="#">
+							<dl class="list_product">
+								<dd><img src="<c:url value='/resources/img/main/main/pro_img2.jpg'/>"  alt="product image"/></dd>
+								<dd>[Sonus Faber│소너스 파베르]</dd>
+								<dd>BUS AG USB 케이블</dd>
+								<dd><strong class="textline"> 510,000</strong>↓<span>200,000원</span></dd>
+							</dl>
+						</a></li>
+						<li><a href="#">
+							<dl class="list_product">
+								<dd><img src="<c:url value='/resources/img/main/main/pro_img3.jpg'/>" alt="product image"/></dd>
+								<dd>[Sonus Faber│소너스 파베르]</dd>
+								<dd>BUS AG USB 케이블</dd>
+								<dd><strong class="textline"> 510,000</strong>↓<span>200,000원</span></dd>
+							</dl>
+						</a></li>
+						<li><a href="#">
+							<dl class="list_product">
+								<dd><img src="<c:url value='/resources/img/main/main/pro_img1.jpg'/>"  alt="product image"/></dd>
+								<dd>[Sonus Faber│소너스 파베르]</dd>
+								<dd>BUS AG USB 케이블</dd>
+								<dd><strong class="textline"> 510,000</strong>↓<span>200,000원</span></dd>
+							</dl>
+						</a></li>
+						<li><a href="#">
+							<dl class="list_product">
+								<dd><img src="<c:url value='/resources/img/main/main/pro_img2.jpg'/>"  alt="product image"/></dd>
+								<dd>[Sonus Faber│소너스 파베르]</dd>
+								<dd>BUS AG USB 케이블</dd>
+								<dd><strong class="textline"> 510,000</strong>↓<span>200,000원</span></dd>
+							</dl>
+						</a></li>
+						<li><a href="#">
+							<dl class="list_product">
+								<dd><img src="<c:url value='/resources/img/main/main/pro_img3.jpg'/>"  alt="product image"/></dd>
+								<dd>[Sonus Faber│소너스 파베르]</dd>
+								<dd>BUS AG USB 케이블</dd>
+								<dd><strong class="textline"> 510,000</strong>↓<span>200,000원</span></dd>
+							</dl>
+						</a></li>
+						<li><a href="#">
+							<dl class="list_product">
+								<dd><img src="<c:url value='/resources/img/main/main/pro_img1.jpg'/>"  alt="product image"/></dd>
+								<dd>[Sonus Faber│소너스 파베르]</dd>
+								<dd>BUS AG USB 케이블</dd>
+								<dd><strong class="textline"> 510,000</strong>↓<span>200,000원</span></dd>
+							</dl>
+						</a></li>
+						<li><a href="#">
+							<dl class="list_product">
+								<dd><img src="<c:url value='/resources/img/main/main/pro_img2.jpg'/>"  alt="product image"/></dd>
+								<dd>[Sonus Faber│소너스 파베르]</dd>
+								<dd>BUS AG USB 케이블</dd>
+								<dd><strong class="textline"> 510,000</strong>↓<span>200,000원</span></dd>
+							</dl>
+						</a></li>
+						<li><a href="#">
+							<dl class="list_product">
+								<dd><img src="<c:url value='/resources/img/main/main/pro_img3.jpg'/>"  alt="product image"/></dd>
+								<dd>[Sonus Faber│소너스 파베르]</dd>
+								<dd>BUS AG USB 케이블</dd>
+								<dd><strong class="textline"> 510,000</strong>↓<span>200,000원</span></dd>
+							</dl>
+						</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="product_listbox2">
+				<ul class="plist_area">
+					<li><a href="#" class="wpadding1">BLUETOOTH</a></li>
+					<li><a href="#" class="wpadding2">CASE</a></li>
+					<li><a href="#" class="wpadding3 on">ETC</a></li>
 				</ul>
 				<div class="product_elist">
 					<p class="tit_loc"><span class="loc_text1">BEST ITEM</span><span class="loc_text2">오늘의 딜</span></p>
