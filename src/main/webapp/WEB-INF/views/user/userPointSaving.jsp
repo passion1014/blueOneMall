@@ -1,75 +1,18 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-    
-    
-    
+
 <c:import  url="../inc/topSub.jsp" />
-<c:import  url="../inc/topMain.jsp" />      
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
 <body>
 	<div class="wrap">
-	<div class="header">
-		<div class="top">
-			<h1><a href="#"><img src="./images/common/blueone_logo.png" alt="blueone logo"/></a></h1>
-			<p class="top_img">
-				<img src="./images/common/top_image.jpg" alt="top image"/>
-			</p>
-			<form action="#" method="post">
-				<div class="search_area">
-					<span class="search_menu">
-						<a href="#" class="menu_site">장바구니</a>
-						<a href="#" class="menu_site">주문배송 조회</a>
-						<a href="#">마이페이지</a>
-					</span>
-					<span class="search_box">
-						<input type="text" title="서치텍스트박스"/>
-						<button></button>
-					</span>
-				</div>
-			</form>
-		</div>
-		<div class="gnb">
-			<ul>
-				<li><a href="#">BLUETOOTH</a></li>
-				<li class="gnb_list"><a href="#">EARPHONE</a></li>
-				<li class="gnb_list"><a href="#">HEADPHONE</a></li>
-				<li class="gnb_list"><a href="#">MULTMEDIA</a></li>
-				<li class="gnb_list"><a href="#">CASE</a></li>
-				<li class="gnb_list"><a href="#">XTC</a></li>
-				<li class="gnb_list"><a href="#">SALE</a></li>
-				<li class="gnb_list"><a href="#">BARND SHOP</a></li>
-			</ul>
-		</div>
-	</div>
-<!--  header 끝   -->
+	<!--  header 시작   -->
+	<c:import url="../inc/header.jsp" />
+	<!--  header 끝   -->
 
 	<div class="container">
-		<div class="lnb">
-			<h3>마이페이지</h3>
-			<ul class="lnb_list">
-				<li><a href="#">주문내역관리</a></li>
-				<li><a href="#">적립금관리</a></li>
-				<div class="onclick_list">
-					<a href="#">적립금현황</a>
-					<a href="#">사용내역조회</a>
-				</div>
-				<li><a href="#">쿠폰관리</a></li>
-				<div class="onclick_list">
-					<a href="#">쿠폰복</a>
-					<a href="#">마이쿠폰</a>
-				</div>
-				<li><a href="#">내정보관리</a></li>
-				<div class="onclick_list">
-					<a href="#">나의정보</a>
-				</div>
-			</ul>
-		</div>
+		
+		<c:import url="../inc/memberLnb.jsp" />
+		
 		<div class="sub_content">
 			<form action="#" method="post">
 				<div class="mypage_section">
@@ -78,7 +21,7 @@
 					<div class="mypage_step">
 						<div class="mpoint_current">
 							<div class="mpoint_graph">
-								<img src="./images/sub/list_img.jpg" alt="포인트현황그래프"/>
+								<img src="<c:url value='/resources/img/sub/list_img.jpg'/>" alt="포인트현황그래프"/>
 							</div>
 							<dl class="point_tbox">
 								<dt>
@@ -112,9 +55,9 @@
 										<span class="tit">등록일</span>
 										<span>
 											<input type="text" title="날짜박스" value="2014-02-13"/>
-											<a href=""><img src="./images/common/btn_date.gif" alt="날짜체크박스"/></a>&nbsp; ~ &nbsp;
+											<a href=""><img src="<c:url value='/resources/img/common/btn_date.gif'/>" alt="날짜체크박스"/></a>&nbsp; ~ &nbsp;
 											<input type="text" title="날짜박스" value="2014-02-14"/>
-											<a href=""><img src="./images/common/btn_date.gif" alt="날짜체크박스"/></a>
+											<a href=""><img src="<c:url value='/resources/img/common/btn_date.gif'/>"  alt="날짜체크박스"/></a>
 											<button class="titext">당일</button>
 											<button>1개월</button>
 											<button>3개월</button>
@@ -168,11 +111,11 @@
 								</table>
 							</li>
 							<li class="paging2">
-								<a href="#" class="palign1"><img src="./images/common/btn_first.gif" alt="처음으로"></a>
-								<a href="#" class="palign2"><img src="./images/common/btn_prev.gif" alt="이전"></a>
+								<a href="#" class="palign1"><img src="<c:url value='/resources/img/common/btn_first.gif'/>" alt="처음으로"></a>
+								<a href="#" class="palign2"><img src="<c:url value='/resources/img/common/btn_prev.gif'/>" alt="이전"></a>
 								<a href="#" class="on">1</a>
-								<a href="#" class="palign1"><img src="./images/common/btn_next.gif" alt="다음"></a>
-								<a href="#" class="palign2"><img src="./images/common/btn_end.gif" alt="끝으로"></a>
+								<a href="#" class="palign1"><img src="<c:url value='/resources/img/common/btn_next.gif'/>" alt="다음"></a>
+								<a href="#" class="palign2"><img src="<c:url value='/resources/img/common/btn_end.gif'/>" alt="끝으로"></a>
 							</li>
 						</ul>
 					</div>

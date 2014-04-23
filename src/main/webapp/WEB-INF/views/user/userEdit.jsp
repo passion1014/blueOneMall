@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 
 <c:import  url="../inc/topSub.jsp" />
-
+<html>
 <body>
 	<div class="wrap">
 	<!--  header 시작   -->
@@ -31,9 +31,9 @@
 						<tbody>
 							<tr>
 								<th class="topline">이름</th>
-								<td class="topline"></td>
+								<td class="topline"><input type="text" /></td>
 								<th class="topline">아이디</th>
-								<td class="topline">id</td>
+								<td class="topline"><input type="text" /></td>
 							</tr>
 							<tr>
 								<th>전화번호</th>
