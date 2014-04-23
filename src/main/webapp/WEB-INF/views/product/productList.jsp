@@ -90,11 +90,19 @@
 					</p>
 							
 							<span class="pro_class">
+<<<<<<< HEAD
+=======
+								
+>>>>>>> 6907bd537d88388a8a411264fbbee96256c32965
 
 											<a href="productList.do?orderBy=low&ctgCode=${largeInf.ctgCode}&ctgMiddleCode=${chkMiddleCode}&prdCtgS=${prdCtgS}" class="rightline">낮은 가격</a>
 											<a href="productList.do?orderBy=high&ctgCode=${largeInf.ctgCode}&ctgMiddleCode=${chkMiddleCode}&prdCtgS=${prdCtgS}" class="rightline">높은 가격</a>
 											<a href="productList.do?orderBy=name&ctgCode=${largeInf.ctgCode}&ctgMiddleCode=${chkMiddleCode}&prdCtgS=${prdCtgS}" class="rightline">제품명</a>
 											<a href="productList.do?orderBy=brd&ctgCode=${largeInf.ctgCode}&ctgMiddleCode=${chkMiddleCode}&prdCtgS=${prdCtgS}">제조사순</a>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6907bd537d88388a8a411264fbbee96256c32965
 							</span>
 					
 					
