@@ -74,78 +74,18 @@
 				<div class="product_elist">
 					<p class="tit_loc"><span class="loc_text1">BEST ITEM</span><span class="loc_text2">오늘의 딜</span></p>
 					<ul class="pro_list">
-						<li><a href="#">
-							<dl class="list_product">
-								<dd><img src="<c:url value='/resources/img/main/main/pro_img1.jpg'/>" alt="product image"/></dd>
-								<dd>[Sonus Faber│소너스 파베르]</dd>
-								<dd>BUS AG USB 케이블</dd>
-								<dd><strong class="textline"> 510,000</strong>↓<span>200,000원</span></dd>
-							</dl>
-						</a></li>
-						<li><a href="#">
-							<dl class="list_product">
-								<dd><img src="<c:url value='/resources/img/main/main/pro_img2.jpg'/>"  alt="product image"/></dd>
-								<dd>[Sonus Faber│소너스 파베르]</dd>
-								<dd>BUS AG USB 케이블</dd>
-								<dd><strong class="textline"> 510,000</strong>↓<span>200,000원</span></dd>
-							</dl>
-						</a></li>
-						<li><a href="#">
-							<dl class="list_product">
-								<dd><img src="<c:url value='/resources/img/main/main/pro_img3.jpg'/>" alt="product image"/></dd>
-								<dd>[Sonus Faber│소너스 파베르]</dd>
-								<dd>BUS AG USB 케이블</dd>
-								<dd><strong class="textline"> 510,000</strong>↓<span>200,000원</span></dd>
-							</dl>
-						</a></li>
-						<li><a href="#">
-							<dl class="list_product">
-								<dd><img src="<c:url value='/resources/img/main/main/pro_img1.jpg'/>" alt="product image"/></dd>
-								<dd>[Sonus Faber│소너스 파베르]</dd>
-								<dd>BUS AG USB 케이블</dd>
-								<dd><strong class="textline"> 510,000</strong>↓<span>200,000원</span></dd>
-							</dl>
-						</a></li>
-						<li><a href="#">
-							<dl class="list_product">
-								<dd><img src="<c:url value='/resources/img/main/main/pro_img2.jpg'/>"  alt="product image"/></dd>
-								<dd>[Sonus Faber│소너스 파베르]</dd>
-								<dd>BUS AG USB 케이블</dd>
-								<dd><strong class="textline"> 510,000</strong>↓<span>200,000원</span></dd>
-							</dl>
-						</a></li>
-						<li><a href="#">
-							<dl class="list_product">
-								<dd><img src="<c:url value='/resources/img/main/main/pro_img3.jpg'/>" alt="product image"/></dd>
-								<dd>[Sonus Faber│소너스 파베르]</dd>
-								<dd>BUS AG USB 케이블</dd>
-								<dd><strong class="textline"> 510,000</strong>↓<span>200,000원</span></dd>
-							</dl>
-						</a></li>
-						<li><a href="#">
-							<dl class="list_product">
-								<dd><img src="<c:url value='/resources/img/main/main/pro_img1.jpg'/>"  alt="product image"/></dd>
-								<dd>[Sonus Faber│소너스 파베르]</dd>
-								<dd>BUS AG USB 케이블</dd>
-								<dd><strong class="textline"> 510,000</strong>↓<span>200,000원</span></dd>
-							</dl>
-						</a></li>
-						<li><a href="#">
-							<dl class="list_product">
-								<dd><img src="<c:url value='/resources/img/main/main/pro_img2.jpg'/>" alt="product image"/></dd>
-								<dd>[Sonus Faber│소너스 파베르]</dd>
-								<dd>BUS AG USB 케이블</dd>
-								<dd><strong class="textline"> 510,000</strong>↓<span>200,000원</span></dd>
-							</dl>
-						</a></li>
-						<li><a href="#">
-							<dl class="list_product">
-								<dd><img src="<c:url value='/resources/img/main/main/pro_img3.jpg'/>"  alt="product image"/></dd>
-								<dd>[Sonus Faber│소너스 파베르]</dd>
-								<dd>BUS AG USB 케이블</dd>
-								<dd><strong class="textline"> 510,000</strong>↓<span>200,000원</span></dd>
-							</dl>
-						</a></li>
+						<li>
+							<c:forEach items="pdSList" var="pdSList">
+								<a href="#">
+									<dl class="list_product">
+											<dd></dd>
+											<dd>${pdSList.prdBrand}</dd>
+											<dd>${pdSList.prdModel}</dd>
+											<dd><strong class="textline">${pdSList.prdPrice}</strong>↓<span>${pdSList.prdsellPrc}원</span></dd>
+									</dl>
+								</a>
+							</c:forEach>	
+						</li>
 					</ul>
 				</div>
 			</div>
@@ -501,7 +441,8 @@
 								<dd>BUS AG USB 케이블</dd>
 								<dd><strong class="textline"> 510,000</strong>↓<span>200,000원</span></dd>
 							</dl>
-						</a></li>
+						</a>
+						</li>
 						<li><a href="#">
 							<dl class="list_product">
 								<dd><img src="<c:url value='/resources/img/main/main/pro_img2.jpg'/>"  alt="product image"/></dd>
@@ -572,7 +513,7 @@
 		</div>
 		<div class="cont_banner">
 			<a href="#" class="marginright"><img src="<c:url value='/resources/img/main/main/main_banner1.jpg'/>" alt="main banner image"/></a>
-			<a href="#" class="marginright"><img src="<c:url value='/resources/img/main/main/main_banner2.jpg'/>" alt="main banner image"/></a>
+			<a href="#"><img src="<c:url value='/resources/img/main/main/main_banner2.jpg'/>" alt="main banner image"/></a>
 		</div>
 		<div class="cont_bottom">
 		 <dl class="cont_botbox1">

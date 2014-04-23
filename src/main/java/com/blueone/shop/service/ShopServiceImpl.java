@@ -54,7 +54,7 @@ public class ShopServiceImpl implements IShopService{
 		
 		try{
 			
-			rstInfo = sqlSession.selectList("product.selectListBomProductTb0001", productInfo);
+			rstInfo = sqlSession.selectList("product.selectListBomProductTb0005", productInfo);
 			
 		}finally{
 			

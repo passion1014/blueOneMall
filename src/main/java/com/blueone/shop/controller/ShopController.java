@@ -19,6 +19,8 @@ import com.blueone.admin.domain.AdImgInfo;
 import com.blueone.admin.service.IAdImgService;
 import com.blueone.category.domain.CategoryInfo;
 import com.blueone.category.service.ICategoryManageService;
+import com.blueone.common.domain.AttachFileInfo;
+import com.blueone.common.service.IAttachFileManageService;
 import com.blueone.product.domain.ProductInfo;
 import com.blueone.product.service.IProductManageService;
 import com.blueone.shop.domain.ShopInfo;
@@ -37,6 +39,8 @@ public class ShopController {
 	private IProductManageService productManageService;
 	@Autowired
 	private ICategoryManageService categoryManageService;
+	@Autowired 
+	private IAttachFileManageService attFileManageService;
 	
 	@RequestMapping(value ="/worklist.do", method = RequestMethod.GET)
 	public String workList(@ModelAttribute("ShopInfo") ShopInfo shopInfo, BindingResult result, Model model){
@@ -65,7 +69,7 @@ public class ShopController {
 		
 		
 		
-		productInfo = new ProductInfo();
+		
 		
 		String prdCtgL = largeInf.getCtgCode();
 		
@@ -76,6 +80,23 @@ public class ShopController {
 				pdSList.add(each);
 			}
 		}
+		
+	
+		
+		for(ProductInfo each : pdSList){
+			AttachFileInfo att = new AttachFileInfo();
+			att.setAttCdKey(each.getPrdCd());
+			att = attFileManageService.getAttFileInfListImg(att);
+			
+			if(att==null){
+				each.setAttFilePath("");
+			}else { 
+				
+				each.setAttFilePath(att.getAttFilePath());
+			}
+			
+		}
+		
 		
 		model.addAttribute("pdSList", pdSList);
 		model.addAttribute("productList", productList);
