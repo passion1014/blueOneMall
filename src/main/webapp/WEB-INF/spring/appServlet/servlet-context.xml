@@ -97,6 +97,8 @@
 	
 	<context:component-scan base-package="com.blueone.user.controller" /><!-- User 컨트롤러 등록 -->
 	<context:component-scan base-package="com.blueone.user.service" /><!-- user Service 등록 -->
+	
+	
 
 	<context:component-scan base-package="com.blueone.community" /><!-- etc 서비스/컨트롤러 등록 -->
 	

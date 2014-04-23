@@ -23,7 +23,7 @@ import com.blueone.common.util.DateUtil;
 import com.blueone.common.util.FileUploadUtility;
 import com.blueone.common.util.Utility;
 import com.blueone.product.domain.ProductInfo;
-import com.blueone.product.service.IAdImgService;
+import com.blueone.admin.service.IAdImgService;
 
 @Controller
 public class MainImgController {

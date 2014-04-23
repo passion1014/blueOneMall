@@ -41,7 +41,6 @@ import com.blueone.common.util.Utility;
 import com.blueone.product.domain.ProductInfo;
 import com.blueone.product.domain.SearchProdInfo;
 import com.blueone.product.domain.TransferInfo;
-import com.blueone.product.service.IAdImgService;
 import com.blueone.product.service.IProductManageService;
 import com.blueone.product.service.ITransferService;
 
