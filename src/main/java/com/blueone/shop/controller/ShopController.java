@@ -78,7 +78,7 @@ public class ShopController {
 		}
 		
 		model.addAttribute("pdSList", pdSList);
-		model.addAttribute("List", productList);
+		model.addAttribute("productList", productList);
 		
 		return "shop/main";
 	}
