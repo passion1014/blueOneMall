@@ -75,13 +75,13 @@
 					<p class="tit_loc"><span class="loc_text1">BEST ITEM</span><span class="loc_text2">오늘의 딜</span></p>
 					<ul class="pro_list">
 						<li>
-							<c:forEach items="pdSList" var="pdSList">
+							<c:forEach items="${pdSList}" var="pdSList">
 								<a href="#">
 									<dl class="list_product">
-											<dd></dd>
+											<dd><img src="${pdSList.attFilePath}" alt="prouct IMG"/></dd>
 											<dd>${pdSList.prdBrand}</dd>
 											<dd>${pdSList.prdModel}</dd>
-											<dd><strong class="textline">${pdSList.prdPrice}</strong>↓<span>${pdSList.prdsellPrc}원</span></dd>
+											<dd><strong class="textline">${pdSList.prdPrice}</strong>↓<span>${pdSList.prdSellPrc}원</span></dd>
 									</dl>
 								</a>
 							</c:forEach>	

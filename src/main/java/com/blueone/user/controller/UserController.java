@@ -41,6 +41,8 @@ public class UserController {
 	//마이페이지
 	@RequestMapping(value="/user/userEdit.do", method=RequestMethod.GET)
 	public String userEdit(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model){
+		
+		
 		return "user/userEdit";
 	}
 	

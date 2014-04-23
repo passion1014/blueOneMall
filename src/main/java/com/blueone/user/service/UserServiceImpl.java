@@ -5,6 +5,8 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.blueone.customer.domain.CustomerInfo;
+import com.blueone.product.domain.ProductInfo;
 import com.blueone.user.domain.UserInfo;
 
 @Service
@@ -30,5 +32,31 @@ public class UserServiceImpl implements IUserService {
 		return rst;
 	}
 
+	
+
+	/*
+	 *  사용자 아이디로 조회
+	 */
+	@Override
+	public CustomerInfo getCustomerInfDetail(CustomerInfo customerInfo) {
+		                 
+		CustomerInfo rstInfo = new CustomerInfo();
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			// -----------------------------------------------
+			// 1. 상품코드 기본값 조회
+			// -----------------------------------------------
+			rstInfo = sqlSession.selectOne("customer.selectDtlBomProductTb0001", customerInfo);
+			
+			
+		} finally {
+			sqlSession.close();
+		}
+		
+		
+		return rstInfo;
+	}
+	
 	
 }
