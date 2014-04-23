@@ -86,7 +86,7 @@
 				
 				<div class="product_section">
 					<p class="pro_total">
-						총&nbsp;<span>700</span>&nbsp;중&nbsp;<span>100</span>&nbsp;개
+						총&nbsp;<span>${total}&nbsp;개
 					</p>
 							
 							<span class="pro_class">
@@ -102,7 +102,7 @@
 									<li class="mlalign">
 										<a href="javascript:location.href='productView.do?prdCd=${prdList.prdCd}';">
 											<dl class="list_product">
-												<dd><img src="${prdList.attFilePath}" alt="product image"/></dd>
+												<dd><img src="${prdList.attFilePath}" alt="product image"  width="168" height="168"/></dd>
 												<dd>${prdList.prdBrand}</dd>
 												<dd>${prdList.prdNm}</dd>
 												<dd>${prdList.prdPrice}&nbsp;↓&nbsp;<span>${prdList.prdSellPrc}원</span></dd>
@@ -173,6 +173,7 @@
 					<div class="paging">
 						<a href="#" class="palign1"><img src="<c:url value='/resources/img/common/btn_first.gif'/>" alt="처음으로"></a>
 						<a href="#" class="palign2"><img src="<c:url value='/resources/img/common/btn_prev.gif'/>" alt="이전"></a>
+						
 						<c:forEach var="i" begin="1" end="${endNum}">
 							<a href="productList.do?page=${i}">${i}</a>	
 						</c:forEach>

@@ -32,7 +32,7 @@
 						<p>
 							<c:forEach items="${imgList}" var="prdImg">
 								<c:if test="${'01' eq prdImg.attImgType}">
-									<img src="${prdImg.attFilePath}">
+									<img src="${prdImg.attFilePath}"  width="378" height="379">
 									<input type="hidden" id="prdSmallImg"  name="prdSmallImg"  value="${prdImg.attFilePath}">
 								</c:if>
 							</c:forEach>
@@ -40,22 +40,22 @@
 						<button><img src="<c:url value='/resources/img/common/btn_viewpro.jpg'/>" alt="자세히보기"/></button>
 						<c:forEach items="${imgList}" var="prdImg">
 							<c:if test="${'02' eq prdImg.attImgType && 1 eq prdImg.attImgSeq}">
-								<span class="mralign"><img src="${prdImg.attFilePath}" alt="상품 작은이미지"></span>
+								<span class="mralign"><img src="${prdImg.attFilePath}" alt="상품 작은이미지"  width="87" height="87"></span>
 							</c:if>
 						</c:forEach>
 						<c:forEach items="${imgList}" var="prdImg">
 							<c:if test="${'02' eq prdImg.attImgType && 2 eq prdImg.attImgSeq}">
-								<span class="mralign"><img src="${prdImg.attFilePath}" alt="상품 작은이미지"></span>
+								<span class="mralign"><img src="${prdImg.attFilePath}" alt="상품 작은이미지"  width="87" height="87"></span>
 							</c:if>
 						</c:forEach>
 						<c:forEach items="${imgList}" var="prdImg">
 							<c:if test="${'02' eq prdImg.attImgType && 3 eq prdImg.attImgSeq}">
-								<span class="mralign"><img src="${prdImg.attFilePath}" alt="상품 작은이미지"></span>
+								<span class="mralign"><img src="${prdImg.attFilePath}" alt="상품 작은이미지"  width="87" height="87"></span>
 							</c:if>
 						</c:forEach>
 						<c:forEach items="${imgList}" var="prdImg">
 							<c:if test="${'02' eq prdImg.attImgType && 4 eq prdImg.attImgSeq}">
-								<span><img src="${prdImg.attFilePath}" alt="상품 작은이미지"></span>
+								<span><img src="${prdImg.attFilePath}" alt="상품 작은이미지"  width="87" height="87"></span>
 							</c:if>
 						</c:forEach>
 					</div>
@@ -188,7 +188,6 @@
 					</ul>
 					<p class="image_section">
 						${pro.prdConts}
-						<img src="<c:url value='/resources/img/product/pro_detailimg.jpg'/>" alt="제품상세이미지"/>
 					</p>
 				</div>
 				<div class="detail_section">
@@ -199,7 +198,7 @@
 						<li class="alignline">배송/반품/교환정보</li>
 					</ul>
 					<p class="image_section">
-						<img src="<c:url value='/resources/img/product/inqriry_img.jpg'/>" alt="제품문의이미지"/>
+						배송/반품/교환정보
 					</p>
 				</div>
 				<div class="detail_section">

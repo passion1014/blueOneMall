@@ -1,13 +1,10 @@
 @charset "utf-8";
 
 .cont_main:after {height:0; content:""; clear:both; display:block;}
-.cont_main .mcont ul.mcont_nav {display:block; position:absolute; bottom:0; left:0; float:left;}
-.cont_main .mcont ul.mcont_nav li {float:left;}
-.cont_main .mcont ul.mcont_nav > li > a {display:inline-block; color:#fff; line-height:31px; width:111px; height:31px; background:#000; text-align:center; font-family:"NanumGothicBold";}
-.cont_main .mcont ul.mcont_nav > li > a:hover {background:#4aa7dd;}
-.cont_main .mcont .click_nav ul {position:absolute; bottom:35px; left:0;}
-.cont_main .mcont .click_nav ul li {float:left; padding-left:30px;}
-.cont_main .mcont .click_nav p {position:absolute; bottom:139px; left:0; border-bottom:1px solid #bbb;}
+.cont_main .mcont {float:left; width:666px; margin-right:10px;}
+.cont_main #mcont_nav ol li {float:left;}
+.cont_main #mcont_nav ol li a {display:inline-block; color:#fff; line-height:31px; width:111px; height:31px; background:#000; text-align:center; font-family:"NanumGothicBold";}
+.cont_main #mcont_nav ol li a:hover {background:#4aa7dd; text-decoration:none;}
 
 .cont_main dl.scont1 {float:left; margin:0 11px 0 2px;}
 .cont_main dl.scont1 dd {margin-bottom:10px;}
