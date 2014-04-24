@@ -1,11 +1,17 @@
 package com.blueone.user.controller;
 
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import org.apache.commons.lang.StringUtils;
-import org.hibernate.dialect.Oracle9Dialect;
+
+
+
+
+
+
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,9 +22,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 
 
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
-
-
+import com.blueone.common.domain.SearchAddress;
+import com.blueone.common.util.Utility;
 import com.blueone.customer.domain.CustomerInfo;
 import com.blueone.customer.service.ICustomerManageService;
 import com.blueone.order.domain.OrderInfo;
@@ -26,6 +34,7 @@ import com.blueone.order.domain.OrderProductInfo;
 import com.blueone.order.service.IOrderManageService;
 import com.blueone.user.domain.UserInfo;
 import com.blueone.user.service.IUserService;
+
 
 @Controller
 public class UserController {
@@ -57,7 +66,7 @@ public class UserController {
 	//마이페이지
 	@RequestMapping(value="/user/userEdit.do", method=RequestMethod.GET)
 	public String userEdit(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model){
-		
+		/*
 		CustomerInfo cus = new CustomerInfo ();
 		cus.setCustId("id1");
 		cus=customerService.getCustomerInfo2(cus);
@@ -80,7 +89,7 @@ public class UserController {
 		
 	
 		model.addAttribute("customer",cus);
-		
+		*/
 		return "user/userEdit";
 	}
 
@@ -107,6 +116,21 @@ public class UserController {
 		customerService.updateCustomerInf(customerInfo);
 		
 		return "redirect:userEdit.do";
+	}
+	
+	//우편번호 찾기 팝업
+	@RequestMapping(value="/user/searchZipCode.do", method=RequestMethod.GET)
+	public String searchZipCode(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model){
+			return "user/searchZipCode";
+	}
+	//주소 찾기 action
+	@RequestMapping(value="/user/searchAddress.do", method=RequestMethod.GET)
+	public String searchAddress(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model,String dong) throws ParserConfigurationException, SAXException, IOException{
+			
+		 List<SearchAddress> nList =Utility.searchAdd(dong);
+		
+			model.addAttribute("nList", nList);
+			return "user/searchZipCode";
 	}
 	
 	//적립금현황
@@ -154,7 +178,9 @@ public class UserController {
 		model.addAttribute("ordList", odList);
 		return "user/orderListView";
 	}
+
 	
+
 	//1:1문의하기 목록
 	@RequestMapping(value="/user/qnaList.do", method=RequestMethod.GET)
 	public String qnaList(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model){
@@ -205,7 +231,8 @@ public class UserController {
 		}
 		
 		return result;
-		
+	
+
 	}
 	
 }

@@ -18,14 +18,40 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
+import java.net.URL ; 
+import java.net.URLConnection ; 
+import java.io.InputStream ; 
+import java.io.ByteArrayInputStream ; 
+import java.io.InputStreamReader ; 
+import java.io.BufferedReader ; 
+
+import javax.xml.parsers.DocumentBuilderFactory ; 
+import javax.xml.parsers.DocumentBuilder ; 
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document ; 
+import org.w3c.dom.NodeList ; 
+import org.w3c.dom.Node ; 
+import org.w3c.dom.Element ; 
+import org.xml.sax.InputSource ; 
+import org.xml.sax.SAXException;
+
+import java.io.File ; 
 
 import javax.swing.text.html.HTML;
 import javax.swing.text.html.HTML.Tag;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.NodeList;
+
+import com.blueone.common.domain.SearchAddress;
 
 /**
  * 怨듯넻 Utility Class
@@ -2046,6 +2072,38 @@ public final class Utility
 	{
 		GregorianCalendar gc = new GregorianCalendar();
 		System.out.println("==>" + gc.get(Calendar.DATE));
+	}
+	
+	public static List<SearchAddress>  searchAdd(String q) throws ParserConfigurationException, SAXException, IOException{
+		List<SearchAddress> result = new ArrayList<SearchAddress>();
+		
+		 NodeList nodeDOC;
+		 String query="http://udml.co.kr/api_hwi/zipcode/get_address_xml.php?query=";
+		
+		 DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		DocumentBuilder docBuilder=dbf.newDocumentBuilder(); 
+		 
+		 Document doc=docBuilder.parse(query);
+		 
+		 nodeDOC=doc.getElementsByTagName("item");
+		 
+		  for (int temp = 0; temp < nodeDOC.getLength(); temp++) {
+			  
+			  Node nNode = nodeDOC.item(temp);
+			  SearchAddress re = new SearchAddress();
+			  if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+			 
+			   Element eElement = (Element) nNode;
+			   
+			  re.setZipCode(eElement.getElementsByTagName("postcd").item(0).getFirstChild().getNodeValue());
+			  re.setAddress( eElement.getElementsByTagName("address").item(0).getFirstChild().getNodeValue());
+			  result.add(re);
+			  
+			  }
+
+
+		  }
+		return result;
 	}
 
 }
