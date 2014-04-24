@@ -1,6 +1,9 @@
 package com.blueone.order.service;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.session.SqlSession;
@@ -8,7 +11,9 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.blueone.common.domain.AttachFileInfo;
 import com.blueone.common.domain.ResultInfo;
+import com.blueone.common.service.IAttachFileManageService;
 import com.blueone.customer.domain.CustomerContactInfo;
 import com.blueone.customer.domain.CustomerInfo;
 import com.blueone.customer.domain.CustomerSrchInfo;
@@ -19,13 +24,16 @@ import com.blueone.order.domain.OrderInfo;
 import com.blueone.order.domain.OrderProductInfo;
 import com.blueone.order.domain.OrderSrchInfo;
 import com.blueone.product.domain.ProductInfo;
+import com.blueone.product.service.IProductManageService;
 
 @Service
 public class OrderManageServiceImpl implements IOrderManageService{
 
 	@Autowired private SqlSessionFactory sqlSessionFactory;
 	@Autowired private ICustomerManageService customerManageService;
-
+	@Autowired private IProductManageService productManageService;
+	@Autowired private IAttachFileManageService attFileManageService;
+	
 	@Override
 	public List<OrderInfo> getOrderInfoListByPeriod(OrderSrchInfo orderSrchInfo) {
 		List<OrderInfo> orderList;
@@ -169,6 +177,27 @@ public class OrderManageServiceImpl implements IOrderManageService{
 		
 	}
 	
+
+	@Override
+	//사용자 아이디로 주문상품 조회
+	public List<OrderInfo> selectOrderInfoList(OrderInfo odInfo){
+		 List<OrderInfo> result = new ArrayList<OrderInfo>();
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			// -----------------------------------------------
+			// 1. 상품코드 기본값 조회
+			// -----------------------------------------------
+			result = sqlSession.selectList("order.selectListBomOrderTb0002", odInfo);
+			
+		} finally {
+			sqlSession.close();
+		}
+		return result;
+		
+		
+	}
+	
 	@Override
 	//주문코드로 받는사람 조회
 	public RecipientInfo selectRecipientInfo(RecipientInfo reciInfo){
@@ -185,6 +214,60 @@ public class OrderManageServiceImpl implements IOrderManageService{
 			sqlSession.close();
 		}
 		return result;
+		
+		
+	}
+	
+	@Override
+	//OrderProductInfo로 Product정보 가져오기
+	public OrderProductInfo toProduct(OrderProductInfo opResInf){
+		
+		
+		String prdCd = opResInf.getPrdCd();
+		ProductInfo prInf = new ProductInfo();
+		prInf.setPrdCd(prdCd);
+		prInf=productManageService.getProductInfDetail(prInf);
+		
+		//상품 이름
+		opResInf.setPrdNm(prInf.getPrdNm());
+		
+		//옵션
+		String option=opResInf.getPrdOption();
+		StringTokenizer st = new StringTokenizer(option,",");
+		while(st.hasMoreElements()) {
+				
+				String s = st.nextToken();
+				
+				if("01".equals(s.substring(0, 2))){
+					option+=s+",";
+					opResInf.setPrdOpColor(s.substring(3));
+				}
+				if("02".equals(s.substring(0, 2))){
+					option+=s+",";
+					opResInf.setPrdOpSize(s.substring(3));
+				}
+		
+		}
+		
+		//수량 및 금액
+		opResInf.setSellPrice(new BigDecimal(prInf.getPrdSellPrc()));
+		BigDecimal total = new BigDecimal(prInf.getPrdSellPrc()) ;
+		total=total.multiply(new BigDecimal(opResInf.getBuyCnt()));
+		opResInf.setTotalPrice(total);
+		
+		//사진
+		AttachFileInfo att = new AttachFileInfo();
+		att.setAttCdKey(prInf.getPrdCd());
+		att.setAttImgType("01");
+		att = attFileManageService.getAttFileInfListImg(att);
+		if(att==null){
+			opResInf.setPrdSmallImg("");
+		}else { 
+			
+			opResInf.setPrdSmallImg(att.getAttFilePath());
+		}
+		
+		return  opResInf;
 		
 		
 	}

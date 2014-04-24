@@ -218,7 +218,7 @@
 .mypage_step ul li.cupon_listbox ul.plist_area li.on {background:#fff; border-top:1px solid #888; border-right:1px solid #888; border-left:1px solid #888; font-family:"NanumGothicBold";}
 .mypage_step ul li.cupon_tb span.tbl_tit {display:inline-block; line-height:22px; margin:20px 0 10px 0;}
 .mypage_step ul li.cupon_tb span.st_color {display:inline-block; line-height:22px; margin-left:4px; color:#188dd1;}
-.mypage_step ul li.cupon_tb table.cupon_tbl thead th {border-top:1px solid #888; height:30px; border-bottom:1px solid #bbb;  background:#eef1f2;}
+.mypage_step ul li.cupon_tb table.cupon_tbl thead th {border-top:1px solid #888; height:30px; border-bottom:1px solid #bbb;  background:#eef1f2; text-align:center;}
 .mypage_step ul li.cupon_tb table.cupon_tbl tbody th {text-align:center; height:30px; border-bottom:1px solid #bbb; font-weight:normal;}
 .mypage_step ul li.cupon_tb table.cupon_tbl tbody td {text-align:center; height:30px; border-bottom:1px solid #bbb;}
 

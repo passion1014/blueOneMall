@@ -1,8 +1,11 @@
 package com.blueone.user.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.dialect.Oracle9Dialect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,8 +14,16 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+
+
+
+
+
 import com.blueone.customer.domain.CustomerInfo;
 import com.blueone.customer.service.ICustomerManageService;
+import com.blueone.order.domain.OrderInfo;
+import com.blueone.order.domain.OrderProductInfo;
+import com.blueone.order.service.IOrderManageService;
 import com.blueone.user.domain.UserInfo;
 import com.blueone.user.service.IUserService;
 
@@ -21,7 +32,7 @@ public class UserController {
 	
 	@Autowired IUserService userService;
 	@Autowired ICustomerManageService customerService;
-	
+	@Autowired IOrderManageService orderService;
 	
 	//회원가입 폼 생성
 	@RequestMapping(value = "/user/userRegister.do", method=RequestMethod.GET)
@@ -60,6 +71,14 @@ public class UserController {
 		String mobile = cus.getCustMb();
 		cus = useStringToken(mobile,"m",cus);
 		
+		String mail=cus.getCustEmail();
+		int a = mail.indexOf("@");
+		String mail1= mail.substring(0, a);
+		String mail2= mail.substring(a+1);
+		cus.seteMail1(mail1);
+		cus.seteMail2(mail2);
+		
+	
 		model.addAttribute("customer",cus);
 		
 		return "user/userEdit";
@@ -81,7 +100,7 @@ public class UserController {
 		String email = customerInfo.geteMail1()+"@"+customerInfo.geteMail2();
 		customerInfo.setCustEmail(email);
 		
-		if(customerInfo.getBirthY()!=null){
+		if(customerInfo.getCustMerryY()!=null){
 			String merry = customerInfo.getCustMerryY()+"-"+customerInfo.getCustMerryM()+"-"+customerInfo.getCustMerryD();
 			customerInfo.setCustMerry(merry);
 		}
@@ -105,6 +124,34 @@ public class UserController {
 	//주문내역관리
 	@RequestMapping(value="/user/orderListView.do", method=RequestMethod.GET)
 	public String orderListView(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model){
+		
+		//아이디 셋팅
+		OrderInfo od = new OrderInfo();
+		CustomerInfo cust = new CustomerInfo();
+		cust.setCustId("dana");
+		od.setCustomerInfo(cust);
+		
+		//아이디로 주문내역가져오기
+		List<OrderInfo> odList = orderService.selectOrderInfoList(od);
+		
+		
+		//주문코드로 주문상품 정보 가져오기
+		for(OrderInfo each : odList){
+			String odNo = each.getOrderNo();
+			OrderProductInfo odPrd = new OrderProductInfo();
+			odPrd.setOrderNo(odNo);
+			odPrd=orderService.selectOrderPrdInfo(odPrd);
+			odPrd=orderService.toProduct(odPrd);
+			each.setOrdPrd(odPrd);
+			
+			String reg = each.getRegDate();
+			int a = reg.indexOf(" ");
+			reg= reg.substring(0, a);
+			each.setRegDate(reg);
+		}
+		
+		
+		model.addAttribute("ordList", odList);
 		return "user/orderListView";
 	}
 	
@@ -118,44 +165,46 @@ public class UserController {
 		
 		CustomerInfo result = cus;
 		
-		String birth = cus.getCustBirth();
+		String birth = result.getCustBirth();
 		StringTokenizer stTk = new StringTokenizer(st,"-");
 		
-		int i=0;
+		int i=1;
 		while(stTk.hasMoreElements()){
 			switch(i){
 			case 1:
 				if(Type.equals("b")){
-					cus.setBirthY(stTk.nextToken());i++;
+					result.setBirthY(Integer.parseInt(stTk.nextToken()));i++;
 				}else if(Type.equals("m")){
-					cus.setHpNo1(stTk.nextToken());i++;
+					result.setHpNo1(stTk.nextToken());i++;
 				}else if(Type.equals("p")){
-					cus.setTelNo1(stTk.nextToken());i++;
+					result.setTelNo1(stTk.nextToken());i++;
 				}
 				break;
 			case 2:
 				if(Type.equals("b")){
-					cus.setBirthM(stTk.nextToken());i++;
+					result.setBirthM(Integer.parseInt(stTk.nextToken()));i++;
 				}else if(Type.equals("m")){
-					cus.setHpNo2(stTk.nextToken());i++;
+					result.setHpNo2(stTk.nextToken());i++;
 				}else if(Type.equals("p")){
-					cus.setTelNo2(stTk.nextToken());i++;
+					result.setTelNo2(stTk.nextToken());i++;
 				}
 				break;
 			case 3:
 				if(Type.equals("b")){
-					cus.setBirthD(stTk.nextToken());i++;
+					String day = stTk.nextToken();
+					day=day.substring(0, 2);
+					result.setBirthD(Integer.parseInt(day));i++;
 				}else if(Type.equals("m")){
-					cus.setHpNo3(stTk.nextToken());i++;
+					result.setHpNo3(stTk.nextToken());i++;
 				}else if(Type.equals("p")){
-					cus.setTelNo3(stTk.nextToken());i++;
+					result.setTelNo3(stTk.nextToken());i++;
 				}
 				break;
 				
 			}
 		}
 		
-		return cus;
+		return result;
 		
 	}
 	

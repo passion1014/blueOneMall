@@ -64,21 +64,21 @@
 										<span class="in_text">
 											<select id="birthY" name="birthY">
 												<c:forEach var="i" begin="1930" end="<%=y%>">
-												<option <c:if test="${customer.birthY eq 'i'}">selected</c:if>>${i}</option>
+												<option <c:if test="${customer.birthY == i}">selected</c:if>>${i}</option>
 												</c:forEach>
 											</select>
 											<label for="year">년</label>
 											
 											<select id="birthM" name="birthM">
 												<c:forEach var="i" begin="1" end="12">
-												<option <c:if test="${customer.birthM eq 'i'}">selected</c:if>>${i}</option>
+												<option <c:if test="${customer.birthM == i}">selected</c:if>>${i}</option>
 												</c:forEach>
 											</select>
 											<label for="month">월</label>
 											
 											<select id="birthD" name="birthD">
 												<c:forEach var="i" begin="1" end="31">
-												<option <c:if test="${customer.birthD eq 'i'}">selected</c:if>>${i}</option>
+												<option <c:if test="${customer.birthD == i}">selected</c:if>>${i}</option>
 												</c:forEach>
 											</select>
 											<label for="day">일</label>
@@ -90,9 +90,9 @@
 									<th>성별</th>
 									<td colspan="3">
 										<span class="in_radio">
-											<input type="radio" id="custSx" name="custSx" value="f" <c:if test="${custSx eq 'f'}">selected</c:if>/>
+											<input type="radio" id="custSx" name="custSx" value="f" <c:if test="${customer.custSx eq 'f'}">checked</c:if>/>
 											<label for="woman">여성</label>
-											<input type="radio" id="custSx" name="custSx" value="m" <c:if test="${custSx eq 'm'}">selected</c:if>/>
+											<input type="radio" id="custSx" name="custSx" value="m" <c:if test="${customer.custSx eq 'm'}">checked</c:if>/>
 											<label for="man">남성</label>
 										</span>
 									</td>
@@ -143,8 +143,8 @@
 									<th>이메일</th>
 									<td colspan="3">
 										<span class="in_email">
-											<input type="text" title="email text"  name="eMail1" id="eMail1"/>&nbsp;@&nbsp;
-											<input type="text" title="email text"  name="eMail2" id="eMail2" />
+											<input type="text" title="email text"  name="eMail1" id="eMail1" value="${customer.eMail1}"/>&nbsp;@&nbsp;
+											<input type="text" title="email text"  name="eMail2" id="eMail2" value="${customer.eMail2}"/>
 											<select name="mail" id="mail">
 												<option>직접입력</option>
 												<option>hanmail.net</option>
@@ -159,26 +159,26 @@
 								<tr>
 									<th>주소</th>
 									<td colspan="3" class="in_address">
-										<input type="text" title="address text" style="width:120px;" id="custZip" name="custZip"/><button>우편번호 찾기</button><br/>
-										<input type="text" title="address text" id="custAdd" name="custAdd"/>
+										<input type="text" title="address text" style="width:120px;" id="custZip" name="custZip" value="${customer.custZip}"/><button>우편번호 찾기</button><br/>
+										<input type="text" title="address text" style="width:200px;"id="custAdd" name="custAdd" value="${customer.custAdd}"/>
 									</td>
 								</tr>
 								<tr>
 									<th class="bottomline">SMS수신여부</th>
 									<td class="bottomline">
 										<span class="in_radio">
-											<input type="radio" id="custSmSRcv" name="custSmSRcv" value="y"/>
+											<input type="radio" id="custSmSRcv" name="custSmSRcv" value="y"  <c:if test="${customer.custSmSRcv eq 'y'}">checked</c:if>/>
 											<label for="agree">수신동의</label>
-											<input type="radio" id="custSmSRcv" name="custSmSRcv" value="n"/>
+											<input type="radio" id="custSmSRcv" name="custSmSRcv" value="n"  <c:if test="${customer.custSmSRcv eq 'n'}">checked</c:if>/>
 											<label for="refusal">수신거부</label>
 										</span>
 									</td>
 									<th class="bottomline">e-mail수신여부</th>
 									<td class="bottomline">
 										<span class="in_radio">
-											<input type="radio" id="custMailRcv" name="custMailRcv" value="y"/>
+											<input type="radio" id="custMailRcv" name="custMailRcv" value="y" <c:if test="${customer.custMailRcv eq 'y'}">checked</c:if>/>
 											<label for="e_agree">수신동의</label>
-											<input type="radio" id="custMailRcv" name="custMailRcv" value="n"/>
+											<input type="radio" id="custMailRcv" name="custMailRcv" value="n" <c:if test="${customer.custMailRcv eq 'n'}">checked</c:if>/>
 											<label for="e_refusal">수신거부</label>
 										</span>
 									</td>
@@ -186,7 +186,7 @@
 							</tbody>
 						</table>
 						<p class="tbl_text">※ SMS 및 이메일을 통해 서비스 안내 및 다양한 이벤트 소식이 제공됩니다. 원하시지 않을 경우에는 수신거부를 선택해주시기 바랍니다.</span>
-						<h5 class="basic_infotit">선택정보</h5>
+						<!-- 						<h5 class="basic_infotit">선택정보</h5>
 						<table class="myinfo_tbl" summary="정보 입력표">
 							<caption>나의정보입력표</caption>
 							<colgroup>
@@ -241,7 +241,8 @@
 									</td>
 								</tr>
 							</tbody>
-						</table>
+						</table> -->
+						
 					</div>
 					<span class="btn_submit">
 						<input type="submit" value="개인정보 변경" title="개인정보변경버튼"/>

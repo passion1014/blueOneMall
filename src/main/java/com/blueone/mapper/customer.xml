@@ -37,7 +37,7 @@
 		<id property="contactNm" column="cntctNm" javaType="java.lang.String"/>
 		<id property="zipCd1" column="cntctPostNo1" javaType="java.lang.String"/>
 		<id property="zipCd2" column="cntctPostNo2" javaType="java.lang.String"/>
-		<id property="addrDesc1" column="cntctAddr" javaType="java.lang.String"/>
+		<id property="custAdd" column="cntctAddr" javaType="java.lang.String"/>
 		<id property="addrDesc2" column="cntctAddrDesc" javaType="java.lang.String"/>
 		<id property="mobile1" column="cntctMobileNo1" javaType="java.lang.String"/>
 		<id property="mobile2" column="cntctMobileNo2" javaType="java.lang.String"/>

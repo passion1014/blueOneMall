@@ -34,7 +34,7 @@ public class CustomerInfo {
 	private String custMerryD;
 	
 	private String custChild;
-	
+	private String merryed;
 
 	private String remarks;			// 특이사항 (### 사용안함-삭제예정)
 	private String delYn;			// 삭제여부 (### 사용안함-삭제예정)
@@ -53,9 +53,9 @@ public class CustomerInfo {
 	private String custAdd1;
 	private String custAdd2;
 	
-	private String birthY;
-	private String birthM;
-	private String birthD;
+	private int birthY;
+	private int birthM;
+	private int birthD;
 	
 	
 	private String eMail1;
@@ -69,6 +69,14 @@ public class CustomerInfo {
 	private String hpNo3;
 	
 	private List<CustomerContactInfo> customerContactList;
+
+	public String getMerryed() {
+		return merryed;
+	}
+
+	public void setMerryed(String merryed) {
+		this.merryed = merryed;
+	}
 
 	public String getPasswd() {
 		return passwd;
@@ -350,27 +358,27 @@ public class CustomerInfo {
 		this.custAdd2 = custAdd2;
 	}
 
-	public String getBirthY() {
+	public int getBirthY() {
 		return birthY;
 	}
 
-	public void setBirthY(String birthY) {
+	public void setBirthY(int birthY) {
 		this.birthY = birthY;
 	}
 
-	public String getBirthM() {
+	public int getBirthM() {
 		return birthM;
 	}
 
-	public void setBirthM(String birthM) {
+	public void setBirthM(int birthM) {
 		this.birthM = birthM;
 	}
 
-	public String getBirthD() {
+	public int getBirthD() {
 		return birthD;
 	}
 
-	public void setBirthD(String birthD) {
+	public void setBirthD(int birthD) {
 		this.birthD = birthD;
 	}
 

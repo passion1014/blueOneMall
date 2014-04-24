@@ -16,13 +16,13 @@ public class OrderInfo {
 	private BigDecimal totalOrderPrice;	// 총주문금액
 	private BigDecimal deliveryPrice;	// 배송금액
 	private String useWellfarePointYn;	// 복지카드포인트 사용여부
-	
+
 	private CustomerInfo customerInfo;	// 고객정보
 	private CustomerContactInfo customerContactInfo;	// 고객배송지+연락처정보
 	private RecipientInfo reciInfo;
 	private List<OrderProductInfo> orderProductList;	// 주문상품정보
 	private List<PaymentInfo> paymentLisit;				// 결제정보
-	
+	private OrderProductInfo ordPrd;
 	private String regDate;		// 등록일
 	private String lastDate;	// 최종수정일
 	private String modifyUserId;// 최종수정자
@@ -30,6 +30,13 @@ public class OrderInfo {
 	
 	
 	
+	
+	public OrderProductInfo getOrdPrd() {
+		return ordPrd;
+	}
+	public void setOrdPrd(OrderProductInfo ordPrd) {
+		this.ordPrd = ordPrd;
+	}
 	public RecipientInfo getReciInfo() {
 		return reciInfo;
 	}

@@ -24,9 +24,9 @@
 								<span class="tit">주문일자</span>
 								<span>
 									<input type="text" title="날짜박스" value="2014-02-13"/>
-									<a href=""><img src="./images/common/btn_date.gif" alt="날짜체크박스"/></a>&nbsp; ~ &nbsp;
+									<a href=""><img src="<c:url value='/resources/img/common/btn_date.gif'/>" alt="날짜체크박스"/></a>&nbsp; ~ &nbsp;
 									<input type="text" title="날짜박스" value="2014-02-14"/>
-									<a href=""><img src="./images/common/btn_date.gif" alt="날짜체크박스"/></a>
+									<a href=""><img src="<c:url value='/resources/img/common/btn_date.gif'/>" alt="날짜체크박스"/></a>
 									<button class="titext">당일</button>
 									<button>1개월</button>
 									<button>3개월</button>
@@ -34,6 +34,8 @@
 									<button class="btn">조회하기</button>
 								</span>
 							</li>
+							<c:choose>
+							 <c:when test="${ordList.size() != 0}">
 							<li class="cupon_tb">
 								<span class="tbl_tit">검색결과</span><span class="st_color">1건</span>
 								<table class="cupon_tbl" summary="주문내역관리표">
@@ -57,26 +59,40 @@
 										</tr>
 									</thead>
 									<tbody>
+									
+									 <c:forEach var="ordList" items="${ordList}">
 										<tr>
-											<th>2014-00-00</th>
-											<td>12345678912345678</td>
-											<td>[JBL]Flip (블루투스 휴대용 스피커 플립)
-													-01.FLIP_블랙
+											<td>${ordList.regDate}</td>
+											<td>${ordList.orderNo}</td>
+											<td>${ordList.ordPrd.prdNm}
 											</td>
-											<td>99,000원</td>
+											<td>${ordList.ordPrd.sellPrice}</td>
 											<td>취소</td>
-											<td>배송대기</td>
+											<td>
+												<c:if test="${ordList.orderStatCd eq '02'}">결제완료</c:if>
+												<c:if test="${ordList.orderStatCd eq '03'}">배송중</c:if>
+												<c:if test="${ordList.orderStatCd eq '04'}">배송완료</c:if>
+												<c:if test="${ordList.orderStatCd eq '05'}">고객확인</c:if>
+											</td>
 										</tr>
+									  </c:forEach>
+									 
+									
 									</tbody>
 								</table>
 							</li>
 							<li class="paging2">
-								<a href="#" class="palign1"><img src="./images/common/btn_first.gif" alt="처음으로"></a>
-								<a href="#" class="palign2"><img src="./images/common/btn_prev.gif" alt="이전"></a>
+								<a href="#" class="palign1"><img src="<c:url value='/resources/img/common/btn_first.gif'/>" alt="처음으로"></a>
+								<a href="#" class="palign2"><img src="<c:url value='/resources/img/common/btn_prev.gif'/>" alt="이전"></a>
 								<a href="#" class="on">1</a>
-								<a href="#" class="palign1"><img src="./images/common/btn_next.gif" alt="다음"></a>
-								<a href="#" class="palign2"><img src="./images/common/btn_end.gif" alt="끝으로"></a>
+								<a href="#" class="palign1"><img src="<c:url value='/resources/img/common/btn_next.gif'/>" alt="다음"></a>
+								<a href="#" class="palign2"><img src="<c:url value='/resources/img/common/btn_end.gif'/>" alt="끝으로"></a>
 							</li>
+							</c:when>
+							 <c:otherwise>
+								주문하신상품이 없습니다.
+							 </c:otherwise>
+							</c:choose>
 						</ul>
 					</div>
 				</div>
