@@ -13,12 +13,9 @@
 
 	 		<div class="mcont">
 				<ul class="bxslider">
-					<li><a href="#"><img src="<c:url value='/resources/img/main/main/main_img.jpg'/>" alt="메인이미지1"/></a></li>
-					<li><a href="#"><img src="<c:url value='/resources/img/main/main/main_img.jpg'/>" alt="메인이미지1"/></a></li>
-					<li><a href="#"><img src="<c:url value='/resources/img/main/main/main_img.jpg'/>" alt="메인이미지1"/></a></li>
-					<li><a href="#"><img src="<c:url value='/resources/img/main/main/main_img.jpg'/>" alt="메인이미지1"/></a></li>
-					<li><a href="#"><img src="<c:url value='/resources/img/main/main/main_img.jpg'/>" alt="메인이미지1"/></a></li>
-					<li><a href="#"><img src="<c:url value='/resources/img/main/main/main_img.jpg'/>" alt="메인이미지1"/></a></li>
+					<c:forEach var="adImgList" items="${adImgList}">
+						<li><a href=""><img src="${adImgList.attFilePath}" alt="메인이미지1"/></a></li>
+					</c:forEach>	
 				</ul>
 				<div id="mcont_nav">
 					<ol>

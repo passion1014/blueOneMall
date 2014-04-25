@@ -31,6 +31,18 @@
 		<result property="bnImg7" column="BN_IMG_7" javaType="java.lang.String"/>
 		<result property="bnUrl7" column="BN_URL_7" javaType="java.lang.String"/>
 		
+		
+		<result property="idx" column="IDX" javaType="int"/>
+		<result property="attCdType" column="ATT_CODE_TYPE" javaType="java.lang.String"/>
+		<result property="attCdKey" column="ATT_CODE_KEY" javaType="java.lang.String"/>
+		<result property="attImgType" column="ATT_IMG_TYPE" javaType="java.lang.String"/>
+		<result property="attSaveFileNm" column="ATT_SAVE_FILENAME" javaType="java.lang.String"/>
+		<result property="attRealFileNm" column="ATT_REAL_FILENAME" javaType="java.lang.String"/>
+		<result property="attFilePath"  column="ATT_FILE_PATH"   javaType="java.lang.String"/>
+		<result property="attFileSize"  column="ATT_FILE_SIZE"   javaType="int"/>
+		<result property="attFileExt"  column="ATT_FILE_EXT"   javaType="java.lang.String"/>
+		<result property="attImgSeq"  column="ATT_IMG_SEQ"   javaType="int"/>
+		
 	</resultMap>
 
 	
