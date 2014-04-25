@@ -7,4 +7,6 @@ public interface ICustomerManageService {
 
 	public CustomerInfo custLogin(CustomerInfo customerInfo);
 	public CustomerInfo getCustomerInfo(CustomerSrchInfo customerSrchInfo);
+	public int updateCustomerInf(CustomerInfo customerInfo);
+	public CustomerInfo getCustomerInfo2(CustomerInfo customerInfo);
 }

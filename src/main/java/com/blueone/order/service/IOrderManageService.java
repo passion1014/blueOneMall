@@ -16,5 +16,7 @@ public interface IOrderManageService {
 	public int registRecipientInfo(RecipientInfo reciInfo);
 	public OrderProductInfo selectOrderPrdInfo(OrderProductInfo odPrdInfo);
 	public RecipientInfo selectRecipientInfo(RecipientInfo reciInfo);
+	public List<OrderInfo> selectOrderInfoList(OrderInfo odInfo);
+	public OrderProductInfo toProduct(OrderProductInfo opResInf);
 	
 }

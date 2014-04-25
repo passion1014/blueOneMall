@@ -7,11 +7,23 @@
 
 	<resultMap id="CustomerInfoMap" type="customerInfo">
 		<id property="custSeq" column="custIdx" javaType="int"/>
-		<id property="custId" column="custId" javaType="java.lang.String"/>
-		<id property="custNm" column="custNm" javaType="java.lang.String"/>
-		<id property="insDt" column="custRegDate" javaType="java.lang.String"/>
-		<id property="updDt" column="custLastDate" javaType="java.lang.String"/>
-		<id property="updUser" column="custModifyUserId" javaType="java.lang.String"/>
+		<id property="custId" column="CUST_ID" javaType="java.lang.String"/>
+		<id property="custNm" column="CUST_NM" javaType="java.lang.String"/>
+		<id property="custBirth" column="CUST_BIRTH_DATE" javaType="java.lang.String"/>
+		<id property="custSx" column="CUST_SEX" javaType="java.lang.String"/>
+		<id property="custPh" column="CUST_PHONE_NO" javaType="java.lang.String"/>
+		<id property="custMb" column="CUST_MOBILE_NO" javaType="java.lang.String"/>
+		<id property="custEmail" column="CUST_EMAIL1" javaType="java.lang.String"/>
+		<id property="custZip" column="CUST_ZIP_CD1" javaType="java.lang.String"/>
+		<id property="custAdd" column="CUST_ADDR" javaType="java.lang.String"/>
+		<id property="custSmSRcv" column="CUST_SMS_RCV_YN" javaType="java.lang.String"/>
+		<id property="custMailRcv" column="CUST_EMAIL_RCV_YN" javaType="java.lang.String"/>
+		<id property="custPass" column="CUST_PASSWORD" javaType="java.lang.String"/>
+		<id property="custRegDt" column="REG_DATE" javaType="java.lang.String"/>
+		<id property="custLastDt" column="LAST_DATE" javaType="java.lang.String"/>
+		<id property="custSx" column="MODIFY_USER_ID" javaType="java.lang.String"/>
+		<id property="custMerry" column="CUST_MERRY_DAY" javaType="java.lang.String"/>
+		<id property="custChild" column="CUST_CHILD" javaType="java.lang.String"/>
 		
 		<!-- 주소정보 셋팅 -->
 		<collection property="customerContactList" ofType="customerContactInfo" resultMap="CustomerContactInfoMap"/>
@@ -25,7 +37,7 @@
 		<id property="contactNm" column="cntctNm" javaType="java.lang.String"/>
 		<id property="zipCd1" column="cntctPostNo1" javaType="java.lang.String"/>
 		<id property="zipCd2" column="cntctPostNo2" javaType="java.lang.String"/>
-		<id property="addrDesc1" column="cntctAddr" javaType="java.lang.String"/>
+		<id property="custAdd" column="cntctAddr" javaType="java.lang.String"/>
 		<id property="addrDesc2" column="cntctAddrDesc" javaType="java.lang.String"/>
 		<id property="mobile1" column="cntctMobileNo1" javaType="java.lang.String"/>
 		<id property="mobile2" column="cntctMobileNo2" javaType="java.lang.String"/>
@@ -72,11 +84,52 @@
 		ORDER BY T2.CUST_CONTACT_NO
 	</select >
 	
+	<select id="selectDtlBomCustTb0002" resultType="customerInfo" resultMap="CustomerInfoMap" parameterType="customerInfo">
+		SELECT
+			T1.CUST_ID,
+			T1.CUST_NM,
+			T1.CUST_BIRTH_DATE,
+			T1.CUST_SEX,
+			T1.CUST_PHONE_NO,
+			T1.CUST_MOBILE_NO,
+			T1.CUST_EMAIL1,
+			T1.CUST_ZIP_CD1,
+			T1.CUST_ADDR,
+			T1.CUST_SMS_RCV_YN,
+			T1.CUST_EMAIL_RCV_YN,
+			T1.CUST_MERRY_DAY,
+			T1.CUST_CHILD
+		FROM
+			BOM_CUST_TB T1
+		WHERE
+			T1.CUST_ID = #{custId}
+		
+	</select >
 	
-	<insert id="insertBomCustContactTb0001" parameterType="customerContactInfo" >
-		INSERT BOM_ORDER_TB
-			(`ORDER_NO`,`CUST_ID`,`CUST_CONTACT_NO`,`ORDER_DATE`,`REG_DATE`,`LAST_DATE`,`MODIFY_USER_ID`)
-			VALUES
-			(#{orderNo}, #{customerInfo.custId}, #{customerContactInfo.contactSeq},sysdate(), sysdate(), sysdate(),#{modifyUserId})
-	</insert>
+	
+	
+	
+	<update id="updateBomCustomerTb0001" parameterType="customerInfo">
+		UPDATE BOM_CUST_TB
+			SET
+				`LAST_DATE` = sysdate()
+				<if test="custNm != null and custNm != ''">,`CUST_NM` = #{custNm}</if>
+				<if test="custBirth != null and custBirth != ''">,`CUST_BIRTH_DATE` = #{custBirth}</if>
+				<if test="custSx != null and custSx != ''">,`CUST_SEX` = #{custSx}</if>
+				<if test="custPh != null and custPh != ''">,`CUST_PHONE_NO` = #{custPh}</if>
+				<if test="custMb != null and custMb != ''">,`CUST_MOBILE_NO` = #{custMb}</if>
+				<if test="custZip != null and custZip != ''">,`CUST_ZIP_CD1` = #{custZip}</if>
+				<if test="custAdd != null and custAdd != ''">,`CUST_ADDR` = #{custAdd}</if>
+				<if test="custSmSRcv != null and custSmSRcv != ''">,`CUST_SMS_RCV_YN` = #{custSmSRcv}</if>
+				<if test="custMailRcv != null and custMailRcv != ''">,`CUST_EMAIL_RCV_YN` = #{custMailRcv}</if>
+				<if test="custMerry != null and custMerry != ''">,`CUST_MERRY_DAY` = #{custMerry}</if>
+				<if test="custChild != null and custChild != ''">,`CUST_CHILD` = #{custChild}</if>
+				<if test="custEmail != null and custEmail != ''">,`CUST_EMAIL1` = #{custEmail}</if>
+				
+		WHERE
+			`CUST_ID`= #{custId}
+	</update>
+
+	
+	
 </mapper>

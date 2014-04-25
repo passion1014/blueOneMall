@@ -25,9 +25,9 @@ public class CustomerController {
 	public String getCustomerInfo(@ModelAttribute("customerSrchInfo") CustomerSrchInfo customerSrchInfo, BindingResult result, Model model){
 		String viewName = "cust/custDetail";
 		
-		CustomerInfo customerInfo = customerManageService.getCustomerInfo(customerSrchInfo);
+		//CustomerInfo customerInfo = customerManageService.getCustomerInfo(customerSrchInfo);
 		
-		model.addAttribute("customerInfo", customerInfo);
+		//model.addAttribute("customerInfo", customerInfo);
 		
 		return viewName;
 	}

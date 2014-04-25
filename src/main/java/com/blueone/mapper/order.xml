@@ -113,6 +113,19 @@
 		WHERE
 			T1.ORDER_NO = #{orderNo}
 	</select >
+	
+	<select id="selectListBomOrderTb0002" resultType="orderInfo" resultMap="OrderInfoMap" parameterType="orderInfo">
+		SELECT
+			T1.ORDER_NO,
+			T1.CUST_ID,
+			T1.ORDER_STAT_CD,
+			T1.ORDER_DATE,
+			T1.REG_DATE
+		FROM 
+				BOM_ORDER_TB T1
+		WHERE
+			T1.CUST_ID = #{customerInfo.custId}
+	</select >
 
 	<insert id="insertBomOrderPrdTb0001" parameterType="orderProductInfo" >
 		INSERT BOM_ORD_PRD_TB
