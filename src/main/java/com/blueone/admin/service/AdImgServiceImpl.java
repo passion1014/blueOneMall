@@ -1,5 +1,7 @@
 package com.blueone.admin.service;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +45,23 @@ public class AdImgServiceImpl implements IAdImgService{
 		}
 		
 		return result;
+	}
+	
+	@Override
+	public List<AdImgInfo> getAdImg(AdImgInfo adImgInfo){
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		List<AdImgInfo> adImg;
+		try{
+			
+			adImg = sqlSession.selectList("adImg.selectBomAdImgTb0001", adImgInfo);
+			
+		}finally{
+			
+			sqlSession.close();
+			
+		}
+		return adImg;
 	}
 
 }

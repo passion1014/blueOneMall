@@ -41,6 +41,8 @@ public class ShopController {
 	private ICategoryManageService categoryManageService;
 	@Autowired 
 	private IAttachFileManageService attFileManageService;
+	@Autowired
+	private IAdImgService adImgService;
 	
 	@RequestMapping(value ="/worklist.do", method = RequestMethod.GET)
 	public String workList(@ModelAttribute("ShopInfo") ShopInfo shopInfo, BindingResult result, Model model){
@@ -237,12 +239,24 @@ public class ShopController {
 			}
 		}
 		
+		List<AdImgInfo> adImgList = adImgService.getAdImg(adImgInfo);
+		
+		for(AdImgInfo each : adImgList){
+			AttachFileInfo att = new AttachFileInfo();
+			att.setAttCdKey(each.getBnImg1());
+			att = attFileManageService.getAttFileInfListImg(att);
+			
+			if(att==null){
+				each.setAttFilePath("");
+			}else { 
+				
+				each.setAttFilePath(att.getAttFilePath());
+			}
+		}
 		
 		
 		
-		
-		
-		
+		model.addAttribute("adImgList", adImgList);
 		model.addAttribute("productList", productList);
 		model.addAttribute("pdSList", pdSList);
 		model.addAttribute("hpPrdList", hpPrdList);
