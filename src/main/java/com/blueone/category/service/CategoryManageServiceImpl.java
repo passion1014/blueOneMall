@@ -369,5 +369,24 @@ public class CategoryManageServiceImpl implements ICategoryManageService {
 		
 	}
 	
-
+	@Override
+	public CategoryInfo getCategoryInfDetail3(CategoryInfo categoryInfo){
+	
+		CategoryInfo rstInfo = new CategoryInfo();
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		
+		try {
+			// -----------------------------------------------
+			// 1. 카테고리 기본값 조회
+			// -----------------------------------------------
+			rstInfo = sqlSession.selectOne("category.selectDtlBomCategoryTb0003", categoryInfo);
+			
+		} finally {
+			sqlSession.close();
+		}		
+		
+		return rstInfo;
+		
+	}
 }
