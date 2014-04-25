@@ -277,8 +277,6 @@ public class AdminController {
 		List<AccountInfo> rstList = adminManageService.getBankInfList();
 		model.addAttribute("bankList", rstList);
 		
-	
-		
 		return "admin/admin/accountEdit";
 	}
 	

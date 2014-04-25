@@ -21,7 +21,7 @@
 	
 	<form name="tx_editor_form" method="post" enctype="multipart/form-data" action="adminDesignProc.do">
 	<input type="hidden" id="modifyUserId" name="modifyUserId" value="${adminSession.id}">
-	
+	<input type="hidden" id="imgCode" name="imgCode" value="${imgCode}" >
 	
 	
 

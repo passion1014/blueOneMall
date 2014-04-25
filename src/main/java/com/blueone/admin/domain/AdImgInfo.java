@@ -20,6 +20,8 @@ public class AdImgInfo {
 	private MultipartFile ban6Up;
 	private MultipartFile ban7Up;
 	
+	private String attFilePath;
+	private String imgCode;
 	private String mdUrl1;
 	private String mdUrl2;
 	private String mdUrl3;
@@ -88,6 +90,12 @@ public class AdImgInfo {
 	}
 	public void setBan7Up(MultipartFile ban7Up) {
 		this.ban7Up = ban7Up;
+	}
+	public String getImgCode() {
+		return imgCode;
+	}
+	public void setImgCode(String imgCode) {
+		this.imgCode = imgCode;
 	}
 	public String getBnUrl1() {
 		return bnUrl1;
@@ -263,6 +271,12 @@ public class AdImgInfo {
 	}
 	public void setMdUrl5(String mdUrl5) {
 		this.mdUrl5 = mdUrl5;
+	}
+	public String getAttFilePath() {
+		return attFilePath;
+	}
+	public void setAttFilePath(String attFilePath) {
+		this.attFilePath = attFilePath;
 	}
 	
 	

@@ -5,6 +5,7 @@
 
 <mapper namespace="adImg">
 	<resultMap id="AdImgInfoMap" type="com.blueone.admin.domain.AdImgInfo">
+		<result property="idx" column="IDX" javaType="java.lang.String"/>
 		<result property="mdImg1" column="MD_IMG_1" javaType="java.lang.String"/>
 		<result property="mdUrl1" column="MD_URL_1" javaType="java.lang.String"/>
 		<result property="mdImg2" column="MD_IMG_2" javaType="java.lang.String"/>
@@ -50,10 +51,10 @@
 	<insert id="insertBomAdImgTb0001" parameterType="com.blueone.admin.domain.AdImgInfo">
 	
 		INSERT  BOM_AD_IMG_TB
-			(`MD_IMG_1`,`MD_URL_1`,`MD_IMG_2`,`MD_URL_2`,`MD_IMG_3`,`MD_URL_3`,`MD_IMG_4`,
+			(`IDX`,`MD_IMG_1`,`MD_URL_1`,`MD_IMG_2`,`MD_URL_2`,`MD_IMG_3`,`MD_URL_3`,`MD_IMG_4`,
 			 `MD_URL_4`,`MD_IMG_5`,`MD_URL_5`)
 			VALUES
-			( #{mdImg1},#{mdUrl1},#{mdImg2},#{mdUrl2},#{mdImg3},#{mdUrl3},#{mdImg4},
+			( #{idx},#{mdImg1},#{mdUrl1},#{mdImg2},#{mdUrl2},#{mdImg3},#{mdUrl3},#{mdImg4},
 			  #{mdUrl4}, #{mdImg5},#{mdUrl5})
 	</insert>
 
@@ -68,16 +69,22 @@
 	</insert>
 	<select id="selectBomAdImgTb0001" resultType="com.blueone.admin.domain.AdImgInfo" resultMap="AdImgInfoMap">
 		SELECT 
-			`MD_IMG_1`,`MD_URL_1`,`MD_IMG_2`,`MD_URL_2`,`MD_IMG_3`,`MD_URL_3`,`MD_IMG_4`,
+			`IDX`,`MD_IMG_1`,`MD_URL_1`,`MD_IMG_2`,`MD_URL_2`,`MD_IMG_3`,`MD_URL_3`,`MD_IMG_4`,
 			`MD_URL_4`,`MD_IMG_5`,`MD_URL_5`,`BN_IMG_1`,`BN_URL_1`,`BN_IMG_2`,`BN_URL_2`,
 			`BN_IMG_3`,`BN_URL_3`,`BN_IMG_4`,`BN_URL_4`,`BN_IMG_5`,`BN_URL_5`,`BN_IMG_6`,
 			`BN_URL_6`,`BN_IMG_7`,`BN_URL_7`
 		FROM BOM_AD_IMG_TB
 
 	</select>
+	<select id="selectBomAdImgTb0002" parameterType="hashMap" resultType="com.blueone.admin.domain.AdImgInfo" resultMap="AdImgInfoMap">
+		
+		SELECT  *
+				
+		FROM BOM_AD_IMG_TB		
+		
+				
+		
+	</select>
 	
-	
-	
-
 
 </mapper>

@@ -13,9 +13,9 @@
 
 	 		<div class="mcont">
 				<ul class="bxslider">
-					<c:forEach var="adImgList" items="${adImgList}">
-						<li><a href=""><img src="${adImgList.attFilePath}" alt="메인이미지1"/></a></li>
-					</c:forEach>	
+						<c:forEach var="adImgList" items="${adImgList}">
+							<li><a href=""><img src="${adImgList.mdUrl1}" alt="메인이미지1"/></a></li>
+						</c:forEach>	
 				</ul>
 				<div id="mcont_nav">
 					<ol>

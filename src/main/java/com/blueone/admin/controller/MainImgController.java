@@ -33,13 +33,20 @@ public class MainImgController {
 
 	//메인화면에 메인이미지 등록
 			@RequestMapping(value="/admin/adminDesign.do")
-			public String adminMdImg(){
+			public String adminMdImg(Model model){
+				
+				int code= (int)(Math.random()*10000)+1;
+				String imgCode= "I"+code;
+				
+				model.addAttribute("imgCode", imgCode);
+				
 				return "admin/admin/adminDesign";
 			}
 			
 			//메인화면에 메인이미지 등록처리
 			@RequestMapping(value="/admin/adminDesignProc.do", method = RequestMethod.POST)
 			public String adminMdImgProc(@ModelAttribute("adImgInfo") AdImgInfo adImgInfo , BindingResult result, Model model)throws FileNotFoundException, IOException {
+				
 				
 				MultipartFile main1Up = adImgInfo.getMain1Up();
 				if(main1Up != null && !main1Up.isEmpty()) {

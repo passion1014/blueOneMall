@@ -56,7 +56,6 @@ public class ShopController {
 	public String read(@ModelAttribute("adImgInfo") AdImgInfo adImgInfo, @ModelAttribute("productInfo") ProductInfo productInfo, @ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model){
 		
 		List<ProductInfo> productList = shopService.getImgList(productInfo);
-		List<ProductInfo> pdSList = new ArrayList<ProductInfo>();
 		List<ProductInfo> btPrdList = new ArrayList<ProductInfo>();  //블루투스 상품리스트
 		List<ProductInfo> hpPrdList = new ArrayList<ProductInfo>();  //해드폰 상품리스트
 		List<ProductInfo> mmPrdList = new ArrayList<ProductInfo>();  //멀티미디어 상품리스트
@@ -86,7 +85,7 @@ public class ShopController {
 		//대분류에 대한 상품출력(블루투스)
 		for(ProductInfo each: productList){
 			if("L4315".equals(each.getPrdCtgL())){
-				pdSList.add(each);
+				btPrdList.add(each);
 			}
 		}
 		
@@ -135,7 +134,7 @@ public class ShopController {
 		
 	
 		
-		for(ProductInfo each : pdSList){
+		for(ProductInfo each : btPrdList){
 			AttachFileInfo att = new AttachFileInfo();
 			att.setAttCdKey(each.getPrdCd());
 			att = attFileManageService.getAttFileInfListImg(att);
@@ -239,26 +238,13 @@ public class ShopController {
 			}
 		}
 		
-		List<AdImgInfo> adImgList = adImgService.getAdImg(adImgInfo);
+		AdImgInfo adDtl = new AdImgInfo();
 		
-		for(AdImgInfo each : adImgList){
-			AttachFileInfo att = new AttachFileInfo();
-			att.setAttCdKey(each.getBnImg1());
-			att = attFileManageService.getAttFileInfListImg(att);
-			
-			if(att==null){
-				each.setAttFilePath("");
-			}else { 
-				
-				each.setAttFilePath(att.getAttFilePath());
-			}
-		}
+		adDtl = adImgService.getAdImgDtl(adImgInfo);
 		
-		
-		
-		model.addAttribute("adImgList", adImgList);
+		model.addAttribute("adDtl", adDtl);
 		model.addAttribute("productList", productList);
-		model.addAttribute("pdSList", pdSList);
+		model.addAttribute("pdSList", btPrdList);
 		model.addAttribute("hpPrdList", hpPrdList);
 		model.addAttribute("mmPrdList", mmPrdList);
 		model.addAttribute("csPrdList", csPrdList);
