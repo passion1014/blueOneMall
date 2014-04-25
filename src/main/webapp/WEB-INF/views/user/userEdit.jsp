@@ -8,24 +8,6 @@
 	int y = Integer.parseInt(year);
 %>
 
-<script type="text/javascript">
-
-	$(document).ready(function() {
-		$('#mail').change(function() {
-			alert();
-			var add = $('#mail').val();
-			alert(add);
-			
-			
-			$("value#eMail2").html(add);
-			
-		});
-	});
-	
-	
-	
-</script>
-
 
 <c:import  url="../inc/topSub.jsp" />
 <html>
@@ -160,7 +142,7 @@
 									<th>주소</th>
 									<td colspan="3" class="in_address">
 										<input type="text" title="address text" style="width:120px;" id="custZip" name="custZip" value="${customer.custZip}"/>
-										<button onClick="openWin('./searchZipCode.do','zipCodeForm',600,450,'scrollbars=no');">우편번호 찾기</button><br/>
+										<button onClick="openWin('./searchZipCode.do','searchZipForm',600,450,'scrollbars=no');">우편번호 찾기</button><br/>
 										<input type="text" title="address text" style="width:200px;"id="custAdd" name="custAdd" value="${customer.custAdd}"/>
 									</td>
 								</tr>
@@ -257,4 +239,6 @@
 	<c:import url="../inc/footer.jsp" />
 </div>
 </body>
+
+
 </html>

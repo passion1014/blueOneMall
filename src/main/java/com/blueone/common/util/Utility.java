@@ -24,12 +24,7 @@ import java.util.TimeZone;
 import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
-import java.net.URL ; 
-import java.net.URLConnection ; 
-import java.io.InputStream ; 
-import java.io.ByteArrayInputStream ; 
-import java.io.InputStreamReader ; 
-import java.io.BufferedReader ; 
+
 
 import javax.xml.parsers.DocumentBuilderFactory ; 
 import javax.xml.parsers.DocumentBuilder ; 
@@ -39,10 +34,10 @@ import org.w3c.dom.Document ;
 import org.w3c.dom.NodeList ; 
 import org.w3c.dom.Node ; 
 import org.w3c.dom.Element ; 
-import org.xml.sax.InputSource ; 
+
 import org.xml.sax.SAXException;
 
-import java.io.File ; 
+
 
 import javax.swing.text.html.HTML;
 import javax.swing.text.html.HTML.Tag;
@@ -2083,6 +2078,18 @@ public final class Utility
 		 DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		DocumentBuilder docBuilder=dbf.newDocumentBuilder(); 
 		 
+		
+		
+		try{
+			
+			query+=URLEncoder.encode(q,"UTF-8");
+
+			 
+			}catch(Exception e){
+				  e.printStackTrace();
+				 }finally{
+				  
+		}
 		 Document doc=docBuilder.parse(query);
 		 
 		 nodeDOC=doc.getElementsByTagName("item");
@@ -2094,8 +2101,10 @@ public final class Utility
 			  if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 			 
 			   Element eElement = (Element) nNode;
-			   
-			  re.setZipCode(eElement.getElementsByTagName("postcd").item(0).getFirstChild().getNodeValue());
+			   String zip = eElement.getElementsByTagName("postcd").item(0).getFirstChild().getNodeValue();
+			   zip= zip.substring(0, 3)+"-"+zip.substring(3);
+				
+			  re.setZipCode(zip);
 			  re.setAddress( eElement.getElementsByTagName("address").item(0).getFirstChild().getNodeValue());
 			  result.add(re);
 			  

@@ -6,6 +6,8 @@ import com.blueone.common.util.Utility;
 
 
 public class AttachFileInfo {
+	
+	//db연결변수
 	private int idx ;
 	private String attCdType;
 	private String attCdKey;
@@ -17,6 +19,7 @@ public class AttachFileInfo {
 	private long attFileSize;
 	private String attFileExt;
 	   
+	//MODEL 값 연결
 	private MultipartFile uploadFile;	
 	
 

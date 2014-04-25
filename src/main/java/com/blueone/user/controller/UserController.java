@@ -1,20 +1,26 @@
 package com.blueone.user.controller;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
-
-
-
-
-
-
-
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.commons.lang.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -120,13 +126,51 @@ public class UserController {
 	
 	//우편번호 찾기 팝업
 	@RequestMapping(value="/user/searchZipCode.do", method=RequestMethod.GET)
-	public String searchZipCode(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model){
+	public String searchZipCode(HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception {
+       
 			return "user/searchZipCode";
 	}
+	//우편번호 찾기 팝업
+	@RequestMapping(value="/user/searchZipCodeProc.do", method=RequestMethod.GET)
+	public String searchZipCodeProc(@ModelAttribute("searchAddress")SearchAddress sAdd, HttpServletRequest request, HttpServletResponse response, Map<String, Object> commandMap, ModelMap model) throws Exception {
+       
+		CustomerInfo cus = new CustomerInfo();
+		
+		cus.setCustId("id1");
+		cus=customerService.getCustomerInfo2(cus);
+		
+		String birth = cus.getCustBirth();
+		cus = useStringToken(birth,"b",cus);
+		
+		String phone = cus.getCustPh();
+		cus = useStringToken(phone,"p",cus);
+		
+		String mobile = cus.getCustMb();
+		cus = useStringToken(mobile,"m",cus);
+		
+		String mail=cus.getCustEmail();
+		int a = mail.indexOf("@");
+		String mail1= mail.substring(0, a);
+		String mail2= mail.substring(a+1);
+		cus.seteMail1(mail1);
+		cus.seteMail2(mail2);
+		String add = sAdd.getAddress();
+		add = new String(add.getBytes("8859_1"), "UTF-8");
+		cus.setCustAdd(add);
+		cus.setCustZip(sAdd.getZipCode());
+		
+	
+		model.addAttribute("customer",cus);
+		
+		return "user/userEdit";
+	}
+
+		
 	//주소 찾기 action
 	@RequestMapping(value="/user/searchAddress.do", method=RequestMethod.GET)
 	public String searchAddress(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model,String dong) throws ParserConfigurationException, SAXException, IOException{
-			
+		dong = new String(dong.getBytes("8859_1"), "UTF-8");
+		
 		 List<SearchAddress> nList =Utility.searchAdd(dong);
 		
 			model.addAttribute("nList", nList);
@@ -147,7 +191,7 @@ public class UserController {
 	
 	//주문내역관리
 	@RequestMapping(value="/user/orderListView.do", method=RequestMethod.GET)
-	public String orderListView(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model){
+	public String orderListView(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model) {
 		
 		//아이디 셋팅
 		OrderInfo od = new OrderInfo();
@@ -174,7 +218,7 @@ public class UserController {
 			each.setRegDate(reg);
 		}
 		
-		
+	
 		model.addAttribute("ordList", odList);
 		return "user/orderListView";
 	}
@@ -234,5 +278,8 @@ public class UserController {
 	
 
 	}
+	
+	
+	
 	
 }
