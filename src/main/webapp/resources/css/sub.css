@@ -425,3 +425,25 @@ font-family:"NanumGothicBold"; color:#666666;}
 .porder_section .complet_box a {display:inline-block; width:120px; height:50px; line-height:50px; font-size:18px; font-family:"NanumGothicBold"; color:#fff; text-align:center;}
 .porder_section .complet_box a.btn_continue  {background:#2c9dde; border:1px solid #0083ce;}
 .porder_section .complet_box a.btn_success {background:#888888; border:1px solid #888; margin-right:30px;}
+
+/* ------------- adress popup ------------- */
+.adr_section {width:600px;}
+.adr_section h5 {background:url('../images/common/bullet_tit.gif') no-repeat center left; padding-left:10px; line-height:18px; margin-bottom:10px; font-size:14px; font-family:"NanumGothicBold"; margin:30px 0 5px 0;}
+.adr_section .adr_box {margin:15px 0 15px 0; border:2px solid #ccc; padding:20px 20px 40px 20px;}
+.adr_section .adr_box p.adr_tit {margin-bottom:10px;}
+.adr_section .adr_box p.adr_tit b {color:#0083ce;}
+.adr_section .adr_box fieldset input.text_info {width:470px; height:25px; border:1px solid #ccc; vertical-align:middle;}
+.adr_section .adr_box fieldset input.btn_adr {width:80px; height:27px; background:#0083ce; border:0; color:#fff; margin-left:-4px; vertical-align:middle; font-weight:bold;}
+.adr_section table.adres_tbl {border-top:2px solid #888;}
+.adr_section table.adres_tbl thead th {height:28px; background:#f1f1f1; font-weight:normal; border-bottom:1px solid #ccc;}
+.adr_section table.adres_tbl tfoot th, .adr_section table.adres_tbl tfoot td {height:28px; border-bottom:1px solid #ccc; text-align:left; padding-left:15px;}
+.adr_section table.adres_tbl tfoot th {background:#f1f1f1;}
+.adr_section table.adres_tbl tfoot td input.text_adrinfo {width:300px; height:20px; border:1px solid #ccc; vertical-align:middle;}
+.adr_section table.adres_tbl tbody th, .adr_section table.adres_tbl tbody td {height:28px; border-bottom:1px solid #ccc;}
+.adr_section table.adres_tbl tbody td {padding-left:15px;}
+.adr_section table.adres_tbl tbody td a {color:#000;}
+.adr_section span.btn_bottom {display:block; width:200px; margin:15px auto;}
+.adr_section span.btn_bottom input.btn_adrsubmit {width:80px; margin-right:10px; height:30px; border:0; background:#0083ce; color:#fff;}
+.adr_section span.btn_bottom input.btn_adrcancle {width:80px; margin-right:10px; height:30px; border:0; background:#888; color:#fff;}
+
+

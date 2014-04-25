@@ -8,22 +8,52 @@
 	int y = Integer.parseInt(year);
 %>
 
-<script type="text/javascript">
-
-	$(document).ready(function() {
-		$('#mail').change(function() {
-			alert();
-			var add = $('#mail').val();
-			alert(add);
-			
-			
-			$("value#eMail2").html(add);
-			
-		});
+<script language="JavaScript" type="text/JavaScript">
+<!--
+$(document).ready(function() {
+	
+	$("#dialog-form").dialog({
+		autoOpen: false,
+		closeOnEscape: false,
+		draggable: false,
+		modal: true,
+		resizable: false,
+		title: '',
+		width: 600,
+		//height: 0,
+		//zIndex: 0,
+		create: function(event, ui) {},
+		open: function(event, ui) {},
+		close: function(event, ui) {}
 	});
-	
-	
-	
+
+});
+
+function openDialog() {
+	$("#dialog-form").dialog("open");
+}
+
+function closeDialog() {
+	$("#dialog-form").dialog("close");
+}
+
+function dialogUpdate() {
+	$.ajax({
+		type: "GET",
+		url: "searchZipCode.do",
+		cache: false,
+		async: false,
+		dataType: "html",
+		success: function(e) {
+			$("#dialog-form").html(e);
+			openDialog();
+		}
+	});
+}
+
+
+
+//-->
 </script>
 
 
@@ -160,7 +190,7 @@
 									<th>주소</th>
 									<td colspan="3" class="in_address">
 										<input type="text" title="address text" style="width:120px;" id="custZip" name="custZip" value="${customer.custZip}"/>
-										<button onClick="openWin('./searchZipCode.do','zipCodeForm',600,450,'scrollbars=no');">우편번호 찾기</button><br/>
+										<button onClick="dialogUpdate();">우편번호 찾기</button><br/>
 										<input type="text" title="address text" style="width:200px;"id="custAdd" name="custAdd" value="${customer.custAdd}"/>
 									</td>
 								</tr>
@@ -257,4 +287,6 @@
 	<c:import url="../inc/footer.jsp" />
 </div>
 </body>
+
+
 </html>
