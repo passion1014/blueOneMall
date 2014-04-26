@@ -68,21 +68,21 @@ public class OrderController {
 		CookieBox cki = new CookieBox(request);
 		
 		//상품이 선택되서 장바구니 페이지로 들어왔을 경우 해당
-			String value="";
-			
-			if(orderProductInfo.getPrdOpColor()!=null){
-				value+="01="+orderProductInfo.getPrdOpColor()+",";
-			}
-			if(orderProductInfo.getPrdOpSize()!=null){
-				value+="02="+orderProductInfo.getPrdOpSize()+",";
-			}
-			if(orderProductInfo.getPrdSmallImg()!=null){
-				value+="cn="+orderProductInfo.getBuyCnt();
-				Cookie cookie =cki.createCookie("BOM_"+orderProductInfo.getPrdCd(),value,1000);//여기까지 디버깅으로 값이 들어가는것확인
-				response.addCookie(cookie);//
+		String value="";
 		
-			
-			}
+		if(orderProductInfo.getPrdOpColor()!=null){
+			value+="01="+orderProductInfo.getPrdOpColor()+",";
+		}
+		if(orderProductInfo.getPrdOpSize()!=null){
+			value+="02="+orderProductInfo.getPrdOpSize()+",";
+		}
+		if(orderProductInfo.getPrdSmallImg()!=null){
+			value+="cn="+orderProductInfo.getBuyCnt();
+			Cookie cookie =cki.createCookie("BOM_"+orderProductInfo.getPrdCd(),value,1000);//여기까지 디버깅으로 값이 들어가는것확인
+			response.addCookie(cookie);//
+	
+		
+		}
 			
 		/*
 		if(pass.equals("y")){
@@ -91,7 +91,7 @@ public class OrderController {
 			return "redirect:cartListView.do";
 		}
 		*/
-			return "redirect:orderRegister.do";
+		return "redirect:orderRegister.do";
 			
 		
 	}

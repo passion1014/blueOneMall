@@ -335,8 +335,10 @@ public class BoardController {
 		
 		// create page html code
 		pageHtml.append("<div id='paging'>");
-		pageHtml.append("<a class='img'><img class='mousePoint' src='../images/board/btn/page_first.gif' onclick='fnGotoPage(1);' alt='첫 페이지로 이동' /></a>");
-		pageHtml.append("<a class='img'><img class='mousePoint' src='../images/board/btn/page_prev.gif' onclick='fnGotoPage(" + prevPage + ");' alt='이전 페이지로 이동' /></a>");
+//		pageHtml.append("<a class='img'><img class='mousePoint' src='../images/board/btn/page_first.gif' onclick='fnGotoPage(1);' alt='첫 페이지로 이동' /></a>");
+//		pageHtml.append("<a class='img'><img class='mousePoint' src='../images/board/btn/page_prev.gif' onclick='fnGotoPage(" + prevPage + ");' alt='이전 페이지로 이동' /></a>");
+		pageHtml.append("<a onclick='fnGotoPage(1);'> ◀◀ </a>");
+		pageHtml.append("<a onclick='fnGotoPage(" + prevPage + ");'>◀</a>");
 			
 		for(int i = startPage ; i <= lastPage ; i++) {
 			if(i == baseModel.getCurrentPage()){
@@ -347,8 +349,10 @@ public class BoardController {
 			
 		}
 		
-		pageHtml.append("<a class='img'><img class='mousePoint' src='../images/board/btn/page_next.gif' onclick='fnGotoPage(" + nextPage + ");' alt='다음 페이지로 이동' /></a>");
-		pageHtml.append("<a class='img'><img class='mousePoint' src='../images/board/btn/page_last.gif' onclick='fnGotoPage(" + lastPage + ");' alt='마지막 페이지로 이동' /></a>");
+//		pageHtml.append("<a class='img'><img class='mousePoint' src='../images/board/btn/page_next.gif' onclick='fnGotoPage(" + nextPage + ");' alt='다음 페이지로 이동' /></a>");
+//		pageHtml.append("<a class='img'><img class='mousePoint' src='../images/board/btn/page_last.gif' onclick='fnGotoPage(" + lastPage + ");' alt='마지막 페이지로 이동' /></a>");
+		pageHtml.append("<a onclick='fnGotoPage(" + nextPage + ");'>▶</a>");
+		pageHtml.append("<a onclick='fnGotoPage(" + lastPage + ");'>▶▶</a>");
 		pageHtml.append("</div>");
 		
 		return pageHtml.toString();

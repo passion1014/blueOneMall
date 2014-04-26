@@ -302,7 +302,8 @@
 			
 			
 	</select >
-	<select id="selectListBomProductTb0005" parameterType="ProductInfo" resultMap="ProductBaseDtlMap">
+	
+	<select id="selectListBomProductTb0005" parameterType="productInfo" resultMap="ProductBaseDtlMap">
 		SELECT  
 			T1.PRD_CD, 
 			T1.PRD_DISPLAY_YN, 
@@ -351,7 +352,8 @@
 			<if test="prdCtgS != null and prdCtgS != ''">AND T1.PRD_CTG_S LIKE CONCAT(#{prdCtgS},'%')</if>
 		LIMIT 0,9	
 	</select >
-	<select id="selectListBomShopProductTb0001" parameterType="ProductInfo" resultMap="ProductBaseDtlMap">
+	
+	<select id="selectListBomShopProductTb0001" parameterType="productInfo" resultMap="ProductBaseDtlMap">
 	
 		SELECT 
 			`PRD_CD`,`PRD_PRICE`,`PRD_SELL_PRICE`,`PRD_MODEL`,`PRD_MODEL_NO`,`PRD_BRAND`,`PRD_LIST_CMT`,
@@ -360,7 +362,7 @@
 		FROM BOM_PRODUCT_TB	
 	</select>
 	
-	<select id="selectDtlBomProductTb0001" parameterType="hashmap" resultType="ProductInfo" resultMap="ProductBaseDtlMap">
+	<select id="selectDtlBomProductTb0001" parameterType="hashmap" resultType="productInfo" resultMap="ProductBaseDtlMap">
 		SELECT  
 			T1.PRD_CD, 
 			T1.PRD_DISPLAY_YN, 
@@ -409,7 +411,7 @@
 	
 	
 	
-	<select id="selectDtlBomProductOptionTb0001" parameterType="hashmap" resultType="ProductInfo" resultMap="ProductBaseDtlMap">
+	<select id="selectDtlBomProductOptionTb0001" parameterType="hashmap" resultType="productInfo" resultMap="ProductBaseDtlMap">
 		SELECT 
 			T1.PROP_IDX,
 			T1.PROP_PRD_CD, 
@@ -421,7 +423,7 @@
 			T1.PROP_PRD_CD = #{prdCd}
 	</select >
 	
-	<select id="selectDtlBomProductOptionTb0002" parameterType="hashmap" resultType="ProductInfo" resultMap="ProductBaseDtlMap">
+	<select id="selectDtlBomProductOptionTb0002" parameterType="hashmap" resultType="productInfo" resultMap="ProductBaseDtlMap">
 		SELECT 
 			T1.PROP_OP_TYPE, 
 			T1.PROP_OP_NAME

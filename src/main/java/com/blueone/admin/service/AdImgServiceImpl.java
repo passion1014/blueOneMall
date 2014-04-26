@@ -1,5 +1,6 @@
 package com.blueone.admin.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -22,7 +23,7 @@ public class AdImgServiceImpl implements IAdImgService{
 		int result = 0;
 		try{
 			
-			result = sqlSession.insert("adImg.insertBomAdImgTb0001", adImgInfo);
+//			result = sqlSession.insert("adImg.insertBomAdImgTb0001", adImgInfo);
 			
 		}finally{
 			sqlSession.close();
@@ -38,7 +39,7 @@ public class AdImgServiceImpl implements IAdImgService{
 		int result = 0;
 		try{
 			
-			result = sqlSession.insert("adImg.insertBomAdImgTb0002", adImgInfo);
+//			result = sqlSession.insert("adImg.insertBomAdImgTb0002", adImgInfo);
 			
 		}finally{
 			sqlSession.close();
@@ -51,10 +52,10 @@ public class AdImgServiceImpl implements IAdImgService{
 	public List<AdImgInfo> getAdImg(AdImgInfo adImgInfo){
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
-		List<AdImgInfo> adImg;
+		List<AdImgInfo> adImg = new ArrayList<AdImgInfo>();
 		try{
 			
-			adImg = sqlSession.selectList("adImg.selectBomAdImgTb0001", adImgInfo);
+//			adImg = sqlSession.selectList("adImg.selectBomAdImgTb0001", adImgInfo);
 			
 		}finally{
 			
@@ -67,14 +68,12 @@ public class AdImgServiceImpl implements IAdImgService{
 	@Override
 	public AdImgInfo getAdImgDtl(AdImgInfo adImgInfo){
 		
-			SqlSession sqlSession = sqlSessionFactory.openSession();
-			AdImgInfo adDtl = new AdImgInfo();
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		AdImgInfo adDtl = new AdImgInfo();
 		try{
-			
-			adDtl =  sqlSession.selectOne("adImg.selectBomAdImgTb0002", adImgInfo);
+//			adDtl =  sqlSession.selectOne("adImg.selectBomAdImgTb0002", adImgInfo);
 			
 		}finally{
-			
 			sqlSession.close();
 			
 		}
