@@ -127,7 +127,7 @@ public class OrderController {
 		List<OrderProductInfo> ord = getCartList(cki);
 		model.addAttribute("odPrdInfo",ord);
 		
-		//고객정보 세팅
+		//세션에 잇는 정보를 셋팅
 		CustomerInfo custom = new CustomerInfo();
 		custom.setCustNm("dana");
 		custom.setTelNo1("02");
@@ -157,7 +157,7 @@ public class OrderController {
 			orderManageService.registOrderProductInfo(each);
 		}
 		
-		//받는사람 저장
+		//받는사람 저장 - 주문자와 받는 사람이 다를 경우 저장을 해야될것같아서 일단 만들엇음
 		RecipientInfo reInf= orderInfo.getReciInfo();
 		String phone = reInf.getPhone1()+reInf.getPhone2()+reInf.getPhone3();
 		reInf.setReciPh(phone);
@@ -254,7 +254,7 @@ public class OrderController {
 	}
 	
 	
-	//주문코드 생성
+	//주문코드 생성하는 메소드 - 이것도 바꿔주심 감사
 	public String getOrderCode(){
 
 		// 주문 코드 채번

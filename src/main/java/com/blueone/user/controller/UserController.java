@@ -72,9 +72,13 @@ public class UserController {
 	//마이페이지
 	@RequestMapping(value="/user/userEdit.do", method=RequestMethod.GET)
 	public String userEdit(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model){
-		/*
+		
 		CustomerInfo cus = new CustomerInfo ();
-		cus.setCustId("id1");
+		cus.setCustId("id1");//사용자가 로그인해서 들어오면 자동으로 넣어줘야하는 id
+		
+		
+		
+		
 		cus=customerService.getCustomerInfo2(cus);
 		
 		String birth = cus.getCustBirth();
@@ -95,7 +99,7 @@ public class UserController {
 		
 	
 		model.addAttribute("customer",cus);
-		*/
+		
 		return "user/userEdit";
 	}
 
@@ -136,7 +140,12 @@ public class UserController {
        
 		CustomerInfo cus = new CustomerInfo();
 		
-		cus.setCustId("id1");
+		
+		cus.setCustId("id1");//사용자가 로그인해서 들어오면 자동으로 넣어줘야하는 id
+		
+		
+		
+		
 		cus=customerService.getCustomerInfo2(cus);
 		
 		String birth = cus.getCustBirth();
@@ -196,7 +205,7 @@ public class UserController {
 		//아이디 셋팅
 		OrderInfo od = new OrderInfo();
 		CustomerInfo cust = new CustomerInfo();
-		cust.setCustId("dana");
+		cust.setCustId("dana");//사용자가 로그인해서 들어오면 자동으로 넣어줘야하는 id
 		od.setCustomerInfo(cust);
 		
 		//아이디로 주문내역가져오기
