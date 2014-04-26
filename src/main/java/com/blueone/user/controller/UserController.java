@@ -76,7 +76,7 @@ public class UserController {
 		CustomerInfo cus = new CustomerInfo ();
 		cus.setCustId("id1");//사용자가 로그인해서 들어오면 자동으로 넣어줘야하는 id
 		
-		
+
 		
 		
 		cus=customerService.getCustomerInfo2(cus);
@@ -96,7 +96,6 @@ public class UserController {
 		String mail2= mail.substring(a+1);
 		cus.seteMail1(mail1);
 		cus.seteMail2(mail2);
-		
 	
 		model.addAttribute("customer",cus);
 		

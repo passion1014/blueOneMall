@@ -19,7 +19,7 @@
 <!--  header 시작 -->
 <div class="header">
 	<div class="top">
-		<h1><a href="#"><img src="<c:url value='/resources/img/main/common/blueone_logo.png'/>"/></a></h1>
+		<h1><a href="../"><img src="<c:url value='/resources/img/main/common/blueone_logo.png'/>"/></a></h1>
 		<p class="top_img">
 			<img src="<c:url value='/resources/img/main/common/top_image.jpg'/>"/>
 		</p>
