@@ -106,9 +106,6 @@
 		
 	</select >
 	
-	
-	
-	
 	<update id="updateBomCustomerTb0001" parameterType="customerInfo">
 		UPDATE BOM_CUST_TB
 			SET
