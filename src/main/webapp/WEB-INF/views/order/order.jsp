@@ -158,7 +158,7 @@
 									</td>
 									<th>이메일</th>
 									<td class="in_text">
-										<input type="text" name="customerInfo.eMail" id="customerInfo.eMail" title="이메일" value="${cus.eMail}"/>
+										<input type="text" name="customerInfo.custEmail" id="customerInfo.custEmail" title="이메일" value="${cus.custEmail}"/>
 									</td>
 								</tr>
 							</tbody>
