@@ -13,5 +13,4 @@ public interface IAdImgService {
 	
 	public List<AdImgInfo> getAdImg(AdImgInfo adImgInfo);
 	
-	public AdImgInfo getAdImgDtl(AdImgInfo adImgInfo);
 }

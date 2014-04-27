@@ -64,23 +64,7 @@ public class AdImgServiceImpl implements IAdImgService{
 		return adImg;
 	}
 	
-	@Override
-	public AdImgInfo getAdImgDtl(AdImgInfo adImgInfo){
-		
-			SqlSession sqlSession = sqlSessionFactory.openSession();
-			AdImgInfo adDtl = new AdImgInfo();
-		try{
-			
-			adDtl =  sqlSession.selectOne("adImg.selectBomAdImgTb0002", adImgInfo);
-			
-		}finally{
-			
-			sqlSession.close();
-			
-		}
-		return adDtl;
-		
-	}
+
 	
 
 }

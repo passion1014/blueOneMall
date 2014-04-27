@@ -65,6 +65,24 @@ public class ShopServiceImpl implements IShopService{
 		
 	}
 	
+
+	@Override
+	public AdImgInfo getAdImg2(AdImgInfo adImgInfo){
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		
+		try{
+			
+			adImgInfo = sqlSession.selectOne("adImg.selectBomAdImgTb0002", adImgInfo);
+			
+		}finally{
+			
+			sqlSession.close();
+			
+		}
+		return adImgInfo;
+	}
+	
 	
 
 	
