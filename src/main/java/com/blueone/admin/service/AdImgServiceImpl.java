@@ -66,6 +66,7 @@ public class AdImgServiceImpl implements IAdImgService{
 	}
 	
 
+<<<<<<< HEAD
 	@Override
 	public AdImgInfo getAdImgDtl(AdImgInfo adImgInfo){
 		
@@ -83,5 +84,7 @@ public class AdImgServiceImpl implements IAdImgService{
 	}
 
 	
+=======
+>>>>>>> a50e1f12fc06707620aca84f29a0a522d042ecd8
 
 }
