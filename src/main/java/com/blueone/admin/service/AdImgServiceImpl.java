@@ -65,9 +65,7 @@ public class AdImgServiceImpl implements IAdImgService{
 		return adImg;
 	}
 	
-<<<<<<< HEAD
 
-=======
 	@Override
 	public AdImgInfo getAdImgDtl(AdImgInfo adImgInfo){
 		
@@ -83,7 +81,7 @@ public class AdImgServiceImpl implements IAdImgService{
 		return adDtl;
 		
 	}
->>>>>>> bda6a8930322f0164560c3b5f2c294c9429f3699
+
 	
 
 }

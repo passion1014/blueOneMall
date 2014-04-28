@@ -12,5 +12,8 @@ public interface IAdImgService {
 	public int insertAdImg2(AdImgInfo adImgInfo);
 	
 	public List<AdImgInfo> getAdImg(AdImgInfo adImgInfo);
+
+	public AdImgInfo getAdImgDtl(AdImgInfo adImgInfo);
+
 	
 }
