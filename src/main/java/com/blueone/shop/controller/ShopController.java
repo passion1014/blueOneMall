@@ -244,12 +244,9 @@ public class ShopController {
 		
 		AdImgInfo adDtl = new AdImgInfo();
 		
-<<<<<<< HEAD
 		adDtl = shopService.getAdImg2(adImgInfo);
 		
-=======
-		//adDtl = adImgService.getAdImgDtl(adImgInfo);
->>>>>>> bda6a8930322f0164560c3b5f2c294c9429f3699
+
 		
 		model.addAttribute("adDtl", adDtl);
 		model.addAttribute("productList", productList);
