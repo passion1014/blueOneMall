@@ -44,7 +44,6 @@ public class AdminController {
 	public String adminLoginform(@ModelAttribute("adminLoginInfo") AdminLoginInfo adminLoginInfo, BindingResult result, Model model) {
 		return "admin/adminLogin";
 	}
-//=======================	
 	@RequestMapping(value = "/adminLoginProc.do", method = RequestMethod.POST)
 	public ModelAndView adminLogin(@ModelAttribute("adminLoginInfo") @Valid AdminLoginInfo adminLoginInfo, BindingResult result, Model model,String pw) {
 		ModelAndView mav = new ModelAndView();
@@ -165,7 +164,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/adminList.do", method = RequestMethod.GET)
-	public ModelAndView getAdminInfoList(@ModelAttribute("adminInfo") AdminInfo adminInfo, BindingResult result, Model model,HttpSession session) {
+	public ModelAndView getAdminInfoList(@ModelAttribute("adminInfo") AdminInfo adminInfo, BindingResult result, Model model,HttpSession session, String page) {
 		AdminInfo adminSession = (AdminInfo)session.getAttribute("adminSession");
 		ModelAndView mav = new ModelAndView();
 		// 세션체크
@@ -173,8 +172,20 @@ public class AdminController {
 			mav.setViewName("redirect:adminLogin.do");
 			return mav;
 		}
+		
+		
 		List<AdminInfo> list = adminManageService.getAdminInfList(adminInfo);
-	    mav.addObject("list", list);
+		PageDivision pd = new PageDivision();
+
+		if(StringUtils.isEmpty(page)) pd.pageNum("1");
+		else pd.pageNum(page);
+		
+		pd.setAdInfolist(list);
+		
+		
+		model.addAttribute("list", pd.getAdInfolist(1));
+		model.addAttribute("endNum",pd.getEndPageNum());
+	    
 	    mav.setViewName("admin/admin/adminList");
 	    
 			return mav;
@@ -189,7 +200,7 @@ public class AdminController {
 	   
 		
 		model.addAttribute("adminInfo", adminInfo);
-		mav.setViewName("/admin/admin/adminDetail");
+		mav.setViewName("admin/admin/adminDetail");
 		return mav;
 	}
 	
@@ -199,13 +210,13 @@ public class AdminController {
 	 */
 	@RequestMapping(value="/accountList.do", method= RequestMethod.GET)
 	public String adminAccountList(@ModelAttribute("accountInfo") AccountInfo accInfo, BindingResult result, Model model,HttpSession session,String page){
-		/*
+		
 		AdminInfo adminSession = (AdminInfo)session.getAttribute("adminSession");
 		
 		if(adminSession == null){
 		return "redirect:adminLogin.do";
 		}
-		*/
+		
 		List<AccountInfo> accList = adminManageService.getAccountInfList();
 		
 		PageDivision pd = new PageDivision();
@@ -217,7 +228,7 @@ public class AdminController {
 		pd.setAccList(accList);
 		
 		
-		model.addAttribute("list", pd.getAccList(2));
+		model.addAttribute("list", pd.getAccList(10));
 		model.addAttribute("endNum",pd.getEndPageNum());
 		
 		

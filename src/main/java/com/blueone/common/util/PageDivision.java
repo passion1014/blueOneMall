@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.blueone.admin.domain.AccountInfo;
+import com.blueone.admin.domain.AdminInfo;
 import com.blueone.category.domain.CategoryInfo;
 import com.blueone.product.domain.ProductInfo;
 import com.blueone.product.domain.TransferInfo;
@@ -25,8 +26,33 @@ public class PageDivision {
 	List<TransferInfo> trExList;
 	List<AccountInfo> accList;
 	List<AccountInfo> accExList;
+	List<AdminInfo> adInfolist;
+	List<AdminInfo> adInfoExlist;
 	
 	
+
+	public List<AdminInfo> getAdInfolist(int item) {
+		int startIdx=pNum*item-item;
+		int forend=pNum*item-1;
+		for(int i=startIdx; i<=forend && i<adInfolist.size(); i++){
+			adInfoExlist.add(adInfolist.get(i));
+		}
+		return adInfoExlist;
+	}
+	
+	public void setAdInfolist(List<AdminInfo> adInfolist) {
+		this.adInfolist = adInfolist;
+		
+		adInfoExlist=new ArrayList<AdminInfo>();
+		
+		if(adInfolist.size()%2==0) {
+			endNum=adInfolist.size()/2;
+		}
+		else{
+			endNum=adInfolist.size()/2+1;
+			}
+		
+	}
 	
 	
 	public List<AccountInfo> getAccList(int item) {
