@@ -24,7 +24,7 @@
 	
  -->
 	<resultMap id="OrderInfoMap" type="orderInfo">
-		<id property="idx" column="ordIdx" javaType="int"/>
+		<id property="ordIdx" column="IDX" javaType="int"/>
 		<id property="orderNo" column="ORDER_NO" javaType="java.lang.String"/>
 		<id property="orderStatCd" column="ORDER_STAT_CD" javaType="java.lang.String"/>
 		<id property="orderDate" column="ORDER_DATE" javaType="java.lang.String"/>
@@ -58,16 +58,15 @@
 
 	<select id="selectListBomOrderTb0001" resultType="orderInfo" resultMap="OrderInfoMap" parameterType="orderSrchInfo">
 		SELECT
-			T1.IDX AS ordIdx,
-			T1.ORDER_NO AS ordNo,
-			T1.CUST_ID AS ordCustId,
-			T1.CUST_CONTACT_NO AS ordCustContactNo,
-			T1.ORDER_STAT_CD AS ordStatCd,
-			T1.ORDER_DATE AS ordDate,
-			T1.REG_DATE AS ordRegDate,
-			T1.LAST_DATE AS ordLastDate,
-			T1.MODIFY_USER_ID AS ordModifyUserId,
-			T2.IDX AS payIdx,
+			T1.IDX ,
+			T1.ORDER_NO ,
+			T1.CUST_ID AS custId ,
+			T1.ORDER_STAT_CD,
+			T1.ORDER_DATE ,
+			T1.REG_DATE ,
+			T1.LAST_DATE ,
+			T1.MODIFY_USER_ID 
+			<!-- T2.IDX AS payIdx,
 			T2.ORDER_NO AS payOrdNo,
 			T2.ORDER_NO_SEQ AS payOrdNoSeq,
 			T2.PYMT_PAY_CD AS payCd,
@@ -78,29 +77,28 @@
 			T2.MODIFY_USER_ID AS payModifyUserId,
 			T3.IDX AS pordIdx,
 			T3.ORDER_NO AS pordOrdNo,
-			T3.PRD_CD AS pordPrdCd,
-			T4.IDX AS prdIdx,
+			T3.PRD_CD AS pordPrdCd, 
 			T4.PRD_CD AS prdCd,
 			T4.PRD_NM AS prdNm,
-			T4.PRD_DESC AS prdDesc,
-			T4.PRD_DESC_HTML AS prdDescHtml,
 			T4.PRD_CTG_L AS prdCtgL,
 			T4.PRD_CTG_M AS prdCtgM,
 			T4.PRD_CTG_S AS prdCtgS,
 			T4.FROM_DATE AS prdFromDate,
-			T4.TO_DATE AS prdToDate
+			T4.TO_DATE AS prdToDate -->
 		FROM 
 				BOM_ORDER_TB T1
-			LEFT OUTER JOIN 
+			<!-- LEFT OUTER JOIN 
 				BOM_PAYMENT_TB T2 ON T1.ORDER_NO = T2.ORDER_NO
 			JOIN 
 				BOM_ORD_PRD_TB T3 ON T1.ORDER_NO = T3.ORDER_NO
 			JOIN 
-				BOM_PRODUCT_TB T4 ON T3.PRD_CD = T4.PRD_CD
-		WHERE
-			T1.ORDER_DATE BETWEEN #{srchStdDt} AND #{srchEdDt}
+				BOM_PRODUCT_TB T4 ON T3.PRD_CD = T4.PRD_CD -->
+	<!-- 	WHERE
+			T1.ORDER_DATE BETWEEN #{srchStdDt} AND #{srchEdDt} -->
 	</select >
 
+	
+	
 	<select id="selectListBomOrderPrdTb0001" resultType="orderProductInfo" resultMap="OrdProductInfo" parameterType="orderProductInfo">
 		SELECT
 			T1.ORDER_NO,

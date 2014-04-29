@@ -12,14 +12,14 @@
 function list_Submit(){
 
 	msg = "선택하신 상품을 구매하시겠습니까?" ;
-	document.getElementById("cfrm").action = "orderRegister.do" ;
+	document.getElementById("odfrm").action = "orderRegister.do" ;
 
 	
 	
-	var chk_num = document.cfrm.elements.length;
+	var chk_num = document.odfrm.elements.length;
 	
 	for(var i = 0; i < chk_num; i++){
-		var checkbox_obj = eval("document.cfrm.elements["+i+"]");
+		var checkbox_obj = eval("document.odfrm.elements["+i+"]");
 		if(checkbox_obj.checked == true)	break;
 	}
 
@@ -30,7 +30,7 @@ function list_Submit(){
 		if(confirm(msg)){
 
 			
-			document.getElementById("cfrm").submit() ;
+			document.getElementById("odfrm").submit() ;
 			return false;
 		}
 	}
@@ -52,7 +52,7 @@ function list_Submit(){
 	<div class="container">
 		<c:import url="../inc/orderLnb.jsp" />
 		<div class="sub_content">
-			<form action="#">
+			<form action="orderRegister.do"  id="odfrm" name="odfrm" >
 				<div class="porder_section">
 					<h4>제품주문</h4>
 					<div class="porder_step">
@@ -90,7 +90,7 @@ function list_Submit(){
 										<c:forEach items="${odPrdInfo}" var="odPrdInfo">
 								<tr>
 									<th>
-										<input type="checkbox" id="ord_unit_chk" name="ord_unit_chk"  value="${odPrdInfo.orderNo}" title="상품선택"/>
+										<input type="checkbox" id="ord_unit_chk" name="ord_unit_chk"  value="${odPrdInfo.prdCd}" title="상품선택"/>
 									</th>
 									<td class="product_area leftalign">
 										<span>
@@ -110,24 +110,31 @@ function list_Submit(){
 									<td>>${odPrdInfo.totalPrice}</td>
 									<td>
 										<input type="button" class="btn_choice1">구매하기</button>
-										<!-- <button class="btn_choice2" onClick="confirm_process('','해당 상품을 삭제하시겠습니까?','deleteCartList.do?prdCd=${odPrdInfo.prdCd}');" >삭제하기</button> -->
-										<a href="deleteCartList.do?prdCd=${odPrdInfo.prdCd}">[삭제하기]</a>
+										<input type="button" value="삭제하기"class="btn_choice2" onClick="confirm_process('','해당 상품을 삭제하시겠습니까?','deleteCartList.do?prdCd=${odPrdInfo.prdCd}');" /> 
 									</td>
 								</tr>
 								<tr>
 									<td class="one_choice" colspan="6">
-										상품가격 : 124,000원 + 배송비 : 0원 = 합계 124,000원
-									</td>
-								</tr>
-								<tr>
-									<td class="total_choice" colspan="6">
-										총 주문금액 : 124,000원 + 배송비 : 0원 = 합계 <strong>124,000</strong>원
+										상품가격 : ${odPrdInfo.totalPrice}원 + 배송비 : 0원 = 합계 ${odPrdInfo.totalPrice}원
 									</td>
 								</tr>
 								</c:forEach>
 								</c:when>
 								<c:otherwise><tr><td>장바구니에 상품이 없습니다.</td></tr></c:otherwise>
 								</c:choose>
+								<tr>
+									<c:set var="total"  value="0"/>
+									<td class="total_choice" colspan="6">
+										총 주문금액 : 
+										<c:forEach items="${odPrdInfo}" var="odPrdInfo">
+										${odPrdInfo.totalPrice}원 +
+										<c:set var="total" value="${total+odPrdInfo.totalPrice}"/>
+										</c:forEach>
+										 배송비 : 0원 = 합계 <strong>${total}</strong>원
+									</td>
+								</tr>
+								
+								
 		
 							</tbody>
 						</table>
@@ -136,7 +143,7 @@ function list_Submit(){
 							<button>단품/품절 상품삭제</button>
 						</span>
 						<span class="btn_bottom2">
-							<input type="button" class="btn_boximg1" value="쇼핑계속" onClick="location.href='productList.do'"/>
+							<input type="button" class="btn_boximg1" value="쇼핑계속" onClick="location.href='/product/productList.do'"/>
 							<input type="button" class="btn_boximg2" value="선택상품주문" onClick="list_Submit()"/>
 	
 							<input type="submit" class="btn_boximg3" value="전체상품주문"/>

@@ -44,6 +44,7 @@ public class OrderManageServiceImpl implements IOrderManageService{
 			// 기간에 따른 주문목록 조회
 			orderList = sqlSession.selectList("order.selectListBomOrderTb0001", orderSrchInfo);
 			
+			/*
 			for (OrderInfo orderInfo : orderList) {
 				if (orderInfo.getCustomerInfo() != null ) {
 					CustomerSrchInfo srchInfo = new CustomerSrchInfo();
@@ -61,7 +62,9 @@ public class OrderManageServiceImpl implements IOrderManageService{
 						}
 					}
 				}
-			}
+				
+				
+			}*/
 		} finally {
 			sqlSession.close();
 		}

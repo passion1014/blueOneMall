@@ -10,11 +10,101 @@
 	<c:import url="../inc/lnb.jsp">
 	   <c:param name="slot" value="order"/>
 	</c:import>
+ <div id="Contents">
+	<h1>주문관리 &gt; 주문서리스트 &gt; <strong>전체리스트</strong></h1>
 	
-	<div style="text-align:center;color:#000;width:300px;height:110px;margin:150px auto;padding-top:50px;">
-		<span style="font-weight:bold">현대몰</span> 주문관리페이지입니다.<br><br>원하시는 관리메뉴를 선택해 주세요
+	<form id="sfrm" name="sfrm" method="get" action="./admin.member.php">
+		<input type="hidden" id="slot" name="slot" value="member">
+		<input type="hidden" id="type" name="type" value="member_list">
+		<table>
+			<tr>
+				<td class="left">
+					<div style="margin-top:5px;">
+						<b>주문날짜검색</b> <input type="checkbox" id="schChkDate" name="schChkDate" value="Y" onClick="dateDisable();" /> &nbsp;&nbsp;
+							<input type="text" name="schReqSDate" id="schReqSDate" readonly value="" class="Text Kor" style="width:65px;" /> 일 부터
+							<input type="text" name="schReqEDate" id="schReqEDate" readonly value="" class="Text Kor" style="width:65px;" />일 까지 &nbsp;&nbsp;
+					</div>
+		
+					<div style="margin-top:5px;">
+						<select id="search_status" name="search_status" onChange="sfrm.submit();">
+							<option value="01">:: 주문중 ::</option>
+							<option value="02">:: 결제완료 ::</option>
+							<option value="03">:: 배송중 ::</option>
+							<option value="04">:: 배송완료 ::</option>
+							<option value="05">:: 고객확인 ::</option>
+						</select>
+						
+						<select id="keyfield" name="keyfield">
+							<option value="orderNo">주문번호</option>
+							<option value="cust">주문자</option>
+						</select>
+						<input type="text" id="keyword" name="keyword" class="Text" value="">
+						<input type="submit" value="검색"   class="Small_Button Gray">&nbsp;&nbsp;
+						<input type="button" value="초기화" class="Small_Button Gray" onClick="location.href='./admin.member.php?slot=member&type=member_list'">&nbsp;&nbsp;
+					</div>
+				</td>
+			</tr>
+		</table>
+		</form>    
+	    
+	<div class="left" style="margin-top:15px;"><b>회원 리스트</b> ( 검색 인원 : <?=number_format($totalnum)?> 명 )</div>
+	
+	<table>
+		<colgroup>
+			<col width="5%" />
+			<col width="8%" />
+			<col width="8%" />
+			<col width="*" />
+			<col width="12%" />
+		</colgroup>
+		<tr>
+			<th>주문일</th>
+			<th>주문번호</th>
+			<th>상태</th>
+			<th>주문자</th>
+			<th>관리</th>
+			
+		</tr>
+		<c:choose>
+			<c:when test="${odList.size() != 0}">
+				<c:forEach items="${odList}" var="odList">
+					<tr>
+						<td>
+							${odList.orderDate}
+						</td>
+						<td>
+							${odList.orderNo}
+						</td>
+						<td>
+							<c:if test="${odList.orderStatCd eq '01'}">주문중</c:if>
+							<c:if test="${odList.orderStatCd eq '02'}">결제완료</c:if>
+							<c:if test="${odList.orderStatCd eq '03'}">배송중</c:if>
+							<c:if test="${odList.orderStatCd eq '04'}">배송완료</c:if>
+							<c:if test="${odList.orderStatCd eq '05'}">고객확인</c:if>
+							
+						</td>
+						<td>
+							${odList.customerInfo.custId}
+						</td>
+						
+						<td><input type="button" value="관리"class="Small_Button Gray"onClick="location.href='<?=$_information_ref?>'"></td>
+					</tr>
+						
+				</c:forEach>
+			</c:when>
+			<c:otherwise><tr><td>주문이 없습니다.</td></tr></c:otherwise>
+		</c:choose>
+	
+	</table>
+
+	<div align="center" style="padding-top:10px;">
+	
 	</div>
 	
+	
+</div>
+	
+
 </div>
 </body>
 

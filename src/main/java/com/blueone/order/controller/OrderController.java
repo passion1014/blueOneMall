@@ -77,7 +77,7 @@ public class OrderController {
 			value+="02="+orderProductInfo.getPrdOpSize()+",";
 		}
 		if(orderProductInfo.getPrdSmallImg()!=null){
-			value+="cn="+orderProductInfo.getBuyCnt();
+			value+="cn="+orderProductInfo.getBuyCnt()+",";
 			value+="no="+getOrderCode();
 			Cookie cookie =cki.createCookie("BOM_"+orderProductInfo.getPrdCd(),value,50000);
 			response.addCookie(cookie);//
@@ -112,20 +112,7 @@ public class OrderController {
 		CookieBox cki = new CookieBox(request);
 		List<OrderProductInfo> ord = getCartList(cki);
 		
-		for(OrderProductInfo each : ord){
-			
-			//OrderProduct저장
-			each.setModiUser(cust.getCustId());//user ID 입력
-			orderManageService.registOrderProductInfo(each);
-			
-			//Order 저장
-			OrderInfo orderInfo = new OrderInfo();
-			orderInfo.setOrderNo(each.getOrderNo());
-			orderInfo.setOrderStatCd("01");
-			orderInfo.setCustomerInfo(cust);
-			orderInfo.setModifyUserId(cust.getCustId());
-			orderManageService.registOrderInfo(orderInfo);
-		}
+		
 		
 		model.addAttribute("odPrdInfo",ord);
 		
@@ -149,28 +136,72 @@ public class OrderController {
 	@RequestMapping(value="/order/orderRegister.do")
 	public String orderRegister(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
 		
-		// 주문번호
-		String orderNum = "";
-		
 		StringTokenizer st = new StringTokenizer(orderInfo.getOrd_unit_chk(),",");
+
 		
 		List<OrderProductInfo> oPrdList = new ArrayList<OrderProductInfo>();
+		
+		CookieBox cki = new CookieBox(request);
+		
+		
 		while(st.hasMoreTokens()){ // 반활할 토큰이 있는가? true/false;
-			  OrderProductInfo ordPrd = new OrderProductInfo();
-			  ordPrd.setOrderNo(st.nextToken());
-			  ordPrd=orderManageService.selectOrderPrdInfo(ordPrd);
-			  oPrdList.add(ordPrd);
+			OrderProductInfo odPrdInfo = new OrderProductInfo();
+			
+			String key = st.nextToken();
+			odPrdInfo.setPrdCd(key);
+			ProductInfo prdInfo = new ProductInfo();
+			prdInfo.setPrdCd(key);
+			prdInfo = productManageService.getProductInfDetail(prdInfo);
+
+			odPrdInfo.setPrdNm(prdInfo.getPrdNm());
+			odPrdInfo.setSellPrice(new BigDecimal(prdInfo.getPrdSellPrc()));
+
+			AttachFileInfo att = new AttachFileInfo();
+			att.setAttCdKey(prdInfo.getPrdCd());
+			att.setAttImgType("01");
+			att = attFileManageService.getAttFileInfListImg(att);
+			if (att == null) {
+				odPrdInfo.setPrdSmallImg("");
+			} else {
+
+				odPrdInfo.setPrdSmallImg(att.getAttFilePath());
+			}
+
+			String vl = cki.getValue("BOM_"+key);
+			StringTokenizer st1 = new StringTokenizer(vl, ",");
+			String option = "";
+			
+			while (st1.hasMoreElements()) {
+
+				String s = st1.nextToken();
+
+				if ("01".equals(s.substring(0, 2))) {
+					option += s + ",";
+					odPrdInfo.setPrdOpColor(s.substring(3));
+				}
+				if ("02".equals(s.substring(0, 2))) {
+					option += s + ",";
+					odPrdInfo.setPrdOpSize(s.substring(3));
+				}
+				if("no".equals(s.substring(0, 2))){
+					odPrdInfo.setOrderNo(s.substring(3));
+				}
+				if ("cn".equals(s.substring(0, 2))) {
+					odPrdInfo.setBuyCnt(Integer.parseInt(s.substring(3)));
+					BigDecimal total = new BigDecimal(
+							prdInfo.getPrdSellPrc());
+					total = total.multiply(new BigDecimal(odPrdInfo
+							.getBuyCnt()));
+					odPrdInfo.setTotalPrice(total);
+				}
+
+				odPrdInfo.setPrdOption(option);
+			}
+			
+			oPrdList.add(odPrdInfo);
 			  
 		}
 	
-		if(orderInfo.getOrderNo() !=null && !orderInfo.getOrderNo().isEmpty()){
-			  OrderProductInfo ordPrd = new OrderProductInfo();
-			  ordPrd.setOrderNo(orderInfo.getOrderNo());
-			  ordPrd=orderManageService.selectOrderPrdInfo(ordPrd);
-			  oPrdList.add(ordPrd);
-				
-		}
-
 		model.addAttribute("odPrdInfo",oPrdList);
 		
 		//세션에 잇는 정보를 셋팅
@@ -192,10 +223,36 @@ public class OrderController {
 	//결제페이지-처리
 	@RequestMapping(value="/order/orderRegisterProc.do")
 	public String orderRegisteProc(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
+
+		//세션에 잇는 정보를 셋팅
+		CustomerInfo custom = new CustomerInfo();
+		custom.setCustNm("id1");
+		custom.setTelNo1("02");
+		custom.setTelNo2("123");
+		custom.setTelNo3("4567");
+		custom.setHpNo1("010");
+		custom.setHpNo2("1231");
+		custom.setHpNo3("4567");
+		model.addAttribute("cus",custom);
 		
 		//주문번호
 		String orderNum="";
 		
+		List<OrderProductInfo> ord  = orderInfo.getOrderProductList();
+		for(OrderProductInfo each : ord){
+			
+			//OrderProduct저장
+			each.setModiUser(custom.getCustId());//user ID 입력
+			orderManageService.registOrderProductInfo(each);
+			
+			//Order 저장
+			OrderInfo orderInfo1 = new OrderInfo();
+			orderInfo1.setOrderNo(each.getOrderNo());
+			orderInfo1.setOrderStatCd("01");
+			orderInfo1.setCustomerInfo(custom);
+			orderInfo1.setModifyUserId(custom.getCustId());
+			orderManageService.registOrderInfo(orderInfo1);
+		}
 		
 		
 		//받는사람 저장 - 주문자와 받는 사람이 다를 경우 저장을 해야될것같아서 일단 만들엇음
@@ -357,8 +414,6 @@ public class OrderController {
 		// 키를불러오면 처리해줄 부분
 		for(String each : ckKey){
 			
-			
-			
 			if("BOM".equals(each.substring(0, 3))){
 			
 				OrderProductInfo odPrdInfo = new OrderProductInfo();
@@ -424,6 +479,8 @@ public class OrderController {
 		
 		return ord;
 	}
+	
+	
 
 }
 

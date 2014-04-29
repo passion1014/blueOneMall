@@ -8,7 +8,7 @@ import com.blueone.customer.domain.CustomerInfo;
 import com.blueone.customer.domain.RecipientInfo;
 
 public class OrderInfo {
-	private int idx;
+	private int ordIdx;
 	
 	private String orderNo;				// 주문번호
 	private String orderStatCd;			// 주문상태 (01:주문중, 02:결제완료, 03:배송중, 04:배송완료, 05:고객확인)
@@ -58,10 +58,10 @@ public class OrderInfo {
 	}
 
 	public int getIdx() {
-		return idx;
+		return ordIdx;
 	}
-	public void setIdx(int idx) {
-		this.idx = idx;
+	public void setIdx(int ordIdx) {
+		this.ordIdx = ordIdx;
 	}
 	public String getOrderStatCd() {
 		return orderStatCd;

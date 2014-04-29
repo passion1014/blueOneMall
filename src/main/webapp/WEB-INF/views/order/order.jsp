@@ -21,8 +21,10 @@
 		<c:import url="../inc/orderLnb.jsp" />
 		<div class="sub_content">
 			<form action="orderRegisterProc.do" method="post">
-			<input type="hidden" id="customerInfo.custId"  name="customerInfo.custId"  value="dana">
-			<input type="hidden" id="modifyUserId"  name="modifyUserId"  value="dana">
+			<input type="hidden" id="customerInfo.custId"  name="customerInfo.custId"  value="id1">
+			<input type="hidden" id="modifyUserId"  name="modifyUserId"  value="id1">
+			<input type="hidden" id="orderProductList"  name="orderProductList"  value="${odPrdInfo}" />
+									
 			
 				<div class="porder_section">
 					<h4>제품주문</h4>
@@ -45,9 +47,6 @@
 							</colgroup>
 							<thead>
 								<tr>
-									<th>
-										<input type="checkbox" title="전체상품선택"/>
-									</th>
 									<th>상품명/옵션</th>
 									<th>판매금액</th>
 									<th>수량</th>
@@ -60,9 +59,6 @@
 									<c:when test="${odPrdInfo.size() != 0}">
 										<c:forEach items="${odPrdInfo}" var="odPrdInfo">
 								<tr>
-									<th>
-										<input type="checkbox" title="상품선택"/>
-									</th>
 									<td class="product_area leftalign">
 										<span>
 										<img src="${odPrdInfo.prdSmallImg}"  alt="상품이미지"  width="71" height="71"></span>
@@ -80,26 +76,30 @@
 									</td>
 									<td>${odPrdInfo.totalPrice}</td>
 									<td>
-										<button class="btn_choice1">구매하기</button>
-										<!-- <button class="btn_choice2" onClick="confirm_process('','해당 상품을 삭제하시겠습니까?','deleteCartList.do?prdCd=${odPrdInfo.prdCd}');" >삭제하기</button> -->
-										<a href="deleteCartList.do?prdCd=${odPrdInfo.prdCd}">[삭제하기]</a>
+										<input type="button" value="삭제하기"class="btn_choice2" onClick="confirm_process('','해당 상품을 삭제하시겠습니까?','deleteCartList.do?prdCd=${odPrdInfo.prdCd}');" /> 
 									</td>
 								</tr>
 								<tr>
 									<td class="one_choice" colspan="6">
-										상품가격 : 124,000원 + 배송비 : 0원 = 합계 124,000원
-									</td>
-								</tr>
-								<tr>
-									<td class="total_choice" colspan="6">
-										총 주문금액 : 124,000원 + 배송비 : 0원 = 합계 <strong>124,000</strong>원
+										상품가격 : ${odPrdInfo.totalPrice}원 + 배송비 : 0원 = 합계 ${odPrdInfo.totalPrice}원
 									</td>
 								</tr>
 								</c:forEach>
 								</c:when>
 								<c:otherwise><tr><td>장바구니에 상품이 없습니다.</td></tr></c:otherwise>
 								</c:choose>
-		
+								<tr>
+									<c:set var="total"  value="0"/>
+									<td class="total_choice" colspan="6">
+										총 주문금액 : 
+										<c:forEach items="${odPrdInfo}" var="odPrdInfo">
+										${odPrdInfo.totalPrice}원 +
+										<c:set var="total" value="${total+odPrdInfo.totalPrice}"/>
+										</c:forEach>
+										 배송비 : 0원 = 합계 <strong>${total}</strong>원
+									</td>
+								</tr>
+								
 							</tbody>
 						</table>
 						<h5>주문서 작성 및 결제</h5>
