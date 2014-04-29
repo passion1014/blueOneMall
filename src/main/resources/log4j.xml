@@ -11,7 +11,7 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="com.blueone.controller">
+	<logger name="com.blueone.admin">
 		<level value="info" />
 	</logger>
 	
@@ -34,7 +34,7 @@
 
 	<!-- Root Logger -->
 	<root>
-		<priority value="trace" />
+		<priority value="warn" />
 		<appender-ref ref="console" />
 	</root>
 	
