@@ -78,12 +78,15 @@ public class OrderController {
 		}
 		if(orderProductInfo.getPrdSmallImg()!=null){
 			value+="cn="+orderProductInfo.getBuyCnt();
-			Cookie cookie =cki.createCookie("BOM_"+orderProductInfo.getPrdCd(),value,1000);//여기까지 디버깅으로 값이 들어가는것확인
+			value+="no="+getOrderCode();
+			Cookie cookie =cki.createCookie("BOM_"+orderProductInfo.getPrdCd(),value,50000);
 			response.addCookie(cookie);//
 	
 		
 		}
-			
+		
+		
+		
 		/*
 		if(pass.equals("y")){
 			return "redirect:orderRegister.do";
@@ -91,7 +94,8 @@ public class OrderController {
 			return "redirect:cartListView.do";
 		}
 		*/
-		return "redirect:orderRegister.do";
+		
+		return "redirect:cartListView.do";
 			
 		
 	}
@@ -100,8 +104,29 @@ public class OrderController {
 	@RequestMapping(value="/order/cartListView.do")
 	public String orderView(@ModelAttribute("orderProductInfo") OrderProductInfo orderProductInfo,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
 
+		//user session이 있으면 넣을 부분
+		CustomerInfo cust = new CustomerInfo();
+		cust.setCustId("id1");
+		
+		
 		CookieBox cki = new CookieBox(request);
 		List<OrderProductInfo> ord = getCartList(cki);
+		
+		for(OrderProductInfo each : ord){
+			
+			//OrderProduct저장
+			each.setModiUser(cust.getCustId());//user ID 입력
+			orderManageService.registOrderProductInfo(each);
+			
+			//Order 저장
+			OrderInfo orderInfo = new OrderInfo();
+			orderInfo.setOrderNo(each.getOrderNo());
+			orderInfo.setOrderStatCd("01");
+			orderInfo.setCustomerInfo(cust);
+			orderInfo.setModifyUserId(cust.getCustId());
+			orderManageService.registOrderInfo(orderInfo);
+		}
+		
 		model.addAttribute("odPrdInfo",ord);
 		
 		return "order/cartList";
@@ -110,6 +135,7 @@ public class OrderController {
 	//장바구니 상품 삭제
 	@RequestMapping(value="/order/deleteCartList.do", method = RequestMethod.GET)
 	public String deleteCartList(@ModelAttribute("orderProductInfo") OrderProductInfo orderProductInfo,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
+		
 		CookieBox cki = new CookieBox(request);
 		
 		Cookie cookie =cki.createCookie("BOM_"+orderProductInfo.getPrdCd(),"",-1);
@@ -121,11 +147,31 @@ public class OrderController {
 			
 	//결제페이지
 	@RequestMapping(value="/order/orderRegister.do")
-	public String orderRegister(@ModelAttribute("orderProductInfo") OrderProductInfo orderProductInfo,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
-		//결제상품 보여주기
-		CookieBox cki = new CookieBox(request);
-		List<OrderProductInfo> ord = getCartList(cki);
-		model.addAttribute("odPrdInfo",ord);
+	public String orderRegister(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
+		
+		// 주문번호
+		String orderNum = "";
+		
+		StringTokenizer st = new StringTokenizer(orderInfo.getOrd_unit_chk(),",");
+		
+		List<OrderProductInfo> oPrdList = new ArrayList<OrderProductInfo>();
+		while(st.hasMoreTokens()){ // 반활할 토큰이 있는가? true/false;
+			  OrderProductInfo ordPrd = new OrderProductInfo();
+			  ordPrd.setOrderNo(st.nextToken());
+			  ordPrd=orderManageService.selectOrderPrdInfo(ordPrd);
+			  oPrdList.add(ordPrd);
+			  
+		}
+	
+		if(orderInfo.getOrderNo() !=null && !orderInfo.getOrderNo().isEmpty()){
+			  OrderProductInfo ordPrd = new OrderProductInfo();
+			  ordPrd.setOrderNo(orderInfo.getOrderNo());
+			  ordPrd=orderManageService.selectOrderPrdInfo(ordPrd);
+			  oPrdList.add(ordPrd);
+				
+		}
+
+		model.addAttribute("odPrdInfo",oPrdList);
 		
 		//세션에 잇는 정보를 셋팅
 		CustomerInfo custom = new CustomerInfo();
@@ -138,6 +184,8 @@ public class OrderController {
 		custom.setHpNo3("4567");
 		model.addAttribute("cus",custom);
 		
+		
+		
 		return "order/order";
 	}
 	
@@ -146,16 +194,9 @@ public class OrderController {
 	public String orderRegisteProc(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
 		
 		//주문번호
-		String orderNum=getOrderCode();
+		String orderNum="";
 		
-		//결제상품 저장
-		CookieBox cki = new CookieBox(request);
-		List<OrderProductInfo> ord = getCartList(cki);
-		for(OrderProductInfo each : ord){
-			each.setOrderNo(orderNum);
-			each.setModiUser("daba");
-			orderManageService.registOrderProductInfo(each);
-		}
+		
 		
 		//받는사람 저장 - 주문자와 받는 사람이 다를 경우 저장을 해야될것같아서 일단 만들엇음
 		RecipientInfo reInf= orderInfo.getReciInfo();
@@ -171,7 +212,7 @@ public class OrderController {
 		
 		//주문 저장
 		orderInfo.setOrderNo(orderNum);
-		orderInfo.setOrderStatCd("02");
+		orderInfo.setOrderStatCd("01");
 		orderManageService.registOrderInfo(orderInfo);
 		
 	return "redirect:orderComplete.do?orderNo="+orderNum;
@@ -252,8 +293,6 @@ public class OrderController {
 	public String orderError(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model){
 		return "order/orderError";
 	}
-	
-	
 	//주문코드 생성하는 메소드 - 이것도 바꿔주심 감사
 	public String getOrderCode(){
 
@@ -318,59 +357,67 @@ public class OrderController {
 		// 키를불러오면 처리해줄 부분
 		for(String each : ckKey){
 			
+			
+			
 			if("BOM".equals(each.substring(0, 3))){
-			OrderProductInfo odPrdInfo = new OrderProductInfo();
-			String key=each.substring(4);
-			odPrdInfo.setPrdCd(key);
-			ProductInfo prdInfo = new ProductInfo();
-			prdInfo.setPrdCd(key);
-			prdInfo=productManageService.getProductInfDetail(prdInfo);
 			
-			odPrdInfo.setPrdNm(prdInfo.getPrdNm());
-			odPrdInfo.setSellPrice(new BigDecimal(prdInfo.getPrdSellPrc()));
-			
-			AttachFileInfo att = new AttachFileInfo();
-			att.setAttCdKey(prdInfo.getPrdCd());
-			att.setAttImgType("01");
-			att = attFileManageService.getAttFileInfListImg(att);
-			if(att==null){
-				odPrdInfo.setPrdSmallImg("");
-			}else { 
+				OrderProductInfo odPrdInfo = new OrderProductInfo();
 				
-				odPrdInfo.setPrdSmallImg(att.getAttFilePath());
-			}
-			
-			
-			String vl=cki.getValue(each);
-			StringTokenizer st = new StringTokenizer(vl,",");
-			String option="";
-			while(st.hasMoreElements()) {
-					
+				String key = each.substring(4);
+				odPrdInfo.setPrdCd(key);
+				ProductInfo prdInfo = new ProductInfo();
+				prdInfo.setPrdCd(key);
+				prdInfo = productManageService.getProductInfDetail(prdInfo);
+
+				odPrdInfo.setPrdNm(prdInfo.getPrdNm());
+				odPrdInfo.setSellPrice(new BigDecimal(prdInfo.getPrdSellPrc()));
+
+				AttachFileInfo att = new AttachFileInfo();
+				att.setAttCdKey(prdInfo.getPrdCd());
+				att.setAttImgType("01");
+				att = attFileManageService.getAttFileInfListImg(att);
+				if (att == null) {
+					odPrdInfo.setPrdSmallImg("");
+				} else {
+
+					odPrdInfo.setPrdSmallImg(att.getAttFilePath());
+				}
+
+				String vl = cki.getValue(each);
+				StringTokenizer st = new StringTokenizer(vl, ",");
+				String option = "";
+				
+				while (st.hasMoreElements()) {
+
 					String s = st.nextToken();
-					
-					if("01".equals(s.substring(0, 2))){
-						option+=s+",";
+
+					if ("01".equals(s.substring(0, 2))) {
+						option += s + ",";
 						odPrdInfo.setPrdOpColor(s.substring(3));
 					}
-					if("02".equals(s.substring(0, 2))){
-						option+=s+",";
+					if ("02".equals(s.substring(0, 2))) {
+						option += s + ",";
 						odPrdInfo.setPrdOpSize(s.substring(3));
 					}
-					if("cn".equals(s.substring(0, 2))){
+					if("no".equals(s.substring(0, 2))){
+						odPrdInfo.setOrderNo(s.substring(3));
+					}
+					if ("cn".equals(s.substring(0, 2))) {
 						odPrdInfo.setBuyCnt(Integer.parseInt(s.substring(3)));
-						BigDecimal total = new BigDecimal(prdInfo.getPrdSellPrc()) ;
-						total=total.multiply(new BigDecimal(odPrdInfo.getBuyCnt()));
+						BigDecimal total = new BigDecimal(
+								prdInfo.getPrdSellPrc());
+						total = total.multiply(new BigDecimal(odPrdInfo
+								.getBuyCnt()));
 						odPrdInfo.setTotalPrice(total);
 					}
-					
+
 					odPrdInfo.setPrdOption(option);
 				}
-				
-				
-				if(vl.equals("")) ;
+
+				if (vl.equals(""));
 				else ord.add(odPrdInfo);
-			}
-		}
+			}//if end
+		}//for-end
 		
 		
 		
@@ -378,7 +425,7 @@ public class OrderController {
 		return ord;
 	}
 
-
+}
 
 
 }

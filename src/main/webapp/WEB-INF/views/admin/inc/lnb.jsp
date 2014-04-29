@@ -78,8 +78,22 @@
 	<div id="LNB">
 		<h1>주문관리</h1>
 		<ul>
-			<h2>&nbsp;</h2>
-			<li>&nbsp;</li>
+			<h2>주문서리스트</h2>
+			<li><a href="orderList.do">전체리스트</a></li>
+			<li>신청중</li>
+			<li>배송준비중</li>
+			<li>배송중</li>
+			<li>주문완료</li>
+			<li>최소신청</li>
+			<li>취소완료</li>
+			<li>반품신청</li>
+			<li>반품완료</li>
+		</ul>
+		<ul>
+			<h2>거래내역조회</h2>
+			<li>월별거래내역</li>
+			<li>상품별거래내역</li>
+			
 		</ul>
 	</div>
 	</c:when>

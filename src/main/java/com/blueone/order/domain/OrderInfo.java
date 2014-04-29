@@ -29,8 +29,15 @@ public class OrderInfo {
 	private String prdCD;
 	
 	
+	private String ord_unit_chk; //다중 checkbox
 	
 	
+	public String getOrd_unit_chk() {
+		return ord_unit_chk;
+	}
+	public void setOrd_unit_chk(String ord_unit_chk) {
+		this.ord_unit_chk = ord_unit_chk;
+	}
 	public OrderProductInfo getOrdPrd() {
 		return ordPrd;
 	}
