@@ -2,19 +2,27 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:import  url="../inc/topSub.jsp" />
+<script type="text/javascript">
+<!--
+function list_Submit(){
 
+	msg = "선택하신 상품을 구매하시겠습니까?" ;
+	
+	document.getElementById("prdfm").action = "/order/orderDirect.do" ;
+	document.getElementById("prdfm").submit() ;
+
+}
+-->
+</script>
 <body>
 <div class="wrap">
 	<!--  header 시작   -->
 	<c:import url="../inc/header.jsp"/>
 	<!--  header 끝   -->
-
+	<c:import url="../inc/productLnb.jsp"/>
 	<div class="container">
-	
-		<c:import url="../inc/productLnb.jsp"/>
-		
 		<div class="sub_content">
-			<form action="/order/cartList.do" method="post">
+			<form action="/order/cartList.do" method="post" id="prdfm" name="prdfm">
 			<input type="hidden" id="prdCd"  name="prdCd"  value="${pro.prdCd}">
 			<input type="hidden" id="prdNm"  name="prdNm"  value="${pro.prdNm}">
 			<input type="hidden" id="sellPrice"  name="sellPrice"  value="${pro.prdSellPrc}">
@@ -127,7 +135,7 @@
 										</select>	
 									</td>
 								</tr>
-								<tr>
+								<!-- <tr>
 									<th class="bottomline">추가옵션</th>
 									<td colspan="2" class="bottomline">
 										<select>
@@ -160,16 +168,16 @@
 									<td class="bgcolor salign">
 										<strong class="stext">66,700 원</strong>
 									</td>
-								</tr>
+								</tr> -->
 								<tr>
 									<th class="bgcolor bottomline">총 합계 금액</th>
 									<td colspan="2" class="bgcolor salign bottomline">
-										<strong class="stext">133,400 원</strong>
+										<strong class="stext">${document.getElementById('buyCnt').value()*pro.prdSellPrc} 원</strong>
 									</td>
 								</tr>
 								<tr>
 									<td colspan="3" class="btn_box">
-										<input type="submit" value="바로 구매하기" class="btn_buy" title="구매하기"/>
+										<input type="button" value="바로 구매하기" onClick="list_Submit()" class="btn_buy" title="구매하기"/>
 										<input type="submit" class="btn_buy" value="장바구니">
 									</td>
 								</tr>

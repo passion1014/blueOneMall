@@ -30,6 +30,7 @@ import com.blueone.common.util.CookieBox;
 import com.blueone.customer.domain.CustomerContactInfo;
 import com.blueone.customer.domain.CustomerInfo;
 import com.blueone.customer.domain.RecipientInfo;
+import com.blueone.customer.service.ICustomerManageService;
 import com.blueone.order.domain.OrderInfo;
 import com.blueone.order.domain.OrderProductInfo;
 import com.blueone.order.domain.OrderSrchInfo;
@@ -45,6 +46,7 @@ public class OrderController {
 	@Autowired IOrderManageService orderManageService;
 	@Autowired IProductManageService productManageService;
 	@Autowired IAttachFileManageService attFileManageService;
+	@Autowired ICustomerManageService customerManageService;
 	
 	@RequestMapping(value = "/order/getOrderList.do", method = RequestMethod.GET)
 	public String getOrderInfoListByDuration(@ModelAttribute("orderSrchInfo") @Valid OrderSrchInfo orderSrchInfo, BindingResult result, Model model) {
@@ -87,17 +89,116 @@ public class OrderController {
 		
 		
 		
-		/*
-		if(pass.equals("y")){
-			return "redirect:orderRegister.do";
-		}else{
-			return "redirect:cartListView.do";
-		}
-		*/
+
 		
 		return "redirect:cartListView.do";
 			
 		
+	}
+
+	// 장바구니-수량 수정
+	@RequestMapping(value="/order/editBuyCnt.do")
+	public String editBuyCnt(@ModelAttribute("orderProductInfo") OrderProductInfo orderProductInfo,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
+		//user session이 있으면 넣을 부분
+		CustomerInfo cust = new CustomerInfo();
+		cust.setCustId("id1");
+				
+				
+		CookieBox cki = new CookieBox(request);
+		List<OrderProductInfo> ord = getCartList(cki);
+				
+			
+		for(OrderProductInfo each:ord){
+			if(each.getPrdCd().equals(orderProductInfo.getPrdCd())){
+				
+				String cookieVal = cki.getValue("BOM_"+orderProductInfo.getPrdCd());
+				StringTokenizer st = new StringTokenizer(cookieVal, ",");
+				String option = "";
+				String value="";
+				while (st.hasMoreElements()) {
+
+					String s = st.nextToken();
+
+					if ("cn".equals(s.substring(0, 2))) {
+						each.setBuyCnt(orderProductInfo.getBuyCnt());
+						BigDecimal total =each.getSellPrice();
+						total = total.multiply(new BigDecimal(each.getBuyCnt()));
+						each.setTotalPrice(total);
+						value+=","+"cn="+orderProductInfo.getBuyCnt()+",";
+					}else{
+						value+=s;
+					}
+
+					
+				}
+				
+				Cookie cookie =cki.createCookie("BOM_"+orderProductInfo.getPrdCd(),value,50000);
+				response.addCookie(cookie);//
+			}
+		}
+		
+		
+		model.addAttribute("odPrdInfo",ord);
+		
+		
+		return "order/cartList";
+			
+		
+	}
+	//바로구매
+	@RequestMapping(value="/order/orderDirect.do")
+	public String orderDirect(@ModelAttribute("orderInfo") OrderProductInfo orderProductInfo,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
+	
+		
+		
+		//세션에 잇는 정보를 셋팅
+		CustomerInfo custom = new CustomerInfo();
+		custom.setCustNm("dana");
+		custom.setTelNo1("02");
+		custom.setTelNo2("123");
+		custom.setTelNo3("4567");
+		custom.setHpNo1("010");
+		custom.setHpNo2("1231");
+		custom.setHpNo3("4567");
+		model.addAttribute("cus",custom);
+		
+		List<OrderProductInfo> oPrdList = new ArrayList<OrderProductInfo>();
+		
+		
+		String key = orderProductInfo.getPrdCd();
+		ProductInfo prdInfo = new ProductInfo();
+		prdInfo.setPrdCd(key);
+		prdInfo = productManageService.getProductInfDetail(prdInfo);
+
+		orderProductInfo.setPrdNm(prdInfo.getPrdNm());
+		orderProductInfo.setSellPrice(new BigDecimal(prdInfo.getPrdSellPrc()));
+
+		AttachFileInfo att = new AttachFileInfo();
+		att.setAttCdKey(prdInfo.getPrdCd());
+		att.setAttImgType("01");
+		att = attFileManageService.getAttFileInfListImg(att);
+		if (att == null) {
+			orderProductInfo.setPrdSmallImg("");
+		} else {
+
+			orderProductInfo.setPrdSmallImg(att.getAttFilePath());
+		}
+
+	
+			
+		orderProductInfo.setOrderNo(getOrderCode());
+
+		BigDecimal total = new BigDecimal(prdInfo.getPrdSellPrc());
+		total = total.multiply(new BigDecimal(orderProductInfo.getBuyCnt()));
+		orderProductInfo.setTotalPrice(total);
+
+		oPrdList.add(orderProductInfo);
+		
+	
+
+		model.addAttribute("odPrdInfo",oPrdList);
+	
+		return "order/order";
 	}
 	
 	//장바구니 보여줌
@@ -132,7 +233,7 @@ public class OrderController {
 		return "redirect:cartListView.do";
 	}
 			
-	//결제페이지
+	//장바구니->결제페이지
 	@RequestMapping(value="/order/orderRegister.do")
 	public String orderRegister(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
 		
@@ -226,7 +327,8 @@ public class OrderController {
 
 		//세션에 잇는 정보를 셋팅
 		CustomerInfo custom = new CustomerInfo();
-		custom.setCustNm("id1");
+		custom.setCustId("id1");
+		custom.setCustNm("dana");
 		custom.setTelNo1("02");
 		custom.setTelNo2("123");
 		custom.setTelNo3("4567");
@@ -242,6 +344,7 @@ public class OrderController {
 		for(OrderProductInfo each : ord){
 			
 			//OrderProduct저장
+			each.setOrderNo(getOrderCode());
 			each.setModiUser(custom.getCustId());//user ID 입력
 			orderManageService.registOrderProductInfo(each);
 			
@@ -254,23 +357,11 @@ public class OrderController {
 			orderManageService.registOrderInfo(orderInfo1);
 		}
 		
+		RecipientInfo re = new RecipientInfo();
+		re=orderInfo.getReciInfo();
+		custom.setCustAdd(re.getAdd1());
+		customerManageService.updateCustomerInf(custom);
 		
-		//받는사람 저장 - 주문자와 받는 사람이 다를 경우 저장을 해야될것같아서 일단 만들엇음
-		RecipientInfo reInf= orderInfo.getReciInfo();
-		String phone = reInf.getPhone1()+reInf.getPhone2()+reInf.getPhone3();
-		reInf.setReciPh(phone);
-		String mobile = reInf.getMobile1()+reInf.getMobile2()+reInf.getMobile3();
-		reInf.setReciMb(mobile);
-		reInf.setReciOdNum(orderNum);
-		String address=reInf.getZipCd1()+" "+reInf.getAdd1()+" "+reInf.getAdd2();
-		reInf.setReciAdd(address);
-		orderInfo.setReciInfo(reInf);
-		orderManageService.registRecipientInfo(reInf);
-		
-		//주문 저장
-		orderInfo.setOrderNo(orderNum);
-		orderInfo.setOrderStatCd("01");
-		orderManageService.registOrderInfo(orderInfo);
 		
 	return "redirect:orderComplete.do?orderNo="+orderNum;
 }
@@ -335,11 +426,11 @@ public class OrderController {
 		
 		model.addAttribute("odPrdInfo",opResInf);
 		
-		RecipientInfo reInf = new RecipientInfo();
+		/*RecipientInfo reInf = new RecipientInfo();
 		reInf.setReciOdNum(odNo);
 		reInf = orderManageService.selectRecipientInfo(reInf);
 		model.addAttribute("reInfo",reInf);
-			
+		*/	
 	
 		
 		return "order/orderComplete";
@@ -424,6 +515,7 @@ public class OrderController {
 				prdInfo.setPrdCd(key);
 				prdInfo = productManageService.getProductInfDetail(prdInfo);
 
+				odPrdInfo.setPrdCd(key);
 				odPrdInfo.setPrdNm(prdInfo.getPrdNm());
 				odPrdInfo.setSellPrice(new BigDecimal(prdInfo.getPrdSellPrc()));
 

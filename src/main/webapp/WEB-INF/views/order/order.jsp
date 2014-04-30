@@ -22,7 +22,7 @@
 		<div class="sub_content">
 			<form action="orderRegisterProc.do" method="post">
 			<input type="hidden" id="customerInfo.custId"  name="customerInfo.custId"  value="id1">
-			<input type="hidden" id="modifyUserId"  name="modifyUserId"  value="id1">
+			<input type="hidden" id="customerInfo.modifyUserId"  name="customerInfo.modifyUserId"  value="id1">
 			<input type="hidden" id="orderProductList"  name="orderProductList"  value="${odPrdInfo}" />
 									
 			
@@ -57,11 +57,17 @@
 							<tbody>
 								<c:choose>
 									<c:when test="${odPrdInfo.size() != 0}">
-										<c:forEach items="${odPrdInfo}" var="odPrdInfo">
+										<c:forEach items="${odPrdInfo}" var="odPrdInfo" varStatus="i">
 								<tr>
 									<td class="product_area leftalign">
 										<span>
 										<img src="${odPrdInfo.prdSmallImg}"  alt="상품이미지"  width="71" height="71"></span>
+										<input type="hidden" id="orderProductList[${i.index}].prdCd" name="orderProductList[${i.index}].prdCd"  value="${odPrdInfo.prdCd}"  />
+										<input type="hidden" id="orderProductList[${i.index}].orderNo" name="orderProductList[${i.index}].orderNo"  value="${odPrdInfo.orderNo}"  />
+										<input type="hidden" id="orderProductList[${i.index}].buyCnt" name="orderProductList[${i.index}].buyCnt"  value="${odPrdInfo.buyCnt}"  />
+										<input type="hidden" id="orderProductList[${i.index}].prdOption" name="orderProductList[${i.index}].prdOption"  value="${odPrdInfo.prdOption}"  />
+										 
+										 
 										<span>
 											${odPrdInfo.prdNm}
 											<c:if test="${'NULL' ne odPrdInfo.prdOpColor}">/${odPrdInfo.prdOpColor}</c:if>
@@ -227,11 +233,10 @@
 									<td colspan="3" class="address_box">
 										<span class="adr_box1">
 											<input type="text" title="우편번호"  id="reciInfo.zipCd1" name="reciInfo.zipCd1" />
-											<button>우편번호 찾기</button>
+											<input type="button" value="우편번호 찾기"onClick="openWin('/user/searchZipCode.do','searchZipForm',600,450,'scrollbars=no');"/><br/>
 										</span>
 										<span class="adr_box2">
 											<input type="text" title="자동주소" id="reciInfo.add1" name="reciInfo.add1" />
-											<input type="text" title="상세주소" id="reciInfo.add2" name="reciInfo.add2" />
 										</span>
 									</td>
 								</tr>

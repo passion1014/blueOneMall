@@ -24,7 +24,7 @@ function list_Submit(){
 	}
 
 	if(i == chk_num) {
-		alert("먼저 처리하고자 하는 정보를 선택하여 주십시오");
+		alert("먼저 상품을 선택하여 주십시오");
 		return false;
 	} else {
 		if(confirm(msg)){
@@ -34,6 +34,62 @@ function list_Submit(){
 			return false;
 		}
 	}
+
+}
+
+function allChk(obj){
+    var chkObj = document.getElementsByName("ord_unit_chk");
+    var rowCnt = chkObj.length - 1;
+    var check = obj.checked;
+    if (check) {﻿
+        for (var i=0; i<=rowCnt; i++){
+         if(chkObj[i].type == "checkbox")
+             chkObj[i].checked = true; 
+        }
+    } else {
+        for (var i=0; i<=rowCnt; i++) {
+         if(chkObj[i].type == "checkbox"){
+             chkObj[i].checked = false; 
+         }
+        }
+    }
+} 
+
+function all_Submit(){
+
+	 var chkObj = document.getElementsByName("ord_unit_chk");
+	 var rowCnt = chkObj.length - 1;
+	
+	    ﻿
+	        for (var i=0; i<=rowCnt; i++){
+	         if(chkObj[i].type == "checkbox")
+	             chkObj[i].checked = true; 
+	        }
+	    
+	       
+	   
+	 list_Submit();
+	
+		
+
+}
+
+function cnt_UP(){
+
+	 var chkObj = document.getElementsByName("ord_unit_chk");
+	 var rowCnt = chkObj.length - 1;
+	
+	    ﻿
+	        for (var i=0; i<=rowCnt; i++){
+	         if(chkObj[i].type == "checkbox")
+	             chkObj[i].checked = true; 
+	        }
+	    
+	       
+	   
+	 list_Submit();
+	
+		
 
 }
 -->
@@ -75,7 +131,7 @@ function list_Submit(){
 							<thead>
 								<tr>
 									<th>
-										<input type="checkbox" name="ord_multi_chk" onClick="allCheckbox('document.cfrm.ord_unit_chk','ord_multi_chk');" title="전체상품선택"/>
+										<input type="checkbox" name="ord_multi_chk" onClick="allChk(this);" title="전체상품선택"/>
 									</th>
 									<th>상품명/옵션</th>
 									<th>판매금액</th>
@@ -88,6 +144,7 @@ function list_Submit(){
 								<c:choose>
 									<c:when test="${odPrdInfo.size() != 0}">
 										<c:forEach items="${odPrdInfo}" var="odPrdInfo">
+										 
 								<tr>
 									<th>
 										<input type="checkbox" id="ord_unit_chk" name="ord_unit_chk"  value="${odPrdInfo.prdCd}" title="상품선택"/>
@@ -104,13 +161,13 @@ function list_Submit(){
 									</td>
 									<td>${odPrdInfo.sellPrice}</td>
 									<td>
-										<span class="input_text"><input type="text" value="${odPrdInfo.buyCnt}" title="수량기입"><button class="btn_triangle1"></button></span>
-										<span class="input_btn"><input type="button" value="수정" title="수정" onClick="location.href='productList.do'"><button class="btn_triangle2"></button></span>
+										<span class="input_text"><input type="text" value="${odPrdInfo.buyCnt}" id="buyCnt" nam="buyCnt" title="수량기입"><button class="btn_triangle1" ></button></span>
+										<span class="input_btn"><input type="button" value="수정" title="수정" onClick="location.href='editBuyCnt.do?prdCd=${odPrdInfo.prdCd}&buyCnt='+document.getElementById('buyCnt').value;"><button class="btn_triangle2"></button></span>
 									</td>
-									<td>>${odPrdInfo.totalPrice}</td>
+									<td>${odPrdInfo.totalPrice}</td>
 									<td>
-										<input type="button" class="btn_choice1">구매하기</button>
-										<input type="button" value="삭제하기"class="btn_choice2" onClick="confirm_process('','해당 상품을 삭제하시겠습니까?','deleteCartList.do?prdCd=${odPrdInfo.prdCd}');" /> 
+										<input type="button" value="구매하기 "class="btn_choice1" onClick="location.href='orderDirect.do?prdCd=${odPrdInfo.prdCd}&orderNo=${odPrdInfo.orderNo}&prdOpColor=${odPrdInfo.prdOpColor}&buyCnt='+document.getElementById('buyCnt').value;"/>
+										<input type="button" value="삭제하기" class="btn_choice2" onClick="confirm_process('','해당 상품을 삭제하시겠습니까?','deleteCartList.do?prdCd=${odPrdInfo.prdCd}');" /> 
 									</td>
 								</tr>
 								<tr>
@@ -146,7 +203,7 @@ function list_Submit(){
 							<input type="button" class="btn_boximg1" value="쇼핑계속" onClick="location.href='/product/productList.do'"/>
 							<input type="button" class="btn_boximg2" value="선택상품주문" onClick="list_Submit()"/>
 	
-							<input type="submit" class="btn_boximg3" value="전체상품주문"/>
+							<input type="button" class="btn_boximg3" value="전체상품주문" onClick="all_Submit();"/>
 						</span>
 					</div>
 				</div>
