@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="config">
+	<resultMap id="ConfigMap" type="com.blueone.admin.domain.ConfigInfo">
+		<result property="siteName" column="SITE_NAME" javaType="java.lang.String"/>
+		<result property="siteDomain" column="SITE_DOMAIN" javaType="java.lang.String"/>
+		<result property="siteMaster" column="SITE_MASTER" javaType="java.lang.String"/>
+		<result property="sitePh" column="SITE_PHONE" javaType="java.lang.String"/>
+		<result property="siteHp" column="SITE_HP" javaType="java.lang.String"/>
+		<result property="siteEmail" column="SITE_EMAIL" javaType="java.lang.String"/>
+		<result property="buyPrice" column="BUY_PRICE" javaType="int"/>
+		<result property="trasferPrice" column="TRANSFER_PRICE" javaType="int"/>
+		<result property="transferOffice" column="TRANSFER_OFFICE" javaType="java.lang.String"/>
+	</resultMap>
+
+
+	<update id="updateBomAdImgtb0001" parameterType="com.blueone.admin.domain.ConfigInfo">
+		UPDATE BOM_CONF_TB
+
+		SET
+			`SITE_NAME` = #{siteName} ,
+			`SITE_DOMAIN` = #{siteDomain} ,
+			`SITE_MASTER` = #{siteMaster} ,
+			`SITE_PHONE` = #{sitePh} ,
+			`SITE_HP` = #{siteHp} ,
+			`SITE_EMAIL` = #{siteEmail} ,
+			`BUY_PRICE` = #{buyPrice} ,
+			`TRANSFER_PRICE` = #{trasferPrice} ,
+			`TRANSFER_OFFICE` = #{transferOffice}
+	</update>
+
+	<select id="selectListBomConfTb0001" resultType="com.blueone.admin.domain.ConfigInfo" resultMap="ConfigMap">
+		SELECT
+			T1.SITE_NAME,
+			T1.SITE_DOMAIN,
+			T1.SITE_MASTER,
+			T1.SITE_PHONE,
+			T1.SITE_HP,
+			T1.SITE_EMAIL,
+			T1.BUY_PRICE,
+			T1.TRANSFER_PRICE,
+			T1.TRANSFER_OFFICE
+		FROM 
+				BOM_CONF_TB T1
+	</select>
+
+</mapper>

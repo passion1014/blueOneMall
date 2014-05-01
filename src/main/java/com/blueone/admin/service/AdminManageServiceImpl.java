@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.blueone.admin.domain.AccountInfo;
 import com.blueone.admin.domain.AdminInfo;
 import com.blueone.admin.domain.AdminLoginInfo;
+import com.blueone.admin.domain.ConfigInfo;
 import com.blueone.category.domain.CategoryInfo;
 import com.blueone.common.util.MsgEnum;
 
@@ -336,5 +337,56 @@ public class AdminManageServiceImpl implements IAdminManageService {
 		return rst;
 	}
 
+
+	//운영설정-수정
+	@Override
+	public int editConfigInf(ConfigInfo configInfo) {
+		int rst = -1;
 		
+	
+		
+		// -----------------------------------------------
+		// 조회한 결과값이 있으면 DB업데이트
+		// -----------------------------------------------
+		
+			SqlSession sqlSession = sqlSessionFactory.openSession();
+			try {
+				// DB 수행
+				rst = sqlSession.update("config.updateBomAdImgtb0001", configInfo);
+				
+			} finally {
+				sqlSession.close();
+			}
+		
+		
+		return rst;
+	}
+	
+	/* 
+	 *운영설정-조회
+	 */
+	@Override
+	public ConfigInfo selectConfigInf() {
+		
+		ConfigInfo result = new ConfigInfo();
+		
+		// -----------------------------------------------
+		// 데이터 조회
+		// -----------------------------------------------
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		
+		try {
+			
+			
+			result = sqlSession.selectOne("config.selectListBomConfTb0001");
+			
+		} finally {
+			sqlSession.close();
+		}
+
+		
+		return result;
+	}
+
+	
 }

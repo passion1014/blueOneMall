@@ -166,41 +166,103 @@ public class OrderController {
 		
 		int IDX =orderInfo.getIdx();
 		
-		List<OrderProductInfo> ord  = orderInfo.getOrderProductList();
+		StringTokenizer st = new StringTokenizer(orderInfo.getOrd_unit_chk(),",");
+
 		
-		OrderProductInfo modi = ord.get(IDX);
+		List<OrderProductInfo> oPrdList = new ArrayList<OrderProductInfo>();
+		
 		CookieBox cki = new CookieBox(request);
 		
-		String cookieVal = cki.getValue("BOM_"+modi.getPrdCd());
-		StringTokenizer st = new StringTokenizer(cookieVal, ",");
-		String value="";
 		
-		while (st.hasMoreElements()) {
+		while(st.hasMoreTokens()){ // 반활할 토큰이 있는가? true/false;
+			OrderProductInfo odPrdInfo = new OrderProductInfo();
+			
+			String key = st.nextToken();
+			odPrdInfo.setPrdCd(key);
+			ProductInfo prdInfo = new ProductInfo();
+			prdInfo.setPrdCd(key);
+			prdInfo = productManageService.getProductInfDetail(prdInfo);
 
-			String s = st.nextToken();
+			odPrdInfo.setPrdNm(prdInfo.getPrdNm());
+			odPrdInfo.setSellPrice(new BigDecimal(prdInfo.getPrdSellPrc()));
+
+			AttachFileInfo att = new AttachFileInfo();
+			att.setAttCdKey(prdInfo.getPrdCd());
+			att.setAttImgType("01");
+			att = attFileManageService.getAttFileInfListImg(att);
+			if (att == null) {
+				odPrdInfo.setPrdSmallImg("");
+			} else {
+
+				odPrdInfo.setPrdSmallImg(att.getAttFilePath());
+			}
+
+			String vl = cki.getValue("BOM_"+key);
+			StringTokenizer st1 = new StringTokenizer(vl, ",");
+			String option = "";
+			
+			while (st1.hasMoreElements()) {
+
+				String s = st1.nextToken();
+
+				if ("01".equals(s.substring(0, 2))) {
+					option += s + ",";
+					odPrdInfo.setPrdOpColor(s.substring(3));
+				}
+				if ("02".equals(s.substring(0, 2))) {
+					option += s + ",";
+					odPrdInfo.setPrdOpSize(s.substring(3));
+				}
+				if("no".equals(s.substring(0, 2))){
+					odPrdInfo.setOrderNo(s.substring(3));
+				}
+				if ("cn".equals(s.substring(0, 2))) {
+					odPrdInfo.setBuyCnt(Integer.parseInt(s.substring(3)));
+					BigDecimal total = new BigDecimal(
+							prdInfo.getPrdSellPrc());
+					total = total.multiply(new BigDecimal(odPrdInfo
+							.getBuyCnt()));
+					odPrdInfo.setTotalPrice(total);
+				}
+
+				odPrdInfo.setPrdOption(option);
+			}
+			
+			oPrdList.add(odPrdInfo);
+			  
+		}
+		
+		
+		OrderProductInfo res = oPrdList.get(IDX);
+		oPrdList.remove(IDX);
+		List<OrderProductInfo> buy = orderInfo.getOrderProductList();
+		
+		String cookieVal = cki.getValue("BOM_" + res.getPrdCd());
+		StringTokenizer st1 = new StringTokenizer(cookieVal, ",");
+		String option = "";
+		String value = "";
+		while (st1.hasMoreElements()) {
+
+			String s = st1.nextToken();
 
 			if ("cn".equals(s.substring(0, 2))) {
-				
-				BigDecimal total = modi.getSellPrice();
-				total = total.multiply(new BigDecimal(modi.getBuyCnt()));
-				modi.setTotalPrice(total);
-				value += "," + "cn=" + modi.getBuyCnt() + ",";
+				res.setBuyCnt(buy.get(IDX).getBuyCnt());
+				BigDecimal total = res.getSellPrice();
+				total = total.multiply(new BigDecimal(res.getBuyCnt()));
+				res.setTotalPrice(total);
+				value += "," + "cn=" + res.getBuyCnt() + ",";
 			} else {
 				value += s;
 			}
 
-					
-				
-				
-				Cookie cookie =cki.createCookie("BOM_"+modi.getPrdCd(),value,50000);
-				response.addCookie(cookie);//
-				}
-		
-		
-		ord.add(IDX, modi);
-	
+		}
 
-		model.addAttribute("odPrdInfo",ord);
+		Cookie cookie = cki.createCookie("BOM_" + res.getPrdCd(), value, 50000);
+		response.addCookie(cookie);//
+
+		oPrdList.add(IDX, res);
+		model.addAttribute("odPrdInfo", oPrdList);
+		
 	
 		return "order/order";
 	}
@@ -279,7 +341,7 @@ public class OrderController {
 	
 
 		model.addAttribute("odPrdInfo",oPrdList);
-	
+		
 		return "order/order";
 	}
 	
@@ -398,7 +460,7 @@ public class OrderController {
 		custom.setHpNo3("4567");
 		model.addAttribute("cus",custom);
 		
-		
+		model.addAttribute("orderInfo",orderInfo);
 		
 		return "order/order";
 	}

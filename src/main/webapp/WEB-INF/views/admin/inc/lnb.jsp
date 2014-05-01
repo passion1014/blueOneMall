@@ -20,7 +20,7 @@
 		<h1>환경설정</h1>
 		<ul>
 			<h2>운영 관리</h2>
-			<li>운영 설정</li>			
+			<li><a href="configEdit.do">운영 설정</a></li>			
 		</ul>
 		
 		<ul>

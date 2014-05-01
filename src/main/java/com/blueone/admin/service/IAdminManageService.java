@@ -6,6 +6,7 @@ import java.util.List;
 import com.blueone.admin.domain.AccountInfo;
 import com.blueone.admin.domain.AdminInfo;
 import com.blueone.admin.domain.AdminLoginInfo;
+import com.blueone.admin.domain.ConfigInfo;
 
 public interface IAdminManageService {
 
@@ -21,6 +22,8 @@ public interface IAdminManageService {
 	public List<AccountInfo> getAccountInfList();
 	public int deleteAccountInf(AccountInfo attInfo);
 	public AccountInfo getAccountInfDetail(AccountInfo accInfo);
-	public int editAccountInf(AccountInfo accInfo);	
+	public int editAccountInf(AccountInfo accInfo);
+	public int editConfigInf(ConfigInfo configInfo);
+	public ConfigInfo selectConfigInf();	
 	
 }

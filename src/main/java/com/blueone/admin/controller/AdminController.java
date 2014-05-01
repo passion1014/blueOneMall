@@ -26,6 +26,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.blueone.admin.domain.AccountInfo;
 import com.blueone.admin.domain.AdminInfo;
 import com.blueone.admin.domain.AdminLoginInfo;
+import com.blueone.admin.domain.ConfigInfo;
 import com.blueone.admin.service.IAdminManageService;
 import com.blueone.category.domain.CategoryInfo;
 import com.blueone.common.util.PageDivision;
@@ -304,7 +305,31 @@ public class AdminController {
 	}
 	
 	
-	
-	
+	//운영설정
+	@RequestMapping(value="/configEdit.do", method= RequestMethod.GET)
+	public String configEdit(@ModelAttribute("adminInfo") @Valid AdminInfo adminInfo,Model model, HttpSession session){
+/*
+		AdminInfo adminSession = (AdminInfo) session
+				.getAttribute("adminSession");
 
+		if (adminSession == null) {
+			return "redirect:adminLogin.do";
+		}
+*/
+		ConfigInfo result = adminManageService.selectConfigInf();
+		
+		model.addAttribute("config", result);
+		return "admin/admin/configEdit";
+	}
+
+	//운영설정-수정
+	@RequestMapping(value = "/configEditProc.do", method = RequestMethod.POST)
+	public String configEditProc(
+	@ModelAttribute("adminInfo") ConfigInfo configInfo,Model model, HttpSession session) {
+		
+		adminManageService.editConfigInf(configInfo);
+
+		
+		return "redirect:configEdit.do";
+	}
 }
