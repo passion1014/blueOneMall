@@ -43,23 +43,24 @@
 			<th>주문관리</th>
 			<th>커뮤니티</th>
 		</tr>
-    <c:forEach items="${list}" var="info">
-		<tr onClick="line_detail('1')" >
-			<td><b>${info.idx}</b></td>
-			<td>${info.status}</td>
-			<td style="cursor:pointer;">${info.id}</td>
-			<td>${info.name}</td>
-			<td>○</td>
-			<td>○</td>
-			<td>○</td>
-			<td>○</td>
-			<td>○</td>
-			<td>212</td>
-			<td>${info.regDate}</td>
-		</tr>
+   		
+   		<c:forEach items="${list}" var="info">
+			<tr onClick="line_detail('1')" >
+				<td><b>${info.idx}</b></td>
+				<td class="center">${info.status}</td>
+				<td class="center" style="cursor:pointer;">${info.id}</td>
+				<td class="center">${info.name}</td>
+				<td class="center">○</td>
+				<td class="center">○</td>
+				<td class="center">○</td>
+				<td class="center">○</td>
+				<td class="center">○</td>
+				<td class="center">212</td>
+				<td class="center">${info.regDate}</td>
+			</tr>
 		
-		<tr id="line_1" style="display:none;">
-			<td colspan="13" style="padding:5px 5px 30px 50px;" class="right">
+			<tr id="line_1" style="display:none;">
+				<td colspan="13" style="padding:5px 5px 30px 50px;" class="right">
 						
 					<table>
 						<colgroup>
@@ -100,9 +101,9 @@
 									</colgroup>
 									<tr>
 										<th>환경관리</th>
-										<td>○</td>
+										<td class="center">○</td>
 										<th>회원관리</th>
-										<td>○</td>
+										<td class="center">○</td>
 									</tr>
 								</table>
 							</td>
@@ -118,17 +119,23 @@
 					</div>
 						
 
-			</td>
-		</tr>
-</c:forEach>
+				</td>
+			</tr>
+		</c:forEach>
 
 
 	</table>
 
-<!-- 	<div id="Paser"> 1 | 2 | 3</div>-->
-		<c:forEach var="i" begin="1" end="${endNum}">
-			<input type="button" value="${i}" onClick="javascript:location.href='adminList.do?page=${i}'">				
-		</c:forEach>
+	<!--<div id="Paser"> 1 | 2 | 3</div>-->
+	<div id="Paser">
+	<c:forEach var="i" begin="1" end="${endNum}">
+		<a href="adminList.do?page=${i}">${i}</a>
+		<!-- 
+		<input type="button" value="${i}" onClick="javascript:location.href='adminList.do?page=${i}'">
+		 -->				
+	</c:forEach>
+	</div>
+	
 </div>
 
 </div>

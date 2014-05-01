@@ -31,7 +31,7 @@ public class MainImgController {
 	
 	@Autowired IAdImgService adImgService;
 
-	//메인화면에 메인이미지 등록
+	//메인 슬라이드 이미지 관리화면
 	@RequestMapping(value="/admin/adminDesign.do")
 	public String adminMdImg(@ModelAttribute("adImgInfo") AdImgInfo adImgInfo ,BindingResult result, Model model){
 		
@@ -57,8 +57,7 @@ public class MainImgController {
 	public String adminMdImgProc(@ModelAttribute("adImgInfo") AdImgInfo adImgInfo , BindingResult result, Model model)throws FileNotFoundException, IOException {
 		
 		
-		MultipartFile main1Up = adImgInfo.getMain1Up();
-		
+		MultipartFile main1Up = adImgInfo.getMain1Up();		
 		if(main1Up != null && !main1Up.isEmpty()) {
 			AttachFileInfo contImg = new AttachFileInfo();
 			FileUploadUtility utilList = new FileUploadUtility();
@@ -66,8 +65,7 @@ public class MainImgController {
 			adImgInfo.setMdImg1(contImg.getAttSaveFileNm());
 		}
 		
-		MultipartFile main2Up = adImgInfo.getMain2Up();
-		
+		MultipartFile main2Up = adImgInfo.getMain2Up();		
 		if(main2Up != null && !main2Up.isEmpty()) {
 			AttachFileInfo contImg = new AttachFileInfo();
 			FileUploadUtility utilList = new FileUploadUtility();
@@ -91,8 +89,7 @@ public class MainImgController {
 			adImgInfo.setMdImg4(contImg.getAttSaveFileNm());
 		}
 		
-		MultipartFile main5Up = adImgInfo.getMain5Up();
-		
+		MultipartFile main5Up = adImgInfo.getMain5Up();		
 		if(main5Up != null && !main5Up.isEmpty()) {
 			AttachFileInfo contImg = new AttachFileInfo();
 			FileUploadUtility utilList = new FileUploadUtility();
@@ -100,8 +97,7 @@ public class MainImgController {
 			adImgInfo.setMdImg5(contImg.getAttSaveFileNm());
 		}
 		
-		MultipartFile main6Up = adImgInfo.getMain6Up();
-		
+		MultipartFile main6Up = adImgInfo.getMain6Up();		
 		if(main6Up != null && !main6Up.isEmpty()) {
 			AttachFileInfo contImg = new AttachFileInfo();
 			FileUploadUtility utilList = new FileUploadUtility();
@@ -164,10 +160,10 @@ public class MainImgController {
 			contImg = utilList.doFileUpload(8,ban7Up,false);
 			adImgInfo.setBnImg7(contImg.getAttSaveFileNm());
 		}
-	
 		
 		
 		adImgService.updateAdImg(adImgInfo);
+		
 		
 		return "redirect:adminDesign.do";
 	}

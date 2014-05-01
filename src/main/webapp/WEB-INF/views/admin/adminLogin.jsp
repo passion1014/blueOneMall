@@ -13,7 +13,7 @@ html{background-color:#93d1e0;}
 	<input type="hidden" name="Mode" value="login">
 	
 	<div class="login_wrapper">
-		<div class="admin_logo"><img src="/img/top_logo.gif" alt="BlueOneMall"></div>
+		<div class="admin_logo"><img src="../resources/img/common/blueone_logo.png" alt="BlueOneMall"></div>
 		<div class="admin_input">
 		<p class="input_id">
 			<label for="user_login">관리자<br />
@@ -30,7 +30,7 @@ html{background-color:#93d1e0;}
 		</p>
 		<p class="company">
 			<span class="company_tit">Blue One Mall</span><br>
-			<span class="company_tit">E-MAIL : </span>
+			<span class="company_tit">E-MAIL : 1</span>
 		</p>
 		</div>
 	</div>

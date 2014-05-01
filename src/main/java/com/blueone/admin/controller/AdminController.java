@@ -184,7 +184,7 @@ public class AdminController {
 		pd.setAdInfolist(list);
 		
 		
-		model.addAttribute("list", pd.getAdInfolist(1));
+		model.addAttribute("list", pd.getAdInfolist(10));
 		model.addAttribute("endNum",pd.getEndPageNum());
 	    
 	    mav.setViewName("admin/admin/adminList");
