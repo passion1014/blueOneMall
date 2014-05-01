@@ -80,10 +80,10 @@
 		<ul>
 			<h2>주문서리스트</h2>
 			<li><a href="orderList.do">전체리스트</a></li>
-			<li>신청중</li>
-			<li>배송준비중</li>
-			<li>배송중</li>
-			<li>주문완료</li>
+			<li><a href="orderingList.do">신청중</a></li>
+			<li><a href="orderTransferReadyList.do">배송준비중</a></li>
+			<li><a href="orderTransferingList.do">배송중</a></li>
+			<li><a href="orderCompleteList.do">주문완료</a></li>
 			<li>최소신청</li>
 			<li>취소완료</li>
 			<li>반품신청</li>
@@ -91,8 +91,8 @@
 		</ul>
 		<ul>
 			<h2>거래내역조회</h2>
-			<li>월별거래내역</li>
-			<li>상품별거래내역</li>
+			<li><a href="monthTradeList.do">월별거래내역</a></li>
+			<li><a href="productTradeList.do">상품별거래내역</a></li>
 			
 		</ul>
 	</div>

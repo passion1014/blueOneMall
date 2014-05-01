@@ -18,5 +18,7 @@ public interface IOrderManageService {
 	public RecipientInfo selectRecipientInfo(RecipientInfo reciInfo);
 	public List<OrderInfo> selectOrderInfoList(OrderInfo odInfo);
 	public OrderProductInfo toProduct(OrderProductInfo opResInf);
+	public List<OrderInfo> getOrderInfoListByPeriod(OrderInfo orderInfo);
+	
 	
 }

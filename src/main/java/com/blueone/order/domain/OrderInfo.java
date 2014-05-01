@@ -3,6 +3,8 @@ package com.blueone.order.domain;
 import java.math.BigDecimal;
 import java.util.List;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import com.blueone.customer.domain.CustomerContactInfo;
 import com.blueone.customer.domain.CustomerInfo;
 import com.blueone.customer.domain.RecipientInfo;
@@ -11,7 +13,7 @@ public class OrderInfo {
 	private int ordIdx;
 	
 	private String orderNo;				// 주문번호
-	private String orderStatCd;			// 주문상태 (01:주문중, 02:결제완료, 03:배송중, 04:배송완료, 05:고객확인)
+	private String orderStatCd;			// 주문상태 (01:주문중, 02:결제완료, 03:배송준비중, 04:배송중, 05:배송완료, 06:고객확인)
 	private String orderDate;			// 주문발생일
 	private BigDecimal totalOrderPrice;	// 총주문금액
 	private BigDecimal deliveryPrice;	// 배송금액
@@ -27,11 +29,27 @@ public class OrderInfo {
 	private String lastDate;	// 최종수정일
 	private String modifyUserId;// 최종수정자
 	private String prdCD;
-	
-	
+
 	private String ord_unit_chk; //다중 checkbox
+
+	
+	//검색하기위한 변수
+	private String srchStdDt;
+	private String srchEdDt;
 	
 	
+	public String getSrchStdDt() {
+		return srchStdDt;
+	}
+	public void setSrchStdDt(String srchStdDt) {
+		this.srchStdDt = srchStdDt;
+	}
+	public String getSrchEdDt() {
+		return srchEdDt;
+	}
+	public void setSrchEdDt(String srchEdDt) {
+		this.srchEdDt = srchEdDt;
+	}
 	public String getOrd_unit_chk() {
 		return ord_unit_chk;
 	}
