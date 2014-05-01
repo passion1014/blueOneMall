@@ -42,7 +42,7 @@
 						<td>${category.ctgName}</td>
 						<td style="text-align:center;">
 							<input type="button" value="수정" onClick="dialogUpdate('${category.ctgCode}');" class="Button Gray">
-							<input type="button" value="삭제" onClick="confirm_process('','해당 분류를 삭제하시겠습니까?','deleteCategoryInf.do?ctgCode=${category.ctgCode}');"  class="Button Gray">
+							<%-- <input type="button" value="삭제" onClick="confirm_process('','해당 분류를 삭제하시겠습니까?','deleteCategoryInf.do?ctgCode=${category.ctgCode}');"  class="Button Gray"> --%>
 						</td>
 					</tr>
 				</c:forEach>

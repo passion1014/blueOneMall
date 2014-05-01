@@ -54,7 +54,9 @@ public class ShopController {
 	
 	@RequestMapping(value ="/", method = RequestMethod.GET)
 	public String read(@ModelAttribute("adImgInfo") AdImgInfo adImgInfo, @ModelAttribute("productInfo") ProductInfo productInfo, @ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model){
+		
 		List<ProductInfo> productList = shopService.getImgList(productInfo);
+		
 		List<ProductInfo> btPrdList = new ArrayList<ProductInfo>();  //블루투스 상품리스트
 		List<ProductInfo> hpPrdList = new ArrayList<ProductInfo>();  //해드폰 상품리스트
 		List<ProductInfo> mmPrdList = new ArrayList<ProductInfo>();  //멀티미디어 상품리스트
@@ -239,12 +241,11 @@ public class ShopController {
 		
 		
 		
-		adImgInfo.setImgCode("I9205");
+		
 		
 		
 		AdImgInfo adDtl = new AdImgInfo();
 		
-
 
 		adDtl = shopService.getAdImg2(adImgInfo);
 		
@@ -252,7 +253,6 @@ public class ShopController {
 		//adDtl = adImgService.getAdImgDtl(adImgInfo);
 
 
-		adDtl = shopService.getAdImg2(adImgInfo);
 		
 
 

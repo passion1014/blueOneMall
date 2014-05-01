@@ -45,8 +45,25 @@
 		<result property="attImgSeq"  column="ATT_IMG_SEQ"   javaType="int"/>
 		
 	</resultMap>
-
 	
+	<update id="updateBomAdImgtb0001" parameterType="adImgInfo">
+		UPDATE BOM_AD_IMG_TB
+			SET
+				 `MD_IMG_1` = #{mdImg1} , `MD_URL_1` = #{mdUrl1} 
+			   , `MD_IMG_2` = #{mdImg2} , `MD_URL_2` = #{mdUrl2} 
+			   , `MD_IMG_3` = #{mdImg3} , `MD_URL_3` = #{mdUrl3}
+			   , `MD_IMG_4` = #{mdImg4} , `MD_URL_4` = #{mdUrl4}
+			   , `MD_IMG_5` = #{mdImg5} , `MD_URL_5` = #{mdUrl5}
+			   , `MD_IMG_6` = #{mdImg6} , `MD_URL_6` = #{mdUrl6}
+			   , `BN_IMG_1` = #{bnImg1} , `BN_URL_1` = #{bnUrl1}
+			   , `BN_IMG_2` = #{bnImg2} , `BN_URL_2` = #{bnUrl2}
+			   , `BN_IMG_3` = #{bnImg3} , `BN_URL_3` = #{bnUrl3}
+			   , `BN_IMG_4` = #{bnImg4} , `BN_URL_4` = #{bnUrl4}
+			   , `BN_IMG_5` = #{bnImg5} , `BN_URL_5` = #{bnUrl5}
+			   , `BN_IMG_6` = #{bnImg6} , `BN_URL_6` = #{bnUrl6}
+			   , `BN_IMG_7` = #{bnImg7} , `BN_URL_7` = #{bnUrl7}
+	
+	</update>
 
 	<insert id="insertBomAdImgTb0001" parameterType="com.blueone.admin.domain.AdImgInfo">
 	

@@ -99,7 +99,12 @@ public class MainImgController {
 
 			//메인화면 메인이미지와 배너이미지
 			@RequestMapping(value="/admin/adminBanner.do")
-			public String adminBnImg(){
+			public String adminBnImg(Model model){
+				
+				int code= (int)(Math.random()*10000)+1;
+				String bnCode= "I"+code;
+				
+				model.addAttribute("bnCode", bnCode);
 				return "admin/admin/adminBanner";
 			}
 			

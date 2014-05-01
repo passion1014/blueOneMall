@@ -11,6 +11,7 @@ public class AdImgInfo {
 	private MultipartFile main3Up;
 	private MultipartFile main4Up;
 	private MultipartFile main5Up;
+	private MultipartFile main6Up;
 
 	private MultipartFile ban1Up;
 	private MultipartFile ban2Up;
@@ -21,18 +22,20 @@ public class AdImgInfo {
 	private MultipartFile ban7Up;
 	
 	private String attFilePath;
-	private String imgCode;
 	private String mdUrl1;
 	private String mdUrl2;
 	private String mdUrl3;
 	private String mdUrl4;
 	private String mdUrl5;
+	private String mdUrl6;
 	
 	private String mdImg1;
 	private String mdImg2;
 	private String mdImg3;
 	private String mdImg4;
 	private String mdImg5;
+	private String mdImg6;
+	
 	private String bnUrl1;
 	private String bnUrl2;
 	private String bnUrl3;
@@ -90,12 +93,6 @@ public class AdImgInfo {
 	}
 	public void setBan7Up(MultipartFile ban7Up) {
 		this.ban7Up = ban7Up;
-	}
-	public String getImgCode() {
-		return imgCode;
-	}
-	public void setImgCode(String imgCode) {
-		this.imgCode = imgCode;
 	}
 	public String getBnUrl1() {
 		return bnUrl1;
@@ -277,6 +274,24 @@ public class AdImgInfo {
 	}
 	public void setAttFilePath(String attFilePath) {
 		this.attFilePath = attFilePath;
+	}
+	public MultipartFile getMain6Up() {
+		return main6Up;
+	}
+	public void setMain6Up(MultipartFile main6Up) {
+		this.main6Up = main6Up;
+	}
+	public String getMdUrl6() {
+		return mdUrl6;
+	}
+	public void setMdUrl6(String mdUrl6) {
+		this.mdUrl6 = mdUrl6;
+	}
+	public String getMdImg6() {
+		return mdImg6;
+	}
+	public void setMdImg6(String mdImg6) {
+		this.mdImg6 = mdImg6;
 	}
 	
 	

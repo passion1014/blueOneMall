@@ -350,7 +350,6 @@
 			<if test="prdCtgL != null and prdCtgL != ''">AND T1.PRD_CTG_L LIKE CONCAT(#{prdCtgL},'%')</if>
 			<if test="prdCtgM != null and prdCtgM != ''">AND T1.PRD_CTG_M LIKE CONCAT(#{prdCtgM},'%')</if>
 			<if test="prdCtgS != null and prdCtgS != ''">AND T1.PRD_CTG_S LIKE CONCAT(#{prdCtgS},'%')</if>
-		LIMIT 0,9	
 	</select >
 	
 	<select id="selectListBomShopProductTb0001" parameterType="productInfo" resultMap="ProductBaseDtlMap">

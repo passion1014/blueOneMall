@@ -23,7 +23,7 @@ public class AdImgServiceImpl implements IAdImgService{
 		int result = 0;
 		try{
 			
-//			result = sqlSession.insert("adImg.insertBomAdImgTb0001", adImgInfo);
+			result = sqlSession.insert("adImg.insertBomAdImgTb0001", adImgInfo);
 			
 		}finally{
 			sqlSession.close();
@@ -39,7 +39,7 @@ public class AdImgServiceImpl implements IAdImgService{
 		int result = 0;
 		try{
 			
-//			result = sqlSession.insert("adImg.insertBomAdImgTb0002", adImgInfo);
+			result = sqlSession.insert("adImg.insertBomAdImgTb0002", adImgInfo);
 			
 		}finally{
 			sqlSession.close();
@@ -55,7 +55,7 @@ public class AdImgServiceImpl implements IAdImgService{
 		List<AdImgInfo> adImg = new ArrayList<AdImgInfo>();
 		try{
 			
-//			adImg = sqlSession.selectList("adImg.selectBomAdImgTb0001", adImgInfo);
+			adImg = sqlSession.selectList("adImg.selectBomAdImgTb0001", adImgInfo);
 			
 		}finally{
 			
