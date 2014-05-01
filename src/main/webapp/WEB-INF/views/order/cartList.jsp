@@ -161,8 +161,8 @@ function cnt_UP(){
 									</td>
 									<td>${odPrdInfo.sellPrice}</td>
 									<td>
-										<span class="input_text"><input type="text" value="${odPrdInfo.buyCnt}" id="buyCnt" nam="buyCnt" title="수량기입"><button class="btn_triangle1" ></button></span>
-										<span class="input_btn"><input type="button" value="수정" title="수정" onClick="location.href='editBuyCnt.do?prdCd=${odPrdInfo.prdCd}&buyCnt='+document.getElementById('buyCnt').value;"><button class="btn_triangle2"></button></span>
+										<span class="input_text"><input type="text" value="${odPrdInfo.buyCnt}" id="buyCnt" nam="buyCnt" title="수량기입"><!-- <button class="btn_triangle1" ></button> --></span>
+										<span class="input_btn"><input type="button" value="수정" title="수정" onClick="location.href='editBuyCnt.do?prdCd=${odPrdInfo.prdCd}&buyCnt='+document.getElementById('buyCnt').value;"><!-- <button class="btn_triangle2"></button> --></span>
 									</td>
 									<td>${odPrdInfo.totalPrice}</td>
 									<td>
