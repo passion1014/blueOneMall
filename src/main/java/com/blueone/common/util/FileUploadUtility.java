@@ -32,8 +32,8 @@ public class FileUploadUtility {
 //	public final static String FILE_UPLOAD_DIR = Configuration.getInstance().getProperty("file.upload.dir");
 //	public final static String WEBROOT_DIR = Configuration.getInstance().getProperty("webroot.dir");
 //	public final static String FILE_UPLOAD_DIR = "D:/KLACEDU/upload";
+//	public final static String FILE_UPLOAD_DIR = "src/main/webapp/uploads";
 	public final static String FILE_UPLOAD_DIR = "src/main/webapp/uploads";
-
 	public final static String WEBROOT_DIR = "D:/KLACEDU/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/LCECH";
 	
 	
