@@ -88,12 +88,14 @@ public class MainImgController {
 			adImgInfo.setMdImg5(contImg.getAttSaveFileNm());
 		}
 		
-		
+	
 		
 		
 		adImgService.insertAdImg(adImgInfo);
+		
+		return "";
+	}
 
-<<<<<<< HEAD
 			//메인화면 메인이미지와 배너이미지
 			@RequestMapping(value="/admin/adminBanner.do")
 			public String adminBnImg(Model model){
@@ -149,83 +151,81 @@ public class MainImgController {
 					contImg = utilList.doFileUpload(8,ban5Up,false);
 					adImgInfo.setBnImg5(contImg.getAttSaveFileNm());
 				}
-=======
 		return "redirect:adminDesign.do";
 	}
->>>>>>> 0022e4f695bbcae9a9890c11b46e80f4f6db5bb9
 
 
-	//메인화면 메인이미지와 배너이미지
-	@RequestMapping(value="/admin/adminBanner.do")
-	public String adminBnImg(){
-		return "admin/admin/adminBanner";
-	}
-	
-	//메인화면에 배너이미지 등록처리
-	@RequestMapping(value="/admin/adminBnImgProc.do", method = RequestMethod.POST)
-	public String adminBnImgProc(@ModelAttribute("adImgInfo") AdImgInfo adImgInfo , BindingResult result, Model model)throws FileNotFoundException, IOException{
-				
-		
-		MultipartFile ban1Up = adImgInfo.getBan1Up();
-		if(ban1Up != null && !ban1Up.isEmpty()) {
-			AttachFileInfo contImg = new AttachFileInfo();
-			FileUploadUtility utilList = new FileUploadUtility();
-			contImg = utilList.doFileUpload(8,ban1Up,false);
-			adImgInfo.setBnImg1(contImg.getAttSaveFileNm());
-		}
-		
-		MultipartFile ban2Up = adImgInfo.getBan2Up();
-		if(ban2Up != null && !ban2Up.isEmpty()) {
-			AttachFileInfo contImg = new AttachFileInfo();
-			FileUploadUtility utilList = new FileUploadUtility();
-			contImg = utilList.doFileUpload(8,ban2Up,false);
-			adImgInfo.setBnImg2(contImg.getAttSaveFileNm());
-		}
-		
-		MultipartFile ban3Up = adImgInfo.getBan3Up();
-		if(ban3Up != null && !ban3Up.isEmpty()) {
-			AttachFileInfo contImg = new AttachFileInfo();
-			FileUploadUtility utilList = new FileUploadUtility();
-			contImg = utilList.doFileUpload(8,ban3Up,false);
-			adImgInfo.setBnImg3(contImg.getAttSaveFileNm());
-		}
-		
-		MultipartFile ban4Up = adImgInfo.getBan4Up();
-		if(ban4Up != null && !ban4Up.isEmpty()) {
-			AttachFileInfo contImg = new AttachFileInfo();
-			FileUploadUtility utilList = new FileUploadUtility();
-			contImg = utilList.doFileUpload(8,ban4Up,false);
-			adImgInfo.setBnImg4(contImg.getAttSaveFileNm());
-		}
-		
-		MultipartFile ban5Up = adImgInfo.getBan5Up();
-		if(ban5Up != null && !ban5Up.isEmpty()) {
-			AttachFileInfo contImg = new AttachFileInfo();
-			FileUploadUtility utilList = new FileUploadUtility();
-			contImg = utilList.doFileUpload(8,ban5Up,false);
-			adImgInfo.setBnImg5(contImg.getAttSaveFileNm());
-		}
-
-		MultipartFile ban6Up = adImgInfo.getBan6Up();
-		if(ban6Up != null && !ban6Up.isEmpty()) {
-			AttachFileInfo contImg = new AttachFileInfo();
-			FileUploadUtility utilList = new FileUploadUtility();
-			contImg = utilList.doFileUpload(8,ban6Up,false);
-			adImgInfo.setBnImg6(contImg.getAttSaveFileNm());
-		}
-		
-		MultipartFile ban7Up = adImgInfo.getBan7Up();
-		if(ban7Up != null && !ban7Up.isEmpty()) {
-			AttachFileInfo contImg = new AttachFileInfo();
-			FileUploadUtility utilList = new FileUploadUtility();
-			contImg = utilList.doFileUpload(8,ban7Up,false);
-			adImgInfo.setBnImg7(contImg.getAttSaveFileNm());
-		}
-		
-		adImgService.insertAdImg2(adImgInfo);
-
-		return "redirect:adminBanner.do";
-	}
+//	//메인화면 메인이미지와 배너이미지
+//	@RequestMapping(value="/admin/adminBanner.do")
+//	public String adminBnImg(){
+//		return "admin/admin/adminBanner";
+//	}
+//	
+//	//메인화면에 배너이미지 등록처리
+//	@RequestMapping(value="/admin/adminBnImgProc.do", method = RequestMethod.POST)
+//	public String adminBnImgProc(@ModelAttribute("adImgInfo") AdImgInfo adImgInfo , BindingResult result, Model model)throws FileNotFoundException, IOException{
+//				
+//		
+//		MultipartFile ban1Up = adImgInfo.getBan1Up();
+//		if(ban1Up != null && !ban1Up.isEmpty()) {
+//			AttachFileInfo contImg = new AttachFileInfo();
+//			FileUploadUtility utilList = new FileUploadUtility();
+//			contImg = utilList.doFileUpload(8,ban1Up,false);
+//			adImgInfo.setBnImg1(contImg.getAttSaveFileNm());
+//		}
+//		
+//		MultipartFile ban2Up = adImgInfo.getBan2Up();
+//		if(ban2Up != null && !ban2Up.isEmpty()) {
+//			AttachFileInfo contImg = new AttachFileInfo();
+//			FileUploadUtility utilList = new FileUploadUtility();
+//			contImg = utilList.doFileUpload(8,ban2Up,false);
+//			adImgInfo.setBnImg2(contImg.getAttSaveFileNm());
+//		}
+//		
+//		MultipartFile ban3Up = adImgInfo.getBan3Up();
+//		if(ban3Up != null && !ban3Up.isEmpty()) {
+//			AttachFileInfo contImg = new AttachFileInfo();
+//			FileUploadUtility utilList = new FileUploadUtility();
+//			contImg = utilList.doFileUpload(8,ban3Up,false);
+//			adImgInfo.setBnImg3(contImg.getAttSaveFileNm());
+//		}
+//		
+//		MultipartFile ban4Up = adImgInfo.getBan4Up();
+//		if(ban4Up != null && !ban4Up.isEmpty()) {
+//			AttachFileInfo contImg = new AttachFileInfo();
+//			FileUploadUtility utilList = new FileUploadUtility();
+//			contImg = utilList.doFileUpload(8,ban4Up,false);
+//			adImgInfo.setBnImg4(contImg.getAttSaveFileNm());
+//		}
+//		
+//		MultipartFile ban5Up = adImgInfo.getBan5Up();
+//		if(ban5Up != null && !ban5Up.isEmpty()) {
+//			AttachFileInfo contImg = new AttachFileInfo();
+//			FileUploadUtility utilList = new FileUploadUtility();
+//			contImg = utilList.doFileUpload(8,ban5Up,false);
+//			adImgInfo.setBnImg5(contImg.getAttSaveFileNm());
+//		}
+//
+//		MultipartFile ban6Up = adImgInfo.getBan6Up();
+//		if(ban6Up != null && !ban6Up.isEmpty()) {
+//			AttachFileInfo contImg = new AttachFileInfo();
+//			FileUploadUtility utilList = new FileUploadUtility();
+//			contImg = utilList.doFileUpload(8,ban6Up,false);
+//			adImgInfo.setBnImg6(contImg.getAttSaveFileNm());
+//		}
+//		
+//		MultipartFile ban7Up = adImgInfo.getBan7Up();
+//		if(ban7Up != null && !ban7Up.isEmpty()) {
+//			AttachFileInfo contImg = new AttachFileInfo();
+//			FileUploadUtility utilList = new FileUploadUtility();
+//			contImg = utilList.doFileUpload(8,ban7Up,false);
+//			adImgInfo.setBnImg7(contImg.getAttSaveFileNm());
+//		}
+//		
+//		adImgService.insertAdImg2(adImgInfo);
+//
+//		return "redirect:adminBanner.do";
+//	}
 	
 	
 	
