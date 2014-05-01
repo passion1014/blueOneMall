@@ -139,7 +139,7 @@ function setEditComment(commNo) {
 	f.commNo.value = commNo;
 	f.commCont.value = eval('f.tCommCont' + commNo).value;
 	f.commClickTyp.value = 'EDIT';
-	f.idComClickBtn.src = '../images/board/com/com_modify2.gif';
+	f.idComClickBtn.src = '/resources/img/board/com/com_modify2.gif';
 }
 </script>
 
@@ -161,7 +161,7 @@ function setEditComment(commNo) {
 		<fieldset>
 		<legend>검색</legend>
 		<input type="text" name="srchKeyword" value="${srchInfo.srchKeyword}" class="text" title="검색어 입력" />
-		<img class="mousePoint" src="../images/board/btn/btn_search.gif" onclick="fnInquiry()" alt="검색" />
+		<img class="mousePoint" src="/resources/img/board/btn/btn_search.gif" onclick="fnInquiry()" alt="검색" />
 		</fieldset>
 	</div>
 
@@ -201,7 +201,7 @@ function setEditComment(commNo) {
 				<td colspan="5" class="file"><p>
 				<c:forEach var="attaFile" items="${attaFileList}">
 				<c:if test="${attaFile.attaKnd == 'MI'}">
-					<img class="icon" src="../images/board/icon/${attaFile.iconImage}" alt="파일" /> <span class="mousePoint" onclick="fnFileDownloadImage('${attaFile.saveFilename}','${attaFile.realFilename}');">${attaFile.realFilename}</span><br/>
+					<img class="icon" src="/resources/img/board/icon/${attaFile.iconImage}" alt="파일" /> <span class="mousePoint" onclick="fnFileDownloadImage('${attaFile.saveFilename}','${attaFile.realFilename}');">${attaFile.realFilename}</span><br/>
 				</c:if>
 				</c:forEach>
 				</p></td>
@@ -213,7 +213,7 @@ function setEditComment(commNo) {
 				<td width="705" colspan="5" class="file"><p>
 				<c:forEach var="attaFile" items="${attaFileList}">
 				<c:if test="${attaFile.attaKnd == 'AF'}">
-					<img class="icon" src="../images/board/icon/${attaFile.iconImage}" alt="파일" /> <span class="mousePoint" onclick="fnFileDownload('${attaFile.saveFilename}','${attaFile.realFilename}');">${attaFile.realFilename}</span><br/>
+					<img class="icon" src="/resources/img/board/icon/${attaFile.iconImage}" alt="파일" /> <span class="mousePoint" onclick="fnFileDownload('${attaFile.saveFilename}','${attaFile.realFilename}');">${attaFile.realFilename}</span><br/>
 				</c:if>
 				</c:forEach>
 				</p></td>
@@ -227,10 +227,10 @@ function setEditComment(commNo) {
 		</tbody>
 	</table>
 	<div id="buttonWrap">
-		<img class="mousePoint" src="../images/board/btn/btn_list.gif" onclick="fnList()" alt="목록" />
+		<img class="mousePoint" src="/resources/img/board/btn/btn_list.gif" onclick="fnList()" alt="목록" />
 		<c:if test="${sessionScope.userInfo.userId == board.insUser}">
-		<img class="mousePoint" src="../images/board/btn/btn_modify.gif" onclick="fnEdit()" alt="수정" />
-		<img class="mousePoint" src="../images/board/btn/btn_delete.gif" onclick="fnDelete()" alt="삭제" />
+		<img class="mousePoint" src="/resources/img/board/btn/btn_modify.gif" onclick="fnEdit()" alt="수정" />
+		<img class="mousePoint" src="/resources/img/board/btn/btn_delete.gif" onclick="fnDelete()" alt="삭제" />
 		</c:if>
 	</div>
 	
@@ -242,7 +242,7 @@ function setEditComment(commNo) {
 			<fieldset>
 				<legend>댓글 쓰기폼</legend>
 				<textarea name="commCont" title="댓글입력"></textarea>
-				<span><img id="idComClickBtn" class="mousePoint" src="../images/board/com/com_write.gif" onclick="fnClickComment();" alt="댓글등록" /></span>
+				<span><img id="idComClickBtn" class="mousePoint" src="/resources/img/board/com/com_write.gif" onclick="fnClickComment();" alt="댓글등록" /></span>
 			</fieldset>
 		</div>
 		</c:if>
@@ -270,7 +270,7 @@ function setEditComment(commNo) {
 							<td class="name"><strong>${lComment.commUserNm}</strong><input type="hidden" name="maxCommRefNo${lComment.commNo}" value="${lComment.maxCommRefNo}"></td>
 							<td class="centent">${lComment.htmlCommCont}
 								<input type="hidden" name="tCommCont${lComment.commNo}" value="${lComment.commCont}">
-								<c:if test="${sessionScope.userInfo.userId == board.insUser}"><img class="icon mousePoint" src="../images/board/com/com_modify.gif" onclick="setEditComment(${lComment.commNo});" alt="수정" /><img class="icon mousePoint" src="../images/board/com/com_del.gif" onclick="fnDeleteComment(${lComment.commNo});" alt="삭제" /></c:if><img class="icon mousePoint" src="../images/board/com/com_reply01.gif" onclick="fnFold(idReplyCommCont${lComment.commNo})" alt="댔글" /><c:if test="${lComment.childCommCnt > 0}"><span class="cmtCnt">댓글 [${lComment.childCommCnt}]</span><img class="icon" src="../images/board/com/com_arrow.gif" alt="하위 표시" /></c:if>
+								<c:if test="${sessionScope.userInfo.userId == board.insUser}"><img class="icon mousePoint" src="/resources/img/board/com/com_modify.gif" onclick="setEditComment(${lComment.commNo});" alt="수정" /><img class="icon mousePoint" src="/resources/img/board/com/com_del.gif" onclick="fnDeleteComment(${lComment.commNo});" alt="삭제" /></c:if><img class="icon mousePoint" src="/resources/img/board/com/com_reply01.gif" onclick="fnFold(idReplyCommCont${lComment.commNo})" alt="댔글" /><c:if test="${lComment.childCommCnt > 0}"><span class="cmtCnt">댓글 [${lComment.childCommCnt}]</span><img class="icon" src="/resources/img/board/com/com_arrow.gif" alt="하위 표시" /></c:if>
 							</td>
 							<td>${lComment.insDt}</td>
 						</tr>
@@ -280,7 +280,7 @@ function setEditComment(commNo) {
 									<legend>댓글 쓰기폼</legend>
 									<span class="name"><strong>${sessionScope.userInfo.userNm}&nbsp;</strong></span>
 									<textarea name="replyCommCont${lComment.commNo}" title="댓글수정"></textarea>
-									<span class="btn"><img class="mousePoint" src="../images/board/com/com_write.gif" onclick="fnClickReplyComment(${lComment.commNo});" alt="댓글등록" /></span>
+									<span class="btn"><img class="mousePoint" src="/resources/img/board/com/com_write.gif" onclick="fnClickReplyComment(${lComment.commNo});" alt="댓글등록" /></span>
 								</fieldset>
 							</td>
 						</tr>
@@ -291,7 +291,7 @@ function setEditComment(commNo) {
 							<td></td>
 							<td class="centent">
 								<input type="hidden" name="tCommCont${lComment.commNo}" value="${lComment.commCont}">
-								<span class="cmdReply"><strong>${lComment.commUserNm}</strong></span>${lComment.htmlCommCont} <c:if test="${sessionScope.userInfo.userId == board.insUser}"><img class="icon mousePoint" src="../images/board/com/com_modify.gif" onclick="setEditComment(${lComment.commNo});" alt="수정" /><img class="icon mousePoint" src="../images/board/com/com_del.gif" onclick="fnDeleteComment(${lComment.commNo});" alt="삭제" /></c:if>
+								<span class="cmdReply"><strong>${lComment.commUserNm}</strong></span>${lComment.htmlCommCont} <c:if test="${sessionScope.userInfo.userId == board.insUser}"><img class="icon mousePoint" src="/resources/img/board/com/com_modify.gif" onclick="setEditComment(${lComment.commNo});" alt="수정" /><img class="icon mousePoint" src="/resources/img/board/com/com_del.gif" onclick="fnDeleteComment(${lComment.commNo});" alt="삭제" /></c:if>
 							</td>
 							<td>${lComment.insDt}</td>
 						</tr>

@@ -130,7 +130,7 @@ function fnGotoPage(page) {
 						<c:if test="${board.depth > 0}">
 							<img class="reply" src="../images/board/icon/icon_reply.gif" alt="답변글" />
 						</c:if>${board.title} <c:if test="${brdTypInfo.commViewYn == 'T'}"><c:if test="${board.commCnt > 0}"><span class="cmtCnt">[덧글:${board.commCnt}]</span></c:if></c:if>
-						<c:if test="${board.passwd != null && board.passwd != ''}"><img class="icon" src="../images/board/icon/icon_secret.gif" alt="비밀글" /></c:if>
+						<c:if test="${board.passwd != null && board.passwd != ''}"><img class="icon" src="/resources/img/board/icon/icon_secret.gif" alt="비밀글" /></c:if>
 						<c:if test="${brdTypInfo.attaViewYn == 'T'}">
 						<c:forEach var="attachFile" items="${board.attachFiles}">
 							<c:if test="${attachFile.attaKnd == 'AF'}">
