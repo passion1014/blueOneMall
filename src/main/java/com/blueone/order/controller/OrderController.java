@@ -145,6 +145,67 @@ public class OrderController {
 			
 		
 	}
+	
+	//상품구매 - 수량수정
+	@RequestMapping(value="/order/editOrderBuycn.do")
+	public String editOrderBuycn(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
+	
+		
+		
+		//세션에 잇는 정보를 셋팅
+		CustomerInfo custom = new CustomerInfo();
+		custom.setCustNm("dana");
+		custom.setTelNo1("02");
+		custom.setTelNo2("123");
+		custom.setTelNo3("4567");
+		custom.setHpNo1("010");
+		custom.setHpNo2("1231");
+		custom.setHpNo3("4567");
+		model.addAttribute("cus",custom);
+		
+		
+		int IDX =orderInfo.getIdx();
+		
+		List<OrderProductInfo> ord  = orderInfo.getOrderProductList();
+		
+		OrderProductInfo modi = ord.get(IDX);
+		CookieBox cki = new CookieBox(request);
+		
+		String cookieVal = cki.getValue("BOM_"+modi.getPrdCd());
+		StringTokenizer st = new StringTokenizer(cookieVal, ",");
+		String value="";
+		
+		while (st.hasMoreElements()) {
+
+			String s = st.nextToken();
+
+			if ("cn".equals(s.substring(0, 2))) {
+				
+				BigDecimal total = modi.getSellPrice();
+				total = total.multiply(new BigDecimal(modi.getBuyCnt()));
+				modi.setTotalPrice(total);
+				value += "," + "cn=" + modi.getBuyCnt() + ",";
+			} else {
+				value += s;
+			}
+
+					
+				
+				
+				Cookie cookie =cki.createCookie("BOM_"+modi.getPrdCd(),value,50000);
+				response.addCookie(cookie);//
+				}
+		
+		
+		ord.add(IDX, modi);
+	
+
+		model.addAttribute("odPrdInfo",ord);
+	
+		return "order/order";
+	}
+	
+	
 	//바로구매
 	@RequestMapping(value="/order/orderDirect.do")
 	public String orderDirect(@ModelAttribute("orderInfo") OrderProductInfo orderProductInfo,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
@@ -163,6 +224,27 @@ public class OrderController {
 		model.addAttribute("cus",custom);
 		
 		List<OrderProductInfo> oPrdList = new ArrayList<OrderProductInfo>();
+		
+		CookieBox cki = new CookieBox(request);
+		
+		//상품이 선택되서 장바구니 페이지로 들어왔을 경우 해당
+		String value="";
+		
+		if(orderProductInfo.getPrdOpColor()!=null){
+			value+="01="+orderProductInfo.getPrdOpColor()+",";
+		}
+		if(orderProductInfo.getPrdOpSize()!=null){
+			value+="02="+orderProductInfo.getPrdOpSize()+",";
+		}
+		if(orderProductInfo.getPrdSmallImg()!=null){
+			value+="cn="+orderProductInfo.getBuyCnt()+",";
+			value+="no="+getOrderCode();
+			Cookie cookie =cki.createCookie("BOM_"+orderProductInfo.getPrdCd(),value,50000);
+			response.addCookie(cookie);//
+	
+		
+		}
+		
 		
 		
 		String key = orderProductInfo.getPrdCd();
@@ -546,9 +628,9 @@ public class OrderController {
 						option += s + ",";
 						odPrdInfo.setPrdOpSize(s.substring(3));
 					}
-					if("no".equals(s.substring(0, 2))){
+					/*if("no".equals(s.substring(0, 2))){
 						odPrdInfo.setOrderNo(s.substring(3));
-					}
+					}*/
 					if ("cn".equals(s.substring(0, 2))) {
 						odPrdInfo.setBuyCnt(Integer.parseInt(s.substring(3)));
 						BigDecimal total = new BigDecimal(
