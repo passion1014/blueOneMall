@@ -46,7 +46,8 @@
 		
 	</resultMap>
 	
-	<update id="updateBomAdImgtb0001" parameterType="adImgInfo">
+	
+	<update id="updateBomAdImgtb0001" parameterType="com.blueone.admin.domain.AdImgInfo">
 		UPDATE BOM_AD_IMG_TB
 			SET
 				 `MD_IMG_1` = #{mdImg1} , `MD_URL_1` = #{mdUrl1} 
