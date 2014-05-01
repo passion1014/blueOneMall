@@ -33,14 +33,23 @@ public class MainImgController {
 
 	//메인화면에 메인이미지 등록
 	@RequestMapping(value="/admin/adminDesign.do")
-	public String adminMdImg(Model model){
+	public String adminMdImg(@ModelAttribute("adImgInfo") AdImgInfo adImgInfo ,BindingResult result, Model model){
 		
-		int code= (int)(Math.random()*10000)+1;
-		String imgCode= "I"+code;
+		adImgInfo = adImgService.getAdImgDtl(adImgInfo);
 		
-		model.addAttribute("imgCode", imgCode);
+		model.addAttribute("adImgInfo", adImgInfo);
 		
 		return "admin/admin/adminDesign";
+	}
+	
+	@RequestMapping(value="/admin/adminBanner.do")
+	public String adminBnImg(@ModelAttribute("adImgInfo") AdImgInfo adImgInfo ,BindingResult result, Model model){
+		
+		adImgInfo = adImgService.getAdImgDtl(adImgInfo);
+		
+		model.addAttribute("adImgInfo", adImgInfo);
+		
+		return "admin/admin/adminBanner";
 	}
 	
 	//메인화면에 메인이미지 등록처리
@@ -49,6 +58,7 @@ public class MainImgController {
 		
 		
 		MultipartFile main1Up = adImgInfo.getMain1Up();
+		
 		if(main1Up != null && !main1Up.isEmpty()) {
 			AttachFileInfo contImg = new AttachFileInfo();
 			FileUploadUtility utilList = new FileUploadUtility();
@@ -57,6 +67,7 @@ public class MainImgController {
 		}
 		
 		MultipartFile main2Up = adImgInfo.getMain2Up();
+		
 		if(main2Up != null && !main2Up.isEmpty()) {
 			AttachFileInfo contImg = new AttachFileInfo();
 			FileUploadUtility utilList = new FileUploadUtility();
@@ -81,6 +92,7 @@ public class MainImgController {
 		}
 		
 		MultipartFile main5Up = adImgInfo.getMain5Up();
+		
 		if(main5Up != null && !main5Up.isEmpty()) {
 			AttachFileInfo contImg = new AttachFileInfo();
 			FileUploadUtility utilList = new FileUploadUtility();
@@ -88,71 +100,135 @@ public class MainImgController {
 			adImgInfo.setMdImg5(contImg.getAttSaveFileNm());
 		}
 		
+		MultipartFile main6Up = adImgInfo.getMain6Up();
+		
+		if(main6Up != null && !main6Up.isEmpty()) {
+			AttachFileInfo contImg = new AttachFileInfo();
+			FileUploadUtility utilList = new FileUploadUtility();
+			contImg = utilList.doFileUpload(8,main6Up,false);
+			adImgInfo.setMdImg6(contImg.getAttSaveFileNm());
+		}
+		
+		MultipartFile ban1Up = adImgInfo.getBan1Up();
+		if(ban1Up != null && !ban1Up.isEmpty()) {
+			AttachFileInfo contImg = new AttachFileInfo();
+			FileUploadUtility utilList = new FileUploadUtility();
+			contImg = utilList.doFileUpload(8,ban1Up,false);
+			adImgInfo.setBnImg1(contImg.getAttSaveFileNm());
+		}
+		
+		MultipartFile ban2Up = adImgInfo.getBan2Up();
+		if(ban2Up != null && !ban2Up.isEmpty()) {
+			AttachFileInfo contImg = new AttachFileInfo();
+			FileUploadUtility utilList = new FileUploadUtility();
+			contImg = utilList.doFileUpload(8,ban2Up,false);
+			adImgInfo.setBnImg2(contImg.getAttSaveFileNm());
+		}
+		
+		MultipartFile ban3Up = adImgInfo.getBan3Up();
+		if(ban3Up != null && !ban3Up.isEmpty()) {
+			AttachFileInfo contImg = new AttachFileInfo();
+			FileUploadUtility utilList = new FileUploadUtility();
+			contImg = utilList.doFileUpload(8,ban3Up,false);
+			adImgInfo.setBnImg3(contImg.getAttSaveFileNm());
+		}
+		
+		MultipartFile ban4Up = adImgInfo.getBan4Up();
+		if(ban4Up != null && !ban4Up.isEmpty()) {
+			AttachFileInfo contImg = new AttachFileInfo();
+			FileUploadUtility utilList = new FileUploadUtility();
+			contImg = utilList.doFileUpload(8,ban4Up,false);
+			adImgInfo.setBnImg4(contImg.getAttSaveFileNm());
+		}
+		
+		MultipartFile ban5Up = adImgInfo.getBan5Up();
+		if(ban5Up != null && !ban5Up.isEmpty()) {
+			AttachFileInfo contImg = new AttachFileInfo();
+			FileUploadUtility utilList = new FileUploadUtility();
+			contImg = utilList.doFileUpload(8,ban5Up,false);
+			adImgInfo.setBnImg5(contImg.getAttSaveFileNm());
+		}
+		
+		MultipartFile ban6Up = adImgInfo.getBan6Up();
+		if(ban6Up != null && !ban6Up.isEmpty()) {
+			AttachFileInfo contImg = new AttachFileInfo();
+			FileUploadUtility utilList = new FileUploadUtility();
+			contImg = utilList.doFileUpload(8,ban6Up,false);
+			adImgInfo.setBnImg6(contImg.getAttSaveFileNm());
+		}
+		
+		MultipartFile ban7Up = adImgInfo.getBan7Up();
+		if(ban7Up != null && !ban7Up.isEmpty()) {
+			AttachFileInfo contImg = new AttachFileInfo();
+			FileUploadUtility utilList = new FileUploadUtility();
+			contImg = utilList.doFileUpload(8,ban7Up,false);
+			adImgInfo.setBnImg7(contImg.getAttSaveFileNm());
+		}
 	
 		
 		
-		adImgService.insertAdImg(adImgInfo);
+		adImgService.updateAdImg(adImgInfo);
 		
-		return "";
-	}
-
-			//메인화면 메인이미지와 배너이미지
-			@RequestMapping(value="/admin/adminBanner.do")
-			public String adminBnImg(Model model){
-				
-				int code= (int)(Math.random()*10000)+1;
-				String bnCode= "I"+code;
-				
-				model.addAttribute("bnCode", bnCode);
-				return "admin/admin/adminBanner";
-			}
-			
-			//메인화면에 배너이미지 등록처리
-			@RequestMapping(value="/admin/adminBnImgProc.do", method = RequestMethod.POST)
-			public String adminBnImgProc(@ModelAttribute("adImgInfo") AdImgInfo adImgInfo , BindingResult result, Model model)throws FileNotFoundException, IOException{
-						
-				
-				MultipartFile ban1Up = adImgInfo.getBan1Up();
-				if(ban1Up != null && !ban1Up.isEmpty()) {
-					AttachFileInfo contImg = new AttachFileInfo();
-					FileUploadUtility utilList = new FileUploadUtility();
-					contImg = utilList.doFileUpload(8,ban1Up,false);
-					adImgInfo.setBnImg1(contImg.getAttSaveFileNm());
-				}
-				
-				MultipartFile ban2Up = adImgInfo.getBan2Up();
-				if(ban2Up != null && !ban2Up.isEmpty()) {
-					AttachFileInfo contImg = new AttachFileInfo();
-					FileUploadUtility utilList = new FileUploadUtility();
-					contImg = utilList.doFileUpload(8,ban2Up,false);
-					adImgInfo.setBnImg2(contImg.getAttSaveFileNm());
-				}
-				
-				MultipartFile ban3Up = adImgInfo.getBan3Up();
-				if(ban3Up != null && !ban3Up.isEmpty()) {
-					AttachFileInfo contImg = new AttachFileInfo();
-					FileUploadUtility utilList = new FileUploadUtility();
-					contImg = utilList.doFileUpload(8,ban3Up,false);
-					adImgInfo.setBnImg3(contImg.getAttSaveFileNm());
-				}
-				
-				MultipartFile ban4Up = adImgInfo.getBan4Up();
-				if(ban4Up != null && !ban4Up.isEmpty()) {
-					AttachFileInfo contImg = new AttachFileInfo();
-					FileUploadUtility utilList = new FileUploadUtility();
-					contImg = utilList.doFileUpload(8,ban4Up,false);
-					adImgInfo.setBnImg4(contImg.getAttSaveFileNm());
-				}
-				
-				MultipartFile ban5Up = adImgInfo.getBan5Up();
-				if(ban5Up != null && !ban5Up.isEmpty()) {
-					AttachFileInfo contImg = new AttachFileInfo();
-					FileUploadUtility utilList = new FileUploadUtility();
-					contImg = utilList.doFileUpload(8,ban5Up,false);
-					adImgInfo.setBnImg5(contImg.getAttSaveFileNm());
-				}
 		return "redirect:adminDesign.do";
 	}
+
+//			//메인화면 메인이미지와 배너이미지
+//			@RequestMapping(value="/admin/adminBanner.do")
+//			public String adminBnImg(Model model){
+//				
+//				int code= (int)(Math.random()*10000)+1;
+//				String bnCode= "I"+code;
+//				
+//				model.addAttribute("bnCode", bnCode);
+//				return "admin/admin/adminBanner";
+//			}
+//			
+//			//메인화면에 배너이미지 등록처리
+//			@RequestMapping(value="/admin/adminBnImgProc.do", method = RequestMethod.POST)
+//			public String adminBnImgProc(@ModelAttribute("adImgInfo") AdImgInfo adImgInfo , BindingResult result, Model model)throws FileNotFoundException, IOException{
+//						
+//				
+//				MultipartFile ban1Up = adImgInfo.getBan1Up();
+//				if(ban1Up != null && !ban1Up.isEmpty()) {
+//					AttachFileInfo contImg = new AttachFileInfo();
+//					FileUploadUtility utilList = new FileUploadUtility();
+//					contImg = utilList.doFileUpload(8,ban1Up,false);
+//					adImgInfo.setBnImg1(contImg.getAttSaveFileNm());
+//				}
+//				
+//				MultipartFile ban2Up = adImgInfo.getBan2Up();
+//				if(ban2Up != null && !ban2Up.isEmpty()) {
+//					AttachFileInfo contImg = new AttachFileInfo();
+//					FileUploadUtility utilList = new FileUploadUtility();
+//					contImg = utilList.doFileUpload(8,ban2Up,false);
+//					adImgInfo.setBnImg2(contImg.getAttSaveFileNm());
+//				}
+//				
+//				MultipartFile ban3Up = adImgInfo.getBan3Up();
+//				if(ban3Up != null && !ban3Up.isEmpty()) {
+//					AttachFileInfo contImg = new AttachFileInfo();
+//					FileUploadUtility utilList = new FileUploadUtility();
+//					contImg = utilList.doFileUpload(8,ban3Up,false);
+//					adImgInfo.setBnImg3(contImg.getAttSaveFileNm());
+//				}
+//				
+//				MultipartFile ban4Up = adImgInfo.getBan4Up();
+//				if(ban4Up != null && !ban4Up.isEmpty()) {
+//					AttachFileInfo contImg = new AttachFileInfo();
+//					FileUploadUtility utilList = new FileUploadUtility();
+//					contImg = utilList.doFileUpload(8,ban4Up,false);
+//					adImgInfo.setBnImg4(contImg.getAttSaveFileNm());
+//				}
+//				
+//				MultipartFile ban5Up = adImgInfo.getBan5Up();
+//				if(ban5Up != null && !ban5Up.isEmpty()) {
+//					AttachFileInfo contImg = new AttachFileInfo();
+//					FileUploadUtility utilList = new FileUploadUtility();
+//					contImg = utilList.doFileUpload(8,ban5Up,false);
+//					adImgInfo.setBnImg5(contImg.getAttSaveFileNm());
+//				}
+//		return "redirect:adminDesign.do";
+//	}
 
 
 //	//메인화면 메인이미지와 배너이미지
@@ -226,10 +302,6 @@ public class MainImgController {
 //
 //		return "redirect:adminBanner.do";
 //	}
-	
-	
-	
-	
 	
 	
 	private String getFileExt(String originalFilename) {

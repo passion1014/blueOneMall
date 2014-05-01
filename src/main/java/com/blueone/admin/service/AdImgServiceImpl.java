@@ -73,7 +73,7 @@ public class AdImgServiceImpl implements IAdImgService{
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		AdImgInfo adDtl = new AdImgInfo();
 		try{
-//			adDtl =  sqlSession.selectOne("adImg.selectBomAdImgTb0002", adImgInfo);
+			adDtl =  sqlSession.selectOne("adImg.selectDtlBomAdImgTb0001", adImgInfo);
 			
 		}finally{
 			sqlSession.close();
@@ -83,7 +83,24 @@ public class AdImgServiceImpl implements IAdImgService{
 		
 	}
 
-	
+	@Override
+	public int updateAdImg(AdImgInfo adImgInfo){
+		
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		int result = 0;
+		try{
+			
+			result = sqlSession.update("adImg.updateBomAdImgtb0001", adImgInfo);
+			
+		}finally{
+			
+			sqlSession.close();
+		}
+		
+		
+		return result;
+	}
 
 
 }
