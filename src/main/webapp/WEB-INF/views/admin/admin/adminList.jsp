@@ -48,7 +48,7 @@
 			<tr onClick="line_detail('1')" >
 				<td><b>${info.idx}</b></td>
 				<td class="center">${info.status}</td>
-				<td style="cursor:pointer;">${info.id}</td>
+				<td class="center" style="cursor:pointer;">${info.id}</td>
 				<td class="center">${info.name}</td>
 				<td class="center">○</td>
 				<td class="center">○</td>
