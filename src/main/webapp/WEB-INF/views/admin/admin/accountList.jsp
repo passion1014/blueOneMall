@@ -17,7 +17,7 @@
 	<div class="right">
 		<input type="button" value="계좌 등록" class="Small_Button Gray" onClick="openWin('./accountRegister.do','accountForm',600,450,'scrollbars=no');">
 	</div>
-
+	
 	<table>
 		<colgroup>
 			<col width="6%" />

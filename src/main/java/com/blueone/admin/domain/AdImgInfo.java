@@ -22,6 +22,7 @@ public class AdImgInfo {
 	private MultipartFile ban7Up;
 	
 	private String attFilePath;
+	
 	private String mdUrl1;
 	private String mdUrl2;
 	private String mdUrl3;

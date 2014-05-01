@@ -13,11 +13,11 @@
 
 	 		<div class="mcont">
 				<ul class="bxslider">
-							<li><a href="${adDtl.mdUrl1}"><img src="${adDtl.mdImg1}" alt="메인이미지1"/></a></li>
-							<li><a href="${adDtl.mdUrl2}"><img src="${adDtl.mdImg2}" alt="메인이미지2"/></a></li>
-							<li><a href="${adDtl.mdUrl3}"><img src="${adDtl.mdImg3}" alt="메인이미지3"/></a></li>
-							<li><a href="${adDtl.mdUrl4}"><img src="${adDtl.mdImg4}" alt="메인이미지4"/></a></li>
-							<li><a href="${adDtl.mdUrl5}"><img src="${adDtl.mdImg5}" alt="메인이미지5"/></a></li>
+					<li><a href="${adDtl.mdUrl1}"><img src="${adDtl.mdImg1}" alt="메인이미지1"/></a></li>
+					<li><a href="${adDtl.mdUrl2}"><img src="${adDtl.mdImg2}" alt="메인이미지2"/></a></li>
+					<li><a href="${adDtl.mdUrl3}"><img src="${adDtl.mdImg3}" alt="메인이미지3"/></a></li>
+					<li><a href="${adDtl.mdUrl4}"><img src="${adDtl.mdImg4}" alt="메인이미지4"/></a></li>
+					<li><a href="${adDtl.mdUrl5}"><img src="${adDtl.mdImg5}" alt="메인이미지5"/></a></li>
 							
 				</ul>
 				<div id="mcont_nav">
