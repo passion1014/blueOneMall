@@ -31,7 +31,7 @@
 		
 		<ul>
 			<h2>계좌 관리</h2>
-			<li><a href="accountList.do">계좌 목록</span>			
+			<li><a href="accountList.do">계좌 목록</a></span>			
 		</ul>
 	</div>
 	</c:when>
