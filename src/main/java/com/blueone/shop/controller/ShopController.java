@@ -246,13 +246,7 @@ public class ShopController {
 		
 		
 		AdImgInfo adDtl = new AdImgInfo();
-		
-<<<<<<< HEAD
-=======
 
-	//	adDtl = shopService.getAdImg2(adImgInfo);
->>>>>>> 6ff3214e3639311d2b83cbab0b67f820e9823761
-		
 		
 
 

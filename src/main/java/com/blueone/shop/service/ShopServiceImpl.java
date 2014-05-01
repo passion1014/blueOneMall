@@ -65,7 +65,7 @@ public class ShopServiceImpl implements IShopService{
 		
 	}
 	
-<<<<<<< HEAD
+
 	@Override
 	public int updateAdImg(AdImgInfo adImgInfo){
 		
@@ -85,7 +85,7 @@ public class ShopServiceImpl implements IShopService{
 		return result;
 	}
 	
-=======
+
 
 //	@Override
 //	public AdImgInfo getAdImg2(AdImgInfo adImgInfo){
@@ -104,7 +104,6 @@ public class ShopServiceImpl implements IShopService{
 //		return adImgInfo;
 //	}
 //	
->>>>>>> 6ff3214e3639311d2b83cbab0b67f820e9823761
 	
 
 	
