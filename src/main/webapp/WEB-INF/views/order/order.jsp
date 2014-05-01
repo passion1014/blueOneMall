@@ -63,7 +63,6 @@
 										<span>
 										<img src="${odPrdInfo.prdSmallImg}"  alt="상품이미지"  width="71" height="71"></span>
 										<input type="hidden" id="orderProductList[${i.index}].prdCd" name="orderProductList[${i.index}].prdCd"  value="${odPrdInfo.prdCd}"  />
-										<input type="hidden" id="orderProductList[${i.index}].orderNo" name="orderProductList[${i.index}].orderNo"  value="${odPrdInfo.orderNo}"  />
 										<input type="hidden" id="orderProductList[${i.index}].buyCnt" name="orderProductList[${i.index}].buyCnt"  value="${odPrdInfo.buyCnt}"  />
 										<input type="hidden" id="orderProductList[${i.index}].prdOption" name="orderProductList[${i.index}].prdOption"  value="${odPrdInfo.prdOption}"  />
 										 
@@ -77,8 +76,8 @@
 									</td>
 									<td>${odPrdInfo.sellPrice}</td>
 									<td>
-										<span class="input_text"><input type="text" value="${odPrdInfo.buyCnt}" title="수량기입"><button class="btn_triangle1"></button></span>
-										<span class="input_btn"><input type="button" value="수정" title="수정"><button class="btn_triangle2"></button></span>
+										<span class="input_text"><input type="text" id="buyCnt" naem="buyCnt" value="${odPrdInfo.buyCnt}" title="수량기입"><button class="btn_triangle1"></button></span>
+										<span class="input_btn"><input type="button" value="수정" title="수정" onClick="location.href='editOrderBuycn.do?ordIdx=${i.index}&orderProductList[${i.index}].buyCnt='+document.getElementById('buyCnt').value;"> <button class="btn_triangle2"></button></span>
 									</td>
 									<td>${odPrdInfo.totalPrice}</td>
 									<td>
