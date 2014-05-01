@@ -65,6 +65,7 @@ public class ShopServiceImpl implements IShopService{
 		
 	}
 	
+<<<<<<< HEAD
 	@Override
 	public int updateAdImg(AdImgInfo adImgInfo){
 		
@@ -84,6 +85,26 @@ public class ShopServiceImpl implements IShopService{
 		return result;
 	}
 	
+=======
+
+//	@Override
+//	public AdImgInfo getAdImg2(AdImgInfo adImgInfo){
+//		
+//		SqlSession sqlSession = sqlSessionFactory.openSession();
+//		
+//		try{
+//			
+//			adImgInfo = sqlSession.selectOne("adImg.selectBomAdImgTb0002", adImgInfo);
+//			
+//		}finally{
+//			
+//			sqlSession.close();
+//			
+//		}
+//		return adImgInfo;
+//	}
+//	
+>>>>>>> 6ff3214e3639311d2b83cbab0b67f820e9823761
 	
 
 	

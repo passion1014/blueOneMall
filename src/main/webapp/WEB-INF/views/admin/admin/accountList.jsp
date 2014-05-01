@@ -51,10 +51,8 @@
 						</td>
 						<td style="text-align:center;">
 							<input type="button" value="수정" onClick="dialogUpdate('${accList.accIdx}');" class="Button Gray">
-
-							<input type="button" value="삭제" onClick="location.href='productList.do';"  class="Button Gray">
-							
-							<a href="javascript:void(0);" onClick="confirm_process('actionForm','해당 계좌를 삭제하시겠습니까?','productList.do');"><input type="button" value="삭제11" class="Button Gray"></a>
+							<input type="button" value="삭제" class="Button Gray" onClick="confirm_process('','해당 계좌를 삭제하시겠습니까?','productList1.do');">
+							<input type="button" value="삭제2" class="Button Gray">
 
 							<%-- <input type="button" value="삭제" onClick="confirm_process('','해당 계좌를 삭제하시겠습니까?','deleteAccountProc.do?accIdx=${accList.accIdx}');"  class="Button Gray"> --%>
 							<input type="button" value="삭제" onClick="confirm_process('','해당 계좌를 삭제하시겠습니까?','productList.do');"  class="Small_Button Gray">
