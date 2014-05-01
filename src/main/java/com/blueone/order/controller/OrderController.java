@@ -335,11 +335,12 @@ public class OrderController {
 		BigDecimal total = new BigDecimal(prdInfo.getPrdSellPrc());
 		total = total.multiply(new BigDecimal(orderProductInfo.getBuyCnt()));
 		orderProductInfo.setTotalPrice(total);
-
+		OrderInfo od = new OrderInfo();
+		od.setOrd_unit_chk(key);
 		oPrdList.add(orderProductInfo);
 		
 	
-
+		model.addAttribute("orderInfo",od);
 		model.addAttribute("odPrdInfo",oPrdList);
 		
 		return "order/order";
@@ -482,16 +483,20 @@ public class OrderController {
 		model.addAttribute("cus",custom);
 		
 		//주문번호
-		String orderNum="";
+		String orderNum=getOrderCode();
 		
 		List<OrderProductInfo> ord  = orderInfo.getOrderProductList();
 		for(OrderProductInfo each : ord){
 			
 			//OrderProduct저장
-			each.setOrderNo(getOrderCode());
+			each.setOrderNo(orderNum);
 			each.setModiUser(custom.getCustId());//user ID 입력
 			orderManageService.registOrderProductInfo(each);
+
+			CookieBox cki = new CookieBox(request);
 			
+			Cookie cookie =cki.createCookie("BOM_"+each.getPrdCd(),"",-1);
+			response.addCookie(cookie);
 			//Order 저장
 			OrderInfo orderInfo1 = new OrderInfo();
 			orderInfo1.setOrderNo(each.getOrderNo());
@@ -521,7 +526,7 @@ public class OrderController {
 		
 		
 		OrderProductInfo opResInf = new OrderProductInfo();
-		opResInf.setOrderNo(odNo);
+		opResInf.setOrderNo(orderInfo.getOrderNo());
 		opResInf = orderManageService.selectOrderPrdInfo(opResInf);
 		
 		String prdCd = opResInf.getPrdCd();
@@ -570,11 +575,11 @@ public class OrderController {
 		
 		model.addAttribute("odPrdInfo",opResInf);
 		
-		/*RecipientInfo reInf = new RecipientInfo();
+		RecipientInfo reInf = new RecipientInfo();
 		reInf.setReciOdNum(odNo);
 		reInf = orderManageService.selectRecipientInfo(reInf);
 		model.addAttribute("reInfo",reInf);
-		*/	
+			
 	
 		
 		return "order/orderComplete";
@@ -643,7 +648,7 @@ public class OrderController {
 	
 	public List<OrderProductInfo> getCartList(CookieBox cki) throws IOException{
 
-		List<String> ckKey = cki.getKey();//키를 불러옴, 우리꺼 빼고 다불러옴,쿠키가 안들어가서 불러올수가읎음
+		List<String> ckKey = cki.getKey();
 		List<OrderProductInfo> ord = new ArrayList<OrderProductInfo>();
 		
 		// 키를불러오면 처리해줄 부분
