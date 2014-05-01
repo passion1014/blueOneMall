@@ -21,7 +21,6 @@
 	
 	<form name="tx_editor_form" method="post" enctype="multipart/form-data" action="adminDesignProc.do">
 	<input type="hidden" id="modifyUserId" name="modifyUserId" value="${adminSession.id}">
-	<input type="hidden" id="imgCode" name="imgCode" value="${imgCode}" >
 	
 	
 
@@ -102,15 +101,19 @@
 				<input type="text" id="mdUrl5" name="mdUrl5" style="width:80%;"> 
 			</td>
 		</tr>
+		<tr>
+			<th>메인이미지6</th>
+			<td colspan="3" class="left">
+				<input type="file" id="main6Up" name="main6Up" style="width:80%;">
+			</td>
+		</tr>
+		<tr>	
+			<th>메인이미지6-URL</th>
+			<td colspan="2" class="left">
+				<input type="text" id="mdUrl6" name="mdUrl6" style="width:80%;"> 
+			</td>
+		</tr>
 		
-		
-	
-		
-		
-		
-		
-		
-	
 		
 	</table>
 

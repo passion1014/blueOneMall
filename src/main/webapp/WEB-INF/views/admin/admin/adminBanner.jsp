@@ -19,9 +19,8 @@
 	<div id="Contents">
 	<h1>메인관리 &gt; 배너 관리 &gt; <strong>배너관리</strong></h1>
 	
-	<form name="tx_editor_form" method="post" enctype="multipart/form-data" action="adminBnImgProc.do">
+	<form name="tx_editor_form" method="post" enctype="multipart/form-data" action="adminDesignProc.do">
 	<input type="hidden" id="modifyUserId" name="modifyUserId" value="${adminSession.id}">
-	<input type="hidden" id="bnCode" name="imgCode" value="${bnCode}" >
 	
 	
 

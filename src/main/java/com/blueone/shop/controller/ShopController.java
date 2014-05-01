@@ -65,8 +65,9 @@ public class ShopController {
 		List<ProductInfo> epPrdList = new ArrayList<ProductInfo>();  //이어폰 상품리스트
 		List<ProductInfo> salePrdList = new ArrayList<ProductInfo>();  //sale 상품리스트
 		List<ProductInfo> bsPrdList = new ArrayList<ProductInfo>();  //브랜드샵 상품리스트
-		AdImgInfo AdImgList = new AdImgInfo();
 		
+		AdImgInfo AdImgDtl = new AdImgInfo();
+		AdImgDtl = shopService.getAdImg(adImgInfo);
 		
 		CategoryInfo largeInf = new CategoryInfo();
 		
@@ -246,18 +247,19 @@ public class ShopController {
 		
 		AdImgInfo adDtl = new AdImgInfo();
 		
+<<<<<<< HEAD
+=======
 
 	//	adDtl = shopService.getAdImg2(adImgInfo);
+>>>>>>> 6ff3214e3639311d2b83cbab0b67f820e9823761
 		
-
-		//adDtl = adImgService.getAdImgDtl(adImgInfo);
-
-
 		
 
 
 		
-		model.addAttribute("adDtl", adDtl);
+
+
+		model.addAttribute("AdImgDtl", AdImgDtl);
 		model.addAttribute("productList", productList);
 		model.addAttribute("pdSList", btPrdList);
 		model.addAttribute("hpPrdList", hpPrdList);

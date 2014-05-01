@@ -22,7 +22,7 @@ public class ShopServiceImpl implements IShopService{
 	private SqlSessionFactory sqlSessionFactory;
 	
 	
-	//메인화면에 배너이미지출력
+	//메인화면에 이미지출력
 	@Override
 	public AdImgInfo getAdImg(AdImgInfo adImgInfo){
 		
@@ -32,7 +32,7 @@ public class ShopServiceImpl implements IShopService{
 		
 		try{
 			
-			adImg = sqlSession.selectOne("adImg.selectBomAdImgTb0001", adImgInfo);
+			adImg = sqlSession.selectOne("adImg.selectDtlBomAdImgTb0001", adImgInfo);
 			
 		}finally{
 			sqlSession.close();
@@ -65,6 +65,27 @@ public class ShopServiceImpl implements IShopService{
 		
 	}
 	
+<<<<<<< HEAD
+	@Override
+	public int updateAdImg(AdImgInfo adImgInfo){
+		
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		int result = 0;
+		try{
+			
+			result = sqlSession.update("adImg.updateBomAdImgtb0001", adImgInfo);
+			
+		}finally{
+			
+			sqlSession.close();
+		}
+		
+		
+		return result;
+	}
+	
+=======
 
 //	@Override
 //	public AdImgInfo getAdImg2(AdImgInfo adImgInfo){
@@ -83,6 +104,7 @@ public class ShopServiceImpl implements IShopService{
 //		return adImgInfo;
 //	}
 //	
+>>>>>>> 6ff3214e3639311d2b83cbab0b67f820e9823761
 	
 
 	
