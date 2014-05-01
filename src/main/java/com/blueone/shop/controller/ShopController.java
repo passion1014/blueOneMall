@@ -247,7 +247,7 @@ public class ShopController {
 		AdImgInfo adDtl = new AdImgInfo();
 		
 
-		adDtl = shopService.getAdImg2(adImgInfo);
+	//	adDtl = shopService.getAdImg2(adImgInfo);
 		
 
 		//adDtl = adImgService.getAdImgDtl(adImgInfo);
