@@ -11,8 +11,40 @@
 	   <c:param name="slot" value="order"/>
 	</c:import>
  <div id="Contents">
-	<h1>주문관리 &gt; 주문서리스트 &gt; <strong>전체리스트</strong></h1>
+	<h1>주문관리 &gt; 주문서리스트 &gt; 
+	<c:choose>
+		<c:when test="${sh eq 'all'}"> 
+			<strong>전체리스트</strong>
+		</c:when>
+		<c:when test="${sh eq 'ordering'}"> 
+			<strong>신청중</strong>
+		</c:when>
+		<c:when test="${sh eq 'orderComplete'}"> 
+			<strong>주문완료</strong>
+		</c:when>
+		<c:when test="${sh eq 'Transfering'}"> 
+			<strong>배송중</strong>
+		</c:when>
+		<c:when test="${sh eq 'TransferReady'}"> 
+			<strong>배송준비중</strong>
+		</c:when>
+		<c:when test="${sh eq 'cancel'}"> 
+			<strong>취소신청</strong>
+		</c:when>
+		<c:when test="${sh eq 'cancelComplete'}"> 
+			<strong>취소완료</strong>
+		</c:when>
+		<c:when test="${sh eq 'return'}"> 
+			<strong>반품신청</strong>
+		</c:when>
+		<c:when test="${sh eq 'retrunComplete'}"> 
+			<strong>반품완료</strong>
+		</c:when>
+				
+				
 	
+	</c:choose>
+	</h1>
 	<form id="sfrm" name="sfrm" method="get" action="./admin.member.php">
 		<input type="hidden" id="slot" name="slot" value="member">
 		<input type="hidden" id="type" name="type" value="member_list">
@@ -47,7 +79,6 @@
 		</table>
 		</form>    
 	    
-	<div class="left" style="margin-top:15px;"><b>회원 리스트</b> ( 검색 인원 : <?=number_format($totalnum)?> 명 )</div>
 	
 	<table>
 		<colgroup>
@@ -70,13 +101,13 @@
 				<c:forEach items="${odList}" var="odList">
 					<tr>
 						<td>
-							${odList.orderDate}
+							${odList.orderDate.substring(0,10)}
 						</td>
 						<td>
 							${odList.orderNo}
 						</td>
 						<td>
-							<c:if test="${odList.orderStatCd eq '01'}">주문중</c:if>
+							<c:if test="${odList.orderStatCd eq '01'}">신청중</c:if>
 							<c:if test="${odList.orderStatCd eq '02'}">결제완료</c:if>
 							<c:if test="${odList.orderStatCd eq '03'}">배송중</c:if>
 							<c:if test="${odList.orderStatCd eq '04'}">배송완료</c:if>

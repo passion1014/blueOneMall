@@ -35,14 +35,14 @@ public class OrderManageServiceImpl implements IOrderManageService{
 	@Autowired private IAttachFileManageService attFileManageService;
 	
 	@Override
-	public List<OrderInfo> getOrderInfoListByPeriod(OrderSrchInfo orderSrchInfo) {
+	public List<OrderInfo> getOrderInfoListByPeriod(OrderInfo orderInfo) {
 		List<OrderInfo> orderList;
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
 			
 			// 기간에 따른 주문목록 조회
-			orderList = sqlSession.selectList("order.selectListBomOrderTb0001", orderSrchInfo);
+			orderList = sqlSession.selectList("order.selectListBomOrderTb0001", orderInfo);
 			
 			/*
 			for (OrderInfo orderInfo : orderList) {
@@ -274,7 +274,12 @@ public class OrderManageServiceImpl implements IOrderManageService{
 		
 		
 	}
-	
-	
+
+	@Override
+	public List<OrderInfo> getOrderInfoListByPeriod(OrderSrchInfo orderSrchInfo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 }
