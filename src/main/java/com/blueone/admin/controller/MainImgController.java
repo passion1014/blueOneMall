@@ -70,7 +70,7 @@ public class MainImgController {
 			AttachFileInfo contImg = new AttachFileInfo();
 			FileUploadUtility utilList = new FileUploadUtility();
 			contImg = utilList.doFileUpload(8,main2Up,false);
-			adImgInfo.setMdImg2(contImg.getAttSaveFileNm());
+			adImgInfo.setMdImg2(contImg.getAttFilePath());
 		}
 		
 		MultipartFile main3Up = adImgInfo.getMain3Up();
@@ -78,7 +78,7 @@ public class MainImgController {
 			AttachFileInfo contImg = new AttachFileInfo();
 			FileUploadUtility utilList = new FileUploadUtility();
 			contImg = utilList.doFileUpload(8,main3Up,false);
-			adImgInfo.setMdImg3(contImg.getAttSaveFileNm());
+			adImgInfo.setMdImg3(contImg.getAttFilePath());
 		}
 		
 		MultipartFile main4Up = adImgInfo.getMain4Up();
@@ -86,7 +86,7 @@ public class MainImgController {
 			AttachFileInfo contImg = new AttachFileInfo();
 			FileUploadUtility utilList = new FileUploadUtility();
 			contImg = utilList.doFileUpload(8,main4Up,false);
-			adImgInfo.setMdImg4(contImg.getAttSaveFileNm());
+			adImgInfo.setMdImg4(contImg.getAttFilePath());
 		}
 		
 		MultipartFile main5Up = adImgInfo.getMain5Up();		
@@ -94,7 +94,7 @@ public class MainImgController {
 			AttachFileInfo contImg = new AttachFileInfo();
 			FileUploadUtility utilList = new FileUploadUtility();
 			contImg = utilList.doFileUpload(8,main5Up,false);
-			adImgInfo.setMdImg5(contImg.getAttSaveFileNm());
+			adImgInfo.setMdImg5(contImg.getAttFilePath());
 		}
 		
 		MultipartFile main6Up = adImgInfo.getMain6Up();		
@@ -102,7 +102,7 @@ public class MainImgController {
 			AttachFileInfo contImg = new AttachFileInfo();
 			FileUploadUtility utilList = new FileUploadUtility();
 			contImg = utilList.doFileUpload(8,main6Up,false);
-			adImgInfo.setMdImg6(contImg.getAttSaveFileNm());
+			adImgInfo.setMdImg6(contImg.getAttFilePath());
 		}
 		
 		MultipartFile ban1Up = adImgInfo.getBan1Up();
@@ -110,7 +110,7 @@ public class MainImgController {
 			AttachFileInfo contImg = new AttachFileInfo();
 			FileUploadUtility utilList = new FileUploadUtility();
 			contImg = utilList.doFileUpload(8,ban1Up,false);
-			adImgInfo.setBnImg1(contImg.getAttSaveFileNm());
+			adImgInfo.setBnImg1(contImg.getAttFilePath());
 		}
 		
 		MultipartFile ban2Up = adImgInfo.getBan2Up();
@@ -118,7 +118,7 @@ public class MainImgController {
 			AttachFileInfo contImg = new AttachFileInfo();
 			FileUploadUtility utilList = new FileUploadUtility();
 			contImg = utilList.doFileUpload(8,ban2Up,false);
-			adImgInfo.setBnImg2(contImg.getAttSaveFileNm());
+			adImgInfo.setBnImg2(contImg.getAttFilePath());
 		}
 		
 		MultipartFile ban3Up = adImgInfo.getBan3Up();
@@ -126,7 +126,7 @@ public class MainImgController {
 			AttachFileInfo contImg = new AttachFileInfo();
 			FileUploadUtility utilList = new FileUploadUtility();
 			contImg = utilList.doFileUpload(8,ban3Up,false);
-			adImgInfo.setBnImg3(contImg.getAttSaveFileNm());
+			adImgInfo.setBnImg3(contImg.getAttFilePath());
 		}
 		
 		MultipartFile ban4Up = adImgInfo.getBan4Up();
@@ -134,7 +134,7 @@ public class MainImgController {
 			AttachFileInfo contImg = new AttachFileInfo();
 			FileUploadUtility utilList = new FileUploadUtility();
 			contImg = utilList.doFileUpload(8,ban4Up,false);
-			adImgInfo.setBnImg4(contImg.getAttSaveFileNm());
+			adImgInfo.setBnImg4(contImg.getAttFilePath());
 		}
 		
 		MultipartFile ban5Up = adImgInfo.getBan5Up();
@@ -142,7 +142,7 @@ public class MainImgController {
 			AttachFileInfo contImg = new AttachFileInfo();
 			FileUploadUtility utilList = new FileUploadUtility();
 			contImg = utilList.doFileUpload(8,ban5Up,false);
-			adImgInfo.setBnImg5(contImg.getAttSaveFileNm());
+			adImgInfo.setBnImg5(contImg.getAttFilePath());
 		}
 		
 		MultipartFile ban6Up = adImgInfo.getBan6Up();
@@ -150,7 +150,7 @@ public class MainImgController {
 			AttachFileInfo contImg = new AttachFileInfo();
 			FileUploadUtility utilList = new FileUploadUtility();
 			contImg = utilList.doFileUpload(8,ban6Up,false);
-			adImgInfo.setBnImg6(contImg.getAttSaveFileNm());
+			adImgInfo.setBnImg6(contImg.getAttFilePath());
 		}
 		
 		MultipartFile ban7Up = adImgInfo.getBan7Up();
@@ -158,7 +158,7 @@ public class MainImgController {
 			AttachFileInfo contImg = new AttachFileInfo();
 			FileUploadUtility utilList = new FileUploadUtility();
 			contImg = utilList.doFileUpload(8,ban7Up,false);
-			adImgInfo.setBnImg7(contImg.getAttSaveFileNm());
+			adImgInfo.setBnImg7(contImg.getAttFilePath());
 		}
 		
 		

@@ -169,6 +169,7 @@ public class ProductController {
 		AttachFileInfo contImg = new AttachFileInfo();
 		FileUploadUtility utilList = new FileUploadUtility();
 		contImg=utilList.doFileUpload(7,productInfo.getProListImgUp(),false);
+		
 		contImg.setAttCdType("01");//등록유형 : 상품
 		contImg.setAttCdKey(productInfo.getPrdCd()); //
 		contImg.setAttImgType("01");//목록
