@@ -156,7 +156,7 @@
 					<input type="text" id="mdUrl6" name="mdUrl6" value="${adImgInfo.mdUrl6}" style="width:80%;"> 
 				</td>
 			</tr>
-			
+			<!--============================================  -->
 		</table>
 	
 		<div class="Btn_area">

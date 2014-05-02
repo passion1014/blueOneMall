@@ -245,7 +245,6 @@ public class ShopController {
 		
 		
 		
-		AdImgInfo adDtl = new AdImgInfo();
 
 		
 

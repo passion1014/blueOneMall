@@ -48,22 +48,7 @@ public class AdImgServiceImpl implements IAdImgService{
 		return result;
 	}
 	
-	@Override
-	public List<AdImgInfo> getAdImg(AdImgInfo adImgInfo){
-		
-		SqlSession sqlSession = sqlSessionFactory.openSession();
-		List<AdImgInfo> adImg = new ArrayList<AdImgInfo>();
-		try{
-			
-			adImg = sqlSession.selectList("adImg.selectBomAdImgTb0001", adImgInfo);
-			
-		}finally{
-			
-			sqlSession.close();
-			
-		}
-		return adImg;
-	}
+	
 	
 
 
