@@ -162,8 +162,8 @@ public class MainImgController {
 		}
 		
 		
-		//adImgService.updateAdImg(adImgInfo);
-		adImgService.insertAdImg(adImgInfo);
+		adImgService.updateAdImg(adImgInfo);
+		//adImgService.insertAdImg(adImgInfo);
 		
 		return "redirect:adminDesign.do";
 	}

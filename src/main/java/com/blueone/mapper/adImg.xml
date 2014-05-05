@@ -56,41 +56,40 @@
 	
 	<update id="updateBomAdImgtb0001" parameterType="com.blueone.admin.domain.AdImgInfo">
 		UPDATE BOM_AD_IMG_TB
-			SET	REG_DATE = NOW()  
-			
-				 `MD_IMG_1` = #{mdImg1}
-				,`MD_URL_1` = #{mdUrl1}
-				,`MD_TEXT_1` = #{mdText1}
-			    ,`MD_IMG_2` = #{mdImg2}
-			    ,`MD_URL_2` = #{mdUrl2}
-			    ,`MD_TEXT_2` = #{mdText2}
-			    ,`MD_IMG_3` = #{mdImg3}
-			    ,`MD_URL_3` = #{mdUrl3}
-			    ,`MD_TEXT_3` = #{mdText3}
-			    ,`MD_IMG_4` = #{mdImg4}
-			    ,`MD_URL_4` = #{mdUrl4}
-			    ,`MD_TEXT_4` = #{mdText4}
-			    ,`MD_IMG_5` = #{mdImg5}
-			    ,`MD_URL_5` = #{mdUrl5}
-			    ,`MD_TEXT_5` = #{mdText5}
-			    ,`MD_IMG_6` = #{mdImg6}
-			    ,`MD_URL_6` = #{mdUrl6}
-			    ,`MD_TEXT_6` = #{mdText6}
-			    ,`BN_IMG_1` = #{bnImg1}
-			    ,`BN_URL_1` = #{bnUrl1}
-			    ,`BN_IMG_2` = #{bnImg2}
-			    ,`BN_URL_2` = #{bnUrl2}
-			    ,`BN_IMG_3` = #{bnImg3}
-			    ,`BN_URL_3` = #{bnUrl3}
-			    ,`BN_IMG_4` = #{bnImg4}
-			    ,`BN_URL_4` = #{bnUrl4}
-			    ,`BN_IMG_5` = #{bnImg5}
-			    ,`BN_URL_5` = #{bnUrl5}
-			    ,`BN_IMG_6` = #{bnImg6}
-			    ,`BN_URL_6` = #{bnUrl6}
-			    ,`BN_IMG_7` = #{bnImg7}
-			    ,`BN_URL_7` = #{bnUrl7}
-	
+			SET	REG_DATE = NOW() 
+			<if test="mdImg1 != null and mdImg1 != ''">, `MD_IMG_1` = #{mdImg1}</if> 
+			,`MD_URL_1` = #{mdUrl1}
+			,`MD_TEXT_1` = #{mdText1}			
+			<if test="mdImg2 != null and mdImg2 != ''">, `MD_IMG_2` = #{mdImg2}</if>
+			,`MD_URL_2` = #{mdUrl2}
+			,`MD_TEXT_2` = #{mdText2}			
+			<if test="mdImg3 != null and mdImg3 != ''">, `MD_IMG_3` = #{mdImg3}</if>
+			,`MD_URL_3` = #{mdUrl3}
+			,`MD_TEXT_3` = #{mdText3}			
+			<if test="mdImg4 != null and mdImg4 != ''">, `MD_IMG_4` = #{mdImg4}</if>			
+			,`MD_URL_4` = #{mdUrl4}
+			,`MD_TEXT_4` = #{mdText4}			
+			<if test="mdImg5 != null and mdImg5 != ''">, `MD_IMG_5` = #{mdImg5}</if>			
+			,`MD_URL_5` = #{mdUrl5}
+			,`MD_TEXT_5` = #{mdText5}			
+			<if test="mdImg6 != null and mdImg6 != ''">, `MD_IMG_6` = #{mdImg6}</if>
+			,`MD_URL_6` = #{mdUrl6}
+			,`MD_TEXT_6` = #{mdText6}			
+			<if test="bnImg1 != null and bnImg1 != ''">, `BN_IMG_1` = #{bnImg1}</if>			
+			,`BN_URL_1` = #{bnUrl1}						
+			<if test="bnImg2 != null and bnImg2 != ''">, `BN_IMG_2` = #{bnImg2}</if>
+			,`BN_URL_2` = #{bnUrl2}			
+			<if test="bnImg3 != null and bnImg3 != ''">, `BN_IMG_3` = #{bnImg3}</if>
+			,`BN_URL_3` = #{bnUrl3}			
+			<if test="bnImg4 != null and bnImg4 != ''">, `BN_IMG_4` = #{bnImg4}</if>			
+			,`BN_URL_4` = #{bnUrl4}			
+			<if test="bnImg5 != null and bnImg5 != ''">, `BN_IMG_5` = #{bnImg5}</if>
+			,`BN_URL_5` = #{bnUrl5}			
+			<if test="bnImg6 != null and bnImg6 != ''">, `BN_IMG_6` = #{bnImg6}</if>
+			,`BN_URL_6` = #{bnUrl6}			
+			<if test="bnImg7 != null and bnImg7 != ''">, `BN_IMG_7` = #{bnImg7}</if>
+			,`BN_URL_7` = #{bnUrl7}
+				
 	</update>
 	<update id="updateBomAttachFileTb0001" parameterType="attFileInfo">
 		UPDATE BOM_ATTACHIFILE_TB
