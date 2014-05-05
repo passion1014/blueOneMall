@@ -88,9 +88,11 @@
 			<if test="bnImg6 != null and bnImg6 != ''">, `BN_IMG_6` = #{bnImg6}</if>
 			,`BN_URL_6` = #{bnUrl6}			
 			<if test="bnImg7 != null and bnImg7 != ''">, `BN_IMG_7` = #{bnImg7}</if>
-			,`BN_URL_7` = #{bnUrl7}
-				
+			,`BN_URL_7` = #{bnUrl7}				
 	</update>
+	
+	
+	
 	<update id="updateBomAttachFileTb0001" parameterType="attFileInfo">
 		UPDATE BOM_ATTACHIFILE_TB
 			SET
@@ -107,6 +109,9 @@
 		WHERE
 			`ATT_CODE_KEY`= #{ATT_CODE_KEY}
 	</update>
+	
+	
+	
 	<update id="deleteBomAdImgtb0001" parameterType="com.blueone.admin.domain.AdImgInfo">
 		UPDATE BOM_AD_IMG_TB
 			SET	REG_DATE = NOW()
