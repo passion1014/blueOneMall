@@ -128,105 +128,16 @@
 				<input type="text" id="bnUrl7" name="bnUrl7" style="width:80%;"> 
 			</td>
 		</tr>
-		
-		
-		<!--=================================================================-->
-		
-		<tr>
-			<th>배너이미지1</th>
-			<td colspan="3" class="left">
-				<input type="file" id="main1Up" name="main1Up" style="width:80%;">
-			</td>
-		</tr>
-		<tr>	
-			<th>배너이미지1-URL</th>
-			<td colspan="2" class="left">
-				<input type="text" id="mdUrl1" name="mdUrl1" style="width:80%;"> 
-			</td>
-		</tr>
-		
-		<tr>
-			<th>배너이미지2</th>
-			<td colspan="3" class="left">
-				<input type="file" id="main2Up" name="main2Up" style="width:80%;">
-			</td>
-		</tr>
-		<tr>	
-			<th>배너이미지2-URL</th>
-			<td colspan="2" class="left">
-				<input type="text" id="mdUrl2" name="mdUrl2" style="width:80%;"> 
-			</td>
-		</tr>
-		
-		
-		<tr>
-			<th>배너이미지3</th>
-			<td colspan="3" class="left">
-				<input type="file" id="main3Up" name="main3Up" style="width:80%;">
-			</td>
-		</tr>
-		<tr>	
-			<th>배너이미지3-URL</th>
-			<td colspan="2" class="left">
-				<input type="text" id="mdUrl3" name="mdUrl3" style="width:80%;"> 
-			</td>
-		</tr>
-		
-		
-		<tr>
-			<th>배너이미지4</th>
-			<td colspan="3" class="left">
-				<input type="file" id="main4Up" name="main4Up" style="width:80%;">
-			</td>
-		</tr>
-		<tr>	
-			<th>배너이미지4-URL</th>
-			<td colspan="2" class="left">
-				<input type="text" id="mdUrl4" name="mdUrl4" style="width:80%;"> 
-			</td>
-		</tr>
-		
-		
-		<tr>
-			<th>배너이미지5</th>
-			<td colspan="3" class="left">
-				<input type="file" id="main5Up" name="main5Up" style="width:80%;">
-			</td>
-		</tr>
-		<tr>	
-			<th>배너이미지5-URL</th>
-			<td colspan="2" class="left">
-				<input type="text" id="mdUrl5" name="mdUrl5" style="width:80%;"> 
-			</td>
-		</tr>
-		<tr>
-			<th>배너이미지6</th>
-			<td colspan="3" class="left">
-				<input type="file" id="main6Up" name="main6Up" style="width:80%;">
-			</td>
-		</tr>
-		<tr>	
-			<th>배너이미지6-URL</th>
-			<td colspan="2" class="left">
-				<input type="text" id="mdUrl6" name="mdUrl6" style="width:80%;"> 
-			</td>
-		</tr>
-		
-		
-		
-	
-		
 	</table>
 
 	<div class="Btn_area">
-		<input type="submit" value="등록" 	class="Button Gray"  / > &nbsp; 
-		<input type="button" value="취소"     class="Button Gray" onClick="history.back();">
+		<input type="submit" value="등록" 	  class="Button Gray" /> &nbsp; 
+		<input type="button" value="취소"     class="Button Gray" onClick="history.back();" />
 	</div>
 
 	</form>
 
 	</div>
-
 </div>
 </body>
 

@@ -62,7 +62,7 @@ public class MainImgController {
 			AttachFileInfo contImg = new AttachFileInfo();
 			FileUploadUtility utilList = new FileUploadUtility();
 			contImg = utilList.doFileUpload(8,main1Up,false);
-			adImgInfo.setMdImg1(contImg.getAttSaveFileNm());
+			adImgInfo.setMdImg1(contImg.getAttFilePath());
 		}
 		
 		MultipartFile main2Up = adImgInfo.getMain2Up();		
@@ -162,8 +162,8 @@ public class MainImgController {
 		}
 		
 		
-		adImgService.updateAdImg(adImgInfo);
-		
+		//adImgService.updateAdImg(adImgInfo);
+		adImgService.insertAdImg(adImgInfo);
 		
 		return "redirect:adminDesign.do";
 	}

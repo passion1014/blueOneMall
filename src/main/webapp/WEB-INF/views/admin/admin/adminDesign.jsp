@@ -25,36 +25,35 @@
 			<tr>
 				<th>메인이미지1</th>
 				<td colspan="3" class="left">
-					<input type="file" id="main1Up" name="main1Up" style="width:80%;">
 				<c:choose>
 					<c:when test="${adImgInfo.mdImg1 eq NULL || adImgInfo.mdImg1 == ''}">
-						<input type="file" id="main1Up" name="main1Up" style="width:80%;">
+						<input type="file" id="main1Up" name="main1Up" style="width:80%;"><br/>
+						<input type="text" id="mdText1" name="mdText1" style="width:80%;"/>
 					</c:when>
 					<c:otherwise>
-						<img src="../../resources/upload/main/${adImgInfo.mdImg1}" width="666">
+						<img src="${adImgInfo.mdImg1}" width="666">
 						<br />
-						<input type="button" value="이미지 삭제" class="Small_Button Gray" />
+						<input type="button" value="이미지 삭제"  onClick="location.href='deleteAdImg.do';"   class="Small_Button Gray" />
 					</c:otherwise>
 				</c:choose>
 				</td>
 			</tr>
-			
 			<tr>	
-				<th>메인이미지1-URL</th>
+				<th>메인이미지2-URL</th>
 				<td colspan="2" class="left">
 					<input type="text" id="mdUrl1" name="mdUrl1" value="${adImgInfo.mdUrl1}" style="width:80%;"> 
 				</td>
 			</tr>
-			
 			<tr>
 				<th>메인이미지2</th>
 				<td colspan="3" class="left">
 				<c:choose>
 					<c:when test="${adImgInfo.mdImg2 eq NULL || adImgInfo.mdImg2 == ''}">
-						<input type="file" id="main2Up" name="main2Up" style="width:80%;">
+						<input type="file" id="main2Up" name="main2Up" style="width:80%;"><br/>
+						<input type="text" id="mdText2" name="mdText2" style="width:80%;"/>
 					</c:when>
 					<c:otherwise>
-						<img src="../" width="666">
+						<img src="${adImgInfo.mdImg2}" width="666">
 						<br />
 						<input type="button" value="이미지 삭제" class="Small_Button Gray" />
 					</c:otherwise>
@@ -73,10 +72,11 @@
 				<td colspan="3" class="left">
 				<c:choose>
 					<c:when test="${adImgInfo.mdImg3 eq NULL || adImgInfo.mdImg3 == ''}">
-						<input type="file" id="main3Up" name="main3Up" style="width:80%;">
+						<input type="file" id="main3Up" name="main3Up" style="width:80%;"><br/>
+						<input type="text" id="mdText3" name="mdText3" style="width:80%;"/>
 					</c:when>
 					<c:otherwise>
-						<img src="../" width="666">
+						<img src="${adImgInfo.mdImg3}" width="666">
 						<br />
 						<input type="button" value="이미지 삭제" class="Small_Button Gray" />
 					</c:otherwise>
@@ -96,10 +96,11 @@
 				<td colspan="3" class="left">
 				<c:choose>
 					<c:when test="${adImgInfo.mdImg4 eq NULL || adImgInfo.mdImg4 == ''}">
-						<input type="file" id="main4Up" name="main4Up" style="width:80%;">
+						<input type="file" id="main4Up" name="main4Up" style="width:80%;"><br/>
+						<input type="text" id="mdText4" name="mdText4" style="width:80%;"/>
 					</c:when>
 					<c:otherwise>
-						<img src="../" width="666">
+						<img src="${adImgInfo.mdImg4}" width="666">
 						<br />
 						<input type="button" value="이미지 삭제" class="Small_Button Gray" />
 					</c:otherwise>
@@ -119,10 +120,11 @@
 				<td colspan="3" class="left">
 				<c:choose>
 					<c:when test="${adImgInfo.mdImg5 eq NULL || adImgInfo.mdImg5 == ''}">
-						<input type="file" id="main5Up" name="main5Up" style="width:80%;">
+						<input type="file" id="main5Up" name="main5Up" style="width:80%;"><br/>
+						<input type="text" id="mdText5" name="mdText5" style="width:80%;"/>
 					</c:when>
 					<c:otherwise>
-						<img src="../" width="666">
+						<img src="${adImgInfo.mdImg5}" width="666">
 						<br />
 						<input type="button" value="이미지 삭제" class="Small_Button Gray" />
 					</c:otherwise>
@@ -140,10 +142,11 @@
 				<td colspan="3" class="left">
 				<c:choose>
 					<c:when test="${adImgInfo.mdImg6 eq NULL || adImgInfo.mdImg6 == ''}">
-						<input type="file" id="main6Up" name="main6Up" style="width:80%;">
+						<input type="file" id="main6Up" name="main6Up" style="width:80%;"><br/>
+						<input type="text" id="mdText6" name="mdText6" style="width:80%;"/>
 					</c:when>
 					<c:otherwise>
-						<img src="../" width="666">
+						<img src="${adImgInfo.mdImg6}" width="666">
 						<br />
 						<input type="button" value="이미지 삭제" class="Small_Button Gray" />
 					</c:otherwise>
@@ -160,7 +163,7 @@
 		</table>
 	
 		<div class="Btn_area">
-			<input type="submit" value="정보변경" 	class="Button Gray"  / > &nbsp; 
+			<input type="submit" value="정보변경" 	class="Button Gray"  /> &nbsp; 
 			<input type="button" value="취소"     class="Button Gray" onClick="history.back();">
 		</div>
 	
