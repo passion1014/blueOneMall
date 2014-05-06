@@ -79,7 +79,7 @@ public class ShopController {
 		
 		
 		
-		
+	/*	
 		
 		String prdCtgL = largeInf.getCtgCode();
 		
@@ -243,7 +243,7 @@ public class ShopController {
 		
 		
 		
-		
+		*/
 		
 
 		
@@ -253,14 +253,14 @@ public class ShopController {
 
 
 		model.addAttribute("AdImgDtl", AdImgDtl);
-		model.addAttribute("productList", productList);
+	/*	model.addAttribute("productList", productList);
 		model.addAttribute("pdSList", btPrdList);
 		model.addAttribute("hpPrdList", hpPrdList);
 		model.addAttribute("mmPrdList", mmPrdList);
 		model.addAttribute("csPrdList", csPrdList);
 		model.addAttribute("xtPrdList", xtPrdList);
 		model.addAttribute("epPrdList", epPrdList);
-		
+		*/
 		return "shop/main";
 	}
 	

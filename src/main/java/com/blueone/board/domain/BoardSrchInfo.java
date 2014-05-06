@@ -1,5 +1,7 @@
 package com.blueone.board.domain;
 
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+
 import com.blueone.common.domain.BaseInfo;
 
 
@@ -13,6 +15,8 @@ public class BoardSrchInfo extends BaseInfo {
 	private String srchInsFromYmd;		// 등록시작일
 	private String srchInsToYmd;		// 등록종료일
 	private String srchKeyword;			// 기본검색어
+	private String brdCodeType;			// 해당게시판이 다른 테이블과 조인될경우 그 테이블의 PK의 종류(01:상품QnA)
+	private String brdCodeKey;			// 해당게시판이 다른 테이블과 조인될경우 그 테이블의 PK
 	private String userId;
 	private long[] check;
 	private long[] noticeBrdSeq;
@@ -89,6 +93,18 @@ public class BoardSrchInfo extends BaseInfo {
 	}
 	public void setSrchUserNm(String srchUserNm) {
 		this.srchUserNm = srchUserNm;
+	}
+	public String getBrdCodeType() {
+		return brdCodeType;
+	}
+	public void setBrdCodeType(String brdCodeType) {
+		this.brdCodeType = brdCodeType;
+	}
+	public String getBrdCodeKey() {
+		return brdCodeKey;
+	}
+	public void setBrdCodeKey(String brdCodeKey) {
+		this.brdCodeKey = brdCodeKey;
 	}
 	
 }

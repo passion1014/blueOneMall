@@ -34,7 +34,7 @@ public class EtcController {
 	
 	@RequestMapping("/etc/etc01.do")
 	public ModelAndView etc01(@ModelAttribute("BoardSrchModel") BoardSrchInfo boardSrchModel, HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView mav = boardController.boardList(boardSrchModel, request, response);
+		ModelAndView mav = boardController.boardList(boardSrchModel);
 		mav.setViewName("/etc/etc01");
 		return mav;
 	}
