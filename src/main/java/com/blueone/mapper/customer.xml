@@ -127,6 +127,15 @@
 			`CUST_ID`= #{custId}
 	</update>
 
+	<insert id="insertBomCustTb0001" parameterType="customerInfo">
+		INSERT BOM_CUST_TB
+			(`CUST_ID`,`CUST_NM`,`CUST_BIRTH_DATE`,`CUST_PHONE_NO`,`CUST_MOBILE_NO`,`CUST_EMAIL1`
+				,`CUST_ZIP_CD1`,`CUST_ADDR`,`CUST_SMS_RCV_YN`,`CUST_EMAIL_RCV_YN`
+				,`REG_DATE`,`LAST_DATE`, `MODIFY_USER_ID`)
+			VALUES
+			(#{custId}, #{custNm}, #{custBirth}, #{custPh}, #{custMb}, #{custEmail}, #{custZip}
+			  , #{custAdd}, #{custSmSRcv}, #{custMailRcv}, now(), now(),#{custId})
+	</insert>
 	
 	
 </mapper>

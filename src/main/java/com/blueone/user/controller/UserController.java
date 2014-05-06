@@ -55,16 +55,32 @@ public class UserController {
 	
 	//회원가입 폼 생성
 	@RequestMapping(value = "/user/userRegister.do", method=RequestMethod.GET)
-	public String userRegister(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model){
+	public String userRegister(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model,HttpSession session){
+		//CustomerInfo cus = (CustomerInfo)session.getAttribute("customerSession");	
+		CustomerInfo cus =new CustomerInfo();
+		cus.setCustId("100001639343");
+		model.addAttribute("customer",cus);
 		return "user/userRegister";
 	}
 
 	//회원가입 처리
-	@RequestMapping(value = "/user/userRegister.do", method=RequestMethod.POST)
-	public String userRegisterProc(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model){
-
+	@RequestMapping(value = "/user/userRegisterProc.do", method=RequestMethod.POST)
+	public String userRegisterProc(@ModelAttribute("customerInfo") CustomerInfo customerInfo,BindingResult result, Model model){
+		
+		String birth = customerInfo.getBirthY()+"-"+customerInfo.getBirthM()+"-"+customerInfo.getBirthD();
+		customerInfo.setCustBirth(birth);
+		
+		String phone=customerInfo.getTelNo1()+"-"+customerInfo.getTelNo2()+"-"+customerInfo.getTelNo3();
+		customerInfo.setCustPh(phone);
+		
+		String mobile=customerInfo.getHpNo1()+"-"+customerInfo.getHpNo2()+"-"+customerInfo.getHpNo3();
+		customerInfo.setCustMb(mobile);
+		
+		String email = customerInfo.geteMail1()+"@"+customerInfo.geteMail2();
+		customerInfo.setCustEmail(email);
+		
 		// 고객등록처리
-		int rst = userService.registUserInfo(userInfo);
+		int rst = customerService.registUserInfo(customerInfo);
 		if (rst == -1) {
 			model.addAttribute("isRegistYn", "N");
 			return "user/userRegister";
@@ -77,12 +93,10 @@ public class UserController {
 	@RequestMapping(value="/user/userEdit.do", method=RequestMethod.GET)
 	public String userEdit(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model,HttpSession session){
 		
-		CustomerInfo cus = (CustomerInfo)session.getAttribute("customerSession");	
+		//CustomerInfo cus = (CustomerInfo)session.getAttribute("customerSession");	
 		
-		
-
-		
-		
+		CustomerInfo cus =new CustomerInfo();
+		cus.setCustId("100001639343");
 		cus=customerService.getCustomerInfo2(cus);
 		
 		String birth = cus.getCustBirth();
@@ -133,19 +147,21 @@ public class UserController {
 	
 	//우편번호 찾기 팝업
 	@RequestMapping(value="/user/searchZipCode.do", method=RequestMethod.GET)
-	public String searchZipCode(HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception {
+	public String searchZipCode(HttpServletRequest request,String type, HttpServletResponse response, ModelMap model) throws Exception {
        
+			model.addAttribute("type",type);	
 			return "user/searchZipCode";
 	}
 	//우편번호 찾기 팝업
 	@RequestMapping(value="/user/searchZipCodeProc.do", method=RequestMethod.GET)
-	public String searchZipCodeProc(@ModelAttribute("searchAddress")SearchAddress sAdd, HttpServletRequest request, HttpServletResponse response, Map<String, Object> commandMap, ModelMap model,HttpSession session) throws Exception {
+	public String searchZipCodeProc(@ModelAttribute("searchAddress")SearchAddress sAdd,String type, HttpServletRequest request, HttpServletResponse response, Map<String, Object> commandMap, ModelMap model,HttpSession session) throws Exception {
        
-		CustomerInfo cus = (CustomerInfo)session.getAttribute("customerSession");	
+		//CustomerInfo cus = (CustomerInfo)session.getAttribute("customerSession");	
 		
 		
 		
-		
+		CustomerInfo cus =new CustomerInfo();
+		cus.setCustId("100001639343");
 		cus=customerService.getCustomerInfo2(cus);
 		
 		String birth = cus.getCustBirth();
@@ -171,18 +187,26 @@ public class UserController {
 	
 		model.addAttribute("customer",cus);
 		
-		return "user/userEdit";
+		if(type.equals("userEdit")){
+			return "user/userEdit";
+		}else if(type.equals("userRegi")){
+			return "user/userRegister";
+		}else{
+			return "";
+		}
+		
 	}
 
 		
 	//주소 찾기 action
 	@RequestMapping(value="/user/searchAddress.do", method=RequestMethod.GET)
-	public String searchAddress(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model,String dong) throws ParserConfigurationException, SAXException, IOException{
+	public String searchAddress(@ModelAttribute("userInfo") UserInfo userInfo,String type,BindingResult result, Model model,String dong) throws ParserConfigurationException, SAXException, IOException{
 		dong = new String(dong.getBytes("8859_1"), "UTF-8");
 		
 		 List<SearchAddress> nList =Utility.searchAdd(dong);
 		
 			model.addAttribute("nList", nList);
+			model.addAttribute("type",type);
 			return "user/searchZipCode";
 	}
 	

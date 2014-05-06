@@ -14,7 +14,7 @@
 						<fieldset>
 							<legend></legend>
 							<input type="text" class="text_info" title="주소지 입력창" id="dong" name="dong"/>
-							<input type="button" class="btn_adr" value="주소검색" title="주소검색 버튼" onClick="javascript:location.href='searchAddress.do?dong='+document.getElementById('dong').value;"/>
+							<input type="button" class="btn_adr" value="주소검색" title="주소검색 버튼" onClick="javascript:location.href='searchAddress.do?type=${type}&dong='+document.getElementById('dong').value;"/>
 						</fieldset>
 					</div>
 					<table class="adres_tbl" summary="주소지검색목록">
@@ -47,7 +47,7 @@
 				<c:forEach items="${nList}"  var="nList">
 					<tr>
 						<td style="text-align:center;">${nList.zipCode}</td>
-						<td style="text-align:center;"><a href="javascript:location.href='searchZipCodeProc.do?address=${nList.address}&zipCode=${nList.zipCode}'">${nList.address}</a></td>
+						<td style="text-align:center;"><a href="javascript:location.href='searchZipCodeProc.do?address=${nList.address}&zipCode=${nList.zipCode}&type=${type}'">${nList.address}</a></td>
 					</tr>
 				</c:forEach>
 			</c:when>

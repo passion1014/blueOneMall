@@ -9,4 +9,5 @@ public interface ICustomerManageService {
 	public CustomerInfo getCustomerInfo(CustomerSrchInfo customerSrchInfo);
 	public int updateCustomerInf(CustomerInfo customerInfo);
 	public CustomerInfo getCustomerInfo2(CustomerInfo customerInfo);
+	public int registUserInfo(CustomerInfo customerInfo);
 }

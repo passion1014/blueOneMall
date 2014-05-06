@@ -88,13 +88,13 @@
 			</script>
 						
 			<dl class="scont1">
-				<dd class="scont_box2"><a href="#"><img src="<c:url value='/resources/img/main/main/scont_img1.jpg'/>" alt="product image"/></a></dd>
-				<dd class="scont_box1"><a href="#"><img src="<c:url value='/resources/img/main//main/scont_img2.jpg'/>" alt="product image"/></a></dd>
+				<dd class="scont_box2"><a href="${AdImgDtl.bnUrl1}"><img src="${AdImgDtl.bnImg1}" alt="product image"/></a></dd>
+				<dd class="scont_box1"><a href="${AdImgDtl.bnUrl2}"><img src="${AdImgDtl.bnImg2}" alt="product image"/></a></dd>
 			</dl>
 			
 			<dl class="scont2">
-				<dd class="scont_box1"><a href="#"><img src="<c:url value='/resources/img/main/main/scont_img3.jpg'/>" alt="product image"/></a></dd>
-				<dd class="scont_box2"><a href="#"><img src="<c:url value='/resources/img/main/main/scont_img4.jpg'/>" alt="product image"/></a></dd>
+				<dd class="scont_box1"><a href="${AdImgDtl.bnUrl3}"><img src="${AdImgDtl.bnImg3}" alt="product image"/></a></dd>
+				<dd class="scont_box2"><a href="${AdImgDtl.bnUrl4}"><img src="${AdImgDtl.bnImg4}" alt="product image"/></a></dd>
 			</dl>
 						
 		</div>
@@ -200,8 +200,8 @@
 			
 		</div>
 		<div class="cont_banner">
-			<a href="#" class="marginright"><img src="<c:url value='/resources/img/main/main/main_banner1.jpg'/>" alt="main banner image"/></a>
-			<a href="#"><img src="<c:url value='/resources/img/main/main/main_banner2.jpg'/>" alt="main banner image"/></a>
+			<a href="${AdImgDtl.bnUrl5}" class="marginright"><img src="${AdImgDtl.bnImg5}" alt="main banner image"/></a>
+			<a href="${AdImgDtl.bnUrl6}"><img src="${AdImgDtl.bnImg6}" alt="main banner image"/></a>
 		</div>
 		<div class="cont_bottom">
 		 <dl class="cont_botbox1">

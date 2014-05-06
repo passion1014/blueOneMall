@@ -173,6 +173,7 @@ public class LoginController {
 			session.setAttribute("customerSession", result);
 			return "shop/main";
 		}else{
+			model.addAttribute("customer",cust);
 			return "user/userRegister";
 		}
 		

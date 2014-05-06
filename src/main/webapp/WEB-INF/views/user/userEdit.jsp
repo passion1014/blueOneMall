@@ -142,7 +142,7 @@
 									<th>주소</th>
 									<td colspan="3" class="in_address">
 										<input type="text" title="address text" style="width:120px;" id="custZip" name="custZip" value="${customer.custZip}"/>
-										<button onClick="openWin('./searchZipCode.do','searchZipForm',600,450,'scrollbars=no');">우편번호 찾기</button><br/>
+										<button onClick="openWin('./searchZipCode.do?type=userEdit','searchZipForm',600,450,'scrollbars=no');">우편번호 찾기</button><br/>
 										<input type="text" title="address text" style="width:200px;"id="custAdd" name="custAdd" value="${customer.custAdd}"/>
 									</td>
 								</tr>

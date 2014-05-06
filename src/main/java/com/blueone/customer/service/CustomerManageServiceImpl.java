@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.blueone.customer.domain.CustomerInfo;
 import com.blueone.customer.domain.CustomerSrchInfo;
 import com.blueone.product.domain.ProductInfo;
+import com.blueone.user.domain.UserInfo;
 
 @Service
 public class CustomerManageServiceImpl implements ICustomerManageService {
@@ -85,6 +86,23 @@ public class CustomerManageServiceImpl implements ICustomerManageService {
 			return rst;
 		}
 
-		
+		//고객등록
+		@Override
+		public int registUserInfo(CustomerInfo customerInfo) {
+			
+			int rst = -1;
+			SqlSession sqlSession = sqlSessionFactory.openSession();
+
+			// -----------------------------------------------
+			// DB Insert 수행
+			// -----------------------------------------------
+			try {
+				rst = sqlSession.insert("customer.insertBomCustTb0001", customerInfo);
+			} finally {
+				sqlSession.close();
+			}
+			
+			return rst;
+		}
 
 }
