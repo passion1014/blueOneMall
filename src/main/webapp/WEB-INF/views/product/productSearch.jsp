@@ -61,6 +61,9 @@
 							</div>
 						</c:forEach>
 						</c:when>
+						<c:otherwise>
+							<h1>검색결과가없습니다.</h1>
+						</c:otherwise>
 					</c:choose>
 			</div>
 			<div class="paging2">

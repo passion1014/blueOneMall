@@ -897,14 +897,17 @@ public class ProductController {
 	@RequestMapping(value = "/product/searchProduct.do", method= RequestMethod.GET)
 	public String searchProduct(@ModelAttribute("productInfo")SearchProdInfo searchProdInfo, BindingResult result, Model model,HttpSession session) {
 		
-		searchProdInfo.setPrdNm(searchProdInfo.getSchWord());
+		String word = searchProdInfo.getSchWord();
+		if(word!=null && !word.isEmpty()){
+			List<ProductInfo> prdList=productManageService.getProductInfList(searchProdInfo);
+			model.addAttribute("prdList",prdList);
+			return "product/productSearch";
+		}else{
+			return "product/productSearch";
+		}
 		
-		List<ProductInfo> prdList=productManageService.getProductInfList(searchProdInfo);
 		
 		
-		model.addAttribute("prdList",prdList);
-		
-		return "product/productSearch";
 	}
 
 		

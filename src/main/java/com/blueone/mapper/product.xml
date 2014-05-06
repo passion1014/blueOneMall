@@ -102,11 +102,8 @@
 				LEFT JOIN BOM_ATTACHIFILE_TB T5 
 					ON ( T1.PRD_CD = T5.ATT_CODE_KEY AND T5.ATT_IMG_TYPE='01')
 		WHERE
-			(1 = 1)
-			<if test="prdNm != null and prdNm != ''">AND T1.PRD_NM LIKE CONCAT('%',#{prdNm},'%')</if>
-			<if test="prdCtgL != null and prdCtgL != ''">AND T1.PRD_CTG_L LIKE CONCAT(#{prdCtgL},'%')</if>
-			<if test="prdCtgM != null and prdCtgM != ''">AND T1.PRD_CTG_M LIKE CONCAT(#{prdCtgM},'%')</if>
-			<if test="prdCtgS != null and prdCtgS != ''">AND T1.PRD_CTG_S LIKE CONCAT(#{prdCtgS},'%')</if>
+			T1.PRD_NM LIKE CONCAT('%',#{schWord},'%')
+			OR T1.SEARCH_WORD LIKE CONCAT('%',#{schWord},'%')
 			
 	</select >
 	

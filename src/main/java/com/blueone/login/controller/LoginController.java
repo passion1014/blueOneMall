@@ -28,6 +28,7 @@ import javax.xml.xpath.XPathFactory;
 import net.welfare.HCDESUtil;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +37,9 @@ import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import com.blueone.customer.domain.CustomerInfo;
+import com.blueone.customer.domain.CustomerSrchInfo;
+import com.blueone.customer.service.ICustomerManageService;
 import com.oreilly.servlet.Base64Decoder;
 import com.oreilly.servlet.Base64Encoder;
 
@@ -48,7 +52,7 @@ public class LoginController {
 	
 	// SSO을 위해 호출할 웹서비스 도메인정보
 	private static final String URL = "https://giftdev.e-hyundai.com:1443/hb2efront_new/pointOpenAPI.do?";
-	
+	@Autowired ICustomerManageService customerManageService;
 	/**
 	 * 로그인 모듈
 	 * 
@@ -161,10 +165,17 @@ public class LoginController {
 		// --------------------------------------------
 		// 5. DB조회하여 회원정보가 있는지 확인한다.
 		// --------------------------------------------
-
-
-		String viewName = "cust/custDetail";
-		return viewName;
+		CustomerSrchInfo cust = new CustomerSrchInfo();
+		cust.setCustId(decMemNo);
+		CustomerInfo result=customerManageService.getCustomerInfo(cust);
+		if(result!=null){
+			return "shop/main";
+		}else{
+			return "user/userRegister";
+		}
+		
+		/*String viewName = "cust/custDetail";
+		return viewName;*/
 	}
 	
 	private String convert(String str, String encoding) throws IOException {
