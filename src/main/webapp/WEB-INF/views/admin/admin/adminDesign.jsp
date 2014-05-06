@@ -190,13 +190,13 @@
 			<tr>	
 				<th>메인제목6</th>
 				<td class="left">
-					<input type="text" id="mdText6" name="mdText6" value="${adImgInfo.mdText1}" style="width:80%;"> 
+					<input type="text" id="mdText6" name="mdText6" value="${adImgInfo.mdText6}" style="width:80%;"> 
 				</td>
 			</tr>
 			<tr>	
 				<th>링크주소6</th>
 				<td class="left">
-					<input type="text" id="mdUrl6" name="mdUrl6" value="${adImgInfo.mdUrl1}" style="width:80%;"> 
+					<input type="text" id="mdUrl6" name="mdUrl6" value="${adImgInfo.mdUrl6}" style="width:80%;"> 
 				</td>
 			</tr>
 			
