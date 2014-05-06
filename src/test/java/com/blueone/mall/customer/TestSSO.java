@@ -23,3 +23,6 @@ public class TestSSO extends BlueoneTestCase {
 		.andDo(print());
 	}
 }
+
+
+// /sso/login.do?MEM_NO=B856E909E78FDFA2132E230C3A557FC3&SHOP_NO

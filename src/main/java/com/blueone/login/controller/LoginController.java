@@ -18,6 +18,7 @@ import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
@@ -63,7 +64,7 @@ public class LoginController {
 	 * @return
 	 */
 	@RequestMapping(value="/sso/login.do", method= RequestMethod.GET)
-	public String getCustomerInfo(HttpServletRequest request, Model model) throws Exception {
+	public String getCustomerInfo(HttpServletRequest request, Model model, HttpSession session) throws Exception {
 		
 		// --------------------------------------------
 		// 1. 변수값을 받아서 확인한다. (암호화된 정보)
@@ -169,6 +170,7 @@ public class LoginController {
 		cust.setCustId(decMemNo);
 		CustomerInfo result=customerManageService.getCustomerInfo(cust);
 		if(result!=null){
+			session.setAttribute("customerSession", cust);
 			return "shop/main";
 		}else{
 			return "user/userRegister";

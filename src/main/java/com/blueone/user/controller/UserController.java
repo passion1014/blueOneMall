@@ -12,8 +12,10 @@ import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.commons.lang.ObjectUtils;
@@ -28,9 +30,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 
 
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import com.blueone.admin.domain.AdminInfo;
 import com.blueone.common.domain.SearchAddress;
 import com.blueone.common.util.Utility;
 import com.blueone.customer.domain.CustomerInfo;
@@ -41,7 +45,7 @@ import com.blueone.order.service.IOrderManageService;
 import com.blueone.user.domain.UserInfo;
 import com.blueone.user.service.IUserService;
 
-
+@SessionAttributes("customerSession")
 @Controller
 public class UserController {
 	
@@ -71,10 +75,10 @@ public class UserController {
 
 	//마이페이지
 	@RequestMapping(value="/user/userEdit.do", method=RequestMethod.GET)
-	public String userEdit(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model){
+	public String userEdit(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model,HttpSession session){
 		
-		CustomerInfo cus = new CustomerInfo ();
-		cus.setCustId("id1");//사용자가 로그인해서 들어오면 자동으로 넣어줘야하는 id
+		CustomerInfo cus = (CustomerInfo)session.getAttribute("customerSession");	
+		
 		
 
 		
@@ -135,12 +139,9 @@ public class UserController {
 	}
 	//우편번호 찾기 팝업
 	@RequestMapping(value="/user/searchZipCodeProc.do", method=RequestMethod.GET)
-	public String searchZipCodeProc(@ModelAttribute("searchAddress")SearchAddress sAdd, HttpServletRequest request, HttpServletResponse response, Map<String, Object> commandMap, ModelMap model) throws Exception {
+	public String searchZipCodeProc(@ModelAttribute("searchAddress")SearchAddress sAdd, HttpServletRequest request, HttpServletResponse response, Map<String, Object> commandMap, ModelMap model,HttpSession session) throws Exception {
        
-		CustomerInfo cus = new CustomerInfo();
-		
-		
-		cus.setCustId("id1");//사용자가 로그인해서 들어오면 자동으로 넣어줘야하는 id
+		CustomerInfo cus = (CustomerInfo)session.getAttribute("customerSession");	
 		
 		
 		
@@ -199,12 +200,11 @@ public class UserController {
 	
 	//주문내역관리
 	@RequestMapping(value="/user/orderListView.do", method=RequestMethod.GET)
-	public String orderListView(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model) {
+	public String orderListView(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model,HttpSession session) {
 		
 		//아이디 셋팅
 		OrderInfo od = new OrderInfo();
-		CustomerInfo cust = new CustomerInfo();
-		cust.setCustId("id1");//사용자가 로그인해서 들어오면 자동으로 넣어줘야하는 id
+		CustomerInfo cust= (CustomerInfo)session.getAttribute("customerSession");	
 		od.setCustomerInfo(cust);
 		
 		//아이디로 주문내역가져오기
@@ -233,12 +233,11 @@ public class UserController {
 
 	//주문취소신청
 	@RequestMapping(value="/user/orderCancel.do", method=RequestMethod.GET)
-	public String orderCancel(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model) {
+	public String orderCancel(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model,HttpSession session) {
 		
 		//아이디 셋팅
 		OrderInfo od = new OrderInfo();
-		CustomerInfo cust = new CustomerInfo();
-		cust.setCustId("id1");//사용자가 로그인해서 들어오면 자동으로 넣어줘야하는 id
+		CustomerInfo cust= (CustomerInfo)session.getAttribute("customerSession");	
 		od.setCustomerInfo(cust);
 		od.setOrderStatCd("01");
 		List<OrderInfo> odList =orderService.getOrderInfoListByPeriod(od);

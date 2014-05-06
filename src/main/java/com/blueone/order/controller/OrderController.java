@@ -12,6 +12,7 @@ import java.util.StringTokenizer;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import javax.xml.ws.Response;
 
@@ -98,10 +99,9 @@ public class OrderController {
 
 	// 장바구니-수량 수정
 	@RequestMapping(value="/order/editBuyCnt.do")
-	public String editBuyCnt(@ModelAttribute("orderProductInfo") OrderProductInfo orderProductInfo,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
+	public String editBuyCnt(@ModelAttribute("orderProductInfo") OrderProductInfo orderProductInfo,BindingResult result,HttpSession session, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
 		//user session이 있으면 넣을 부분
-		CustomerInfo cust = new CustomerInfo();
-		cust.setCustId("id1");
+		CustomerInfo cust = (CustomerInfo)session.getAttribute("customerSession");	
 				
 				
 		CookieBox cki = new CookieBox(request);
@@ -148,19 +148,12 @@ public class OrderController {
 	
 	//상품구매 - 수량수정
 	@RequestMapping(value="/order/editOrderBuycn.do")
-	public String editOrderBuycn(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
+	public String editOrderBuycn(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result,HttpSession session, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
 	
 		
 		
 		//세션에 잇는 정보를 셋팅
-		CustomerInfo custom = new CustomerInfo();
-		custom.setCustNm("dana");
-		custom.setTelNo1("02");
-		custom.setTelNo2("123");
-		custom.setTelNo3("4567");
-		custom.setHpNo1("010");
-		custom.setHpNo2("1231");
-		custom.setHpNo3("4567");
+		CustomerInfo custom = (CustomerInfo)session.getAttribute("customerSession");	
 		model.addAttribute("cus",custom);
 		
 		
@@ -270,19 +263,12 @@ public class OrderController {
 	
 	//바로구매
 	@RequestMapping(value="/order/orderDirect.do")
-	public String orderDirect(@ModelAttribute("orderInfo") OrderProductInfo orderProductInfo,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
+	public String orderDirect(@ModelAttribute("orderInfo") OrderProductInfo orderProductInfo,HttpSession session,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
 	
 		
 		
 		//세션에 잇는 정보를 셋팅
-		CustomerInfo custom = new CustomerInfo();
-		custom.setCustNm("dana");
-		custom.setTelNo1("02");
-		custom.setTelNo2("123");
-		custom.setTelNo3("4567");
-		custom.setHpNo1("010");
-		custom.setHpNo2("1231");
-		custom.setHpNo3("4567");
+		CustomerInfo custom = (CustomerInfo)session.getAttribute("customerSession");	
 		model.addAttribute("cus",custom);
 		
 		List<OrderProductInfo> oPrdList = new ArrayList<OrderProductInfo>();
@@ -348,12 +334,10 @@ public class OrderController {
 	
 	//장바구니 보여줌
 	@RequestMapping(value="/order/cartListView.do")
-	public String orderView(@ModelAttribute("orderProductInfo") OrderProductInfo orderProductInfo,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
+	public String orderView(@ModelAttribute("orderProductInfo") OrderProductInfo orderProductInfo,HttpSession session,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
 
 		//user session이 있으면 넣을 부분
-		CustomerInfo cust = new CustomerInfo();
-		cust.setCustId("id1");
-		
+		CustomerInfo cust = (CustomerInfo)session.getAttribute("customerSession");	
 		
 		CookieBox cki = new CookieBox(request);
 		List<OrderProductInfo> ord = getCartList(cki);
@@ -451,14 +435,7 @@ public class OrderController {
 		model.addAttribute("odPrdInfo",oPrdList);
 		
 		//세션에 잇는 정보를 셋팅
-		CustomerInfo custom = new CustomerInfo();
-		custom.setCustNm("dana");
-		custom.setTelNo1("02");
-		custom.setTelNo2("123");
-		custom.setTelNo3("4567");
-		custom.setHpNo1("010");
-		custom.setHpNo2("1231");
-		custom.setHpNo3("4567");
+		CustomerInfo custom = (CustomerInfo)session.getAttribute("customerSession");	
 		model.addAttribute("cus",custom);
 		
 		model.addAttribute("orderInfo",orderInfo);
@@ -468,18 +445,10 @@ public class OrderController {
 	
 	//결제페이지-처리
 	@RequestMapping(value="/order/orderRegisterProc.do")
-	public String orderRegisteProc(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
+	public String orderRegisteProc(@ModelAttribute("orderInfo") OrderInfo orderInfo,HttpSession session,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
 
 		//세션에 잇는 정보를 셋팅
-		CustomerInfo custom = new CustomerInfo();
-		custom.setCustId("id1");
-		custom.setCustNm("dana");
-		custom.setTelNo1("02");
-		custom.setTelNo2("123");
-		custom.setTelNo3("4567");
-		custom.setHpNo1("010");
-		custom.setHpNo2("1231");
-		custom.setHpNo3("4567");
+		CustomerInfo custom = (CustomerInfo)session.getAttribute("customerSession");	
 		model.addAttribute("cus",custom);
 		
 		//주문번호
@@ -519,7 +488,7 @@ public class OrderController {
 	
 	//주문성공페이지
 	@RequestMapping(value="/order/orderComplete.do")
-	public String orderComplete(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
+	public String orderComplete(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result,HttpSession session, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
 		
 		//결제상품 보여주기
 		String odNo=orderInfo.getOrderNo();
