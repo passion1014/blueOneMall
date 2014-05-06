@@ -60,6 +60,22 @@ public class AdImgInfo {
 	private String bnImg6;
 	private String bnImg7;
 	
+	private String fieldName;
+	private String fileName;
+		
+	
+	public String getFieldName() {
+		return fieldName;
+	}
+	public void setFieldName(String fieldName) {
+		this.fieldName = fieldName;
+	}
+	public String getFileName() {
+		return fileName;
+	}
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
 	public MultipartFile getBan1Up() {
 		return ban1Up;
 	}

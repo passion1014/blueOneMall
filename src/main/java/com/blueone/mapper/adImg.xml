@@ -92,6 +92,25 @@
 	</update>
 	
 	
+	<update id="updateBomAdImgtb0002" parameterType="com.blueone.admin.domain.AdImgInfo">
+		UPDATE BOM_AD_IMG_TB
+			SET	REG_DATE = NOW() 
+			<if test="mdImg1 != null and mdImg1 != ''">, `MD_IMG_1` = ''</if> 
+			<if test="mdImg2 != null and mdImg2 != ''">, `MD_IMG_2` = ''</if>
+			<if test="mdImg3 != null and mdImg3 != ''">, `MD_IMG_3` = ''</if>
+			<if test="mdImg4 != null and mdImg4 != ''">, `MD_IMG_4` = ''</if>			
+			<if test="mdImg5 != null and mdImg5 != ''">, `MD_IMG_5` = ''</if>			
+			<if test="mdImg6 != null and mdImg6 != ''">, `MD_IMG_6` = ''</if>
+			<if test="bnImg1 != null and bnImg1 != ''">, `BN_IMG_1` = ''</if>			
+			<if test="bnImg2 != null and bnImg2 != ''">, `BN_IMG_2` = ''</if>
+			<if test="bnImg3 != null and bnImg3 != ''">, `BN_IMG_3` = ''</if>
+			<if test="bnImg4 != null and bnImg4 != ''">, `BN_IMG_4` = ''</if>			
+			<if test="bnImg5 != null and bnImg5 != ''">, `BN_IMG_5` = ''</if>
+			<if test="bnImg6 != null and bnImg6 != ''">, `BN_IMG_6` = ''</if>
+			<if test="bnImg7 != null and bnImg7 != ''">, `BN_IMG_7` = ''</if>
+	</update>
+	
+	
 	
 	<update id="updateBomAttachFileTb0001" parameterType="attFileInfo">
 		UPDATE BOM_ATTACHIFILE_TB

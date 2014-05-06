@@ -14,4 +14,7 @@ public interface IAdImgService {
 	public AdImgInfo getAdImgDtl(AdImgInfo adImgInfo);
 
 	public int updateAdImg(AdImgInfo adImgInfo);//메인화면 이미지업데이트
+	
+	public int deleteDesignImg(AdImgInfo adImgInfo);//메인화면 이미지삭제
+	
 }

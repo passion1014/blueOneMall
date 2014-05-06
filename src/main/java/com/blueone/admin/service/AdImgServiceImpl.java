@@ -86,6 +86,26 @@ public class AdImgServiceImpl implements IAdImgService{
 		
 		return result;
 	}
+	
+	
+	@Override
+	public int deleteDesignImg(AdImgInfo adImgInfo){
+		
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		int result = 0;
+		try{
+			
+			result = sqlSession.update("adImg.updateBomAdImgtb0002", adImgInfo);
+			
+		}finally{
+			
+			sqlSession.close();
+		}
+		
+		
+		return result;
+	}
 
 
 }
