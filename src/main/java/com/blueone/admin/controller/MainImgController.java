@@ -70,7 +70,7 @@ public class MainImgController {
 	}
 	
 	//메인화면에 메인이미지 정보변경처리
-	@RequestMapping(value="/admin/adminDesignProc.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/adminDesignProc.do", method = RequestMethod.POST)
 	public String adminMdImgProc(@ModelAttribute("adImgInfo") AdImgInfo adImgInfo , BindingResult result, Model model)throws FileNotFoundException, IOException {
 		
 		
@@ -315,7 +315,7 @@ public class MainImgController {
 	
 	
 	//메인이미지 삭제처리
-	@RequestMapping(value="/admin/deleteDesignImgProc.do", method = RequestMethod.POST)
+	@RequestMapping(value="/admin/deleteDesignImgProc.do", method = RequestMethod.GET)
 	public String deleteDesignImgProc(@ModelAttribute("adImgInfo") AdImgInfo adImgInfo , BindingResult result, Model model)throws FileNotFoundException, IOException {
 		
 		

@@ -166,11 +166,11 @@ public class LoginController {
 		// --------------------------------------------
 		// 5. DB조회하여 회원정보가 있는지 확인한다.
 		// --------------------------------------------
-		CustomerSrchInfo cust = new CustomerSrchInfo();
+		CustomerInfo cust = new CustomerInfo();
 		cust.setCustId(decMemNo);
-		CustomerInfo result=customerManageService.getCustomerInfo(cust);
+		CustomerInfo result=customerManageService.getCustomerInfo2(cust);
 		if(result!=null){
-			session.setAttribute("customerSession", cust);
+			session.setAttribute("customerSession", result);
 			return "shop/main";
 		}else{
 			return "user/userRegister";
