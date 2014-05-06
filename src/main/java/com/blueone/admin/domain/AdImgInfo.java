@@ -37,6 +37,13 @@ public class AdImgInfo {
 	private String mdImg5;
 	private String mdImg6;
 	
+	private String mdText1;
+	private String mdText2;
+	private String mdText3;
+	private String mdText4;
+	private String mdText5;
+	private String mdText6;
+	
 	private String bnUrl1;
 	private String bnUrl2;
 	private String bnUrl3;
@@ -294,6 +301,43 @@ public class AdImgInfo {
 	public void setMdImg6(String mdImg6) {
 		this.mdImg6 = mdImg6;
 	}
+	public String getMdText1() {
+		return mdText1;
+	}
+	public void setMdText1(String mdText1) {
+		this.mdText1 = mdText1;
+	}
+	public String getMdText2() {
+		return mdText2;
+	}
+	public void setMdText2(String mdText2) {
+		this.mdText2 = mdText2;
+	}
+	public String getMdText3() {
+		return mdText3;
+	}
+	public void setMdText3(String mdText3) {
+		this.mdText3 = mdText3;
+	}
+	public String getMdText4() {
+		return mdText4;
+	}
+	public void setMdText4(String mdText4) {
+		this.mdText4 = mdText4;
+	}
+	public String getMdText5() {
+		return mdText5;
+	}
+	public void setMdText5(String mdText5) {
+		this.mdText5 = mdText5;
+	}
+	public String getMdText6() {
+		return mdText6;
+	}
+	public void setMdText6(String mdText6) {
+		this.mdText6 = mdText6;
+	}
+	
 	
 	
 	
