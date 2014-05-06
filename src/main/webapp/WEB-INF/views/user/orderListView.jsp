@@ -37,7 +37,7 @@
 							<c:choose>
 							 <c:when test="${ordList.size() != 0}">
 							<li class="cupon_tb">
-								<span class="tbl_tit">검색결과</span><span class="st_color">1건</span>
+								<span class="tbl_tit">검색결과</span><span class="st_color">${ordList.size()}건</span>
 								<table class="cupon_tbl" summary="주문내역관리표">
 									<caption>주문내역관리목록표</caption>
 									<colgroup>
@@ -67,12 +67,21 @@
 											<td>${ordList.ordPrd.prdNm}
 											</td>
 											<td>${ordList.ordPrd.sellPrice}</td>
-											<td>취소</td>
 											<td>
-												<c:if test="${ordList.orderStatCd eq '02'}">결제완료</c:if>
+												<c:if test="${ordList.orderStatCd eq '01'}">신청대기</c:if>
+												<c:if test="${ordList.orderStatCd eq '02' or ordList.orderStatCd eq '03'
+																or ordList.orderStatCd eq '04'}">결제완료</c:if>
+												<c:if test="${ordList.orderStatCd eq '07'}">취소신청</c:if>
+												<c:if test="${ordList.orderStatCd eq '08'}">취소완료</c:if>
+											</td>
+											<td>
+												<c:if test="${ordList.orderStatCd eq '01'or ordList.orderStatCd eq '07' or ordList.orderStatCd eq '08'
+												 				or ordList.orderStatCd eq '09' or ordList.orderStatCd eq '10' or ordList.orderStatCd eq '02'}">배송준비</c:if>
 												<c:if test="${ordList.orderStatCd eq '03'}">배송중</c:if>
 												<c:if test="${ordList.orderStatCd eq '04'}">배송완료</c:if>
-												<c:if test="${ordList.orderStatCd eq '05'}">고객확인</c:if>
+												<c:if test="${ordList.orderStatCd eq '09'}">반품신청</c:if>
+												<c:if test="${ordList.orderStatCd eq '10'}">반품신청완료</c:if>
+												
 											</td>
 										</tr>
 									  </c:forEach>

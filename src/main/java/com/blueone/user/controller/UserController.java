@@ -204,7 +204,7 @@ public class UserController {
 		//아이디 셋팅
 		OrderInfo od = new OrderInfo();
 		CustomerInfo cust = new CustomerInfo();
-		cust.setCustId("dana");//사용자가 로그인해서 들어오면 자동으로 넣어줘야하는 id
+		cust.setCustId("id1");//사용자가 로그인해서 들어오면 자동으로 넣어줘야하는 id
 		od.setCustomerInfo(cust);
 		
 		//아이디로 주문내역가져오기
@@ -231,7 +231,22 @@ public class UserController {
 		return "user/orderListView";
 	}
 
+	//주문취소신청
+	@RequestMapping(value="/user/orderCancel.do", method=RequestMethod.GET)
+	public String orderCancel(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model) {
+		
+		//아이디 셋팅
+		OrderInfo od = new OrderInfo();
+		CustomerInfo cust = new CustomerInfo();
+		cust.setCustId("id1");//사용자가 로그인해서 들어오면 자동으로 넣어줘야하는 id
+		od.setCustomerInfo(cust);
+		od.setOrderStatCd("01");
+		List<OrderInfo> odList =orderService.getOrderInfoListByPeriod(od);
 	
+		model.addAttribute("ordList", odList);
+		return "user/orderCancel";
+	}
+
 
 	//1:1문의하기 목록
 	@RequestMapping(value="/user/qnaList.do", method=RequestMethod.GET)

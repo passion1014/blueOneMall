@@ -5,6 +5,10 @@
 	<h3>마이페이지</h3>
 	<ul class="lnb_list">
 		<li><a href="/user/orderListView.do">주문내역관리</a></li>
+		<div class="onclick_list">
+			<a href="/user/orderCancel.do">주문취소신청</a>
+			<a href="/user/userPoint.do">주문반품신청</a>
+		</div>
 		<li><a href="javascript:void(0)">적립금관리</a></li>
 		<div class="onclick_list">
 			<a href="/user/userPointSaving.do">적립금현황</a>

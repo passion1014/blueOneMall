@@ -42,7 +42,8 @@
 		
 
 		<!-- 주문상품정보 셋팅 -->
-		<collection property="orderProductList" ofType="orderProductInfo" resultMap="OrdProductInfo"/>
+		<collection property="orderProductList" ofType="orderProductInfo" resultMap="OrdProductInfo"></collection>
+
 		
 	</resultMap>
 
@@ -100,8 +101,9 @@
 				BOM_PRODUCT_TB T4 ON T3.PRD_CD = T4.PRD_CD
 		WHERE
 			(1 = 1)
-			<!-- <if test="srchStdDt != null and srchStdDt != '' and srchEdDt != null and srchEdDt != ''">AND T1.ORDER_DATE BETWEEN #{srchStdDt} AND #{srchEdDt} </if>
-			 --><if test="orderStatCd != null and orderStatCd != ''">AND T1.ORDER_STAT_CD=#{orderStatCd} </if>
+				<!-- <if test="srchStdDt != null and srchStdDt != '' and srchEdDt != null and srchEdDt != ''">AND T1.ORDER_DATE BETWEEN #{srchStdDt} AND #{srchEdDt} </if>
+				 --><if test="orderStatCd != null and orderStatCd != ''">AND T1.ORDER_STAT_CD=#{orderStatCd} </if>
+			 	<if test="orderStatCd != null and orderStatCd != ''">AND T1.CUST_ID=#{customerInfo.custId} </if>
 			
 			
 	</select >
