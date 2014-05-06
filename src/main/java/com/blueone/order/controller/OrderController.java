@@ -364,7 +364,7 @@ public class OrderController {
 			
 	//장바구니->결제페이지
 	@RequestMapping(value="/order/orderRegister.do")
-	public String orderRegister(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
+	public String orderRegister(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result,HttpSession session, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
 		
 		StringTokenizer st = new StringTokenizer(orderInfo.getOrd_unit_chk(),",");
 
