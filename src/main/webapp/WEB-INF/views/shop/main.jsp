@@ -9,62 +9,96 @@
 		
 	<div class="container">
 		<div class="cont_main">
-		
 
 	 		<div class="mcont">
+	 		
 				<ul class="bxslider">
-					<li><a href="${AdImgDtl.mdUrl1}"><img src="${AdImgDtl.mdImg1}" alt="메인이미지1"/></a></li>
-					<li><a href="${AdImgDtl.mdUrl2}"><img src="${AdImgDtl.mdImg2}" alt="메인이미지2"/></a></li>
-					<li><a href="${AdImgDtl.mdUrl3}"><img src="${AdImgDtl.mdImg3}" alt="메인이미지3"/></a></li>
-					<li><a href="${AdImgDtl.mdUrl4}"><img src="${AdImgDtl.mdImg4}" alt="메인이미지4"/></a></li>
-					<li><a href="${AdImgDtl.mdUrl5}"><img src="${AdImgDtl.mdImg5}" alt="메인이미지5"/></a></li>
-					<li><a href="${AdImgDtl.mdUrl6}"><img src="${AdImgDtl.mdImg6}" alt="메인이미지5"/></a></li>
-							
+				
+					<c:set var="mainSNumber" value="0"></c:set>
+				
+					<c:if test="${AdImgDtl.mdImg1 != '' || AdImgDtl.mdImg1 ne NULL}">
+						<li><a href="${AdImgDtl.mdUrl1}"><img src="${AdImgDtl.mdImg1}" width="666" height="437" alt="메인이미지1"/></a></li>
+						<c:set var="mainSNumber" value="${mainSNumber + 1}"></c:set>						
+					</c:if>
+					
+					<c:if test="${AdImgDtl.mdImg2 != '' || AdImgDtl.mdImg2 ne NULL}">
+						<li><a href="${AdImgDtl.mdUrl2}"><img src="${AdImgDtl.mdImg2}" width="666" height="437" alt="메인이미지2"/></a></li>
+						<c:set var="mainSNumber" value="${mainSNumber + 1}"></c:set>
+					</c:if>
+					
+					<c:if test="${AdImgDtl.mdImg3 != '' || AdImgDtl.mdImg3 ne NULL}">
+						<li><a href="${AdImgDtl.mdUrl3}"><img src="${AdImgDtl.mdImg3}" width="666" height="437" alt="메인이미지3"/></a></li>
+						<c:set var="mainSNumber" value="${mainSNumber + 1}"></c:set>
+					</c:if>
+					
+					<c:if test="${AdImgDtl.mdImg4 != '' || AdImgDtl.mdImg4 ne NULL}">
+						<li><a href="${AdImgDtl.mdUrl4}"><img src="${AdImgDtl.mdImg4}" width="666" height="437" alt="메인이미지4"/></a></li>
+						<c:set var="mainSNumber" value="${mainSNumber + 1}"></c:set>
+					</c:if>
+					
+					<c:if test="${AdImgDtl.mdImg5 != '' || AdImgDtl.mdImg5 ne NULL}">
+						<li><a href="${AdImgDtl.mdUrl5}"><img src="${AdImgDtl.mdImg5}" width="666" height="437" alt="메인이미지5"/></a></li>
+						<c:set var="mainSNumber" value="${mainSNumber + 1}"></c:set>
+					</c:if>
+					
+					<c:if test="${AdImgDtl.mdImg6 != '' || AdImgDtl.mdImg6 ne NULL}">
+						<li><a href="${AdImgDtl.mdUrl6}"><img src="${AdImgDtl.mdImg6}" width="666" height="437" alt="메인이미지6"/></a></li>
+						<c:set var="mainSNumber" value="${mainSNumber + 1}"></c:set>
+					</c:if>
+				
 				</ul>
+				
 				<div id="mcont_nav">
 					<ol>
-						<li><a data-slide-index="0" href="">main_visual1</a></li>
-						<li><a data-slide-index="1" href="">main_visual2</a></li>
-						<li><a data-slide-index="2" href="">main_visual3</a></li>
-						<li><a data-slide-index="3" href="">main_visual4</a></li>
-						<li><a data-slide-index="4" href="">main_visual5</a></li>
-						<li><a data-slide-index="5" href="">main_visual6</a></li>
+						<c:set var="mcont_num" value="0"></c:set>
+						<c:forEach begin="0" end="${mainSNumber - 1}" step="1">
+							<li><a data-slide-index="${mcont_num}" href="">main_visual${mcont_num}</a></li>
+							<c:set var="mcont_num" value="${mcont_num + 1}"></c:set>							
+						</c:forEach>						
 					</ol>
 				</div>
+				
 			</div>
-
-				<script type="text/javascript">
-					$(document).ready(function(){
-						$('.bxslider').bxSlider({
-							pagerCustom: '#mcont_nav',
-							auto: true,
-							pause: 4000,
-							autoHover: true,
-							speed: 500,
-							captions: false,
-							prevText: '',
-							nextText: ''
-						});
+			
+			<script type="text/javascript">
+				$(document).ready(function(){
+					var num = null;
+					var totalwidth =665;
+					var li=$("#mcont_nav ol li");
+					var li_num=$("#mcont_nav ol li").get();
+					num=li_num.length;
+					width=totalwidth/num;
+					li.css('width',width);
+				});
+			</script>
+			
+			<script type="text/javascript">
+				$(document).ready(function(){
+					$('.bxslider').bxSlider({
+						pagerCustom: '#mcont_nav',
+						auto: true,
+						pause: 4000,
+						autoHover: true,
+						speed: 500,
+						captions: false,
+						prevText: '',
+						nextText: ''
 					});
-				</script>
-
-
-			
-			
-			
-			
-			
-			
+				});
+			</script>
+						
 			<dl class="scont1">
 				<dd class="scont_box2"><a href="#"><img src="<c:url value='/resources/img/main/main/scont_img1.jpg'/>" alt="product image"/></a></dd>
 				<dd class="scont_box1"><a href="#"><img src="<c:url value='/resources/img/main//main/scont_img2.jpg'/>" alt="product image"/></a></dd>
 			</dl>
+			
 			<dl class="scont2">
 				<dd class="scont_box1"><a href="#"><img src="<c:url value='/resources/img/main/main/scont_img3.jpg'/>" alt="product image"/></a></dd>
 				<dd class="scont_box2"><a href="#"><img src="<c:url value='/resources/img/main/main/scont_img4.jpg'/>" alt="product image"/></a></dd>
 			</dl>
-			
+						
 		</div>
+		
 		<div class="cont_product">
 			<div class="product_listbox1">
 				<ul class="plist_area">

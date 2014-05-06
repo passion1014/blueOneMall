@@ -1,10 +1,13 @@
 @charset "utf-8";
 
 .cont_main:after {height:0; content:""; clear:both; display:block;}
-.cont_main .mcont {float:left; width:666px; margin-right:10px;}
-.cont_main #mcont_nav ol li {float:left;}
-.cont_main #mcont_nav ol li a {display:inline-block; color:#fff; line-height:31px; width:111px; height:31px; background:#000; text-align:center; font-family:"NanumGothicBold";}
+.cont_main .mcont {float:left; width:665px; margin-right:10px;}
+.cont_main #mcont_nav {width:665px;}
+.cont_main #mcont_nav ol {display:block; width:100%;}
+.cont_main #mcont_nav ol li {float:left; width:3px;}
+.cont_main #mcont_nav ol li a {display:inline-block; color:#fff; line-height:31px; width:100%; text-align:center; background:#000; font-family:"NanumGothicBold";}
 .cont_main #mcont_nav ol li a:hover {background:#4aa7dd; text-decoration:none;}
+.cont_main #mcont_nav ol li a.active {background:#4aa7dd; text-decoration:none;}
 
 .cont_main dl.scont1 {float:left; margin:0 11px 0 2px;}
 .cont_main dl.scont1 dd {margin-bottom:10px;}

@@ -23,18 +23,19 @@
 		<p class="top_img">
 			<img src="<c:url value='/resources/img/main/common/top_image.jpg'/>"/>
 		</p>
-		<form action="#" method="post">
-			<div class="search_area">
-				<span class="search_menu">
-					<a href="/order/cartListView.do" class="menu_site">장바구니</a>
-					<a href="/user/orderListView.do" class="menu_site">주문배송 조회</a>
-					<a href="/user/userEdit.do">마이페이지</a>
-				</span>
-				<span class="search_box">
-					<input type="text" id="schWord" nameR="schWord" title="서치텍스트박스"/>
-					<input type="button" value="검색" onClick="javascript:location.href='/product/searchProduct.do?schWord='+document.getElementById('schWord').value;"/>
-				</span>
-			</div>
+		<form method="GET" id="topSFrm" name="topSFrm" action="/product/searchProduct.do">
+		<div class="search_area">
+			<span class="search_menu">
+				<a href="/order/cartListView.do" class="menu_site">장바구니</a>
+				<a href="/user/orderListView.do" class="menu_site">주문배송 조회</a>
+				<a href="/user/userEdit.do">마이페이지</a>
+			</span>
+			<span class="search_box">
+				<input type="text" id="schWord" name="schWord" title="서치텍스트박스"/>
+				<!--  input type="button" value="검색" onClick="javascript:location.href='/product/searchProduct.do?schWord='+document.getElementById('schWord').value;"/-->
+				<button onClick="topSFrm.submit();" style="cursor:pointer;"></button>
+			</span>
+		</div>
 		</form>
 	</div>
 	
