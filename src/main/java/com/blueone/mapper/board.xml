@@ -41,6 +41,11 @@
 		                       
 		                      WHERE t1.del_yn = 'F'
 		                        AND t1.brd_typ = #{srchBrdTyp}
+								<if test="srchBrdTyp == 10">
+									AND BRD_CODE_KEY = #{brdCodeKey}
+									AND BRD_CODE_TYPE = #{brdCodeType}
+								</if>
+		                        
 		                        <if test="noticeBrdSeq != null and noticeBrdSeq.length != 0">
 		                        AND brd_seq NOT IN
 			                        <foreach item="noticeBrdSeq" index="index" collection="noticeBrdSeq" open=" (" close= ")" separator=",">

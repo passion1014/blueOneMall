@@ -12,7 +12,14 @@ function list_Submit(){
 	document.getElementById("prdfm").submit() ;
 
 }
+
 -->
+//페이지이동
+function fnGotoPage(page) {
+	var prdCd = "${pro.prdCd}";
+	location.href = "productView.do?prdCd=" + prdCd + "&currentPage=" +page;
+}
+
 </script>
 <body>
 <div class="wrap">
@@ -255,77 +262,41 @@ function list_Submit(){
 							<caption>제품문의목록</caption>
 							<colgroup>
 								<col width="10%"/>
-								<col width="45%"/>
+								<col width="60%"/>
 								<col width="15%"/>
 								<col width="15%"/>
-								<col width="15%"/>
+								<%-- <col width="15%"/> --%>
 							</colgroup>
 							<thead>
 								<th class="bgcolor">번호</th>
 								<th>내용</th>
 								<th class="bgcolor">작성자</th>
 								<th>작성일</th>
-								<th class="bgcolor">평가</th>
+								<!-- <th class="bgcolor">평가</th> -->
 							</thead>
 							<tbody>
+							<c:forEach items="${qnaList}" var="qna">
 								<tr>
-									<td class="bgcolor">1</td>
-									<td class="texalign"><a href="#">마음에 듭니다</a></td>
-									<td class="bgcolor">abcd*****</td>
-									<td>2014-01-08</td>
-									<td class="bgcolor">
+									<td class="bgcolor">${qna.brdSeq}</td>
+									<td class="texalign"><a href="#">${qna.title}</a></td>
+									<td class="bgcolor">${qna.insUser}</td>
+									<td>${qna.insDt}</td>
+									<%-- <td class="bgcolor">
 										<img src="<c:url value='/resources/img/common/bullet_sstar.png'/>" alt="작은별 이미지"/>
 										<img src="<c:url value='/resources/img/common/bullet_sstar.png'/>" alt="작은별 이미지"/>
 										<img src="<c:url value='/resources/img/common/bullet_sstar.png'/>" alt="작은별 이미지"/>
 										<img src="<c:url value='/resources/img/common/bullet_sstar.png'/>" alt="작은별 이미지"/>
 										<img src="<c:url value='/resources/img/common/bullet_sstar.png'/>" alt="작은별 이미지"/>
-									</td>
+									</td> --%>
 								</tr>
-								<tr>
-									<td class="bgcolor">2</td>
-									<td class="texalign"><a href="#">마음에 듭니다</a></td>
-									<td class="bgcolor">abcd*****</td>
-									<td>2014-01-08</td>
-									<td class="bgcolor">
-										<img src="<c:url value='/resources/img/common/bullet_sstar.png'/>" alt="작은별 이미지"/>
-										<img src="<c:url value='/resources/img/common/bullet_sstar.png'/>" alt="작은별 이미지"/>
-										<img src="<c:url value='/resources/img/common/bullet_sstar.png'/>" alt="작은별 이미지"/>
-										<img src="<c:url value='/resources/img/common/bullet_sstar.png'/>" alt="작은별 이미지"/>
-										<img src="<c:url value='/resources/img/common/bullet_sstar.png'/>" alt="작은별 이미지"/>
-									</td>
-								</tr>
-								<tr>
-									<td class="bgcolor">3</td>
-									<td class="texalign"><a href="#">마음에 듭니다</a></td>
-									<td class="bgcolor">abcd*****</td>
-									<td>2014-01-08</td>
-									<td class="bgcolor">
-										<img src="<c:url value='/resources/img/common/bullet_sstar.png'/>" alt="작은별 이미지"/>
-										<img src="<c:url value='/resources/img/common/bullet_sstar.png'/>" alt="작은별 이미지"/>
-										<img src="<c:url value='/resources/img/common/bullet_sstar.png'/>" alt="작은별 이미지"/>
-										<img src="<c:url value='/resources/img/common/bullet_sstar.png'/>" alt="작은별 이미지"/>
-										<img src="<c:url value='/resources/img/common/bullet_sstar.png'/>" alt="작은별 이미지"/>
-									</td>
-								</tr>
-								<tr>
-									<td class="bgcolor">4</td>
-									<td class="texalign"><a href="#">마음에 듭니다</a></td>
-									<td class="bgcolor">abcd*****</td>
-									<td>2014-01-08</td>
-									<td class="bgcolor">
-										<img src="<c:url value='/resources/img/common/bullet_sstar.png'/>" alt="작은별 이미지"/>
-										<img src="<c:url value='/resources/img/common/bullet_sstar.png'/>" alt="작은별 이미지"/>
-										<img src="<c:url value='/resources/img/common/bullet_sstar.png'/>" alt="작은별 이미지"/>
-										<img src="<c:url value='/resources/img/common/bullet_sstar.png'/>" alt="작은별 이미지"/>
-										<img src="<c:url value='/resources/img/common/bullet_sstar.png'/>" alt="작은별 이미지"/>
-									</td>
-								</tr>
+							</c:forEach>
 							</tbody>
 						</table>
 					</div>
 				</div>
 				<div class="paging2">
-					<a href="#" class="palign1"><img src="<c:url value='/resources/img/common/btn_first.gif'/>" alt="처음으로"></a>
+				${pageHtml}
+					<%-- <a href="#" class="palign1"><img src="<c:url value='/resources/img/common/btn_first.gif'/>" alt="처음으로"></a>
 					<a href="#" class="palign2"><img src="<c:url value='/resources/img/common/btn_prev.gif'/>" alt="이전"></a>
 					<a href="#" class="on">1</a>
 					<a href="#">2</a>
@@ -338,7 +309,7 @@ function list_Submit(){
 					<a href="#">9</a>
 					<a href="#">10</a>
 					<a href="#" class="palign1"><img src="<c:url value='/resources/img/common/btn_next.gif'/>" alt="다음"></a>
-					<a href="#" class="palign2"><img src="<c:url value='/resources/img/common/btn_end.gif'/>" alt="끝으로"></a>
+					<a href="#" class="palign2"><img src="<c:url value='/resources/img/common/btn_end.gif'/>" alt="끝으로"></a> --%>
 				</div>
 			</form>
 		</div>

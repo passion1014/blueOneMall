@@ -56,9 +56,6 @@ public class ProductInfo {
 	private MultipartFile proImg3Up;
 	private MultipartFile proImg4Up;
 	
-
-	
-	
 	private String unit_chk; //다중 checkbox
 	private int propIdx;
 	
@@ -69,9 +66,17 @@ public class ProductInfo {
 	
 	private String content;
 	private String orderBy;//정렬
+	
+	private int currentPage;	// 상품QnA목록의 페이지정보
 
 	
 
+	public int getCurrentPage() {
+		return currentPage;
+	}
+	public void setCurrentPage(int currentPage) {
+		this.currentPage = currentPage;
+	}
 	public String getOrderBy() {
 		return orderBy;
 	}
