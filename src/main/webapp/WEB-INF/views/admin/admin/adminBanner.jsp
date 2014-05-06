@@ -68,7 +68,7 @@
 					<c:otherwise>
 						<img src="${adImgInfo.bnImg2}" width="666">
 						<br />
-						<input type="button" value="이미지 삭제"  onClick="location.href='deleteAdImg.do';"   class="Small_Button Gray" />
+						<input type="button" value="이미지 삭제"  onClick="location.href='deleteBannerImgProc.do?fieldName=bnImg2&fileName=${adImgInfo.bnImg2}';"   class="Small_Button Gray" />
 					</c:otherwise>
 				</c:choose>
 			</td>
@@ -91,7 +91,7 @@
 					<c:otherwise>
 						<img src="${adImgInfo.bnImg3}" width="666">
 						<br />
-						<input type="button" value="이미지 삭제"  onClick="location.href='deleteAdImg.do';"   class="Small_Button Gray" />
+						<input type="button" value="이미지 삭제"  onClick="location.href='deleteBannerImgProc.do?fieldName=bnImg3&fileName=${adImgInfo.bnImg3}';"   class="Small_Button Gray" />
 					</c:otherwise>
 				</c:choose>
 			</td>
@@ -114,7 +114,7 @@
 					<c:otherwise>
 						<img src="${adImgInfo.bnImg4}" width="666">
 						<br />
-						<input type="button" value="이미지 삭제"  onClick="location.href='deleteAdImg.do';"   class="Small_Button Gray" />
+						<input type="button" value="이미지 삭제"  onClick="location.href='deleteBannerImgProc.do?fieldName=bnImg4&fileName=${adImgInfo.bnImg4}';"   class="Small_Button Gray" />
 					</c:otherwise>
 				</c:choose>
 			</td>
@@ -137,7 +137,7 @@
 					<c:otherwise>
 						<img src="${adImgInfo.bnImg5}" width="666">
 						<br />
-						<input type="button" value="이미지 삭제"  onClick="location.href='deleteAdImg.do';"   class="Small_Button Gray" />
+						<input type="button" value="이미지 삭제"  onClick="location.href='deleteBannerImgProc.do?fieldName=bnImg5&fileName=${adImgInfo.bnImg5}';"   class="Small_Button Gray" />
 					</c:otherwise>
 				</c:choose>
 			</td>
@@ -161,7 +161,7 @@
 					<c:otherwise>
 						<img src="${adImgInfo.bnImg6}" width="666">
 						<br />
-						<input type="button" value="이미지 삭제"  onClick="location.href='deleteAdImg.do';"   class="Small_Button Gray" />
+						<input type="button" value="이미지 삭제"  onClick="location.href='deleteBannerImgProc.do?fieldName=bnImg6&fileName=${adImgInfo.bnImg6}';"   class="Small_Button Gray" />
 					</c:otherwise>
 				</c:choose>
 			</td>
@@ -185,7 +185,7 @@
 					<c:otherwise>
 						<img src="${adImgInfo.bnImg7}" width="666">
 						<br />
-						<input type="button" value="이미지 삭제"  onClick="location.href='deleteAdImg.do';"   class="Small_Button Gray" />
+						<input type="button" value="이미지 삭제"  onClick="location.href='deleteBannerImgProc.do?fieldName=bnImg7&fileName=${adImgInfo.bnImg7}';"   class="Small_Button Gray" />
 					</c:otherwise>
 				</c:choose>
 			</td>
