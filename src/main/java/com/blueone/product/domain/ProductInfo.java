@@ -32,6 +32,7 @@ public class ProductInfo {
 	private String prdMany;
 	private String prdColor;
 	private String prdSize;
+
 	
 	//상품 옵션
 	private String optionKey[];
@@ -70,6 +71,7 @@ public class ProductInfo {
 	private String orderBy;//정렬
 
 	
+
 	public String getOrderBy() {
 		return orderBy;
 	}

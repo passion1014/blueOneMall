@@ -8,7 +8,14 @@ public class SearchProdInfo {
 	private String prdCtgM;
 	private String prdCtgS;
 	private int pageNum;
+	private String schWord;
 	
+	public String getSchWord() {
+		return schWord;
+	}
+	public void setSchWord(String schWord) {
+		this.schWord = schWord;
+	}
 	public String getPrdNm() {
 		return prdNm;
 	}

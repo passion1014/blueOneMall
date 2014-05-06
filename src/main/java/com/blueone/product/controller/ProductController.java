@@ -891,6 +891,22 @@ public class ProductController {
 	
 	*/
 	
+	/**
+	 *  user-product search
+	 */
+	@RequestMapping(value = "/product/searchProduct.do", method= RequestMethod.GET)
+	public String searchProduct(@ModelAttribute("productInfo")SearchProdInfo searchProdInfo, BindingResult result, Model model,HttpSession session) {
+		
+		searchProdInfo.setPrdNm(searchProdInfo.getSchWord());
+		
+		List<ProductInfo> prdList=productManageService.getProductInfList(searchProdInfo);
+		
+		
+		model.addAttribute("prdList",prdList);
+		
+		return "product/productSearch";
+	}
+
 		
 		
 	

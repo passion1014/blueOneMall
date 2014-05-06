@@ -31,8 +31,8 @@
 					<a href="/user/userEdit.do">마이페이지</a>
 				</span>
 				<span class="search_box">
-					<input type="text" title="서치텍스트박스"/>
-					<button></button>
+					<input type="text" id="schWord" nameR="schWord" title="서치텍스트박스"/>
+					<input type="button" value="검색" onClick="javascript:location.href='/product/searchProduct.do?schWord='+document.getElementById('schWord').value;"/>
 				</span>
 			</div>
 		</form>
