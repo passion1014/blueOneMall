@@ -25,13 +25,13 @@ public class BoardService implements IBoardService {
 	private SqlSessionFactory sqlSessionFactory;
 
 	@Override
-	public List<BoardInfo> getBrdTypBoardList(BoardSrchInfo boardSrchModel) {
+	public List<BoardInfo> getBrdTypBoardList(BoardSrchInfo boardSrchInfo) {
 		List<BoardInfo> boards = new ArrayList<BoardInfo>();
 		BoardInfo board = null;
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
-			boards = sqlSession.selectList("board.getBrdTypBoardList", boardSrchModel);
+			boards = sqlSession.selectList("board.getBrdTypBoardList", boardSrchInfo);
 			
 			if (boards != null && boards.size() > 0) {
 				for (int i = 0; i < boards.size(); i++) {

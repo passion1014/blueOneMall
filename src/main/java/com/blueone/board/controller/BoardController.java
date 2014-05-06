@@ -40,7 +40,7 @@ public class BoardController {
 	@Autowired private IBoardTypService boardTypService;
 	
 	@RequestMapping("/list.do")
-	public ModelAndView boardList(@ModelAttribute("BoardSrchModel") BoardSrchInfo boardSrchInfo, HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView boardList(@ModelAttribute("BoardSrchModel") BoardSrchInfo boardSrchInfo) {
 		long[] noticeBrdSeq = {};
 		List<BoardInfo> noticeList = null;
 		List<BoardInfo> boardList = null;

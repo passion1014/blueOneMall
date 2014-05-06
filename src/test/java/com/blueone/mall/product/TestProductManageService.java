@@ -62,5 +62,15 @@ public class TestProductManageService extends BlueoneTestCase {
 		.andExpect(status().isOk())
 		.andDo(print());
 	}
-
+	
+	@Test
+	public void testGetProductView() throws Exception {
+		
+		// 상품조회 prdCd=P5571
+		mockMvc.perform(get("/product/productView.do")
+				.param("prdCd", "P5571")
+				.param("currentPage", "2"))
+		.andExpect(status().isOk())
+		.andDo(print());
+	}
 }

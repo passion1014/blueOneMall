@@ -15,9 +15,12 @@ public class TestBoardServcie extends BlueoneTestCase {
 	 */
 	@Test
 	public void testBoardList() throws Exception {
+		// http://localhost:8080/board/list.do?srchBrdTyp=10&brdCodeType=01&brdCodeKey=P5571
 		mockMvc.perform(post("/board/list.do")
-				.param("brdTyp", "1")
-				.param("srchBrdTyp", "1"))
+				.param("srchBrdTyp", "10")
+				.param("brdCodeType", "01")
+				.param("brdCodeKey", "P5571")
+				)
 		.andExpect(status().isOk())
 		.andDo(print());
 	}

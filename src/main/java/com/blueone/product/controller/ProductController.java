@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -31,9 +32,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.blueone.admin.domain.AdImgInfo;
 import com.blueone.admin.domain.AdminInfo;
+import com.blueone.board.controller.BoardController;
+import com.blueone.board.domain.BoardInfo;
+import com.blueone.board.domain.BoardSrchInfo;
+import com.blueone.board.service.IBoardService;
 import com.blueone.category.domain.CategoryInfo;
 import com.blueone.category.service.ICategoryManageService;
 import com.blueone.common.domain.AttachFileInfo;
+import com.blueone.common.domain.BaseInfo;
 import com.blueone.common.service.IAttachFileManageService;
 import com.blueone.common.util.FileUploadUtility;
 import com.blueone.common.util.PageDivision;
@@ -54,6 +60,9 @@ public class ProductController {
 	@Autowired ICategoryManageService categoryManageService;
 	@Autowired IAttachFileManageService attFileManageService;
 	@Autowired ITransferService transferService;
+	@Autowired IBoardService boardService;
+	
+	BoardController boardController = new BoardController();
 	
 	/*
 	 * 관리자 물품 리스트
@@ -685,70 +694,10 @@ public class ProductController {
 */
 	
 	@RequestMapping(value="/product/productView.do", method= RequestMethod.GET)
-	public String productView(@ModelAttribute("productInfo") ProductInfo productInfo,@ModelAttribute("categoryInfo") CategoryInfo categoryInfo ,BindingResult result, Model model){
+	public String productView(@ModelAttribute("productInfo") ProductInfo productInfo, @ModelAttribute("categoryInfo") CategoryInfo categoryInfo ,BindingResult result, Model model){
 		
-		/*
-		categoryInfo = new CategoryInfo();
-		categoryInfo = categoryManageService.getCategoryInfDetail(categoryInfo);
-		model.addAttribute("categoryInfo", categoryInfo);
-		List<CategoryInfo> fullList = categoryManageService.getCategoryInfList(categoryInfo);
-		//대분류 조회
-		List<CategoryInfo> lFullList = new ArrayList<CategoryInfo>();
-		//중분류 조회
-		List<CategoryInfo> mFullList = new ArrayList<CategoryInfo>();
-		
-		String ctgLargeCode = categoryInfo.getCtgLargeCode();
-		
-		for(CategoryInfo large : fullList){
-			if("01".equals(large.getCtgCodeType())){
-				lFullList.add(large);
-			}
-			if("02".equals(large.getCtgCodeType())){
-				mFullList.add(large);
-			}
-			
-		}
-		
-		for(int idx=0; idx < mFullList.size(); idx++) {
-			CategoryInfo each = mFullList.get(idx);
-			if (!ctgLargeCode.equals(each.getCtgPCode())) {
-				mFullList.remove(idx);
-				idx--;
-			}
-		}
-		
-		
-		/*categoryInfo = categoryManageService.getCategoryInfDetail(categoryInfo);
-		List<CategoryInfo> list = categoryManageService.getCategoryInfList4(categoryInfo);
-		
-		List<CategoryInfo> rstList1 = getCategoryListByTypeCd(categoryInfo, "01");//대분류 list
-		List<CategoryInfo> rstList2 = getCategoryListByTypeCd(categoryInfo, "02");//중분류 list
-		
-		String ctgLargeCode = categoryInfo.getCtgLargeCode();
-		
-		for(int idx=0; idx < rstList2.size(); idx++) {
-			CategoryInfo each = rstList2.get(idx);
-			if (!ctgLargeCode.equals(each.getCtgPCode())) {
-				rstList2.remove(idx);
-				idx--;
-			}
-		}
-
-		
-		model.addAttribute("ctgList1", rstList1);
-		model.addAttribute("ctgList2", rstList2);
-		model.addAttribute("categoryInfo", categoryInfo);
-		model.addAttribute("list", list);
-	
-		
-		
-	
-		
-		model.addAttribute("lFullList", lFullList);
-		model.addAttribute("mFullList", mFullList);
-		
-		
-		*/
+		// 상품QnA 페이지
+		int currentPage = productInfo.getCurrentPage();
 		
 		//상품이미지보내기
 		productInfo = productManageService.getProductInfDetail(productInfo);
@@ -779,6 +728,23 @@ public class ProductController {
 		
 		model.addAttribute("pro", productInfo);
 		
+		// ----------------------------------------------------
+		// 상품QnA 가져오기
+		// ----------------------------------------------------
+		BoardSrchInfo boardSrchInfo = new BoardSrchInfo();
+		boardSrchInfo.setSrchBrdTyp(10);
+		boardSrchInfo.setBrdCodeType("01");
+		boardSrchInfo.setBrdCodeKey(productInfo.getPrdCd());
+		
+		// 페이지정보 셋팅
+		if (currentPage != 0)
+			boardSrchInfo.setCurrentPage(currentPage);
+		
+		List<BoardInfo> boardList = boardService.getBrdTypBoardList(boardSrchInfo);
+		boardSrchInfo.setTotalCount(boardService.getBrdTypTotalCount(boardSrchInfo));
+		
+		model.addAttribute("qnaList", boardList);
+		model.addAttribute("pageHtml", getPageHtml(productInfo.getPrdCd(), boardSrchInfo));
 		
 		return "product/productView";
 	}
@@ -917,10 +883,61 @@ public class ProductController {
 			return "product/productSearch";
 		}
 		
-		
-		
 	}
-
+	
+	/**
+	 * 리스트의 하단 페이지를 돌려주는 메소드
+	 * @param boardSrchModel
+	 * @return
+	 */
+	private String getPageHtml(String prdCd, BaseInfo baseModel) {
+		StringBuffer pageHtml = new StringBuffer();
+		int startPage = 0;
+		int lastPage = 0;
+		int prevPage=  (baseModel.getCurrentPage() - 1);
+		int nextPage = (baseModel.getCurrentPage() + 1);
+		
+		int pagesPerPage = baseModel.getPagesPerPage();
+		if (pagesPerPage == 0) {
+			pagesPerPage = 10;
+		}
+		
+		// expression page variables
+		startPage = ((baseModel.getCurrentPage()-1) / baseModel.getPagesPerPage()) * baseModel.getPagesPerPage() + 1;
+		lastPage = startPage + pagesPerPage - 1;
+		
+		if(lastPage > (baseModel.getTotalCount() / baseModel.getRowsPerPage())) {
+			if ((baseModel.getTotalCount() % baseModel.getRowsPerPage()) == 0) {
+				lastPage = (baseModel.getTotalCount() / baseModel.getRowsPerPage());
+			} else {
+				lastPage = (baseModel.getTotalCount() / baseModel.getRowsPerPage()) + 1;
+			}
+		}
+		
+		if (prevPage < 1) prevPage= 1;
+		if (nextPage > lastPage) nextPage = lastPage;
+		
+		// create page html code
+//		pageHtml.append("<div id='paging'>");
+		// <a href="#" class="palign1"><img src="<c:url value='/resources/img/common/btn_first.gif'/>" alt="처음으로"></a>
+		pageHtml.append("<a class='palign1'><img src='/resources/img/common/btn_first.gif' onclick='fnGotoPage(1);' alt='첫 페이지로 이동' /></a>");
+		pageHtml.append("<a class='palign2'><img src='/resources/img/common/btn_prev.gif' onclick='fnGotoPage(" + prevPage + ");' alt='이전 페이지로 이동' /></a>");
+			
+		for(int i = startPage ; i <= lastPage ; i++) {
+			if(i == baseModel.getCurrentPage()){
+				pageHtml.append("<a href='#' class='on'>" + i + "</a>");
+			} else {
+				pageHtml.append("<a href='javascript:fnGotoPage(" + i + ");'>" + i + "</a>");
+			}
+			
+		}
+		
+		pageHtml.append("<a class='palign1'><img src='/resources/img/common/btn_next.gif' onclick='fnGotoPage(" + nextPage + ");' alt='다음 페이지로 이동' /></a>");
+		pageHtml.append("<a class='palign2'><img src='/resources/img/common/btn_end.gif' onclick='fnGotoPage(" + lastPage + ");' alt='마지막 페이지로 이동' /></a>");
+//		pageHtml.append("</div>");
+		
+		return pageHtml.toString();
+	}
 		
 		
 	
