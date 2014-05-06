@@ -69,7 +69,10 @@
 			<div class="paging2">
 				<a href="#" class="palign1"><img src="<c:url value='/resources/img/common/btn_first.gif'/>" alt="처음으로"></a>
 				<a href="#" class="palign2"><img src="<c:url value='/resources/img/common/btn_prev.gif'/>" alt="이전"></a>
-				<a href="#" class="on">1</a>
+				
+				<c:forEach var="i" begin="1" end="${endNum}">
+					<a href="searchProduct.do?page=${i}&schWord=${schWord}">${i}</a>	
+				</c:forEach>
 				<a href="#" class="palign1"><img src="<c:url value='/resources/img/common/btn_next.gif'/>" alt="다음"></a>
 				<a href="#" class="palign2"><img src="<c:url value='/resources/img/common/btn_end.gif'/>" alt="끝으로"></a>
 			</div>

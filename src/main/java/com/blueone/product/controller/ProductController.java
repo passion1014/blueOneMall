@@ -895,14 +895,25 @@ public class ProductController {
 	 *  user-product search
 	 */
 	@RequestMapping(value = "/product/searchProduct.do", method= RequestMethod.GET)
-	public String searchProduct(@ModelAttribute("productInfo")SearchProdInfo searchProdInfo, BindingResult result, Model model,HttpSession session) {
+	public String searchProduct(@ModelAttribute("productInfo")SearchProdInfo searchProdInfo, BindingResult result, Model model,HttpSession session, String page) {
 		
 		String word = searchProdInfo.getSchWord();
+		PageDivision pd = new PageDivision();
+		if(StringUtils.isEmpty(page)) pd.pageNum("1");
+		else pd.pageNum(page);
+		
 		if(word!=null && !word.isEmpty()){
 			List<ProductInfo> prdList=productManageService.getProductInfList(searchProdInfo);
-			model.addAttribute("prdList",prdList);
+			pd.setPrdList(prdList);
+			
+			List<ProductInfo> resultList =pd.getPrdList(2);
+			model.addAttribute("prdList",resultList);
+			model.addAttribute("endNum",pd.getEndPageNum());
+			model.addAttribute("schWord",word);
+			
 			return "product/productSearch";
 		}else{
+			model.addAttribute("endNum","1");
 			return "product/productSearch";
 		}
 		
