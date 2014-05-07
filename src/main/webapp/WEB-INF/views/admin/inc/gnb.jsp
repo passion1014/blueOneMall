@@ -15,6 +15,6 @@
 		<li><a href="memberList.do">회원관리</a></li>
 		<li><a href="productList.do?page=1">상품관리</a></li>
 		<li><a href="orderList.do">주문관리</a></li>
-		<li><a href="community.do">커뮤니티</a></li>
+		<li><a href="noticeBoard.do">커뮤니티</a></li>
 	</ul>
 </div>

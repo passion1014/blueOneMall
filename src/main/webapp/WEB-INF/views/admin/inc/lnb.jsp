@@ -102,8 +102,12 @@
 	<div id="LNB">
 		<h1>커뮤니티</h1>
 		<ul>
-			<h2>&nbsp;</h2>
-			<li>&nbsp;</li>
+			<h2>공지사항</h2>
+			<li><a href="noticeBoard.do">공지사항</a></li>
+		</ul>
+		<ul>
+			<h2>FAQ</h2>
+			<li><a href="faqBoard.do">FAQ</a></li>
 		</ul>
 	</div>
 	</c:when>		
