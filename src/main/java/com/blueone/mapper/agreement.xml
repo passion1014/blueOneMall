@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="agreement">
+	<resultMap id="agrInfoMap" type="com.blueone.admin.domain.AgreementInfo">
+		<result property="agrType" column="AGR_TYPE" javaType="int"/>
+		<result property="agrContents" column="AGR_CONTENTS" javaType="java.lang.String"/>
+		
+	</resultMap>
+	
+	<update id="updateBomAgreementTB0001" parameterType="com.blueone.admin.domain.AgreementInfo">
+		UPDATE BOM_AGREEMENT_TB
+			SET
+				`AGR_CONTENTS` = #{agrContents}
+			WHERE
+			`AGR_TYPE`= #{agrType}	
+	</update>
+	
+	<select id="selectDtlBomAgreementTb0001" parameterType="com.blueone.admin.domain.AgreementInfo" resultType="com.blueone.admin.domain.AgreementInfo" resultMap="agrInfoMap">
+		SELECT 
+			T1.AGR_TYPE, 
+			T1.AGR_CONTENTS
+			
+		FROM BOM_AGREEMENT_TB AS T1
+		WHERE
+			T1.AGR_TYPE = #{agrType}
+	</select >
+	
+	<select id="selectDtlBomAgreementTb0002" resultType="com.blueone.admin.domain.AgreementInfo" resultMap="agrInfoMap">
+		SELECT 
+			T1.AGR_TYPE, 
+			T1.AGR_CONTENTS
+			
+		FROM BOM_AGREEMENT_TB AS T1
+	</select >
+</mapper>

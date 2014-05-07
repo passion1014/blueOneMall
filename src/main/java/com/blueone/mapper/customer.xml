@@ -6,7 +6,7 @@
 <mapper namespace="customer">
 
 	<resultMap id="CustomerInfoMap" type="customerInfo">
-		<id property="custSeq" column="custIdx" javaType="int"/>
+		<id property="custSeq" column="IDX" javaType="int"/>
 		<id property="custId" column="CUST_ID" javaType="java.lang.String"/>
 		<id property="custNm" column="CUST_NM" javaType="java.lang.String"/>
 		<id property="custBirth" column="CUST_BIRTH_DATE" javaType="java.lang.String"/>
@@ -105,6 +105,50 @@
 			T1.CUST_ID = #{custId}
 		
 	</select >
+	<select id="selectDtlBomCustTb0003" resultType="customerInfo" resultMap="CustomerInfoMap" >
+		SELECT
+			T1.IDX,
+			T1.CUST_ID,
+			T1.CUST_NM,
+			T1.CUST_BIRTH_DATE,
+			T1.CUST_SEX,
+			T1.CUST_PHONE_NO,
+			T1.CUST_MOBILE_NO,
+			T1.CUST_EMAIL1,
+			T1.CUST_ZIP_CD1,
+			T1.CUST_ADDR,
+			T1.CUST_SMS_RCV_YN,
+			T1.CUST_EMAIL_RCV_YN,
+			T1.CUST_MERRY_DAY,
+			T1.CUST_CHILD
+		FROM
+			BOM_CUST_TB T1
+	</select >
+		<select id="selectDtlBomCustTb0004" resultType="customerInfo" resultMap="CustomerInfoMap" parameterType="customerInfo">
+		SELECT
+			T1.IDX,
+			T1.CUST_ID,
+			T1.CUST_NM,
+			T1.CUST_BIRTH_DATE,
+			T1.CUST_SEX,
+			T1.CUST_PHONE_NO,
+			T1.CUST_MOBILE_NO,
+			T1.CUST_EMAIL1,
+			T1.CUST_ZIP_CD1,
+			T1.CUST_ADDR,
+			T1.CUST_SMS_RCV_YN,
+			T1.CUST_EMAIL_RCV_YN,
+			T1.CUST_MERRY_DAY,
+			T1.CUST_CHILD
+		FROM
+			BOM_CUST_TB T1
+		WHERE
+			(1=1)
+			<if test="custNm != null and custNm != ''">AND T1.CUST_NM LIKE CONCAT('%',#{custNm},'%')</if>
+			<if test="custId != null and custId != ''">AND T1.CUST_ID LIKE CONCAT('%',#{custId},'%')</if>
+			<if test="custEmail != null and custEmail != ''">AND T1.CUST_EMAIL1 LIKE CONCAT('%',#{custEmail},'%')</if>
+			<if test="custMb != null and custMb != ''">AND T1.CUST_MOBILE_NO LIKE CONCAT('%',#{custMb},'%')</if>
+	</select >
 	
 	<update id="updateBomCustomerTb0001" parameterType="customerInfo">
 		UPDATE BOM_CUST_TB
@@ -130,12 +174,18 @@
 	<insert id="insertBomCustTb0001" parameterType="customerInfo">
 		INSERT BOM_CUST_TB
 			(`CUST_ID`,`CUST_NM`,`CUST_BIRTH_DATE`,`CUST_PHONE_NO`,`CUST_MOBILE_NO`,`CUST_EMAIL1`
-				,`CUST_ZIP_CD1`,`CUST_ADDR`,`CUST_SMS_RCV_YN`,`CUST_EMAIL_RCV_YN`
+				,`CUST_ZIP_CD1`,`CUST_ADDR`,`CUST_SMS_RCV_YN`,`CUST_EMAIL_RCV_YN`,`CUST_SEX`
 				,`REG_DATE`,`LAST_DATE`, `MODIFY_USER_ID`)
 			VALUES
 			(#{custId}, #{custNm}, #{custBirth}, #{custPh}, #{custMb}, #{custEmail}, #{custZip}
-			  , #{custAdd}, #{custSmSRcv}, #{custMailRcv}, now(), now(),#{custId})
+			  , #{custAdd}, #{custSmSRcv}, #{custMailRcv},#{custSx}, now(), now(),#{custId})
 	</insert>
+		
+	<delete id="deleteBomCustomerTb0001" parameterType="customerInfo">
+		DELETE FROM BOM_CUST_TB			
+		WHERE
+			`CUST_ID`= #{custId}
+	</delete>
 	
 	
 </mapper>

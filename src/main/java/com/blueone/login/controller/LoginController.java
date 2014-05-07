@@ -169,12 +169,13 @@ public class LoginController {
 		CustomerInfo cust = new CustomerInfo();
 		cust.setCustId(decMemNo);
 		CustomerInfo result=customerManageService.getCustomerInfo2(cust);
+		
 		if(result!=null){
 			session.setAttribute("customerSession", result);
 			return "shop/main";
 		}else{
-			model.addAttribute("customer",cust);
-			return "user/userRegister";
+			session.setAttribute("customerSession", cust);
+			return "redirect:/user/userRegister.do";
 		}
 		
 		/*String viewName = "cust/custDetail";

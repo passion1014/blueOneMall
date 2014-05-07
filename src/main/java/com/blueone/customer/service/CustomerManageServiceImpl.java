@@ -1,11 +1,15 @@
 package com.blueone.customer.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.blueone.admin.domain.AccountInfo;
 import com.blueone.customer.domain.CustomerInfo;
 import com.blueone.customer.domain.CustomerSrchInfo;
 import com.blueone.product.domain.ProductInfo;
@@ -50,6 +54,39 @@ public class CustomerManageServiceImpl implements ICustomerManageService {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
 			result = sqlSession.selectOne("customer.selectDtlBomCustTb0002", customerInfo);
+		} finally {
+			sqlSession.close();
+		}
+		
+		return result;
+	}
+	/*
+	 * 모든 고객정보(CustomerInfo)를 가져온다. 3
+	 */
+	@Override
+	public List<CustomerInfo> getCustomerInfoList() {
+		List<CustomerInfo> result = new ArrayList<CustomerInfo>();
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			result = sqlSession.selectList("customer.selectDtlBomCustTb0003");
+		} finally {
+			sqlSession.close();
+		}
+		
+		return result;
+	}
+	
+	/*
+	 * 검색한 고객정보(CustomerInfo)를 가져온다. 3
+	 */
+	@Override
+	public List<CustomerInfo> searchCustomerInfoList(CustomerInfo customerInfo) {
+		List<CustomerInfo> result = new ArrayList<CustomerInfo>();
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			result = sqlSession.selectList("customer.selectDtlBomCustTb0004",customerInfo);
 		} finally {
 			sqlSession.close();
 		}
@@ -104,5 +141,25 @@ public class CustomerManageServiceImpl implements ICustomerManageService {
 			
 			return rst;
 		}
-
+		/*
+		 * 고객삭제
+		 */
+		@Override
+		public int deleteCustomerInf(CustomerInfo customerInfo){
+			
+			int rst = -1;
+			
+			
+				SqlSession sqlSession = sqlSessionFactory.openSession();
+				try {
+					// DB 수행
+					rst = sqlSession.delete("customer.deleteBomCustomerTb0001", customerInfo);
+					
+				} finally {
+					sqlSession.close();
+				}
+			
+			
+			return rst;
+		}
 }

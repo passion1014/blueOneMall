@@ -47,7 +47,7 @@
 		<ul>
 			<h2>회원정보</h2>
 			<li><a href="memberList.do">회원목록</a></li>
-			<li><a href="memberRegist.do">회원등록</a></li>			
+			<!-- <li><a href="memberRegist.do">회원등록</a></li>		 -->	
 		</ul>
 	</div>
 	</c:when>
