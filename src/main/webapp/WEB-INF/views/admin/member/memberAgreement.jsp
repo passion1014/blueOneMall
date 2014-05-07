@@ -12,11 +12,11 @@
 	   <c:param name="slot" value="member"/>
 	</c:import>
 	<div id="Contents">
-	<h1>회원관리 &gt; 약관정보 &gt; <strong><?=$_row["title"]?></strong></h1>
+	<h1>회원관리 &gt; 약관정보 &gt; <strong>이용약관</strong></h1>
 
-	<form name="frm" method="post" action="./_action/member.do.php" onSubmit="return chkForm(this);" style="display:inline;" target="actionForm">
-	<input type="hidden" name="Mode" value="agreement_update">
-	<input type="hidden" name="idx" value="<?=$_idx?>">
+	<form name="frm" method="post" action="memberAgreementProc.do" >
+	<input type="hidden" id="agrType" name="agrType" value="1">
+	
 	<table>
 		<colgroup>
 			<col width="15%" />
@@ -25,15 +25,9 @@
 			<col width="*" />
 		</colgroup>
 		<tr>
-			<th>항목</th>
-			<td class="left"><input type="text" id="title" name="title" value=""></td>
-			<th>최종변경일</th>
-			<td class="left"></td>
-		</tr>
-		<tr>
 			<th>약관내용</th>
 			<td colspan="3" class="left">
-				<textarea name="contents" class="input" style="width:95%;height:400px;padding:3pt;" required hname="약관을 입력하여 주십시오!"></textarea>
+				<textarea name="agrContents" id="agrContents" class="input" style="width:95%;height:400px;padding:3pt;" required hname="약관을 입력하여 주십시오!">${agreementInfo.agrContents}</textarea>
 			</td>
 		</tr>
 	</table>

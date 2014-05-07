@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.blueone.admin.domain.AccountInfo;
 import com.blueone.admin.domain.AdminInfo;
 import com.blueone.admin.domain.AdminLoginInfo;
+import com.blueone.admin.domain.AgreementInfo;
 import com.blueone.admin.domain.ConfigInfo;
 import com.blueone.category.domain.CategoryInfo;
 import com.blueone.common.util.MsgEnum;
@@ -388,5 +389,79 @@ public class AdminManageServiceImpl implements IAdminManageService {
 		return result;
 	}
 
+	//이용약관&개인보호-수정
+	@Override
+	public int editAgreementInf(AgreementInfo agreementInfo) {
+			int rst = -1;
+			
+		
+			
+			// -----------------------------------------------
+			// 조회한 결과값이 있으면 DB업데이트
+			// -----------------------------------------------
+			
+				SqlSession sqlSession = sqlSessionFactory.openSession();
+				try {
+					// DB 수행
+					rst = sqlSession.update("agreement.updateBomAgreementTB0001", agreementInfo);
+					
+				} finally {
+					sqlSession.close();
+				}
+			
+			
+		return rst;
+	}
 	
+	/* 
+	 *이용약관&개인보호-조회
+	 */
+	@Override
+	public AgreementInfo selectAgreementInf(AgreementInfo agreement) {
+		
+		AgreementInfo result = new AgreementInfo();
+		
+		// -----------------------------------------------
+		// 데이터 조회
+		// -----------------------------------------------
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		
+		try {
+			
+			
+			result = sqlSession.selectOne("agreement.selectDtlBomAgreementTb0001",agreement);
+			
+		} finally {
+			sqlSession.close();
+		}
+
+		
+		return result;
+	}
+	
+	/* 
+	 *이용약관&개인보호-조회 List
+	 */
+	@Override
+	public List<AgreementInfo> selectAgreementInfList() {
+		
+		List<AgreementInfo> result = new ArrayList<AgreementInfo>();
+		
+		// -----------------------------------------------
+		// 데이터 조회
+		// -----------------------------------------------
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		
+		try {
+			
+			
+			result = sqlSession.selectList("agreement.selectDtlBomAgreementTb0002");
+			
+		} finally {
+			sqlSession.close();
+		}
+
+		
+		return result;
+	}
 }

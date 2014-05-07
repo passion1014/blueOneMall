@@ -1,46 +1,43 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.Calendar"%>
-
 <%
 	Calendar calendar = Calendar.getInstance();
 	String year = Integer.toString(calendar.get(Calendar.YEAR)); //년도를 구한다
 	int y = Integer.parseInt(year);
 %>
 
+<c:import url="../inc/top.jsp" />
 
-<c:import  url="../inc/topSub.jsp" />
-<html>
 <body>
-	<div class="wrap">
-	<!--  header 시작   -->
-	<c:import url="../inc/header.jsp" />
-	<!--  header 끝   -->
 
-	<div class="container">
-		
-		<c:import url="../inc/memberLnb.jsp" />
-		
-		<div class="sub_content">
-			<form action="userEditProc.do" method="post">
+<div id="Wrap">
+
+	<c:import url="../inc/gnb.jsp"/>
+	<c:import url="../inc/lnb.jsp">
+	   <c:param name="slot" value="member"/>
+	</c:import>
+	 <div id="Contents">
+	   <h1>회원관리 &gt; 회원정보 &gt; <strong>회원수정</strong></h1>
+
+			<form name="frm" method="post" action="memberEditProc.do" >
 			<input type="hidden" id="custId" name="custId" value="${customer.custId}">
-				<div class="mypage_section">
-					<h4>나의 정보</h4>
-					<p class="sub_tit">고객의 기본정보 내역을 확인하실 수 있습니다.</p>
-					<div class="mypage_infobox">
-						<h5 class="basic_infotit">기본정보 입력</h5>
-						<table class="myinfo_tbl" summary="정보 입력표">
-							<caption>나의정보입력표</caption>
-							<colgroup>
-								<col width="15%"/>
-								<col width="35%"/>
-								<col width="15%"/>
-								<col width="35%"/>
-							</colgroup>
-							<tbody>
-								<tr>
-									<th class="topline">이름</th>
+			<table>
+				<colgroup>
+					<col width="15%" />
+					<col width="35%" />
+					<col width="15%" />
+					<col width="*" />
+				</colgroup>
+				<tr>
+					<th>ID</th>
+					<td class="left">
+					${customer.custId}
+					</td>
+					<th class="topline">이름</th>
 									<td class="topline"><input type="text" id="custNm" name="custNm" value="${customer.custNm}"/></td>
+									</tr>
+									<tr>
 									<th class="topline">생년월일</th>
 									<td class="topline">
 										<span class="in_text">
@@ -67,8 +64,6 @@
 										</span>
 										
 									</td>
-								</tr>
-								<tr>
 									<th>성별</th>
 									<td colspan="3">
 										<span class="in_radio">
@@ -142,7 +137,7 @@
 									<th>주소</th>
 									<td colspan="3" class="in_address">
 										<input type="text" title="address text" style="width:120px;" id="custZip" name="custZip" value="${customer.custZip}"/>
-										<button onClick="openWin('./searchZipCode.do?type=userEdit','searchZipForm',600,450,'scrollbars=no');">우편번호 찾기</button><br/>
+										<button onClick="openWin('./searchZipCode.do?custId=${customer.custId}','searchZipForm',600,450,'scrollbars=no');">우편번호 찾기</button><br/>
 										<input type="text" title="address text" style="width:200px;"id="custAdd" name="custAdd" value="${customer.custAdd}"/>
 									</td>
 								</tr>
@@ -166,79 +161,18 @@
 										</span>
 									</td>
 								</tr>
-							</tbody>
-						</table>
-						<p class="tbl_text">※ SMS 및 이메일을 통해 서비스 안내 및 다양한 이벤트 소식이 제공됩니다. 원하시지 않을 경우에는 수신거부를 선택해주시기 바랍니다.</span>
-						<!-- 						<h5 class="basic_infotit">선택정보</h5>
-						<table class="myinfo_tbl" summary="정보 입력표">
-							<caption>나의정보입력표</caption>
-							<colgroup>
-								<col width="15%"/>
-								<col width="35%"/>
-								<col width="15%"/>
-								<col width="35%"/>
-							</colgroup>
-							<tbody>
-								<tr>
-									<th class="topline">결혼여부</th>
-									<td class="topline">
-										<span class="in_radio">
-											<input type="radio" id="single" name="marry" />
-											<label for="single">미혼</label>
-											<input type="radio" id="married" name="marry" />
-											<label for="married">기혼</label>
-										</span>
-									</td>
-									<th class="topline">결혼기념일</th>
-									<td class="topline">
-										<span class="in_text">
-											<select id="custMerryY" name="custMerryY">
-												<c:forEach var="i" begin="1930" end="<%=y%>">
-												<option <c:if test="${i == 1990}">selected</c:if>>${i}</option>
-												</c:forEach>
-											</select>
-											<label for="married_year">년</label>
-											<select id="custMerryM" name="custMerryM">
-												<c:forEach var="i" begin="1" end="12">
-												<option <c:if test="${i == 1}">selected</c:if>>${i}</option>
-												</c:forEach>
-											</select>
-											<label for="married_month">월</label>
-											<select id="custMerryD" name="custMerryD">
-												<c:forEach var="i" begin="1" end="31">
-												<option <c:if test="${i == 1}">selected</c:if>>${i}</option>
-												</c:forEach>
-											</select>
-											<label for="married_day">일</label>
-										</span>
-								</tr>
-								<tr>
-									<th class="bottomline">자녀유무</th>
-									<td class="bottomline" colspan="3">
-										<span class="in_radio">
-											<input type="radio" id="custChild" name="custChild" value="n"/>
-											<label for="without">무</label>
-											<input type="radio" id="custChild" name="custChild" value="y" />
-											<label for="with">유</label>
-										</span>
-									</td>
-								</tr>
-							</tbody>
-						</table> -->
-						
-					</div>
-					<span class="btn_submit">
-						<input type="submit" value="개인정보 변경" title="개인정보변경버튼"/>
-					</span>
-				</div>
+			</table>
+		
+			<div style="margin-top:20px;" class="center">
+				<input type="submit" value="수정하기" class="button_green button_medium"> &nbsp; 
+				<input type="button" value="취소" class="button_red button_medium" onClick="reset();">
+			</div>
 			</form>
+		
 		</div>
-	</div>
-	<!--  container 끝   -->	
+	
 
-	<c:import url="../inc/footer.jsp" />
 </div>
 </body>
 
-
-</html>
+<c:import url="../inc/footer.jsp" /> 

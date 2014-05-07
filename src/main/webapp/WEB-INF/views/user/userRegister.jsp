@@ -41,18 +41,27 @@
 					</ul>
 						<h5>약관동의</h5>
 					<div class="text_area">
-						<p class="sub_tit1"> > 회원약관</p>
-						<textarea></textarea>
-						<span class="agree_box">
-							<input type="checkbox" id="agre_check1" name="agree_checked1"/>
-							<label for="agre_check1">이용약관에 동의합니다</label>
-						</span>
-						<p class="sub_tit1 clearfix"> > 개인정보 수집항목, 목적 및 이용안내 </p>
-						<textarea></textarea>
-						<span class="agree_box">
-							<input type="checkbox" id="agre_check2" name="agree checked2"/>
-							<label for="agre_check2">이용약관에 동의합니다</label>
-						</span>
+						<c:forEach items="${agreementInfo}" var="agreementInfo">
+							<c:if test="${agreementInfo.agrType == 1}">
+								<p class="sub_tit1">> 회원약관</p>
+									<textarea>${agreementInfo.agrContents}</textarea>
+									<span class="agree_box"> <input type="checkbox"
+										id="agre_check1" name="agree_checked1" /> <label
+										for="agre_check1">이용약관에 동의합니다</label>
+									</span>
+							</c:if>
+							<c:if test="${agreementInfo.agrType == 2}">
+								<p class="sub_tit1 clearfix">> 개인정보 수집항목, 목적 및 이용안내</p>
+								
+									<textarea>${agreementInfo.agrContents}</textarea>
+							
+								<span class="agree_box"> <input type="checkbox"
+									id="agre_check2" name="agree checked2" /> <label
+									for="agre_check2">이용약관에 동의합니다</label>
+								</span>
+								
+							</c:if>
+						</c:forEach>
 					</div>
 					<h5>기본정보 입력</h5>
 					<table class="membership_tbl" summary="회원가입양식">

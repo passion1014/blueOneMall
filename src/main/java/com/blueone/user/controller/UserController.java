@@ -35,6 +35,8 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import com.blueone.admin.domain.AdminInfo;
+import com.blueone.admin.domain.AgreementInfo;
+import com.blueone.admin.service.IAdminManageService;
 import com.blueone.common.domain.SearchAddress;
 import com.blueone.common.util.Utility;
 import com.blueone.customer.domain.CustomerInfo;
@@ -52,13 +54,15 @@ public class UserController {
 	@Autowired IUserService userService;
 	@Autowired ICustomerManageService customerService;
 	@Autowired IOrderManageService orderService;
+	@Autowired IAdminManageService adminManageService;
 	
 	//회원가입 폼 생성
 	@RequestMapping(value = "/user/userRegister.do", method=RequestMethod.GET)
 	public String userRegister(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model,HttpSession session){
-		//CustomerInfo cus = (CustomerInfo)session.getAttribute("customerSession");	
-		CustomerInfo cus =new CustomerInfo();
-		cus.setCustId("100001639343");
+		CustomerInfo cus = (CustomerInfo)session.getAttribute("customerSession");	
+		List<AgreementInfo> agreementInfo=adminManageService.selectAgreementInfList();
+		
+		model.addAttribute("agreementInfo",agreementInfo);
 		model.addAttribute("customer",cus);
 		return "user/userRegister";
 	}
@@ -93,12 +97,12 @@ public class UserController {
 	@RequestMapping(value="/user/userEdit.do", method=RequestMethod.GET)
 	public String userEdit(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model,HttpSession session){
 		
-		//CustomerInfo cus = (CustomerInfo)session.getAttribute("customerSession");	
+		CustomerInfo cus = (CustomerInfo)session.getAttribute("customerSession");	
 		
-		CustomerInfo cus =new CustomerInfo();
+		/*CustomerInfo cus =new CustomerInfo();
 		cus.setCustId("100001639343");
 		cus=customerService.getCustomerInfo2(cus);
-		
+		*/
 		String birth = cus.getCustBirth();
 		cus = useStringToken(birth,"b",cus);
 		
@@ -156,14 +160,14 @@ public class UserController {
 	@RequestMapping(value="/user/searchZipCodeProc.do", method=RequestMethod.GET)
 	public String searchZipCodeProc(@ModelAttribute("searchAddress")SearchAddress sAdd,String type, HttpServletRequest request, HttpServletResponse response, Map<String, Object> commandMap, ModelMap model,HttpSession session) throws Exception {
        
-		//CustomerInfo cus = (CustomerInfo)session.getAttribute("customerSession");	
+		CustomerInfo cus = (CustomerInfo)session.getAttribute("customerSession");	
 		
 		
 		
-		CustomerInfo cus =new CustomerInfo();
+	/*	CustomerInfo cus =new CustomerInfo();
 		cus.setCustId("100001639343");
 		cus=customerService.getCustomerInfo2(cus);
-		
+		*/
 		String birth = cus.getCustBirth();
 		cus = useStringToken(birth,"b",cus);
 		
