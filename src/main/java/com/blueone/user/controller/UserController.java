@@ -59,11 +59,11 @@ public class UserController {
 	//회원가입 폼 생성
 	@RequestMapping(value = "/user/userRegister.do", method=RequestMethod.GET)
 	public String userRegister(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model,HttpSession session){
-		CustomerInfo cus = (CustomerInfo)session.getAttribute("customerSession");	
+		
 		List<AgreementInfo> agreementInfo=adminManageService.selectAgreementInfList();
 		
 		model.addAttribute("agreementInfo",agreementInfo);
-		model.addAttribute("customer",cus);
+		
 		return "user/userRegister";
 	}
 
@@ -96,8 +96,13 @@ public class UserController {
 	//마이페이지
 	@RequestMapping(value="/user/userEdit.do", method=RequestMethod.GET)
 	public String userEdit(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model,HttpSession session){
-		
-		CustomerInfo cus = (CustomerInfo)session.getAttribute("customerSession");	
+		//CustomerInfo customerSesstion = (CustomerInfo)session.getAttribute("customerSession");	
+		CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");	
+		// 세션체크
+		if (cus == null) {
+			return "user/errorPage";
+		}	
+			
 		
 		/*CustomerInfo cus =new CustomerInfo();
 		cus.setCustId("100001639343");
@@ -160,8 +165,13 @@ public class UserController {
 	@RequestMapping(value="/user/searchZipCodeProc.do", method=RequestMethod.GET)
 	public String searchZipCodeProc(@ModelAttribute("searchAddress")SearchAddress sAdd,String type, HttpServletRequest request, HttpServletResponse response, Map<String, Object> commandMap, ModelMap model,HttpSession session) throws Exception {
        
-		CustomerInfo cus = (CustomerInfo)session.getAttribute("customerSession");	
-		
+		// CustomerInfo customerSesstion =(CustomerInfo)session.getAttribute("customerSession");
+		CustomerInfo cus = (CustomerInfo) session
+				.getAttribute("customerSession");
+		// 세션체크
+		if (cus == null) {
+			return "user/errorPage";
+		}
 		
 		
 	/*	CustomerInfo cus =new CustomerInfo();
@@ -216,12 +226,26 @@ public class UserController {
 	
 	//적립금현황
 	@RequestMapping(value="/user/userPointSaving.do", method=RequestMethod.GET)
-	public String userPointSaving(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model){
+	public String userPointSaving(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model,HttpSession session){
+		//CustomerInfo customerSesstion = (CustomerInfo)session.getAttribute("customerSession");	
+				CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");	
+				// 세션체크
+				if (cus == null) {
+					return "user/errorPage";
+				}	
+					
 		return "user/userPointSaving";
 	}
 	//사용내역조회
 	@RequestMapping(value="/user/userPoint.do", method=RequestMethod.GET)
-	public String userPoint(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model){
+	public String userPoint(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model,HttpSession session){
+		//CustomerInfo customerSesstion = (CustomerInfo)session.getAttribute("customerSession");	
+				CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");	
+				// 세션체크
+				if (cus == null) {
+					return "user/errorPage";
+				}	
+					
 			return "user/userPoint";
 	}
 		
@@ -232,7 +256,14 @@ public class UserController {
 		
 		//아이디 셋팅
 		OrderInfo od = new OrderInfo();
-		CustomerInfo cust= (CustomerInfo)session.getAttribute("customerSession");	
+		// CustomerInfo customerSesstion =(CustomerInfo)session.getAttribute("customerSession");
+		CustomerInfo cust = (CustomerInfo) session
+				.getAttribute("customerSession");
+		// 세션체크
+		if (cust == null) {
+			return "user/errorPage";
+		}
+						
 		od.setCustomerInfo(cust);
 		
 		//아이디로 주문내역가져오기
@@ -265,7 +296,12 @@ public class UserController {
 		
 		//아이디 셋팅
 		OrderInfo od = new OrderInfo();
-		CustomerInfo cust= (CustomerInfo)session.getAttribute("customerSession");	
+		// CustomerInfo customerSesstion =(CustomerInfo)session.getAttribute("customerSession");
+		CustomerInfo cust = (CustomerInfo) session.getAttribute("customerSession");
+		// 세션체크
+		if (cust == null) {
+			return "user/errorPage";
+		}
 		od.setCustomerInfo(cust);
 		od.setOrderStatCd("01");
 		List<OrderInfo> odList =orderService.getOrderInfoListByPeriod(od);
@@ -277,7 +313,13 @@ public class UserController {
 
 	//1:1문의하기 목록
 	@RequestMapping(value="/user/qnaList.do", method=RequestMethod.GET)
-	public String qnaList(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model){
+	public String qnaList(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model,HttpSession session){
+		// CustomerInfo customerSesstion =(CustomerInfo)session.getAttribute("customerSession");
+		CustomerInfo cust = (CustomerInfo) session.getAttribute("customerSession");
+		// 세션체크
+		if (cust == null) {
+			return "user/errorPage";
+		}
 		return "user/qnaPage";
 	}
 

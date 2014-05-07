@@ -11,6 +11,7 @@ import java.net.URL;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.net.ssl.HostnameVerifier;
@@ -38,6 +39,8 @@ import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import com.blueone.admin.domain.AgreementInfo;
+import com.blueone.admin.service.IAdminManageService;
 import com.blueone.customer.domain.CustomerInfo;
 import com.blueone.customer.domain.CustomerSrchInfo;
 import com.blueone.customer.service.ICustomerManageService;
@@ -46,6 +49,7 @@ import com.oreilly.servlet.Base64Encoder;
 
 @Controller
 public class LoginController {
+	@Autowired IAdminManageService adminManageService;
 	
 	// 웹서비스 호출과 암복호화를 위한 상수
 	private static final String HCDES_KEY = "hd!d$w4shm";	// 암호화키
@@ -174,8 +178,10 @@ public class LoginController {
 			session.setAttribute("customerSession", result);
 			return "shop/main";
 		}else{
-			session.setAttribute("customerSession", cust);
-			return "redirect:/user/userRegister.do";
+			List<AgreementInfo> agreementInfo=adminManageService.selectAgreementInfList();
+			model.addAttribute("agreementInfo",agreementInfo);
+			model.addAttribute("customer",cust);
+			return "user/userRegister";
 		}
 		
 		/*String viewName = "cust/custDetail";

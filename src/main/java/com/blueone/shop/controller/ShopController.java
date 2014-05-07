@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,7 @@ import com.blueone.category.domain.CategoryInfo;
 import com.blueone.category.service.ICategoryManageService;
 import com.blueone.common.domain.AttachFileInfo;
 import com.blueone.common.service.IAttachFileManageService;
+import com.blueone.customer.domain.CustomerInfo;
 import com.blueone.product.domain.ProductInfo;
 import com.blueone.product.service.IProductManageService;
 import com.blueone.shop.domain.ShopInfo;
@@ -53,8 +56,13 @@ public class ShopController {
 	
 	
 	@RequestMapping(value ="/", method = RequestMethod.GET)
-	public String read(@ModelAttribute("adImgInfo") AdImgInfo adImgInfo, @ModelAttribute("productInfo") ProductInfo productInfo, @ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model){
-		
+	public String read(@ModelAttribute("adImgInfo") AdImgInfo adImgInfo, @ModelAttribute("productInfo") ProductInfo productInfo, @ModelAttribute("categoryInfo") CategoryInfo categoryInfo, HttpSession session,BindingResult result, Model model){
+		// CustomerInfo customerSesstion =(CustomerInfo)session.getAttribute("customerSession");
+				CustomerInfo cust = (CustomerInfo) session.getAttribute("customerSession");
+				// 세션체크
+				if (cust == null) {
+					return "user/errorPage";
+				}
 		List<ProductInfo> productList = shopService.getImgList(productInfo);
 		
 		List<ProductInfo> btPrdList = new ArrayList<ProductInfo>();  //블루투스 상품리스트

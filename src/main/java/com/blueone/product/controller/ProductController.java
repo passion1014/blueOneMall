@@ -44,6 +44,7 @@ import com.blueone.common.service.IAttachFileManageService;
 import com.blueone.common.util.FileUploadUtility;
 import com.blueone.common.util.PageDivision;
 import com.blueone.common.util.Utility;
+import com.blueone.customer.domain.CustomerInfo;
 import com.blueone.product.domain.ProductInfo;
 import com.blueone.product.domain.SearchProdInfo;
 import com.blueone.product.domain.TransferInfo;
@@ -258,14 +259,21 @@ public class ProductController {
 
 	@RequestMapping(value = "/registProductInfo.do")
 	public String registAdminInfo(@ModelAttribute("ProductInfo") ProductInfo productInfo, BindingResult result, Model model) {
+		
 		productManageService.registProductInfo(productInfo);
 		
 		return "product/result";
 	}
 
 	@RequestMapping(value = "/product/searchProductList.do", method = RequestMethod.GET)
-	public String getAdminInfoList(@ModelAttribute("searchProdInfo") SearchProdInfo searchProdInfo, BindingResult result, Model model) {
+	public String getAdminInfoList(@ModelAttribute("searchProdInfo") SearchProdInfo searchProdInfo, BindingResult result, Model model,HttpSession session) {
 
+		// CustomerInfo customerSesstion =(CustomerInfo)session.getAttribute("customerSession");
+				CustomerInfo cust = (CustomerInfo) session.getAttribute("customerSession");
+				// 세션체크
+				if (cust == null) {
+					return "user/errorPage";
+				}
 		List<ProductInfo> list = productManageService.getProductSearchList(searchProdInfo);
 	    model.addAttribute("list", list);
 	    
@@ -694,8 +702,13 @@ public class ProductController {
 */
 	
 	@RequestMapping(value="/product/productView.do", method= RequestMethod.GET)
-	public String productView(@ModelAttribute("productInfo") ProductInfo productInfo, @ModelAttribute("categoryInfo") CategoryInfo categoryInfo ,BindingResult result, Model model){
-		
+	public String productView(@ModelAttribute("productInfo") ProductInfo productInfo, @ModelAttribute("categoryInfo") CategoryInfo categoryInfo ,BindingResult result, Model model,HttpSession session){
+		// CustomerInfo customerSesstion =(CustomerInfo)session.getAttribute("customerSession");
+				CustomerInfo cust = (CustomerInfo) session.getAttribute("customerSession");
+				// 세션체크
+				if (cust == null) {
+					return "user/errorPage";
+				}
 		// 상품QnA 페이지
 		int currentPage = productInfo.getCurrentPage();
 		
@@ -862,7 +875,12 @@ public class ProductController {
 	 */
 	@RequestMapping(value = "/product/searchProduct.do", method= RequestMethod.GET)
 	public String searchProduct(@ModelAttribute("productInfo")SearchProdInfo searchProdInfo, BindingResult result, Model model,HttpSession session, String page) {
-		
+		// CustomerInfo customerSesstion =(CustomerInfo)session.getAttribute("customerSession");
+				CustomerInfo cust = (CustomerInfo) session.getAttribute("customerSession");
+				// 세션체크
+				if (cust == null) {
+					return "user/errorPage";
+				}
 		String word = searchProdInfo.getSchWord();
 		PageDivision pd = new PageDivision();
 		if(StringUtils.isEmpty(page)) pd.pageNum("1");

@@ -3,6 +3,8 @@ package com.blueone.product.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -19,6 +21,7 @@ import com.blueone.category.service.ICategoryManageService;
 import com.blueone.common.domain.AttachFileInfo;
 import com.blueone.common.service.IAttachFileManageService;
 import com.blueone.common.util.PageDivision;
+import com.blueone.customer.domain.CustomerInfo;
 import com.blueone.product.domain.ProductInfo;
 import com.blueone.product.domain.SearchProdInfo;
 import com.blueone.product.service.IProductManageService;
@@ -40,8 +43,13 @@ public class UserProductController {
 	private IProductManageService productManageService;
 	
 	@RequestMapping(value="/product/productList.do")
-	public String productList(@ModelAttribute("productInfo") ProductInfo productInfo, @ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model,String page){
-
+	public String productList(@ModelAttribute("productInfo") ProductInfo productInfo, @ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model,String page,HttpSession session){
+		// CustomerInfo customerSesstion =(CustomerInfo)session.getAttribute("customerSession");
+				CustomerInfo cust = (CustomerInfo) session.getAttribute("customerSession");
+				// 세션체크
+				if (cust == null) {
+					return "user/errorPage";
+				}
 		PageDivision pd = new PageDivision();
 		
 		if(StringUtils.isEmpty(page)) pd.pageNum("1");
