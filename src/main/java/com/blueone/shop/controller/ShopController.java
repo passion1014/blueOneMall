@@ -61,7 +61,7 @@ public class ShopController {
 				CustomerInfo cust = (CustomerInfo) session.getAttribute("customerSession");
 				// 세션체크
 				if (cust == null) {
-					return "user/errorPage";
+					//return "user/errorPage";
 				}
 		List<ProductInfo> productList = shopService.getImgList(productInfo);
 		

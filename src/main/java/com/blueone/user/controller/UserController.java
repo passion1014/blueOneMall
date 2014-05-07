@@ -100,7 +100,7 @@ public class UserController {
 		CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");	
 		// 세션체크
 		if (cus == null) {
-			return "user/errorPage";
+			//return "user/errorPage";
 		}	
 			
 		
@@ -170,7 +170,7 @@ public class UserController {
 				.getAttribute("customerSession");
 		// 세션체크
 		if (cus == null) {
-			return "user/errorPage";
+			//return "user/errorPage";
 		}
 		
 		
@@ -231,7 +231,7 @@ public class UserController {
 				CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");	
 				// 세션체크
 				if (cus == null) {
-					return "user/errorPage";
+					//return "user/errorPage";
 				}	
 					
 		return "user/userPointSaving";
@@ -243,7 +243,7 @@ public class UserController {
 				CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");	
 				// 세션체크
 				if (cus == null) {
-					return "user/errorPage";
+					//return "user/errorPage";
 				}	
 					
 			return "user/userPoint";
@@ -261,7 +261,7 @@ public class UserController {
 				.getAttribute("customerSession");
 		// 세션체크
 		if (cust == null) {
-			return "user/errorPage";
+			//return "user/errorPage";
 		}
 						
 		od.setCustomerInfo(cust);
@@ -300,7 +300,7 @@ public class UserController {
 		CustomerInfo cust = (CustomerInfo) session.getAttribute("customerSession");
 		// 세션체크
 		if (cust == null) {
-			return "user/errorPage";
+			//return "user/errorPage";
 		}
 		od.setCustomerInfo(cust);
 		od.setOrderStatCd("01");
@@ -318,7 +318,7 @@ public class UserController {
 		CustomerInfo cust = (CustomerInfo) session.getAttribute("customerSession");
 		// 세션체크
 		if (cust == null) {
-			return "user/errorPage";
+			//return "user/errorPage";
 		}
 		return "user/qnaPage";
 	}
