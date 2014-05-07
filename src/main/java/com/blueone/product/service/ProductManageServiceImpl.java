@@ -38,7 +38,7 @@ public class ProductManageServiceImpl implements IProductManageService {
          return list;
         } 
     
-    //상품목록 불러옴
+    //검색 상품목록 불러옴
     @Override
     public List<ProductInfo> getProductInfList(SearchProdInfo srchProdInfo) {
         
@@ -63,7 +63,31 @@ public class ProductManageServiceImpl implements IProductManageService {
         return prodBaseList;
     }
     
-
+    //상품목록 불러옴
+    @Override
+    public List<ProductInfo> getProductInfList1(SearchProdInfo srchProdInfo) {
+        
+        List<ProductInfo> prodBaseList = new ArrayList<ProductInfo>();
+        
+        // -----------------------------------------------
+        // DB Insert 수행
+        // -----------------------------------------------
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        try {
+            // DB 수행
+            //AttachFileInfo att = new AttachFileInfo();
+            //att.setAttCdKey(srchProdInfo.getPrdNm());
+            
+            //List<AttachFileInfo> attList= attFileManageService.getAttFileInfList(att);
+            //
+            prodBaseList = sqlSession.selectList("product.selectListBomProductTb0005", srchProdInfo);
+        } finally {
+            sqlSession.close();
+        }
+        
+        return prodBaseList;
+    }
+    
     @Override
     public List<ProductInfo> getProductSearchList(SearchProdInfo searchProdInfo) {
         

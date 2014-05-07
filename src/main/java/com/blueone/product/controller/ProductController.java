@@ -77,7 +77,7 @@ public class ProductController {
 		}
 		
 		
-		List<ProductInfo> list = productManageService.getProductInfList(srchProdInfo);
+		List<ProductInfo> list = productManageService.getProductInfList1(srchProdInfo);
 		
 		
 	    

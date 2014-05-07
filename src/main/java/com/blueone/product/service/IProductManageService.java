@@ -34,5 +34,6 @@ public interface IProductManageService {
 	public List<ProductInfo> oderByHighSellPriceList();
 	public List<ProductInfo> oderByNamePriceList();
 	public List<ProductInfo> oderByBrdPriceList();
+	public List<ProductInfo> getProductInfList1(SearchProdInfo srchProdInfo);
 	
 }
