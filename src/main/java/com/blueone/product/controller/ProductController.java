@@ -272,7 +272,7 @@ public class ProductController {
 				CustomerInfo cust = (CustomerInfo) session.getAttribute("customerSession");
 				// 세션체크
 				if (cust == null) {
-					//return "user/errorPage";
+					return "user/errorPage";
 				}
 		List<ProductInfo> list = productManageService.getProductSearchList(searchProdInfo);
 	    model.addAttribute("list", list);
@@ -707,7 +707,7 @@ public class ProductController {
 				CustomerInfo cust = (CustomerInfo) session.getAttribute("customerSession");
 				// 세션체크
 				if (cust == null) {
-				//	return "user/errorPage";
+					return "user/errorPage";
 				}
 		// 상품QnA 페이지
 		int currentPage = productInfo.getCurrentPage();
@@ -879,7 +879,7 @@ public class ProductController {
 				CustomerInfo cust = (CustomerInfo) session.getAttribute("customerSession");
 				// 세션체크
 				if (cust == null) {
-					//return "user/errorPage";
+					return "user/errorPage";
 				}
 		String word = searchProdInfo.getSchWord();
 		PageDivision pd = new PageDivision();
