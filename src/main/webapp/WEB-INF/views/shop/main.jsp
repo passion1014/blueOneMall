@@ -14,32 +14,32 @@
 				<ul class="bxslider">				
 					<c:set var="mainSNumber" value="0"></c:set>				
 					<c:if test="${AdImgDtl.mdImg1 != '' && AdImgDtl.mdImg1 ne NULL}">
-						<li><a href="${AdImgDtl.mdUrl1}"><img src="${AdImgDtl.mdImg1}" width="666" height="437" alt="메인이미지1"/></a></li>
+						<li><a href="${AdImgDtl.mdUrl1}"><img src="${AdImgDtl.mdImg1}" width="665" height="440" alt="메인이미지1"/></a></li>
 						<c:set var="mainSNumber" value="${mainSNumber + 1}"></c:set>						
 					</c:if>
 					
 					<c:if test="${AdImgDtl.mdImg2 != '' && AdImgDtl.mdImg2 ne NULL}">
-						<li><a href="${AdImgDtl.mdUrl2}"><img src="${AdImgDtl.mdImg2}" width="666" height="437" alt="메인이미지2"/></a></li>
+						<li><a href="${AdImgDtl.mdUrl2}"><img src="${AdImgDtl.mdImg2}" width="665" height="440" alt="메인이미지2"/></a></li>
 						<c:set var="mainSNumber" value="${mainSNumber + 1}"></c:set>
 					</c:if>
 					
 					<c:if test="${AdImgDtl.mdImg3 != '' && AdImgDtl.mdImg3 ne NULL}">
-						<li><a href="${AdImgDtl.mdUrl3}"><img src="${AdImgDtl.mdImg3}" width="666" height="437" alt="메인이미지3"/></a></li>
+						<li><a href="${AdImgDtl.mdUrl3}"><img src="${AdImgDtl.mdImg3}" width="665" height="440" alt="메인이미지3"/></a></li>
 						<c:set var="mainSNumber" value="${mainSNumber + 1}"></c:set>
 					</c:if>
 					
 					<c:if test="${AdImgDtl.mdImg4 != '' && AdImgDtl.mdImg4 ne NULL}">
-						<li><a href="${AdImgDtl.mdUrl4}"><img src="${AdImgDtl.mdImg4}" width="666" height="437" alt="메인이미지4"/></a></li>
+						<li><a href="${AdImgDtl.mdUrl4}"><img src="${AdImgDtl.mdImg4}" width="665" height="440" alt="메인이미지4"/></a></li>
 						<c:set var="mainSNumber" value="${mainSNumber + 1}"></c:set>
 					</c:if>
 					
 					<c:if test="${AdImgDtl.mdImg5 != '' && AdImgDtl.mdImg5 ne NULL}">
-						<li><a href="${AdImgDtl.mdUrl5}"><img src="${AdImgDtl.mdImg5}" width="666" height="437" alt="메인이미지5"/></a></li>
+						<li><a href="${AdImgDtl.mdUrl5}"><img src="${AdImgDtl.mdImg5}" width="665" height="440" alt="메인이미지5"/></a></li>
 						<c:set var="mainSNumber" value="${mainSNumber + 1}"></c:set>
 					</c:if>
 					
 					<c:if test="${AdImgDtl.mdImg6 != '' && AdImgDtl.mdImg6 ne NULL}">
-						<li><a href="${AdImgDtl.mdUrl6}"><img src="${AdImgDtl.mdImg6}" width="666" height="437" alt="메인이미지6"/></a></li>
+						<li><a href="${AdImgDtl.mdUrl6}"><img src="${AdImgDtl.mdImg6}" width="665" height="440" alt="메인이미지6"/></a></li>
 						<c:set var="mainSNumber" value="${mainSNumber + 1}"></c:set>
 					</c:if>
 				</ul>
@@ -110,13 +110,13 @@
 			</script>
 						
 			<dl class="scont1">
-				<dd class="scont_box2"><a href="${AdImgDtl.bnUrl1}"><img src="${AdImgDtl.bnImg1}" alt="product image"/></a></dd>
-				<dd class="scont_box1"><a href="${AdImgDtl.bnUrl2}"><img src="${AdImgDtl.bnImg2}" alt="product image"/></a></dd>
+				<dd class="scont_box2"><a href="${AdImgDtl.bnUrl1}"><img src="${AdImgDtl.bnImg1}" width="155" height="155" alt="product image"/></a></dd>
+				<dd class="scont_box1"><a href="${AdImgDtl.bnUrl2}"><img src="${AdImgDtl.bnImg2}" width="155" height="305" alt="product image"/></a></dd>
 			</dl>
 			
 			<dl class="scont2">
-				<dd class="scont_box1"><a href="${AdImgDtl.bnUrl3}"><img src="${AdImgDtl.bnImg3}" alt="product image"/></a></dd>
-				<dd class="scont_box2"><a href="${AdImgDtl.bnUrl4}"><img src="${AdImgDtl.bnImg4}" alt="product image"/></a></dd>
+				<dd class="scont_box1"><a href="${AdImgDtl.bnUrl3}"><img src="${AdImgDtl.bnImg3}" width="155" height="305" alt="product image"/></a></dd>
+				<dd class="scont_box2"><a href="${AdImgDtl.bnUrl4}"><img src="${AdImgDtl.bnImg4}" width="155" height="155" alt="product image"/></a></dd>
 			</dl>
 							
 		</div>
@@ -223,8 +223,8 @@
 		</div>
 		
 		<div class="cont_banner">
-			<a href="${AdImgDtl.bnUrl5}" class="marginright"><img src="${AdImgDtl.bnImg5}" alt="main banner image"/></a>
-			<a href="${AdImgDtl.bnUrl6}"><img src="${AdImgDtl.bnImg6}" alt="main banner image"/></a>
+			<a href="${AdImgDtl.bnUrl5}" class="marginright"><img src="${AdImgDtl.bnImg5}" width="494" height="100" alt="main banner image"/></a>
+			<a href="${AdImgDtl.bnUrl6}"><img src="${AdImgDtl.bnImg6}" width="494" height="100" alt="main banner image"/></a>
 		</div>
 		
 		<div class="cont_bottom">
