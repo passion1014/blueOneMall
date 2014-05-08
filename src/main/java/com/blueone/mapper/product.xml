@@ -348,10 +348,17 @@
 					ON ( T1.PRD_CTG_S = T4.CTG_CODE )
 		WHERE
 			(1 = 1)
-			<if test="prdNm != null and prdNm != ''">AND T1.PRD_NM LIKE CONCAT(#{prodNm},'%')</if>
-			<if test="prdCtgL != null and prdCtgL != ''">AND T1.PRD_CTG_L LIKE CONCAT(#{prdCtgL},'%')</if>
-			<if test="prdCtgM != null and prdCtgM != ''">AND T1.PRD_CTG_M LIKE CONCAT(#{prdCtgM},'%')</if>
-			<if test="prdCtgS != null and prdCtgS != ''">AND T1.PRD_CTG_S LIKE CONCAT(#{prdCtgS},'%')</if>
+			<if test="srchCateArr != null and srchCateArr.length != 0">
+				AND T1.PRD_CTG_L IN 
+				<foreach item="srchCateArr" index="index" collection="srchCateArr" open="(" separator="," close=")">
+				      #{srchCateArr}
+				</foreach>			
+			</if>
+			<if test="prdDp != null and (prdDp eq 'y'.toString())"> AND T1.PRD_DISPLAY_YN = 'y' </if>
+			<if test="prdNm != null and prdNm != ''"> AND T1.PRD_NM LIKE CONCAT(#{prodNm},'%') </if>
+			<if test="prdCtgL != null and prdCtgL != ''"> AND T1.PRD_CTG_L LIKE CONCAT(#{prdCtgL},'%') </if>
+			<if test="prdCtgM != null and prdCtgM != ''"> AND T1.PRD_CTG_M LIKE CONCAT(#{prdCtgM},'%') </if>
+			<if test="prdCtgS != null and prdCtgS != ''"> AND T1.PRD_CTG_S LIKE CONCAT(#{prdCtgS},'%') </if>
 	</select >
 	
 	<select id="selectListBomShopProductTb0001" parameterType="productInfo" resultMap="ProductBaseDtlMap">

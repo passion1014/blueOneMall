@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.blueone.admin.domain.AdImgInfo;
 import com.blueone.category.domain.CategoryInfo;
+import com.blueone.common.domain.AttachFileInfo;
 import com.blueone.product.domain.ProductInfo;
 
 
@@ -45,9 +46,11 @@ public class ShopServiceImpl implements IShopService{
 		
 	}
 	
-	//메인화면에 상품이미지 출력
+	/* 
+	 * 메인화면에 상품이미지 출력
+	 */
 	@Override
-	public List<ProductInfo> getImgList(ProductInfo productInfo){
+	public List<ProductInfo> getProdListForMain(ProductInfo productInfo){
 		
 		List<ProductInfo> rstInfo = new ArrayList<ProductInfo>();
 		SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -55,6 +58,14 @@ public class ShopServiceImpl implements IShopService{
 		try{
 			
 			rstInfo = sqlSession.selectList("product.selectListBomProductTb0005", productInfo);
+			
+			for (ProductInfo each : rstInfo) {
+				AttachFileInfo srchKey = new AttachFileInfo();
+				srchKey.setAttCdKey(each.getPrdCd());
+
+				AttachFileInfo attachFileInfo = sqlSession.selectOne("attFile.selectListBomAttFileTb0002", srchKey);
+				each.setAttFilePath(attachFileInfo.getAttFilePath());
+			}
 			
 		}finally{
 			

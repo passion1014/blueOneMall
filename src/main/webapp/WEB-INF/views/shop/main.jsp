@@ -129,7 +129,8 @@
 					<li><a href="/?prdCtgL=L2022" class="wpadding3">MULTMEDIA</a></li>
 				</ul>
 				<div class="product_elist">
-					<ul class="pro_list">
+					
+					<ul id="ep_area" class="pro_list" style="display:block;">					
 						<c:forEach items="${epPrdList}" var="epPrdList">
 							<li>
 								<a href="#">
@@ -142,7 +143,10 @@
 								</a>
 							</li>
 						</c:forEach>
-						
+					</ul>
+	
+					
+					<ul id="hp_area" class="pro_list" style="display:none;">
 						<c:forEach items="${hpPrdList}" var="hpPrdList">
 							<li>
 								<a href="#">
@@ -155,6 +159,11 @@
 								</a>
 							</li>
 						</c:forEach>
+					</ul>
+					
+					
+					
+					<ul id="mm_area" class="pro_list" style="display:none;">
 						<c:forEach items="${mmPrdList}" var="mmPrdList">
 							<li>
 								<a href="#">
@@ -168,6 +177,7 @@
 							</li>
 						</c:forEach>		
 					</ul>
+					
 				</div>
 			</div>
 			
@@ -180,7 +190,7 @@
 				</ul>
 				
 				<div class="product_elist">
-					<ul class="pro_list">
+					<ul id="pd_area" class="pro_list" style="display:block;">
 						<c:forEach items="${pdSList}" var="pdSList">
 							<li>
 								<a href="#">
@@ -193,6 +203,10 @@
 								</a>
 							</li>
 						</c:forEach>
+					</ul>
+					
+					
+					<ul id="cs_area" class="pro_list" style="display:none;">
 						<c:forEach items="${csPrdList}" var="csPrdList">
 							<li>
 								<a href="#">
@@ -205,6 +219,10 @@
 								</a>
 							</li>
 						</c:forEach>
+					</ul>
+					
+					
+					<ul id="xt_area" class="pro_list" style="display:none;">
 						<c:forEach items="${xtPrdList}" var="xtPrdList">
 							<li>
 								<a href="#">
@@ -218,6 +236,7 @@
 							</li>
 						</c:forEach>
 					</ul>
+					
 				</div>
 			</div>			
 		</div>
