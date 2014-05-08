@@ -21,7 +21,7 @@
 	<div class="top">
 		<h1><a href="../"><img src="<c:url value='/resources/img/main/common/blueone_logo.png'/>"/></a></h1>
 		<p class="top_img">
-			<img src="<c:url value='/resources/img/main/common/top_image.jpg'/>"/>
+			<img src="${AdImgDtl.bnImg7}"/>
 		</p>
 		<form method="GET" id="topSFrm" name="topSFrm" action="/product/searchProduct.do">
 		<div class="search_area">

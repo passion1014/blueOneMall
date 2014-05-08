@@ -179,8 +179,10 @@ public class LoginController {
 			return "shop/main";
 		}else{
 			List<AgreementInfo> agreementInfo=adminManageService.selectAgreementInfList();
+			session.setAttribute("customerSession", cust);
 			model.addAttribute("agreementInfo",agreementInfo);
 			model.addAttribute("customer",cust);
+			
 			return "user/userRegister";
 		}
 		

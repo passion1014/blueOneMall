@@ -73,7 +73,7 @@ public class ProductController {
 		
 		AdminInfo adminSession = (AdminInfo)session.getAttribute("adminSession");		
 		if(adminSession==null){
-		return "redirect:adminLogin.do";
+			return "redirect:adminLogin.do";
 		}
 		
 		
