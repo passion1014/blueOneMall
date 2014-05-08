@@ -41,7 +41,7 @@ public class UserProductController {
 	private SqlSessionFactory sqlSessionFactory;
 	@Autowired
 	private IProductManageService productManageService;
-<<<<<<< HEAD
+
 	
 	@RequestMapping(value="/product/productList.do")
 	public String productList(@ModelAttribute("productInfo") ProductInfo productInfo, @ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model,String page,HttpSession session){
@@ -52,22 +52,6 @@ public class UserProductController {
 //			return "user/errorPage";
 		}
 		
-=======
-
-	@RequestMapping(value = "/product/productList.do")
-	public String productList(
-			@ModelAttribute("productInfo") ProductInfo productInfo,
-			@ModelAttribute("categoryInfo") CategoryInfo categoryInfo,
-			BindingResult result, Model model, String page, HttpSession session) {
-		// CustomerInfo customerSesstion
-		// =(CustomerInfo)session.getAttribute("customerSession");
-		CustomerInfo cust = (CustomerInfo) session
-				.getAttribute("customerSession");
-		// 세션체크
-		if (cust == null) {
-			 return "user/errorPage";
-		}
->>>>>>> 3419e63aff62aee4377131ac125f0e3943dedc24
 		PageDivision pd = new PageDivision();
 
 		if (StringUtils.isEmpty(page))
