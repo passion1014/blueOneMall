@@ -69,8 +69,19 @@ public class TestProductManageService extends BlueoneTestCase {
 		// 상품조회 prdCd=P5571
 		mockMvc.perform(get("/product/productView.do")
 				.param("prdCd", "P5571")
-				.param("currentPage", "2"))
+				.param("currentPage", "1"))
 		.andExpect(status().isOk())
 		.andDo(print());
 	}
+	
+	@Test
+	public void testWriteQnA() throws Exception {
+		// 상품조회 prdCd=P5571
+		mockMvc.perform(get("/product/writeQnA.do")
+				.param("prdCd", "P5571")
+				.param("content", "상품이 좋습니다!"))
+		.andExpect(status().isOk())
+		.andDo(print());
+	}
+
 }
