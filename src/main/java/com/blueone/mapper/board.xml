@@ -157,6 +157,8 @@
 		                ,`ROOT_SEQ`
 		                ,`REF_SEQ`
 		                ,`DEPTH`
+		                ,`BRD_CODE_TYPE`
+		                ,`BRD_CODE_KEY`
 		                ,`PASSWD`
 		                ,`TITLE`
 		                ,`CONTENT`
@@ -175,7 +177,7 @@
 		                )
 		VALUES (#{brdSeq}, #{brdTyp}
 				, <if test='rootSeq == "0"'>#{brdSeq}</if><if test='rootSeq != "0"'>#{rootSeq}</if>
-				, #{refSeq}, #{depth}, #{passwd}, #{title}, #{content}, 0, 0, 0, #{procSt}
+				, #{refSeq}, #{depth}, #{brdCodeType}, #{brdCodeKey}, #{passwd}, #{title}, #{content}, 0, 0, 0, #{procSt}
 				, #{userNm}, #{publicYmd}, #{publicNm}, now(), #{insUser}, now(), #{updUser}, IFNULL(#{noticeYn},'F')
 		)
 	</insert>

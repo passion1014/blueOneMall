@@ -85,19 +85,19 @@ public class LoginController {
 		// --------------------------------------------
 		if (StringUtils.isEmpty(encMemNo)) {
 			model.addAttribute("msg", "고객아이디가 없습니다.[MEM_NO]");
-			return "cust/loginError";
+			return "user/loginError";
 		} else if (StringUtils.isEmpty(encShopNo)) {
 			model.addAttribute("msg", "상점번호가 없습니다.[SHOP_NO]");
-			return "cust/loginError";
+			return "user/loginError";
 		} else if (StringUtils.isEmpty(encMemNm)) {
 			model.addAttribute("msg", "고객명이 없습니다.[MEM_NM]");
-			return "cust/loginError";
+			return "user/loginError";
 		} else if (StringUtils.isEmpty(encShopEventNo)) {
 			model.addAttribute("msg", "행사번호가 없습니다.[SHOPEVENT_NO]");
-			return "cust/loginError";
+			return "user/loginError";
 		} else if (StringUtils.isEmpty(encEntrNo)) {
 			model.addAttribute("msg", "고객사번호가 없습니다.[ENTR_NO]");
-			return "cust/loginError";
+			return "user/loginError";
 		}
 		
 		
@@ -124,7 +124,7 @@ public class LoginController {
 			
 		} catch (Exception e) {
 			model.addAttribute("msg", "SSO처리시 에러발생하였습니다.");
-			return "cust/loginError";
+			return "user/loginError";
 			
 		} finally {
 			System.out.println("[웹서비스 URL] = " + sBuilder.toString());
@@ -136,13 +136,13 @@ public class LoginController {
 		// --------------------------------------------
 		if (rstMap == null) {
 			model.addAttribute("msg", "SSO처리 결과가 없습니다.(1)");
-			return "cust/loginError";
+			return "user/loginError";
 		} else {
 			String returnCode = (String)rstMap.get("return_code");
 			
 			if (!"000".equals(returnCode)) {
 				model.addAttribute("msg", getErrorMsgByCode(returnCode));
-				return "cust/loginError";
+				return "user/loginError";
 			}
 		}
 		

@@ -45,11 +45,12 @@ public class UserProductController {
 	@RequestMapping(value="/product/productList.do")
 	public String productList(@ModelAttribute("productInfo") ProductInfo productInfo, @ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model,String page,HttpSession session){
 		// CustomerInfo customerSesstion =(CustomerInfo)session.getAttribute("customerSession");
-				CustomerInfo cust = (CustomerInfo) session.getAttribute("customerSession");
-				// 세션체크
-				if (cust == null) {
-					return "user/errorPage";
-				}
+		CustomerInfo cust = (CustomerInfo) session.getAttribute("customerSession");
+		// 세션체크
+		if (cust == null) {
+//			return "user/errorPage";
+		}
+		
 		PageDivision pd = new PageDivision();
 		
 		if(StringUtils.isEmpty(page)) pd.pageNum("1");

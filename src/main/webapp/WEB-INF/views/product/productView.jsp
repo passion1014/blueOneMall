@@ -29,12 +29,12 @@ function fnGotoPage(page) {
 	<c:import url="../inc/productLnb.jsp"/>
 	<div class="container">
 		<div class="sub_content">
-			<form action="/order/cartList.do" method="post" id="prdfm" name="prdfm">
-			<input type="hidden" id="prdCd"  name="prdCd"  value="${pro.prdCd}">
-			<input type="hidden" id="prdNm"  name="prdNm"  value="${pro.prdNm}">
-			<input type="hidden" id="sellPrice"  name="sellPrice"  value="${pro.prdSellPrc}">
 			
 				<div class="product_view">
+				<form action="/order/cartList.do" method="post" id="prdfm" name="prdfm">
+				<input type="hidden" id="prdCd"  name="prdCd"  value="${pro.prdCd}">
+				<input type="hidden" id="prdNm"  name="prdNm"  value="${pro.prdNm}">
+				<input type="hidden" id="sellPrice"  name="sellPrice"  value="${pro.prdSellPrc}">
 					<span class="locat_box">Home&nbsp;>&nbsp;
 					${pro.ctgLargeName}&nbsp;>&nbsp;
 					<c:if test="${'' eq pro.ctgMiddleName}"><c:out value="없음"/></c:if>
@@ -191,7 +191,9 @@ function fnGotoPage(page) {
 							</tbody>
 						</table>
 					</div>
+				</form>
 				</div>
+				
 				<div class="protextbox">
 				</div>
 				<div class="detail_section">
@@ -224,20 +226,22 @@ function fnGotoPage(page) {
 						<li class="alignline">배송/반품/교환정보</li>
 					</ul>
 					<div class="review_section">
+					<form action="/product/writeQnA.do" method="post" name="qnaform">
+					<input type="hidden" name="prdCd" value="${pro.prdCd}" />
 						<h5>제품후기</h5>
 						<dl class="review_textbox">
 							<dt>이름</dt>
 							<dd></dd>
-							<dt class="clearfix">첨부</dt>
+							<!-- <dt class="clearfix">첨부</dt>
 							<dd>
 								<input type="file" title="첨부파일"/>
-							</dd>
+							</dd> -->
 							<dt class="clearfix textarea">내용</dt>
 							<dd class="textarea">
-								<textarea></textarea>
+								<textarea name="content"></textarea>
 								<button>후기쓰기</button>
 							</dd>
-							<dt class="clearfix">평가하기</dt>
+							<%-- <dt class="clearfix">평가하기</dt>
 							<dd>
 								<span>
 									<img src="<c:url value='/resources/img/common/bullet_lstar.png'/>" alt="큰 별 이미지"/>
@@ -245,8 +249,9 @@ function fnGotoPage(page) {
 									<img src="<c:url value='/resources/img/common/bullet_lstar.png'/>" alt="큰 별 이미지"/>
 									<img src="<c:url value='/resources/img/common/bullet_lstar.png'/>" alt="큰 별 이미지"/>
 								</span>
-							</dd>
+							</dd> --%>
 						</dl>
+					</form>
 					</div>
 				</div>
 				<div class="detail_section">
@@ -278,7 +283,7 @@ function fnGotoPage(page) {
 							<c:forEach items="${qnaList}" var="qna">
 								<tr>
 									<td class="bgcolor">${qna.brdSeq}</td>
-									<td class="texalign"><a href="#">${qna.title}</a></td>
+									<td class="texalign"><a href="#">${qna.content}</a></td>
 									<td class="bgcolor">${qna.insUser}</td>
 									<td>${qna.insDt}</td>
 									<%-- <td class="bgcolor">
@@ -311,7 +316,6 @@ function fnGotoPage(page) {
 					<a href="#" class="palign1"><img src="<c:url value='/resources/img/common/btn_next.gif'/>" alt="다음"></a>
 					<a href="#" class="palign2"><img src="<c:url value='/resources/img/common/btn_end.gif'/>" alt="끝으로"></a> --%>
 				</div>
-			</form>
 		</div>
 	</div>
 <!--  container 끝   -->	
