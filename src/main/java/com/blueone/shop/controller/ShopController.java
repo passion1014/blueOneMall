@@ -70,7 +70,7 @@ public class ShopController {
 		CustomerInfo cust = new CustomerInfo();
 		cust.setCustId("id1");
 		CustomerInfo res=customerManageService.getCustomerInfo2(cust);
-		session.setAttribute("customerSession", result);
+		session.setAttribute("customerSession", res);
 		List<ProductInfo> productList = shopService.getImgList(productInfo);
 		
 		List<ProductInfo> btPrdList = new ArrayList<ProductInfo>();  //블루투스 상품리스트
