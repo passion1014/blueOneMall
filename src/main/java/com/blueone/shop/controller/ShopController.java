@@ -5,12 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-<<<<<<< HEAD
+
 import org.apache.commons.lang.StringUtils;
-=======
+
 import javax.servlet.http.HttpSession;
 
->>>>>>> 2a40d95587368d2e6a4b54cc3711fd1efd1a96a7
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,12 +39,11 @@ import com.blueone.shop.service.IShopService;
 
 @Controller
 public class ShopController {
-<<<<<<< HEAD
-=======
+
 
 	
 	@Autowired ICustomerManageService customerManageService;
->>>>>>> 2a40d95587368d2e6a4b54cc3711fd1efd1a96a7
+
 	
 	@Autowired
 	private IShopService shopService;
@@ -65,9 +64,17 @@ public class ShopController {
 	
 	@RequestMapping(value ="/", method = RequestMethod.GET)
 	public String read(@ModelAttribute("adImgInfo") AdImgInfo adImgInfo, @ModelAttribute("productInfo") ProductInfo productInfo, @ModelAttribute("categoryInfo") CategoryInfo categoryInfo, HttpSession session,BindingResult result, Model model){
-		/*// CustomerInfo customerSesstion =(CustomerInfo)session.getAttribute("customerSession");
+		// CustomerInfo customerSesstion =(CustomerInfo)session.getAttribute("customerSession");
+
+		/*// 세션체크
+		if (cust == null) {
+			return "user/errorPage";
+		}*/
 		
-<<<<<<< HEAD
+		CustomerInfo cust = new CustomerInfo();
+		cust.setCustId("id1");
+		CustomerInfo res=customerManageService.getCustomerInfo2(cust);
+		session.setAttribute("customerSession", res);
 		//블루투스,  해드폰, 멀티미디어, 케이스, xtc, 이어폰, sale, 브랜드샵
 		String[] srchCateCdArr = {"pdSList", "hpPrdList", "mmPrdList", "csPrdList", "xtPrdList", "epPrdList"};
 		String[] srchCateArr = {"L1601", "L3862", "L3679", "L7451", "L2022", "L9540"};
@@ -81,19 +88,22 @@ public class ShopController {
 
 		// 조회한 상품리스트를 각카테고리별로 Map에 담는다.
 		Map<String, List<ProductInfo>> map = new HashMap<String, List<ProductInfo>>();
-		for (int idx=0; idx < srchCateCdArr.length; idx++ ) {
+	for (int idx=0; idx < srchCateCdArr.length; idx++ ) {
 			List<ProductInfo> list = new ArrayList<ProductInfo>();
-=======
-		CustomerInfo cust = (CustomerInfo) session.getAttribute("customerSession");
-		// 세션체크
-		if (cust == null) {
-			return "user/errorPage";
-		}*/
-		CustomerInfo cust = new CustomerInfo();
-		cust.setCustId("id1");
-		CustomerInfo res=customerManageService.getCustomerInfo2(cust);
-		session.setAttribute("customerSession", res);
-		List<ProductInfo> productList = shopService.getImgList(productInfo);
+			for (ProductInfo each : prdList) {
+				if (each != null && StringUtils.isEmpty(each.getCtgLargeCode())) continue;
+				
+				if (srchCateArr[idx].equals(each.getCtgLargeCode())) {
+					list.add(each);
+				}
+			}
+			
+			map.put(srchCateCdArr[idx], list);
+
+		}
+
+		
+		//List<ProductInfo> productList = shopService.getImgList(productInfo);
 		
 		List<ProductInfo> btPrdList = new ArrayList<ProductInfo>();  //블루투스 상품리스트
 		List<ProductInfo> hpPrdList = new ArrayList<ProductInfo>();  //해드폰 상품리스트
@@ -115,7 +125,11 @@ public class ShopController {
 			largeInf = categoryManageService.getCategoryInfDetail(categoryInfo);			
 		}
 		
+
 		
+		
+		model.addAttribute("AdImgDtl", AdImgDtl);
+		model.addAllAttributes(map);
 		
 	/*	
 		
@@ -212,12 +226,13 @@ public class ShopController {
 				each.setAttFilePath(att.getAttFilePath());
 			}
 		}
-		
+		*/
+		/*
 		for(ProductInfo each : mmPrdList){
 			AttachFileInfo att = new AttachFileInfo();
 			att.setAttCdKey(each.getPrdCd());
 			att = attFileManageService.getAttFileInfListImg(att);
->>>>>>> 2a40d95587368d2e6a4b54cc3711fd1efd1a96a7
+
 			
 			for (ProductInfo each : prdList) {
 				if (each != null && StringUtils.isEmpty(each.getCtgLargeCode())) continue;
@@ -230,9 +245,8 @@ public class ShopController {
 			map.put(srchCateCdArr[idx], list);
 		}
 		
+		*/
 		
-		AdImgInfo AdImgDtl = new AdImgInfo();
-		AdImgDtl = shopService.getAdImg(adImgInfo);
 		
 		model.addAttribute("AdImgDtl", AdImgDtl);
 		model.addAllAttributes(map);
@@ -245,7 +259,7 @@ public class ShopController {
 //		model.addAttribute("xtPrdList", ecPrdList);
 //		model.addAttribute("epPrdList", epPrdList);
 				
-		/*//대분류에 대한 상품출력(블루투스)
+		/*대분류에 대한 상품출력(블루투스)
 		for(ProductInfo each: productList){
 			if("L4315".equals(each.getPrdCtgL()) ){
 				btPrdList.add(each);
