@@ -57,7 +57,7 @@ public class CustomerInfo {
 	private int birthM;
 	private int birthD;
 	
-	
+
 	private String eMail1;
 	private String eMail2;
 	

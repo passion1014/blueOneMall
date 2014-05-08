@@ -13,12 +13,12 @@ function list_Submit(){
 
 }
 
--->
+
 //페이지이동
 function fnGotoPage(page) {
 	var prdCd = "${pro.prdCd}";
 	location.href = "productView.do?prdCd=" + prdCd + "&currentPage=" +page;
-}
+}-->
 
 </script>
 <body>

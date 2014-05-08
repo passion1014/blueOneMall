@@ -268,7 +268,8 @@ public class OrderController {
 		
 		
 		//세션에 잇는 정보를 셋팅
-		CustomerInfo custom = (CustomerInfo)session.getAttribute("customerSession");	
+		CustomerInfo custom = setSession(session);
+		
 		model.addAttribute("cus",custom);
 		
 		List<OrderProductInfo> oPrdList = new ArrayList<OrderProductInfo>();
@@ -435,9 +436,10 @@ public class OrderController {
 		model.addAttribute("odPrdInfo",oPrdList);
 		
 		//세션에 잇는 정보를 셋팅
-		CustomerInfo custom = (CustomerInfo)session.getAttribute("customerSession");	
+		CustomerInfo custom  = setSession(session);
+				
 		model.addAttribute("cus",custom);
-		
+					
 		model.addAttribute("orderInfo",orderInfo);
 		
 		return "order/order";
@@ -446,9 +448,69 @@ public class OrderController {
 	//결제페이지-처리
 	@RequestMapping(value="/order/orderRegisterProc.do")
 	public String orderRegisteProc(@ModelAttribute("orderInfo") OrderInfo orderInfo,HttpSession session,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
+		String rcid		= request.getParameter("reWHCid"		);
+		String rctype	= request.getParameter("reWHCtype"		);
+		String rhash	= request.getParameter("reWHHash"			);
 
+		String	authyn =  "";
+		String	trno   =  "";
+		String	trddt  =  "";
+		String	trdtm  =  "";
+		String	amt    =  "";
+		String	authno =  "";
+		String	msg1   =  "";
+		String	msg2   =  "";
+		String	ordno  =  "";
+		String	isscd  =  "";
+		String	aqucd  =  "";
+		String	temp_v =  "";
+		String	res =  "";
+		String	halbu  =  "";
+		String	cbtrno =  "";
+		String	cbauthno =  "";
+		String	resultcd =  "";
+
+		//업체에서 추가하신 인자값을 받는 부분입니다
+		String	a =  request.getParameter("a"); 
+		String	b =  request.getParameter("b"); 
+		String	c =  request.getParameter("c"); 
+		String	d =  request.getParameter("d");
+
+		com.blueone.common.util.KSPayWebHostBean ipg = new com.blueone.common.util.KSPayWebHostBean(rcid);
+		if (ipg.kspay_send_msg("1"))		//KSNET 결제결과 중 아래에 나타나지 않은 항목이 필요한 경우 Null 대신 필요한 항목명을 설정할 수 있습니다.
+		{
+			authyn	 = ipg.kspay_get_value("authyn");
+			trno	 = ipg.kspay_get_value("trno"  );
+			trddt	 = ipg.kspay_get_value("trddt" );
+			trdtm	 = ipg.kspay_get_value("trdtm" );
+			amt		 = ipg.kspay_get_value("amt"   );
+			authno	 = ipg.kspay_get_value("authno");
+			msg1	 = ipg.kspay_get_value("msg1"  );
+			msg2	 = ipg.kspay_get_value("msg2"  );
+			ordno	 = ipg.kspay_get_value("ordno" );
+			isscd	 = ipg.kspay_get_value("isscd" );
+			aqucd	 = ipg.kspay_get_value("aqucd" );
+			temp_v	 = "";
+			res	 = ipg.kspay_get_value("result");
+			halbu	 = ipg.kspay_get_value("halbu");
+			cbtrno	 = ipg.kspay_get_value("cbtrno");
+			cbauthno	 = ipg.kspay_get_value("cbauthno");
+			
+			if (null != authyn && 1 == authyn.length())
+			{
+				if (authyn.equals("O"))
+				{
+					resultcd = "0000";
+				}else
+				{
+					resultcd = authno.trim();
+				}
+
+				//ipg.kspay_send_msg("3");		// 정상처리가 완료되었을 경우 호출합니다.(이 과정이 없으면 일시적으로 kspay_send_msg("1")을 호출하여 거래내역 조회가 가능합니다.)
+			}
+		}
 		//세션에 잇는 정보를 셋팅
-		CustomerInfo custom = (CustomerInfo)session.getAttribute("customerSession");	
+		CustomerInfo custom = setSession(session);
 		model.addAttribute("cus",custom);
 		
 		//주문번호
@@ -690,8 +752,28 @@ public class OrderController {
 		return ord;
 	}
 	
-	
-
+	public CustomerInfo setSession(HttpSession session){
+		CustomerInfo custom = (CustomerInfo)session.getAttribute("customerSession");
+		String phone = custom.getCustPh();
+		String[] phoneArr = phone.split("-");
+		
+		if (phoneArr.length > 0) custom.setTelNo1(phoneArr[0]);
+		if (phoneArr.length > 1) custom.setTelNo2(phoneArr[1]);
+		if (phoneArr.length > 2) custom.setTelNo3(phoneArr[2]);
+		phone = phoneArr[0]+phoneArr[1]+phoneArr[2];
+		custom.setCustPh(phone);
+		
+		String mobile = custom.getCustMb();
+		String[] mobileArr = mobile.split("-");
+		if (mobileArr.length > 0) custom.setHpNo1(mobileArr[0]);
+		if (mobileArr.length > 1) custom.setHpNo2(mobileArr[1]);
+		if (mobileArr.length > 2) custom.setHpNo3(mobileArr[2]);
+		mobile = mobileArr[0]+mobileArr[1]+mobileArr[2];
+		custom.setCustMb(mobile);
+		
+		return custom;
+		
+	}
 }
 
 
