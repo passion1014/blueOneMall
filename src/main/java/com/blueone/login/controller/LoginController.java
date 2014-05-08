@@ -101,6 +101,7 @@ public class LoginController {
 		}
 		
 		
+		
 		// --------------------------------------------
 		// 2. 호출할 URL을 만든다.
 		// --------------------------------------------
@@ -179,7 +180,6 @@ public class LoginController {
 			return "shop/main";
 		}else{
 			List<AgreementInfo> agreementInfo=adminManageService.selectAgreementInfList();
-			session.setAttribute("customerSession", cust);
 			model.addAttribute("agreementInfo",agreementInfo);
 			model.addAttribute("customer",cust);
 			

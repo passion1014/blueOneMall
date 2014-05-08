@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.blueone.admin.domain.AdImgInfo;
 import com.blueone.admin.service.IAdImgService;
+import com.blueone.admin.service.IAdminManageService;
 import com.blueone.category.domain.CategoryInfo;
 import com.blueone.category.service.ICategoryManageService;
 import com.blueone.common.domain.AttachFileInfo;
@@ -35,6 +36,7 @@ import com.blueone.shop.service.IShopService;
 public class ShopController {
 
 	
+	@Autowired IAdminManageService adminManageService;
 	
 	@Autowired
 	private IShopService shopService;
@@ -57,12 +59,17 @@ public class ShopController {
 	
 	@RequestMapping(value ="/", method = RequestMethod.GET)
 	public String read(@ModelAttribute("adImgInfo") AdImgInfo adImgInfo, @ModelAttribute("productInfo") ProductInfo productInfo, @ModelAttribute("categoryInfo") CategoryInfo categoryInfo, HttpSession session,BindingResult result, Model model){
-		// CustomerInfo customerSesstion =(CustomerInfo)session.getAttribute("customerSession");
-				CustomerInfo cust = (CustomerInfo) session.getAttribute("customerSession");
-				// 세션체크
-				if (cust == null) {
-					return "user/errorPage";
-				}
+		/*// CustomerInfo customerSesstion =(CustomerInfo)session.getAttribute("customerSession");
+		
+		CustomerInfo cust = (CustomerInfo) session.getAttribute("customerSession");
+		// 세션체크
+		if (cust == null) {
+			return "user/errorPage";
+		}*/
+		CustomerInfo cust = new CustomerInfo();
+		cust.setCustId("id1");
+		CustomerInfo result=customerManageService.getCustomerInfo2(cust);
+		session.setAttribute("customerSession", result);
 		List<ProductInfo> productList = shopService.getImgList(productInfo);
 		
 		List<ProductInfo> btPrdList = new ArrayList<ProductInfo>();  //블루투스 상품리스트
