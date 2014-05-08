@@ -67,6 +67,8 @@ public class ProductInfo {
 	private String content;
 	private String orderBy;//정렬
 	
+	private String[] srchCateArr;	// 조회할 카테고리 목록
+	
 	private int currentPage;	// 상품QnA목록의 페이지정보
 
 	
@@ -375,5 +377,11 @@ public class ProductInfo {
 		this.ctgSmallName = ctgSmallName;
 	}
 
+	public String[] getSrchCateArr() {
+		return srchCateArr;
+	}
+	public void setSrchCateArr(String[] srchCateArr) {
+		this.srchCateArr = srchCateArr;
+	}
 	
 }

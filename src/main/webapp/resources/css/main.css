@@ -18,8 +18,8 @@
 .cont_main dl.scont2 dd.scont_box1 {min-height:304px;}
 .cont_main dl.scont2 dd.scont_box2 {min-height:155px;}
 .cont_product:after {height:0; content:""; clear:both; display:block;}
-.cont_product .product_listbox1 {float:left; margin-right:10px;}
-.cont_product .product_listbox1 ul.plist_area {display:block; width:495px; position:relative;}
+.cont_product .product_listbox1 {float:left; margin-right:9px;}
+.cont_product .product_listbox1 ul.plist_area {display:block; position:relative;}
 .cont_product .product_listbox1 ul.plist_area:after {height:0; content:""; clear:both; display:block;}
 .cont_product .product_listbox1 ul.plist_area li {float:left;}
 .cont_product .product_listbox1 ul.plist_area li a {display:inline-block; line-height:30px; color:#666666; text-align:center; font-family:"NanumGothicBold"; background:#f0f0f0; border-top:1px solid #bbb;}
@@ -31,7 +31,7 @@
 .cont_product .product_listbox1 ul.plist_area li a.wpadding3:hover {background:#fff; width:163px; border-top:1px solid #888888; border-left:1px solid #888888; border-right:1px solid #888888; border-bottom:1px solid #fff;}
 .cont_product .product_listbox1 ul.plist_area li a.on {background:#fff; width:163px; border-top:1px solid #888888; border-left:1px solid #888888; border-right:1px solid #888888; border-bottom:1px solid #fff;}
 .cont_product .product_listbox2 {float:left;}
-.cont_product .product_listbox2 ul.plist_area {display:block; width:495px; position:relative;}
+.cont_product .product_listbox2 ul.plist_area {display:block; position:relative;}
 .cont_product .product_listbox2 ul.plist_area:after {height:0; content:""; clear:both; display:block;}
 .cont_product .product_listbox2 ul.plist_area li {float:left;}
 .cont_product .product_listbox2 ul.plist_area li a {display:inline-block; line-height:30px; color:#666666; text-align:center; font-family:"NanumGothicBold"; background:#f0f0f0; border-top:1px solid #bbb;}
@@ -43,7 +43,7 @@
 .cont_product .product_listbox2 ul.plist_area li a.wpadding3:hover {background:#fff; width:163px; border-top:1px solid #888888; border-left:1px solid #888888; border-right:1px solid #888888; border-bottom:1px solid #fff;}
 .cont_product .product_listbox2 ul.plist_area li a.on {background:#fff; width:163px; border-top:1px solid #888888; border-left:1px solid #888888; border-right:1px solid #888888; border-bottom:1px solid #fff;}
 
-.product_elist {width:493px; border-right:1px solid #bbbbbb; border-left:1px solid #bbbbbb; border-bottom:1px solid #bbb;}
+.product_elist {width:493px; padding-top:20px; border-right:1px solid #bbbbbb; border-left:1px solid #bbbbbb; border-bottom:1px solid #bbb;}
 .product_elist p.tit_loc {text-align:right; margin:0 25px 20px 0; padding-top:20px;}
 .product_elist p.tit_loc span {display:inline-block; padding:0 10px;}
 .product_elist p.tit_loc span.loc_text1 {color:#888888;}

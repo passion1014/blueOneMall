@@ -5,8 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+<<<<<<< HEAD
+import org.apache.commons.lang.StringUtils;
+=======
 import javax.servlet.http.HttpSession;
 
+>>>>>>> 2a40d95587368d2e6a4b54cc3711fd1efd1a96a7
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,9 +39,12 @@ import com.blueone.shop.service.IShopService;
 
 @Controller
 public class ShopController {
+<<<<<<< HEAD
+=======
 
 	
 	@Autowired ICustomerManageService customerManageService;
+>>>>>>> 2a40d95587368d2e6a4b54cc3711fd1efd1a96a7
 	
 	@Autowired
 	private IShopService shopService;
@@ -52,16 +59,31 @@ public class ShopController {
 	
 	@RequestMapping(value ="/worklist.do", method = RequestMethod.GET)
 	public String workList(@ModelAttribute("ShopInfo") ShopInfo shopInfo, BindingResult result, Model model){
-		
 		return "worklist";
 	}
-	
 	
 	
 	@RequestMapping(value ="/", method = RequestMethod.GET)
 	public String read(@ModelAttribute("adImgInfo") AdImgInfo adImgInfo, @ModelAttribute("productInfo") ProductInfo productInfo, @ModelAttribute("categoryInfo") CategoryInfo categoryInfo, HttpSession session,BindingResult result, Model model){
 		/*// CustomerInfo customerSesstion =(CustomerInfo)session.getAttribute("customerSession");
 		
+<<<<<<< HEAD
+		//블루투스,  해드폰, 멀티미디어, 케이스, xtc, 이어폰, sale, 브랜드샵
+		String[] srchCateCdArr = {"pdSList", "hpPrdList", "mmPrdList", "csPrdList", "xtPrdList", "epPrdList"};
+		String[] srchCateArr = {"L1601", "L3862", "L3679", "L7451", "L2022", "L9540"};
+
+		ProductInfo srchPrdInfo = new ProductInfo();
+		srchPrdInfo.setSrchCateArr(srchCateArr);
+		srchPrdInfo.setPrdDp("y");
+
+		// 상품리스트
+		List<ProductInfo> prdList = shopService.getProdListForMain(srchPrdInfo);
+
+		// 조회한 상품리스트를 각카테고리별로 Map에 담는다.
+		Map<String, List<ProductInfo>> map = new HashMap<String, List<ProductInfo>>();
+		for (int idx=0; idx < srchCateCdArr.length; idx++ ) {
+			List<ProductInfo> list = new ArrayList<ProductInfo>();
+=======
 		CustomerInfo cust = (CustomerInfo) session.getAttribute("customerSession");
 		// 세션체크
 		if (cust == null) {
@@ -195,88 +217,58 @@ public class ShopController {
 			AttachFileInfo att = new AttachFileInfo();
 			att.setAttCdKey(each.getPrdCd());
 			att = attFileManageService.getAttFileInfListImg(att);
+>>>>>>> 2a40d95587368d2e6a4b54cc3711fd1efd1a96a7
 			
-			if(att==null){
-				each.setAttFilePath("");
-			}else { 
+			for (ProductInfo each : prdList) {
+				if (each != null && StringUtils.isEmpty(each.getCtgLargeCode())) continue;
 				
-				each.setAttFilePath(att.getAttFilePath());
+				if (srchCateArr[idx].equals(each.getCtgLargeCode())) {
+					list.add(each);
+				}
 			}
-		}
-		
-		for(ProductInfo each : csPrdList){
-			AttachFileInfo att = new AttachFileInfo();
-			att.setAttCdKey(each.getPrdCd());
-			att = attFileManageService.getAttFileInfListImg(att);
 			
-			if(att==null){
-				each.setAttFilePath("");
-			}else { 
-				
-				each.setAttFilePath(att.getAttFilePath());
-			}
-		}
-		
-		for(ProductInfo each : xtPrdList){
-			AttachFileInfo att = new AttachFileInfo();
-			att.setAttCdKey(each.getPrdCd());
-			att = attFileManageService.getAttFileInfListImg(att);
-			
-			if(att==null){
-				each.setAttFilePath("");
-			}else { 
-				
-				each.setAttFilePath(att.getAttFilePath());
-			}
-		}
-		
-		for(ProductInfo each : salePrdList){
-			AttachFileInfo att = new AttachFileInfo();
-			att.setAttCdKey(each.getPrdCd());
-			att = attFileManageService.getAttFileInfListImg(att);
-			
-			if(att==null){
-				each.setAttFilePath("");
-			}else { 
-				
-				each.setAttFilePath(att.getAttFilePath());
-			}
-		}
-		
-		for(ProductInfo each : bsPrdList){
-			AttachFileInfo att = new AttachFileInfo();
-			att.setAttCdKey(each.getPrdCd());
-			att = attFileManageService.getAttFileInfListImg(att);
-			
-			if(att==null){
-				each.setAttFilePath("");
-			}else { 
-				
-				each.setAttFilePath(att.getAttFilePath());
-			}
+			map.put(srchCateCdArr[idx], list);
 		}
 		
 		
+		AdImgInfo AdImgDtl = new AdImgInfo();
+		AdImgDtl = shopService.getAdImg(adImgInfo);
 		
-		
-		*/
-		
-
-		
-
-
-		
-
-
 		model.addAttribute("AdImgDtl", AdImgDtl);
-	/*	model.addAttribute("productList", productList);
-		model.addAttribute("pdSList", btPrdList);
-		model.addAttribute("hpPrdList", hpPrdList);
-		model.addAttribute("mmPrdList", mmPrdList);
-		model.addAttribute("csPrdList", csPrdList);
-		model.addAttribute("xtPrdList", xtPrdList);
-		model.addAttribute("epPrdList", epPrdList);
-		*/
+		model.addAllAttributes(map);
+		
+//		//model.addAttribute("productList", productList);
+//		model.addAttribute("pdSList", btPrdList);
+//		model.addAttribute("hpPrdList", hpPrdList);
+//		model.addAttribute("mmPrdList", mmPrdList);
+//		model.addAttribute("csPrdList", csPrdList);
+//		model.addAttribute("xtPrdList", ecPrdList);
+//		model.addAttribute("epPrdList", epPrdList);
+				
+		/*//대분류에 대한 상품출력(블루투스)
+		for(ProductInfo each: productList){
+			if("L4315".equals(each.getPrdCtgL()) ){
+				btPrdList.add(each);
+			}
+		}
+		
+		}*/
+		
+	
+		
+//		for(ProductInfo each : btPrdList){
+//			AttachFileInfo att = new AttachFileInfo();
+//			att.setAttCdKey(each.getPrdCd());
+//			att = attFileManageService.getAttFileInfListImg(att);
+//			
+//			if(att==null){
+//				each.setAttFilePath("");
+//			}else { 
+//				
+//				each.setAttFilePath(att.getAttFilePath());
+//			}
+//		}
+//		
 		return "shop/main";
 	}
 	

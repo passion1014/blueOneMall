@@ -10,7 +10,7 @@ import com.blueone.product.domain.ProductInfo;
 public interface IShopService {
 	
 	public AdImgInfo getAdImg(AdImgInfo adImgInfo);//메인화면에 배너이미지 출력
-	public List<ProductInfo> getImgList(ProductInfo productInfo);//메인화면에 상품이미지 출력
+	public List<ProductInfo> getProdListForMain(ProductInfo productInfo);//메인화면에 상품이미지 출력
 
 	public int updateAdImg(AdImgInfo adImgInfo);//메인화면 이미지업데이트
 
