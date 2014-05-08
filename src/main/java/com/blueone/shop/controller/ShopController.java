@@ -25,6 +25,7 @@ import com.blueone.category.service.ICategoryManageService;
 import com.blueone.common.domain.AttachFileInfo;
 import com.blueone.common.service.IAttachFileManageService;
 import com.blueone.customer.domain.CustomerInfo;
+import com.blueone.customer.service.ICustomerManageService;
 import com.blueone.product.domain.ProductInfo;
 import com.blueone.product.service.IProductManageService;
 import com.blueone.shop.domain.ShopInfo;
@@ -36,7 +37,7 @@ import com.blueone.shop.service.IShopService;
 public class ShopController {
 
 	
-	@Autowired IAdminManageService adminManageService;
+	@Autowired ICustomerManageService customerManageService;
 	
 	@Autowired
 	private IShopService shopService;
@@ -68,7 +69,7 @@ public class ShopController {
 		}*/
 		CustomerInfo cust = new CustomerInfo();
 		cust.setCustId("id1");
-		CustomerInfo result=customerManageService.getCustomerInfo2(cust);
+		CustomerInfo res=customerManageService.getCustomerInfo2(cust);
 		session.setAttribute("customerSession", result);
 		List<ProductInfo> productList = shopService.getImgList(productInfo);
 		
