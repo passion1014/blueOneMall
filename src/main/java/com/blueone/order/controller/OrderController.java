@@ -114,7 +114,6 @@ public class OrderController {
 				
 				String cookieVal = cki.getValue("BOM_"+orderProductInfo.getPrdCd());
 				StringTokenizer st = new StringTokenizer(cookieVal, ",");
-				String option = "";
 				String value="";
 				while (st.hasMoreElements()) {
 
