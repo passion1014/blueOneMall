@@ -80,7 +80,7 @@ public class ProductManageServiceImpl implements IProductManageService {
             
             //List<AttachFileInfo> attList= attFileManageService.getAttFileInfList(att);
             //
-            prodBaseList = sqlSession.selectList("product.selectListBomProductTb0005", srchProdInfo);
+            prodBaseList = sqlSession.selectList("product.selectListBomShopProductTb0001", srchProdInfo);
         } finally {
             sqlSession.close();
         }

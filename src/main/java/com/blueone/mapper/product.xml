@@ -363,11 +363,47 @@
 	
 	<select id="selectListBomShopProductTb0001" parameterType="productInfo" resultMap="ProductBaseDtlMap">
 	
-		SELECT 
-			`PRD_CD`,`PRD_PRICE`,`PRD_SELL_PRICE`,`PRD_MODEL`,`PRD_MODEL_NO`,`PRD_BRAND`,`PRD_LIST_CMT`,
-			`PRD_CONTENTS`,`PRD_TRANSFOR_INF`,
-			`ADMIN_MEMO`
-		FROM BOM_PRODUCT_TB	
+			SELECT  
+			T1.PRD_CD, 
+			T1.PRD_DISPLAY_YN, 
+			T1.PRD_ORDER,
+			T1.PRD_NM ,
+			T1.PRD_CTG_L, 
+			T1.PRD_CTG_M ,
+			T1.PRD_CTG_S ,
+			T1.PRD_SPECAL_1, 
+			T1.PRD_SPECAL_2 ,
+			T1.SEARCH_WORD ,
+			T1.FROM_DATE ,
+			T1.TO_DATE ,
+			T1.REG_DATE ,
+			T1.LAST_DATE ,
+			T1.MODIFY_USER_ID, 
+			T1.PRD_PRICE, 
+			T1.PRD_SELL_PRICE, 
+			T1.PRD_MODEL ,
+			T1.PRD_MODEL_NO, 
+			T1.PRD_BRAND ,
+			T1.PRD_LIST_CMT, 
+			T1.PRD_CONTENTS, 
+			T1.PRD_TRANSFOR_INF, 
+			T1.ADMIN_MEMO,
+			T1.MODIFY_USER_ID,
+			T2.CTG_CODE       AS t2ctgCode,
+			T2.CTG_NAME       AS t2ctgName,
+			T3.CTG_CODE       AS t3ctgCode,
+			T3.CTG_NAME       AS t3ctgName,
+			T4.CTG_CODE       AS t4ctgCode,
+			T4.CTG_NAME       AS t4ctgName
+			
+		FROM BOM_PRODUCT_TB AS T1
+				LEFT JOIN BOM_CATEGORY_TB T2
+					ON ( T1.PRD_CTG_L = T2.CTG_CODE)
+				LEFT JOIN BOM_CATEGORY_TB T3 
+					ON ( T1.PRD_CTG_M = T3.CTG_CODE )
+				LEFT JOIN BOM_CATEGORY_TB T4 
+					ON ( T1.PRD_CTG_S = T4.CTG_CODE )
+	
 	</select>
 	
 	<select id="selectDtlBomProductTb0001" parameterType="hashmap" resultType="productInfo" resultMap="ProductBaseDtlMap">

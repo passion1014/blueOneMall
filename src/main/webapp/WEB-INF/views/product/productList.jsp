@@ -99,7 +99,7 @@
 							<c:when test="${prdList.size() != 0}">
 								<c:forEach var="prdList" items="${prdList}">
 									<li class="mlalign">
-										<a href="javascript:location.href='productView.do?prdCd=${prdList.prdCd}';">
+										<a href="javascript:location.href='productView.do?prdCd=${prdList.prdCd}&ctgCode=${largeInf.ctgCode}&ctgMiddleCode=${chkMiddleCode}';">
 											<dl class="list_product">
 												<dd><img src="${prdList.attFilePath}" alt="product image"  width="168" height="168"/></dd>
 												<dd>${prdList.prdBrand}</dd>

@@ -2,25 +2,20 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:import  url="../inc/topSub.jsp" />
+
 <script type="text/javascript">
 <!--
 function list_Submit(){
-
+	
 	msg = "선택하신 상품을 구매하시겠습니까?" ;
 	
 	document.getElementById("prdfm").action = "/order/orderDirect.do" ;
 	document.getElementById("prdfm").submit() ;
-
+	
 }
-
-
-//페이지이동
-function fnGotoPage(page) {
-	var prdCd = "${pro.prdCd}";
-	location.href = "productView.do?prdCd=" + prdCd + "&currentPage=" +page;
-}-->
-
+//-->
 </script>
+
 <body>
 <div class="wrap">
 	<!--  header 시작   -->
@@ -29,7 +24,6 @@ function fnGotoPage(page) {
 	<c:import url="../inc/productLnb.jsp"/>
 	<div class="container">
 		<div class="sub_content">
-			
 				<div class="product_view">
 				<form action="/order/cartList.do" method="post" id="prdfm" name="prdfm">
 				<input type="hidden" id="prdCd"  name="prdCd"  value="${pro.prdCd}">

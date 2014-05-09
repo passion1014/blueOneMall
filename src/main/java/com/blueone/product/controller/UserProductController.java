@@ -49,7 +49,7 @@ public class UserProductController {
 		CustomerInfo cust = (CustomerInfo) session.getAttribute("customerSession");
 		// 세션체크
 		if (cust == null) {
-//			return "user/errorPage";
+			return "user/errorPage";
 		}
 		
 		PageDivision pd = new PageDivision();
@@ -100,8 +100,7 @@ public class UserProductController {
 		// ----------------------------------------------------------
 		// 카테고리 조회
 		// ----------------------------------------------------------
-		List<CategoryInfo> categoryList = categoryManageService
-				.getCategoryInfList(categoryInfo);
+		List<CategoryInfo> categoryList = categoryManageService.getCategoryInfList(categoryInfo);
 		List<ProductInfo> productList = null;
 
 		// product 조회
@@ -121,6 +120,7 @@ public class UserProductController {
 		// List<ProductInfo> productList =
 		// productManageService.getProductInfList(searchProdInfo);
 
+		
 		// ----------------------------------------------------------
 		// LNB 정보 조회 및 중간네비게이션용
 		// ----------------------------------------------------------

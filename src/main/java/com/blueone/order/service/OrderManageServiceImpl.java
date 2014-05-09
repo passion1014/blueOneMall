@@ -231,6 +231,7 @@ public class OrderManageServiceImpl implements IOrderManageService{
 		prInf.setPrdCd(prdCd);
 		prInf=productManageService.getProductInfDetail(prInf);
 		
+		if(prInf !=null){
 		//상품 이름
 		opResInf.setPrdNm(prInf.getPrdNm());
 		
@@ -269,7 +270,10 @@ public class OrderManageServiceImpl implements IOrderManageService{
 			
 			opResInf.setPrdSmallImg(att.getAttFilePath());
 		}
-		
+		}
+		else{
+			
+		}
 		return  opResInf;
 		
 		

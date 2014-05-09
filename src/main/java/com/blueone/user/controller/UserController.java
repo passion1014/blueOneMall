@@ -269,9 +269,13 @@ public class UserController {
 		//아이디로 주문내역가져오기
 		List<OrderInfo> odList = orderService.selectOrderInfoList(od);
 		
+		if(odList!=null){
+			
+		
 		
 		//주문코드로 주문상품 정보 가져오기
 		for(OrderInfo each : odList){
+			
 			String odNo = each.getOrderNo();
 			OrderProductInfo odPrd = new OrderProductInfo();
 			odPrd.setOrderNo(odNo);
@@ -284,7 +288,10 @@ public class UserController {
 			reg= reg.substring(0, a);
 			each.setRegDate(reg);
 		}
-		
+		}
+		else{
+			
+		}
 	
 		model.addAttribute("ordList", odList);
 		return "user/orderListView";

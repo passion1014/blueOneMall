@@ -100,8 +100,9 @@ public class OrderController {
 	// 장바구니-수량 수정
 	@RequestMapping(value="/order/editBuyCnt.do")
 	public String editBuyCnt(@ModelAttribute("orderProductInfo") OrderProductInfo orderProductInfo,BindingResult result,HttpSession session, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
-		//user session이 있으면 넣을 부분
-		CustomerInfo cust = (CustomerInfo)session.getAttribute("customerSession");	
+		
+		//세션에 잇는 정보를 셋팅
+		CustomerInfo custom = setSession(session);
 				
 				
 		CookieBox cki = new CookieBox(request);
@@ -152,8 +153,9 @@ public class OrderController {
 	
 		
 		
+		
 		//세션에 잇는 정보를 셋팅
-		CustomerInfo custom = (CustomerInfo)session.getAttribute("customerSession");	
+		CustomerInfo custom = setSession(session);
 		model.addAttribute("cus",custom);
 		
 		
@@ -337,9 +339,9 @@ public class OrderController {
 	@RequestMapping(value="/order/cartListView.do")
 	public String orderView(@ModelAttribute("orderProductInfo") OrderProductInfo orderProductInfo,HttpSession session,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
 
-		//user session이 있으면 넣을 부분
-		CustomerInfo cust = (CustomerInfo)session.getAttribute("customerSession");	
 		
+		//세션에 잇는 정보를 셋팅
+		CustomerInfo custom = setSession(session);
 		CookieBox cki = new CookieBox(request);
 		List<OrderProductInfo> ord = getCartList(cki);
 		
@@ -437,7 +439,6 @@ public class OrderController {
 		
 		//세션에 잇는 정보를 셋팅
 		CustomerInfo custom  = setSession(session);
-				
 		model.addAttribute("cus",custom);
 					
 		model.addAttribute("orderInfo",orderInfo);
@@ -551,6 +552,10 @@ public class OrderController {
 	//주문성공페이지
 	@RequestMapping(value="/order/orderComplete.do")
 	public String orderComplete(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result,HttpSession session, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
+		
+		//세션에 잇는 정보를 셋팅
+		CustomerInfo custom = setSession(session);
+		model.addAttribute("cus",custom);
 		
 		//결제상품 보여주기
 		String odNo=orderInfo.getOrderNo();
@@ -754,12 +759,17 @@ public class OrderController {
 	
 	public CustomerInfo setSession(HttpSession session){
 		CustomerInfo custom = (CustomerInfo)session.getAttribute("customerSession");
-		String phone = custom.getCustPh();
+		/*String phone = custom.getCustPh();
 		String[] phoneArr = phone.split("-");
 		
 		if (phoneArr.length > 0) custom.setTelNo1(phoneArr[0]);
 		if (phoneArr.length > 1) custom.setTelNo2(phoneArr[1]);
 		if (phoneArr.length > 2) custom.setTelNo3(phoneArr[2]);
+	
+		custom.setTelNo1(phoneArr[0]);
+		 custom.setTelNo2(phoneArr[1]);
+		 custom.setTelNo3(phoneArr[2]);
+		
 		phone = phoneArr[0]+phoneArr[1]+phoneArr[2];
 		custom.setCustPh(phone);
 		
@@ -768,11 +778,69 @@ public class OrderController {
 		if (mobileArr.length > 0) custom.setHpNo1(mobileArr[0]);
 		if (mobileArr.length > 1) custom.setHpNo2(mobileArr[1]);
 		if (mobileArr.length > 2) custom.setHpNo3(mobileArr[2]);
+	
+		 custom.setHpNo1(mobileArr[0]);
+	 custom.setHpNo2(mobileArr[1]);
+		 custom.setHpNo3(mobileArr[2]);
 		mobile = mobileArr[0]+mobileArr[1]+mobileArr[2];
-		custom.setCustMb(mobile);
+		custom.setCustMb(mobile);*/
+		
+		String phone = custom.getCustPh();
+		custom = useStringToken(phone,"p",custom);
+		
+		String mobile = custom.getCustMb();
+		custom = useStringToken(mobile,"m",custom);
 		
 		return custom;
 		
+	}
+			
+public CustomerInfo useStringToken(String st, String Type,CustomerInfo cus ){
+		
+		CustomerInfo result = cus;
+		
+		String birth = result.getCustBirth();
+		StringTokenizer stTk = new StringTokenizer(st,"-");
+		
+		int i=1;
+		while(stTk.hasMoreElements()){
+			switch(i){
+			case 1:
+				if(Type.equals("b")){
+					result.setBirthY(Integer.parseInt(stTk.nextToken()));i++;
+				}else if(Type.equals("m")){
+					result.setHpNo1(stTk.nextToken());i++;
+				}else if(Type.equals("p")){
+					result.setTelNo1(stTk.nextToken());i++;
+				}
+				break;
+			case 2:
+				if(Type.equals("b")){
+					result.setBirthM(Integer.parseInt(stTk.nextToken()));i++;
+				}else if(Type.equals("m")){
+					result.setHpNo2(stTk.nextToken());i++;
+				}else if(Type.equals("p")){
+					result.setTelNo2(stTk.nextToken());i++;
+				}
+				break;
+			case 3:
+				if(Type.equals("b")){
+					String day = stTk.nextToken();
+					day=day.substring(0, 2);
+					result.setBirthD(Integer.parseInt(day));i++;
+				}else if(Type.equals("m")){
+					result.setHpNo3(stTk.nextToken());i++;
+				}else if(Type.equals("p")){
+					result.setTelNo3(stTk.nextToken());i++;
+				}
+				break;
+				
+			}
+		}
+		
+		return result;
+	
+
 	}
 }
 
