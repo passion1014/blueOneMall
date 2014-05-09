@@ -13,7 +13,7 @@ public class Configuration {
 	private static Properties props = null;
 
 	/** 속성 파일명 */
-	private final static String	CONF_FILE_NAME = "main/resources/blueone.properties";
+	private final static String	CONF_FILE_NAME = "blueone.properties";
 	
 	
 	private Configuration() {

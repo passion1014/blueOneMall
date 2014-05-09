@@ -17,4 +17,13 @@ public class TestCustomer extends BlueoneTestCase {
 		.andExpect(status().isOk())
 		.andDo(print());
 	}
+	
+	
+	@Test
+	public void testMail() throws Exception {
+		mockMvc.perform(get("/mailTest.do"))
+		.andExpect(status().isOk())
+		.andDo(print());
+	}
+	
 }
