@@ -71,6 +71,7 @@
 <link href="http://kspay.ksnet.to/store/KSPayFlashV1.3/mall/css/pgstyle.css" rel="stylesheet" type="text/css" charset="euc-kr">
 </head>
 <script language="javascript">
+<!--
 // 현금영수증 출력 스크립트
 function CashreceiptView(tr_no)
 {

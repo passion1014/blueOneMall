@@ -54,7 +54,6 @@
 	// goResult() - 함수설명 : 결재완료후 결과값을 지정된 결과페이지(kspay_wh_result.jsp)로 전송합니다.
 	function goResult(){
 		document.KSPayWeb.target = "";
-		alert();
 		document.KSPayWeb.action = "orderRegisterProc.do";
 		document.KSPayWeb.submit();
 	}
