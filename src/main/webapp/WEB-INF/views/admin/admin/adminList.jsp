@@ -50,12 +50,22 @@
 				<td class="center">${info.status}</td>
 				<td class="center" style="cursor:pointer;">${info.id}</td>
 				<td class="center">${info.name}</td>
-				<td class="center">○</td>
-				<td class="center">○</td>
-				<td class="center">○</td>
-				<td class="center">○</td>
-				<td class="center">○</td>
-				<td class="center">212</td>
+					<c:if test="${info.gd[0] eq 'g1'}" ><td class="center">○</td></c:if>
+					<c:if test="${info.gd[0] ne 'g1'}" ><td class="center">X</td></c:if>
+				
+					<c:if test="${info.gd[1] eq 'g2'}" ><td class="center">○</td></c:if>
+					<c:if test="${info.gd[1] ne 'g2'}" ><td class="center">X</td></c:if>
+				
+					<c:if test="${info.gd[2] eq 'g3'}" ><td class="center">○</td></c:if>
+					<c:if test="${info.gd[2] ne 'g3'}" ><td class="center">X</td></c:if>
+				
+					<c:if test="${info.gd[3] eq 'g4'}" ><td class="center">○</td></c:if>
+					<c:if test="${info.gd[3] ne 'g4'}" ><td class="center">X</td></c:if>
+				
+					<c:if test="${info.gd[4] eq 'g5'}" ><td class="center">○</td></c:if>
+					<c:if test="${info.gd[4] ne 'g5'}" ><td class="center">X</td></c:if>
+				
+				<td class="center">${info.hit}</td>
 				<td class="center">${info.regDate}</td>
 			</tr>
 		
@@ -71,7 +81,7 @@
 						</colgroup>
 						<tr>
 							<th>상태</th>
-							<td colspan="3" class="left"><b><u>${info.status}</u></b> &nbsp;&nbsp; [ 총 : 222 회,  최근 로그인 시간 : ${info.lastDate}  ]</td>
+							<td colspan="3" class="left"><b><u>${info.status}</u></b> &nbsp;&nbsp; [ 총 : ${info.hit} 회,  최근 로그인 시간 : ${info.lastDate}  ]</td>
 						</tr>
 						<tr>
 							<th>관리자 정보</th>
@@ -81,9 +91,17 @@
 						</tr>
 						<tr>
 							<th>연락처</th>
-							<td class="left">${info.phone}</td>
+							<td class="left">
+								<c:forTokens items="${info.phone}" delims="," var="ph" varStatus="i">
+									${ph} <c:if test="${i.index != 2}">-</c:if>
+								</c:forTokens>
+							</td>
 							<th>핸드폰</th>
-							<td class="left">${info.mobile}</td>
+							<td class="left">
+								<c:forTokens items="${info.mobile}" delims="," var="mb" varStatus="j">
+									${mb} <c:if test="${j.index != 2}">-</c:if>
+								</c:forTokens>
+							</td>
 						</tr>
 						<tr>
 							<th>Email</th>
@@ -110,12 +128,14 @@
 						</tr>
 						<tr>
 							<th>관리정보</th>
-							<td colspan="3" style="padding:5px 10px 5px 10px;" class="left"><?=nl2br(stripslashes($_row["admin_cmt"]))?>&nbsp;</td>
+							<td colspan="3" style="padding:5px 10px 5px 10px;" class="left">${info.comment}</td>
 						</tr>
 					</table>
 					<div style="margin-top:10px;" class="right">                                              
-						<a href="editAdminInfForm.do?id=${info.id}">button</a> &nbsp;
-						<input type="button" value="삭제" class="button button_red button_medium" onClick="confirm_process('actionForm','관리자 정보를 삭제하시겠습니까? \n\n삭제후에는 복구가 불가능합니다. \n\n상태를 중지 시키면 권한을 박탈할 수 있습니다. \n\n그래도 삭제하시겠습니까?','');">
+						<%-- <a href="editAdminInfForm.do?id=${info.id}">button</a> &nbsp;
+						 --%>
+						 <input type="button" value="수정" class="button button_red button_medium" onClick="location.href='editAdminInfForm.do?id=${info.id}'">
+						 <input type="button" value="삭제" class="button button_red button_medium" onClick="confirm_process('','관리자 정보를 삭제하시겠습니까? \n\n삭제후에는 복구가 불가능합니다. \n\n상태를 중지 시키면 권한을 박탈할 수 있습니다. \n\n그래도 삭제하시겠습니까?','deleteAdminProc.do?id=${info.id}');">
 					</div>
 						
 

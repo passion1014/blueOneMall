@@ -3,6 +3,7 @@ package com.blueone.admin.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -139,7 +140,7 @@ public class AdminController {
 	}
 	
 	//=====================
-	@RequestMapping(value = "/editAdminInf.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/editAdminInf.do", method = RequestMethod.POST)
 	public ModelAndView editAdminInfo(@ModelAttribute("adminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
 		
 		adminManageService.editAdminInf(adminInfo);
@@ -153,13 +154,30 @@ public class AdminController {
 	@RequestMapping(value="/editAdminInfForm.do", method= RequestMethod.GET)
 	public String editAdminInfForm(@ModelAttribute("adminInfo") AdminInfo adminInfo, BindingResult result, Model model,String id,HttpSession session){
 		AdminInfo adminSession = (AdminInfo)session.getAttribute("adminSession");
-		// 세션체크
+		//세션체크
 				if (adminSession == null) {
 					return "redirect:adminLogin.do";
 				}
 				
-		adminManageService.getAdminInfDetail(id);
-		model.addAttribute("adminInfo", adminInfo);
+		adminInfo=adminManageService.getAdminInfDetail(id);
+		
+			String grade = adminInfo.getGrade();
+			StringTokenizer st = new StringTokenizer(grade,",");
+			String[] gd = new String[5];
+			
+			while(st.hasMoreTokens()){
+				String g = st.nextToken();
+				if(g.equals("g1")) gd[0]=g;
+				if(g.equals("g2")) gd[1]=g;
+				if(g.equals("g3")) gd[2]=g;
+				if(g.equals("g4")) gd[3]=g;
+				if(g.equals("g5")) gd[4]=g;
+			}
+			
+			adminInfo.setGd(gd);
+			
+			
+		model.addAttribute("info", adminInfo);
 		return "admin/admin/adminEdit";
 		
 	}
@@ -176,6 +194,25 @@ public class AdminController {
 		
 		
 		List<AdminInfo> list = adminManageService.getAdminInfList(adminInfo);
+		for(AdminInfo each : list){
+			String grade = each.getGrade();
+			StringTokenizer st = new StringTokenizer(grade,",");
+			String[] gd = new String[5];
+			
+			while(st.hasMoreTokens()){
+				String g = st.nextToken();
+				if(g.equals("g1")) gd[0]=g;
+				if(g.equals("g2")) gd[1]=g;
+				if(g.equals("g3")) gd[2]=g;
+				if(g.equals("g4")) gd[3]=g;
+				if(g.equals("g5")) gd[4]=g;
+			}
+			
+			each.setGd(gd);
+			
+			String mail = each.getEmail().replace(",", "@");
+			each.setEmail(mail);
+		}
 		PageDivision pd = new PageDivision();
 
 		if(StringUtils.isEmpty(page)) pd.pageNum("1");
@@ -192,7 +229,16 @@ public class AdminController {
 			return mav;
 	}
 
-	
+	/**
+	 * 운영자 삭제
+	 */
+	@RequestMapping(value = "/deleteAdminProc.do", method = RequestMethod.GET)
+	public String deleteAdminProc(@ModelAttribute("adminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
+		
+		adminManageService.deleteAdminInf(adminInfo);
+		
+		return "redirect:accountList.do";
+	}
 	@RequestMapping(value = "/adminDetailInf.do", method = RequestMethod.GET)
 	public ModelAndView getAdminDetailInfo(@ModelAttribute("adminInfo") AdminInfo adminInfo, BindingResult result, Model model, String id) {
 		
@@ -308,14 +354,14 @@ public class AdminController {
 	//운영설정
 	@RequestMapping(value="/configEdit.do", method= RequestMethod.GET)
 	public String configEdit(@ModelAttribute("adminInfo") @Valid AdminInfo adminInfo,Model model, HttpSession session){
-/*
+
 		AdminInfo adminSession = (AdminInfo) session
 				.getAttribute("adminSession");
 
 		if (adminSession == null) {
 			return "redirect:adminLogin.do";
 		}
-*/
+
 		ConfigInfo result = adminManageService.selectConfigInf();
 		
 		model.addAttribute("config", result);

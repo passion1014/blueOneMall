@@ -17,10 +17,19 @@ public class AdminInfo {
 	private String comment;
 	private String regDate;
 	private String lastDate;
+	private String[] gd;
 	
 	private int currentPage;
 	
 	
+
+	public String[] getGd() {
+		return gd;
+	}
+
+	public void setGd(String[] gd) {
+		this.gd = gd;
+	}
 
 	public int getCurrentPage() {
 		return currentPage;

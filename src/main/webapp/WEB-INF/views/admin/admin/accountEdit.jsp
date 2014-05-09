@@ -6,7 +6,7 @@
 	<div style="padding:10px;">
 	<div> 환경설정 > 계좌관리 > 계좌 수정	</div>
 	<form name="frm" method="post" action="editAccountInfProc.do" onSubmit="return chkForm(this);">
-	
+	<input name="accIdx" id="accIdx" value="${acc.accIdx }"/> 
 	<table class="tbl1">
 		<colgroup>
 			<col width="20%" />

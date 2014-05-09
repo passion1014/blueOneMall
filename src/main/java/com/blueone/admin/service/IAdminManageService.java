@@ -28,6 +28,7 @@ public interface IAdminManageService {
 	public ConfigInfo selectConfigInf();
 	public int editAgreementInf(AgreementInfo agreementInfo);
 	public AgreementInfo selectAgreementInf(AgreementInfo agreement);
-	public List<AgreementInfo> selectAgreementInfList();	
+	public List<AgreementInfo> selectAgreementInfList();
+	public int deleteAdminInf(AdminInfo adminInfo);	
 	
 }

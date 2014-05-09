@@ -60,5 +60,12 @@
 		WHERE
 			`ADMIN_ID`= #{adminInfo.id}
 	</update>
-
+	
+	<delete id="deleteBomAdminTb0001" parameterType="com.blueone.admin.domain.AdminInfo">
+		DELETE FROM BOM_ADMIN_TB			
+		WHERE
+			`ADMIN_ID`= #{adminInfo.id}
+	</delete>
+	
+	
 </mapper>

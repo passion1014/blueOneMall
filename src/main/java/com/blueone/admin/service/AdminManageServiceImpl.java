@@ -80,7 +80,7 @@ public class AdminManageServiceImpl implements IAdminManageService {
 	
 		AdminInfo beforeAdminInfo = null;
 		try {
-			//beforeAdminInfo = getAdminInfDetail(adminInfo);
+			beforeAdminInfo = getAdminInfDetail(adminInfo.getId());
 		} catch (Exception e) {
 			System.out.println("관리자 정보 조회시 에러가 발생하였습니다.");
 		}
@@ -181,7 +181,29 @@ public class AdminManageServiceImpl implements IAdminManageService {
 		
 		return adminInfo;
 	}
-	
+	/*
+	 * 운영자  삭제
+	 */
+	@Override
+	public int deleteAdminInf(AdminInfo adminInfo){
+		
+		int rst = -1;
+		
+		
+			SqlSession sqlSession = sqlSessionFactory.openSession();
+			try {
+				// DB 수행
+				Map<String, AdminInfo> sqlParams = new HashMap<String, AdminInfo>();
+				sqlParams.put("adminInfo", adminInfo);
+				rst = sqlSession.delete("admin.deleteBomAdminTb0001", sqlParams);
+				
+			} finally {
+				sqlSession.close();
+			}
+		
+		
+		return rst;
+	}
 	@Override
 	public List<AccountInfo> getAccountInfList(AccountInfo accountInfo){
 		

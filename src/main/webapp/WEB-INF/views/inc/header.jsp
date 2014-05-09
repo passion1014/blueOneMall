@@ -1,8 +1,14 @@
 <%@page import="java.util.List"%>
 <%@page import="org.springframework.context.ApplicationContext"%>
 <%@page import="com.blueone.category.domain.CategoryInfo"%>
+<%@page import="com.blueone.admin.domain.AdImgInfo"%>
+
 <%@page import="com.blueone.category.service.CategoryManageServiceImpl"%>
 <%@page import="com.blueone.category.service.ICategoryManageService"%>
+
+<%@page import= "com.blueone.shop.service.IShopService"%>
+<%@page import ="com.blueone.shop.service.ShopServiceImpl"%>
+
 <%@page import="org.springframework.web.servlet.support.RequestContextUtils"%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -12,9 +18,15 @@
 	ApplicationContext ctx = RequestContextUtils.getWebApplicationContext(request);
 	ICategoryManageService categoryService = (CategoryManageServiceImpl) ctx.getBean(ICategoryManageService.class);
 	
+	ApplicationContext ctx1 = RequestContextUtils.getWebApplicationContext(request);
+	IShopService shopService=(ShopServiceImpl)ctx1.getBean(IShopService.class);
+	
 	// 조회
 	CategoryInfo categoryInfo = new CategoryInfo();
 	List<CategoryInfo> largeMenuList = categoryService.getCategoryInfList2(categoryInfo);
+	
+	AdImgInfo AdImgDtl = new AdImgInfo();
+	AdImgDtl = shopService.getAdImg(AdImgDtl);
 %>
 <!--  header 시작 -->
 <div class="header">
