@@ -58,6 +58,7 @@ public class UserProductController {
 			pd.pageNum("1");
 		else
 			pd.pageNum(page);
+		pd.setItemNum(16);
 		String orderBy = productInfo.getOrderBy();
 		if (StringUtils.isEmpty(orderBy))
 			orderBy = "low";
@@ -190,7 +191,7 @@ public class UserProductController {
 
 		}
 
-		List<ProductInfo> resultList = pd.getPrdList(4);
+		List<ProductInfo> resultList = pd.getPrdList();
 
 		for (ProductInfo each : resultList) {
 			AttachFileInfo att = new AttachFileInfo();

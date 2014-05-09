@@ -75,8 +75,7 @@ public class ProductController {
 	 * 관리자 물품 리스트
 	 */
 	@RequestMapping(value = "/admin/productList.do", method = RequestMethod.GET)
-	public String productList(
-			@ModelAttribute("ProductInfo") SearchProdInfo srchProdInfo,
+	public String productList(@ModelAttribute("ProductInfo") SearchProdInfo srchProdInfo,
 			BindingResult result, Model model, HttpSession session, String page) {
 
 		AdminInfo adminSession = (AdminInfo) session
@@ -85,8 +84,7 @@ public class ProductController {
 			return "redirect:adminLogin.do";
 		}
 
-		List<ProductInfo> list = productManageService
-				.getProductInfList1(srchProdInfo);
+		List<ProductInfo> list = productManageService.getProductInfList1(srchProdInfo);
 
 		PageDivision pd = new PageDivision();
 
@@ -94,9 +92,10 @@ public class ProductController {
 			pd.pageNum("1");
 		else
 			pd.pageNum(page);
+		pd.setItemNum(10);
 		pd.setPrdList(list);
 
-		List<ProductInfo> resultList = pd.getPrdList(3);
+		List<ProductInfo> resultList = pd.getPrdList();
 
 		for (ProductInfo each : resultList) {
 			AttachFileInfo att = new AttachFileInfo();
@@ -616,10 +615,11 @@ public class ProductController {
 			pd.pageNum("1");
 		else
 			pd.pageNum(page);
+		pd.setItemNum(10);
 		pd.setTrList(transferList);
 
 		model.addAttribute("transferList", transferList);
-		model.addAttribute("list", pd.getTrList(2));
+		model.addAttribute("list", pd.getTrList());
 		model.addAttribute("endNum", pd.getEndPageNum());
 		return "admin/product/transferList";
 	}
@@ -984,13 +984,16 @@ public class ProductController {
 			pd.pageNum("1");
 		else
 			pd.pageNum(page);
+		pd.setItemNum(6);
+		
 
+		
 		if (word != null && !word.isEmpty()) {
 			List<ProductInfo> prdList = productManageService
 					.getProductInfList(searchProdInfo);
 			pd.setPrdList(prdList);
 
-			List<ProductInfo> resultList = pd.getPrdList(2);
+			List<ProductInfo> resultList = pd.getPrdList();
 			model.addAttribute("prdList", resultList);
 			model.addAttribute("endNum", pd.getEndPageNum());
 			model.addAttribute("schWord", word);
