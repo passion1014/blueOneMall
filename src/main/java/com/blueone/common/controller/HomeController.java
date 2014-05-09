@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.blueone.common.domain.MailInfo;
+import com.blueone.common.service.MailService;
 import com.blueone.common.util.CookieBox;
 import com.blueone.customer.domain.CustomerInfo;
 
@@ -35,12 +37,9 @@ public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
-	@Autowired
-	private SqlSession sqlSession;
-	
-	@Autowired
-	private MessageSourceAccessor messageSourceAccessor;
-
+	@Autowired private SqlSession sqlSession;
+	@Autowired private MessageSourceAccessor messageSourceAccessor;
+	@Autowired private MailService mailService;
 	
 /*	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView home(Locale locale, Model model) {
@@ -56,6 +55,27 @@ public class HomeController {
 		mav.setViewName("shop/main");
 		return mav;
 	}*/
+
+	@RequestMapping(value = "/mailTest.do", method = RequestMethod.GET)
+	public ModelAndView mailTest(Locale locale, Model model) {
+		
+		MailInfo mailInfo = new MailInfo();
+		mailInfo.setFromAddr("jazzyjazz@hanmail.net");
+		mailInfo.setToAddr("passion1014@gmail.com");
+		mailInfo.setFromNm("danie lee");
+		mailInfo.setSubject("제목입니다.");
+		mailInfo.setCont("내용 content");
+
+		mailService.sentMail(mailInfo);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("msg", "메일 완료");
+		mav.setViewName("home");
+
+		return mav;
+	}
+
+//	sentMail
 	
 	@RequestMapping(value = "/sessionTest.do", method = RequestMethod.GET)
 	public ModelAndView sessionTest(Locale locale, Model model) {

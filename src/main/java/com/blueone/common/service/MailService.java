@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Properties;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -16,10 +17,11 @@ import org.springframework.stereotype.Service;
 
 import com.blueone.common.domain.MailInfo;
 import com.blueone.common.util.Configuration;
+import com.blueone.common.util.MailSender;
 import com.blueone.common.util.Utility;
 import com.blueone.customer.domain.CustomerInfo;
 
-//@Service
+@Service
 public class MailService implements IMailService {
 
 	@Autowired
@@ -46,8 +48,19 @@ public class MailService implements IMailService {
 		
 		return eMailInfo.toString();
 	}
-	
+
 	@Override
+	public boolean sentMail(MailInfo mailInfo) {
+		try {
+			MailSender mailSender = new MailSender();
+			mailSender.sent(mailInfo);
+		}catch (Exception e) {
+			
+		}
+		return true;
+	}
+
+/*	@Override
 	public boolean sentMail(MailInfo mailModel) {
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -73,7 +86,7 @@ public class MailService implements IMailService {
 
 		return true;
 	}
-	
+*/	
 	@Override
 	public boolean sentMailUserId(CustomerInfo member) {
 		

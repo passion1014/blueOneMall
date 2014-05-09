@@ -257,7 +257,13 @@
 			<groupId>com.ckeditor</groupId>
 			<artifactId>ckeditor-java-core</artifactId>
 			<version>3.5.3</version>
-		</dependency>		
+		</dependency>
+		
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4</version>
+		</dependency>
 	</dependencies>
     <build>
         <plugins>
