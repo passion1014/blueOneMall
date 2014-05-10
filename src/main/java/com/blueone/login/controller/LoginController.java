@@ -54,6 +54,7 @@ public class LoginController {
 	// 웹서비스 호출과 암복호화를 위한 상수
 	private static final String HCDES_KEY = "hd!d$w4shm";	// 암호화키
 	private static final String MEDIA_CD = "HM";			// 매체구분(포인트 사용하는 사이트 구분값)
+	private static final String ENC_TYPE = "euc-kr";		// 현대몰에서는 인코딩을 euc-kr로 보내준다.
 	
 	// SSO을 위해 호출할 웹서비스 도메인정보
 	private static final String URL = "https://giftdev.e-hyundai.com:1443/hb2efront_new/pointOpenAPI.do?";
@@ -150,22 +151,12 @@ public class LoginController {
 		// --------------------------------------------
 		// 4. HCDES 복호화를 한다.
 		// --------------------------------------------
-		String decMemNo = Base64Decoder.decode(HCDESUtil.decoding(encMemNo,HCDES_KEY));
-		String decShopNo = Base64Decoder.decode(HCDESUtil.decoding(encShopNo,HCDES_KEY));
-		String decMemNm = Base64Decoder.decode(HCDESUtil.decoding(encMemNm,HCDES_KEY));
-		String decShopEventNo = Base64Decoder.decode(HCDESUtil.decoding(encShopEventNo,HCDES_KEY));
-		String decEntrNo = Base64Decoder.decode(HCDESUtil.decoding(encEntrNo,HCDES_KEY));
-		String decProcCd = Base64Decoder.decode(HCDESUtil.decoding(encProcCd,HCDES_KEY));
-		
-		// 고객명은 EUC-KR로 인코딩한다.
-		String name = "";
-		try {
-//			name = new String(decMemNm.getBytes("euc-kr"),"utf-8");
-			name = convert(decMemNm, "euc-kr");
-			
-		} catch (UnsupportedEncodingException uee) {
-			name = decMemNm;
-		}
+		String decMemNo = convert(encMemNo);
+		String decShopNo = convert(encShopNo);
+		String decMemNm = convert(encMemNm);
+		String decShopEventNo = convert(encShopEventNo);
+		String decEntrNo = convert(encEntrNo);
+		String decProcCd = convert(encProcCd);
 		
 
 		// --------------------------------------------
@@ -190,10 +181,14 @@ public class LoginController {
 		return viewName;*/
 	}
 	
-	private String convert(String str, String encoding) throws IOException {
-		ByteArrayOutputStream requestOutputStream = new ByteArrayOutputStream();
-		requestOutputStream.write(str.getBytes(encoding));
-		return requestOutputStream.toString(encoding);
+	/**
+	 * 현대몰에서는 euc-kr의 인코딩방식으로 데이터를 보내준다.
+	 * @return
+	 * @throws IOException
+	 */
+	private String convert(String str) throws IOException {
+		byte[] decMemNmBytes = Base64Decoder.decodeToBytes(HCDESUtil.decoding(str, HCDES_KEY));
+		return new String(decMemNmBytes, ENC_TYPE);
 	}
 	
 	private Map<String, String> parsingXML(String xml) throws ParserConfigurationException, IOException, SAXException, XPathExpressionException {
