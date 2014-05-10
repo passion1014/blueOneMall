@@ -71,10 +71,16 @@ public class ShopController {
 			return "user/errorPage";
 		}*/
 		
+		// 세션임시셋팅
 		CustomerInfo cust = new CustomerInfo();
 		cust.setCustId("id1");
 		CustomerInfo res=customerManageService.getCustomerInfo2(cust);
 		session.setAttribute("customerSession", res);
+		
+		// ---------------------------------------------------
+		// 상품목록조회 (메인화면에 보여줄 6개의 카테고리)
+		// ---------------------------------------------------
+
 		//블루투스,  해드폰, 멀티미디어, 케이스, xtc, 이어폰, sale, 브랜드샵
 		String[] srchCateCdArr = {"pdSList", "hpPrdList", "mmPrdList", "csPrdList", "xtPrdList", "epPrdList"};
 		String[] srchCateArr = {"L1601", "L3862", "L3679", "L7451", "L2022", "L9540"};
@@ -83,12 +89,13 @@ public class ShopController {
 		srchPrdInfo.setSrchCateArr(srchCateArr);
 		srchPrdInfo.setPrdDp("y");
 
-		// 상품리스트
+		
+		// 상품리스트 조회
 		List<ProductInfo> prdList = shopService.getProdListForMain(srchPrdInfo);
 
 		// 조회한 상품리스트를 각카테고리별로 Map에 담는다.
 		Map<String, List<ProductInfo>> map = new HashMap<String, List<ProductInfo>>();
-	for (int idx=0; idx < srchCateCdArr.length; idx++ ) {
+		for (int idx=0; idx < srchCateCdArr.length; idx++ ) {
 			List<ProductInfo> list = new ArrayList<ProductInfo>();
 			for (ProductInfo each : prdList) {
 				if (each != null && StringUtils.isEmpty(each.getCtgLargeCode())) continue;
@@ -102,190 +109,11 @@ public class ShopController {
 
 		}
 
-		
-		//List<ProductInfo> productList = shopService.getImgList(productInfo);
-		
-		List<ProductInfo> btPrdList = new ArrayList<ProductInfo>();  //블루투스 상품리스트
-		List<ProductInfo> hpPrdList = new ArrayList<ProductInfo>();  //해드폰 상품리스트
-		List<ProductInfo> mmPrdList = new ArrayList<ProductInfo>();  //멀티미디어 상품리스트
-		List<ProductInfo> csPrdList = new ArrayList<ProductInfo>();  //케이스 상품리스트
-		List<ProductInfo> xtPrdList = new ArrayList<ProductInfo>();  //xtc 상품리스트
-		List<ProductInfo> epPrdList = new ArrayList<ProductInfo>();  //이어폰 상품리스트
-		List<ProductInfo> salePrdList = new ArrayList<ProductInfo>();  //sale 상품리스트
-		List<ProductInfo> bsPrdList = new ArrayList<ProductInfo>();  //브랜드샵 상품리스트
-		
 		AdImgInfo AdImgDtl = new AdImgInfo();
 		AdImgDtl = shopService.getAdImg(adImgInfo);
 		
-		CategoryInfo largeInf = new CategoryInfo();
-		
-		if(categoryInfo.getCtgCode() == null || categoryInfo.getCtgCode() == ""){
-			largeInf = categoryManageService.getCategoryInfDetail2(categoryInfo);			
-		}else{
-			largeInf = categoryManageService.getCategoryInfDetail(categoryInfo);			
-		}
-		
-
-		
-		
 		model.addAttribute("AdImgDtl", AdImgDtl);
 		model.addAllAttributes(map);
-		
-	/*	
-		
-		String prdCtgL = largeInf.getCtgCode();
-		
-		
-		//대분류에 대한 상품출력(블루투스)
-		for(ProductInfo each: productList){
-			if("L4315".equals(each.getPrdCtgL())){
-				btPrdList.add(each);
-			}
-		}
-		
-		//이어폰
-		for(ProductInfo each: productList){
-			if("L1601".equals(each.getPrdCtgL())){
-				epPrdList.add(each);
-			}
-		}
-		//케이스
-		for(ProductInfo each: productList){
-			if("L3862".equals(each.getPrdCtgL())){
-				csPrdList.add(each);
-			}
-		}
-		//헤드폰
-		for(ProductInfo each: productList){
-			if("L3679".equals(each.getPrdCtgL())){
-				hpPrdList.add(each);
-			}
-		}
-		//xtc
-		for(ProductInfo each: productList){
-			if("L7451".equals(each.getPrdCtgL())){
-				xtPrdList.add(each);
-			}
-		}
-		//멀티미디어
-		for(ProductInfo each: productList){
-			if("L2022".equals(each.getPrdCtgL())){
-				mmPrdList.add(each);
-			}
-		}
-		//sale
-		for(ProductInfo each: productList){
-			if("L9540".equals(each.getPrdCtgL())){
-				salePrdList.add(each);
-			}
-		}
-		//brandshop
-		for(ProductInfo each: productList){
-			if("L7933".equals(each.getPrdCtgL())){
-				bsPrdList.add(each);
-			}
-		}
-		
-	
-		
-		for(ProductInfo each : btPrdList){
-			AttachFileInfo att = new AttachFileInfo();
-			att.setAttCdKey(each.getPrdCd());
-			att = attFileManageService.getAttFileInfListImg(att);
-			
-			if(att==null){
-				each.setAttFilePath("");
-			}else { 
-				
-				each.setAttFilePath(att.getAttFilePath());
-			}
-		}
-		
-		for(ProductInfo each : epPrdList){
-			AttachFileInfo att = new AttachFileInfo();
-			att.setAttCdKey(each.getPrdCd());
-			att = attFileManageService.getAttFileInfListImg(att);
-			
-			if(att==null){
-				each.setAttFilePath("");
-			}else { 
-				
-				each.setAttFilePath(att.getAttFilePath());
-			}
-		}
-		
-		for(ProductInfo each : hpPrdList){
-			AttachFileInfo att = new AttachFileInfo();
-			att.setAttCdKey(each.getPrdCd());
-			att = attFileManageService.getAttFileInfListImg(att);
-			
-			if(att==null){
-				each.setAttFilePath("");
-			}else { 
-				
-				each.setAttFilePath(att.getAttFilePath());
-			}
-		}
-		*/
-		/*
-		for(ProductInfo each : mmPrdList){
-			AttachFileInfo att = new AttachFileInfo();
-			att.setAttCdKey(each.getPrdCd());
-			att = attFileManageService.getAttFileInfListImg(att);
-
-			
-			for (ProductInfo each : prdList) {
-				if (each != null && StringUtils.isEmpty(each.getCtgLargeCode())) continue;
-				
-				if (srchCateArr[idx].equals(each.getCtgLargeCode())) {
-					list.add(each);
-				}
-			}
-			
-			map.put(srchCateCdArr[idx], list);
-		}
-		
-		*/
-		
-		
-		model.addAttribute("AdImgDtl", AdImgDtl);
-		model.addAllAttributes(map);
-		
-//		//model.addAttribute("productList", productList);
-//		model.addAttribute("pdSList", btPrdList);
-//		model.addAttribute("hpPrdList", hpPrdList);
-//		model.addAttribute("mmPrdList", mmPrdList);
-//		model.addAttribute("csPrdList", csPrdList);
-//		model.addAttribute("xtPrdList", ecPrdList);
-//		model.addAttribute("epPrdList", epPrdList);
-				
-		/*대분류에 대한 상품출력(블루투스)
-		for(ProductInfo each: productList){
-			if("L4315".equals(each.getPrdCtgL()) ){
-				btPrdList.add(each);
-			}
-		}
-		
-		}*/
-		
-	
-		
-//		for(ProductInfo each : btPrdList){
-//			AttachFileInfo att = new AttachFileInfo();
-//			att.setAttCdKey(each.getPrdCd());
-//			att = attFileManageService.getAttFileInfListImg(att);
-//			
-//			if(att==null){
-//				each.setAttFilePath("");
-//			}else { 
-//				
-//				each.setAttFilePath(att.getAttFilePath());
-//			}
-//		}
-//		
-		
-		
-		
 		
 		return "shop/main";
 	}
