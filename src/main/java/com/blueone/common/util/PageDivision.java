@@ -13,7 +13,7 @@ public class PageDivision {
 
 	int pNum;//페이지 num
 	int endNum;//페이지 끝숫자
-	
+	int itemNum;
 	int startIdx;
 	int endIdx;
 	
@@ -31,9 +31,17 @@ public class PageDivision {
 	
 	
 
-	public List<AdminInfo> getAdInfolist(int item) {
-		int startIdx=pNum*item-item;
-		int forend=pNum*item-1;
+	public int getItemNum() {
+		return itemNum;
+	}
+
+	public void setItemNum(int itemNum) {
+		this.itemNum = itemNum;
+	}
+
+	public List<AdminInfo> getAdInfolist() {
+		int startIdx=pNum*itemNum-itemNum;
+		int forend=pNum*itemNum-1;
 		for(int i=startIdx; i<=forend && i<adInfolist.size(); i++){
 			adInfoExlist.add(adInfolist.get(i));
 		}
@@ -45,19 +53,19 @@ public class PageDivision {
 		
 		adInfoExlist=new ArrayList<AdminInfo>();
 		
-		if(adInfolist.size()%2==0) {
-			endNum=adInfolist.size()/2;
+		if(adInfolist.size()%itemNum==0) {
+			endNum=adInfolist.size()/itemNum;
 		}
 		else{
-			endNum=adInfolist.size()/2+1;
+			endNum=adInfolist.size()/itemNum+1;
 			}
 		
 	}
 	
 	
-	public List<AccountInfo> getAccList(int item) {
-		int startIdx=pNum*item-item;
-		int forend=pNum*item-1;
+	public List<AccountInfo> getAccList() {
+		int startIdx=pNum*itemNum-itemNum;
+		int forend=pNum*itemNum-1;
 		for(int i=startIdx; i<=forend && i<accList.size(); i++){
 			accExList.add(accList.get(i));
 		}
@@ -69,19 +77,19 @@ public class PageDivision {
 		
 		accExList=new ArrayList<AccountInfo>();
 		
-		if(accList.size()%2==0) {
-			endNum=accList.size()/2;
+		if(accList.size()%itemNum==0) {
+			endNum=accList.size()/itemNum;
 		}
 		else{
-			endNum=accList.size()/2+1;
+			endNum=accList.size()/itemNum+1;
 			}
 		
 	}
 	
 	
-	public List<TransferInfo> getTrList(int item) {
-		int startIdx=pNum*item-item;
-		int forend=pNum*item-1;
+	public List<TransferInfo> getTrList() {
+		int startIdx=pNum*itemNum-itemNum;
+		int forend=pNum*itemNum-1;
 		for(int i=startIdx; i<=forend && i<trList.size(); i++){
 			trExList.add(trList.get(i));
 		}
@@ -90,11 +98,11 @@ public class PageDivision {
 	public void setTrList(List<TransferInfo> trList) {
 		this.trList = trList;
 		trExList=new ArrayList<TransferInfo>();
-		if(trList.size()%2==0) {
-			endNum=trList.size()/2;
+		if(trList.size()%itemNum==0) {
+			endNum=trList.size()/itemNum;
 		}
 		else{
-			endNum=trList.size()/2+1;
+			endNum=trList.size()/itemNum+1;
 			}
 		
 	}
@@ -104,17 +112,17 @@ public class PageDivision {
 		this.ctList = ctList;
 		ctExList=new ArrayList<CategoryInfo>();
 		
-		if(ctList.size()%2==0) {
-			endNum=ctList.size()/2;
+		if(ctList.size()%itemNum==0) {
+			endNum=ctList.size()/itemNum;
 		}
 		else{
-			endNum=ctList.size()/2+1;
+			endNum=ctList.size()/itemNum+1;
 			}
 		
 	}
-	public List<CategoryInfo> getCtList(int item) {
-		int startIdx=pNum*item-item;
-		int forend=pNum*item-1;
+	public List<CategoryInfo> getCtList() {
+		int startIdx=pNum*itemNum-itemNum;
+		int forend=pNum*itemNum-1;
 		
 		for(int i=startIdx; i<=forend && i<ctList.size(); i++){
 			ctExList.add(ctList.get(i));
@@ -127,16 +135,17 @@ public class PageDivision {
 		this.prdList = prdList;
 		prdExList=new ArrayList<ProductInfo>();
 		
-		if(prdList.size()%2==0) {
-			endNum=prdList.size()/2;
+		if(prdList.size()%itemNum==0) {
+			endNum=prdList.size()/itemNum;
 		}
 		else{
-			endNum=prdList.size()/2+1;
-			}
+			endNum=prdList.size()/itemNum+1;
+		}
 	}
-	public List<ProductInfo> getPrdList(int item) {
-		int startIdx=pNum*item-item;
-		int forend=pNum*item-1;
+	public List<ProductInfo> getPrdList() {
+		int startIdx=pNum*itemNum-itemNum;
+		
+		int forend=pNum*itemNum-1;
 		
 		for(int i=startIdx; i<=forend && i<prdList.size(); i++){
 			prdExList.add(prdList.get(i));

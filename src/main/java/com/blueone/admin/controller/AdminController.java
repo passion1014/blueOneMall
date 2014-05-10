@@ -217,11 +217,11 @@ public class AdminController {
 
 		if(StringUtils.isEmpty(page)) pd.pageNum("1");
 		else pd.pageNum(page);
-		
+		pd.setItemNum(10);
 		pd.setAdInfolist(list);
 		
 		
-		model.addAttribute("list", pd.getAdInfolist(10));
+		model.addAttribute("list", pd.getAdInfolist());
 		model.addAttribute("endNum",pd.getEndPageNum());
 	    
 	    mav.setViewName("admin/admin/adminList");
@@ -271,11 +271,11 @@ public class AdminController {
 
 		if(StringUtils.isEmpty(page)) pd.pageNum("1");
 		else pd.pageNum(page);
-		
+		pd.setItemNum(10);
 		pd.setAccList(accList);
 		
 		
-		model.addAttribute("list", pd.getAccList(10));
+		model.addAttribute("list", pd.getAccList());
 		model.addAttribute("endNum",pd.getEndPageNum());
 		
 		

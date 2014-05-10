@@ -88,10 +88,12 @@ public class CategoryController {
 
 		if(StringUtils.isEmpty(page)) pd.pageNum("1");
 		else pd.pageNum(page);
+		pd.setItemNum(10);
 		pd.setCtList(list);
 		
+		
 		model.addAttribute("list1", list1);
-		model.addAttribute("list", pd.getCtList(2));
+		model.addAttribute("list", pd.getCtList());
 		
 		model.addAttribute("endNum",pd.getEndPageNum());
 	
@@ -186,10 +188,11 @@ public class CategoryController {
 
 		if(StringUtils.isEmpty(page)) pd.pageNum("1");
 		else pd.pageNum(page);
+		pd.setItemNum(10);
 		pd.setCtList(list);
 		
 		
-		model.addAttribute("list", pd.getCtList(2));
+		model.addAttribute("list", pd.getCtList());
 		
 		model.addAttribute("endNum",pd.getEndPageNum());
 
@@ -309,10 +312,11 @@ public class CategoryController {
 
 		if(StringUtils.isEmpty(page)) pd.pageNum("1");
 		else pd.pageNum(page);
+		pd.setItemNum(10);
 		pd.setCtList(list);
 		
 		
-		model.addAttribute("list", pd.getCtList(2));
+		model.addAttribute("list", pd.getCtList());
 		
 		model.addAttribute("endNum",pd.getEndPageNum());
 		

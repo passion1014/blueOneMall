@@ -77,7 +77,7 @@
 		<div class="sub_content">
 			<form action="orderRegisterProc.do" method="post" name="KSPayWeb">
 			<input type="hidden" id="customerInfo.custId"  name="customerInfo.custId"  value="id1">
-			<input type="hidden" id="customerInfo.modifyUserId"  name="customerInfo.modifyUserId"  value="id1">
+			<input type="hidden" id="customerInfo.modifyUserId"  name="customerInfo.modifyUserId"  value="${cus.custId}">
 			<input type="hidden" id="orderProductList"  name="orderProductList"  value="${odPrdInfo}" />
 			<c:if test="${odPrdInfo.size() == 1}"><input type="hidden" id="sndGoodname"  name="sndGoodname"  value="${odPrdInfo[0].prdNm}" /></c:if>
 			<c:if test="${odPrdInfo.size() != 1}">			
