@@ -124,7 +124,27 @@ public class AttachFileServiceImpl implements IAttachFileManageService{
 			
 			return rst;
 		}
-		
+		/*
+		 * 이미지 삭제-ATTKEY
+		 */
+		@Override
+		public int deleteAttachFileInf2(AttachFileInfo attFileInfo){
+			
+			int rst = -1;
+			
+			
+				SqlSession sqlSession = sqlSessionFactory.openSession();
+				try {
+					// DB 수행
+					rst = sqlSession.delete("attFile.deleteBomAttachFileTb0002", attFileInfo);
+					
+				} finally {
+					sqlSession.close();
+				}
+			
+			
+			return rst;
+		}
 
 		//상품관리(수정)
 		@Override

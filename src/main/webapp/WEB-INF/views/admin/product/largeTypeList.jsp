@@ -29,8 +29,9 @@
 		<tr>
 			<th>No</th>
 			<th>정렬순위</th>
+			<th>사진</th>
 			<th>분류명</th>
-			<th>수정/삭제</th>
+			<th>수정</th>
 		</tr>
 			
 		<c:choose>
@@ -39,9 +40,10 @@
 					<tr>
 						<td style="text-align:center;">${category.idx}</td>
 						<td style="text-align:center;">${category.ctgOrder}</td>
+						<td><img src="${category.largeImgPath}" width="120"></td>
 						<td>${category.ctgName}</td>
 						<td style="text-align:center;">
-							<input type="button" value="수정" onClick="dialogUpdate('${category.ctgCode}');" class="Button Gray">
+							<input type="button" value="수정" onClick="openWin('./largeTypeEdit.do?ctgCode=${category.ctgCode}','largeTypeEditForm',600,450,'scrollbars=no');" class="Button Gray">
 							<%-- <input type="button" value="삭제" onClick="confirm_process('','해당 분류를 삭제하시겠습니까?','deleteCategoryInf.do?ctgCode=${category.ctgCode}');"  class="Button Gray"> --%>
 						</td>
 					</tr>

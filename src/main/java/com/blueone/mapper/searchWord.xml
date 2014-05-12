@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="searchWord">
+	<resultMap id="SchWordInfoMap" type="com.blueone.admin.domain.SchWordInfo">
+		<result property="swRank" column="SW_RANK" javaType="int"/>
+		<result property="swWord" column="SW_WORD" javaType="java.lang.String"/>
+	</resultMap>
+	
+	
+	<update id="updateBomSearchWordTb0001" parameterType="com.blueone.admin.domain.SchWordInfo">
+		UPDATE BOM_SEARCH_WORD_TB
+			SET	
+				<if test="swWord != null and swWord != ''"> `SW_WORD` = #{swWord}</if>
+			WHERE
+				`SW_RANK`= #{swRank}
+	</update>
+	
+	<select id="selectDtlBomSearchWordTb0001"  resultType="com.blueone.admin.domain.SchWordInfo" resultMap="SchWordInfoMap">
+		SELECT 
+			T1.SW_RANK, 
+			T1.SW_WORD
+			
+		FROM BOM_SEARCH_WORD_TB AS T1
+		ORDER BY T1.SW_RANK
+	</select >
+	
+	<select id="selectDtlBomSearchWordTb0002"  parameterType="com.blueone.admin.domain.SchWordInfo" resultType="com.blueone.admin.domain.SchWordInfo" resultMap="SchWordInfoMap">
+		SELECT 
+			T1.SW_RANK, 
+			T1.SW_WORD
+			
+		FROM BOM_SEARCH_WORD_TB AS T1
+		
+		WHERE
+			`SW_RANK`= #{swRank}
+	</select >
+	
+	
+	
+</mapper>

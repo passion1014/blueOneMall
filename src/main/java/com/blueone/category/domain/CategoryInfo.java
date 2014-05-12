@@ -2,6 +2,8 @@ package com.blueone.category.domain;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 /**
  * 카테고리정보
  * 	대분류= 01, 중분류=02, 소분류=03
@@ -28,12 +30,29 @@ public class CategoryInfo {
 	private String ctgMiddleName;
 	private String ctgSmallCode;
 	private String ctgSmallName;
-
+	
+	
+	private String largeImgPath;
+	private MultipartFile largeTpImg;
+	
 	private String srchFullYn;
 	private String chooseYn;	// 선택된중분류일경우 Y
 	
 	List<CategoryInfo> childList;
 	
+	
+	public String getLargeImgPath() {
+		return largeImgPath;
+	}
+	public void setLargeImgPath(String largeImgPath) {
+		this.largeImgPath = largeImgPath;
+	}
+	public MultipartFile getLargeTpImg() {
+		return largeTpImg;
+	}
+	public void setLargeTpImg(MultipartFile largeTpImg) {
+		this.largeTpImg = largeTpImg;
+	}
 	public List<CategoryInfo> getChildList() {
 		return childList;
 	}

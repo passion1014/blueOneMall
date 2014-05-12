@@ -129,10 +129,20 @@ public class UserProductController {
 
 		if (categoryInfo.getCtgCode() == null
 				|| categoryInfo.getCtgCode() == "") {
-			largeInf = categoryManageService
-					.getCategoryInfDetail2(categoryInfo);
+			largeInf = categoryManageService.getCategoryInfDetail2(categoryInfo);
 		} else {
 			largeInf = categoryManageService.getCategoryInfDetail(categoryInfo);
+			
+			AttachFileInfo att = new AttachFileInfo();
+			att.setAttCdKey(largeInf.getCtgCode());
+			att = attFileManageService.getAttFileInfListImg(att);
+
+			if (att == null) {
+				largeInf.setLargeImgPath("");
+			} else {
+
+				largeInf.setLargeImgPath(att.getAttFilePath());
+			}
 		}
 
 		// 중분류 LNB

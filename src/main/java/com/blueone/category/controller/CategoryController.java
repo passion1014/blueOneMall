@@ -1,5 +1,7 @@
 package com.blueone.category.controller;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.lang.ProcessBuilder.Redirect;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -27,7 +30,11 @@ import com.blueone.admin.domain.AdminInfo;
 import com.blueone.category.domain.CategoryInfo;
 import com.blueone.category.domain.MenuInfo;
 import com.blueone.category.service.ICategoryManageService;
+import com.blueone.common.domain.AttachFileInfo;
+import com.blueone.common.service.IAttachFileManageService;
+import com.blueone.common.util.FileUploadUtility;
 import com.blueone.common.util.PageDivision;
+import com.blueone.product.domain.ProductInfo;
 
 @Controller
 @SessionAttributes("adminSession")
@@ -37,6 +44,8 @@ public class CategoryController {
 	
 	@Autowired
 	ICategoryManageService categoryManageService;
+	@Autowired
+	IAttachFileManageService attFileManageService;
 	
 	/*
 	public  MenuInfo getMenu() {
@@ -74,15 +83,15 @@ public class CategoryController {
 	@RequestMapping(value="/admin/largeTypeList.do", method= RequestMethod.GET)
 	public String largeTypeList(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model,HttpSession session, String page){
 		
-		AdminInfo adminSession = (AdminInfo)session.getAttribute("adminSession");
-		
-		if(adminSession == null){
-		return "redirect:adminLogin.do";
-		}
+//		AdminInfo adminSession = (AdminInfo)session.getAttribute("adminSession");
+//		
+//		if(adminSession == null){
+//		return "redirect:adminLogin.do";
+//		}
 		
 		List<CategoryInfo> list = categoryManageService.getCategoryInfList(categoryInfo);
 		list = getCategoryListByTypeCd(categoryInfo, "01");
-		List<CategoryInfo> list1 = categoryManageService.getCategoryInfList5(categoryInfo);
+		
 		PageDivision pd = new PageDivision();
 		
 
@@ -91,9 +100,23 @@ public class CategoryController {
 		pd.setItemNum(10);
 		pd.setCtList(list);
 		
+		List<CategoryInfo> res = pd.getCtList();
 		
-		model.addAttribute("list1", list1);
-		model.addAttribute("list", pd.getCtList());
+		for (CategoryInfo each : res) {
+			AttachFileInfo att = new AttachFileInfo();
+			att.setAttCdKey(each.getCtgCode());
+			att = attFileManageService.getAttFileInfListImg(att);
+
+			if (att == null) {
+				each.setLargeImgPath("");
+			} else {
+
+				each.setLargeImgPath(att.getAttFilePath());
+			}
+
+		}
+		
+		model.addAttribute("list", res);
 		
 		model.addAttribute("endNum",pd.getEndPageNum());
 	
@@ -113,6 +136,7 @@ public class CategoryController {
 		
 		int code= (int)(Math.random()*10000)+1;
 		String ctgCode= "L"+code;
+
 		
 		model.addAttribute("ctgCode", ctgCode);
 		
@@ -123,12 +147,27 @@ public class CategoryController {
 		
 	/**
 	 * 관리자 대분류 등록처리
+	 * @throws IOException 
+	 * @throws FileNotFoundException 
 	 */
 	@RequestMapping(value = "/admin/largeTypeRegisterProc.do", method = RequestMethod.POST)
-	public String largeTypeRegisterProc(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model,RedirectAttributes redirectAttributes) {
+	public String largeTypeRegisterProc(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model,RedirectAttributes redirectAttributes) throws FileNotFoundException, IOException {
 		
 		categoryManageService.registCategoryInf(categoryInfo);
-		
+
+		MultipartFile largeImg = categoryInfo.getLargeTpImg();
+		if (largeImg != null && !largeImg.isEmpty()) {
+			// 상품 리스트 이미지 등록
+			AttachFileInfo contImg = new AttachFileInfo();
+			FileUploadUtility utilList = new FileUploadUtility();
+			contImg = utilList.doFileUpload(7, largeImg,false);
+			contImg.setAttCdType("01");// 등록유형 : 상품
+			contImg.setAttCdKey(categoryInfo.getCtgCode()); //
+			contImg.setAttImgType("01");// 목록
+			contImg.setAttImgSeq(1);
+			attFileManageService.registProductImgInfo(contImg);
+		}
+
 		redirectAttributes.addFlashAttribute("reloadVar", "yes");
 		return "redirect:largeTypeRegister.do";
 		
@@ -138,12 +177,24 @@ public class CategoryController {
 	/**
 	 * 관리자 대분류 수정폼
 	 */		
-	@RequestMapping(value="/admin/largeTypeEdit.do", method=RequestMethod.POST)
+	@RequestMapping(value="/admin/largeTypeEdit.do", method=RequestMethod.GET)
 	public String largeTypeModify(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model){
 		
 		categoryInfo = categoryManageService.getCategoryInfDetail(categoryInfo);
-		model.addAttribute("largeTypeObj", categoryInfo);
 		
+		
+		AttachFileInfo att = new AttachFileInfo();
+		att.setAttCdKey(categoryInfo.getCtgCode());
+		att = attFileManageService.getAttFileInfListImg(att);
+
+		if (att == null) {
+			categoryInfo.setLargeImgPath("");
+		} else {
+
+			categoryInfo.setLargeImgPath(att.getAttFilePath());
+		}
+		
+		model.addAttribute("largeTypeObj", categoryInfo);
 		return "admin/product/largeTypeEdit";
 	}
 	
@@ -151,12 +202,34 @@ public class CategoryController {
 	
 	/**
 	 * 관리자 대분류 수정처리
+	 * @throws IOException 
+	 * @throws FileNotFoundException 
 	 */
-	@RequestMapping(value = "/admin/editCategoryInfProc.do", method = RequestMethod.POST)
-	public String editCategoryInfoProc(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model) {
+	@RequestMapping(value = "/admin/editCategoryInfProc.do")
+	public String editCategoryInfoProc(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model,RedirectAttributes redirectAttributes) throws FileNotFoundException, IOException {
 		categoryManageService.editCategoryInf(categoryInfo);
-		
-		return "redirect:largeTypeList.do";
+
+		MultipartFile largeImg = categoryInfo.getLargeTpImg();
+		if (largeImg != null && !largeImg.isEmpty()) {
+			// 상품 리스트 이미지 등록
+			AttachFileInfo contImg = new AttachFileInfo();
+			FileUploadUtility utilList = new FileUploadUtility();
+			contImg = utilList.doFileUpload(7, largeImg,false);
+			contImg.setAttCdType("01");// 등록유형 : 상품
+			contImg.setAttCdKey(categoryInfo.getCtgCode()); //
+			contImg.setAttImgType("01");// 목록
+			contImg.setAttImgSeq(1);
+			AttachFileInfo att = attFileManageService.getAttFileInfListImg(contImg);
+			if(att!=null){
+				attFileManageService.updateAttachFileInf(contImg);
+			}
+			else{
+				attFileManageService.registProductImgInfo(contImg);
+			}
+		}
+		redirectAttributes.addFlashAttribute("reloadVar", "yes");
+		String redi = "redirect:largeTypeEdit.do?ctgCode="+categoryInfo.getCtgCode();
+		return redi;
 	}
 	
 	
@@ -168,6 +241,21 @@ public class CategoryController {
 		categoryManageService.deleteCategoryInf(categoryInfo);
 		
 		return "redirect:largeTypeList.do";
+	}
+	/**
+	 * 관리자 대분류 이미지 삭제
+	 */
+	@RequestMapping(value = "/admin/deleteCategoryImg.do", method = RequestMethod.GET)
+	public String deleteCategoryImg(@ModelAttribute("categoryInfo") CategoryInfo categoryInfo, BindingResult result, Model model) {
+		
+		
+		AttachFileInfo attFileInfo = new AttachFileInfo();
+		attFileInfo.setAttCdKey(categoryInfo.getCtgCode());
+		attFileManageService.deleteAttachFileInf2(attFileInfo);
+
+		String redi = "redirect:largeTypeEdit.do?ctgCode="+categoryInfo.getCtgCode();
+		return redi;
+		
 	}
 	
 	

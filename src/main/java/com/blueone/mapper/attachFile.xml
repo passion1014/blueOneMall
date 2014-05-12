@@ -66,6 +66,11 @@
 		WHERE
 			`IDX`= #{idx}
 	</delete>
+	<delete id="deleteBomAttachFileTb0002" parameterType="attFileInfo">
+		DELETE FROM BOM_ATTACHIFILE_TB			
+		WHERE
+			`ATT_CODE_KEY`= #{attCdKey}
+	</delete>
 	
 	<update id="updateBomAttachFileTb0001" parameterType="attFileInfo">
 		UPDATE BOM_ATTACHIFILE_TB

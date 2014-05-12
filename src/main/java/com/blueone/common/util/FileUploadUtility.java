@@ -36,8 +36,8 @@ public class FileUploadUtility {
 //	public final static String FILE_UPLOAD_DIR = "src/main/webapp/uploads";
 	//public final static String FILE_UPLOAD_DIR = "src/main/webapp/uploads";
 
-	public final static String FILE_UPLOAD_DIR = "tomcat/webapps/ROOT/upload";
-//	public final static String FILE_UPLOAD_DIR = "C:/Users/dh-Kim/Documents/GitHub/blueOneMall/src/main/webapp/resources/upload";
+//	public final static String FILE_UPLOAD_DIR = "tomcat/webapps/ROOT/upload";
+	public final static String FILE_UPLOAD_DIR = "C:/Users/note/Documents/GitHub/blueOneMall/src/main/webapp/upload";
 	
 
 	public final static String WEBROOT_DIR = "D:/KLACEDU/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/LCECH";

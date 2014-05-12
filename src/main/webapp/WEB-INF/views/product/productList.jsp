@@ -38,7 +38,7 @@
 		
 		<div class="sub_content">
 			<div class="slide_section">
-				<img src="<c:url value='/resources/img/sub/sub_titleimg1.jpg'/>" alt="서브 메인이미지"/>
+				<img src="${largeInf.largeImgPath}" alt="서브 메인이미지"/>
 			</div>
 			<div class="cont_section">
 				<ul class="cont_list">

@@ -2,12 +2,15 @@
 <%@page import="org.springframework.context.ApplicationContext"%>
 <%@page import="com.blueone.category.domain.CategoryInfo"%>
 <%@page import="com.blueone.admin.domain.AdImgInfo"%>
+<%@page import="com.blueone.admin.domain.SchWordInfo"%>
 
 <%@page import="com.blueone.category.service.CategoryManageServiceImpl"%>
 <%@page import="com.blueone.category.service.ICategoryManageService"%>
 
 <%@page import= "com.blueone.shop.service.IShopService"%>
 <%@page import ="com.blueone.shop.service.ShopServiceImpl"%>
+<%@page import= "com.blueone.admin.service.ISearchWordService"%>
+<%@page import ="com.blueone.admin.service.SearchWordServiceImpl"%>
 
 <%@page import="org.springframework.web.servlet.support.RequestContextUtils"%>
 
@@ -21,12 +24,19 @@
 	ApplicationContext ctx1 = RequestContextUtils.getWebApplicationContext(request);
 	IShopService shopService=(ShopServiceImpl)ctx1.getBean(IShopService.class);
 	
+	
+	ApplicationContext ctx2 = RequestContextUtils.getWebApplicationContext(request);
+	ISearchWordService schWordService=(SearchWordServiceImpl)ctx2.getBean(ISearchWordService.class);
+	
 	// 조회
 	CategoryInfo categoryInfo = new CategoryInfo();
 	List<CategoryInfo> largeMenuList = categoryService.getCategoryInfList2(categoryInfo);
 	
 	AdImgInfo AdImgDtl = new AdImgInfo();
 	AdImgDtl = shopService.getAdImg(AdImgDtl);
+	
+	SchWordInfo schWord = new SchWordInfo();
+	List<SchWordInfo> schWordList = schWordService.getSchWordDtlList();
 %>
 <!--  header 시작 -->
 <div class="header">
@@ -46,6 +56,11 @@
 				<input type="text" id="schWord" name="schWord" title="서치텍스트박스"/>
 				<!--  input type="button" value="검색" onClick="javascript:location.href='/product/searchProduct.do?schWord='+document.getElementById('schWord').value;"/-->
 				<button onClick="topSFrm.submit();" style="cursor:pointer;"></button>
+				<select>
+					<c:forEach var="schWordList" items="<%=schWordList%>">
+						<option>${schWordList.swWord}</option>
+					</c:forEach>
+				</select>
 			</span>
 		</div>
 		</form>

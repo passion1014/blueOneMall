@@ -71,6 +71,11 @@
 			<li><a href="transferList.do">배송정보목록</a></li>
 			<li><a href="transferRegister.do">배송정보등록</a></li>
 		</ul>
+		<ul>
+			<h2>검색어 관리</h2>
+			<li><a href="searchWordList.do">검색어목록</a></li>
+		</ul>
+		
 	</div>
 	</c:when>
 	

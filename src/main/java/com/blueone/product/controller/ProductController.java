@@ -32,6 +32,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.blueone.admin.domain.AdImgInfo;
 import com.blueone.admin.domain.AdminInfo;
+import com.blueone.admin.domain.SchWordInfo;
+import com.blueone.admin.service.ISearchWordService;
 import com.blueone.board.controller.BoardController;
 import com.blueone.board.domain.BoardInfo;
 import com.blueone.board.domain.BoardSrchInfo;
@@ -60,6 +62,9 @@ public class ProductController {
 
 	@Autowired
 	IProductManageService productManageService;
+	@Autowired
+	ISearchWordService schWordManageService;
+	
 	@Autowired
 	ICategoryManageService categoryManageService;
 	@Autowired
@@ -380,8 +385,7 @@ public class ProductController {
 
 		AttachFileInfo attFile = new AttachFileInfo();
 		attFile.setAttCdKey(productInfo.getPrdCd());
-		List<AttachFileInfo> imgList = attFileManageService
-				.getAttFileInfList(attFile);
+		List<AttachFileInfo> imgList = attFileManageService.getAttFileInfList(attFile);
 
 		model.addAttribute("imgList", imgList);
 
@@ -1072,4 +1076,67 @@ public class ProductController {
 		return pageHtml.toString();
 	}
 
+
+	/*
+	 * 검색어 리스트
+	 */
+	@RequestMapping(value = "/admin/searchWordList.do", method = RequestMethod.GET)
+	public String searchWordList(@ModelAttribute("ProductInfo") SearchProdInfo srchProdInfo,
+			BindingResult result, Model model, HttpSession session, String page) {
+
+		AdminInfo adminSession = (AdminInfo) session
+				.getAttribute("adminSession");
+		if (adminSession == null) {
+			return "redirect:adminLogin.do";
+		}
+
+		List<SchWordInfo> list = schWordManageService.getSchWordDtlList();
+
+
+		model.addAttribute("list", list);
+
+		
+		return "admin/product/searchWordList";
+	}
+
+	/*
+	 * 검색어 수정 폼
+	 */
+	@RequestMapping(value = "/admin/searchWordEdit.do", method = RequestMethod.GET)
+	public String searchWordList(@ModelAttribute("SchWordInfo") SchWordInfo schWord,BindingResult result, Model model, HttpSession session, String page) {
+
+		AdminInfo adminSession = (AdminInfo) session
+				.getAttribute("adminSession");
+		if (adminSession == null) {
+			return "redirect:adminLogin.do";
+		}
+
+		SchWordInfo resSchWd = schWordManageService.getSchWordDtl(schWord);
+
+
+		model.addAttribute("resSchWd", resSchWd);
+
+		
+		return "admin/product/searchWordEdit";
+	}
+
+	/*
+	 * 검색어 수정 처리
+	 */
+	@RequestMapping(value = "/admin/searchWordEditProc.do", method = RequestMethod.POST)
+	public String searchWordEditProc(@ModelAttribute("SchWordInfo") SchWordInfo schWord,BindingResult result, Model model, HttpSession session, RedirectAttributes redirectAttributes) {
+
+		AdminInfo adminSession = (AdminInfo) session
+				.getAttribute("adminSession");
+		if (adminSession == null) {
+			return "redirect:adminLogin.do";
+		}
+
+		schWordManageService.updateSchWord(schWord);
+
+
+		redirectAttributes.addFlashAttribute("reloadVar", "yes");
+		
+		return "redirect:searchWordEdit.do?swRank="+schWord.getSwRank();
+	}
 }

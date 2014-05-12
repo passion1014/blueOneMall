@@ -11,6 +11,7 @@ public interface IAttachFileManageService {
 	public int deleteAttachFileInf(AttachFileInfo attFileInfo);
 	public int updateAttachFileInf(AttachFileInfo attFileInfo);
 	public AttachFileInfo getAttFileInfListImg(AttachFileInfo attFileInfo);
+	public int deleteAttachFileInf2(AttachFileInfo attFileInfo);
 
 	
 }
