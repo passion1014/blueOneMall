@@ -7,6 +7,7 @@
 	<resultMap id="SchWordInfoMap" type="com.blueone.admin.domain.SchWordInfo">
 		<result property="swRank" column="SW_RANK" javaType="int"/>
 		<result property="swWord" column="SW_WORD" javaType="java.lang.String"/>
+		<result property="swHit" column="SW_HIT" javaType="int"/>
 	</resultMap>
 	
 	
@@ -14,6 +15,8 @@
 		UPDATE BOM_SEARCH_WORD_TB
 			SET	
 				<if test="swWord != null and swWord != ''"> `SW_WORD` = #{swWord}</if>
+				<if test="swHit != null and swHit != ''">, `SW_HIT` = #{swHit}</if>
+				
 			WHERE
 				`SW_RANK`= #{swRank}
 	</update>
@@ -21,7 +24,9 @@
 	<select id="selectDtlBomSearchWordTb0001"  resultType="com.blueone.admin.domain.SchWordInfo" resultMap="SchWordInfoMap">
 		SELECT 
 			T1.SW_RANK, 
-			T1.SW_WORD
+			T1.SW_WORD,
+			T1.SW_HIT
+			
 			
 		FROM BOM_SEARCH_WORD_TB AS T1
 		ORDER BY T1.SW_RANK
@@ -30,7 +35,9 @@
 	<select id="selectDtlBomSearchWordTb0002"  parameterType="com.blueone.admin.domain.SchWordInfo" resultType="com.blueone.admin.domain.SchWordInfo" resultMap="SchWordInfoMap">
 		SELECT 
 			T1.SW_RANK, 
-			T1.SW_WORD
+			T1.SW_WORD,
+			T1.SW_HIT
+			
 			
 		FROM BOM_SEARCH_WORD_TB AS T1
 		

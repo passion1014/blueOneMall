@@ -3,7 +3,15 @@ package com.blueone.admin.domain;
 public class SchWordInfo {
 	private int swRank;
 	private String swWord;
+	private int swHit;
 	
+	
+	public int getSwHit() {
+		return swHit;
+	}
+	public void setSwHit(int swHit) {
+		this.swHit = swHit;
+	}
 	public int getSwRank() {
 		return swRank;
 	}
