@@ -97,12 +97,15 @@ public class UserController {
 	@RequestMapping(value="/user/userEdit.do", method=RequestMethod.GET)
 	public String userEdit(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model,HttpSession session){
 		//CustomerInfo customerSesstion = (CustomerInfo)session.getAttribute("customerSession");	
-		CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");	
+		CustomerInfo cust= (CustomerInfo)session.getAttribute("customerSession");	
 		// 세션체크
-		if (cus == null) {
+		if (cust == null) {
 			return "user/errorPage";
 		}	
-			
+		
+		CustomerInfo cus=customerService.getCustomerInfo2(cust);
+		session.removeAttribute("customerSession");
+		session.setAttribute("customerSession", cus);
 		
 		/*CustomerInfo cus =new CustomerInfo();
 		cus.setCustId("100001639343");
@@ -131,7 +134,7 @@ public class UserController {
 
 	//마이페이지 처리
 	@RequestMapping(value="/user/userEditProc.do", method=RequestMethod.POST)
-	public String userEditProc(@ModelAttribute("customerInfo") CustomerInfo customerInfo,BindingResult result, Model model){
+	public String userEditProc(@ModelAttribute("customerInfo") CustomerInfo customerInfo,BindingResult result, HttpSession session, Model model){
 		
 		String birth = customerInfo.getBirthY()+"-"+customerInfo.getBirthM()+"-"+customerInfo.getBirthD();
 		customerInfo.setCustBirth(birth);
@@ -150,6 +153,9 @@ public class UserController {
 			customerInfo.setCustMerry(merry);
 		}
 		customerService.updateCustomerInf(customerInfo);
+		
+		
+		
 		
 		return "redirect:userEdit.do";
 	}
