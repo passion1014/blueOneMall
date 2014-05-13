@@ -39,13 +39,7 @@
 	</table>
 
 	<!--<div id="Paser"> 1 | 2 | 3</div>-->
-	<div id="Paser">
-	<c:forEach var="i" begin="1" end="${endNum}">
-		<a href="adminList.do?page=${i}">${i}</a>
-		<!-- 
-		<input type="button" value="${i}" onClick="javascript:location.href='adminList.do?page=${i}'">
-		 -->				
-	</c:forEach>
+	<div id="Paser">${pageHtml}
 	</div>
 	
 </div>

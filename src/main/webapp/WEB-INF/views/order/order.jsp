@@ -15,11 +15,11 @@
 
 	function _pay(_frm) 
 	{
-		_frm.sndReply.value           = getLocalUrl("kspay_wh_rcv.jsp") ;
+		_frm.sndReply.value = getLocalUrl("kspay_wh_rcv.jsp") ;
 		var agent = navigator.userAgent;
-		var midx		= agent.indexOf("MSIE");
+		var midx = agent.indexOf("MSIE");
 
-		var out_size	= (midx != -1 && agent.charAt(midx+5) < '7');
+		var out_size = (midx != -1 && agent.charAt(midx+5) < '7');
     	
 		var width_	= 500;
 		var height_	= out_size ? 568 : 518;
@@ -47,12 +47,15 @@
 
 	function getLocalUrl(mypage) 
 	{ 
-		var myloc = location.href; 
-		return myloc.substring(0, myloc.lastIndexOf('/')) + '/' + mypage;
+		var myloc = location.href;
+		alert(myloc);
+		alert(myloc.substring(0, myloc.lastIndexOf('/')) + '/');
+		return mypage;
 	} 
 	
 	// goResult() - 함수설명 : 결재완료후 결과값을 지정된 결과페이지(kspay_wh_result.jsp)로 전송합니다.
 	function goResult(){
+		alert("goResult");
 		document.KSPayWeb.target = "";
 		document.KSPayWeb.action = "orderRegisterProc.do";
 		document.KSPayWeb.submit();

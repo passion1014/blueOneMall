@@ -16,7 +16,6 @@
 <!--
     function init()
 	{
-	
  		if (typeof(top.opener) == "undefined" || typeof(top.opener.eparamSet) == "undefined" || typeof(top.opener.goResult) == "undefined")
  		{
  			alert("ERROR: 주문페이지를 확인할 수 없어 결제를 중단합니다!!");
@@ -28,15 +27,17 @@
 		self.close();
 		return;
 <% }else{ %>
+		alert("rcv2, <%=rcid%>, <%=rctype%>, <%=rhash%>");
         top.opener.eparamSet("<%=rcid%>","<%=rctype%>","<%=rhash%>");
         top.opener.goResult();
+        alert("rcv3");
 <% } %>
 		setTimeout( 'self.close()', '3000' );
-		
-		
     }
 
+	alert("rrcv");
     init();
+    
 -->
 </script>
 </head>
