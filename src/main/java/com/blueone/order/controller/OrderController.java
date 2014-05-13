@@ -6,7 +6,9 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 import javax.servlet.http.Cookie;
@@ -73,6 +75,16 @@ public class OrderController {
 		//상품이 선택되서 장바구니 페이지로 들어왔을 경우 해당
 		String value="";
 		
+		
+		List<String> ckKey = cki.getKey();
+//		String[] ckRealKey = (String[]) ckKey.toArray();
+		
+		for(String each : ckKey){
+			if("BOM".equals(each.substring(0, 3))){
+				
+			}
+		}
+		
 		if(orderProductInfo.getPrdOpColor()!=null){
 			value+="01="+orderProductInfo.getPrdOpColor()+",";
 		}
@@ -81,7 +93,6 @@ public class OrderController {
 		}
 		if(orderProductInfo.getPrdSmallImg()!=null){
 			value+="cn="+orderProductInfo.getBuyCnt()+",";
-			value+="no="+getOrderCode();
 			Cookie cookie =cki.createCookie("BOM_"+orderProductInfo.getPrdCd(),value,50000);
 			response.addCookie(cookie);//
 	
