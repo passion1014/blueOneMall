@@ -113,6 +113,7 @@ function list_Submit(){
 									<th>옵션적용가</th>
 									<td colspan="2">${pro.prdSellPrc} 원</td>
 								</tr>
+								<c:if test="${pro.prdColor eq 'y'}">
 								<tr>
 									<th>색상</th>
 									<td colspan="2" >
@@ -126,6 +127,22 @@ function list_Submit(){
       									</select>
 									</td>
 								</tr>
+								</c:if>
+								<c:if test="${pro.prdSize eq 'y'}">
+								<tr>
+									<th>크기</th>
+									<td colspan="2" >
+										<select  id="prdOpSize" name="prdOpSize">
+											<option value="">색상을 선택해주세요</option>
+											<c:forEach var="opKey" items="${pro.optionKey}" begin="0" end="49" varStatus="i">
+												<c:if test="${'02' eq opKey}"> 
+													<option value="${pro.optionValue[i.index]}" >${pro.optionValue[i.index]}</option>
+      											</c:if>
+      										</c:forEach>
+      									</select>
+									</td>
+								</tr>
+								</c:if>
 								<tr>
 									<th>수량</th>
 									<td colspan="2">

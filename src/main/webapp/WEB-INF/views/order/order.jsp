@@ -79,7 +79,9 @@
 		<c:import url="../inc/orderLnb.jsp" />
 		<div class="sub_content">
 			<form action="orderRegisterProc.do" method="post" name="KSPayWeb">
-			<input type="hidden" id="customerInfo.custId"  name="customerInfo.custId"  value="id1">
+			<input type="hidden" id="customerInfo.custId"  name="customerInfo.custId"  value="${cus.custId}">
+			<input type="hidden" id="ord_unit_chk"  name="ord_unit_chk"  value="${orderInfo.ord_unit_chk}">
+			
 			<input type="hidden" id="customerInfo.modifyUserId"  name="customerInfo.modifyUserId"  value="${cus.custId}">
 			<input type="hidden" id="orderProductList"  name="orderProductList"  value="${odPrdInfo}" />
 			<c:if test="${odPrdInfo.size() == 1}"><input type="hidden" id="sndGoodname"  name="sndGoodname"  value="${odPrdInfo[0].prdNm}" /></c:if>
@@ -193,19 +195,19 @@
 										 
 										<span>
 											${odPrdInfo.prdNm}
-											<c:if test="${'NULL' ne odPrdInfo.prdOpColor}">/${odPrdInfo.prdOpColor}</c:if>
-											<c:if test="${'NULL' eq odPrdInfo.prdOpSize}">/${odPrdInfo.prdOpSize}</c:if>
+											<c:if test="${'null' ne odPrdInfo.prdOpColor}">/${odPrdInfo.prdOpColor}</c:if>
+											<c:if test="${'null' ne odPrdInfo.prdOpSize}">/${odPrdInfo.prdOpSize}</c:if>
 											
 										</span>
 									</td>
 									<td>${odPrdInfo.sellPrice}</td>
 									<td>
-										<span class="input_text"><input type="text" id="buyCnt${i.index}" naem="buyCnt${i.index}" value="${odPrdInfo.buyCnt}" title="수량기입"><!-- <button class="btn_triangle1"></button> --></span>
-										<span class="input_btn"><input type="button" value="수정" title="수정" onClick="location.href='editOrderBuycn.do?ordIdx=${i.index}&ord_unit_chk=${orderInfo.ord_unit_chk}&orderProductList[${i.index}].buyCnt='+document.getElementById('buyCnt${i.index}').value;"> <!-- <button class="btn_triangle2"></button> --></span>
+										<span class="input_text">${odPrdInfo.buyCnt}<%-- <input type="text" id="buyCnt${i.index}" naem="buyCnt${i.index}" value="${odPrdInfo.buyCnt}" title="수량기입"><!-- <button class="btn_triangle1"></button> --> --%></span>
+										<span class="input_btn"><%-- <input type="button" value="수정" title="수정" onClick="location.href='editOrderBuycn.do?ordIdx=${i.index}&ord_unit_chk=${orderInfo.ord_unit_chk}&orderProductList[${i.index}].buyCnt='+document.getElementById('buyCnt${i.index}').value;"> <!-- <button class="btn_triangle2"></button> --> --%></span>
 									</td>
 									<td>${odPrdInfo.totalPrice}</td>
 									<td>
-										<input type="button" value="삭제하기"class="btn_choice2" onClick="confirm_process('','해당 상품을 삭제하시겠습니까?','deleteCartList.do?prdCd=${odPrdInfo.prdCd}');" /> 
+										<input type="button" value="삭제하기"class="btn_choice2" onClick="confirm_process('','해당 상품을 삭제하시겠습니까?','deleteOrderList.do?cookieKey=${odPrdInfo.cookieKey}&ord_unit_chk=${orderInfo.ord_unit_chk}');" /> 
 									</td>
 								</tr>
 								<tr>

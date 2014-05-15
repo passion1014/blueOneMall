@@ -77,14 +77,62 @@ public class OrderController {
 		
 		
 		List<String> ckKey = cki.getKey();
-//		String[] ckRealKey = (String[]) ckKey.toArray();
+	
 		
+		int pNum=0;
+		int count=0;
+		int prdCount=-1;
 		for(String each : ckKey){
-			if("BOM".equals(each.substring(0, 3))){
+			
+			if("BOM".equals(each.substring(0, 3)) && orderProductInfo.getPrdCd().equals(each.substring(3, each.indexOf("_")))){
+				++prdCount;
+				String vl = cki.getValue(each);
+				StringTokenizer st = new StringTokenizer(vl, ",");
+				String optionColor="";
+				String optionSize= "";
 				
+				while (st.hasMoreElements()) {
+
+					String s = st.nextToken();
+					if ("01".equals(s.substring(0, 2))) {
+						optionColor=s.substring(3);
+					}
+					if ("02".equals(s.substring(0, 2))) {
+						optionSize= s.substring(3);
+					}
+					if ("cn".equals(s.substring(0, 2))) {
+						count=Integer.parseInt(s.substring(3));
+					}
+					
+				}
+				
+				pNum = Integer.parseInt(each.substring(each.indexOf("_")+1));
+				if(orderProductInfo.getPrdOpColor()==null && optionSize.equals(orderProductInfo.getPrdOpSize())){
+					count += orderProductInfo.getBuyCnt();
+					break;
+				}else if(orderProductInfo.getPrdOpSize()==null && optionColor.equals(orderProductInfo.getPrdOpColor())){
+					count += orderProductInfo.getBuyCnt();
+					break;
+				}else if(orderProductInfo.getPrdOpSize()!=null && orderProductInfo.getPrdOpColor()!=null){
+					if(optionSize.equals(orderProductInfo.getPrdOpSize()) && optionColor.equals(orderProductInfo.getPrdOpColor())){
+						count += orderProductInfo.getBuyCnt();
+						break;
+					}else{
+						pNum = prdCount+1 ;
+						count=orderProductInfo.getBuyCnt();
+						
+					}
+					
+				}else{
+					pNum = prdCount+1 ;
+					count=orderProductInfo.getBuyCnt();
+					
+				}
 			}
+				
+				
 		}
-		
+			
 		if(orderProductInfo.getPrdOpColor()!=null){
 			value+="01="+orderProductInfo.getPrdOpColor()+",";
 		}
@@ -92,8 +140,8 @@ public class OrderController {
 			value+="02="+orderProductInfo.getPrdOpSize()+",";
 		}
 		if(orderProductInfo.getPrdSmallImg()!=null){
-			value+="cn="+orderProductInfo.getBuyCnt()+",";
-			Cookie cookie =cki.createCookie("BOM_"+orderProductInfo.getPrdCd(),value,50000);
+			value+="cn="+count+",";
+			Cookie cookie =cki.createCookie("BOM"+orderProductInfo.getPrdCd()+"_"+pNum,value,50000);
 			response.addCookie(cookie);//
 	
 		
@@ -117,42 +165,32 @@ public class OrderController {
 				
 				
 		CookieBox cki = new CookieBox(request);
-		List<OrderProductInfo> ord = getCartList(cki);
-				
-			
-		for(OrderProductInfo each:ord){
-			if(each.getPrdCd().equals(orderProductInfo.getPrdCd())){
-				
-				String cookieVal = cki.getValue("BOM_"+orderProductInfo.getPrdCd());
-				StringTokenizer st = new StringTokenizer(cookieVal, ",");
-				String value="";
-				while (st.hasMoreElements()) {
+		
+		String cookieVal = cki.getValue(orderProductInfo.getCookieKey());
+		StringTokenizer st = new StringTokenizer(cookieVal, ",");
+		String value="";
+		while (st.hasMoreElements()) {
 
-					String s = st.nextToken();
+			String s = st.nextToken();
 
-					if ("cn".equals(s.substring(0, 2))) {
-						each.setBuyCnt(orderProductInfo.getBuyCnt());
-						BigDecimal total =each.getSellPrice();
-						total = total.multiply(new BigDecimal(each.getBuyCnt()));
-						each.setTotalPrice(total);
-						value+=","+"cn="+orderProductInfo.getBuyCnt()+",";
-					}else{
-						value+=s;
-					}
-
-					
-				}
-				
-				Cookie cookie =cki.createCookie("BOM_"+orderProductInfo.getPrdCd(),value,50000);
-				response.addCookie(cookie);//
+			if ("cn".equals(s.substring(0, 2))) {
+				value+=","+"cn="+orderProductInfo.getBuyCnt()+",";
+			}else{
+				value+=","+s+",";
 			}
+
+			
 		}
 		
+		Cookie cookie =cki.createCookie(orderProductInfo.getCookieKey(),value,50000);
+		response.addCookie(cookie);//
+	
 		
-		model.addAttribute("odPrdInfo",ord);
 		
 		
-		return "order/cartList";
+		
+		
+		return "redirect:cartListView.do";
 			
 		
 	}
@@ -287,26 +325,108 @@ public class OrderController {
 		List<OrderProductInfo> oPrdList = new ArrayList<OrderProductInfo>();
 		
 		CookieBox cki = new CookieBox(request);
-		
-		//상품이 선택되서 장바구니 페이지로 들어왔을 경우 해당
 		String value="";
 		
-		if(orderProductInfo.getPrdOpColor()!=null){
-			value+="01="+orderProductInfo.getPrdOpColor()+",";
-		}
-		if(orderProductInfo.getPrdOpSize()!=null){
-			value+="02="+orderProductInfo.getPrdOpSize()+",";
-		}
-		if(orderProductInfo.getPrdSmallImg()!=null){
-			value+="cn="+orderProductInfo.getBuyCnt()+",";
-			value+="no="+getOrderCode();
-			Cookie cookie =cki.createCookie("BOM_"+orderProductInfo.getPrdCd(),value,50000);
-			response.addCookie(cookie);//
+		if(orderProductInfo.getCookieKey()==null){
+			List<String> ckKey = cki.getKey();
+		
+			
+			int pNum=0;
+			int count=0;
+			int prdCount=-1;
+			for(String each : ckKey){
+				
+				if("BOM".equals(each.substring(0, 3)) && orderProductInfo.getPrdCd().equals(each.substring(3, each.indexOf("_")))){
+					++prdCount;
+					String vl = cki.getValue(each);
+					StringTokenizer st = new StringTokenizer(vl, ",");
+					String optionColor = "";
+					String optionSize= "";
+					
+					while (st.hasMoreElements()) {
 	
+						String s = st.nextToken();
+						if ("01".equals(s.substring(0, 2))) {
+							optionColor=s.substring(3);
+						}
+						if ("02".equals(s.substring(0, 2))) {
+							optionSize= s.substring(3);
+						}
+						if ("cn".equals(s.substring(0, 2))) {
+							count=Integer.parseInt(s.substring(3));
+						}
+						
+					}
+					
+					pNum = Integer.parseInt(each.substring(each.indexOf("_")+1));
+					if(orderProductInfo.getPrdOpColor()==null && optionSize.equals(orderProductInfo.getPrdOpSize())){
+						count += orderProductInfo.getBuyCnt();
+						break;
+					}else if(orderProductInfo.getPrdOpSize()==null && optionColor.equals(orderProductInfo.getPrdOpColor())){
+						count += orderProductInfo.getBuyCnt();
+						break;
+					}else if(orderProductInfo.getPrdOpSize()!=null && orderProductInfo.getPrdOpColor()!=null){
+						if(optionSize.equals(orderProductInfo.getPrdOpSize()) && optionColor.equals(orderProductInfo.getPrdOpColor())){
+							count += orderProductInfo.getBuyCnt();
+							break;
+						}else{
+							pNum = prdCount+1 ;
+							count=orderProductInfo.getBuyCnt();
+							
+						}
+						
+					}else{
+						pNum = prdCount+1 ;
+						count=orderProductInfo.getBuyCnt();
+						
+					}
+				}
+					
+					
+			}
+				
+			if(orderProductInfo.getPrdOpColor()!=null){
+				value+="01="+orderProductInfo.getPrdOpColor()+",";
+			}
+			if(orderProductInfo.getPrdOpSize()!=null){
+				value+="02="+orderProductInfo.getPrdOpSize()+",";
+			}
+			if(orderProductInfo.getPrdSmallImg()!=null){
+				value+="cn="+count+",";
+				Cookie cookie =cki.createCookie("BOM"+orderProductInfo.getPrdCd()+"_"+pNum,value,50000);
+				response.addCookie(cookie);//
 		
+			
+			}
+		
+		}else{
+
+			String vl = cki.getValue(orderProductInfo.getCookieKey());
+			StringTokenizer st = new StringTokenizer(vl, ",");
+			String option = "";
+			
+			String cookieKey = orderProductInfo.getCookieKey();
+			orderProductInfo.setPrdCd(cookieKey.substring(3,cookieKey.indexOf("_")));
+			while (st.hasMoreElements()) {
+
+				String s = st.nextToken();
+
+				if ("01".equals(s.substring(0, 2))) {
+					option += s + ",";
+					orderProductInfo.setPrdOpColor(s.substring(3));
+				}
+				if ("02".equals(s.substring(0, 2))) {
+					option += s + ",";
+					orderProductInfo.setPrdOpSize(s.substring(3));
+				}
+				if ("cn".equals(s.substring(0, 2))) {
+					orderProductInfo.setBuyCnt(Integer.parseInt(s.substring(3)));
+					
+				}
+
+				orderProductInfo.setPrdOption(option);
+			}
 		}
-		
-		
 		
 		String key = orderProductInfo.getPrdCd();
 		ProductInfo prdInfo = new ProductInfo();
@@ -354,10 +474,11 @@ public class OrderController {
 		CustomerInfo custom = setSession(session);
 		CookieBox cki = new CookieBox(request);
 		List<OrderProductInfo> ord = getCartList(cki);
-		
+		List<String> ckKey = cki.getKey();
 		
 		
 		model.addAttribute("odPrdInfo",ord);
+		
 		
 		return "order/cartList";
 	}
@@ -368,13 +489,36 @@ public class OrderController {
 		
 		CookieBox cki = new CookieBox(request);
 		
-		Cookie cookie =cki.createCookie("BOM_"+orderProductInfo.getPrdCd(),"",-1);
+		Cookie cookie =cki.createCookie(orderProductInfo.getCookieKey(),"",-1);
 		response.addCookie(cookie);
 		
 
 		return "redirect:cartListView.do";
 	}
-			
+	
+	//주문 상품 삭제
+	@RequestMapping(value="/order/deleteOrderList.do", method = RequestMethod.GET)
+	public String deleteOrderList(@ModelAttribute("orderProductInfo") OrderProductInfo orderProductInfo,@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
+		
+		CookieBox cki = new CookieBox(request);
+		
+		Cookie cookie =cki.createCookie(orderProductInfo.getCookieKey(),"",-1);
+		response.addCookie(cookie);
+		StringTokenizer st = new StringTokenizer(orderInfo.getOrd_unit_chk(),",");
+		
+		String checked ="";
+		while(st.hasMoreTokens()){ // 반활할 토큰이 있는가? true/false;
+			String cookieKey = st.nextToken();
+			if(orderProductInfo.getCookieKey().equals(cookieKey)){
+				
+			}else{
+				checked+=","+cookieKey+",";
+			}
+		}
+
+		return "redirect:orderRegister.do?ord_unit_chk="+checked;
+	}
+		
 	//장바구니->결제페이지
 	@RequestMapping(value="/order/orderRegister.do")
 	public String orderRegister(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result,HttpSession session, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
@@ -390,7 +534,9 @@ public class OrderController {
 		while(st.hasMoreTokens()){ // 반활할 토큰이 있는가? true/false;
 			OrderProductInfo odPrdInfo = new OrderProductInfo();
 			
-			String key = st.nextToken();
+			String cookieKey = st.nextToken();
+			odPrdInfo.setCookieKey(cookieKey);
+			String key = cookieKey.substring(3,cookieKey.indexOf("_"));
 			odPrdInfo.setPrdCd(key);
 			ProductInfo prdInfo = new ProductInfo();
 			prdInfo.setPrdCd(key);
@@ -410,7 +556,7 @@ public class OrderController {
 				odPrdInfo.setPrdSmallImg(att.getAttFilePath());
 			}
 
-			String vl = cki.getValue("BOM_"+key);
+			String vl = cki.getValue(cookieKey);
 			StringTokenizer st1 = new StringTokenizer(vl, ",");
 			String option = "";
 			
@@ -700,11 +846,11 @@ public class OrderController {
 		// 키를불러오면 처리해줄 부분
 		for(String each : ckKey){
 			
-			if("BOM".equals(each.substring(0, 3))){
+			if("BOMP".equals(each.substring(0, 4))){
 			
 				OrderProductInfo odPrdInfo = new OrderProductInfo();
-				
-				String key = each.substring(4);
+				odPrdInfo.setCookieKey(each);
+				String key = each.substring(3,each.indexOf("_"));
 				odPrdInfo.setPrdCd(key);
 				ProductInfo prdInfo = new ProductInfo();
 				prdInfo.setPrdCd(key);

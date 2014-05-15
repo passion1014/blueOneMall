@@ -25,7 +25,15 @@ public class OrderProductInfo {
 	private String prdOption;
 	private String oderDelete;
 	
+	private String cookieKey;
 	
+	
+	public String getCookieKey() {
+		return cookieKey;
+	}
+	public void setCookieKey(String cookieKey) {
+		this.cookieKey = cookieKey;
+	}
 	public String getPrdOption() {
 		return prdOption;
 	}

@@ -811,8 +811,13 @@ public class ProductController {
 		int[] opIdx = new int[50];
 		String[] opKey = new String[50];
 		String[] opValue = new String[50];
+		
 		for (ProductInfo each : prdOpList) {
+			
 			opKey[i] = each.getPropType();
+			if(each.getPropType().equals("01")) productInfo.setPrdColor("y");
+			if(each.getPropType().equals("02")) productInfo.setPrdSize("y");
+			
 			opValue[i] = each.getPropName();
 			opIdx[i] = each.getPropIdx();
 			i++;

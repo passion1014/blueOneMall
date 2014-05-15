@@ -147,7 +147,7 @@ function cnt_UP(){
 										 
 								<tr>
 									<th>
-										<input type="checkbox" id="ord_unit_chk" name="ord_unit_chk"  value="${odPrdInfo.prdCd}" title="상품선택"/>
+										<input type="checkbox" id="ord_unit_chk" name="ord_unit_chk"  value="${odPrdInfo.cookieKey}" title="상품선택"/>
 									</th>
 									<td class="product_area leftalign">
 										<span>
@@ -155,19 +155,19 @@ function cnt_UP(){
 										<span>
 											${odPrdInfo.prdNm}
 											<c:if test="${'NULL' ne odPrdInfo.prdOpColor}">/${odPrdInfo.prdOpColor}</c:if>
-											<c:if test="${'NULL' eq odPrdInfo.prdOpSize}">/${odPrdInfo.prdOpSize}</c:if>
+											<c:if test="${'NULL' ne odPrdInfo.prdOpSize}">/${odPrdInfo.prdOpSize}</c:if>
 											
 										</span>
 									</td>
 									<td>${odPrdInfo.sellPrice}</td>
 									<td>
 										<span class="input_text"><input type="text" value="${odPrdInfo.buyCnt}" id="buyCnt" nam="buyCnt" title="수량기입"><!-- <button class="btn_triangle1" ></button> --></span>
-										<span class="input_btn"><input type="button" value="수정" title="수정" onClick="location.href='editBuyCnt.do?prdCd=${odPrdInfo.prdCd}&buyCnt='+document.getElementById('buyCnt').value;"><!-- <button class="btn_triangle2"></button> --></span>
+										<span class="input_btn"><input type="button" value="수정" title="수정" onClick="location.href='editBuyCnt.do?cookieKey=${odPrdInfo.cookieKey}&buyCnt='+document.getElementById('buyCnt').value;"><!-- <button class="btn_triangle2"></button> --></span>
 									</td>
 									<td>${odPrdInfo.totalPrice}</td>
 									<td>
-										<input type="button" value="구매하기 "class="btn_choice1" onClick="location.href='orderDirect.do?prdCd=${odPrdInfo.prdCd}&orderNo=${odPrdInfo.orderNo}&prdOpColor=${odPrdInfo.prdOpColor}&buyCnt='+document.getElementById('buyCnt').value;"/>
-										<input type="button" value="삭제하기" class="btn_choice2" onClick="confirm_process('','해당 상품을 삭제하시겠습니까?','deleteCartList.do?prdCd=${odPrdInfo.prdCd}');" /> 
+										<input type="button" value="구매하기 "class="btn_choice1" onClick="location.href='orderDirect.do?cookieKey=${odPrdInfo.cookieKey}';"/>
+										<input type="button" value="삭제하기" class="btn_choice2" onClick="confirm_process('','해당 상품을 삭제하시겠습니까?','deleteCartList.do?cookieKey=${odPrdInfo.cookieKey}');" /> 
 									</td>
 								</tr>
 								<tr>
