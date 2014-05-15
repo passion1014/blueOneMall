@@ -102,8 +102,9 @@
 		WHERE
 			(1 = 1)
 				<!-- <if test="srchStdDt != null and srchStdDt != '' and srchEdDt != null and srchEdDt != ''">AND T1.ORDER_DATE BETWEEN #{srchStdDt} AND #{srchEdDt} </if>
-				 --><if test="orderStatCd != null and orderStatCd != ''">AND T1.ORDER_STAT_CD=#{orderStatCd} </if>
-			 	<if test="orderStatCd != null and orderStatCd != ''">AND T1.CUST_ID=#{customerInfo.custId} </if>
+				 --><if test="orderStatCd != null and orderStatCd != ''">AND T1.ORDER_STAT_CD= #{orderStatCd} </if>
+			<!--  	<if test="customerInfo.custId != null and customerInfo.custId != ''">AND T1.CUST_ID=#{customerInfo.custId} </if>
+			 --> 	<if test="customerInfo != null">AND T1.CUST_ID=#{customerInfo.custId} </if>
 			
 			
 	</select >
@@ -133,7 +134,11 @@
 		FROM 
 				BOM_ORDER_TB T1
 		WHERE
-			T1.CUST_ID = #{customerInfo.custId}
+			(1 = 1)
+			<if test="customerInfo.custId != null and customerInfo.custId != ''"> AND T1.CUST_ID = #{customerInfo.custId}</if>
+			<if test="orderNo != null and orderNo != ''"> AND T1.ORDER_NO = #{orderNo}</if>
+			
+			
 	</select >
 
 	<insert id="insertBomOrderPrdTb0001" parameterType="orderProductInfo" >
@@ -150,6 +155,18 @@
 			VALUES
 			(#{orderNo}, #{customerInfo.custId},#{orderStatCd},sysdate(), sysdate(), sysdate(),#{modifyUserId})
 	</insert>
+	
+	<update id="updateBomOrderTb0001" parameterType="orderInfo">
+		UPDATE BOM_ORDER_TB
+			SET
+				`LAST_DATE` = sysdate()
+				<if test="orderNo != null and orderNo != ''">,`ORDER_NO` = #{orderNo}</if>
+				<if test="customerInfo.custId != null and customerInfo.custId != ''">,`CUST_ID` = #{customerInfo.custId},`MODIFY_USER_ID` = #{customerInfo.custId}</if>
+				<if test="orderStatCd != null and orderStatCd != ''">,`ORDER_STAT_CD` = #{orderStatCd}</if>
+			
+		WHERE
+			`ORDER_NO`= #{orderNo}
+	</update>
 	
 
 

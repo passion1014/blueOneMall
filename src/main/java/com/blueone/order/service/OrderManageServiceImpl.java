@@ -162,15 +162,15 @@ public class OrderManageServiceImpl implements IOrderManageService{
 	
 	@Override
 	//주문코드로 주문상품 조회
-	public OrderProductInfo selectOrderPrdInfo(OrderProductInfo odPrdInfo){
-		OrderProductInfo result = new OrderProductInfo();
+	public List<OrderProductInfo> selectOrderPrdInfo(OrderProductInfo odPrdInfo){
+		 List<OrderProductInfo> result = new  ArrayList<OrderProductInfo>();
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
 			// -----------------------------------------------
 			// 1. 상품코드 기본값 조회
 			// -----------------------------------------------
-			result = sqlSession.selectOne("order.selectListBomOrderPrdTb0001", odPrdInfo);
+			result = sqlSession.selectList("order.selectListBomOrderPrdTb0001", odPrdInfo);
 			
 		} finally {
 			sqlSession.close();
@@ -182,7 +182,7 @@ public class OrderManageServiceImpl implements IOrderManageService{
 	
 
 	@Override
-	//사용자 아이디로 주문상품 조회
+	//사용자 아이디 or 주문코드로로 주문내역 조회
 	public List<OrderInfo> selectOrderInfoList(OrderInfo odInfo){
 		 List<OrderInfo> result = new ArrayList<OrderInfo>();
 		
@@ -278,6 +278,35 @@ public class OrderManageServiceImpl implements IOrderManageService{
 		
 		
 	}
+	  //상품관리(수정)
+    @Override
+    public int updateOrderInf(OrderInfo odInfo) {
+        
+        int rst = -1;
+        
+       /* // -----------------------------------------------
+        // 해당하는 상품 데이터가 있는지 확인
+        // -----------------------------------------------
+        ProductInfo searchRstInf = getProductInfDetail(productInfo);
+        */
+        // -----------------------------------------------
+        // 조회한 결과값이 있으면 DB업데이트
+        // -----------------------------------------------
+       // if (searchRstInf != null && StringUtils.isNotEmpty(searchRstInf.getPrdCd())) {
+            SqlSession sqlSession = sqlSessionFactory.openSession();
+            try {
+                // DB 수행
+                rst = sqlSession.update("order.updateBomOrderTb0001", odInfo);
+                
+               
+               
+            } finally {
+                sqlSession.close();
+            }
+        //}
+        
+        return rst;
+    }
 
 	@Override
 	public List<OrderInfo> getOrderInfoListByPeriod(OrderSrchInfo orderSrchInfo) {

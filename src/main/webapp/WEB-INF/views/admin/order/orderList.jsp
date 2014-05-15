@@ -107,12 +107,15 @@
 							${odList.orderNo}
 						</td>
 						<td>
-							<c:if test="${odList.orderStatCd eq '01'}">신청중</c:if>
+							<c:if test="${odList.orderStatCd eq '01'}">신청대기</c:if>
 							<c:if test="${odList.orderStatCd eq '02'}">결제완료</c:if>
-							<c:if test="${odList.orderStatCd eq '03'}">배송준비중</c:if>
+							<c:if test="${odList.orderStatCd eq '07'}">취소신청</c:if>
+							<c:if test="${odList.orderStatCd eq '08'}">취소완료</c:if>
+							<c:if test="${odList.orderStatCd eq '03'}">배송준비</c:if>
 							<c:if test="${odList.orderStatCd eq '04'}">배송중</c:if>
 							<c:if test="${odList.orderStatCd eq '05'}">배송완료</c:if>
-							<c:if test="${odList.orderStatCd eq '06'}">고객확인</c:if>
+							<c:if test="${odList.orderStatCd eq '09'}">반품신청</c:if>
+							<c:if test="${odList.orderStatCd eq '10'}">반품신청완료</c:if>
 							
 						</td>
 						<td>

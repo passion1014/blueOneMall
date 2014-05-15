@@ -89,10 +89,10 @@
 			<li><a href="orderTransferReadyList.do">배송준비중</a></li>
 			<li><a href="orderTransferingList.do">배송중</a></li>
 			<li><a href="orderCompleteList.do">주문완료</a></li>
-			<li>최소신청</li>
-			<li>취소완료</li>
-			<li>반품신청</li>
-			<li>반품완료</li>
+			<li><a href="orderCancelList.do">최소신청</a></li>
+			<li><a href="orderCancelCompleteList.do">취소완료</a></li>
+			<li><a href="orderTakeBackList.do">반품신청</a></li>
+			<li><a href="orderTakeBackCompleteList.do">반품완료</a></li>
 		</ul>
 		<ul>
 			<h2>거래내역조회</h2>

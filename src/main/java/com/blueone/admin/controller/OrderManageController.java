@@ -133,7 +133,82 @@ public class OrderManageController {
 
 		return "admin/order/orderList";
 	}
+	// 주문취소신청
+	@RequestMapping(value = "/orderCancelList.do", method = RequestMethod.GET)
+	public String orderCancelList(@ModelAttribute("AdminInfo") AdminInfo adminInfo,BindingResult result, Model model, HttpSession session) {
+		
+		  AdminInfo adminSession = (AdminInfo) session.getAttribute("adminSession");
+		  
+		  if (adminSession == null) { return "redirect:adminLogin.do"; }
+		
+
+		OrderInfo os = new OrderInfo();
+		os.setOrderStatCd("07");
+		List<OrderInfo> odList = orderManageService.getOrderInfoListByPeriod(os);
+
+		model.addAttribute("odList", odList);
+		model.addAttribute("sh", "cancel");
+
+		return "admin/order/orderList";
+	}
+	//주문취소신청완료
+	@RequestMapping(value = "/orderCancelCompleteList.do", method = RequestMethod.GET)
+	public String orderCancelCompleteList(@ModelAttribute("AdminInfo") AdminInfo adminInfo,BindingResult result, Model model, HttpSession session) {
+		
+		  AdminInfo adminSession = (AdminInfo) session.getAttribute("adminSession");
+		  
+		  if (adminSession == null) { return "redirect:adminLogin.do"; }
+		
+
+		OrderInfo os = new OrderInfo();
+		os.setOrderStatCd("08");
+		List<OrderInfo> odList = orderManageService
+				.getOrderInfoListByPeriod(os);
+
+		model.addAttribute("odList", odList);
+		model.addAttribute("sh", "cancelComplete");
+
+		return "admin/order/orderList";
+	}
+	// 반품신청
+	@RequestMapping(value = "/orderTakeBackList.do", method = RequestMethod.GET)
+	public String orderTakeBackList(@ModelAttribute("AdminInfo") AdminInfo adminInfo,BindingResult result, Model model, HttpSession session) {
+		
+		  AdminInfo adminSession = (AdminInfo) session.getAttribute("adminSession");
+		  
+		  if (adminSession == null) { return "redirect:adminLogin.do"; }
+		
+
+		OrderInfo os = new OrderInfo();
+		os.setOrderStatCd("09");
+		List<OrderInfo> odList = orderManageService
+				.getOrderInfoListByPeriod(os);
+
+		model.addAttribute("odList", odList);
+		model.addAttribute("sh", "return");
+
+		return "admin/order/orderList";
+	}
 	
+	// 반품신청완료
+	@RequestMapping(value = "/orderTakeBackCompleteList.do", method = RequestMethod.GET)
+	public String orderTakeBackCompleteList(@ModelAttribute("AdminInfo") AdminInfo adminInfo,BindingResult result, Model model, HttpSession session) {
+		
+		  AdminInfo adminSession = (AdminInfo) session.getAttribute("adminSession");
+		  
+		  if (adminSession == null) { return "redirect:adminLogin.do"; }
+		
+
+		OrderInfo os = new OrderInfo();
+		os.setOrderStatCd("10");
+		List<OrderInfo> odList = orderManageService
+				.getOrderInfoListByPeriod(os);
+
+		model.addAttribute("odList", odList);
+		model.addAttribute("sh", "retrunComplete");
+
+		return "admin/order/orderList";
+	}
 	// 월별 거래내역조회
 	@RequestMapping(value = "/monthTradeList.do", method = RequestMethod.GET)
 	public String monthTradeList(@ModelAttribute("AdminInfo") AdminInfo adminInfo,BindingResult result, Model model, HttpSession session) {

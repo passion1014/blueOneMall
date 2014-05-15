@@ -22,17 +22,13 @@
 		<div class="sub_content">
 			<form action="#" method="post">
 				<div class="porder_section">
-					<h4>주문 완료</h4>
-					<p class="sub_tit">내가 발급 받을 수 있는 쿠폰리스트 입니다.</p>
-					<p class="sub_text">오랫동안 장바구니에 보관된 상품을 주문하실 경우,가격이나 혜택이 변돌 될 수 있습니다.</p>
+					<h4>주문상세페이지</h4>
+					<p class="sub_tit">주문 상세 내용을 볼 수 있는 페이지 입니다.</p>
+					<p class="sub_text"></p>
 					<div class="porder_step">
-						<ul>
-							<li><img src="<c:url value='/resources/img/sub/shopping_loc3_on.png'/>" alt="SETP3 주문완료이미지"/></li>
-							<li class="mmargin"><img src="<c:url value='/resources/img/sub/shopping_loc2_off.png'/>" alt="SETP2 주문/결제이미지"/></li>
-							<li class="mmargin"><img src="<c:url value='/resources/img/sub/shopping_loc1_off.png'/>" alt="SETP1 카트이미지"/></li>
-						</ul>
-						<h5>주문하신 상품</h5>
-						<table class="order_tbl" summary="주문상품 리스트">
+						
+						<h5>주문하신 상품 ${orderInfo.orderNo }</h5>
+						 <table class="order_tbl" summary="주문상품 리스트">
 							<caption>주문상품 목록표</caption>
 							<colgroup>
 								<col width="65%"/>
@@ -70,8 +66,7 @@
 									</td>
 									<td>${odPrdInfo.sellPrice}</td>
 									<td>
-										<span class="input_text">${odPrdInfo.buyCnt}<%-- <input type="text" id="buyCnt${i.index}" naem="buyCnt${i.index}" value="${odPrdInfo.buyCnt}" title="수량기입"><!-- <button class="btn_triangle1"></button> --> --%></span>
-										<span class="input_btn"><%-- <input type="button" value="수정" title="수정" onClick="location.href='editOrderBuycn.do?ordIdx=${i.index}&ord_unit_chk=${orderInfo.ord_unit_chk}&orderProductList[${i.index}].buyCnt='+document.getElementById('buyCnt${i.index}').value;"> <!-- <button class="btn_triangle2"></button> --> --%></span>
+										<span class="input_text">${odPrdInfo.buyCnt}<!-- <button class="btn_triangle1"></button> --></span>
 									</td>
 									<td>${odPrdInfo.totalPrice}</td>
 									
@@ -83,7 +78,6 @@
 								</tr>
 								</c:forEach>
 								</c:when>
-								<c:otherwise><tr><td>장바구니에 상품이 없습니다.</td></tr></c:otherwise>
 								</c:choose>
 								<tr>
 									<c:set var="total"  value="0"/>
@@ -160,8 +154,8 @@
 						</table>
 					</div>
 					<div class="complet_box">
-						<a href="/product/productList.do" class="btn_success">계속쇼핑하기</a>
-						<a href="#" class="btn_continue">확인</a>
+						<c:if test="${odInfo.orderStatCd eq '01' or odInfo.orderStatCd eq '02'}"><a href="orderCancel.do?orderNo=${odInfo.orderNo}" class="btn_success">주문취소</a></c:if>
+						<c:if test="${odInfo.orderStatCd eq '03' or odInfo.orderStatCd eq '04'}"><a href="orderTakeBack.do?orderNo=${odInfo.orderNo}" class="btn_continue">반품신청</a></c:if>
 					</div>
 				</div>
 			</form>

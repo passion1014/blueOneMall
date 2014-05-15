@@ -11,7 +11,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>###### 현대프로모션몰 ######</title>
-<script language="javascript">
+<!-- <script language="javascript">
 
 	function _pay(_frm) 
 	{
@@ -68,7 +68,7 @@
 	}
 
 </script>    
-   
+    -->
 </head>
 <body>
 	<div class="wrap">
@@ -81,10 +81,11 @@
 			<form action="orderRegisterProc.do" method="post" name="KSPayWeb">
 			<input type="hidden" id="customerInfo.custId"  name="customerInfo.custId"  value="${cus.custId}">
 			<input type="hidden" id="ord_unit_chk"  name="ord_unit_chk"  value="${orderInfo.ord_unit_chk}">
+			<input type="hidden" id="orderNo"  name="orderNo"  value="${orderInfo.orderNo}">
 			
 			<input type="hidden" id="customerInfo.modifyUserId"  name="customerInfo.modifyUserId"  value="${cus.custId}">
-			<input type="hidden" id="orderProductList"  name="orderProductList"  value="${odPrdInfo}" />
-			<c:if test="${odPrdInfo.size() == 1}"><input type="hidden" id="sndGoodname"  name="sndGoodname"  value="${odPrdInfo[0].prdNm}" /></c:if>
+			
+			<%-- <c:if test="${odPrdInfo.size() == 1}"><input type="hidden" id="sndGoodname"  name="sndGoodname"  value="${odPrdInfo[0].prdNm}" /></c:if>
 			<c:if test="${odPrdInfo.size() != 1}">			
 			<input type="hidden" id="sndGoodname"  name="sndGoodname"  value="${odPrdInfo[0].prdNm} 외 ${odPrdInfo.size()}개" /></c:if>
 			
@@ -151,7 +152,7 @@
 <!--------------------------------------------------------------------------------------------------------------------------->
 	<input type=hidden name=sndPaymethod    value="1000000000">
 <input type='hidden' name='sndStoreid' value='2999199999'>
-<input type='hidden' name='sndOrdernumber' value='carrot_1234' size='30'>
+<input type='hidden' name='sndOrdernumber' value='carrot_1234' size='30'> --%>
 				<div class="porder_section">
 					<h4>제품주문</h4>
 					<div class="porder_step">
@@ -320,7 +321,7 @@
 								<tr>
 									<th>전화번호</th>
 									<td class="in_sectext">
-										<select  id="reciInfo.phone1" name="reciInfo.phone1" >
+										<select  id="reciInfo.reciPh" name="reciInfo.reciPh" >
 											<option selected>02</option>
 											<option>031</option>
 											<option>032</option>
@@ -337,12 +338,12 @@
 											<option>063</option>
 											<option>064</option>
 										</select>
-										-<input type="text" id="reciInfo.phone2" name="reciInfo.phone2" title="전화번호"/>-
-										<input type="text"  id="reciInfo.phone3" name="reciInfo.phone3" title="전화번호"/>
+										-<input type="text" id="reciInfo.reciPh" name="reciInfo.reciPh" title="전화번호"/>-
+										<input type="text"  id="reciInfo.reciPh" name="reciInfo.reciPh" title="전화번호"/>
 									</td>
 									<th>휴대전화번호</th>
 									<td class="in_sectext">
-										<select  id="reciInfo.mobile1" name="reciInfo.mobile1"  >
+										<select  id="reciInfo.reciMb" name="reciInfo.reciMb"  >
 											<option selected>010</option>
 											<option>011</option>
 											<option>017</option>
@@ -350,19 +351,19 @@
 											<option>019</option>
 											<option>018</option>
 										</select>
-										-<input type="text" id="reciInfo.mobile2" name="reciInfo.mobile2" title="휴대전화번호"/>-
-										<input type="text" id="reciInfo.mobile3" name="reciInfo.mobile3"  title="휴대전화번호"/>
+										-<input type="text" id="reciInfo.reciMb" name="reciInfo.reciMb" title="휴대전화번호"/>-
+										<input type="text" id="reciInfo.reciMb" name="reciInfo.reciMb"  title="휴대전화번호"/>
 									</td>
 								</tr>
 								<tr>
 									<th>주소</th>
 									<td colspan="3" class="address_box">
 										<span class="adr_box1">
-											<input type="text" title="우편번호"  id="reciInfo.zipCd1" name="reciInfo.zipCd1" />
+											<input type="text" title="우편번호"  id="reciInfo.reciAdd" name="reciInfo.reciAdd" />
 											<input type="button" value="우편번호 찾기"onClick="openWin('/user/searchZipCode.do','searchZipForm',600,450,'scrollbars=no');"/><br/>
 										</span>
 										<span class="adr_box2">
-											<input type="text" title="자동주소" id="reciInfo.add1" name="reciInfo.add1" />
+											<input type="text" title="자동주소" id="reciInfo.reciAdd" name="reciInfo.reciAdd" />
 										</span>
 									</td>
 								</tr>
@@ -458,7 +459,8 @@
 					</div>
 					<div class="complet_area">
 						<span class="btn_complete">
-							<input type="button" value="결제하기" title="결제버튼" onClick="_pay(document.KSPayWeb);"/>
+							<!-- <input type="button" value="결제하기" title="결제버튼" onClick="_pay(document.KSPayWeb);"/> -->
+							<input type="submit" value="결제하기" title="결제버튼" />
 						</span>
 						<span class="btn_cancle">
 							<input type="reset" value="취소하기" title="취소버튼"/>

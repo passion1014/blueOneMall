@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLDecoder;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -31,19 +33,25 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import com.blueone.admin.domain.AdminInfo;
 import com.blueone.admin.domain.AgreementInfo;
 import com.blueone.admin.service.IAdminManageService;
+import com.blueone.common.domain.AttachFileInfo;
 import com.blueone.common.domain.SearchAddress;
+import com.blueone.common.service.IAttachFileManageService;
 import com.blueone.common.util.Utility;
 import com.blueone.customer.domain.CustomerInfo;
+import com.blueone.customer.domain.RecipientInfo;
 import com.blueone.customer.service.ICustomerManageService;
 import com.blueone.order.domain.OrderInfo;
 import com.blueone.order.domain.OrderProductInfo;
 import com.blueone.order.service.IOrderManageService;
+import com.blueone.product.domain.ProductInfo;
+import com.blueone.product.service.IProductManageService;
 import com.blueone.user.domain.UserInfo;
 import com.blueone.user.service.IUserService;
 
@@ -51,11 +59,13 @@ import com.blueone.user.service.IUserService;
 @Controller
 public class UserController {
 	
+	@Autowired IOrderManageService orderManageService;
 	@Autowired IUserService userService;
 	@Autowired ICustomerManageService customerService;
 	@Autowired IOrderManageService orderService;
 	@Autowired IAdminManageService adminManageService;
-	
+	@Autowired private IProductManageService productManageService;
+	@Autowired private IAttachFileManageService attFileManageService;
 	//회원가입 폼 생성
 	@RequestMapping(value = "/user/userRegister.do", method=RequestMethod.GET)
 	public String userRegister(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model,HttpSession session){
@@ -97,15 +107,13 @@ public class UserController {
 	@RequestMapping(value="/user/userEdit.do", method=RequestMethod.GET)
 	public String userEdit(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model,HttpSession session){
 		//CustomerInfo customerSesstion = (CustomerInfo)session.getAttribute("customerSession");	
-		CustomerInfo cust= (CustomerInfo)session.getAttribute("customerSession");	
+		CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");	
 		// 세션체크
-		if (cust == null) {
+		if (cus == null) {
 			return "user/errorPage";
 		}	
 		
-		CustomerInfo cus=customerService.getCustomerInfo2(cust);
-		session.removeAttribute("customerSession");
-		session.setAttribute("customerSession", cus);
+		
 		
 		/*CustomerInfo cus =new CustomerInfo();
 		cus.setCustId("100001639343");
@@ -134,7 +142,7 @@ public class UserController {
 
 	//마이페이지 처리
 	@RequestMapping(value="/user/userEditProc.do", method=RequestMethod.POST)
-	public String userEditProc(@ModelAttribute("customerInfo") CustomerInfo customerInfo,BindingResult result, HttpSession session, Model model){
+	public String userEditProc(@ModelAttribute("customerInfo") CustomerInfo customerInfo,BindingResult result, HttpSession session, Model model, SessionStatus status){
 		
 		String birth = customerInfo.getBirthY()+"-"+customerInfo.getBirthM()+"-"+customerInfo.getBirthD();
 		customerInfo.setCustBirth(birth);
@@ -154,8 +162,10 @@ public class UserController {
 		}
 		customerService.updateCustomerInf(customerInfo);
 		
-		
-		
+		/*status.setComplete();
+		session.removeAttribute("customerSession");
+		status.isComplete();
+		*/
 		
 		return "redirect:userEdit.do";
 	}
@@ -256,7 +266,7 @@ public class UserController {
 	}
 		
 	
-	//주문내역관리
+	//주문내역리스트
 	@RequestMapping(value="/user/orderListView.do", method=RequestMethod.GET)
 	public String orderListView(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model,HttpSession session) {
 		
@@ -285,16 +295,57 @@ public class UserController {
 			String odNo = each.getOrderNo();
 			OrderProductInfo odPrd = new OrderProductInfo();
 			odPrd.setOrderNo(odNo);
-			odPrd=orderService.selectOrderPrdInfo(odPrd);
-			odPrd=orderService.toProduct(odPrd);
-			each.setOrdPrd(odPrd);
+			List<OrderProductInfo> opResInf = orderService.selectOrderPrdInfo(odPrd);
 			
-			String reg = each.getRegDate();
-			int a = reg.indexOf(" ");
-			reg= reg.substring(0, a);
-			each.setRegDate(reg);
-		}
-		}
+			
+			odPrd=opResInf.get(0);
+			String prdCd = odPrd.getPrdCd();
+			ProductInfo prInf = new ProductInfo();
+			prInf.setPrdCd(prdCd);
+			prInf=productManageService.getProductInfDetail(prInf);
+			
+			if(prInf !=null){
+			//상품 이름
+				if(opResInf.size()>1){
+					odPrd.setPrdNm(prInf.getPrdNm()+"외 "+(opResInf.size()-1)+"개");
+					
+					
+				}else{
+					odPrd.setPrdNm(prInf.getPrdNm());
+					
+					
+				}
+				
+				//수량 및 금액
+
+				BigDecimal total=null;
+				BigDecimal realTotal=new BigDecimal(0);
+				
+				for(OrderProductInfo odp:opResInf){
+					odp.setSellPrice(new BigDecimal(prInf.getPrdSellPrc()));
+					total = new BigDecimal(prInf.getPrdSellPrc()) ;
+					total=total.multiply(new BigDecimal(odp.getBuyCnt()));
+					realTotal=realTotal.add(total);
+				}
+				each.setTotalOrderPrice(realTotal);
+				
+				}
+				else{
+					
+				}
+				
+				each.setOrdPrd(odPrd);
+			
+			
+			
+				
+				
+				String reg = each.getRegDate();
+				int a = reg.indexOf(" ");
+				reg= reg.substring(0, a);
+				each.setRegDate(reg);
+			}
+			}
 		else{
 			
 		}
@@ -305,25 +356,124 @@ public class UserController {
 
 	//주문취소신청
 	@RequestMapping(value="/user/orderCancel.do", method=RequestMethod.GET)
-	public String orderCancel(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model,HttpSession session) {
+	public String orderCancel(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model,HttpSession session) {
 		
-		//아이디 셋팅
-		OrderInfo od = new OrderInfo();
+		
 		// CustomerInfo customerSesstion =(CustomerInfo)session.getAttribute("customerSession");
 		CustomerInfo cust = (CustomerInfo) session.getAttribute("customerSession");
 		// 세션체크
 		if (cust == null) {
 			return "user/errorPage";
 		}
-		od.setCustomerInfo(cust);
-		od.setOrderStatCd("01");
-		List<OrderInfo> odList =orderService.getOrderInfoListByPeriod(od);
+		orderInfo.setCustomerInfo(cust);
+		orderInfo.setOrderStatCd("07");
+		orderService.updateOrderInf(orderInfo);
 	
-		model.addAttribute("ordList", odList);
-		return "user/orderCancel";
+	
+		return "redirect:orderListView.do";
 	}
 
 
+	//반품신청
+	@RequestMapping(value="/user/orderTakeBack.do", method=RequestMethod.GET)
+	public String orderTakeBack(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model,HttpSession session) {
+		
+		
+		// CustomerInfo customerSesstion =(CustomerInfo)session.getAttribute("customerSession");
+		CustomerInfo cust = (CustomerInfo) session.getAttribute("customerSession");
+		// 세션체크
+		if (cust == null) {
+			return "user/errorPage";
+		}
+		orderInfo.setCustomerInfo(cust);
+		orderInfo.setOrderStatCd("09");
+		orderService.updateOrderInf(orderInfo);
+	
+	
+		return "redirect:orderListView.do";
+	}
+
+	//주문상세내역
+	@RequestMapping(value="/user/orderDetail.do", method=RequestMethod.GET)
+	public String orderDetail(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model,HttpSession session) {
+		
+		
+		// CustomerInfo customerSesstion =(CustomerInfo)session.getAttribute("customerSession");
+		CustomerInfo cust = (CustomerInfo) session.getAttribute("customerSession");
+		// 세션체크
+		if (cust == null) {
+			return "user/errorPage";
+		}
+		
+		//주문 정보
+		orderInfo.setCustomerInfo(cust);
+		List<OrderInfo> odList = orderService.selectOrderInfoList(orderInfo);
+		model.addAttribute("odInfo",odList.get(0));
+		
+		//결제상품 보여주기
+		String odNo=orderInfo.getOrderNo();
+			
+			
+		OrderProductInfo opRes = new OrderProductInfo();
+		opRes.setOrderNo(orderInfo.getOrderNo());
+		List<OrderProductInfo> opResInf = orderManageService.selectOrderPrdInfo(opRes);
+		
+		for(OrderProductInfo each : opResInf){
+			String prdCd = each.getPrdCd();
+			ProductInfo prInf = new ProductInfo();
+			prInf.setPrdCd(prdCd);
+			prInf=productManageService.getProductInfDetail(prInf);
+			
+			//상품 이름
+			each.setPrdNm(prInf.getPrdNm());
+			
+			//옵션
+			String option=each.getPrdOption();
+			StringTokenizer st = new StringTokenizer(option,",");
+			while(st.hasMoreElements()) {
+					
+					String s = st.nextToken();
+					
+					if("01".equals(s.substring(0, 2))){
+						option+=s+",";
+						each.setPrdOpColor(s.substring(3));
+					}
+					if("02".equals(s.substring(0, 2))){
+						option+=s+",";
+						each.setPrdOpSize(s.substring(3));
+					}
+			
+			}
+			
+			//수량 및 금액
+			each.setSellPrice(new BigDecimal(prInf.getPrdSellPrc()));
+			BigDecimal total = new BigDecimal(prInf.getPrdSellPrc()) ;
+			total=total.multiply(new BigDecimal(each.getBuyCnt()));
+			each.setTotalPrice(total);
+			
+			//사진
+			AttachFileInfo att = new AttachFileInfo();
+			att.setAttCdKey(prInf.getPrdCd());
+			att.setAttImgType("01");
+			att = attFileManageService.getAttFileInfListImg(att);
+			if(att==null){
+				each.setPrdSmallImg("");
+			}else { 
+				
+				each.setPrdSmallImg(att.getAttFilePath());
+			}
+			
+		}
+		model.addAttribute("odPrdInfo",opResInf);
+		
+		RecipientInfo reInf = new RecipientInfo();
+		reInf.setReciOdNum(odNo);
+		reInf = orderManageService.selectRecipientInfo(reInf);
+		model.addAttribute("reInfo",reInf);
+			
+	
+		return "user/orderDetail";
+	}
 	//1:1문의하기 목록
 	@RequestMapping(value="/user/qnaList.do", method=RequestMethod.GET)
 	public String qnaList(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model,HttpSession session){

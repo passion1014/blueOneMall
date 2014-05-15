@@ -14,11 +14,12 @@ public interface IOrderManageService {
 	public int registOrderProductInfo(OrderProductInfo odPrdInfo);
 	public int registOrderInfo(OrderInfo odInfo);
 	public int registRecipientInfo(RecipientInfo reciInfo);
-	public OrderProductInfo selectOrderPrdInfo(OrderProductInfo odPrdInfo);
+	public List<OrderProductInfo> selectOrderPrdInfo(OrderProductInfo odPrdInfo);
 	public RecipientInfo selectRecipientInfo(RecipientInfo reciInfo);
 	public List<OrderInfo> selectOrderInfoList(OrderInfo odInfo);
 	public OrderProductInfo toProduct(OrderProductInfo opResInf);
 	public List<OrderInfo> getOrderInfoListByPeriod(OrderInfo orderInfo);
+	public int updateOrderInf(OrderInfo odInfo);
 	
 	
 }
