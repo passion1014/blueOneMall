@@ -3,7 +3,18 @@
 
 <c:import  url="../inc/adminChecker.jsp" />
 <c:import  url="../inc/top.jsp" />
+<script type="text/javascript">
 
+	function fnAddClick() {
+		var f = tx_editor_form;
+
+		f.action = 'transferRegisterProc.do';
+
+		Editor.save(); // 다음 에디터
+	}
+
+
+</script>
 <body>
 <div id="Wrap">
 
@@ -16,7 +27,7 @@
 	<div id="Contents">
 	
 		<h1>상품관리 &gt; 배송정보관리 &gt; <strong>배송정보등록</strong></h1>
-		<form name="tx_editor_form" method="post" enctype="multipart/form-data" action="http://posttestserver.com/post.php">
+		<form name="tx_editor_form" method="post" action="transferRegisterProc.do">
 		<div style="padding:10px 5px 2px 5px;"><b>배송정보</b></div>
 		
 		<table>
@@ -34,15 +45,15 @@
 			<tr>
 				<th>상세내용</th>
 				<td colspan="3" style="text-align:left;">
-					<textarea name="tContents" id="transferContents" class="Text" style="width:97%;height:300px;">
+					
 						<jsp:include page="/resources/editor/editor.jsp" />
-					</textarea>
+					
 				</td>
 			</tr>		
 		</table>
 	
 		<div class="Btn_area">
-			<input type="submit" value="등록하기" class="Button Gray"> &nbsp; 
+			<input type="button" value="등록하기" class="Button Gray" onClick="fnAddClick();" /> &nbsp; 
 			<input type="button" value="취소"     class="Button Gray" onClick="history.back();">
 		</div>
 	

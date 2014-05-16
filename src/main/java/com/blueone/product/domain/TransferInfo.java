@@ -6,8 +6,15 @@ public class TransferInfo {
 	private int idx;
 	private String tTitle;
 	private String tContents;
+	String content;
 	
 	
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
 	public int getIdx() {
 		return idx;
 	}

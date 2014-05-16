@@ -34,7 +34,6 @@
 						<td style="text-align:center;">${transferList.idx}</td>
 						<td>
 							${transferList.tTitle} <BR />
-							${transferList.tContents}
 						</td>
 						<td style="text-align:center;">
 							<input type="button" value="수정" onClick="location.href='transferEdit.do?idx=${transferList.idx}';" class="Button Gray">

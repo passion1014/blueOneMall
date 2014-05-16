@@ -6,37 +6,69 @@
 
 <script language="javascript">
 <!--
-function list_Submit(key){
-
-	if (key == "modify"){
-		msg = "선택하신 상품을 일괄 수정 하시겠습니까?" ;
-		document.getElementById("cfrm").action = "modifyProductsInf.do" ;
-	}else if (key == "del"){
-		msg = "선택하신 상품을 삭제 하시겠습니까? \n\n삭제 후에는 복구가 불가능 합니다." ;
-		document.getElementById("cfrm").action = "deleteProductsInf.do" ;
-	}
+	$(document).ready(function() {
+		$('#prdCtgL').change(function() {
+			$.getJSON('/admin/categoryListByParent/' + $('#prdCtgL').val(), function(result) {
+	//			alert('중분류 size=' + result.length + '    ctgCode=' + result[0].ctgCode);
+				var options = '';
+				if (result != null && result.length > 0) {
+					for (var i = 0; i < result.length; i++) {
+						options += '<option value="' + result[i].ctgCode + '">' + result[i].ctgName + '</option>';
+					}
+				} else {
+					options = "<option value=''>없음</option>";
+				}
+				$("select#prdCtgM").html(options);
+			});
+		});
+		
+		$('#prdCtgM').change(function() {
+			$.getJSON('/admin/categoryListByParent/' + $('#prdCtgM').val(), function(result) {
+				var options = '';
+				if (result != null && result.length > 0) {
+					for (var i = 0; i < result.length; i++) {
+						options += '<option value="' + result[i].ctgCode + '">' + result[i].ctgName + '</option>';
+					}
+				} else {
+					options = "<option value=''>없음</option>";
+				}
+				$("select#prdCtgS").html(options);
+			});
+		});
+		
+	});
 	
+	function list_Submit(key){
 	
-	var chk_num = document.cfrm.elements.length;
-	
-	for(var i = 0; i < chk_num; i++){
-		var checkbox_obj = eval("document.cfrm.elements["+i+"]");
-		if(checkbox_obj.checked == true)	break;
-	}
-
-	if(i == chk_num) {
-		alert("먼저 처리하고자 하는 정보를 선택하여 주십시오");
-		return false;
-	} else {
-		if(confirm(msg)){
-
-			
-			document.getElementById("cfrm").submit() ;
-			return false;
+		if (key == "modify"){
+			msg = "선택하신 상품을 일괄 수정 하시겠습니까?" ;
+			document.getElementById("cfrm").action = "modifyProductsInf.do" ;
+		}else if (key == "del"){
+			msg = "선택하신 상품을 삭제 하시겠습니까? \n\n삭제 후에는 복구가 불가능 합니다." ;
+			document.getElementById("cfrm").action = "deleteProductsInf.do" ;
 		}
-	}
+		
+		
+		var chk_num = document.cfrm.elements.length;
+		
+		for(var i = 0; i < chk_num; i++){
+			var checkbox_obj = eval("document.cfrm.elements["+i+"]");
+			if(checkbox_obj.checked == true)	break;
+		}
+	
+		if(i == chk_num) {
+			alert("먼저 처리하고자 하는 정보를 선택하여 주십시오");
+			return false;
+		} else {
+			if(confirm(msg)){
+	
+				
+				document.getElementById("cfrm").submit() ;
+				return false;
+			}
+		}
 
-}
+	}
 //-->
 </script>
 
@@ -51,41 +83,49 @@ function list_Submit(key){
 	<div id="Contents">
 		<h1>제품관리 &gt; 상품관리 &gt; <strong>상품목록</strong></h1>
 
-		<form name="sfrm" method="GET" action="./admin.product.php" onsubmit="return chkForm(this);">
+		<form name="sfrm" method="post" action="searchProductList.do" onsubmit="return chkForm(this);">
 		<input id="slot" name="slot" value="product" type="hidden">
 		<input id="type" name="type" value="goods_list" type="hidden">
 		<table>
 			<tbody><tr>
 				<td class="left">
 					<div style="margin-bottom:5px;">
-						<select id="s_l_idx" name="s_l_idx" onchange="sfrm.submit();">
-							<option value="">:::: 대분류를 선택하여 주십시오 ::::</option>
-							<option value="1">Tool kits</option><option value="2">Bench Tools</option><option value="3">Machine &amp; Equipment</option><option value="4">Silver &amp; Gemstone</option><option value="5">Case &amp; Display</option><option value="6">Gemmoligical Instruments</option>					</select> &nbsp;
+						<select id="prdCtgL" name="prdCtgL">
+							<option value="">:::: 대분류를 선택하여주십시오 ::::</option>	
+							<c:forEach items="${ctgLList}" var="largeTypeObj">
+								<option value="<c:out value="${largeTypeObj.ctgCode}"></c:out>"><c:out value="${largeTypeObj.ctgName}"></c:out></option>
+							</c:forEach>							
+						</select>&nbsp;
 						
-						<select id="s_m_idx" name="s_m_idx" onchange="sfrm.submit();">
-							<option value="">:::: 중분류를 선택하여 주십시오 ::::</option>
-												</select>&nbsp;
-	
-	
-						<select id="s_s_idx" name="s_s_idx" onchange="sfrm.submit();">
+						<select id="prdCtgM" name="prdCtgM">
+							<option value="">:::: 중분류를 선택하여주십시오 ::::</option>	
+							<c:forEach items="${ctgList2}" var="middleTypeObj">
+								<option value="<c:out value="${middleTypeObj.ctgCode}"></c:out>"><c:out value="${middleTypeObj.ctgName}"></c:out></option>
+							</c:forEach>							
+						</select>&nbsp;		
+		
+						<select id="prdCtgS" name="prdCtgS">
 							<option value="">:::: 소분류를 선택하여 주십시오 ::::</option>
-							<option value="1">2014 신상품</option><option value="2">2014 공구상품</option><option value="3">1111</option>					</select>
+							<c:forEach items="${ctgList3}" var="smallTypeObj">
+								<option value="<c:out value="${smallTypeObj.ctgCode}"></c:out>"><c:out value="${smallTypeObj.ctgName}"></c:out></option>
+							</c:forEach>	
+						</select> &nbsp;
 					</div>
 					<div>
-						<b>상태</b>
-						<select id="s_display_yn" name="s_display_yn" onchange="sfrm.submit();">
+						<b>진열상태</b>
+						<select name="prdDp">
 							<option value="">전체</option>
 							<option value="y">진열</option>
 							<option value="n">대기</option>
 						</select> &nbsp;
-						<input name="sp_type_1" id="sp_type_1" value="y" onclick="sfrm.submit();" type="checkbox"> 베스트 &nbsp;
-						<input name="sp_type_2" id="sp_type_2" value="y" onclick="sfrm.submit();" type="checkbox"> 행사품목 &nbsp;&nbsp;
-						
-						<select name="keyfield" id="keyfield">
-							<option value="t2.search_word">검색어</option>
-							<option value="t1.goods_name">상품명</option>
+							<input type="checkbox" name="prdSpe1" value="y"> 베스트 &nbsp;
+							<input type="checkbox" name="prdSpe2" value="y"> 행사품목 &nbsp; &nbsp;&nbsp;
+						<select name="schType" id="schType">
+							<option value="prdSchWord">검색어</option>
+							<option value="prdName">상품명</option>
+							<option value="prdBrand">제조사</option>
 						</select> &nbsp;
-						<input name="keyword" id="keyword" value="" type="text"> &nbsp;
+						<input name="schWord" id="schWord" value="" type="text"> &nbsp;
 	
 						<input value="검색" class="Small_Button Gray" type="submit">
 						<input value="초기화" class="Small_Button Gray" title="초기하기" onclick="location.href='./admin.product.php?slot=product&amp;type=goods_list'" type="button">

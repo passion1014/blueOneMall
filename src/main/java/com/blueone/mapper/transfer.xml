@@ -29,7 +29,8 @@
 	<update id="updateBomTransferTb0001" parameterType="transferInfo">
 		UPDATE BOM_TRANSFER_INFO_TB
 			SET
-				`T_TITLE` = #{tTitle}, `T_CONTENTS` = #{tContents}
+				<if test="tTitle != null and tTitle != ''">`T_TITLE` = #{tTitle}</if>
+				<if test="tContents != null and tContents != ''">, `T_CONTENTS` = #{tContents}</if>
 			WHERE
 				`IDX` = #{idx}	
 	

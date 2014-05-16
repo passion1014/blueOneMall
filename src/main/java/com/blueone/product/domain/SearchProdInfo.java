@@ -9,7 +9,14 @@ public class SearchProdInfo {
 	private String prdCtgS;
 	private int pageNum;
 	private String schWord;
+	private String schType;
 	
+	public String getSchType() {
+		return schType;
+	}
+	public void setSchType(String schType) {
+		this.schType = schType;
+	}
 	public String getSchWord() {
 		return schWord;
 	}

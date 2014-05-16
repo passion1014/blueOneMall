@@ -113,6 +113,32 @@ public class ProductManageServiceImpl implements IProductManageService {
         
         return productList;
     }
+    
+    @Override
+    public List<ProductInfo> getAdminProductSearchList(ProductInfo prdInfo) {
+        
+        List<ProductInfo> productList = new ArrayList<ProductInfo>();
+        
+//        String srchSqlTp = "";
+//        if (StringUtils.isNotEmpty(searchProdInfo.getProdNm())) {
+//            
+//        }
+        
+        // -----------------------------------------------
+        // DB Insert 수행
+        // -----------------------------------------------
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        try {
+            
+            // DB 수행
+            productList = sqlSession.selectList("product.selectListBomProductTb0005", prdInfo);
+        } finally {
+            sqlSession.close();
+        }
+
+        
+        return productList;
+    }
 
     //상품 낮은가격순 정렬
     @Override

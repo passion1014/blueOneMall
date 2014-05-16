@@ -119,6 +119,28 @@ public class ProductController {
 
 		model.addAttribute("endNum", pd.getEndPageNum());
 
+		// -----------------------------------------------------------------
+		// 2. 상품등록을 위한 카테고리(대분류) 리스트를 넘긴다.
+		// -----------------------------------------------------------------
+		CategoryInfo categoryInfo = new CategoryInfo();
+		List<CategoryInfo> Llist = categoryManageService
+				.getCategoryInfList(categoryInfo);
+
+		// 대분류로만 필터링한다.
+		List<CategoryInfo> rstList = new ArrayList<CategoryInfo>();
+
+
+		for (CategoryInfo each : Llist) {
+			if ("01".equals(each.getCtgCodeType())) {
+				rstList.add(each);
+
+			}
+
+		}
+
+				// 결과값 셋팅
+		model.addAttribute("ctgLList", rstList);
+		
 		return "admin/product/productList";
 	}
 
@@ -150,8 +172,6 @@ public class ProductController {
 		// 대분류로만 필터링한다.
 		List<CategoryInfo> rstList = new ArrayList<CategoryInfo>();
 
-		// 중분류만 필터링
-		List<CategoryInfo> rstList2 = new ArrayList<CategoryInfo>();
 
 		for (CategoryInfo each : list) {
 			if ("01".equals(each.getCtgCodeType())) {
@@ -280,7 +300,7 @@ public class ProductController {
 	}
 
 	@RequestMapping(value = "/product/searchProductList.do", method = RequestMethod.GET)
-	public String getAdminInfoList(
+	public String searchUserProductList(
 			@ModelAttribute("searchProdInfo") SearchProdInfo searchProdInfo,
 			BindingResult result, Model model, HttpSession session) {
 
@@ -298,15 +318,64 @@ public class ProductController {
 
 		return "product/productSearch";
 	}
+	
+	@RequestMapping(value = "/admin/searchProductList.do", method = RequestMethod.POST)
+	public String searchAdminProductList(
+			@ModelAttribute("searchProdInfo") ProductInfo searchProdInfo,
+			BindingResult result, Model model, HttpSession session) {
+		// -----------------------------------------------------------------
+		// 1. 세션정보를 확인해서 세션정보가 없을 경우 로그인 페이지로 이동한다.
+		// -----------------------------------------------------------------
+		AdminInfo adminSession = (AdminInfo) session
+				.getAttribute("adminSession");
+		if (adminSession == null) {
+			return "redirect:adminLogin.do";
+		}
+		// -----------------------------------------------------------------
+		// 2. 상품등록을 위한 카테고리(대분류) 리스트를 넘긴다.
+		// -----------------------------------------------------------------
+		CategoryInfo categoryInfo = new CategoryInfo();
+		List<CategoryInfo> list = categoryManageService
+				.getCategoryInfList(categoryInfo);
 
+		// 대분류로만 필터링한다.
+		List<CategoryInfo> rstList = new ArrayList<CategoryInfo>();
+
+		// 중분류만 필터링
+		List<CategoryInfo> rstList2 = new ArrayList<CategoryInfo>();
+
+		for (CategoryInfo each : list) {
+			if ("01".equals(each.getCtgCodeType())) {
+				rstList.add(each);
+
+			}
+
+		}
+
+		// 결과값 셋팅
+		model.addAttribute("ctgLList", rstList);
+		
+		List<ProductInfo> prolist = productManageService
+				.getAdminProductSearchList(searchProdInfo);
+		model.addAttribute("list", prolist);
+
+		return "admin/product/productList";
+	}
 	/**
 	 * 상품 관리 수정폼
 	 */
 	@RequestMapping(value = "/admin/productManagement.do", method = RequestMethod.GET)
 	public String productManage(
 			@ModelAttribute("productInfo") ProductInfo productInfo,
-			BindingResult result, Model model, String pCd) {
-
+			BindingResult result, Model model, String pCd, HttpSession session) {
+		// -----------------------------------------------------------------
+		// 1. 세션정보를 확인해서 세션정보가 없을 경우 로그인 페이지로 이동한다.
+		// -----------------------------------------------------------------
+		AdminInfo adminSession = (AdminInfo) session
+				.getAttribute("adminSession");
+		if (adminSession == null) {
+			return "redirect:adminLogin.do";
+		}
 		productInfo.setPrdCd(pCd);
 
 		productInfo = productManageService.getProductInfDetail(productInfo);
@@ -492,8 +561,15 @@ public class ProductController {
 	@RequestMapping(value = "/admin/deletePrdOptionInf.do", method = RequestMethod.GET)
 	public String deletePrdOptionInfo(
 			@ModelAttribute("productInfo") ProductInfo productInfo,
-			BindingResult result, Model model, String idx) {
-
+			BindingResult result, Model model, String idx, HttpSession session) {
+		// -----------------------------------------------------------------
+				// 1. 세션정보를 확인해서 세션정보가 없을 경우 로그인 페이지로 이동한다.
+				// -----------------------------------------------------------------
+				AdminInfo adminSession = (AdminInfo) session
+						.getAttribute("adminSession");
+				if (adminSession == null) {
+					return "redirect:adminLogin.do";
+				}
 		StringTokenizer st = new StringTokenizer(idx, ",");
 
 		String index = st.nextToken();
@@ -514,7 +590,15 @@ public class ProductController {
 	@RequestMapping(value = "/admin/deleteProductInf.do", method = RequestMethod.GET)
 	public String deleteProductInfo(
 			@ModelAttribute("productInfo") ProductInfo productInfo,
-			BindingResult result, Model model) {
+			BindingResult result, Model model, HttpSession session) {
+		// -----------------------------------------------------------------
+				// 1. 세션정보를 확인해서 세션정보가 없을 경우 로그인 페이지로 이동한다.
+				// -----------------------------------------------------------------
+				AdminInfo adminSession = (AdminInfo) session
+						.getAttribute("adminSession");
+				if (adminSession == null) {
+					return "redirect:adminLogin.do";
+				}
 		productManageService.deleteProductInf(productInfo);
 
 		return "redirect:productList.do";
@@ -526,8 +610,15 @@ public class ProductController {
 	@RequestMapping(value = "/admin/deleteProductsInf.do", method = RequestMethod.POST)
 	public String deleteProductsInfo(
 			@ModelAttribute("productInfo") ProductInfo productInfo,
-			BindingResult result, Model model) {
-
+			BindingResult result, Model model, HttpSession session) {
+		// -----------------------------------------------------------------
+				// 1. 세션정보를 확인해서 세션정보가 없을 경우 로그인 페이지로 이동한다.
+				// -----------------------------------------------------------------
+				AdminInfo adminSession = (AdminInfo) session
+						.getAttribute("adminSession");
+				if (adminSession == null) {
+					return "redirect:adminLogin.do";
+				}
 		StringTokenizer st = new StringTokenizer(productInfo.getUnit_chk(), ",");
 
 		while (st.hasMoreTokens()) { // 반활할 토큰이 있는가? true/false;
@@ -545,8 +636,15 @@ public class ProductController {
 	@RequestMapping(value = "/admin/modifyProductsInf.do", method = RequestMethod.POST)
 	public String modifyProductsInfo(
 			@ModelAttribute("productInfo") ProductInfo productInfo,
-			BindingResult result, Model model) {
-
+			BindingResult result, Model model, HttpSession session) {
+		// -----------------------------------------------------------------
+				// 1. 세션정보를 확인해서 세션정보가 없을 경우 로그인 페이지로 이동한다.
+				// -----------------------------------------------------------------
+				AdminInfo adminSession = (AdminInfo) session
+						.getAttribute("adminSession");
+				if (adminSession == null) {
+					return "redirect:adminLogin.do";
+				}
 		StringTokenizer st = new StringTokenizer(productInfo.getUnit_chk(), ",");
 
 		while (st.hasMoreTokens()) { // 반활할 토큰이 있는가? true/false;
@@ -586,8 +684,15 @@ public class ProductController {
 	@RequestMapping(value = "/admin/manageProductImgDelProc.do", method = RequestMethod.GET)
 	public String deleteImgProc(
 			@ModelAttribute("attFileInfo") AttachFileInfo attFileInfo,
-			BindingResult result, Model model, String idx) {
-
+			BindingResult result, Model model, String idx, HttpSession session) {
+		// -----------------------------------------------------------------
+		// 1. 세션정보를 확인해서 세션정보가 없을 경우 로그인 페이지로 이동한다.
+		// -----------------------------------------------------------------
+		AdminInfo adminSession = (AdminInfo) session
+				.getAttribute("adminSession");
+		if (adminSession == null) {
+			return "redirect:adminLogin.do";
+		}
 		StringTokenizer st = new StringTokenizer(idx, ",");
 
 		String index = st.nextToken();
@@ -608,7 +713,14 @@ public class ProductController {
 	public String transferList(
 			@ModelAttribute("transferInfo") TransferInfo transferInfo,
 			BindingResult result, Model model, HttpSession session, String page) {
-
+		// -----------------------------------------------------------------
+		// 1. 세션정보를 확인해서 세션정보가 없을 경우 로그인 페이지로 이동한다.
+		// -----------------------------------------------------------------
+		AdminInfo adminSession = (AdminInfo) session
+				.getAttribute("adminSession");
+		if (adminSession == null) {
+			return "redirect:adminLogin.do";
+		}
 		PageDivision pd = new PageDivision();
 
 		List<TransferInfo> transferList = new ArrayList<TransferInfo>();
@@ -622,8 +734,7 @@ public class ProductController {
 		pd.setItemNum(10);
 		pd.setTrList(transferList);
 
-		model.addAttribute("transferList", transferList);
-		model.addAttribute("list", pd.getTrList());
+		model.addAttribute("transferList",pd.getTrList());
 		model.addAttribute("endNum", pd.getEndPageNum());
 		return "admin/product/transferList";
 	}
@@ -636,6 +747,15 @@ public class ProductController {
 			@ModelAttribute("transferInfo") TransferInfo transferInfo,
 			BindingResult result, Model model, HttpSession session) {
 
+	
+		// -----------------------------------------------------------------
+		// 1. 세션정보를 확인해서 세션정보가 없을 경우 로그인 페이지로 이동한다.
+		// -----------------------------------------------------------------
+		AdminInfo adminSession = (AdminInfo) session
+				.getAttribute("adminSession");
+		if (adminSession == null) {
+			return "redirect:adminLogin.do";
+		}
 		return "admin/product/transferRegister";
 	}
 
@@ -644,6 +764,7 @@ public class ProductController {
 			@ModelAttribute("transferInfo") TransferInfo transferInfo,
 			BindingResult result, Model model, HttpSession session) {
 
+		transferInfo.settContents(transferInfo.getContent());
 		transferService.transferInsert(transferInfo);
 
 		return "admin/product/transferRegister";
@@ -656,9 +777,17 @@ public class ProductController {
 	public String transferEdit(
 			@ModelAttribute("transferInfo") TransferInfo transferInfo,
 			BindingResult result, Model model, HttpSession session) {
-
+	
+		// -----------------------------------------------------------------
+		// 1. 세션정보를 확인해서 세션정보가 없을 경우 로그인 페이지로 이동한다.
+		// -----------------------------------------------------------------
+		AdminInfo adminSession = (AdminInfo) session
+				.getAttribute("adminSession");
+		if (adminSession == null) {
+			return "redirect:adminLogin.do";
+		}
 		transferInfo = transferService.transferDetail(transferInfo);
-
+		transferInfo.setContent(transferInfo.gettContents());
 		model.addAttribute("transferInfo", transferInfo);
 
 		return "admin/product/transferEdit";
@@ -671,7 +800,7 @@ public class ProductController {
 	public String transferEditProc(
 			@ModelAttribute("transferInfo") TransferInfo transferInfo,
 			BindingResult result, Model model, HttpSession session) {
-
+		transferInfo.settContents(transferInfo.getContent());
 		transferService.transferEdit(transferInfo);
 
 		return "redirect:transferList.do";
@@ -684,7 +813,14 @@ public class ProductController {
 	public String transferDelete(
 			@ModelAttribute("transferInfo") TransferInfo transferInfo,
 			BindingResult result, Model model, HttpSession session) {
-
+		// -----------------------------------------------------------------
+		// 1. 세션정보를 확인해서 세션정보가 없을 경우 로그인 페이지로 이동한다.
+		// -----------------------------------------------------------------
+		AdminInfo adminSession = (AdminInfo) session
+				.getAttribute("adminSession");
+		if (adminSession == null) {
+			return "redirect:adminLogin.do";
+		}
 		transferService.transDelete(transferInfo);
 
 		return "redirect:transferList.do";
