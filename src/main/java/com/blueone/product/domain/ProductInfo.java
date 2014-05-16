@@ -33,7 +33,8 @@ public class ProductInfo {
 	private String prdColor;
 	private String prdSize;
 
-	
+	private String searchWord;
+	private int schType;
 	//상품 옵션
 	private String optionKey[];
 	private String optionValue[];
@@ -73,6 +74,18 @@ public class ProductInfo {
 
 	
 
+	public String getSearchWord() {
+		return searchWord;
+	}
+	public void setSearchWord(String searchWord) {
+		this.searchWord = searchWord;
+	}
+	public int getSchType() {
+		return schType;
+	}
+	public void setSchType(int schType) {
+		this.schType = schType;
+	}
 	public int getCurrentPage() {
 		return currentPage;
 	}

@@ -28,6 +28,12 @@
 				<input type="text" id="swWord" name="swWord" value="${resSchWd.swWord}" class="Text Kor" style="width:90%;">
 			</td>
 		</tr>
+		<tr>
+			<th>HIT</th>
+			<td colspan="3" class="left">
+				<input type="text" id="swHit" name="swHit" value="${resSchWd.swHit}" class="Text Kor" style="width:90%;">
+			</td>
+		</tr>
 		
 		
 	</table>

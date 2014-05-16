@@ -355,8 +355,16 @@ public class ProductController {
 		// 결과값 셋팅
 		model.addAttribute("ctgLList", rstList);
 		
-		List<ProductInfo> prolist = productManageService
-				.getAdminProductSearchList(searchProdInfo);
+		switch(searchProdInfo.getSchType()){
+			case 1 :
+				searchProdInfo.setSchWord(searchProdInfo.getSearchWord());
+				break;
+			case 2 :
+				searchProdInfo.setPrdNm(searchProdInfo.getSearchWord());
+				break;
+		
+		}
+		List<ProductInfo> prolist = productManageService.getAdminProductSearchList(searchProdInfo);
 		model.addAttribute("list", prolist);
 
 		return "admin/product/productList";

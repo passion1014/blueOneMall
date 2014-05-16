@@ -356,13 +356,15 @@
 			</if>
 			<if test="prdDp != null and prdDp eq 'y'.toString()"> AND T1.PRD_DISPLAY_YN = 'y' </if>
 			<if test="prdDp != null and prdDp eq 'n'.toString()"> AND T1.PRD_DISPLAY_YN = 'n' </if>
-			<if test="prdNm != null and prdNm != ''"> AND T1.PRD_NM LIKE CONCAT('%',#{prodNm},'%') </if>
+			<if test="prdNm != null and prdNm != ''"> AND T1.PRD_NM LIKE CONCAT('%',#{prdNm},'%') </if>
 			<if test="prdBrand != null and prdBrand != ''"> AND T1.PRD_BRAND LIKE CONCAT('%',#{prdBrand},'%') </if>
 			<if test="prdSpe1 != null and prdSpe1 eq 'y'.toString()"> AND T1.PRD_SPECAL_1 = 'y' </if>
 			<if test="prdSpe2 != null and prdSpe2 eq 'y'.toString()"> AND T1.PRD_SPECAL_2 = 'y' </if>
 			<if test="prdCtgL != null and prdCtgL != ''"> AND T1.PRD_CTG_L LIKE CONCAT('%',#{prdCtgL},'%') </if>
 			<if test="prdCtgM != null and prdCtgM != ''"> AND T1.PRD_CTG_M LIKE CONCAT('%',#{prdCtgM},'%') </if>
 			<if test="prdCtgS != null and prdCtgS != ''"> AND T1.PRD_CTG_S LIKE CONCAT('%',#{prdCtgS},'%') </if>
+			<if test="schWord != null and schWord != ''"> AND T1.SEARCH_WORD LIKE CONCAT('%',#{schWord},'%') </if>
+			
 	</select >
 	
 	<select id="selectListBomShopProductTb0001" parameterType="productInfo" resultMap="ProductBaseDtlMap">

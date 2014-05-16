@@ -53,8 +53,13 @@
 					</td>
 				</tr>
 				<tr>
+					<th>포인트설정</th>
+					<td class="left"><input type="text" id="pointConf" name="pointConf" value="${config.pointConf}"/>
+					</td>
+				</tr>
+				<tr>
 					<th>배송비설정</th>
-					<td class="left">구매금액&nbsp;<input type="text" id="buyPrice" name="buyPrice" value="${config.buyPrice}"/>원 이하<br>
+					<td class="left"><input type="text" id="buyPrice" name="buyPrice" value="${config.buyPrice}"/>원 이하<br>
 									배송비&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="trasferPrice" name="trasferPrice" value="${config.trasferPrice}"/>원 추가
 					</td>
 				</tr>

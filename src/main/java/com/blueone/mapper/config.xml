@@ -12,6 +12,7 @@
 		<result property="siteHp" column="SITE_HP" javaType="java.lang.String"/>
 		<result property="siteEmail" column="SITE_EMAIL" javaType="java.lang.String"/>
 		<result property="buyPrice" column="BUY_PRICE" javaType="int"/>
+		<result property="pointConf" column="POINT_CONF" javaType="int"/>
 		<result property="trasferPrice" column="TRANSFER_PRICE" javaType="int"/>
 		<result property="transferOffice" column="TRANSFER_OFFICE" javaType="java.lang.String"/>
 	</resultMap>
@@ -28,6 +29,7 @@
 			`SITE_HP` = #{siteHp} ,
 			`SITE_EMAIL` = #{siteEmail} ,
 			`BUY_PRICE` = #{buyPrice} ,
+			`POINT_CONF` = #{pointConf},
 			`TRANSFER_PRICE` = #{trasferPrice} ,
 			`TRANSFER_OFFICE` = #{transferOffice}
 	</update>
@@ -41,6 +43,7 @@
 			T1.SITE_HP,
 			T1.SITE_EMAIL,
 			T1.BUY_PRICE,
+			T1.POINT_CONF,
 			T1.TRANSFER_PRICE,
 			T1.TRANSFER_OFFICE
 		FROM 

@@ -29,7 +29,7 @@
 			
 			
 		FROM BOM_SEARCH_WORD_TB AS T1
-		ORDER BY T1.SW_RANK
+		ORDER BY T1.SW_HIT DESC
 	</select >
 	
 	<select id="selectDtlBomSearchWordTb0002"  parameterType="com.blueone.admin.domain.SchWordInfo" resultType="com.blueone.admin.domain.SchWordInfo" resultMap="SchWordInfoMap">

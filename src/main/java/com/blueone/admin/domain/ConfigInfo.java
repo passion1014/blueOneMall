@@ -9,8 +9,15 @@ public class ConfigInfo {
 	private String siteEmail;
 	private int buyPrice;
 	private int trasferPrice;
+	private int pointConf;
 	private String transferOffice;
 	
+	public int getPointConf() {
+		return pointConf;
+	}
+	public void setPointConf(int pointConf) {
+		this.pointConf = pointConf;
+	}
 	public String getSiteName() {
 		return siteName;
 	}

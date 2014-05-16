@@ -121,11 +121,11 @@
 							<input type="checkbox" name="prdSpe1" value="y"> 베스트 &nbsp;
 							<input type="checkbox" name="prdSpe2" value="y"> 행사품목 &nbsp; &nbsp;&nbsp;
 						<select name="schType" id="schType">
-							<option value="prdSchWord">검색어</option>
-							<option value="prdName">상품명</option>
-							<option value="prdBrand">제조사</option>
+							<option value="1" selected>검색어</option>
+							<option value="2">상품명</option>
 						</select> &nbsp;
-						<input name="schWord" id="schWord" value="" type="text"> &nbsp;
+						<input name="searchWord" id="searchWord" value="" type="text"> &nbsp;
+						
 	
 						<input value="검색" class="Small_Button Gray" type="submit">
 						<input value="초기화" class="Small_Button Gray" title="초기하기" onclick="location.href='./admin.product.php?slot=product&amp;type=goods_list'" type="button">
