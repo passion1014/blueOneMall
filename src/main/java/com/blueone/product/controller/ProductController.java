@@ -841,7 +841,14 @@ public class ProductController {
 	public String transferInfoPopup(
 			@ModelAttribute("transferInfo") TransferInfo transferInfo,
 			BindingResult result, Model model, HttpSession session) {
-
+		// -----------------------------------------------------------------
+				// 1. 세션정보를 확인해서 세션정보가 없을 경우 로그인 페이지로 이동한다.
+				// -----------------------------------------------------------------
+				AdminInfo adminSession = (AdminInfo) session
+						.getAttribute("adminSession");
+				if (adminSession == null) {
+					return "redirect:adminLogin.do";
+				}
 		List<TransferInfo> transferList = new ArrayList<TransferInfo>();
 
 		transferList = transferService.transferList(transferInfo);
@@ -859,7 +866,14 @@ public class ProductController {
 			@ModelAttribute("transferInfo") TransferInfo transferInfo,
 			BindingResult result, Model model, HttpSession session,
 			RedirectAttributes redirectAttributes) {
-
+		// -----------------------------------------------------------------
+				// 1. 세션정보를 확인해서 세션정보가 없을 경우 로그인 페이지로 이동한다.
+				// -----------------------------------------------------------------
+				AdminInfo adminSession = (AdminInfo) session
+						.getAttribute("adminSession");
+				if (adminSession == null) {
+					return "redirect:adminLogin.do";
+				}
 		TransferInfo transDetail = null;
 
 		transDetail = transferService.transferDetail(transferInfo);
@@ -879,6 +893,105 @@ public class ProductController {
 	 * 
 	 * return rstList; }
 	 */
+
+	@RequestMapping(value = "/admin/adminProductView.do", method = RequestMethod.GET)
+	public String adminProductView(@ModelAttribute("productInfo") ProductInfo productInfo,@ModelAttribute("categoryInfo") CategoryInfo categoryInfo,BindingResult result, Model model, HttpSession session) {
+		// -----------------------------------------------------------------
+		// 1. 세션정보를 확인해서 세션정보가 없을 경우 로그인 페이지로 이동한다.
+		// -----------------------------------------------------------------
+		AdminInfo adminSession = (AdminInfo) session
+				.getAttribute("adminSession");
+		if (adminSession == null) {
+			return "redirect:adminLogin.do";
+		}
+
+
+		// ----------------------------------------------------------
+		// 변수선언
+		// ----------------------------------------------------------
+		List<CategoryInfo> middleCode = new ArrayList<CategoryInfo>(); // 중분류조회
+
+		List<CategoryInfo> lnbList = new ArrayList<CategoryInfo>(); // 중분류리스트
+		List<CategoryInfo> lnbSList = new ArrayList<CategoryInfo>(); // 소분류리스트
+
+		List<ProductInfo> prdLList = new ArrayList<ProductInfo>();
+		List<ProductInfo> prdMList = new ArrayList<ProductInfo>();
+		List<ProductInfo> prdSList = new ArrayList<ProductInfo>();
+
+		List<ProductInfo> prdList = new ArrayList<ProductInfo>();
+
+		SearchProdInfo searchProdInfo = new SearchProdInfo();
+
+		String chkMiddleCode = null;
+		String prdCtgS = null;
+	
+
+		
+
+		// 상품QnA 페이지
+		int currentPage = productInfo.getCurrentPage();
+
+		// 상품이미지보내기
+		productInfo = productManageService.getProductInfDetail(productInfo);
+		AttachFileInfo attFile = new AttachFileInfo();
+		attFile.setAttCdKey(productInfo.getPrdCd());
+		List<AttachFileInfo> imgList = attFileManageService
+				.getAttFileInfList(attFile);
+		model.addAttribute("imgList", imgList);
+
+		// 상품정보보내기
+		productInfo = productManageService.getProductInfDetail(productInfo);
+
+		// 상품옵션보내기
+		List<ProductInfo> prdOpList = new ArrayList<ProductInfo>();
+		prdOpList = productManageService.getProductOptionInfDetail(productInfo);
+		int i = 0;
+
+		int[] opIdx = new int[50];
+		String[] opKey = new String[50];
+		String[] opValue = new String[50];
+		
+		for (ProductInfo each : prdOpList) {
+			
+			opKey[i] = each.getPropType();
+			if(each.getPropType().equals("01")) productInfo.setPrdColor("y");
+			if(each.getPropType().equals("02")) productInfo.setPrdSize("y");
+			
+			opValue[i] = each.getPropName();
+			opIdx[i] = each.getPropIdx();
+			i++;
+		}
+		productInfo.setOptionKey(opKey);
+		productInfo.setOptionValue(opValue);
+
+		model.addAttribute("pro", productInfo);
+
+		// ----------------------------------------------------
+		// 상품QnA 가져오기
+		// ----------------------------------------------------
+		BoardSrchInfo boardSrchInfo = new BoardSrchInfo();
+		boardSrchInfo.setSrchBrdTyp(10);
+		boardSrchInfo.setBrdCodeType("01");
+		boardSrchInfo.setBrdCodeKey(productInfo.getPrdCd());
+
+		// 페이지정보 셋팅
+		if (currentPage != 0)
+			boardSrchInfo.setCurrentPage(currentPage);
+
+		List<BoardInfo> boardList = boardService
+				.getBrdTypBoardList(boardSrchInfo);
+		boardSrchInfo.setTotalCount(boardService
+				.getBrdTypTotalCount(boardSrchInfo));
+
+		model.addAttribute("qnaList", boardList);
+		model.addAttribute("pageHtml",	getPageHtml(productInfo.getPrdCd(), boardSrchInfo));
+		model.addAttribute("lnbList", lnbList);
+		model.addAttribute("lnbSList", lnbSList);
+		model.addAttribute("middleCode", middleCode);
+		model.addAttribute("lMenuDetail", categoryInfo);
+		model.addAttribute("chkMiddleCode", chkMiddleCode);
+		return "admin/product/adminProductView";
+	}
 
 	@RequestMapping(value = "/product/productView.do", method = RequestMethod.GET)
 	public String productView(@ModelAttribute("productInfo") ProductInfo productInfo,@ModelAttribute("categoryInfo") CategoryInfo categoryInfo,BindingResult result, Model model, HttpSession session) {
