@@ -6,6 +6,7 @@ import com.blueone.board.domain.BoardAttachFileInfo;
 import com.blueone.board.domain.BoardCommentInfo;
 import com.blueone.board.domain.BoardInfo;
 import com.blueone.board.domain.BoardSrchInfo;
+import com.blueone.board.domain.FaqInfo;
 
 public interface IBoardService {
 	
@@ -38,5 +39,7 @@ public interface IBoardService {
 	
 	// 게시판의 최근 게시물
 	List<BoardInfo> getBoardLastList(int[] brdTyps, int size);
+	public List<FaqInfo> getFaqInfoList();
+	public int insertFaq(FaqInfo faqInfo);
 
 }

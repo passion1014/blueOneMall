@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.blueone.admin.domain.AdminInfo;
 import com.blueone.admin.service.ICommunityService;
@@ -16,6 +17,7 @@ import com.blueone.board.controller.BoardController;
 import com.blueone.board.domain.BoardCommentInfo;
 import com.blueone.board.domain.BoardInfo;
 import com.blueone.board.domain.BoardSrchInfo;
+import com.blueone.board.domain.FaqInfo;
 import com.blueone.board.service.IBoardService;
 import com.blueone.common.domain.BaseInfo;
 
@@ -25,6 +27,7 @@ public class CommunityController {
 
 	@Autowired
 	IBoardService boardService;
+	
 
 	BoardController boardController = new BoardController();
 
@@ -69,7 +72,7 @@ public class CommunityController {
 		// ----------------------------------------------------
 		// 상품QnA 가져오기
 		// ----------------------------------------------------
-		BoardSrchInfo boardSrchInfo = new BoardSrchInfo();
+		/*BoardSrchInfo boardSrchInfo = new BoardSrchInfo();
 		boardSrchInfo.setSrchBrdTyp(9);
 
 		// 페이지정보 셋팅
@@ -80,16 +83,20 @@ public class CommunityController {
 		boardSrchInfo.setTotalCount(boardService.getBrdTypTotalCount(boardSrchInfo));
 
 		model.addAttribute("qnaList", boardList);
-		model.addAttribute("pageHtml", getPageHtml(boardSrchInfo));
-
+		model.addAttribute("pageHtml", getPageHtml(boardSrchInfo));*/
+		
+		
+		 List<FaqInfo> faqList=boardService.getFaqInfoList();
+		 model.addAttribute("faqList", faqList);
+		 
 		return "admin/community/faq";
 
 	}
 
 	@RequestMapping(value = "/faqWrite.do", method = RequestMethod.GET)
-	public String faqWrite(@ModelAttribute("AdminInfo") AdminInfo adminInfo,
+	public String faqWrite(@ModelAttribute("AdminInfo") FaqInfo faq,
 			BindingResult result, Model model) {
-		BoardSrchInfo boardSrchInfo = new BoardSrchInfo();
+		/*BoardSrchInfo boardSrchInfo = new BoardSrchInfo();
 		BoardCommentInfo boardCommentModel = new BoardCommentInfo();
 
 		// 상품QnA 페이지
@@ -97,9 +104,27 @@ public class CommunityController {
 
 		// 페이지정보 셋팅
 		if (currentPage != 0)
-			boardSrchInfo.setCurrentPage(currentPage);
+			boardSrchInfo.setCurrentPage(currentPage);*/
 
-		boardService.insertBOM_BOARD_CMT_TB(boardCommentModel);
+		return "admin/community/faqWrite";
+
+	}
+	@RequestMapping(value = "/faqWriteProc.do", method = RequestMethod.POST)
+	public String faqWriteProc(@ModelAttribute("AdminInfo") FaqInfo faq,
+			BindingResult result, Model model,RedirectAttributes redirectAttributes) {
+		/*BoardSrchInfo boardSrchInfo = new BoardSrchInfo();
+		BoardCommentInfo boardCommentModel = new BoardCommentInfo();
+
+		// 상품QnA 페이지
+		int currentPage = adminInfo.getCurrentPage();
+
+		// 페이지정보 셋팅
+		if (currentPage != 0)
+			boardSrchInfo.setCurrentPage(currentPage);*/
+
+		boardService.insertFaq(faq);
+		redirectAttributes.addFlashAttribute("reloadVar", "yes");
+		
 		return "admin/community/faqWrite";
 
 	}

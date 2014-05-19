@@ -755,6 +755,14 @@ public class OrderController {
 		
 		return "order/orderPay";
 	}
+	
+	
+	//결제 팝업
+	@RequestMapping(value="/order/orderPayKcp.do")
+	public String orderPayKcp(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		
+		return "order/pp_ax_hub";
+	}
 
 
 	//주문성공페이지

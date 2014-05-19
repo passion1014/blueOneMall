@@ -9,10 +9,12 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.blueone.admin.domain.AdImgInfo;
 import com.blueone.board.domain.BoardAttachFileInfo;
 import com.blueone.board.domain.BoardCommentInfo;
 import com.blueone.board.domain.BoardInfo;
 import com.blueone.board.domain.BoardSrchInfo;
+import com.blueone.board.domain.FaqInfo;
 import com.blueone.common.domain.AttachFileInfo;
 import com.blueone.common.domain.FileInfo;
 import com.blueone.common.util.FileUploadUtility;
@@ -47,6 +49,39 @@ public class BoardService implements IBoardService {
 
 		
 		return boards;
+	}
+	
+
+	@Override
+	public List<FaqInfo> getFaqInfoList() {
+		List<FaqInfo> boards = new ArrayList<FaqInfo>();
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			boards = sqlSession.selectList("faq.selectDtlBomFaqTb0001");
+			
+		} finally {
+			sqlSession.close();
+		}
+
+		
+		return boards;
+	}
+	
+	@Override
+	public int insertFaq(FaqInfo faqInfo){
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		int result = 0;
+		try{
+			
+			result = sqlSession.insert("faq.insertBomFaqTb0001", faqInfo);
+			
+		}finally{
+			sqlSession.close();
+		}
+		
+		return result;
 	}
 	
 	@Override

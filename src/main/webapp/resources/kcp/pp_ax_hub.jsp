@@ -21,6 +21,7 @@
    <%--  <%@ page import="com.blueone.product.service"%>
      --%>
     <%@ page import="java.net.URLEncoder"%>
+	<%@ page import="com.kcp.C_PP_CLI"%>
     <%@ include file="site_conf_inc.jsp"%>
 <%!
     /* ============================================================================== */
@@ -569,7 +570,7 @@
     </head>
 
     <body onload="goResult();" >
-    <form name="pay_info" method="post" action="./result.jsp">
+    <form name="pay_info" method="post" action="result.jsp">
         <input type="hidden" name="site_cd"           value="<%=g_conf_site_cd  %>">  <!-- 사이트코드 -->
         <input type="hidden" name="req_tx"            value="<%=req_tx          %>">  <!-- 요청 구분 -->
         <input type="hidden" name="use_pay_method"    value="<%=use_pay_method  %>">  <!-- 사용한 결제 수단 -->

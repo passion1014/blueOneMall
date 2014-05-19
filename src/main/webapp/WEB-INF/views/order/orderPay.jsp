@@ -22,7 +22,7 @@
     /* =   테스트 및 실결제 연동시 site_conf_inc.jsp 파일을 수정하시기 바랍니다.    = */
     /* = -------------------------------------------------------------------------- = */
 %>
-	<%@ include file="site_conf_inc.jsp" %>
+	<%@ include file="/resources/kcp/site_conf_inc.jsp" %>
 <%
 	request.setCharacterEncoding ( "euc-kr" ) ;
     /* = -------------------------------------------------------------------------- = */
@@ -201,7 +201,7 @@
 <div id="sample_wrap">
 
 <!-- 주문정보 입력 form : order_info -->
-<form name="order_info" method="post" action="pp_ax_hub.jsp" >
+<form name="order_info" method="post" action="./pp_ax_hub.jsp" >
 
 <%
     /* ============================================================================== */

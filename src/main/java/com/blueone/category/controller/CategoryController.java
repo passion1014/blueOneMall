@@ -169,6 +169,7 @@ public class CategoryController {
 		}
 
 		redirectAttributes.addFlashAttribute("reloadVar", "yes");
+		
 		return "redirect:largeTypeRegister.do";
 		
 	}
