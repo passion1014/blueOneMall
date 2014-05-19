@@ -211,9 +211,7 @@ public class ProductController {
 			// 상품 리스트 이미지 등록
 			AttachFileInfo contImg = new AttachFileInfo();
 			FileUploadUtility utilList = new FileUploadUtility();
-			contImg = utilList.doFileUpload(7, productInfo.getProListImgUp(),
-					false);
-
+			contImg = utilList.doFileUpload(7, productInfo.getProListImgUp(),false);
 			contImg.setAttCdType("01");// 등록유형 : 상품
 			contImg.setAttCdKey(productInfo.getPrdCd()); //
 			contImg.setAttImgType("01");// 목록
@@ -494,13 +492,12 @@ public class ProductController {
 			// 상품 리스트 이미지 등록
 			AttachFileInfo contImg = new AttachFileInfo();
 			FileUploadUtility utilList = new FileUploadUtility();
-			contImg = utilList.doFileUpload(7, productInfo.getProListImgUp(),
-					false);
+			contImg = utilList.doFileUpload(7, productInfo.getProListImgUp(),false);
 			contImg.setAttCdType("01");// 등록유형 : 상품
 			contImg.setAttCdKey(productInfo.getPrdCd()); //
 			contImg.setAttImgType("01");// 목록
 			contImg.setAttImgSeq(1);
-			attFileManageService.updateAttachFileInf(contImg);
+			attFileManageService.registProductImgInfo(contImg);
 		}
 
 		MultipartFile proImg1Ip = productInfo.getProImg1Up();
@@ -514,11 +511,13 @@ public class ProductController {
 			contImg1.setAttCdKey(productInfo.getPrdCd()); //
 			contImg1.setAttImgType("02");// 뷰
 			contImg1.setAttImgSeq(1);
-			attFileManageService.updateAttachFileInf(contImg1);
+
+			attFileManageService.registProductImgInfo(contImg1);
 		}
 
 		MultipartFile proImg2Ip = productInfo.getProImg2Up();
-		if (proImg2Ip != null && !proImg2Ip.isEmpty()) { // 상품 이미지 등록
+		if (proImg2Ip != null && !proImg2Ip.isEmpty()) {
+			// 상품 이미지 등록
 			AttachFileInfo contImg2 = new AttachFileInfo();
 			FileUploadUtility utilList2 = new FileUploadUtility();
 			contImg2 = FileUploadUtility.doFileUpload(7,
@@ -528,11 +527,11 @@ public class ProductController {
 			contImg2.setAttImgType("02");// 뷰
 			contImg2.setAttImgSeq(2);
 
-			attFileManageService.updateAttachFileInf(contImg2);
+			attFileManageService.registProductImgInfo(contImg2);
 		}
 
 		MultipartFile proImg3Ip = productInfo.getProImg3Up();
-		if (proImg3Ip != null && !proImg3Ip.isEmpty()) { // 상품 이미지 등록
+		if (proImg3Ip != null && !proImg3Ip.isEmpty()) {
 			// 상품 이미지 등록
 			AttachFileInfo contImg3 = new AttachFileInfo();
 			FileUploadUtility utilList3 = new FileUploadUtility();
@@ -543,11 +542,11 @@ public class ProductController {
 			contImg3.setAttImgType("02");// 뷰
 			contImg3.setAttImgSeq(3);
 
-			attFileManageService.updateAttachFileInf(contImg3);
+			attFileManageService.registProductImgInfo(contImg3);
 		}
 
 		MultipartFile proImg4Ip = productInfo.getProImg4Up();
-		if (proImg4Ip != null && !proImg4Ip.isEmpty()) { // 상품 이미지 등록
+		if (proImg4Ip != null && !proImg4Ip.isEmpty()) {
 			// 상품 이미지 등록
 			AttachFileInfo contImg4 = new AttachFileInfo();
 			FileUploadUtility utilList4 = new FileUploadUtility();
@@ -557,7 +556,7 @@ public class ProductController {
 			contImg4.setAttCdKey(productInfo.getPrdCd()); //
 			contImg4.setAttImgType("02");// 뷰
 			contImg4.setAttImgSeq(4);
-			attFileManageService.updateAttachFileInf(contImg4);
+			attFileManageService.registProductImgInfo(contImg4);
 		}
 
 		return "redirect:productManagement.do?pCd=" + productInfo.getPrdCd();
