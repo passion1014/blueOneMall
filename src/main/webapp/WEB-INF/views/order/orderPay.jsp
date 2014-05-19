@@ -267,7 +267,7 @@
                     <!-- 주문번호(ordr_idxx) -->
                     <tr>
                         <th>주문 번호</th>
-                        <td><input type="text" name="ordr_idxx" class="w200" value="${orderInfo.orderNo}" maxlength="40"/></td>
+                        <td><input type="text" name="ordr_idxx" class="w200" value="${orderInfo1.orderNo}" maxlength="40"/></td>
                     </tr>
                     <!-- 상품명(good_name) -->
                     <tr>
@@ -282,22 +282,22 @@
                     <!-- 주문자명(buyr_name) -->
                     <tr>
                         <th>주문자명</th>
-                        <td><input type="text" name="buyr_name" class="w100" value="${orderInfo.customerInfo.custNm}"/></td>
+                        <td><input type="text" name="buyr_name" class="w100" value="${orderInfo1.customerInfo.custNm}"/></td>
                     </tr>
                     <!-- 주문자 E-mail(buyr_mail) -->
                     <tr>
                         <th>E-mail</th>
-                        <td><input type="text" name="buyr_mail" class="w200" value="${orderInfo.customerInfo.custEmail}" maxlength="30" /></td>
+                        <td><input type="text" name="buyr_mail" class="w200" value="${orderInfo1.customerInfo.custEmail}" maxlength="30" /></td>
                     </tr>
                     <!-- 주문자 연락처1(buyr_tel1) -->
                     <tr>
                         <th>전화번호</th>
-                        <td><input type="text" name="buyr_tel1" class="w100" value="${orderInfo.customerInfo.custPh}"/></td>
+                        <td><input type="text" name="buyr_tel1" class="w100" value="${orderInfo1.customerInfo.custPh}"/></td>
                     </tr>
                     <!-- 휴대폰번호(buyr_tel2) -->
                     <tr>
                         <th>휴대폰번호</th>
-                        <td><input type="text" name="buyr_tel2" class="w100" value="${orderInfo.customerInfo.custMb}"/></td>
+                        <td><input type="text" name="buyr_tel2" class="w100" value="${orderInfo1.customerInfo.custMb}"/></td>
                     </tr>
                     </table>
 <%
@@ -306,7 +306,7 @@
      /* = -------------------------------------------------------------------------- = */
      /* =   에스크로 사용업체에 적용되는 정보입니다.                                 = */
      /* = -------------------------------------------------------------------------- = */
-%>
+%><%-- 
                 <!-- 주문정보 타이틀 -->
                     <h2>&sdot; 에스크로 정보</h2>
                     <table class="tbl" cellpadding="0" cellspacing="0">
@@ -344,7 +344,7 @@
                         <th>수취인 상세주소</th>
                         <td><input type="text" name="rcvr_add2" class="w200" value="${recipientInfo.reciAdd}"/></td>
                     </tr>
-                </table>
+                </table> --%>
 <%
      /* = -------------------------------------------------------------------------- = */
      /* =   1-2. 에스크로 정보  END													 = */

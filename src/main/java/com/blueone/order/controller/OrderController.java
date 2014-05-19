@@ -740,7 +740,6 @@ public class OrderController {
 		orderInfo1.setCustomerInfo(custom);
 		orderInfo1.setModifyUserId(custom.getCustId());
 		orderManageService.registOrderInfo(orderInfo1);
-	
 		
 		RecipientInfo re = new RecipientInfo();
 		re=orderInfo.getReciInfo();
@@ -749,7 +748,9 @@ public class OrderController {
 		//customerManageService.updateCustomerInf(custom);
 		//orderManageService.registRecipientInfo(re);
 		
+		model.addAttribute("orderInfo1",orderInfo1);
 		model.addAttribute("orderInfo",orderInfo);
+		
 		model.addAttribute("recipientInfo",re);
 		
 		return "order/orderPay";
