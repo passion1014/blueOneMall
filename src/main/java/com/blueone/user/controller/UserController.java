@@ -55,7 +55,7 @@ import com.blueone.product.service.IProductManageService;
 import com.blueone.user.domain.UserInfo;
 import com.blueone.user.service.IUserService;
 
-@SessionAttributes("customerSession")
+
 @Controller
 public class UserController {
 	
@@ -161,12 +161,9 @@ public class UserController {
 			customerInfo.setCustMerry(merry);
 		}
 		customerService.updateCustomerInf(customerInfo);
-		
-		/*status.setComplete();
-		session.removeAttribute("customerSession");
-		status.isComplete();
-		*/
-		
+			
+		session.setAttribute("customerSession", customerInfo);
+	
 		return "redirect:userEdit.do";
 	}
 	
