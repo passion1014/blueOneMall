@@ -78,13 +78,15 @@
 	<div class="container">
 		<c:import url="../inc/orderLnb.jsp" />
 		<div class="sub_content">
-			<form action="orderRegisterProc.do" method="post" name="KSPayWeb">
+			<form action="orderPay.do" method="post" name="KSPayWeb">
 			<input type="hidden" id="customerInfo.custId"  name="customerInfo.custId"  value="${cus.custId}">
 			<input type="hidden" id="ord_unit_chk"  name="ord_unit_chk"  value="${orderInfo.ord_unit_chk}">
 			<input type="hidden" id="orderNo"  name="orderNo"  value="${orderInfo.orderNo}">
 			
 			<input type="hidden" id="customerInfo.modifyUserId"  name="customerInfo.modifyUserId"  value="${cus.custId}">
-			
+			<c:if test="${odPrdInfo.size() == 1}"><input type="hidden" id="ordPrd.prdNm"  name="ordPrd.prdNm"  value="${odPrdInfo[0].prdNm}" /></c:if>
+			<c:if test="${odPrdInfo.size() != 1}">			
+			<input type="hidden" id="ordPrd.prdNm"  name="ordPrd.prdNm"  value="${odPrdInfo[0].prdNm} 외 ${odPrdInfo.size()-1}개" /></c:if>
 			<%-- <c:if test="${odPrdInfo.size() == 1}"><input type="hidden" id="sndGoodname"  name="sndGoodname"  value="${odPrdInfo[0].prdNm}" /></c:if>
 			<c:if test="${odPrdInfo.size() != 1}">			
 			<input type="hidden" id="sndGoodname"  name="sndGoodname"  value="${odPrdInfo[0].prdNm} 외 ${odPrdInfo.size()}개" /></c:if>
@@ -230,6 +232,8 @@
 										</c:forEach>
 										 배송비 : 0원 = 합계 <strong>${total}</strong>원
 										 <input type="hidden" id="sndAmount"  name="sndAmount"  value="${total}" />
+										 <input type="hidden" id="totalOrderPrice"  name="totalOrderPrice"  value="${total}">
+			
 									</td>
 								</tr>
 								

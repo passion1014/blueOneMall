@@ -167,7 +167,7 @@ public class OrderController {
 		
 		//세션에 잇는 정보를 셋팅
 		CustomerInfo custom = setSession(session);
-				
+			
 				
 		CookieBox cki = new CookieBox(request);
 		
@@ -478,6 +478,7 @@ public class OrderController {
 		
 		//세션에 잇는 정보를 셋팅
 		CustomerInfo custom = setSession(session);
+		
 		CookieBox cki = new CookieBox(request);
 		List<OrderProductInfo> ord = getCartList(cki);
 		
@@ -719,7 +720,42 @@ public class OrderController {
 }
 
 
+	//결제 팝업
+	@RequestMapping(value="/order/orderPay.do")
+	public String orderPay(@ModelAttribute("orderInfo") OrderInfo orderInfo,HttpSession session,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
+		
+		//세션에 잇는 정보를 셋팅
+		CustomerInfo custom = setSession(session);
+		
+		
+		//주문번호
+		String orderNum=orderInfo.getOrderNo();
+		
 	
+		
+		//Order 저장
+		OrderInfo orderInfo1 = new OrderInfo();
+		orderInfo1.setOrderNo(orderNum);
+		orderInfo1.setOrderStatCd("02");
+		orderInfo1.setCustomerInfo(custom);
+		orderInfo1.setModifyUserId(custom.getCustId());
+		orderManageService.registOrderInfo(orderInfo1);
+	
+		
+		RecipientInfo re = new RecipientInfo();
+		re=orderInfo.getReciInfo();
+		re.setReciOdNum(orderNum);
+		custom.setCustAdd(re.getAdd1());
+		//customerManageService.updateCustomerInf(custom);
+		//orderManageService.registRecipientInfo(re);
+		
+		model.addAttribute("orderInfo",orderInfo);
+		model.addAttribute("recipientInfo",re);
+		
+		return "order/orderPay";
+	}
+
+
 	//주문성공페이지
 	@RequestMapping(value="/order/orderComplete.do")
 	public String orderComplete(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result,HttpSession session, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
@@ -964,6 +1000,7 @@ public class OrderController {
 		 custom.setHpNo3(mobileArr[2]);
 		mobile = mobileArr[0]+mobileArr[1]+mobileArr[2];
 		custom.setCustMb(mobile);*/
+		// 세션체크
 		
 		String phone = custom.getCustPh();
 		custom = useStringToken(phone,"p",custom);

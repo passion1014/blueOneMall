@@ -1001,7 +1001,7 @@ public class ProductController {
 				.getAttribute("customerSession");
 		// 세션체크
 		if (cust == null) {
-			// return "user/errorPage";
+			return "user/errorPage";
 		}
 
 
