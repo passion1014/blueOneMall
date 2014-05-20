@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<c:import  url="../inc/topMain.jsp" />
+<c:import  url="../inc/topSub.jsp" />
 
 <body>
 <div class="wrap">
 	
-	<c:import  url="../inc/header.jsp" />
+	<c:import url="../inc/header.jsp" />
 		
 	<div class="container">
 		<div class="cont_main">
@@ -271,7 +271,7 @@
 			<dl class="notice_box">
 				<dt class="notice_tit">NEWS & NOTICE</dt>
 				<dd>
-					<a href="#" class="noticeblet">LG G2 정케이스 출시</a>
+					<a href="/community/notice.do" class="noticeblet">LG G2 정케이스 출시</a>
 					<a href="#" class="noticeblet">동급 최강!! HBS-730NEW 출시!!</a>
 					<a href="#" class="noticeblet">SBS수목드라마 AKG 헤드폰 협찬</a>
 				</dd>

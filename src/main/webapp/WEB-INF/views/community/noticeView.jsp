@@ -1,11 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-    
-    
-    
 <c:import  url="../inc/topSub.jsp" />
-<c:import  url="../inc/topMain.jsp" />    
+   
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -14,49 +10,50 @@
 </head>
 <body>
 	<div class="wrap">
-	<div class="header">
-		<div class="top">
-			<h1><a href="#"><img src="./images/common/blueone_logo.png" alt="blueone logo"/></a></h1>
-			<p class="top_img">
-				<img src="./images/common/top_image.jpg" alt="top image"/>
-			</p>
-			<form action="#" method="post">
-				<div class="search_area">
-					<span class="search_menu">
-						<a href="#" class="menu_site">장바구니</a>
-						<a href="#" class="menu_site">주문배송 조회</a>
-						<a href="#">마이페이지</a>
-					</span>
-					<span class="search_box">
-						<input type="text" title="서치텍스트박스"/>
-						<button></button>
-					</span>
-				</div>
-			</form>
-		</div>
-		<div class="gnb">
-			<ul>
-				<li><a href="#">BLUETOOTH</a></li>
-				<li class="gnb_list"><a href="#">EARPHONE</a></li>
-				<li class="gnb_list"><a href="#">HEADPHONE</a></li>
-				<li class="gnb_list"><a href="#">MULTMEDIA</a></li>
-				<li class="gnb_list"><a href="#">CASE</a></li>
-				<li class="gnb_list"><a href="#">XTC</a></li>
-				<li class="gnb_list"><a href="#">SALE</a></li>
-				<li class="gnb_list"><a href="#">BARND SHOP</a></li>
-			</ul>
-		</div>
-	</div>
+	<c:import url="../inc/header.jsp" />
 <!--  header 끝   -->
 
 	<div class="container">
-		<import url="../inc/communityLnb.jsp" />
+		<c:import url="../inc/communityLnb.jsp" />
 		<div class="sub_content">
 			<form action="#" method="post">
 				<div class="customer_section">
 					<h4>공지사항</h4>
 					<p class="sub_tit">쇼핑몰의 새로운 소식이나 이벤트를 확인하실 수 있습니다.</p>
 					NOTICEVIEW
+					<div class="notice_area">
+						<ul class="no_answer">
+							<li>
+								<table class="noanswer_tbl" summary="공지사항목록">
+									<caption>공지사항목록표</caption>
+									<colgroup>
+										<col width="25%"/>
+										<col width="25%"/>
+										<col width="25%"/>
+										<col width="25%"/>
+									</colgroup>
+									<tbody>
+										<tr>
+											<th>상담유형</th>
+											<td>[구분]</td>
+											<th>날짜</th>
+											<td>2014.02.14</td>
+										</tr>
+										<tr>
+											<td colspan="4">쿠폰사용 방법에 대해 알려드립니다.</td>
+										</tr>
+									</tbody>
+								</table>
+							</li>
+						</ul>
+						<div class="paging2">
+							<a href="#" class="palign1"><img src="<c:url value='/resources/img/common/btn_first.gif'/>"  alt="처음으로"></a>
+							<a href="#" class="palign2"><img src="<c:url value='/resources/img/common/btn_prev.gif'/>"  alt="이전"></a>
+							<a href="#" class="on">1</a>
+							<a href="#" class="palign1"><img src="<c:url value='/resources/img/common/btn_next.gif'/>"  alt="다음"></a>
+							<a href="#" class="palign2"><img src="<c:url value='/resources/img/common/btn_end.gif'/>"  alt="끝으로"></a>
+						</div>
+					</div>
 				</div>
 			</form>
 		</div>

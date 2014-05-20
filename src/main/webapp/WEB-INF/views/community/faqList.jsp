@@ -32,6 +32,8 @@
 										<span>
 											<select>
 												<option>전체</option>
+												<option>질문</option>
+												<option>답변</option>
 											</select>
 											<input type="text" title="searchbox" />
 											<button class="btn">조회하기</button>
