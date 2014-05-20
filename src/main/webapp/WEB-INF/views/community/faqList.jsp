@@ -41,6 +41,7 @@
 							<li>
 								<span class="tbl_tit">검색결과</span><span class="st_color">0건</span>
 								<div>
+									<span class="top_linebrink"></span>
 									<div class="accordion">
 										<div class="accord-header question left">
 											<span class="btn_question">질문</span>
@@ -62,6 +63,19 @@
 			</form>
 		</div>
 	</div>
+<script type="text/javascript">
+$(document).ready(function(){
+	// accordion
+	$(".accordion .accord-header").click(function() {
+		if($(this).next("div").is(":visible")){
+			$(this).next("div").slideUp("normal");
+		} else {
+			$(".accordion .accord-content").slideUp("normal");
+			$(this).next("div").slideToggle("normal");
+		}
+	});
+});
+</script>
 <!--  container 끝   -->	
 
 	<import url="../inc/footer.jsp" />
