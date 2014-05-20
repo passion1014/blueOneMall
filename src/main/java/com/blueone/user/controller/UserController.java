@@ -40,6 +40,8 @@ import org.xml.sax.SAXException;
 import com.blueone.admin.domain.AdminInfo;
 import com.blueone.admin.domain.AgreementInfo;
 import com.blueone.admin.service.IAdminManageService;
+import com.blueone.board.domain.FaqInfo;
+import com.blueone.board.service.IBoardService;
 import com.blueone.common.domain.AttachFileInfo;
 import com.blueone.common.domain.SearchAddress;
 import com.blueone.common.service.IAttachFileManageService;
@@ -66,6 +68,8 @@ public class UserController {
 	@Autowired IAdminManageService adminManageService;
 	@Autowired private IProductManageService productManageService;
 	@Autowired private IAttachFileManageService attFileManageService;
+	@Autowired
+	IBoardService boardService;
 	//회원가입 폼 생성
 	@RequestMapping(value = "/user/userRegister.do", method=RequestMethod.GET)
 	public String userRegister(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model,HttpSession session){
@@ -282,10 +286,8 @@ public class UserController {
 		//아이디로 주문내역가져오기
 		List<OrderInfo> odList = orderService.selectOrderInfoList(od);
 		
-		if(odList!=null){
+		if(odList!=null && odList.size()>0){
 			
-		
-		
 		//주문코드로 주문상품 정보 가져오기
 		for(OrderInfo each : odList){
 			
@@ -294,53 +296,54 @@ public class UserController {
 			odPrd.setOrderNo(odNo);
 			List<OrderProductInfo> opResInf = orderService.selectOrderPrdInfo(odPrd);
 			
-			
-			odPrd=opResInf.get(0);
-			String prdCd = odPrd.getPrdCd();
-			ProductInfo prInf = new ProductInfo();
-			prInf.setPrdCd(prdCd);
-			prInf=productManageService.getProductInfDetail(prInf);
-			
-			if(prInf !=null){
-			//상품 이름
-				if(opResInf.size()>1){
-					odPrd.setPrdNm(prInf.getPrdNm()+"외 "+(opResInf.size()-1)+"개");
+			if(opResInf!=null && opResInf.size()>0){
+				odPrd=opResInf.get(0);
+				String prdCd = odPrd.getPrdCd();
+				ProductInfo prInf = new ProductInfo();
+				prInf.setPrdCd(prdCd);
+				prInf=productManageService.getProductInfDetail(prInf);
+				
+				if(prInf !=null){
+				//상품 이름
+					if(opResInf.size()>1){
+						odPrd.setPrdNm(prInf.getPrdNm()+"외 "+(opResInf.size()-1)+"개");
+						
+						
+					}else{
+						odPrd.setPrdNm(prInf.getPrdNm());
+						
+						
+					}
+					
+					//수량 및 금액
+	
+					BigDecimal total=null;
+					BigDecimal realTotal=new BigDecimal(0);
+					
+					for(OrderProductInfo odp:opResInf){
+						odp.setSellPrice(new BigDecimal(prInf.getPrdSellPrc()));
+						total = new BigDecimal(prInf.getPrdSellPrc()) ;
+						total=total.multiply(new BigDecimal(odp.getBuyCnt()));
+						realTotal=realTotal.add(total);
+					}
+					each.setTotalOrderPrice(realTotal);
+					
+					}
+					else{
+						
+					}
+					
+					each.setOrdPrd(odPrd);
+				
+				
+				
 					
 					
-				}else{
-					odPrd.setPrdNm(prInf.getPrdNm());
-					
-					
-				}
-				
-				//수량 및 금액
-
-				BigDecimal total=null;
-				BigDecimal realTotal=new BigDecimal(0);
-				
-				for(OrderProductInfo odp:opResInf){
-					odp.setSellPrice(new BigDecimal(prInf.getPrdSellPrc()));
-					total = new BigDecimal(prInf.getPrdSellPrc()) ;
-					total=total.multiply(new BigDecimal(odp.getBuyCnt()));
-					realTotal=realTotal.add(total);
-				}
-				each.setTotalOrderPrice(realTotal);
-				
-				}
-				else{
-					
-				}
-				
-				each.setOrdPrd(odPrd);
-			
-			
-			
-				
-				
-				String reg = each.getRegDate();
-				int a = reg.indexOf(" ");
-				reg= reg.substring(0, a);
-				each.setRegDate(reg);
+					String reg = each.getRegDate();
+					int a = reg.indexOf(" ");
+					reg= reg.substring(0, a);
+					each.setRegDate(reg);
+			}
 			}
 			}
 		else{
@@ -531,7 +534,42 @@ public class UserController {
 
 	}
 	
+	@RequestMapping(value = "/community/faqList.do", method = RequestMethod.GET)
+	public String faqList(@ModelAttribute("AdminInfo") AdminInfo adminInfo,
+			BindingResult result, Model model, HttpSession session) {
+		
+		CustomerInfo customerSesstion =(CustomerInfo)session.getAttribute("customerSession");
+		// 세션체크
+		if (customerSesstion == null) {
+			return "user/errorPage";
+		}
+				
+		
+		
+		 List<FaqInfo> faqList=boardService.getFaqInfoList();
+		 model.addAttribute("faqList", faqList);
+		 
+		return "community/faqList";
+
+	}
 	
+	@RequestMapping(value = "/community/faqView.do", method = RequestMethod.GET)
+	public String faqEdit( FaqInfo faq,
+			BindingResult result, Model model, HttpSession session) {
+
+
+		CustomerInfo customerSesstion =(CustomerInfo)session.getAttribute("customerSession");
+		// 세션체크
+		if (customerSesstion == null) {
+			return "user/errorPage";
+		}
+		
 	
+		FaqInfo reFaqInfo = boardService.getFaqInfoByIdx(faq);
+		model.addAttribute("reFaqInfo", reFaqInfo);
+		
+		return "community/faqView";
+
+	}
 	
 }

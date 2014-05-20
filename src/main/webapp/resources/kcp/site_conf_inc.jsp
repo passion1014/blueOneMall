@@ -22,8 +22,9 @@
     /* = * g_conf_log_dir 변수 설정                                                 = */
     /* =   log 디렉토리 설정                                                        = */
     /* ============================================================================== */
-    String g_conf_home_dir  = "C:/Users/dh-Kim/Documents/GitHub/blueOneMall";                  // BIN 절대경로 입력 (bin전까지) 
-    String g_conf_key_dir   = "C:/Users/dh-Kim/Documents/GitHub/blueOneMall/bin/pub.key";    // 공개키 파일 절대경로 
+    String g_conf_home_dir  = "tomcat/webapps/ROOT";                  // BIN 절대경로 입력 (bin전까지) 
+  	String g_conf_key_dir   = "tomcat/webapps/ROOT/bin/pub.key";    // 공개키 파일 절대경로 
+
     String g_conf_log_dir   = "C:\\Tomcat 5.5\\webapps\\ROOT\\2010_ax_hub_windows_jsp\\log";             // LOG 디렉토리 절대경로 입력
     
     /* ============================================================================== */

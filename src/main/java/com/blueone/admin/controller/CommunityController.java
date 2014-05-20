@@ -2,6 +2,8 @@ package com.blueone.admin.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +22,7 @@ import com.blueone.board.domain.BoardSrchInfo;
 import com.blueone.board.domain.FaqInfo;
 import com.blueone.board.service.IBoardService;
 import com.blueone.common.domain.BaseInfo;
+import com.blueone.customer.domain.CustomerInfo;
 
 @Controller
 @RequestMapping(value = "/admin")
@@ -64,8 +67,12 @@ public class CommunityController {
 
 	@RequestMapping(value = "/faqBoard.do", method = RequestMethod.GET)
 	public String faqBoard(@ModelAttribute("AdminInfo") AdminInfo adminInfo,
-			BindingResult result, Model model) {
-
+			BindingResult result, Model model, HttpSession session) {
+		AdminInfo adminSession = (AdminInfo) session
+				.getAttribute("adminSession");
+		if (adminSession == null) {
+			return "redirect:adminLogin.do";
+		}
 		// 상품QnA 페이지
 		int currentPage = adminInfo.getCurrentPage();
 
@@ -92,10 +99,16 @@ public class CommunityController {
 		return "admin/community/faq";
 
 	}
-
+	
+	
 	@RequestMapping(value = "/faqWrite.do", method = RequestMethod.GET)
 	public String faqWrite(@ModelAttribute("AdminInfo") FaqInfo faq,
-			BindingResult result, Model model) {
+			BindingResult result, Model model, HttpSession session) {
+		AdminInfo adminSession = (AdminInfo) session
+				.getAttribute("adminSession");
+		if (adminSession == null) {
+			return "redirect:adminLogin.do";
+		}
 		/*BoardSrchInfo boardSrchInfo = new BoardSrchInfo();
 		BoardCommentInfo boardCommentModel = new BoardCommentInfo();
 
@@ -109,9 +122,83 @@ public class CommunityController {
 		return "admin/community/faqWrite";
 
 	}
+	
+	@RequestMapping(value = "/faqEdit.do", method = RequestMethod.GET)
+	public String faqEdit(@ModelAttribute("AdminInfo") FaqInfo faq,
+			BindingResult result, Model model, HttpSession session) {
+		AdminInfo adminSession = (AdminInfo) session
+				.getAttribute("adminSession");
+		if (adminSession == null) {
+			return "redirect:adminLogin.do";
+		}
+		/*BoardSrchInfo boardSrchInfo = new BoardSrchInfo();
+		BoardCommentInfo boardCommentModel = new BoardCommentInfo();
+
+		// 상품QnA 페이지
+		int currentPage = adminInfo.getCurrentPage();
+
+		// 페이지정보 셋팅
+		if (currentPage != 0)
+			boardSrchInfo.setCurrentPage(currentPage);*/
+		FaqInfo reFaqInfo = boardService.getFaqInfoByIdx(faq);
+		model.addAttribute("reFaqInfo", reFaqInfo);
+		return "admin/community/faqEdit";
+
+	}
+	
+	@RequestMapping(value = "/faqDelete.do", method = RequestMethod.GET)
+	public String faqDelete(@ModelAttribute("AdminInfo") FaqInfo faq,
+			BindingResult result, Model model, HttpSession session) {
+		AdminInfo adminSession = (AdminInfo) session
+				.getAttribute("adminSession");
+		if (adminSession == null) {
+			return "redirect:adminLogin.do";
+		}
+		/*BoardSrchInfo boardSrchInfo = new BoardSrchInfo();
+		BoardCommentInfo boardCommentModel = new BoardCommentInfo();
+
+		// 상품QnA 페이지
+		int currentPage = adminInfo.getCurrentPage();
+
+		// 페이지정보 셋팅
+		if (currentPage != 0)
+			boardSrchInfo.setCurrentPage(currentPage);*/
+		boardService.deleteFaqInf(faq);
+		
+		return "redirect:faqBoard.do";
+
+	}
+	
+	@RequestMapping(value = "/faqEditProc.do", method = RequestMethod.POST)
+	public String faqEditProc(@ModelAttribute("AdminInfo") FaqInfo faq,
+			BindingResult result, Model model,RedirectAttributes redirectAttributes, HttpSession session) {
+		AdminInfo adminSession = (AdminInfo) session
+				.getAttribute("adminSession");
+		if (adminSession == null) {
+			return "redirect:adminLogin.do";
+		}
+		/*BoardSrchInfo boardSrchInfo = new BoardSrchInfo();
+		BoardCommentInfo boardCommentModel = new BoardCommentInfo();
+
+		// 상품QnA 페이지
+		int currentPage = adminInfo.getCurrentPage();
+
+		// 페이지정보 셋팅
+		if (currentPage != 0)
+			boardSrchInfo.setCurrentPage(currentPage);*/
+		 boardService.updateFaqInfo(faq);
+		 redirectAttributes.addFlashAttribute("reloadVar", "yes");
+		return "redirect:faqEdit.do?faqIdx="+faq.getFaqIdx();
+
+	}
 	@RequestMapping(value = "/faqWriteProc.do", method = RequestMethod.POST)
 	public String faqWriteProc(@ModelAttribute("AdminInfo") FaqInfo faq,
-			BindingResult result, Model model,RedirectAttributes redirectAttributes) {
+			BindingResult result, Model model,RedirectAttributes redirectAttributes, HttpSession session) {
+		AdminInfo adminSession = (AdminInfo) session
+				.getAttribute("adminSession");
+		if (adminSession == null) {
+			return "redirect:adminLogin.do";
+		}
 		/*BoardSrchInfo boardSrchInfo = new BoardSrchInfo();
 		BoardCommentInfo boardCommentModel = new BoardCommentInfo();
 
@@ -125,7 +212,7 @@ public class CommunityController {
 		boardService.insertFaq(faq);
 		redirectAttributes.addFlashAttribute("reloadVar", "yes");
 		
-		return "admin/community/faqWrite";
+		return "redirect:faqWrite.do";
 
 	}
 

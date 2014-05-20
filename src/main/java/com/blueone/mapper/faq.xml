@@ -24,11 +24,44 @@
 		FROM BOM_FAQ_TB   
 	</select>
 	
+	<select id="selectDtlBomFaqTb0002" resultType="FaqInfo" resultMap="FaqInfoMap" parameterType="FaqInfo">
+		SELECT 
+			`FAQ_IDX`,
+			`FAQ_TYPE`,
+			`FAQ_QUESTION`,
+			`FAQ_ANSWER`,
+			`FAQ_REG_DATE`
+			
+		FROM BOM_FAQ_TB
+		WHERE
+			`FAQ_IDX` = #{faqIdx}
+	</select>
+	
+	<update id="updateBomFaqTb0001" parameterType="FaqInfo">
+		UPDATE BOM_FAQ_TB
+			SET
+				`FAQ_REG_DATE`=sysdate()
+				<if test="faqType != null and faqType != ''">,`FAQ_TYPE` = #{faqType}</if>
+				<if test="faqQes != null and faqQes != ''">,`FAQ_QUESTION` = #{faqQes}</if>
+				<if test="faqAns != null and faqAns != ''">,`FAQ_ANSWER` = #{faqAns}</if>
+				
+		WHERE
+			`FAQ_IDX` = #{faqIdx}
+	</update>
+	
 	<insert id="insertBomFaqTb0001" parameterType="FaqInfo">
 		INSERT  BOM_FAQ_TB
 			(`FAQ_TYPE`,`FAQ_QUESTION`,`FAQ_ANSWER`,`FAQ_REG_DATE`)
 			VALUES
 			(#{faqType},#{faqQes},#{faqAns}, sysdate())
 	</insert>
+	
+		
+	<delete id="deleteBomFaqTb0001" parameterType="FaqInfo">
+		DELETE FROM BOM_FAQ_TB			
+		WHERE
+			`FAQ_IDX` = #{faqIdx}
+	</delete>
+	
 	
 </mapper>

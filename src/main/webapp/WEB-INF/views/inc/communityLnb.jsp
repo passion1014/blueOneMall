@@ -5,7 +5,7 @@
 			<h3>고객센터</h3>
 			<ul class="lnb_list">
 				<li><a href="#">공지사항</a></li>
-				<li><a href="#">FAQ</a></li>
+				<li><a href="/community/faqList.do">FAQ</a></li>
 				<li><a href="#">1:1 문의하기</a></li>
 			</ul>
 </div>

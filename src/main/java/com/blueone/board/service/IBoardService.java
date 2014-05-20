@@ -39,7 +39,13 @@ public interface IBoardService {
 	
 	// 게시판의 최근 게시물
 	List<BoardInfo> getBoardLastList(int[] brdTyps, int size);
+	
+	
+	//FAQ
 	public List<FaqInfo> getFaqInfoList();
 	public int insertFaq(FaqInfo faqInfo);
+	public FaqInfo getFaqInfoByIdx(FaqInfo faqInfo);
+	public int updateFaqInfo(FaqInfo faqInfo);
+	public int deleteFaqInf(FaqInfo faqInfo);
 
 }

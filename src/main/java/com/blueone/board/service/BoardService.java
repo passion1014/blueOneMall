@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import com.blueone.board.domain.FaqInfo;
 import com.blueone.common.domain.AttachFileInfo;
 import com.blueone.common.domain.FileInfo;
 import com.blueone.common.util.FileUploadUtility;
+import com.blueone.product.domain.ProductInfo;
 
 @Service
 public class BoardService implements IBoardService {
@@ -85,6 +87,20 @@ public class BoardService implements IBoardService {
 	}
 	
 	@Override
+	public FaqInfo getFaqInfoByIdx(FaqInfo faqInfo) {
+		FaqInfo reFaqInfo =new FaqInfo();
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			reFaqInfo = sqlSession.selectOne("faq.selectDtlBomFaqTb0002", faqInfo);
+		} finally {
+			sqlSession.close();
+		}
+		
+		return reFaqInfo;
+	}
+	@Override
+	
 	public int getBrdTypTotalCount(BoardSrchInfo boardSrchModel) {
 		Integer count = new Integer(0);
 		
@@ -97,7 +113,47 @@ public class BoardService implements IBoardService {
 		
 		return count;
 	}
-	
+	@Override
+    public int deleteFaqInf(FaqInfo faqInfo){
+        
+        int rst = -1;
+        
+        
+            SqlSession sqlSession = sqlSessionFactory.openSession();
+            try {
+                // DB 수행
+                rst = sqlSession.delete("faq.deleteBomFaqTb0001", faqInfo);
+                
+            } finally {
+                sqlSession.close();
+            }
+        
+        
+        return rst;
+    }
+	@Override
+    public int updateFaqInfo(FaqInfo faqInfo) {
+        
+        int rst = -1;
+        
+        // -----------------------------------------------
+        // 조회한 결과값이 있으면 DB업데이트
+        // -----------------------------------------------
+        
+            SqlSession sqlSession = sqlSessionFactory.openSession();
+            try {
+                // DB 수행
+                rst = sqlSession.update("faq.updateBomFaqTb0001", faqInfo);
+                
+          
+            } finally {
+                sqlSession.close();
+            }
+        
+        
+        return rst;
+    }
+
 	@Override
 	public List<BoardInfo> getBoardLastList(int[] brdTyps, int size) {
 		valueMap.put("brdTyps", brdTyps);
