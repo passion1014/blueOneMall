@@ -10,7 +10,7 @@ a {text-decoration:none; color:inherit;}
 table {border-collapse:collapse;}
 
 /*index*/
-#sample_index {width:400px; height:800px; position:absolute; background:#0e66a4; left:50%; top:50%; margin:-300px 0 0 -200px; overflow:hidden;}
+#sample_index {width:400px; height:400px; position:absolute; background:#0e66a4; left:50%; top:50%; margin:-300px 0 0 -200px; overflow:hidden;}
 #sample_index h1 {font-size:20px; color:#fff; text-align:center; margin:25px 15px 15px; padding-bottom:25px; border-bottom:1px solid #60aee6;}
 #sample_index .btnSet {margin:30px 50px 0;}
 #sample_index a {position:relative; font-family:HY°ß°íµñ; display:inline-block; color:#fff;  font-size:16px; width:270px; text-align:leftr; padding:25px 0 20px 20px; margin-bottom:20px; cursor: pointer;
@@ -24,10 +24,6 @@ box-shadow: 5px 5px 7px 0px rgba(5, 50, 70, 0.5);
 #sample_index a.btn2:hover {background:#000; color:#18daf1;}
 #sample_index a.btn3 {background:#3ca4ef; left:15px;}
 #sample_index a.btn3:hover {background:#000; color:#3ca4ff;}
-#sample_index a.btn4 {background:#9cb1cd; left:15px;}
-#sample_index a.btn4:hover {background:#000; color:#3ca4ff;}
-#sample_index a.btn5 {background:#b18cdc; left:15px;}
-#sample_index a.btn5:hover {background:#000; color:#3ca4ff;}
 #sample_index a span {font-size:40px; position:absolute; right:20px; top:15px; }
 #sample_index .footer {margin-top:5px; font-size:11px; text-align:center; color:#000;}
 

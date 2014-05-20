@@ -12,6 +12,10 @@
     /* =   Copyright (c)  2013   KCP Inc.   All Rights Reserverd.                   = */
     /* ============================================================================== */
 %>
+<%
+	request.setCharacterEncoding ( "euc-kr" ) ;
+%>
+
 <%!
     /* ============================================================================== */
     /* =   null 값을 처리하는 메소드                                                = */
@@ -73,7 +77,7 @@
                     <div class="sample">
                     <p>
                         소스 수정 시 소스 안에 <span>※ 주의 ※</span> 표시가 포함된 문장은 가맹점의 상황에 맞게 적절히 수정 <br/>
-                        적용하시길 바랍니다.<br/>
+						적용하시길 바랍니다.<br/>
                         이 페이지는 결제된 건에 대한 매입을 요청하는 페이지 입니다. <br/>
                         <span>이 페이지는 KCP에 수동매입 가맹점으로 등록된 경우에만 사용합니다.<br/>
                         수동매입 가맹점인 경우에만 사용하시기 바랍니다.</span><br/>
@@ -89,7 +93,7 @@
                     <tr>
                         <th>요청 구분</th>
                         <td>매입 요청</td>
-                    </tr>
+         			</tr>
                     <!-- Input : 결제된 건의 거래번호(14 byte) 입력 -->
                     <tr>
                         <th>KCP 거래번호</th>
@@ -101,7 +105,6 @@
                     <!-- 결제 버튼 테이블 Start -->
                     <div class="btnset">
                     <input name="" type="submit" class="submit" value="매입요청" onclick="return jsf__go_mod(this.form);"/>
-                    <a href="../index.html" class="home">처음으로</a>
                     </div>
                     <!-- 결제 버튼 테이블 End -->
                 </div>

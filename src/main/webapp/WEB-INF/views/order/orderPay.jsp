@@ -40,16 +40,15 @@
         }
     /* ============================================================================== */
 %>
+    
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head>
     <title>*** KCP [AX-HUB Version] ***</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
-
-<link type="text/css" rel="stylesheet" href="<c:url value='/resources/css/style.css'/>" id="cssLink"/>
-
+	<meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
+<link href="css/style.css" rel="stylesheet" type="text/css" id="cssLink"/>
 
 <%
     /* ============================================================================== */
@@ -59,13 +58,12 @@
     /* =   테스트 및 실결제 연동시 site_conf_inc.jsp파일을 수정하시기 바랍니다.     = */
     /* = -------------------------------------------------------------------------- = */
 %>
-    <script type="text/javascript" src="<%=g_conf_js_url%>"></script>
+    <script type="text/javascript" src="<%= g_conf_js_url %>"></script>
 <%
     /* = -------------------------------------------------------------------------- = */
     /* =   Javascript source Include END                                            = */
     /* ============================================================================== */
 %>
-
     <script type="text/javascript">
         /* 플러그인 설치(확인) */
         StartSmartUpdate();
@@ -85,7 +83,7 @@
             /* Payplus Plugin 실행 */
             if ( MakePayMessage( form ) == true )
             {
-                openwin = window.open( "/resources/kcp/proc_win.html", "proc_win", "width=449, height=209, top=300, left=300" );
+                openwin = window.open( "proc_win.html", "proc_win", "width=449, height=209, top=300, left=300" );
                 RetVal = true ;
             }
             
@@ -145,7 +143,7 @@
         /* 주문번호 생성 예제 */
         function init_orderid()
         {
-            var today = new Date();
+            /* var today = new Date();
             var year  = today.getFullYear();
             var month = today.getMonth() + 1;
             var date  = today.getDate();
@@ -160,8 +158,8 @@
             }
 
             var order_idxx = "TEST" + year + "" + month + "" + date + "" + time;
-
-            document.order_info.ordr_idxx.value = order_idxx;
+ */
+            document.order_info.ordr_idxx.value =document.getElementById('order_idxx').value;;
 
             /*
              * 인터넷 익스플로러와 파이어폭스(사파리, 크롬.. 등등)는 javascript 파싱법이 틀리기 때문에 object 가 인식 전에 실행 되는 문제
@@ -179,24 +177,10 @@
                 document.order_info.submit();
         }
 
-        /*에스크로 결제시 필요한 장바구니 샘플예제 입니다.*/
-        function create_goodInfo()
-        {
-            var chr30 = String.fromCharCode(30);	// ASCII 코드값 30
-            var chr31 = String.fromCharCode(31);	// ASCII 코드값 31
-
-            var good_info = "seq=1" + chr31 + "ordr_numb=20060310_0001" + chr31 + "good_name=양말" + chr31 + "good_cntx=2" + chr31 + "good_amtx=1000" + chr30 +
-                            "seq=2" + chr31 + "ordr_numb=20060310_0002" + chr31 + "good_name=신발" + chr31 + "good_cntx=1" + chr31 + "good_amtx=1500" + chr30 +
-                            "seq=3" + chr31 + "ordr_numb=20060310_0003" + chr31 + "good_name=바지" + chr31 + "good_cntx=1" + chr31 + "good_amtx=1000";
-
-          document.order_info.good_info.value = good_info;
-        }
     </script>
 </head>
 
-
-<!-- <body onload="init_orderid();create_goodInfo();"> -->
-<body onload="create_goodInfo();">
+<body onload="init_orderid();">
 
 <div id="sample_wrap">
 
@@ -210,18 +194,18 @@
     /* =   결제에 필요한 주문 정보를 입력 및 설정합니다.                            = */
     /* = -------------------------------------------------------------------------- = */
 %>
-                   <!--  <h1>[결제요청] <span> 이 페이지는 결제를 요청하는 샘플(예시) 페이지입니다.</span></h1>
+                    <!-- <h1>[결제요청] <span> 이 페이지는 결제를 요청하는 샘플(예시) 페이지입니다.</span></h1>
                     상단 문구
                     <div class="sample">
-                            <p>이 페이지는 결제를 요청하는 페이지입니다.<br/>
-                            고객이 결제요청 페이지에 접근하게 되면 웹 브라우저에서 결제를 위한 Payplus Plug-in이
-                            고객의 PC에 설치되어 있는지 확인합니다<br/>
-                            고객의 PC에 Payplus Plug-in이 설치되지 않은 경우 <span> 브라우저 상단의 노란색 알림표시줄</span>이나
-                            하단의 <span>[수동설치]</span>를 통해 <span>Payplus Plug-in 설치</span>가 가능합니다.<br/><br/>
-                            결제요청 버튼을 클릭하게 될 경우 Payplus Plug-in이 실행되며 Payplus Plug-in을 통해 결제요청
-                            정보를 암호화하여 결제요청 페이지로 전송합니다.<br/><br/>
-                            소수 수정 시 <span>※ 필수, ※ 옵션</span>표시가 포함된 문장은 가맹점의 상황에 맞게 적절히 수정
-                            적용하시기 바랍니다.</p> -->
+                            <p>이 페이지는 결제를 요청하는 페이지입니다.<br />
+                            고객이 결제요청 페이지에 접근하게 되면 웹 브라우저에서 결제를 위한 Payplus Plug-in이<br />
+                            고객의 PC에 설치되어 있는지 확인합니다.<br /><br />
+                            고객의 PC에 Payplus Plug-in이 설치되지 않은 경우 <span>브라우저 상단의 노란색 알림표시줄</span>이나 하단의
+                            <span>[수동설치]</span>를 통해 <span>Payplus Plug-in 설치</span>가 가능합니다.<br /><br />
+                            결제요청 버튼을 클릭하게 될 경우 Payplus Plug-in이 실행되며 Payplus Plug-in을 통해 결제요청 정보를 암호화하여
+                            결제요청 페이지로 전송합니다.<br /><br />
+                            소수 수정 시 <span>※ 필수, ※ 옵션</span>표시가 포함된 문장은 가맹점의 상황에 맞게 적절히 수정 적용하시기 바랍니다.
+                            </p> -->
 
                 <!-- 주문정보 타이틀 -->
                     <h2>&sdot; 주문 정보</h2>
@@ -264,10 +248,10 @@
                             </select>
                         </td>
                     </tr>
-                    <!-- 주문번호(ordr_idxx) -->
+                   <!-- 주문번호(ordr_idxx) -->
                     <tr>
                         <th>주문 번호</th>
-                        <td><input type="text" name="ordr_idxx" class="w200" value="${orderInfo1.orderNo}" maxlength="40"/></td>
+                        <td><input type="text" id="ordr_idxx" name="ordr_idxx" class="w200" value="${orderInfo1.orderNo}" maxlength="40"/></td>
                     </tr>
                     <!-- 상품명(good_name) -->
                     <tr>
@@ -300,56 +284,7 @@
                         <td><input type="text" name="buyr_tel2" class="w100" value="${orderInfo1.customerInfo.custMb}"/></td>
                     </tr>
                     </table>
-<%
-     /* ============================================================================== */
-     /* =   1-2. 에스크로 정보                                                       = */
-     /* = -------------------------------------------------------------------------- = */
-     /* =   에스크로 사용업체에 적용되는 정보입니다.                                 = */
-     /* = -------------------------------------------------------------------------- = */
-%><%-- 
-                <!-- 주문정보 타이틀 -->
-                    <h2>&sdot; 에스크로 정보</h2>
-                    <table class="tbl" cellpadding="0" cellspacing="0">
-                    <!-- 수취인명(rcvr_name) -->
-                    <tr>
-                        <th>수취인명</th>
-                        <td><input type="text" name="rcvr_name" class="w100" value="${recipientInfo.reciNm}"/></td>
-                    </tr>
-                    <!-- 수취인 연락처1(rcvr_tel1) -->
-                    <tr>
-                        <th>수취인 전화번호</th>
-                        <td><input type="text" name="rcvr_tel1" class="w100" value="${recipientInfo.reciPh}"/></td>
-                    </tr>
-                    <!-- 수취인 휴대폰번호(rcvr_tel2) -->
-                    <tr>
-                        <th>수취인 휴대폰번호</th>
-                        <td class="sub_input1"><input type="text" name="rcvr_tel2" class="w100" value="${recipientInfo.reciMb}"/></td>
-                    </tr>
-                    <!-- 수취인 E-mail(rcvr_mail) -->
-                    <tr>
-                        <th>수취인 E-mail</th>
-                        <td><input type="text" name="rcvr_mail" class="w200" value="${orderInfo.customerInfo.custEmail}" size="30" maxlength="30" /></td>
-                    </tr>
-                    <!-- 수취인 우편번호(rcvr_zipx) -->
-                    <tr>
-                        <th>수취인 우편번호</th>
-                        <td><input type="text" name="rcvr_zipx" class="w100" value="${recipientInfo.zipCd1}"/></td>
-                    </tr>
-                    <!-- 수취인 주소(rcvr_add1) -->
-                    <tr>
-                        <th>수취인 주소</th>
-                        <td><input type="text" name="rcvr_add1" class="w200" value="${recipientInfo.add1}"/></td>
-                    </tr>
-                    <tr>
-                        <th>수취인 상세주소</th>
-                        <td><input type="text" name="rcvr_add2" class="w200" value="${recipientInfo.reciAdd}"/></td>
-                    </tr>
-                </table> --%>
-<%
-     /* = -------------------------------------------------------------------------- = */
-     /* =   1-2. 에스크로 정보  END													 = */
-     /* ============================================================================== */
-%>
+
                     <!-- 결제 요청/처음으로 이미지 -->
                     <div class="btnset" id="display_pay_button" style="display:block">
                       <input name="" type="submit" class="submit" value="결제요청" onclick="return jsf__pay(this.form);"/>
@@ -385,7 +320,6 @@
     <input type="hidden" name="req_tx"          value="pay" />
     <input type="hidden" name="site_cd"         value="<%= g_conf_site_cd   %>" />
     <input type="hidden" name="site_name"       value="<%= g_conf_site_name %>" />
-
 <%
     /*
        할부옵션 : Payplus Plug-in에서 카드결제시 최대로 표시할 할부개월 수를 설정합니다.(0 ~ 18 까지 설정 가능)
@@ -411,28 +345,6 @@
 %>
     <!-- PLUGIN 설정 정보입니다(변경 불가) -->
     <input type="hidden" name="module_type"     value="<%= module_type %>"/>
-<%
-    /* ============================================================================== */
-    /* =   3-1. Payplus Plugin 에스크로결제 사용시 필수 정보                        = */
-    /* = -------------------------------------------------------------------------- = */
-    /* =   결제에 필요한 주문 정보를 입력 및 설정합니다.                            = */
-    /* = -------------------------------------------------------------------------- = */
-%>
-	<!-- 에스크로 사용 여부 : 반드시 Y 로 설정 -->
-    <input type="hidden" name="escw_used"       value="Y"/>
-	<!-- 에스크로 결제처리 모드 : 에스크로: Y, 일반: N, KCP 설정 조건: O  -->
-    <input type="hidden" name="pay_mod"         value="Y"/>
-	<!-- 배송 소요일 : 예상 배송 소요일을 입력 -->
-	<input type="hidden"  name="deli_term" value="03"/>
-	<!-- 장바구니 상품 개수 : 장바구니에 담겨있는 상품의 개수를 입력(good_info의 seq값 참조) -->
-	<input type="hidden"  name="bask_cntx" value="3"/>
-	<!-- 장바구니 상품 상세 정보 (자바 스크립트 샘플 create_goodInfo()가 온로드 이벤트시 설정되는 부분입니다.) -->
-	<input type="hidden" name="good_info"       value=""/>
-<%
-    /* = -------------------------------------------------------------------------- = */
-    /* =   3-1. Payplus Plugin 에스크로결제 사용시 필수 정보  END                   = */
-    /* ============================================================================== */
-%>
 <!--
       ※ 필 수
           필수 항목 : Payplus Plugin에서 값을 설정하는 부분으로 반드시 포함되어야 합니다
@@ -457,7 +369,7 @@
     <input type="hidden" name="cash_tr_code"    value=""/>
     <input type="hidden" name="cash_id_info"    value=""/>
 
-	<!-- 2012년 8월 18일 정자상거래법 개정 관련 설정 부분 -->
+	<!-- 2012년 8월 18일 전자상거래법 개정 관련 설정 부분 -->
 	<!-- 제공 기간 설정 0:일회성 1:기간설정(ex 1:2012010120120131)  -->
 	<input type="hidden" name="good_expr" value="0">
 

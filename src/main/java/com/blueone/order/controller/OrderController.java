@@ -731,7 +731,17 @@ public class OrderController {
 		//주문번호
 		String orderNum=orderInfo.getOrderNo();
 		
-	
+		List<OrderProductInfo> ord  = orderInfo.getOrderProductList();
+		for(OrderProductInfo each : ord){
+			
+			//OrderProduct저장
+			each.setOrderNo(orderNum);
+			each.setModiUser(custom.getCustId());//user ID 입력
+			orderManageService.registOrderProductInfo(each);
+
+		
+		
+		}
 		
 		//Order 저장
 		OrderInfo orderInfo1 = new OrderInfo();
@@ -740,13 +750,24 @@ public class OrderController {
 		orderInfo1.setCustomerInfo(custom);
 		orderInfo1.setModifyUserId(custom.getCustId());
 		orderManageService.registOrderInfo(orderInfo1);
+		StringTokenizer st = new StringTokenizer(orderInfo.getOrd_unit_chk(),",");
+	
+		
+		CookieBox cki = new CookieBox(request);
+		
+		
+		while(st.hasMoreTokens()){ // 반활할 토큰이 있는가? true/false;
+			Cookie cookie =cki.createCookie(st.nextToken(),"null",-1);
+			response.addCookie(cookie);
+		}
+
 		
 		RecipientInfo re = new RecipientInfo();
 		re=orderInfo.getReciInfo();
 		re.setReciOdNum(orderNum);
 		custom.setCustAdd(re.getAdd1());
-		//customerManageService.updateCustomerInf(custom);
-		//orderManageService.registRecipientInfo(re);
+		customerManageService.updateCustomerInf(custom);
+		orderManageService.registRecipientInfo(re);
 		
 		model.addAttribute("orderInfo1",orderInfo1);
 		model.addAttribute("orderInfo",orderInfo);
