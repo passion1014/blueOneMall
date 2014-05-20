@@ -85,7 +85,7 @@
             /* Payplus Plugin 실행 */
             if ( MakePayMessage( form ) == true )
             {
-                openwin = window.open( "proc_win.html", "proc_win", "width=449, height=209, top=300, left=300" );
+                openwin = window.open( "/resources/kcp/proc_win.html", "proc_win", "width=449, height=209, top=300, left=300" );
                 RetVal = true ;
             }
             
@@ -201,7 +201,7 @@
 <div id="sample_wrap">
 
 <!-- 주문정보 입력 form : order_info -->
-<form name="order_info" method="post" action="./pp_ax_hub.jsp" >
+<form name="order_info" method="post" action="/resources/kcp/pp_ax_hub.jsp" >
 
 <%
     /* ============================================================================== */
