@@ -446,4 +446,9 @@ font-family:"NanumGothicBold"; color:#666666;}
 .adr_section span.btn_bottom input.btn_adrsubmit {width:80px; margin-right:10px; height:30px; border:0; background:#0083ce; color:#fff;}
 .adr_section span.btn_bottom input.btn_adrcancle {width:80px; margin-right:10px; height:30px; border:0; background:#888; color:#fff;}
 
+/* ------------- notice answer area ------------- */
+.notice_area ul.no_answer {border:0;}
+.notice_area ul.no_answer li table.noanswer_tbl {border-top:2px solid #888}
+.notice_area ul.no_answer li table.noanswer_tbl tbody th {text-align:center; height:30px; border-bottom:1px solid #bbb; font-weight:normal; background:#eef1f2;}
+.notice_area ul.no_answer li table.noanswer_tbl tbody td {text-align:left; height:30px; border-bottom:1px solid #bbb; border-top:1px solid #888; padding-left:20px;}
 

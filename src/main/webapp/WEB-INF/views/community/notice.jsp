@@ -1,11 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-    
-    
-    
 <c:import  url="../inc/topSub.jsp" />
-<c:import  url="../inc/topMain.jsp" />    
+   
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -14,11 +10,11 @@
 </head>
 <body>
 	<div class="wrap">
-	<import url="../inc/header.jsp" />
+	<c:import url="../inc/header.jsp" />
 <!--  header 끝   -->
 
 	<div class="container">
-		<import url="../inc/communityLnb.jsp" />
+		<c:import url="../inc/communityLnb.jsp" />
 		<div class="sub_content">
 			<form action="#" method="post">
 				<div class="customer_section">
@@ -73,7 +69,7 @@
 									</thead>
 									<tbody>
 										<tr>
-											<th>[구분]</th>
+											<th><a href="/community/noticeView.do">[구분]</a></th>
 											<td>쿠폰사용 방법에 대해 알려드립니다.</td>
 											<td>2014.02.14</td>
 											<td>11</td>

@@ -68,8 +68,7 @@ public class UserController {
 	@Autowired IAdminManageService adminManageService;
 	@Autowired private IProductManageService productManageService;
 	@Autowired private IAttachFileManageService attFileManageService;
-	@Autowired
-	IBoardService boardService;
+	@Autowired IBoardService boardService;
 	//회원가입 폼 생성
 	@RequestMapping(value = "/user/userRegister.do", method=RequestMethod.GET)
 	public String userRegister(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model,HttpSession session){
