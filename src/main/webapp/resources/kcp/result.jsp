@@ -652,7 +652,7 @@
                     <!-- 매입 요청/처음으로 이미지 버튼 -->
                 <tr>
                 <div class="btnset">
-                <a href="orderComplete.do?orderNo=<%=ordr_idxx %>" class="home">확인</a>
+                <a href="/order/orderComplete.do?orderNo=<%=ordr_idxx %>" class="home">확인</a>
                 </div>
                 
                 </tr>

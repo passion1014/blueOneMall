@@ -472,7 +472,7 @@
         <script type="text/javascript">
             function goResult()
             {
-                var openwin = window.open( 'proc_win.html', 'proc_win', '' )
+                var openwin = window.open( '/resources/kcp/proc_win.html', 'proc_win', '' )
                 document.pay_info.submit()
                 openwin.close()
             }

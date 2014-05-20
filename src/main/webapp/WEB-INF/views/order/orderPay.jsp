@@ -48,7 +48,7 @@
 <head>
     <title>*** KCP [AX-HUB Version] ***</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
-<link href="css/style.css" rel="stylesheet" type="text/css" id="cssLink"/>
+<link href="css/style.css" rel="/resources/css/stylesheet" type="text/css" id="cssLink"/>
 
 <%
     /* ============================================================================== */
@@ -159,7 +159,7 @@
 
             var order_idxx = "TEST" + year + "" + month + "" + date + "" + time;
  */
-            document.order_info.ordr_idxx.value =document.getElementById('order_idxx').value;;
+            document.order_info.ordr_idxx.value =document.getElementById('order_idxx').value;
 
             /*
              * 인터넷 익스플로러와 파이어폭스(사파리, 크롬.. 등등)는 javascript 파싱법이 틀리기 때문에 object 가 인식 전에 실행 되는 문제
@@ -249,39 +249,43 @@
                         </td>
                     </tr>
                    <!-- 주문번호(ordr_idxx) -->
-                    <tr>
+                    <%-- <tr>
                         <th>주문 번호</th>
-                        <td><input type="text" id="ordr_idxx" name="ordr_idxx" class="w200" value="${orderInfo1.orderNo}" maxlength="40"/></td>
+                        <td><input type="hidden" id="ordr_idxx" name="ordr_idxx" class="w200" value="${orderInfo1.orderNo}" maxlength="40"/></td>
                     </tr>
+                     --%>
+                    <input type="hidden" id="ordr_idxx" name="ordr_idxx" class="w200" value="${orderInfo1.orderNo}" maxlength="40"/>
                     <!-- 상품명(good_name) -->
                     <tr>
                         <th>상품명</th>
-                        <td><input type="text" name="good_name" class="w100" value="${orderInfo.ordPrd.prdNm}"/></td>
+                        <td><input type="hidden" name="good_name" class="w100" value="${orderInfo.ordPrd.prdNm}"/>"${orderInfo.ordPrd.prdNm}"</td>
+                        
                     </tr>
                     <!-- 결제금액(good_mny) - ※ 필수 : 값 설정시 ,(콤마)를 제외한 숫자만 입력하여 주십시오. -->
                     <tr>
                         <th>결제 금액</th>
-                        <td><input type="text" name="good_mny" class="w100" maxlength="9" value="${orderInfo.totalOrderPrice}"/>원(숫자만 입력)</td>
+                        <td><input type="hidden" name="good_mny" class="w100" maxlength="9" value="${orderInfo.totalOrderPrice}"/>${orderInfo.totalOrderPrice}원(숫자만 입력)</td>
+                   
                     </tr>
                     <!-- 주문자명(buyr_name) -->
                     <tr>
                         <th>주문자명</th>
-                        <td><input type="text" name="buyr_name" class="w100" value="${orderInfo1.customerInfo.custNm}"/></td>
+                        <td><input type="hidden" name="buyr_name" class="w100" value="${orderInfo1.customerInfo.custNm}"/>${orderInfo1.customerInfo.custNm}</td>
                     </tr>
                     <!-- 주문자 E-mail(buyr_mail) -->
                     <tr>
                         <th>E-mail</th>
-                        <td><input type="text" name="buyr_mail" class="w200" value="${orderInfo1.customerInfo.custEmail}" maxlength="30" /></td>
+                        <td><input type="hidden" name="buyr_mail" class="w200" value="${orderInfo1.customerInfo.custEmail}" maxlength="30" />${orderInfo1.customerInfo.custEmail}</td>
                     </tr>
                     <!-- 주문자 연락처1(buyr_tel1) -->
                     <tr>
                         <th>전화번호</th>
-                        <td><input type="text" name="buyr_tel1" class="w100" value="${orderInfo1.customerInfo.custPh}"/></td>
+                        <td><input type="hidden" name="buyr_tel1" class="w100" value="${orderInfo1.customerInfo.custPh}"/>${orderInfo1.customerInfo.custPh}</td>
                     </tr>
                     <!-- 휴대폰번호(buyr_tel2) -->
                     <tr>
                         <th>휴대폰번호</th>
-                        <td><input type="text" name="buyr_tel2" class="w100" value="${orderInfo1.customerInfo.custMb}"/></td>
+                        <td><input type="hidden" name="buyr_tel2" class="w100" value="${orderInfo1.customerInfo.custMb}"/>${orderInfo1.customerInfo.custMb}</td>
                     </tr>
                     </table>
 
