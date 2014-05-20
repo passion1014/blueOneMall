@@ -20,7 +20,6 @@
 				<div class="customer_section">
 					<h4>공지사항</h4>
 					<p class="sub_tit">쇼핑몰의 새로운 소식이나 이벤트를 확인하실 수 있습니다.</p>
-					NOTICEVIEW
 					<div class="notice_area">
 						<ul class="no_answer">
 							<li>
