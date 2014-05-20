@@ -38,22 +38,14 @@
 							</li>
 							<li>
 								<span class="tbl_tit">검색결과</span><span class="st_color">0건</span>
-								<table class="noanswer_tbl" summary="문의하기목록표">
-									<caption>문의하기목록</caption>
-									<colgroup>
-										<col width="*"/>
-									</colgroup>
-									<tbody>
-										<c:forEach items="${faqList}" var="qna">
-										<tr>
-											<td><a href="faqView.do?faqIdx=${qna.faqIdx}">Q. ${qna.faqQes}</a></th>
-										</tr>
-										<tr>
-											<td>A. ${qna.faqAns}</td>
-										</tr>
-										</c:forEach>
-									</tbody>
-								</table>
+								<div>
+									<div class="accordion">
+										<div class="accord-header question left">
+											<span class="btn_question">질문</span>
+										</div>
+										<div class="accord-content answer left">답변</div>
+									</div>
+								</div>
 							</li>
 						</ul>
 						<div class="paging2">
