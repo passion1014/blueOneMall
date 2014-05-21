@@ -20,6 +20,7 @@ import com.blueone.board.domain.BoardCommentInfo;
 import com.blueone.board.domain.BoardInfo;
 import com.blueone.board.domain.BoardSrchInfo;
 import com.blueone.board.domain.FaqInfo;
+import com.blueone.board.domain.NoticeInfo;
 import com.blueone.board.service.IBoardService;
 import com.blueone.common.domain.BaseInfo;
 import com.blueone.customer.domain.CustomerInfo;
@@ -40,7 +41,7 @@ public class CommunityController {
 	public String noticeBoard(@ModelAttribute("AdminInfo") AdminInfo adminInfo,
 			BindingResult result, Model model) {
 
-		// 상품QnA 페이지
+		/*// 상품QnA 페이지
 		int currentPage = adminInfo.getCurrentPage();
 
 		// ----------------------------------------------------
@@ -60,11 +61,23 @@ public class CommunityController {
 
 		model.addAttribute("qnaList", boardList);
 		model.addAttribute("pageHtml", getPageHtml(boardSrchInfo));
-
+*/
+		
+		List<NoticeInfo> noticeList=boardService.getNoticeInfoList();
+		 model.addAttribute("noticeList", noticeList);
+		 
+		 
 		return "admin/community/noticeBoard";
 
 	}
 
+	@RequestMapping(value = "/noticeWrite.do", method = RequestMethod.GET)
+	public String noticeWrite(@ModelAttribute("AdminInfo") AdminInfo adminInfo,
+			BindingResult result, Model model) {
+
+		return "admin/community/noticeWrite";
+
+	}
 	@RequestMapping(value = "/faqBoard.do", method = RequestMethod.GET)
 	public String faqBoard(@ModelAttribute("AdminInfo") AdminInfo adminInfo,
 			BindingResult result, Model model, HttpSession session) {

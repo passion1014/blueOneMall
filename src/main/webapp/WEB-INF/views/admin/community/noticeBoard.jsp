@@ -14,14 +14,15 @@
 	<div id="Contents">
 	<h1>커뮤니티 &gt; 공지사항 &gt; <strong>공지사항</strong></h1>
 	<div class="right">
-		<input type="button" value="공지사항 등록" class="Small_Button Gray" onClick="openWin('./notisceWrite.do','faqWriteForm',600,450,'scrollbars=no');">
+		<input type="button" value="공지사항 등록" class="Small_Button Gray" onClick="openWin('./noticeWrite.do','noticeWriteForm',600,450,'scrollbars=no');">
 	</div>
 	<table class="inquire_tbl" summary="제품문의목록표">
 		<colgroup>
 			<col width="10%" />
-			<col width="60%" />
+			<col width="50%" />
 			<col width="15%"/>
 			<col width="15%"/>
+			<col width="10%"/>
 		</colgroup>
 		<thead>
 			<th class="bgcolor">번호</th>
@@ -32,12 +33,16 @@
 			
 		</thead>
 		<tbody>
-			<c:forEach items="${qnaList}" var="qna">
+			<c:forEach items="${noticeList}" var="qna">
 				<tr>
 					<td class="bgcolor">${qna.brdSeq}</td>
 					<td class="texalign"><a href="#">${qna.title}</a></td>
 					<td class="bgcolor">${qna.insUser}</td>
 					<td>${qna.insDt}</td>
+					<td style="text-align:center;">
+							<input type="button" value="수정" <%-- onClick="openWin('./faqEdit.do?faqIdx=${qna.faqIdx}','faqEditForm',600,450,'scrollbars=no');" --%> class="Button Gray" />
+							<input type="button" value="삭제" <%-- onClick="confirm_process('','해당 FAQ를 삭제하시겠습니까?','faqDelete.do?faqIdx=${qna.faqIdx}');"  --%> class="Button Gray" />
+					</td>
 				</tr>
 			</c:forEach>
 		</tbody>

@@ -62,9 +62,13 @@ public class ShopServiceImpl implements IShopService{
 			for (ProductInfo each : rstInfo) {
 				AttachFileInfo srchKey = new AttachFileInfo();
 				srchKey.setAttCdKey(each.getPrdCd());
-
+				
 				AttachFileInfo attachFileInfo = sqlSession.selectOne("attFile.selectListBomAttFileTb0002", srchKey);
-				each.setAttFilePath(attachFileInfo.getAttFilePath());
+				if(attachFileInfo!=null){
+					each.setAttFilePath(attachFileInfo.getAttFilePath());
+				}else{
+					each.setAttFilePath("/resources/upload/201405/product_no_img.jpg");
+				}
 			}
 			
 		}finally{
