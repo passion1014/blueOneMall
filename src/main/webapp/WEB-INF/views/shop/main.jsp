@@ -186,7 +186,7 @@
 				<ul class="plist_area">
 					<li><a href="/?prdCtgL=L4315" class="wpadding1 on">BLUETOOTH</a></li>
 					<li><a href="/?prdCtgL=L3862" class="wpadding2">CASE</a></li>
-					<li><a href="/?prdCtgL=L7451" class="wpadding3">XTC</a></li>
+					<li><a href="/?prdCtgL=L7451" class="wpadding3">ETC</a></li>
 				</ul>
 				
 				<div class="product_elist">
