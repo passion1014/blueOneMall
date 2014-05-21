@@ -13,7 +13,7 @@
 		<c:import url="../inc/communityLnb.jsp" />
 		
 		<div class="sub_content">
-			<form action="#" method="post">
+			<form action="faqSearch.do" method="post" name="faqFm">
 				<div class="customer_section">
 					<h4>FAQ</h4>
 					<p class="sub_tit">FAQ 페이지입니다.</p>
@@ -43,11 +43,20 @@
 								<div>
 									<span class="top_linebrink"></span>
 									<div class="accordion">
-										<c:forEach items="${faqList}" var="qna">
+										<c:forEach items="${faqList}" var="qna" varStatus="i">
 											<div class="accord-header question left">
 												<span class="btn_question">질문</span><span>${qna.faqQes}</span>
 											</div>
-											<div class="accord-content answer left">${qna.faqAns}</div>
+											
+											<div class="accord-content answer left">
+												<script type="text/javascript">
+													document.open();
+													var text=unescape('${qna.faqAns}');
+													document.write(text);
+													document.close();
+													
+												</script>
+											</div>
 										</c:forEach>
 									</div>
 								</div>
@@ -70,10 +79,13 @@ $(document).ready(function(){
 	// accordion
 	$(".accordion .accord-header").click(function() {
 		if($(this).next("div").is(":visible")){
+			
 			$(this).next("div").slideUp("normal");
+			
 		} else {
 			$(".accordion .accord-content").slideUp("normal");
 			$(this).next("div").slideToggle("normal");
+			
 		}
 	});
 });

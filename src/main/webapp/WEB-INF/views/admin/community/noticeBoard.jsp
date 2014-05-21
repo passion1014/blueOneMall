@@ -12,7 +12,10 @@
 	</c:import>
 	
 	<div id="Contents">
-	<h1>커뮤니티 &gt; FAQ &gt; <strong>FAQ</strong></h1>
+	<h1>커뮤니티 &gt; 공지사항 &gt; <strong>공지사항</strong></h1>
+	<div class="right">
+		<input type="button" value="공지사항 등록" class="Small_Button Gray" onClick="openWin('./notisceWrite.do','faqWriteForm',600,450,'scrollbars=no');">
+	</div>
 	<table class="inquire_tbl" summary="제품문의목록표">
 		<colgroup>
 			<col width="10%" />
@@ -25,6 +28,8 @@
 			<th>내용</th>
 			<th class="bgcolor">작성자</th>
 			<th>작성일</th>
+			<th>수정/삭제</th>
+			
 		</thead>
 		<tbody>
 			<c:forEach items="${qnaList}" var="qna">

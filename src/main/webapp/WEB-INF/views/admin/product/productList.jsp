@@ -6,6 +6,7 @@
 
 <script language="javascript">
 <!--
+
 	$(document).ready(function() {
 		$('#prdCtgL').change(function() {
 			$.getJSON('/admin/categoryListByParent/' + $('#prdCtgL').val(), function(result) {

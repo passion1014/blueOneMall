@@ -5,14 +5,30 @@
 
 <c:import  url="../inc/top.jsp" />
 
+<script type="text/javascript">
+<!--
+	function submitFaqFm(_frm) {
+		
+		document.faqWriteFm.faqAns.value = escape(document.faqWriteFm.faqAns.value);
+		
+		_frm.action ='faqWriteProc.do';
+		
+		_frm.submit();
+	}
+-->
+</script>
+
 <body>
 <div id="Wrap">
 	<div id="Contents">
 	<h1>커뮤니티 &gt; FAQ &gt; <strong>FAQ</strong></h1>
-<form  method="post" action="faqWriteProc.do">
-<input type="hidden" name="currentPage" value="${srchInfo.currentPage}" />
-<input type="hidden" name="srchBrdTyp" value="${srchBrdTyp}" />
+	
+	
+<form  method="post" action="faqWriteProc.do" name="faqWriteFm">
+<%-- <input type="hidden" name="currentPage" value="${srchInfo.currentPage}" />
+<input type="hidden" name="srchBrdTyp" value="${srchBrdTyp}" /> --%>
 <input type="hidden" name="faqType" value="01" />
+
 
 <table class="boardNormal" summary="묻고답하기 등록">
 	<caption>묻고답하기 등록</caption>
@@ -25,14 +41,14 @@
 		
 		<tr>
 			<th>질문</th>
-			<td colspan="3">
+			<td>
 				<input type="text" name="faqQes" class="" title="제목 입력" />
 			</td>
 		</tr>
 		<tr>
 			<th>답변</th>
-			<td colspan="3">
-				<input type="text" name="faqAns" class="" title="답변 입력" />
+			<td>
+				<textarea name="faqAns"></textarea>
 			</td>
 		</tr>
 		
@@ -42,10 +58,10 @@
 
 
 <div style="margin-top:10px;text-align:center;">
-		<input type="submit" value="등록하기" class="Button Gray">
+		<input type="button" value="등록하기" class="Button Gray" onClick="submitFaqFm(document.faqWriteFm);">
 		<input type="button" value="창닫기" class="Button Gray" onClick="self.close();">
 </div>
-	</form>
+</form>
 </div>
 
 </div>

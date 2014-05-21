@@ -577,8 +577,18 @@ public class BoardService implements IBoardService {
 
 	@Override
 	public List<FaqInfo> getFaqInfoList() {
-		// TODO Auto-generated method stub
-		return null;
+		List<FaqInfo> boards = new ArrayList<FaqInfo>();
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			boards = sqlSession.selectList("faq.selectDtlBomFaqTb0001");
+			
+		} finally {
+			sqlSession.close();
+		}
+
+		
+		return boards;
 	}
 
 }//End class
