@@ -7,6 +7,7 @@ import com.blueone.board.domain.BoardCommentInfo;
 import com.blueone.board.domain.BoardInfo;
 import com.blueone.board.domain.BoardSrchInfo;
 import com.blueone.board.domain.FaqInfo;
+import com.blueone.board.domain.NoticeInfo;
 
 
 public interface IBoardService {
@@ -50,7 +51,12 @@ public interface IBoardService {
 	public int deleteFaqInf(FaqInfo faqInfo);
 	public List<FaqInfo> getFaqInfoList(FaqInfo faqInfo);
 	
+<<<<<<< HEAD
 /*	//공지사항
 	public List<NoticeInfo> getNoticeInfoList();*/
+=======
+	//공지사항
+	public List<NoticeInfo> getNoticeInfoList();
+>>>>>>> 340c882eee0c84192b731eb2ed25ca0b3cebd3e1
 
 }

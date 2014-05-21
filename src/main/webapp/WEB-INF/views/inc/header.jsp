@@ -47,7 +47,7 @@
 		</p>
 		<form method="GET" id="topSFrm" name="topSFrm" action="/product/searchProduct.do">
 		<div class="search_area">
-			<span class="search_menu">
+			<span class="search_menu" style="text-align:right;">
 				<a href="/order/cartListView.do" class="menu_site">장바구니</a>
 				<a href="/user/orderListView.do" class="menu_site">주문배송 조회</a>
 				<a href="/user/userEdit.do">마이페이지</a>

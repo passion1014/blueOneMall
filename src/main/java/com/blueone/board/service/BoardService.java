@@ -16,7 +16,11 @@ import com.blueone.board.domain.BoardCommentInfo;
 import com.blueone.board.domain.BoardInfo;
 import com.blueone.board.domain.BoardSrchInfo;
 import com.blueone.board.domain.FaqInfo;
+<<<<<<< HEAD
 
+=======
+import com.blueone.board.domain.NoticeInfo;
+>>>>>>> 340c882eee0c84192b731eb2ed25ca0b3cebd3e1
 import com.blueone.common.domain.AttachFileInfo;
 import com.blueone.common.domain.FileInfo;
 import com.blueone.common.util.FileUploadUtility;
@@ -590,6 +594,25 @@ public class BoardService implements IBoardService {
 
 		
 		return boards;
+<<<<<<< HEAD
+=======
+	}
+	
+	@Override
+	public List<NoticeInfo> getNoticeInfoList() {
+		List<NoticeInfo> boards = new ArrayList<NoticeInfo>();
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			boards = sqlSession.selectList("notice.selectDtlBomNoticeTb0001");
+			
+		} finally {
+			sqlSession.close();
+		}
+
+		
+		return boards;
+>>>>>>> 340c882eee0c84192b731eb2ed25ca0b3cebd3e1
 	}
 	
 	/*@Override

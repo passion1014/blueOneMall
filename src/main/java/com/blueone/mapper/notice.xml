@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="notice">
+	<resultMap id="NoticeInfoMap" type="NoticeInfo">
+		<result property="ntIdx" column="NT_IDX" javaType="int"/>
+		<result property="ntType" column="NT_TYPE" javaType="java.lang.String"/>
+		<result property="ntRegAdmin" column="NT_REG_ADMIN" javaType="java.lang.String"/>
+		<result property="ntTitle" column="NT_TITLE" javaType="java.lang.String" />
+		<result property="ntContent" column="NT_CONTENT" javaType="java.lang.String"/>
+		<result property="ntRegDate" column="NT_REG_DATE" javaType="java.lang.String"/>
+	</resultMap>
+	
+	
+		<select id="selectDtlBomNoticeTb0001" resultType="NoticeInfo" resultMap="NoticeInfoMap" parameterType="NoticeInfo">
+		SELECT 
+			`NT_IDX`,
+			`NT_TYPE`,
+			`NT_REG_ADMIN`,
+			`NT_TITLE`,
+			`NT_CONTENT`,
+			`NT_REG_DATE`
+			
+		FROM TB_NOTICE_TB
+		WHERE
+			(1 = 1)
+			<if test="schType != null and schType eq 'q'.toString()"> AND NT_TITLE  LIKE CONCAT('%',#{schWord},'%') </if>
+			<if test="schType != null and schType eq 'a'.toString()"> AND NT_CONTENT	LIKE CONCAT('%',#{schWord},'%') </if>
+			<if test="schType != null and schType eq 't'.toString()"> AND NT_TITLE  LIKE CONCAT('%',#{schWord},'%') OR NT_CONTENT	LIKE CONCAT('%',#{schWord},'%') </if>
+			
+		
+	</select>
+	
+	<select id="selectDtlBomNoticeTb0002" resultType="NoticeInfo" resultMap="NoticeInfoMap" parameterType="NoticeInfo">
+		SELECT 
+			`NT_IDX`,
+			`NT_TYPE`,
+			`NT_REG_ADMIN`,
+			`NT_TITLE`,
+			`NT_CONTENT`,
+			`NT_REG_DATE`
+			
+		FROM TB_NOTICE_TB
+		WHERE
+			`NT_IDX` = #{ntIdx}
+	</select>
+	
+	<update id="updateBomNoticeTb0001" parameterType="NoticeInfo">
+		UPDATE TB_NOTICE_TB
+			SET
+				`NT_REG_DATE`=sysdate()
+				<if test="ntType != null and ntType != ''">,`NT_TYPE` = #{ntType}</if>
+				<if test="ntTitle != null and ntTitle != ''">,`NT_TITLE` = #{ntTitle}</if>
+				<if test="ntContent != null and ntContent != ''">,`NT_CONTENT` = #{ntContent}</if>
+				
+		WHERE
+			`NT_IDX` = #{ntIdx}
+	</update>
+	
+	<insert id="insertBomNoticeTb0001" parameterType="NoticeInfo">
+		INSERT  TB_NOTICE_TB
+			(`NT_TYPE`,`NT_REG_ADMIN`,`NT_TITLE`,`NT_CONTENT`,`NT_REG_DATE`)
+			VALUES
+			(#{ntType},#{ntRegAdmin},#{ntTitle},#{ntContent}, sysdate())
+	</insert>
+	
+		
+	<delete id="deleteBomntTb0001" parameterType="NoticeInfo">
+		DELETE FROM TB_NOTICE_TB			
+		WHERE
+			`NT_IDX` = #{ntIdx}
+	</delete>
+	
+	
+	
+</mapper>
