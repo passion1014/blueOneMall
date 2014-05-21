@@ -33,7 +33,7 @@
 			
 		</thead>
 		<tbody>
-			<c:forEach items="${qnaList}" var="qna">
+			<c:forEach items="${noticeList}" var="qna">
 				<tr>
 					<td class="bgcolor">${qna.brdSeq}</td>
 					<td class="texalign"><a href="#">${qna.title}</a></td>
