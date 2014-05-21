@@ -1,9 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.blueone.common.util.CKEditorHelper" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="ckeditor" uri="http://ckeditor.com" %>
+<script type="text/javascript" src="<c:url value='/resources/js/js_ajax.js'/>"> </script>
+<script type="text/javascript" src="<c:url value='/resources/js/js_common.js'/>"> </script>
+<script type="text/javascript" src="<c:url value='/resources/js/js_admin.js'/>"> </script>
+<script type="text/javascript" src="<c:url value='/resources/js/jquery-1.4.3.min.js'/>"> </script>
+<script type="text/javascript" src="<c:url value='/resources/js/jquery-1.7.2.min.js'/>"> </script>
+<script type="text/javascript" src="<c:url value='/resources/js/jquery-ui-1.8.16.custom.min.js'/>"> </script>
 
 <script type="text/javascript">
+/*
 //등록
 function fnEdit() {
 	var f = boardForm;	
@@ -94,6 +99,7 @@ function addAttaLine() {
 	$('#idAttaInfo').append(attaHtml);
 }
 
+
 // 파일삭제
 function deleteAtta(flNo) {
 	$('#idAttaFile' + flNo).remove();
@@ -104,12 +110,30 @@ function setUploadImage(path) {
 	var appendHtml = "<input type='hidden' name='contImageFile' value='" + path + "'>";
 	$('#idAddImageInfo').append(appendHtml);
 }
+*/
+
+
+function fnAddClick() {
+	var f = tx_editor_form;
+
+	f.action = 'transferEditProc.do';
+	Editor.save(); // 다음 에디터
+}
+
+$(document).ready(function() {
+	Editor.modify({
+		"content": document.getElementById("tempContents")
+	});
+});
+
 </script>
 
-<form name="boardForm" method="post" enctype="multipart/form-data" action="">
+<!-- <form name="boardForm" method="post" enctype="multipart/form-data" action=""> -->
+<form name="tx_editor_form" method="post" enctype="multipart/form-data" action="http://posttestserver.com/post.php">
 <input type="hidden" name="currentPage" value="${srchInfo.currentPage}" />
 <input type="hidden" name="brdSeq" value="${brdSeq}" />
 <input type="hidden" name="srchBrdTyp" value="${srchBrdTyp}" />
+<input type="hidden" id="tempContents" value="${board.content}" />
 <span id="idAddImageInfo"></span>
 <div id="boardWrite">
 	<div class="boxView">
@@ -161,8 +185,9 @@ function setUploadImage(path) {
 						<tr>
 							<th>내용입력</th>
 							<td colspan="3">
-								<textarea id="cont" name="cont" class="area_620_350">${board.cont}</textarea>
-								<ckeditor:replace replace="cont" basePath="${pageContext.request.contextPath}/module/ckeditor/" config="<%= CKEditorHelper.getDefaultConfig(620, 350) %>" />
+								<jsp:include page="/resources/editor/editor.jsp" />
+								<%-- <textarea id="cont" name="cont" class="area_620_350">${board.content}</textarea> --%>
+								<%-- <ckeditor:replace replace="cont" basePath="${pageContext.request.contextPath}/module/ckeditor/" config="<%= CKEditorHelper.getDefaultConfig(620, 350) %>" /> --%>
 								
 							</td>
 						</tr>

@@ -168,7 +168,7 @@ public class BoardController {
 		// 조회
 		long brdSeq = Long.parseLong(srchBrdSeq);		
 		BoardInfo board = boardService.selectBOM_BOARD_TB(brdSeq);
-		List<BoardAttachFileInfo> attaFileList = boardService.selectBOM_ATTACHFILE_TB(brdSeq);
+//		List<BoardAttachFileInfo> attaFileList = boardService.selectBOM_ATTACHFILE_TB(brdSeq);
 		//List<BoardCommentModel> commentList = boardService.selectTBL010104(brdSeq);
 		
 		ModelAndView mav = new ModelAndView();
@@ -176,7 +176,7 @@ public class BoardController {
 		mav.addObject("brdSeq", srchBrdSeq);
 		mav.addObject("srchBrdTyp", request.getParameter("srchBrdTyp"));
 		mav.addObject("srchInfo", boardSrchModel);
-		mav.addObject("attaFileList", attaFileList);
+//		mav.addObject("attaFileList", attaFileList);
 		//mav.addObject("commentList", commentList);
 		mav.addObject("brdTypInfo", boardTypService.getBoardTyp(boardSrchModel.getSrchBrdTyp()));
 		mav.setViewName("/board/edit");

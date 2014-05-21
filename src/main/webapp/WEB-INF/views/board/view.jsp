@@ -228,10 +228,10 @@ function setEditComment(commNo) {
 	</table>
 	<div id="buttonWrap">
 		<img class="mousePoint" src="/resources/img/board/btn/btn_list.gif" onclick="fnList()" alt="목록" />
-		<c:if test="${sessionScope.userInfo.userId == board.insUser}">
+		<%-- <c:if test="${sessionScope.userInfo.userId == board.insUser}"> --%>
 		<img class="mousePoint" src="/resources/img/board/btn/btn_modify.gif" onclick="fnEdit()" alt="수정" />
 		<img class="mousePoint" src="/resources/img/board/btn/btn_delete.gif" onclick="fnDelete()" alt="삭제" />
-		</c:if>
+		<%-- </c:if> --%>
 	</div>
 	
 	

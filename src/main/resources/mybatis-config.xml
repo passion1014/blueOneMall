@@ -82,7 +82,7 @@
 		<typeAlias alias="boardAttachFileInfo" type="com.blueone.board.domain.BoardAttachFileInfo"/>
 		<typeAlias alias="boardCommentInfo" type="com.blueone.board.domain.BoardCommentInfo"/>
 		<typeAlias alias="FaqInfo" type="com.blueone.board.domain.FaqInfo"/>
-		<typeAlias alias="FaqInfo" type="com.blueone.board.domain.NoticeInfo"/>
+ 		<typeAlias alias="NoticeInfo" type="com.blueone.board.domain.NoticeInfo"/>
 		
 		
 		<!-- 고객관련 모델정보 -->
