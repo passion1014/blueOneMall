@@ -65,6 +65,13 @@ public class CommunityController {
 
 	}
 
+	@RequestMapping(value = "/noticeWrite.do", method = RequestMethod.GET)
+	public String noticeWrite(@ModelAttribute("AdminInfo") AdminInfo adminInfo,
+			BindingResult result, Model model) {
+
+		return "admin/community/noticeWrite";
+
+	}
 	@RequestMapping(value = "/faqBoard.do", method = RequestMethod.GET)
 	public String faqBoard(@ModelAttribute("AdminInfo") AdminInfo adminInfo,
 			BindingResult result, Model model, HttpSession session) {
