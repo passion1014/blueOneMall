@@ -24,7 +24,7 @@ public class NoticeContorller {
 	@Autowired IBoardService boardService;
 	
 	@RequestMapping(value = "/community/notice.do", method = RequestMethod.GET)
-	public String faqList(@ModelAttribute("AdminInfo") AdminInfo adminInfo,
+	public String notice(@ModelAttribute("AdminInfo") AdminInfo adminInfo,
 			BindingResult result, Model model, HttpSession session) {
 		
 		CustomerInfo customerSesstion =(CustomerInfo)session.getAttribute("customerSession");
@@ -58,6 +58,45 @@ public class NoticeContorller {
 		 model.addAttribute("faqList", faqList);*/
 		 
 		return "community/noticeView";
+
+	}
+	
+	
+	@RequestMapping(value = "/community/faqList.do", method = RequestMethod.GET)
+	public String faqList(@ModelAttribute("AdminInfo") AdminInfo adminInfo,
+			BindingResult result, Model model, HttpSession session) {
+		
+		CustomerInfo customerSesstion =(CustomerInfo)session.getAttribute("customerSession");
+		// 세션체크
+		if (customerSesstion == null) {
+			return "user/errorPage";
+		}
+				
+		
+		
+		 List<FaqInfo> faqList=boardService.getFaqInfoList();
+		 model.addAttribute("faqList", faqList);
+		 
+		return "community/faqList";
+
+	}
+	
+	
+	@RequestMapping(value = "/community/faqView.do", method = RequestMethod.GET)
+	public String faqEdit(@ModelAttribute("AdminInfo") AdminInfo adminInfo, FaqInfo faq,BindingResult result, Model model, HttpSession session) {
+
+
+		CustomerInfo customerSesstion =(CustomerInfo)session.getAttribute("customerSession");
+		// 세션체크
+		if (customerSesstion == null) {
+			return "user/errorPage";
+		}
+		
+	
+		FaqInfo reFaqInfo = boardService.getFaqInfoByIdx(faq);
+		model.addAttribute("reFaqInfo", reFaqInfo);
+		
+		return "community/faqView";
 
 	}
 	

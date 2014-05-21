@@ -55,12 +55,12 @@ public class BoardService implements IBoardService {
 	
 
 	@Override
-	public List<FaqInfo> getFaqInfoList() {
+	public List<FaqInfo> getFaqInfoList(FaqInfo faqInfo) {
 		List<FaqInfo> boards = new ArrayList<FaqInfo>();
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
-			boards = sqlSession.selectList("faq.selectDtlBomFaqTb0001");
+			boards = sqlSession.selectList("faq.selectDtlBomFaqTb0001",faqInfo);
 			
 		} finally {
 			sqlSession.close();
@@ -572,6 +572,13 @@ public class BoardService implements IBoardService {
 		} finally {
 			sqlSession.close();
 		}
+	}
+
+
+	@Override
+	public List<FaqInfo> getFaqInfoList() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }//End class

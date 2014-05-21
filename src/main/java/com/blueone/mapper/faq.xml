@@ -13,7 +13,7 @@
 	</resultMap>
 	
 	
-	<select id="selectDtlBomFaqTb0001" resultType="FaqInfo" resultMap="FaqInfoMap">
+	<select id="selectDtlBomFaqTb0001" resultType="FaqInfo" resultMap="FaqInfoMap" parameterType="FaqInfo">
 		SELECT 
 			`FAQ_IDX`,
 			`FAQ_TYPE`,
@@ -21,7 +21,14 @@
 			`FAQ_ANSWER`,
 			`FAQ_REG_DATE`
 			
-		FROM BOM_FAQ_TB   
+		FROM BOM_FAQ_TB
+		WHERE
+			(1 = 1)
+			<if test="schType != null and schType eq 'q'.toString()"> AND FAQ_QUESTION  LIKE CONCAT('%',#{schWord},'%') </if>
+			<if test="schType != null and schType eq 'a'.toString()"> AND FAQ_ANSWER	LIKE CONCAT('%',#{schWord},'%')  </if>
+			<if test="schType != null and schType eq 't'.toString()"> AND FAQ_QUESTION  LIKE CONCAT('%',#{schWord},'%') AND FAQ_ANSWER	LIKE CONCAT('%',#{schWord},'%')  </if>
+			
+		
 	</select>
 	
 	<select id="selectDtlBomFaqTb0002" resultType="FaqInfo" resultMap="FaqInfoMap" parameterType="FaqInfo">

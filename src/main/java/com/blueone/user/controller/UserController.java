@@ -533,42 +533,6 @@ public class UserController {
 
 	}
 	
-	@RequestMapping(value = "/community/faqList.do", method = RequestMethod.GET)
-	public String faqList(@ModelAttribute("AdminInfo") AdminInfo adminInfo,
-			BindingResult result, Model model, HttpSession session) {
-		
-		CustomerInfo customerSesstion =(CustomerInfo)session.getAttribute("customerSession");
-		// 세션체크
-		if (customerSesstion == null) {
-			return "user/errorPage";
-		}
-				
-		
-		
-		 List<FaqInfo> faqList=boardService.getFaqInfoList();
-		 model.addAttribute("faqList", faqList);
-		 
-		return "community/faqList";
-
-	}
 	
-	@RequestMapping(value = "/community/faqView.do", method = RequestMethod.GET)
-	public String faqEdit( FaqInfo faq,
-			BindingResult result, Model model, HttpSession session) {
-
-
-		CustomerInfo customerSesstion =(CustomerInfo)session.getAttribute("customerSession");
-		// 세션체크
-		if (customerSesstion == null) {
-			return "user/errorPage";
-		}
-		
-	
-		FaqInfo reFaqInfo = boardService.getFaqInfoByIdx(faq);
-		model.addAttribute("reFaqInfo", reFaqInfo);
-		
-		return "community/faqView";
-
-	}
 	
 }

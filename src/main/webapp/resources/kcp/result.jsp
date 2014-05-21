@@ -654,7 +654,6 @@
                 <div class="btnset">
                 <a href="/order/orderComplete.do?orderNo=<%=ordr_idxx %>" class="home">»Æ¿Œ</a>
                 </div>
-                
                 </tr>
               </tr>
             </div>

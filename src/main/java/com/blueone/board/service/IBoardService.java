@@ -47,5 +47,6 @@ public interface IBoardService {
 	public FaqInfo getFaqInfoByIdx(FaqInfo faqInfo);
 	public int updateFaqInfo(FaqInfo faqInfo);
 	public int deleteFaqInf(FaqInfo faqInfo);
+	public List<FaqInfo> getFaqInfoList(FaqInfo faqInfo);
 
 }

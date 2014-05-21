@@ -27,26 +27,28 @@
 									<li class="datebox_search">
 										<span class="tit">검색</span>
 										<span>
-											<select>
-												<option>전체</option>
-												<option>질문</option>
-												<option>답변</option>
+											<select name="schType">
+												<option value="t">전체</option>
+												<option value="q">질문</option>
+												<option value="a">답변</option>
 											</select>
-											<input type="text" title="searchbox" />
+											<input type="text" id="schWord" name="schWord" title="searchbox" />
 											<button class="btn">조회하기</button>
 										</span>
 									</li>
 								</ol>
 							</li>
 							<li>
-								<span class="tbl_tit">검색결과</span><span class="st_color">0건</span>
+								<span class="tbl_tit">검색결과</span><span class="st_color">${faqList.size()}건</span>
 								<div>
 									<span class="top_linebrink"></span>
 									<div class="accordion">
-										<div class="accord-header question left">
-											<span class="btn_question">질문</span>
-										</div>
-										<div class="accord-content answer left">답변</div>
+										<c:forEach items="${faqList}" var="qna">
+											<div class="accord-header question left">
+												<span class="btn_question">질문</span><span>${qna.faqQes}</span>
+											</div>
+											<div class="accord-content answer left">${qna.faqAns}</div>
+										</c:forEach>
 									</div>
 								</div>
 							</li>
