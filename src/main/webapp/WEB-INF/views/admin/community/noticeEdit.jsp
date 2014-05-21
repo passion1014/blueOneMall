@@ -7,11 +7,16 @@
 
 <script type="text/javascript">
 <!--
+	$(document).ready(function() {
+		document.noticeEditFm.content.value = unescape('${editBrd.content}');
+		
+	});
+	
 	function submitFaqFm(_frm) {
 		
-		document.noticeWriteFm.content.value = escape(document.noticeWriteFm.content.value);
+		document.noticeEditFm.content.value = escape(document.noticeEditFm.content.value);
 		
-		_frm.action ='noticeWriteProc.do';
+		_frm.action ='noticeEditProc.do';
 		
 		_frm.submit();
 	}
@@ -24,16 +29,16 @@
 			<h1>커뮤니티 &gt; 공지사항 &gt; <strong>공지사항</strong></h1>
 		
 				
-			<form  method="post" action="noticeWriteProc.do" name="noticeWriteFm">
+			<form  method="post" action="noticeWriteProc.do" name="noticeEditFm">
 			
 				<input type="hidden" name="brdTyp" value="8" />
 				<input type="hidden" name="brdCodeType" value="02" />
-				<input type="hidden" name="insUser" value="${admin.id}" />
 				<input type="hidden" name="updUser" value="${admin.id}" />
+				<input type="hidden" name="brdSeq" value="${editBrd.brdSeq}" />
 				
 				
-				<table class="boardNormal" summary="공지사항 등록">
-					<caption>공지사항 등록</caption>
+				<table class="boardNormal" summary="공지사항 수정">
+					<caption>공지사항 수정</caption>
 					<colgroup>
 						<col width="100" />
 						
@@ -44,7 +49,7 @@
 						<tr>
 							<th>제목</th>
 							<td>
-								<input type="text" name="title" class="" title="제목 입력" />
+								<input type="text" name="title" class="" value="${editBrd.title}" title="제목 입력" />
 							</td>
 							<th>작성자</th>
 							<td>
@@ -66,7 +71,7 @@
 				
 				
 				<div style="margin-top:10px;text-align:center;">
-						<input type="button" value="등록하기" class="Button Gray" onClick="submitFaqFm(document.noticeWriteFm);">
+						<input type="button" value="수정하기" class="Button Gray" onClick="submitFaqFm(document.noticeEditFm);">
 						<input type="button" value="창닫기" class="Button Gray" onClick="self.close();">
 				</div>
 			</form>

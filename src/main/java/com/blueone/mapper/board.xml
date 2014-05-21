@@ -297,7 +297,7 @@
 		         ON t2.code_knd1 = 'MG'
 		        AND t2.code_knd2 = 'MG06'
 		        AND t2.code = t1.file_ext
-		   WHERE t1.brd_seq = #{brdSeq}
+		   WHERE t1.brdSeq = #{brdSeq}
 		ORDER BY t1.fl_no
 	</select>
 	
@@ -389,8 +389,14 @@
 	</update>
 	
 	<!-- 첨부파일 삭제처리 -->
-	<delete id="deleteTBL010103" parameterType="long">
+	<delete id="deleteBOM_ATTACHFILE_TB" parameterType="long">
 		DELETE FROM BOM_ATTACHFILE_TB
-		      WHERE brd_seq = #{brdseq}#
+		      WHERE brdSeq = #{brdseq}#
+	</delete>
+	
+	<!-- 게시판 삭제처리 -->
+	<delete id="deleteBOM_BOARD_TB" parameterType="com.blueone.board.domain.BoardInfo">
+		DELETE FROM BOM_BOARD_TB
+		      WHERE BRD_SEQ = #{brdSeq}
 	</delete>
 </mapper>

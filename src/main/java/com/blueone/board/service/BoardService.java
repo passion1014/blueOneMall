@@ -116,6 +116,26 @@ public class BoardService implements IBoardService {
 		
 		return count;
 	}
+	
+	@Override
+    public int deleteBoardTBInf(BoardInfo boardModel){
+        
+        int rst = -1;
+        
+        
+            SqlSession sqlSession = sqlSessionFactory.openSession();
+            try {
+                // DB 수행
+                rst = sqlSession.delete("board.deleteBOM_BOARD_TB", boardModel);
+                
+            } finally {
+                sqlSession.close();
+            }
+        
+        
+        return rst;
+    }
+	
 	@Override
     public int deleteFaqInf(FaqInfo faqInfo){
         

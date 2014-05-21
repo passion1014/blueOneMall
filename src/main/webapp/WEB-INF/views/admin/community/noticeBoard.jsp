@@ -35,20 +35,14 @@
 		<tbody>
 			<c:forEach items="${noticeList}" var="qna">
 				<tr>
-<<<<<<< HEAD
-					<td class="bgcolor">${qna.ntIdx}</td>
-					<td class="texalign"><a href="#">${qna.ntTitle}</a></td>
-					<td class="bgcolor">${qna.ntRegAdmin}</td>
-					<td>${qna.ntRegDate.substring(0,10)}</td>
-=======
+
 					<td class="bgcolor">${qna.brdSeq}</td>
 					<td class="texalign"><a href="#">${qna.title}</a></td>
 					<td class="bgcolor">${qna.insUser}</td>
-					<td>${qna.insDt}</td>
->>>>>>> 340c882eee0c84192b731eb2ed25ca0b3cebd3e1
+					<td>${qna.insDt.substring(0,10)}</td>
 					<td style="text-align:center;">
-							<input type="button" value="수정" <%-- onClick="openWin('./faqEdit.do?faqIdx=${qna.faqIdx}','faqEditForm',600,450,'scrollbars=no');" --%> class="Button Gray" />
-							<input type="button" value="삭제" <%-- onClick="confirm_process('','해당 FAQ를 삭제하시겠습니까?','faqDelete.do?faqIdx=${qna.faqIdx}');"  --%> class="Button Gray" />
+							<input type="button" value="수정"  onClick="openWin('./noticeEdit.do?brdSeq=${qna.brdSeq}','faqEditForm',600,450,'scrollbars=no');" class="Button Gray" />
+							<input type="button" value="삭제"  onClick="confirm_process('','해당 공지사항을 삭제하시겠습니까?','noticeDelete.do?brdSeq=${qna.brdSeq}');" class="Button Gray" />
 					</td>
 				</tr>
 			</c:forEach>
@@ -57,12 +51,7 @@
 
 	<!--<div id="Paser"> 1 | 2 | 3</div>-->
 	<div id="Paser">
-	<c:forEach var="i" begin="1" end="${endNum}">
-		<a href="adminList.do?page=${i}">${i}</a>
-		<!-- 
-		<input type="button" value="${i}" onClick="javascript:location.href='adminList.do?page=${i}'">
-		 -->				
-	</c:forEach>
+		${pageHtml}
 	</div>
 	
 </div>

@@ -24,7 +24,7 @@
 						<ul>
 							<li>
 								<ol class="datebox">
-									<li class="datebox_day">
+									<%-- <li class="datebox_day">
 										<span class="tit">등록일</span>
 										<span>
 											<input type="text" title="날짜박스" value="2014-02-13"/>
@@ -36,14 +36,16 @@
 											<button>3개월</button>
 											<button>6개월</button>
 										</span>
-									</li>
+									</li> --%>
 									<li class="datebox_search">
 										<span class="tit">검색</span>
 										<span>
-											<select>
-												<option>전체</option>
+											<select name="schType">
+												<option value="t">전체</option>
+												<option value="q">제목</option>
+												<option value="a">내용</option>
 											</select>
-											<input type="text" title="searchbox" />
+											<input type="text" id="schWord" name="schWord" title="searchbox" />
 											<button class="btn">조회하기</button>
 										</span>
 									</li>
@@ -61,41 +63,29 @@
 									</colgroup>
 									<thead>
 										<tr>
-											<th>상담유형</th>
+											<!-- <th>상담유형</th> -->
+											<th>조회수</th>
 											<th>제목</th>
+											<th>작성자</th>
 											<th>문의일자</th>
-											<th>처리현황</th>
+											<!-- <th>처리현황</th> -->
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
-											<th><a href="/community/noticeView.do">[구분]</a></th>
-											<td>쿠폰사용 방법에 대해 알려드립니다.</td>
-											<td>2014.02.14</td>
-											<td>11</td>
-										</tr>
-										<tr>
-											<th>[구분]</th>
-											<td>쿠폰사용 방법에 대해 알려드립니다.</td>
-											<td>2014.02.14</td>
-											<td>11</td>
-										</tr>
-										<tr>
-											<th>[구분]</th>
-											<td>쿠폰사용 방법에 대해 알려드립니다.</td>
-											<td>2014.02.14</td>
-											<td>11</td>
-										</tr>
+										<c:forEach items="${noticeList}" var="qna">
+											<tr>
+												<td>${qna.hit}</td>
+												<td><a href="/community/noticeView.do?brdSeq=${qna.brdSeq}">${qna.title}</a></td>
+												<td>운영자</td>
+												<td>${qna.insDt.substring(0,10)}</td>
+											</tr>
+										</c:forEach>
 									</tbody>
 								</table>
 							</li>
 						</ul>
 						<div class="paging2">
-							<a href="#" class="palign1"><img src="<c:url value='/resources/img/common/btn_first.gif'/>"  alt="처음으로"></a>
-							<a href="#" class="palign2"><img src="<c:url value='/resources/img/common/btn_prev.gif'/>"  alt="이전"></a>
-							<a href="#" class="on">1</a>
-							<a href="#" class="palign1"><img src="<c:url value='/resources/img/common/btn_next.gif'/>"  alt="다음"></a>
-							<a href="#" class="palign2"><img src="<c:url value='/resources/img/common/btn_end.gif'/>"  alt="끝으로"></a>
+							${pageHtml}
 						</div>
 					</div>
 				</div>
