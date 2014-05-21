@@ -20,7 +20,8 @@
 .product_list li {float:left; margin:20px 0;}
 .product_list li.mlalign {margin:0 12px 0 12px;}
 .product_list li a {color:#666666;}
-.product_list li dl.list_product dd {font-size:13px; text-align:right; font-family:"NanumGothicBold"; line-height:16px;}
+.product_list li dl.list_product dd {font-size:13px; text-align:right; font-family:"NanumGothicBold"; line-height:16px; width:168px; overflow : hidden;
+  white-space: nowrap; text-overflow:ellipsis;  -o-text-overflow:ellipsis;  -ms-text-overflow:ellipsis;}
 .product_list li dl.list_product dd span {color:#c81c1c;}
 .product_list li dl.list_product dd img {border:1px solid #bbbbbb;}
 

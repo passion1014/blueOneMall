@@ -54,6 +54,7 @@ textarea {border:1px solid #d2d2d2; width:100%;}
 .header .search_area span.search_box {padding-top:10px; text-align:right;}
 .header .search_area span.search_box input {width:184px; height:26px; border:1px solid #888888; padding-top:-10px; vertical-align:top;}
 .header .search_area span.search_box button {background:url('../img/common/search_img.gif') no-repeat center left; width:30px; height:28px; margin-left:-10px;}
+.header .search_area span.search_box select {width:80px; height:28px; padding-top:-10px; vertical-align:top;}
 
 /* ------------- sub lnb ------------- */
 
