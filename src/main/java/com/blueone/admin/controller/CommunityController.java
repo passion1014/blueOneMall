@@ -16,18 +16,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.blueone.admin.domain.AdminInfo;
 import com.blueone.admin.service.ICommunityService;
 import com.blueone.board.controller.BoardController;
-import com.blueone.board.domain.BoardCommentInfo;
-import com.blueone.board.domain.BoardInfo;
-import com.blueone.board.domain.BoardSrchInfo;
-import com.blueone.board.domain.FaqInfo;
-<<<<<<< HEAD
 
-=======
-import com.blueone.board.domain.NoticeInfo;
->>>>>>> 340c882eee0c84192b731eb2ed25ca0b3cebd3e1
+import com.blueone.board.domain.FaqInfo;
+
+
 import com.blueone.board.service.IBoardService;
 import com.blueone.common.domain.BaseInfo;
-import com.blueone.customer.domain.CustomerInfo;
+
 
 @Controller
 @RequestMapping(value = "/admin")
@@ -39,7 +34,7 @@ public class CommunityController {
 
 	BoardController boardController = new BoardController();
 
-	private ICommunityService comunityService;
+
 
 	@RequestMapping(value = "/noticeBoard.do", method = RequestMethod.GET)
 	public String noticeBoard(@ModelAttribute("AdminInfo") AdminInfo adminInfo,
@@ -67,13 +62,10 @@ public class CommunityController {
 		model.addAttribute("pageHtml", getPageHtml(boardSrchInfo));
 */
 		
-<<<<<<< HEAD
-		/*List<NoticeInfo> noticeList=boardService.getNoticeInfoList();
-		 model.addAttribute("noticeList", noticeList);*/
-=======
-		List<NoticeInfo> noticeList=boardService.getNoticeInfoList();
+
+/*		List<NoticeInfo> noticeList=boardService.getNoticeInfoList();
 		 model.addAttribute("noticeList", noticeList);
->>>>>>> 340c882eee0c84192b731eb2ed25ca0b3cebd3e1
+*/
 		 
 		 
 		return "admin/community/noticeBoard";
