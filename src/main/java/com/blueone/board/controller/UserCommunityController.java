@@ -17,9 +17,8 @@ import com.blueone.board.domain.FaqInfo;
 import com.blueone.board.service.IBoardService;
 import com.blueone.customer.domain.CustomerInfo;
 
-
 @Controller
-public class NoticeContorller {
+public class UserCommunityController {
 	
 	@Autowired IBoardService boardService;
 	
@@ -81,7 +80,24 @@ public class NoticeContorller {
 
 	}
 	
-	
+	@RequestMapping(value = "/community/faqSearch.do", method = RequestMethod.POST)
+	public String faqSearch(@ModelAttribute("AdminInfo") FaqInfo faqInfo,
+			BindingResult result, Model model, HttpSession session) {
+		
+		CustomerInfo customerSesstion =(CustomerInfo)session.getAttribute("customerSession");
+		// 세션체크
+		if (customerSesstion == null) {
+			return "user/errorPage";
+		}
+				
+		
+		
+		 List<FaqInfo> faqList=boardService.getFaqInfoList(faqInfo);
+		 model.addAttribute("faqList", faqList);
+		 
+		return "community/faqList";
+
+	}
 	@RequestMapping(value = "/community/faqView.do", method = RequestMethod.GET)
 	public String faqEdit(@ModelAttribute("AdminInfo") AdminInfo adminInfo, FaqInfo faq,BindingResult result, Model model, HttpSession session) {
 
@@ -99,5 +115,4 @@ public class NoticeContorller {
 		return "community/faqView";
 
 	}
-	
 }

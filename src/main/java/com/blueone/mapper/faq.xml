@@ -8,7 +8,7 @@
 		<result property="faqIdx" column="FAQ_IDX" javaType="int"/>
 		<result property="faqType" column="FAQ_TYPE" javaType="java.lang.String"/>
 		<result property="faqQes" column="FAQ_QUESTION" javaType="java.lang.String"/>
-		<result property="faqAns" column="FAQ_ANSWER" javaType="java.lang.String"/>
+		<result property="faqAns" column="FAQ_ANSWER" javaType="java.lang.String" />
 		<result property="faqRegDate" column="FAQ_REG_DATE" javaType="java.lang.String"/>
 	</resultMap>
 	
@@ -25,8 +25,8 @@
 		WHERE
 			(1 = 1)
 			<if test="schType != null and schType eq 'q'.toString()"> AND FAQ_QUESTION  LIKE CONCAT('%',#{schWord},'%') </if>
-			<if test="schType != null and schType eq 'a'.toString()"> AND FAQ_ANSWER	LIKE CONCAT('%',#{schWord},'%')  </if>
-			<if test="schType != null and schType eq 't'.toString()"> AND FAQ_QUESTION  LIKE CONCAT('%',#{schWord},'%') AND FAQ_ANSWER	LIKE CONCAT('%',#{schWord},'%')  </if>
+			<if test="schType != null and schType eq 'a'.toString()"> AND FAQ_ANSWER	LIKE CONCAT('%',#{schWord},'%') </if>
+			<if test="schType != null and schType eq 't'.toString()"> AND FAQ_QUESTION  LIKE CONCAT('%',#{schWord},'%') OR FAQ_ANSWER	LIKE CONCAT('%',#{schWord},'%') </if>
 			
 		
 	</select>

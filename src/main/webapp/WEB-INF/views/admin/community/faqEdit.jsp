@@ -5,11 +5,29 @@
 
 <c:import  url="../inc/top.jsp" />
 
+<script type="text/javascript">
+<!--
+
+	$(document).ready(function() {
+		document.faqEditFm.faqAns.value = unescape('${reFaqInfo.faqAns}');
+		
+	});
+	function submitFaqFm(_frm) {
+	
+		document.faqEditFm.faqAns.value = escape(document.faqEditFm.faqAns.value);
+		
+		_frm.action ='faqEditProc.do';
+	
+		_frm.submit();
+	}
+-->
+</script>
+
 <body>
 <div id="Wrap">
 	<div id="Contents">
 	<h1>커뮤니티 &gt; FAQ &gt; <strong>FAQ</strong></h1>
-<form  method="post" action="faqEditProc.do">
+<form  method="post" action="faqEditProc.do" name="faqEditFm">
 
 <input type="hidden" name="faqType" value="01" />
 <input type="hidden" name="faqIdx" value="${reFaqInfo.faqIdx}" />
@@ -25,14 +43,15 @@
 		
 		<tr>
 			<th>질문</th>
-			<td colspan="3">
+			<td>
 				<input type="text" name="faqQes" class="" title="제목 입력" value="${reFaqInfo.faqQes}"/>
 			</td>
 		</tr>
 		<tr>
 			<th>답변</th>
-			<td colspan="3">
-				<input type="text" name="faqAns" class="" title="답변 입력" value="${reFaqInfo.faqAns}"/>
+			<td>
+				<textarea name="faqAns"></textarea>
+				
 			</td>
 		</tr>
 		
@@ -42,7 +61,7 @@
 
 
 <div style="margin-top:10px;text-align:center;">
-		<input type="submit" value="수정하기" class="Button Gray">
+		<input type="button" value="등록하기" class="Button Gray" onClick="submitFaqFm(document.faqEditFm);">
 		<input type="button" value="창닫기" class="Button Gray" onClick="self.close();">
 </div>
 	</form>

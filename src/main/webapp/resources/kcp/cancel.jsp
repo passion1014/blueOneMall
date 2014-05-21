@@ -40,9 +40,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head>
     <title>*** KCP [AX-HUB Version] ***</title>
+
 	<meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
     <link href="sample/css/style.css" rel="stylesheet" type="text/css"/>
-
+</head>
         <script type="text/javascript">
         /* 취소 버튼을 눌렀을 때 호출 */
     function  jsf__go_cancel( form )

@@ -83,6 +83,7 @@
 		<typeAlias alias="boardCommentInfo" type="com.blueone.board.domain.BoardCommentInfo"/>
 		<typeAlias alias="FaqInfo" type="com.blueone.board.domain.FaqInfo"/>
 		
+		
 		<!-- 고객관련 모델정보 -->
 		<typeAlias alias="userInfo" type="com.blueone.user.domain.UserInfo"/>
 		

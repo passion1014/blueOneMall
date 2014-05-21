@@ -21,7 +21,7 @@
 <body>
 <div id="Wrap">
 	<div id="Contents">
-	<h1>커뮤니티 &gt; FAQ &gt; <strong>FAQ</strong></h1>
+	<h1>커뮤니티 &gt; 공지사항 &gt; <strong>공지사항</strong></h1>
 	
 	
 <form  method="post" action="faqWriteProc.do" name="faqWriteFm">
@@ -31,7 +31,7 @@
 
 
 <table class="boardNormal" summary="묻고답하기 등록">
-	<caption>묻고답하기 등록</caption>
+	<caption>공지사항 등록</caption>
 	<colgroup>
 		<col width="100" />
 		
@@ -45,12 +45,7 @@
 				<input type="text" name="faqQes" class="" title="제목 입력" />
 			</td>
 		</tr>
-		<tr>
-			<th>답변</th>
-			<td>
-				<textarea name="faqAns"></textarea>
-			</td>
-		</tr>
+		
 		
 			
 	</tbody>

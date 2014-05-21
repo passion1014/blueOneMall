@@ -8,6 +8,7 @@ import com.blueone.board.domain.BoardInfo;
 import com.blueone.board.domain.BoardSrchInfo;
 import com.blueone.board.domain.FaqInfo;
 
+
 public interface IBoardService {
 	
 	// 게시판관리
@@ -48,5 +49,8 @@ public interface IBoardService {
 	public int updateFaqInfo(FaqInfo faqInfo);
 	public int deleteFaqInf(FaqInfo faqInfo);
 	public List<FaqInfo> getFaqInfoList(FaqInfo faqInfo);
+	
+/*	//공지사항
+	public List<NoticeInfo> getNoticeInfoList();*/
 
 }

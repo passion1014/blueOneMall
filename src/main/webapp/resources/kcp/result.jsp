@@ -378,7 +378,7 @@
 %>
                     <tr>
                         <th>영수증 확인</th>
-                        <td class="sub_content1"><a href="javascript:receiptView('<%=tno%>','<%= ordr_idxx %>','<%= amount %>')"><img src="./img/btn_receipt.png" alt="영수증을 확인합니다." />
+                        <td class="sub_content1"><a href="javascript:receiptView('<%=tno%>','<%= ordr_idxx %>','<%= amount %>')"><img src="./img/btn_receipt.png" alt="영수증을 확인합니다." /></a>
                     </td>
                     </table>
 <%				}
@@ -449,7 +449,7 @@
 					<!-- 가상계좌 모의입금(테스트시) -->
                         <tr>
                           <th>가상계좌 모의입금</br>(테스트시 사용)</th>
-                          <td class="sub_content1"><a href="javascript:receiptView3()"><img src="./img/btn_vcn.png" alt="모의입금 페이지로 이동합니다." />
+                          <td class="sub_content1"><a href="javascript:receiptView3()"><img src="./img/btn_vcn.png" alt="모의입금 페이지로 이동합니다." /></a></td>
                         </tr>
                     </table>
 <%
@@ -593,7 +593,7 @@
                         </tr>
                     <tr>
                         <th>영수증 확인</th>
-                        <td class="sub_content1"><a href="javascript:receiptView2('<%=site_cd%>','<%= ordr_idxx %>', '<%= cash_yn %>', '<%= cash_authno %>')"><img src="/resources/img/orderPay/btn_receipt.png" alt="현금영수증을  확인합니다." />
+                        <td class="sub_content1"><a href="javascript:receiptView2('<%=site_cd%>','<%= ordr_idxx %>', '<%= cash_yn %>', '<%= cash_authno %>')"><img src="/resources/img/orderPay/btn_receipt.png" alt="현금영수증을  확인합니다." /></a>
                     </td>
 <%
                     }
@@ -657,9 +657,11 @@
                 </tr>
               </tr>
             </div>
+           
         <div class="footer">
                 Copyright (c) KCP INC. All Rights reserved.
         </div>
     </div>
   </body>
 </html>
+           
