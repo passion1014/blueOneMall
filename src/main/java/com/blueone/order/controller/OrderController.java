@@ -746,7 +746,7 @@ public class OrderController {
 		//Order 저장
 		OrderInfo orderInfo1 = new OrderInfo();
 		orderInfo1.setOrderNo(orderNum);
-		orderInfo1.setOrderStatCd("02");
+		orderInfo1.setOrderStatCd("01");
 		orderInfo1.setCustomerInfo(custom);
 		orderInfo1.setModifyUserId(custom.getCustId());
 		orderManageService.registOrderInfo(orderInfo1);
@@ -855,7 +855,10 @@ public class OrderController {
 		reInf = orderManageService.selectRecipientInfo(reInf);
 		model.addAttribute("reInfo",reInf);
 			
-	
+		//Order 저장
+		orderInfo.setOrderStatCd("0");
+		
+		orderManageService.updateOrderInf(orderInfo);
 		
 		return "order/orderComplete";
 	}

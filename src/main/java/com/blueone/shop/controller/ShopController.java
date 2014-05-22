@@ -78,8 +78,8 @@ public class ShopController {
 		//     - 블루투스,  해드폰, 멀티미디어, 케이스, xtc, 이어폰, sale, 브랜드샵
 		// ---------------------------------------------------
 		String[] srchCateCdArr = {"pdSList", "hpPrdList", "mmPrdList", "csPrdList", "xtPrdList", "epPrdList"};
-		String[] srchCateArr = {"L1601", "L3862", "L3679", "L7451", "L2022", "L9540"}; //테스트서버용 설정
-		//String[] srchCateArr = {"L4449", "L6123", "L6787", "L7773", "L3203", "L3432"}; //배포서버용 설정
+		//String[] srchCateArr = {"L1601", "L3862", "L3679", "L7451", "L2022", "L9540"}; //테스트서버용 설정
+		String[] srchCateArr = {"L4449", "L6123", "L6787", "L7773", "L3203", "L3432"}; //배포서버용 설정
 		
 
 		ProductInfo srchPrdInfo = new ProductInfo();
@@ -109,6 +109,11 @@ public class ShopController {
 			map.put(srchCateCdArr[idx], list);
 
 		}
+		
+		//배너클릭
+		if(productInfo.getPrdCtgL()!=null && StringUtils.isEmpty(productInfo.getPrdCtgL())){
+			
+		}
 
 		// ---------------------------------------------------
 		// 메인화면에 보여줄 이미지 조회
@@ -122,6 +127,7 @@ public class ShopController {
 		// ---------------------------------------------------
 		model.addAttribute("AdImgDtl", AdImgDtl);
 		model.addAllAttributes(map);
+		model.addAttribute("subBannerPrd",productInfo);
 		
 		// ----------------------------------------------------
 		// 공지사항 가져오기

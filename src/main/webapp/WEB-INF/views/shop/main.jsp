@@ -124,69 +124,71 @@
 			
 			<div class="product_listbox1">
 				<ul class="plist_area">
-					<li><a href="/?prdCtgL=L1601" class="wpadding1 on">EARPHONE</a></li>
-					<li><a href="/?prdCtgL=L3679" class="wpadding2">HEADPHONE</a></li>
-					<li><a href="/?prdCtgL=L2022" class="wpadding3">MULTMEDIA</a></li>
+					<li><a href="/?prdCtgL=L3203" class="wpadding1 on">EARPHONE</a></li>
+					<li><a href="/?prdCtgL=L6123" class="wpadding2">HEADPHONE</a></li>
+					<li><a href="/?prdCtgL=L6787" class="wpadding3">MULTMEDIA</a></li>
 				</ul>
 				<div class="product_elist">
+					<c:if test="${subBannerPrd.prdCtgL eq'L1601'}">	
+						<ul id="ep_area" class="pro_list" style="display:block;">				
+								<c:forEach items="${epPrdList}" var="epPrdList">
+									<li>
+										<a href="#">
+										<dl class="list_product">
+											<dd><img src="${epPrdList.attFilePath}" width="119" height="119" alt="prouct IMG"/></dd>
+											<dd>${epPrdList.prdBrand}</dd>
+											<dd>${epPrdList.prdModel}</dd>
+											<dd><strong class="textline">${epPrdList.prdPrice}</strong>↓<span>${epPrdList.prdSellPrc}원</span></dd>
+										</dl>
+										</a>
+									</li>
+								</c:forEach>
+							
+						</ul>
+					</c:if>
 					
-					<ul id="ep_area" class="pro_list" style="display:block;">					
-						<c:forEach items="${epPrdList}" var="epPrdList">
-							<li>
-								<a href="#">
-								<dl class="list_product">
-									<dd><img src="${epPrdList.attFilePath}" width="119" height="119" alt="prouct IMG"/></dd>
-									<dd>${epPrdList.prdBrand}</dd>
-									<dd>${epPrdList.prdModel}</dd>
-									<dd><strong class="textline">${epPrdList.prdPrice}</strong>↓<span>${epPrdList.prdSellPrc}원</span></dd>
-								</dl>
-								</a>
-							</li>
-						</c:forEach>
-					</ul>
-	
+					<c:if test="${subBannerPrd.prdCtgL eq'L6787'}">
+						<ul id="hp_area" class="pro_list" style="display:none;">
+							<c:forEach items="${hpPrdList}" var="hpPrdList">
+								<li>
+									<a href="#">
+									<dl class="list_product">
+										<dd><img src="${hpPrdList.attFilePath}" width="119" height="119" alt="prouct IMG"/></dd>
+										<dd>${hpPrdList.prdBrand}</dd>
+										<dd>${hpPrdList.prdModel}</dd>
+										<dd><strong class="textline">${hpPrdList.prdPrice}</strong>↓<span>${hpPrdList.prdSellPrc}원</span></dd>
+									</dl>
+									</a>
+								</li>
+							</c:forEach>
+						</ul>
+					</c:if>
 					
-					<ul id="hp_area" class="pro_list" style="display:none;">
-						<c:forEach items="${hpPrdList}" var="hpPrdList">
-							<li>
-								<a href="#">
-								<dl class="list_product">
-									<dd><img src="${hpPrdList.attFilePath}" width="119" height="119" alt="prouct IMG"/></dd>
-									<dd>${hpPrdList.prdBrand}</dd>
-									<dd>${hpPrdList.prdModel}</dd>
-									<dd><strong class="textline">${hpPrdList.prdPrice}</strong>↓<span>${hpPrdList.prdSellPrc}원</span></dd>
-								</dl>
-								</a>
-							</li>
-						</c:forEach>
-					</ul>
-					
-					
-					
-					<ul id="mm_area" class="pro_list" style="display:none;">
-						<c:forEach items="${mmPrdList}" var="mmPrdList">
-							<li>
-								<a href="#">
-								<dl class="list_product">
-									<dd><img src="${mmPrdList.attFilePath}" width="119" height="119" alt="prouct IMG"/></dd>
-									<dd>${mmPrdList.prdBrand}</dd>
-									<dd>${mmPrdList.prdModel}</dd>
-									<dd><strong class="textline">${mmPrdList.prdPrice}</strong>↓<span>${mmPrdList.prdSellPrc}원</span></dd>
-								</dl>
-								</a>
-							</li>
-						</c:forEach>		
-					</ul>
-					
+					<c:if test="${subBannerPrd.prdCtgL eq'L6123'}">
+						<ul id="mm_area" class="pro_list" style="display:none;">
+							<c:forEach items="${mmPrdList}" var="mmPrdList">
+								<li>
+									<a href="#">
+									<dl class="list_product">
+										<dd><img src="${mmPrdList.attFilePath}" width="119" height="119" alt="prouct IMG"/></dd>
+										<dd>${mmPrdList.prdBrand}</dd>
+										<dd>${mmPrdList.prdModel}</dd>
+										<dd><strong class="textline">${mmPrdList.prdPrice}</strong>↓<span>${mmPrdList.prdSellPrc}원</span></dd>
+									</dl>
+									</a>
+								</li>
+							</c:forEach>		
+						</ul>
+					</c:if>
 				</div>
 			</div>
 			
 			
 			<div class="product_listbox2">
 				<ul class="plist_area">
-					<li><a href="/?prdCtgL=L4315" class="wpadding1 on">BLUETOOTH</a></li>
-					<li><a href="/?prdCtgL=L3862" class="wpadding2">CASE</a></li>
-					<li><a href="/?prdCtgL=L7451" class="wpadding3">ETC</a></li>
+					<li><a href="/?prdCtgL=L4449" class="wpadding1 on">BLUETOOTH</a></li>
+					<li><a href="/?prdCtgL=L7773" class="wpadding2">CASE</a></li>
+					<li><a href="/?prdCtgL=L3203" class="wpadding3">ETC</a></li>
 				</ul>
 				
 				<div class="product_elist">
