@@ -20,7 +20,15 @@ public class BoardSrchInfo extends BaseInfo {
 	private String userId;
 	private long[] check;
 	private long[] noticeBrdSeq;
+	private String ordBy;
 	
+	
+	public String getOrdBy() {
+		return ordBy;
+	}
+	public void setOrdBy(String ordBy) {
+		this.ordBy = ordBy;
+	}
 	
 	public long[] getNoticeBrdSeq() {
 		return noticeBrdSeq;

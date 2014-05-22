@@ -350,6 +350,26 @@ public class BoardService implements IBoardService {
 	}
 	
 	@Override
+	public boolean updateBOM_BOARD_TB_notice(BoardInfo boardModel) {
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+//			sqlMapClient.startTransaction();
+			sqlSession.update("board.updateBOM_BOARD_CMT_TB", boardModel);
+//			sqlMapClient.commitTransaction();
+//			sqlMapClient.getCurrentConnection().commit();
+			
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return false;
+		} finally {
+			sqlSession.close();
+		}
+		
+		return true;
+	}
+	
+	@Override
 	public boolean updateBoard(BoardInfo boardModel) {
 		
 		AttachFileInfo imgFile = null;

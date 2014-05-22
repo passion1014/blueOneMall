@@ -68,7 +68,9 @@ public class UserCommunityController {
 		}
 				
 		BoardInfo brdView = boardService.selectBOM_BOARD_TB(brdInfo.getBrdSeq());
-		
+		String cnt = brdView.getContent();
+		cnt =cnt.replace("%0A", "<br>");
+		brdView.setContent(cnt);
 		model.addAttribute("brdView", brdView);
 		 
 		return "community/noticeView";
@@ -89,6 +91,11 @@ public class UserCommunityController {
 		
 		
 		 List<FaqInfo> faqList=boardService.getFaqInfoList();
+		 for(FaqInfo each: faqList){
+			 String cnt = each.getFaqQes();
+			 cnt =cnt.replace("%0A", "<br>");
+			 each.setFaqQes(cnt);
+		 }
 		 model.addAttribute("faqList", faqList);
 		 
 		return "community/faqList";
@@ -108,6 +115,12 @@ public class UserCommunityController {
 		
 		
 		 List<FaqInfo> faqList=boardService.getFaqInfoList(faqInfo);
+		 
+		 for(FaqInfo each: faqList){
+			 String cnt = each.getFaqQes();
+			 cnt =cnt.replace("%0A", "<br>");
+			 each.setFaqQes(cnt);
+		 }
 		 model.addAttribute("faqList", faqList);
 		 
 		return "community/faqList";

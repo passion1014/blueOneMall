@@ -6,9 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 
+
+
 import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.HttpSession;
+
+
 
 
 import org.slf4j.Logger;
@@ -24,6 +28,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.blueone.admin.domain.AdImgInfo;
 import com.blueone.admin.service.IAdImgService;
 import com.blueone.admin.service.IAdminManageService;
+import com.blueone.board.domain.BoardInfo;
+import com.blueone.board.domain.BoardSrchInfo;
+import com.blueone.board.service.IBoardService;
 import com.blueone.category.domain.CategoryInfo;
 import com.blueone.category.service.ICategoryManageService;
 import com.blueone.common.domain.AttachFileInfo;
@@ -43,6 +50,7 @@ public class ShopController {
 	@Autowired private ICategoryManageService categoryManageService;
 	@Autowired private IAttachFileManageService attFileManageService;
 	@Autowired private IAdImgService adImgService;
+	@Autowired IBoardService boardService;
 	
 	@RequestMapping(value ="/worklist.do", method = RequestMethod.GET)
 	public String workList(@ModelAttribute("ShopInfo") ShopInfo shopInfo, BindingResult result, Model model){
@@ -114,6 +122,17 @@ public class ShopController {
 		// ---------------------------------------------------
 		model.addAttribute("AdImgDtl", AdImgDtl);
 		model.addAllAttributes(map);
+		
+		// ----------------------------------------------------
+		// 공지사항 가져오기
+		// ----------------------------------------------------
+		BoardSrchInfo boardSrchInfo = new BoardSrchInfo();
+		boardSrchInfo.setSrchBrdTyp(8);
+		boardSrchInfo.setOrdBy("n");
+
+		List<BoardInfo> boardList = boardService.getBrdTypBoardList(boardSrchInfo);
+		
+		model.addAttribute("noticeList", boardList);
 		
 		return "shop/main";
 	}

@@ -271,9 +271,9 @@
 			<dl class="notice_box">
 				<dt class="notice_tit">NEWS & NOTICE</dt>
 				<dd>
-					<a href="/community/notice.do" class="noticeblet">LG G2 정케이스 출시</a>
-					<a href="#" class="noticeblet">동급 최강!! HBS-730NEW 출시!!</a>
-					<a href="#" class="noticeblet">SBS수목드라마 AKG 헤드폰 협찬</a>
+					<c:forEach items="${noticeList}" var="qna">
+						<a href="/community/noticeView.do?brdSeq=${qna.brdSeq}">${qna.title}</a>
+					</c:forEach>
 				</dd>
 			</dl>
 			<span class="icon_box">

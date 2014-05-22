@@ -53,6 +53,7 @@ public interface IBoardService {
 	
 	
 	public int deleteBoardTBInf(BoardInfo boardModel);
+	public boolean updateBOM_BOARD_TB_notice(BoardInfo boardModel);
 	
 
 /*	//공지사항

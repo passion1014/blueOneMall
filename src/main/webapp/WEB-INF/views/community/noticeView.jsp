@@ -4,6 +4,8 @@
    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>###### 현대프로모션몰 ######</title>
@@ -16,7 +18,7 @@
 	<div class="container">
 		<c:import url="../inc/communityLnb.jsp" />
 		<div class="sub_content">
-			<form action="#" method="post">
+			<form action="#" method="post" name="noticeView">
 				<div class="customer_section">
 					<h4>공지사항</h4>
 					<p class="sub_tit">쇼핑몰의 새로운 소식이나 이벤트를 확인하실 수 있습니다.</p>
@@ -40,13 +42,15 @@
 										</tr>
 										<tr>
 											<td colspan="4">
+											<input type="hidden" name="content"/>
+											${content}
 												<script type="text/javascript">
 													document.open();
 													var text=unescape('${brdView.content}');
 													document.write(text);
 													document.close();
 													
-												</script>
+												</script> 
 											</td>
 										</tr>
 									</tbody>

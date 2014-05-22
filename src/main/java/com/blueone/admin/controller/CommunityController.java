@@ -150,7 +150,7 @@ public class CommunityController {
 		}
 		
 		
-		boardService.updateBoard(brdInfo);
+		boardService.updateBOM_BOARD_TB_notice(brdInfo);
 		redirectAttributes.addFlashAttribute("reloadVar", "yes");
 		
 		return "redirect:noticeEdit.do?brdSeq="+brdInfo.getBrdSeq();
