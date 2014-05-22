@@ -32,11 +32,14 @@
 	CategoryInfo categoryInfo = new CategoryInfo();
 	List<CategoryInfo> largeMenuList = categoryService.getCategoryInfList2(categoryInfo);
 	
+	//메인 이미지
 	AdImgInfo AdImgDtl = new AdImgInfo();
 	AdImgDtl = shopService.getAdImg(AdImgDtl);
 	
+	//검색순위
 	SchWordInfo schWord = new SchWordInfo();
-	List<SchWordInfo> schWordList = schWordService.getSchWordDtlList();
+	schWord.setShowMain(true);
+	List<SchWordInfo> schWordList = schWordService.getSchWordDtlList(schWord);
 %>
 <!--  header 시작 -->
 <div class="header">
