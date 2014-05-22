@@ -56,7 +56,7 @@
 				<a href="/user/userEdit.do">마이페이지</a>
 			</span>
 			<span class="search_box">
-				<input type="text" id="schWord" name="schWord" title="서치텍스트박스"/>
+				<input type="text" id="schWord" name="schWord" value="${schWord}"title="서치텍스트박스"/>
 				<!--  input type="button" value="검색" onClick="javascript:location.href='/product/searchProduct.do?schWord='+document.getElementById('schWord').value;"/-->
 				<button onClick="topSFrm.submit();" style="cursor:pointer;"></button>
 				<select>
