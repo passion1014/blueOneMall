@@ -174,7 +174,7 @@
 						<a href="#" class="palign2"><img src="<c:url value='/resources/img/common/btn_prev.gif'/>" alt="이전"></a>
 						
 						<c:forEach var="i" begin="1" end="${endNum}">
-							<a href="productList.do?page=${i}">${i}</a>	
+							<a href="productList.do?ctgCode=${categoryInfo.ctgCode}&ctgMiddleCode=${categoryInfo.ctgMiddleCode}&prdCtgS=${productInfo.prdCtgS}&=page=${i}">${i}</a>	
 						</c:forEach>
 						<a href="#" class="palign1"><img src="<c:url value='/resources/img/common/btn_next.gif'/>" alt="다음"></a>
 						<a href="#" class="palign2"><img src="<c:url value='/resources/img/common/btn_end.gif'/>" alt="끝으로"></a>

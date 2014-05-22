@@ -58,7 +58,9 @@ public class UserProductController {
 			pd.pageNum("1");
 		else
 			pd.pageNum(page);
+		
 		pd.setItemNum(16);
+		
 		String orderBy = productInfo.getOrderBy();
 		if (StringUtils.isEmpty(orderBy))
 			orderBy = "low";
@@ -226,7 +228,12 @@ public class UserProductController {
 		model.addAttribute("chkMiddleCode", chkMiddleCode);
 		model.addAttribute("prdCtgS", prdCtgS);
 		model.addAttribute("prdList", resultList);
+		
+		model.addAttribute("categoryInfo", categoryInfo);
+		model.addAttribute("productInfo", productInfo);
+		
 		model.addAttribute("endNum", pd.getEndPageNum());
+		
 		return "product/productList";
 
 	}
