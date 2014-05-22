@@ -939,60 +939,61 @@ public class OrderController {
 				prdInfo.setPrdCd(key);
 				prdInfo = productManageService.getProductInfDetail(prdInfo);
 
-				odPrdInfo.setPrdCd(key);
-				odPrdInfo.setPrdNm(prdInfo.getPrdNm());
-				odPrdInfo.setSellPrice(new BigDecimal(prdInfo.getPrdSellPrc()));
-
-				AttachFileInfo att = new AttachFileInfo();
-				att.setAttCdKey(prdInfo.getPrdCd());
-				att.setAttImgType("01");
-				att = attFileManageService.getAttFileInfListImg(att);
-				if (att == null) {
-					odPrdInfo.setPrdSmallImg("");
-				} else {
-
-					odPrdInfo.setPrdSmallImg(att.getAttFilePath());
-				}
-
-				String vl = cki.getValue(each);
-				StringTokenizer st = new StringTokenizer(vl, ",");
-				String option = "";
-				
-				while (st.hasMoreElements()) {
-
-					String s = st.nextToken();
-
-					
-					
-						if ("01".equals(s.substring(0, 2))) {
-							option += s + ",";
-							odPrdInfo.setPrdOpColor(s.substring(3));
-						}
-						if ("02".equals(s.substring(0, 2))) {
-							option += s + ",";
-							odPrdInfo.setPrdOpSize(s.substring(3));
-						}
-						/*if("no".equals(s.substring(0, 2))){
-							odPrdInfo.setOrderNo(s.substring(3));
-						}*/
-						if ("cn".equals(s.substring(0, 2))) {
-							odPrdInfo.setBuyCnt(Integer.parseInt(s.substring(3)));
-							BigDecimal total = new BigDecimal(
-									prdInfo.getPrdSellPrc());
-							total = total.multiply(new BigDecimal(odPrdInfo
-									.getBuyCnt()));
-							odPrdInfo.setTotalPrice(total);
-						}
+				if(prdInfo!=null){
+					odPrdInfo.setPrdCd(key);
+					odPrdInfo.setPrdNm(prdInfo.getPrdNm());
+					odPrdInfo.setSellPrice(new BigDecimal(prdInfo.getPrdSellPrc()));
 	
-						odPrdInfo.setPrdOption(option);
+					AttachFileInfo att = new AttachFileInfo();
+					att.setAttCdKey(prdInfo.getPrdCd());
+					att.setAttImgType("01");
+					att = attFileManageService.getAttFileInfListImg(att);
+					if (att == null) {
+						odPrdInfo.setPrdSmallImg("");
+					} else {
+	
+						odPrdInfo.setPrdSmallImg(att.getAttFilePath());
+					}
+	
+					String vl = cki.getValue(each);
+					StringTokenizer st = new StringTokenizer(vl, ",");
+					String option = "";
+					
+					while (st.hasMoreElements()) {
+	
+						String s = st.nextToken();
+	
 						
 						
+							if ("01".equals(s.substring(0, 2))) {
+								option += s + ",";
+								odPrdInfo.setPrdOpColor(s.substring(3));
+							}
+							if ("02".equals(s.substring(0, 2))) {
+								option += s + ",";
+								odPrdInfo.setPrdOpSize(s.substring(3));
+							}
+							/*if("no".equals(s.substring(0, 2))){
+								odPrdInfo.setOrderNo(s.substring(3));
+							}*/
+							if ("cn".equals(s.substring(0, 2))) {
+								odPrdInfo.setBuyCnt(Integer.parseInt(s.substring(3)));
+								BigDecimal total = new BigDecimal(
+										prdInfo.getPrdSellPrc());
+								total = total.multiply(new BigDecimal(odPrdInfo
+										.getBuyCnt()));
+								odPrdInfo.setTotalPrice(total);
+							}
+		
+							odPrdInfo.setPrdOption(option);
+							
+							
+					}
+					if (vl.equals(""));
+					else if(vl.equals("null"));
+					else ord.add(odPrdInfo);
+				
 				}
-				if (vl.equals(""));
-				else if(vl.equals("null"));
-				else ord.add(odPrdInfo);
-			
-
 				
 			}//if end
 		}//for-end
