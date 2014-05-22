@@ -39,7 +39,7 @@ textarea {border:1px solid #d2d2d2; width:100%;}
 .header .top {width:1000px; margin:0 auto;}
 .header .top:after {height:0; content:""; clear:both; display:block;}
 .header .top h1 {padding-top:38px; float:left;}
-.header .top p.top_img {float:left; margin:28px 0 0 150px;}
+.header .top p.top_img {float:left; margin:28px 0 0 100px;}
 .header .top .search_area {float:right;}
 .header .gnb {width:1000px; margin:0 auto;}
 .header .gnb:after {height:0; content:""; clear:both; display:block;}
