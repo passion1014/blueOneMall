@@ -272,7 +272,7 @@
 				<dt class="notice_tit">NEWS & NOTICE</dt>
 				<dd>
 					<c:forEach items="${noticeList}" var="qna">
-						<a href="/community/noticeView.do?brdSeq=${qna.brdSeq}">${qna.title}</a>
+						<a href="/community/noticeView.do?brdSeq=${qna.brdSeq}">${qna.title}</a><br>
 					</c:forEach>
 				</dd>
 			</dl>
