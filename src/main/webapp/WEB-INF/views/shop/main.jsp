@@ -110,13 +110,13 @@
 			</script>
 						
 			<dl class="scont1">
-				<dd class="scont_box2"><a href="${AdImgDtl.bnUrl1}"><img src="${AdImgDtl.bnImg1}" width="155" height="155" alt="product image"/></a></dd>
-				<dd class="scont_box1"><a href="${AdImgDtl.bnUrl2}"><img src="${AdImgDtl.bnImg2}" width="155" height="305" alt="product image"/></a></dd>
+				<dd class="scont_box2"><a href="${AdImgDtl.bnUrl1}"><img src="${AdImgDtl.bnImg1}" width="153" height="153" alt="product image" style="border:1px solid #ccc;"/></a></dd>
+				<dd class="scont_box1"><a href="${AdImgDtl.bnUrl2}"><img src="${AdImgDtl.bnImg2}" width="153" height="303" alt="product image" style="border:1px solid #ccc;"/></a></dd>
 			</dl>
 			
 			<dl class="scont2">
-				<dd class="scont_box1"><a href="${AdImgDtl.bnUrl3}"><img src="${AdImgDtl.bnImg3}" width="155" height="305" alt="product image"/></a></dd>
-				<dd class="scont_box2"><a href="${AdImgDtl.bnUrl4}"><img src="${AdImgDtl.bnImg4}" width="155" height="155" alt="product image"/></a></dd>
+				<dd class="scont_box1"><a href="${AdImgDtl.bnUrl3}"><img src="${AdImgDtl.bnImg3}" width="153" height="303" alt="product image" style="border:1px solid #ccc;"/></a></dd>
+				<dd class="scont_box2"><a href="${AdImgDtl.bnUrl4}"><img src="${AdImgDtl.bnImg4}" width="153" height="153" alt="product image" style="border:1px solid #ccc;"/></a></dd>
 			</dl>
 		</div>
 
@@ -128,13 +128,13 @@
 					<li><a onClick="tab_view1('hp_area_tab');" class="wpadding2">HEADPHONE</a></li>
 					<li><a onClick="tab_view1('mm_area_tab');" class="wpadding3">MULTMEDIA</a></li>
 				</ul>
-				<div class="product_elist" style="height:531px;">		
+				<div class="product_elist" style="height:580px;">		
 					<ul class="pro_list">
 						<c:forEach items="${epPrdList}" var="epPrdList" begin="1" end="9" step="1">
 						<li>
 							<a href="../product/productView.do?prdCd=${epPrdList.prdCd}&ctgCode=${epPrdList.prdCtgL}&ctgMiddleCode=${epPrdList.prdCtgM}">
 							<dl class="list_product">
-								<dd><img src="${epPrdList.attFilePath}" width="119" height="119" alt="prouct IMG"/></dd>
+								<dd><img src="${epPrdList.attFilePath}" width="118" height="118" alt="prouct IMG"/></dd>
 								<dd>${epPrdList.prdBrand}</dd>
 								<dd>${epPrdList.prdModel}</dd>
 								<dd><strong class="textline">${epPrdList.prdPrice}</strong>↓<span>${epPrdList.prdSellPrc}원</span></dd>
@@ -153,13 +153,13 @@
 					<li><a onClick="tab_view1('hp_area_tab');" class="wpadding2 on">HEADPHONE</a></li>
 					<li><a onClick="tab_view1('mm_area_tab');" class="wpadding3">MULTMEDIA</a></li>
 				</ul>
-				<div class="product_elist" style="height:531px;">
+				<div class="product_elist" style="height:580px;">
 					<ul class="pro_list">
 						<c:forEach items="${hpPrdList}" var="hpPrdList" begin="1" end="9" step="1">
 						<li>
 							<a href="../product/productView.do?prdCd=${hpPrdList.prdCd}&ctgCode=${hpPrdList.prdCtgL}&ctgMiddleCode=${hpPrdList.prdCtgM}">
 							<dl class="list_product">
-								<dd><img src="${hpPrdList.attFilePath}" width="119" height="119" alt="prouct IMG"/></dd>
+								<dd><img src="${hpPrdList.attFilePath}" width="118" height="118" alt="prouct IMG"/></dd>
 								<dd>${hpPrdList.prdBrand}</dd>
 								<dd>${hpPrdList.prdModel}</dd>
 								<dd><strong class="textline">${hpPrdList.prdPrice}</strong>↓<span>${hpPrdList.prdSellPrc}원</span></dd>
@@ -178,13 +178,13 @@
 					<li><a onClick="tab_view1('hp_area_tab');" class="wpadding2">HEADPHONE</a></li>
 					<li><a onClick="tab_view1('mm_area_tab');" class="wpadding3 on">MULTMEDIA</a></li>
 				</ul>
-				<div class="product_elist" style="height:531px;">
+				<div class="product_elist" style="height:580px;">
 					<ul class="pro_list">
 						<c:forEach items="${mmPrdList}" var="mmPrdList" begin="1" end="9" step="1">
 						<li>
 							<a href="../product/productView.do?prdCd=${mmPrdList.prdCd}&ctgCode=${mmPrdList.prdCtgL}&ctgMiddleCode=${mmPrdList.prdCtgM}">
 							<dl class="list_product">
-								<dd><img src="${mmPrdList.attFilePath}" width="119" height="119" alt="prouct IMG"/></dd>
+								<dd><img src="${mmPrdList.attFilePath}" width="118" height="118" alt="prouct IMG"/></dd>
 								<dd>${mmPrdList.prdBrand}</dd>
 								<dd>${mmPrdList.prdModel}</dd>
 								<dd><strong class="textline">${mmPrdList.prdPrice}</strong>↓<span>${mmPrdList.prdSellPrc}원</span></dd>
@@ -204,24 +204,24 @@
 					<li><a onClick="tab_view2('et_area_tab');" class="wpadding3">ETC</a></li>
 				</ul>
 				
-				<div class="product_elist" style="height:531px;">
+				<div class="product_elist" style="height:580px;">
 					<ul id="pd_area" class="pro_list">
 						<c:forEach items="${pdSList}" var="pdSList" begin="1" end="9" step="1">
-							<li>
-								<a href="#">
-									<dl class="list_product">
-											<dd><img src="${pdSList.attFilePath}" width="119" height="119" alt="prouct IMG"/></dd>
-											<dd>${pdSList.prdBrand}</dd>
-											<dd>${pdSList.prdModel}</dd>
-											<dd><strong class="textline">${pdSList.prdPrice}</strong>↓<span>${pdSList.prdSellPrc}원</span></dd>
-									</dl>
-								</a>
-							</li>
+						<li>
+							<a href="../product/productView.do?prdCd=${pdSList.prdCd}&ctgCode=${pdSList.prdCtgL}&ctgMiddleCode=${pdSList.prdCtgM}">
+							<dl class="list_product">
+								<dd><img src="${pdSList.attFilePath}" width="118" height="118" alt="prouct IMG"/></dd>
+								<dd>${pdSList.prdBrand}</dd>
+								<dd>${pdSList.prdModel}</dd>
+								<dd><strong class="textline">${pdSList.prdPrice}</strong>↓<span>${pdSList.prdSellPrc}원</span></dd>
+							</dl>
+							</a>
+						</li>
 						</c:forEach>
 					</ul>
 					
 				</div>
-			</div>			
+			</div>
 
 			<div id="ca_area_tab" class="product_listbox2" style="display:none;cursor:pointer;">
 				<ul class="plist_area">
@@ -230,19 +230,19 @@
 					<li><a onClick="tab_view2('et_area_tab');" class="wpadding3">ETC</a></li>
 				</ul>
 				
-				<div class="product_elist" style="height:531px;">	
+				<div class="product_elist" style="height:580px;">	
 					<ul id="cs_area" class="pro_list">
 						<c:forEach items="${csPrdList}" var="csPrdList" begin="1" end="9" step="1">
-							<li>
-								<a href="#">
-									<dl class="list_product">
-											<dd><img src="${csPrdList.attFilePath}" width="119" height="119" alt="prouct IMG"/></dd>
-											<dd>${csPrdList.prdBrand}</dd>
-											<dd>${csPrdList.prdModel}</dd>
-											<dd><strong class="textline">${csPrdList.prdPrice}</strong>↓<span>${csPrdList.prdSellPrc}원</span></dd>
-									</dl>
-								</a>
-							</li>
+						<li>
+							<a href="../product/productView.do?prdCd=${csPrdList.prdCd}&ctgCode=${csPrdList.prdCtgL}&ctgMiddleCode=${csPrdList.prdCtgM}">
+							<dl class="list_product">
+								<dd><img src="${csPrdList.attFilePath}" width="118" height="118" alt="prouct IMG"/></dd>
+								<dd>${csPrdList.prdBrand}</dd>
+								<dd>${csPrdList.prdModel}</dd>
+								<dd><strong class="textline">${csPrdList.prdPrice}</strong>↓<span>${csPrdList.prdSellPrc}원</span></dd>
+							</dl>
+							</a>
+						</li>
 						</c:forEach>
 					</ul>
 				</div>
@@ -256,32 +256,31 @@
 					<li><a onClick="tab_view2('et_area_tab');" class="wpadding3 on">ETC</a></li>
 				</ul>
 				
-				<div class="product_elist" style="height:531px;">
+				<div class="product_elist" style="height:580px;">
 					<ul id="xt_area" class="pro_list">
 						<c:forEach items="${xtPrdList}" var="xtPrdList" begin="1" end="9" step="1">
-							<li>
-								<a href="#">
-									<dl class="list_product">
-											<dd><img src="${xtPrdList.attFilePath}" width="119" height="119" alt="prouct IMG"/></dd>
-											<dd>${xtPrdList.prdBrand}</dd>
-											<dd>${xtPrdList.prdModel}</dd>
-											<dd><strong class="textline">${xtPrdList.prdPrice}</strong>↓<span>${xtPrdList.prdSellPrc}원</span></dd>
-									</dl>
-								</a>
-							</li>
+						<li>
+							<a href="../product/productView.do?prdCd=${xtPrdList.prdCd}&ctgCode=${xtPrdList.prdCtgL}&ctgMiddleCode=${xtPrdList.prdCtgM}">
+							<dl class="list_product">
+								<dd><img src="${xtPrdList.attFilePath}" width="118" height="118" alt="prouct IMG"/></dd>
+								<dd>${xtPrdList.prdBrand}</dd>
+								<dd>${xtPrdList.prdModel}</dd>
+								<dd><strong class="textline">${xtPrdList.prdPrice}</strong>↓<span>${xtPrdList.prdSellPrc}원</span></dd>
+							</dl>
+							</a>
+						</li>
 						</c:forEach>
 					</ul>
 				</div>
-			</div>			
+			</div>
+
 		</div>
-
-
 		
 		<div class="cont_banner">
 			<a href="${AdImgDtl.bnUrl5}" class="marginright"><img src="${AdImgDtl.bnImg5}" width="494" height="100" alt="main banner image"/></a>
 			<a href="${AdImgDtl.bnUrl6}"><img src="${AdImgDtl.bnImg6}" width="494" height="100" alt="main banner image"/></a>
 		</div>
-		
+
 		<div class="cont_bottom">
 			<dl class="cont_botbox1">
 				<dt>입점 브래드	<span>Sound Brand</span></dt>
