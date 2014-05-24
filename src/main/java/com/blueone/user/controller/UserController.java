@@ -123,7 +123,7 @@ public class UserController {
 		cus=customerService.getCustomerInfo2(cus);
 		*/
 		String birth = cus.getCustBirth();
-		cus = useStringToken(birth,"b",cus);
+//		cus = useStringToken(birth,"b",cus);
 		
 		String phone = cus.getCustPh();
 		cus = useStringToken(phone,"p",cus);
@@ -173,7 +173,7 @@ public class UserController {
 	//우편번호 찾기 팝업
 	@RequestMapping(value="/user/searchZipCode.do", method=RequestMethod.GET)
 	public String searchZipCode(HttpServletRequest request,String type, HttpServletResponse response, ModelMap model) throws Exception {
-       
+			
 			model.addAttribute("type",type);	
 			return "user/searchZipCode";
 	}
@@ -195,7 +195,7 @@ public class UserController {
 		cus=customerService.getCustomerInfo2(cus);
 		*/
 		String birth = cus.getCustBirth();
-		cus = useStringToken(birth,"b",cus);
+//		cus = useStringToken(birth,"b",cus);
 		
 		String phone = cus.getCustPh();
 		cus = useStringToken(phone,"p",cus);
@@ -234,7 +234,7 @@ public class UserController {
 	@RequestMapping(value="/user/searchAddress.do", method=RequestMethod.GET)
 	public String searchAddress(@ModelAttribute("userInfo") UserInfo userInfo,String type,BindingResult result, Model model,String dong) throws ParserConfigurationException, SAXException, IOException{
 		dong = new String(dong.getBytes("8859_1"), "UTF-8");
-		
+	
 		 List<SearchAddress> nList =Utility.searchAdd(dong);
 		
 			model.addAttribute("nList", nList);

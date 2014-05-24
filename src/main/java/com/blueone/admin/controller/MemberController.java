@@ -120,11 +120,11 @@ public class MemberController {
 		
 		CustomerInfo cus=customerManageService.getCustomerInfo2(customerInfo);
 		
-		String birth = cus.getCustBirth();
+		/*String birth = cus.getCustBirth();
 		if ( !StringUtils.isEmpty(birth) ) {
 			cus = useStringToken(birth,"b",cus);
 		}
-		
+		*/
 		String phone = cus.getCustPh();
 		cus = useStringToken(phone,"p",cus);
 		
