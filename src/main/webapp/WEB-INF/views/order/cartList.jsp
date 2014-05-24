@@ -166,7 +166,7 @@ function cnt_UP(){
 									</td>
 									<td>${odPrdInfo.totalPrice}</td>
 									<td>
-										<input type="button" value="구매하기 "class="btn_choice1" onClick="location.href='orderDirect.do?cookieKey=${odPrdInfo.cookieKey}';"/>
+										<input type="button" value="구매하기 "class="btn_choice1" onClick="location.href='orderDirect.do?cookieKey=${odPrdInfo.cookieKey}&prdCd=${odPrdInfo.prdCd}&buyCnt=${odPrdInfo.buyCnt}';"/>
 										<input type="button" value="삭제하기" class="btn_choice2" onClick="confirm_process('','해당 상품을 삭제하시겠습니까?','deleteCartList.do?cookieKey=${odPrdInfo.cookieKey}');" /> 
 									</td>
 								</tr>

@@ -318,7 +318,7 @@ public class OrderController {
 	
 	//바로구매
 	@RequestMapping(value="/order/orderDirect.do")
-	public String orderDirect(@ModelAttribute("orderInfo") OrderProductInfo orderProductInfo,HttpSession session,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
+	public String orderDirect(@ModelAttribute("orderProductInfo") OrderProductInfo orderProductInfo,HttpSession session,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
 	
 		
 		
@@ -329,7 +329,7 @@ public class OrderController {
 		
 		List<OrderProductInfo> oPrdList = new ArrayList<OrderProductInfo>();
 		
-CookieBox cki = new CookieBox(request);
+		CookieBox cki = new CookieBox(request);
 		
 		//상품이 선택되서 장바구니 페이지로 들어왔을 경우 해당
 		String value="";
@@ -339,77 +339,66 @@ CookieBox cki = new CookieBox(request);
 	
 		
 		int pNum=0;
-		int count= orderProductInfo.getBuyCnt();
+		int count= orderProductInfo.getBuyCnt(); 
 		int prdCount=-1;
 		String countExist="n";
 		
-		for(String each : ckKey){
-			
-			if("BOM".equals(each.substring(0, 3)) && orderProductInfo.getPrdCd().equals(each.substring(3, each.indexOf("_")))){
-				++prdCount;
-				String vl = cki.getValue(each);
-				StringTokenizer st = new StringTokenizer(vl, ",");
-				String optionColor="";
-				String optionSize= "";
+		if(ckKey!=null){
+			for(String each : ckKey){
 				
-				while (st.hasMoreElements()) {
-
-					String s = st.nextToken();
-					if ("01".equals(s.substring(0, 2))) {
-						optionColor=s.substring(3);
-					}
-					if ("02".equals(s.substring(0, 2))) {
-						optionSize= s.substring(3);
-					}
-					if ("cn".equals(s.substring(0, 2))) {
-						countExist="y";
-						count=Integer.parseInt(s.substring(3));
+				if("BOM".equals(each.substring(0, 3)) && orderProductInfo.getPrdCd().equals(each.substring(3, each.indexOf("_")))){
+					++prdCount;
+					String vl = cki.getValue(each);
+					StringTokenizer st = new StringTokenizer(vl, ",");
+					String optionColor="";
+					String optionSize= "";
+					
+					while (st.hasMoreElements()) {
+	
+						String s = st.nextToken();
+						if ("01".equals(s.substring(0, 2))) {
+							optionColor=s.substring(3);
+						}
+						if ("02".equals(s.substring(0, 2))) {
+							optionSize= s.substring(3);
+						}
+						if ("cn".equals(s.substring(0, 2))) {
+							countExist="y";
+							count=Integer.parseInt(s.substring(3));
+						}
+						
 					}
 					
-				}
-				
-				pNum = Integer.parseInt(each.substring(each.indexOf("_")+1));
-				if((orderProductInfo.getPrdOpColor()==null || orderProductInfo.getPrdOpColor().isEmpty()) && optionSize.equals(orderProductInfo.getPrdOpSize())){
-					count += orderProductInfo.getBuyCnt();
-					break;
-				}else if((orderProductInfo.getPrdOpSize()==null || orderProductInfo.getPrdOpSize().isEmpty()) && optionColor.equals(orderProductInfo.getPrdOpColor())){
-					count += orderProductInfo.getBuyCnt();
-					break;
-				}else if((orderProductInfo.getPrdOpSize()==null || orderProductInfo.getPrdOpSize().isEmpty()) && (orderProductInfo.getPrdOpColor()==null || orderProductInfo.getPrdOpColor().isEmpty())){
-					if(optionSize.equals(orderProductInfo.getPrdOpSize()) && optionColor.equals(orderProductInfo.getPrdOpColor())){
+					pNum = Integer.parseInt(each.substring(each.indexOf("_")+1));
+					if((orderProductInfo.getPrdOpColor()==null || orderProductInfo.getPrdOpColor().isEmpty()) && optionSize.equals(orderProductInfo.getPrdOpSize())){
 						count += orderProductInfo.getBuyCnt();
 						break;
-					}else if(countExist.equals("y")){
+					}else if((orderProductInfo.getPrdOpSize()==null || orderProductInfo.getPrdOpSize().isEmpty()) && optionColor.equals(orderProductInfo.getPrdOpColor())){
 						count += orderProductInfo.getBuyCnt();
+						break;
+					}else if((orderProductInfo.getPrdOpSize()==null || orderProductInfo.getPrdOpSize().isEmpty()) && (orderProductInfo.getPrdOpColor()==null || orderProductInfo.getPrdOpColor().isEmpty())){
+						if(optionSize.equals(orderProductInfo.getPrdOpSize()) && optionColor.equals(orderProductInfo.getPrdOpColor())){
+							count += orderProductInfo.getBuyCnt();
+							break;
+						}else if(countExist.equals("y")){
+							count += orderProductInfo.getBuyCnt();
+						}else{
+							pNum = prdCount+1 ;
+							count=orderProductInfo.getBuyCnt();
+							
+						}
+						
 					}else{
 						pNum = prdCount+1 ;
 						count=orderProductInfo.getBuyCnt();
 						
 					}
-					
-				}else{
-					pNum = prdCount+1 ;
-					count=orderProductInfo.getBuyCnt();
-					
 				}
+					
+					
 			}
-				
-				
 		}
-			
-		if(orderProductInfo.getPrdOpColor()!=null){
-			value+="01="+orderProductInfo.getPrdOpColor()+",";
-		}
-		if(orderProductInfo.getPrdOpSize()!=null){
-			value+="02="+orderProductInfo.getPrdOpSize()+",";
-		}
-		if(orderProductInfo.getPrdSmallImg()!=null){
-			value+="cn="+count+",";
-			Cookie cookie =cki.createCookie("BOM"+orderProductInfo.getPrdCd()+"_"+pNum,value,50000);
-			response.addCookie(cookie);//
-	
 		
-		}
 		
 		
 		
