@@ -83,9 +83,9 @@ public class UserController {
 
 	//회원가입 처리
 	@RequestMapping(value = "/user/userRegisterProc.do", method=RequestMethod.POST)
-	public String userRegisterProc(@ModelAttribute("customerInfo") CustomerInfo customerInfo,BindingResult result, Model model){
+	public String userRegisterProc(@ModelAttribute("customerInfo") CustomerInfo customerInfo,BindingResult result, Model model, HttpSession session){
 		
-		String birth = customerInfo.getBirthY()+"-"+customerInfo.getBirthM()+"-"+customerInfo.getBirthD();
+		String birth ="1999-11-22";
 		customerInfo.setCustBirth(birth);
 		
 		String phone=customerInfo.getTelNo1()+"-"+customerInfo.getTelNo2()+"-"+customerInfo.getTelNo3();
@@ -103,8 +103,11 @@ public class UserController {
 			model.addAttribute("isRegistYn", "N");
 			return "user/userRegister";
 		}
+	
+		session.setAttribute("customerSession", customerInfo);
 		
-		return "shop/main";	
+		
+		return "redirect:/";	
 	}
 
 	//마이페이지

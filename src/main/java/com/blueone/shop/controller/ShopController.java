@@ -59,19 +59,19 @@ public class ShopController {
 	
 	@RequestMapping(value ="/", method = RequestMethod.GET)
 	public String read(@ModelAttribute("adImgInfo") AdImgInfo adImgInfo, @ModelAttribute("productInfo") ProductInfo productInfo, @ModelAttribute("categoryInfo") CategoryInfo categoryInfo, HttpSession session,BindingResult result, Model model){
-		// CustomerInfo customerSesstion =(CustomerInfo)session.getAttribute("customerSession");
-		/*// 세션체크
-		if (cust == null) {
-			return "user/errorPage";
-		}*/
+		 CustomerInfo customerSesstion =(CustomerInfo)session.getAttribute("customerSession");
 		
-		// ---------------------------------------------------
+		if (customerSesstion == null) {
+			return "user/errorPage";
+		}
+		
+		/*// ---------------------------------------------------
 		// 세션임시셋팅 - 추후 삭제해야 함
 		// ---------------------------------------------------
 		CustomerInfo cust = new CustomerInfo();
 		cust.setCustId("id1");
 		CustomerInfo res=customerManageService.getCustomerInfo2(cust);
-		session.setAttribute("customerSession", res);
+		session.setAttribute("customerSession", res);*/
 		
 		// ---------------------------------------------------
 		// 상품목록조회 (메인화면에 보여줄 6개의 카테고리)
