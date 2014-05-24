@@ -22,6 +22,7 @@ int y = Integer.parseInt(year);
 		<div class="sub_content">
 			<form name="frm" action="userRegisterProc.do" method="post">
 			<input type="hidden" id="custId" name="custId" value="${customer.custId}"> 
+			<input type="hidden" id="custId" name="custNm" value="${customer.custNm}">
 			
 				<div class="membership_section">
 					<h4>회원가입</h4>
@@ -74,7 +75,7 @@ int y = Integer.parseInt(year);
 						<tbody>
 							<tr>
 								<th>이름</th>
-								<td><input type="text" id="custNm" name="custNm" title="아이디입력창"/></td>
+								<td>${customer.custNm}<!-- <input type="text" id="custNm" name="custNm" title="아이디입력창"/> --></td>
 								<th><span class="bullet_color">*</span>아이디</th>
 								<td>${customer.custId}</td>
 							</tr>

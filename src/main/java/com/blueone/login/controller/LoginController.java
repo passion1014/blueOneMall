@@ -57,7 +57,8 @@ public class LoginController {
 	private static final String ENC_TYPE = "euc-kr";		// 현대몰에서는 인코딩을 euc-kr로 보내준다.
 	
 	// SSO을 위해 호출할 웹서비스 도메인정보
-	private static final String URL = "https://giftdev.e-hyundai.com:1443/hb2efront_new/pointOpenAPI.do?";
+//	private static final String URL = "https://giftdev.e-hyundai.com:1443/hb2efront_new/pointOpenAPI.do?";	// 개발서버
+	private static final String URL = "https://gift.e-hyundai.com:1443/hb2efront_new/pointOpenAPI.do?";	// 운영서버 
 	@Autowired ICustomerManageService customerManageService;
 	/**
 	 * 로그인 모듈
@@ -164,21 +165,22 @@ public class LoginController {
 		// --------------------------------------------
 		CustomerInfo cust = new CustomerInfo();
 		cust.setCustId(decMemNo);
-		CustomerInfo result=customerManageService.getCustomerInfo2(cust);
+		
+		CustomerInfo result = customerManageService.getCustomerInfo2(cust);
 		
 		if(result!=null){
 			session.setAttribute("customerSession", result);
 			return "shop/main";
 		}else{
+			// 회원가입시 ID, 이름은 받은 값으로 셋팅하여 화면에 표시한다.
+			cust.setCustNm(decMemNm);
+			
 			List<AgreementInfo> agreementInfo=adminManageService.selectAgreementInfList();
 			model.addAttribute("agreementInfo",agreementInfo);
 			model.addAttribute("customer",cust);
 			
 			return "user/userRegister";
 		}
-		
-		/*String viewName = "cust/custDetail";
-		return viewName;*/
 	}
 	
 	/**
