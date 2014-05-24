@@ -148,7 +148,7 @@ function list_Submit(){
 									<td colspan="2">
 										<select id="buyCnt" name="buyCnt">
 											<c:forEach var="i" begin="1" end="50" step="1">
-												<option value="<c:out value="${i}"></c:out>" <c:if test="${i==1 }">selected</c:if>><c:out value="${i}"></c:out></option>
+												<option value="<c:out value="${i}"></c:out>" <c:if test="${i==1}">selected</c:if>><c:out value="${i}"></c:out></option>
 											</c:forEach>
 										</select>	
 									</td>
