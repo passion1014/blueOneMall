@@ -5,8 +5,17 @@ public class SchWordInfo {
 	private String swWord;
 	private int swHit;
 	private boolean showMain=false;
+	private String userSchword;
 	
 	
+	
+	
+	public String getUserSchword() {
+		return userSchword;
+	}
+	public void setUserSchword(String userSchword) {
+		this.userSchword = userSchword;
+	}
 	public boolean isShowMain() {
 		return showMain;
 	}

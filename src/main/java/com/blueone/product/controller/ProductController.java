@@ -1254,8 +1254,15 @@ public class ProductController {
 
 		
 		if (word != null && !word.isEmpty()) {
-			List<ProductInfo> prdList = productManageService
-					.getProductInfList(searchProdInfo);
+			SchWordInfo schWordInfo = new SchWordInfo();
+			schWordInfo.setUserSchword(word);
+			 List<SchWordInfo> schWdList=schWordManageService.getSchWordDtlList(schWordInfo);
+			if(schWdList!=null){
+				for(SchWordInfo each:schWdList){
+					schWordManageService.updateHit(each);
+				}
+			}
+			List<ProductInfo> prdList = productManageService.getProductInfList(searchProdInfo);
 			pd.setPrdList(prdList);
 
 			List<ProductInfo> resultList = pd.getPrdList();

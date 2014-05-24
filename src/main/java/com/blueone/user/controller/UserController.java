@@ -21,6 +21,7 @@ import javax.servlet.http.HttpSession;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -82,9 +83,9 @@ public class UserController {
 
 	//회원가입 처리
 	@RequestMapping(value = "/user/userRegisterProc.do", method=RequestMethod.POST)
-	public String userRegisterProc(@ModelAttribute("customerInfo") CustomerInfo customerInfo,BindingResult result, Model model){
+	public String userRegisterProc(@ModelAttribute("customerInfo") CustomerInfo customerInfo,BindingResult result, Model model, HttpSession session){
 		
-		String birth = customerInfo.getBirthY()+"-"+customerInfo.getBirthM()+"-"+customerInfo.getBirthD();
+		String birth ="1999-11-22";
 		customerInfo.setCustBirth(birth);
 		
 		String phone=customerInfo.getTelNo1()+"-"+customerInfo.getTelNo2()+"-"+customerInfo.getTelNo3();
@@ -102,8 +103,11 @@ public class UserController {
 			model.addAttribute("isRegistYn", "N");
 			return "user/userRegister";
 		}
+	
+		session.setAttribute("customerSession", customerInfo);
 		
-		return "shop/main";	
+		
+		return "redirect:/";	
 	}
 
 	//마이페이지
@@ -235,11 +239,19 @@ public class UserController {
 	public String searchAddress(@ModelAttribute("userInfo") UserInfo userInfo,String type,BindingResult result, Model model,String dong) throws ParserConfigurationException, SAXException, IOException{
 		dong = new String(dong.getBytes("8859_1"), "UTF-8");
 	
+		int lastIdx = dong.lastIndexOf("동");
+		if(dong.equals(dong.indexOf(lastIdx))&&!StringUtils.isEmpty(dong)&&!dong.isEmpty()){
+			
+		
 		 List<SearchAddress> nList =Utility.searchAdd(dong);
 		
 			model.addAttribute("nList", nList);
 			model.addAttribute("type",type);
 			return "user/searchZipCode";
+		}else{
+			return "redirect:/user/searchZipCode.do?type="+type;
+		}
+		
 	}
 	
 	//적립금현황

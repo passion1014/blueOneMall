@@ -38,6 +38,26 @@ public class SearchWordServiceImpl implements ISearchWordService{
 		return result;
 	}
 	
+	//검색어 순위 HIT +1
+	@Override
+	public int updateHit(SchWordInfo schWordInfo){
+		
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		int result = 0;
+		try{
+			
+			result = sqlSession.update("searchWord.updateBomSearchWordTb0002", schWordInfo);
+			
+		}finally{
+			
+			sqlSession.close();
+		}
+		
+		
+		return result;
+	}
+	
 	@Override
 	public List<SchWordInfo> getSchWordDtlList(SchWordInfo schWordInfo){
 		

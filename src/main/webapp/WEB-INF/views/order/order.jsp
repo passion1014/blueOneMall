@@ -210,7 +210,7 @@
 									</td>
 									<td>${odPrdInfo.totalPrice}</td>
 									<td>
-										<input type="button" value="삭제하기"class="btn_choice2" onClick="confirm_process('','해당 상품을 삭제하시겠습니까?','deleteOrderList.do?cookieKey=${odPrdInfo.cookieKey}&ord_unit_chk=${orderInfo.ord_unit_chk}');" /> 
+										<input type="button" value="삭제하기"class="btn_choice2" onClick="confirm_process('','해당 상품을 삭제하시겠습니까?','deleteOrderList.do?cookieKey=${odPrdInfo.cookieKey}&ord_unit_chk=${orderInfo.ord_unit_chk}');" />
 									</td>
 								</tr>
 								<tr>
@@ -220,7 +220,7 @@
 								</tr>
 								</c:forEach>
 								</c:when>
-								<c:otherwise><tr><td>장바구니에 상품이 없습니다.</td></tr></c:otherwise>
+								<c:otherwise><tr><td>구매하실 상품이 없습니다.</td></tr></c:otherwise>
 								</c:choose>
 								<tr>
 									<c:set var="total"  value="0"/>

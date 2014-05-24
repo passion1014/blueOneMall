@@ -18,8 +18,6 @@
 			<table>
 				<colgroup>
 					<col width="15%" />
-					<col width="35%" />
-					<col width="15%" />
 					<col width="*" />
 				</colgroup>
 				<tr>
@@ -59,8 +57,8 @@
 				</tr>
 				<tr>
 					<th>배송비설정</th>
-					<td class="left"><input type="text" id="buyPrice" name="buyPrice" value="${config.buyPrice}"/>원 이하<br>
-									배송비&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="trasferPrice" name="trasferPrice" value="${config.trasferPrice}"/>원 추가
+					<td class="left">
+						<input type="text" id="buyPrice" name="buyPrice" value="${config.buyPrice}"/>원 이하 &nbsp;&nbsp; 배송비&nbsp;<input type="text" id="trasferPrice" name="trasferPrice" value="${config.trasferPrice}"/>원 추가
 					</td>
 				</tr>
 				<tr>
