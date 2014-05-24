@@ -38,37 +38,51 @@
 	<table>
 		<colgroup>
 			<col width="5%" />
+			<col width="12%" />
+			<col width="9%" />
+			<col width="9%" />
+			<col width="12%" />
+			<col width="12%" />
 			<col width="*" />
 			<col width="12%" />
 		</colgroup>
 		<tr>
 			<th>No</th>
-			<th>회원정보</th>
+			<th>가입일</th>
+			<th>회원ID</th>
+			<th>회원명</th>
+			<th>연락처</th>
+			<th>핸드폰</th>
+			<th>Email</th>
 			<th>관리</th>
 		</tr>
+
 		<c:choose>
-					<c:when test="${cust.size() != 0}">
-						<c:forEach items="${cust}" var="cust">
-							<tr>
-								<td>${cust.custSeq}</td>
-								<td class="left" style="line-height: 180%;">
-									I&nbsp;&nbsp;&nbsp;D : ${cust.custId}<br>
-									이름 : ${cust.custNm}
-								</td>
-								<td><input type="button" value="관리" class="Small_Button Gray" onClick="location.href='memberEdit.do?custId=${cust.custId}'"> 
-									<input type="button" value="삭제" class="Small_Button Gray" onClick="confirm_process('','회원 정보를 삭제하시겠습니까? \n\n삭제후에는 복구가 불가능합니다.','deleteMember.do?custId=${cust.custId}');">
-								</td>
-							</tr>
-						</c:forEach>
-					</c:when>
-					
-					<c:otherwise>
-						<tr>
-							<th colspan="3">회원 정보가 없습니다.</th>
-						</tr>
-					</c:otherwise>
+			<c:when test="${cust.size() != 0}">
+				<c:forEach items="${cust}" var="cust">
+					<tr>
+						<td class="center">${cust.custSeq}</td>
+						<td class="center">${cust.custRegDt}</td>
+						<td class="center">${cust.custId}</td>
+						<td class="center">${cust.custNm}</td>
+						<td class="center">${cust.custPh}</td>
+						<td class="center">${cust.custMb}</td>
+						<td class="center">${cust.custEmail}</td>
+						<td class="center">
+							<input type="button" value="관리" class="Small_Button Gray" onClick="location.href='memberEdit.do?custId=${cust.custId}'"> 
+							<input type="button" value="삭제" class="Small_Button Gray" onClick="confirm_process('','회원 정보를 삭제하시겠습니까? \n\n삭제후에는 복구가 불가능합니다.','deleteMember.do?custId=${cust.custId}');">
+						</td>
+					</tr>
+				</c:forEach>
+			</c:when>
+
+			<c:otherwise>
+				<tr>
+					<th colspan="3">회원 정보가 없습니다.</th>
+				</tr>
+			</c:otherwise>
 		</c:choose>
-		
+
 	</table>
 
 	<div align="center" style="padding-top:10px;">

@@ -20,19 +20,17 @@
 	<table>
 		<colgroup>
 			<col width="15%" />
-			<col width="35%" />
-			<col width="15%" />
 			<col width="*" />
 		</colgroup>
 		<tr>
 			<th>개인보호취급방침</th>
-			<td colspan="3" class="left">
+			<td class="left">
 				<textarea name="agrContents" id="agrContents" class="input" style="width:95%;height:400px;padding:3pt;" required hname="약관을 입력하여 주십시오!">${agreementInfo.agrContents}</textarea>
 			</td>
 		</tr>
 	</table>
 
-	<div style="text-align:center;">
+	<div class="center" style="padding-top:10px;">
 		<input type="submit" value=" 수정 " class="Button Gray"> &nbsp;
 		<input type="button" value=" 취소 " class="Button Gray" onClick="reset();">
 	</div>

@@ -134,7 +134,7 @@
 						<input type="file" id="ban5Up" name="ban5Up" style="width:60%;"> [494px X 100px]
 					</c:when>
 					<c:otherwise>
-						<img src="${adImgInfo.bnImg5}" width="666">
+						<img src="${adImgInfo.bnImg5}" width="494">
 						<br />
 						<input type="button" value="이미지 삭제"  onClick="confirm_process('','이미지를 삭제하시겠습니까? \n\n삭제 후에는 복구가 불가능합니다.','deleteBannerImgProc.do?fieldName=bnImg5&fileName=${adImgInfo.bnImg5}');"   class="Small_Button Gray" />
 					</c:otherwise>
@@ -158,7 +158,7 @@
 						<input type="file" id="ban6Up" name="ban6Up" style="width:60%;"> [494px X 100px]
 					</c:when>
 					<c:otherwise>
-						<img src="${adImgInfo.bnImg6}" width="666">
+						<img src="${adImgInfo.bnImg6}" width="494">
 						<br />
 						<input type="button" value="이미지 삭제"  onClick="confirm_process('','이미지를 삭제하시겠습니까? \n\n삭제 후에는 복구가 불가능합니다.','deleteBannerImgProc.do?fieldName=bnImg6&fileName=${adImgInfo.bnImg6}');"   class="Small_Button Gray" />
 					</c:otherwise>
@@ -182,7 +182,7 @@
 						<input type="file" id="ban7Up" name="ban7Up" style="width:60%;"> [336px X 52px]
 					</c:when>
 					<c:otherwise>
-						<img src="${adImgInfo.bnImg7}" width="666">
+						<img src="${adImgInfo.bnImg7}" width="336">
 						<br />
 						<input type="button" value="이미지 삭제"  onClick="confirm_process('','이미지를 삭제하시겠습니까? \n\n삭제 후에는 복구가 불가능합니다.','deleteBannerImgProc.do?fieldName=bnImg7&fileName=${adImgInfo.bnImg7}');"   class="Small_Button Gray" />
 					</c:otherwise>

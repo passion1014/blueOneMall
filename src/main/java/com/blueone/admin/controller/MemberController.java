@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -120,7 +121,9 @@ public class MemberController {
 		CustomerInfo cus=customerManageService.getCustomerInfo2(customerInfo);
 		
 		String birth = cus.getCustBirth();
-		cus = useStringToken(birth,"b",cus);
+		if ( !StringUtils.isEmpty(birth) ) {
+			cus = useStringToken(birth,"b",cus);
+		}
 		
 		String phone = cus.getCustPh();
 		cus = useStringToken(phone,"p",cus);
