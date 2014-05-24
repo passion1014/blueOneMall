@@ -131,7 +131,7 @@
 			<td class="left">
 				<c:choose>
 					<c:when test="${adImgInfo.bnImg5 eq NULL || adImgInfo.bnImg5 == ''}">
-						<input type="file" id="ban5Up" name="ban5Up" style="width:80%;">
+						<input type="file" id="ban5Up" name="ban5Up" style="width:60%;"> [494px X 100px]
 					</c:when>
 					<c:otherwise>
 						<img src="${adImgInfo.bnImg5}" width="666">
@@ -155,7 +155,7 @@
 			<td class="left">
 				<c:choose>
 					<c:when test="${adImgInfo.bnImg6 eq NULL || adImgInfo.bnImg6 == ''}">
-						<input type="file" id="ban6Up" name="ban6Up" style="width:80%;">
+						<input type="file" id="ban6Up" name="ban6Up" style="width:60%;"> [494px X 100px]
 					</c:when>
 					<c:otherwise>
 						<img src="${adImgInfo.bnImg6}" width="666">
@@ -179,7 +179,7 @@
 			<td class="left">
 				<c:choose>
 					<c:when test="${adImgInfo.bnImg7 eq NULL || adImgInfo.bnImg7 == ''}">
-						<input type="file" id="ban7Up" name="ban7Up" style="width:80%;">
+						<input type="file" id="ban7Up" name="ban7Up" style="width:60%;"> [336px X 52px]
 					</c:when>
 					<c:otherwise>
 						<img src="${adImgInfo.bnImg7}" width="666">
