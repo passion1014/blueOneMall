@@ -12,4 +12,6 @@ public interface ISearchWordService {
 
 	public List<SchWordInfo> getSchWordDtlList(SchWordInfo schWordInfo);
 
+	public int updateHit(SchWordInfo schWordInfo);
+
 }

@@ -29,7 +29,10 @@
 			
 			
 		FROM BOM_SEARCH_WORD_TB AS T1
+		WHERE (1 = 1)
+			<if test="userSchword != null and userSchword != ''"> AND T1.SW_WORD LIKE CONCAT('%',#{userSchword},'%')</if>
 		ORDER BY T1.SW_HIT DESC <if test="showMain==true">LIMIT 5</if>
+		
 	</select >
 	
 	<select id="selectDtlBomSearchWordTb0002"  parameterType="com.blueone.admin.domain.SchWordInfo" resultType="com.blueone.admin.domain.SchWordInfo" resultMap="SchWordInfoMap">
@@ -45,6 +48,14 @@
 			`SW_RANK`= #{swRank}
 	</select >
 	
+	
+	<update id="updateBomSearchWordTb0002" parameterType="com.blueone.admin.domain.SchWordInfo">
+		UPDATE BOM_SEARCH_WORD_TB
+			SET	
+				SW_HIT = SW_HIT+1
+			WHERE
+				`SW_RANK`= #{swRank}
+	</update>
 	
 	
 </mapper>
