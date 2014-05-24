@@ -4,8 +4,15 @@ public class SchWordInfo {
 	private int swRank;
 	private String swWord;
 	private int swHit;
+	private boolean showMain=false;
 	
 	
+	public boolean isShowMain() {
+		return showMain;
+	}
+	public void setShowMain(boolean showMain) {
+		this.showMain = showMain;
+	}
 	public int getSwHit() {
 		return swHit;
 	}

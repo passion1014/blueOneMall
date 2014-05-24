@@ -27,7 +27,6 @@
 	<input type="hidden" id="mdUrl6" name="mdUrl6" value="${adImgInfo.mdUrl6}">
 	<input type="hidden" id="mdText6" name="mdText6" value="${adImgInfo.mdText6}">
 		
-	<div style="padding:10px 5px 2px 5px;"><b>배너이미지 등록</b></div>
 	<table>
 		<colgroup>
 			<col width="15%">
@@ -39,12 +38,12 @@
 			<td class="left">
 				<c:choose>
 					<c:when test="${adImgInfo.bnImg1 eq NULL || adImgInfo.bnImg1 == ''}">
-						<input type="file" id="ban1Up" name="ban1Up" style="width:80%;">
+						<input type="file" id="ban1Up" name="ban1Up" style="width:60%;"> [153px X 153px]
 					</c:when>
 					<c:otherwise>
-						<img src="${adImgInfo.bnImg1}" width="666">
+						<img src="${adImgInfo.bnImg1}" width="153">
 						<br />
-						<input type="button" value="이미지 삭제"  onClick="location.href='deleteBannerImgProc.do?fieldName=bnImg1&fileName=${adImgInfo.bnImg1}';"   class="Small_Button Gray" />
+						<input type="button" value="이미지 삭제"  onClick="confirm_process('','이미지를 삭제하시겠습니까? \n\n삭제 후에는 복구가 불가능합니다.','deleteBannerImgProc.do?fieldName=bnImg1&fileName=${adImgInfo.bnImg1}';"   class="Small_Button Gray" />
 					</c:otherwise>
 				</c:choose>
 			</td>
@@ -52,7 +51,7 @@
 		<tr>	
 			<th>배너이미지1-URL</th>
 			<td class="left">
-				<input type="text" id="bnUrl1" name="bnUrl1" value="${adImgInfo.bnUrl1}" style="width:80%;"> 
+				<input type="text" id="bnUrl1" name="bnUrl1" value="${adImgInfo.bnUrl1}" style="width:80%;">
 			</td>
 		</tr>
 		
@@ -63,12 +62,12 @@
 			<td class="left">
 				<c:choose>
 					<c:when test="${adImgInfo.bnImg2 eq NULL || adImgInfo.bnImg2 == ''}">
-						<input type="file" id="ban2Up" name="ban2Up" style="width:80%;">
+						<input type="file" id="ban2Up" name="ban2Up" style="width:60%;"> [153px X 301px]
 					</c:when>
 					<c:otherwise>
-						<img src="${adImgInfo.bnImg2}" width="666">
+						<img src="${adImgInfo.bnImg2}" width="153">
 						<br />
-						<input type="button" value="이미지 삭제"  onClick="location.href='deleteBannerImgProc.do?fieldName=bnImg2&fileName=${adImgInfo.bnImg2}';"   class="Small_Button Gray" />
+						<input type="button" value="이미지 삭제"  onClick="confirm_process('','이미지를 삭제하시겠습니까? \n\n삭제 후에는 복구가 불가능합니다.','deleteBannerImgProc.do?fieldName=bnImg2&fileName=${adImgInfo.bnImg2}');"   class="Small_Button Gray" />
 					</c:otherwise>
 				</c:choose>
 			</td>
@@ -86,12 +85,12 @@
 			<td class="left">
 				<c:choose>
 					<c:when test="${adImgInfo.bnImg3 eq NULL || adImgInfo.bnImg3 == ''}">
-						<input type="file" id="ban3Up" name="ban3Up" style="width:80%;">
+						<input type="file" id="ban3Up" name="ban3Up" style="width:60%;"> [153px X 153px]
 					</c:when>
 					<c:otherwise>
-						<img src="${adImgInfo.bnImg3}" width="666">
+						<img src="${adImgInfo.bnImg3}" width="153">
 						<br />
-						<input type="button" value="이미지 삭제"  onClick="location.href='deleteBannerImgProc.do?fieldName=bnImg3&fileName=${adImgInfo.bnImg3}';"   class="Small_Button Gray" />
+						<input type="button" value="이미지 삭제"  onClick="confirm_process('','이미지를 삭제하시겠습니까? \n\n삭제 후에는 복구가 불가능합니다.','deleteBannerImgProc.do?fieldName=bnImg3&fileName=${adImgInfo.bnImg3}');"   class="Small_Button Gray" />
 					</c:otherwise>
 				</c:choose>
 			</td>
@@ -109,12 +108,12 @@
 			<td class="left">
 				<c:choose>
 					<c:when test="${adImgInfo.bnImg4 eq NULL || adImgInfo.bnImg4 == ''}">
-						<input type="file" id="ban4Up" name="ban4Up" style="width:80%;">
+						<input type="file" id="ban4Up" name="ban4Up" style="width:60%;"> [153px X 301px]
 					</c:when>
 					<c:otherwise>
-						<img src="${adImgInfo.bnImg4}" width="666">
+						<img src="${adImgInfo.bnImg4}" width="153">
 						<br />
-						<input type="button" value="이미지 삭제"  onClick="location.href='deleteBannerImgProc.do?fieldName=bnImg4&fileName=${adImgInfo.bnImg4}';"   class="Small_Button Gray" />
+						<input type="button" value="이미지 삭제"  onClick="confirm_process('','이미지를 삭제하시겠습니까? \n\n삭제 후에는 복구가 불가능합니다.','deleteBannerImgProc.do?fieldName=bnImg4&fileName=${adImgInfo.bnImg4}');"   class="Small_Button Gray" />
 					</c:otherwise>
 				</c:choose>
 			</td>
@@ -128,22 +127,22 @@
 		
 		
 		<tr>
-			<th>배너이미지5</th>
+			<th>하단 배너 1</th>
 			<td class="left">
 				<c:choose>
 					<c:when test="${adImgInfo.bnImg5 eq NULL || adImgInfo.bnImg5 == ''}">
-						<input type="file" id="ban5Up" name="ban5Up" style="width:80%;">
+						<input type="file" id="ban5Up" name="ban5Up" style="width:60%;"> [494px X 100px]
 					</c:when>
 					<c:otherwise>
 						<img src="${adImgInfo.bnImg5}" width="666">
 						<br />
-						<input type="button" value="이미지 삭제"  onClick="location.href='deleteBannerImgProc.do?fieldName=bnImg5&fileName=${adImgInfo.bnImg5}';"   class="Small_Button Gray" />
+						<input type="button" value="이미지 삭제"  onClick="confirm_process('','이미지를 삭제하시겠습니까? \n\n삭제 후에는 복구가 불가능합니다.','deleteBannerImgProc.do?fieldName=bnImg5&fileName=${adImgInfo.bnImg5}');"   class="Small_Button Gray" />
 					</c:otherwise>
 				</c:choose>
 			</td>
 		</tr>
 		<tr>	
-			<th>배너이미지5-URL</th>
+			<th>하단 배너 1-URL</th>
 			<td class="left">
 				<input type="text" id="bnUrl5" name="bnUrl5" value="${adImgInfo.bnUrl5}" style="width:80%;"> 
 			</td>
@@ -152,22 +151,22 @@
 		
 		
 		<tr>
-			<th>배너이미지6</th>
+			<th>하단 배너 2</th>
 			<td class="left">
 				<c:choose>
 					<c:when test="${adImgInfo.bnImg6 eq NULL || adImgInfo.bnImg6 == ''}">
-						<input type="file" id="ban6Up" name="ban6Up" style="width:80%;">
+						<input type="file" id="ban6Up" name="ban6Up" style="width:60%;"> [494px X 100px]
 					</c:when>
 					<c:otherwise>
 						<img src="${adImgInfo.bnImg6}" width="666">
 						<br />
-						<input type="button" value="이미지 삭제"  onClick="location.href='deleteBannerImgProc.do?fieldName=bnImg6&fileName=${adImgInfo.bnImg6}';"   class="Small_Button Gray" />
+						<input type="button" value="이미지 삭제"  onClick="confirm_process('','이미지를 삭제하시겠습니까? \n\n삭제 후에는 복구가 불가능합니다.','deleteBannerImgProc.do?fieldName=bnImg6&fileName=${adImgInfo.bnImg6}');"   class="Small_Button Gray" />
 					</c:otherwise>
 				</c:choose>
 			</td>
 		</tr>
 		<tr>	
-			<th>배너이미지6-URL</th>
+			<th>하단 배너 2-URL</th>
 			<td class="left">
 				<input type="text" id="bnUrl6" name="bnUrl6" value="${adImgInfo.bnUrl6}" style="width:80%;"> 
 			</td>
@@ -176,22 +175,22 @@
 		
 		
 		<tr>
-			<th>배너이미지7</th>
+			<th>Top 배너</th>
 			<td class="left">
 				<c:choose>
 					<c:when test="${adImgInfo.bnImg7 eq NULL || adImgInfo.bnImg7 == ''}">
-						<input type="file" id="ban7Up" name="ban7Up" style="width:80%;">
+						<input type="file" id="ban7Up" name="ban7Up" style="width:60%;"> [336px X 52px]
 					</c:when>
 					<c:otherwise>
 						<img src="${adImgInfo.bnImg7}" width="666">
 						<br />
-						<input type="button" value="이미지 삭제"  onClick="location.href='deleteBannerImgProc.do?fieldName=bnImg7&fileName=${adImgInfo.bnImg7}';"   class="Small_Button Gray" />
+						<input type="button" value="이미지 삭제"  onClick="confirm_process('','이미지를 삭제하시겠습니까? \n\n삭제 후에는 복구가 불가능합니다.','deleteBannerImgProc.do?fieldName=bnImg7&fileName=${adImgInfo.bnImg7}');"   class="Small_Button Gray" />
 					</c:otherwise>
 				</c:choose>
 			</td>
 		</tr>
 		<tr>	
-			<th>배너이미지7-URL</th>
+			<th>Top 배너-URL</th>
 			<td class="left">
 				<input type="text" id="bnUrl7" name="bnUrl7" value="${adImgInfo.bnUrl7}" style="width:80%;"> 
 			</td>
@@ -210,5 +209,3 @@
 </body>
 
 <c:import url="../inc/footer.jsp" />
-</body>
-</html>

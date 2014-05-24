@@ -10,6 +10,6 @@ public interface ISearchWordService {
 
 	public SchWordInfo getSchWordDtl(SchWordInfo schWordInfo);
 
-	public List<SchWordInfo> getSchWordDtlList();
+	public List<SchWordInfo> getSchWordDtlList(SchWordInfo schWordInfo);
 
 }

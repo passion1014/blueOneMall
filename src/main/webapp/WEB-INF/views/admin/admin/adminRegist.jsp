@@ -1,135 +1,124 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<link type="text/css" rel="stylesheet" href="<c:url value='/resources/css/basic.css'/>" />
-<link type="text/css" rel="stylesheet" href="<c:url value='/resources/css/admin.css'/>" />
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<script type="text/javascript" src="<c:url value='/resources/js/js_ajax.js'/>"> </script>
-<script type="text/javascript" src="<c:url value='/resources/js/js_common.js'/>"> </script>
-<script type="text/javascript" src="<c:url value='/resources/js/js_admin.js'/>"> </script>
+<c:import  url="../inc/top.jsp" />
 
 <script type="text/javascript">
 	function chk_double_admin_id() {
 		frm.action = "checkAdminId.do";
 		frm.submit();
 	}
-	
+
+	/*
 	$(document).read(function() {
 		$('#loginidcheck').click(function() {
 			$.getJSON('checkloginid/' + $('#loginid').val(), function(result) {
 				if (result.duplicated == true) {
-					alert('ÀÌ¹Ì µî·ÏµÈ ¾ÆÀÌµğÀÔ´Ï´Ù.');
+					alert('ì´ë¯¸ ë“±ë¡ëœ ì•„ì´ë””ì…ë‹ˆë‹¤.');
 				} else {
-					alert('»ç¿ë°¡´ÉÇÑ ¾ÆÀÌµğÀÔ´Ï´Ù.');
+					alert('ì‚¬ìš©ê°€ëŠ¥í•œ ì•„ì´ë””ì…ë‹ˆë‹¤.');
 				}
 			});
 		});
 	});
+	*/
 </script>
-
-
-<title>Insert title here</title>
-</head>
 
 <body>
 <div id="Wrap">
-<c:import url="../inc/gnb.jsp"/>
-<c:import url="../inc/lnb.jsp">
-	<c:param name="slot" value="conf"/>
-</c:import>
+	<c:import url="../inc/gnb.jsp"/>
+	<c:import url="../inc/lnb.jsp">
+		<c:param name="slot" value="conf"/>
+	</c:import>
 
-<iframe name="actionForm" width="700" height="200" frameborder="0" style="display:none;"> </iframe>
-<div id="Contents">
-	<h1>È¯°æ¼³Á¤ &gt; ¿î¿µÀÚ°ü¸® &gt; <strong>¿î¿µÀÚµî·Ï</strong></h1>
+	<div id="Contents">
+		<h1>í™˜ê²½ì„¤ì • &gt; ìš´ì˜ìê´€ë¦¬ &gt; <strong>ìš´ì˜ìë“±ë¡</strong></h1>
 
-	<form name="frm" method="post" action="registAdminInf.do" >
-	<input type="hidden" id="Mode" name="Mode" value="admin_add">
-	<input type="hidden" id="chk_id" name="chk_id" value="" required hname="¾ÆÀÌµğ Áßº¹Ã£±â¸¦ ÇÏ¿© ÁÖ½Ê½Ã¿À!">
-	<table>
-		<colgroup>
-			<col width="15%" />
-			<col width="35%" />
-			<col width="15%" />
-			<col width="*" />
-		</colgroup>
-		<tr>
-			<th>ID</th>
-			<td class="left">
-				<input type="text" id="admin_id" name="id" value="" class="Text Eng" style="width:120px;" required hname="¾ÆÀÌµğ¸¦ µî·ÏÇÏ¿© ÁÖ½Ê½Ã¿À" option="regId"> <input type="button" value="Áßº¹Ã£±â" class="button_green button_small" onClick="chk_double_admin_id();">
-			</td>
-			<th>ÀÌ¸§</th>
-			<td class="left">
-				<input type="text" id="admin_name" name="name" value="" class="Text Kor" style="width:200px;" required hname="ÀÌ¸§¸¦ ÀÔ·ÂÇÏ¿© ÁÖ½Ê½Ã¿À">
-			</td>
-		</tr>
-		<tr>
-			<th>ºñ¹Ğ¹øÈ£</th>
-			<td class="left">
-				<input type="password" id="admin_pass" name="password" value="" class="Text Eng" style="width:100px;" maxlength="15"  required hname="ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇÏ¿© ÁÖ½Ê½Ã¿À"  option="regPass"> ( 4 ~ 16ÀÚ )
-			</td>
-			<th>ºñ¹Ğ¹øÈ£È®ÀÎ</th>
-			<td class="left">
-				<input type="password" id="re_pass" name="re_pass" value="" class="Text Eng" style="width:100px;" maxlength="15"  required hname="ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇÏ¿© ÁÖ½Ê½Ã¿À">
-			</td>
-		</tr>
-		<tr>
-			<th>¿¬¶ôÃ³</th>
-			<td class="left">
-				<input type="text" id="Phone1" name="Phone" value="" class="Text Eng" style="width:50px;"> -
-				<input type="text" id="Phone2" name="Phone" value="" class="Text Eng" style="width:50px;"> -
-				<input type="text" id="Phone3" name="Phone" value="" class="Text Eng" style="width:50px;">
-			</td>
-			<th>ÇÚµåÆù</th>
-			<td class="left">
-				<input type="text" id="Mobile1" name="Mobile" value="" class="Text Eng" style="width:50px;"> -
-				<input type="text" id="Mobile2" name="Mobile" value="" class="Text Eng" style="width:50px;"> -
-				<input type="text" id="Mobile3" name="Mobile" value="" class="Text Eng" style="width:50px;">
-			</td>
-		</tr>
-		<tr>
-			<th>EMAIL</th>
-			<td colspan="3" class="left">
-				<input id="emailID" name="email" type="text" class="Text Eng" style="width:250px;" /> @
-				<select id="selectDomin" name="selectDomin" onChange="document.getElementById('emailDomain').value = this.value; ">
-					<option value="">Á÷Á¢ÀÔ·Â</option>
-					<option value="naver.com">naver.com</option>
-					<option value="yahoo.co.kr">yahoo.co.kr</option>
-					<option value="gmail.com">gmail.com</option>
-				</select>
-				<input id="emailDomain" name="email" type="text" class="Text Eng" style="width:250px;" /> 
-			</td>
-		</tr>
-		<tr>
-			<th>°ü¸®µî±Ş</th>
-			<td colspan="3" style="padding:5px 5px 5px 10px;" class="left">
-				<input type="checkbox" id="g1" name="grade" value="g1" /> È¯°æ¼³Á¤
-				<input type="checkbox" id="g2" name="grade" value="g2" /> È¸¿ø°ü¸®
-				<input type="checkbox" id="g3" name="grade" value="g3" /> »óÇ°°ü¸®
-				<input type="checkbox" id="g4" name="grade" value="g4" /> ÁÖ¹®°ü¸®
-				<input type="checkbox" id="g5" name="grade" value="g5" /> Ä¿¹Â´ÏÆ¼
-			</td>
-		</tr>
-		<tr>
-			<th>Ãß°¡°ü¸®Á¤º¸</th>
-			<td colspan="3" class="left">
-				<textarea id="admin_cmt" name="comment" class="Text Kor" style="width:97%;height:80pt;padding:3px;"></textarea>
-			</td>
-		</tr>
-	</table>
+		<form name="frm" method="post" action="registAdminInf.do" >
+		<input type="hidden" id="Mode" name="Mode" value="admin_add">
+		<input type="hidden" id="chk_id" name="chk_id" value="" required hname="ì•„ì´ë”” ì¤‘ë³µì°¾ê¸°ë¥¼ í•˜ì—¬ ì£¼ì‹­ì‹œì˜¤!">
+		<table>
+			<colgroup>
+				<col width="15%" />
+				<col width="35%" />
+				<col width="15%" />
+				<col width="*" />
+			</colgroup>
+			<tr>
+				<th>ID</th>
+				<td class="left">
+					<input type="text" id="admin_id" name="id" value="" class="Text Eng" style="width:120px;" required hname="ì•„ì´ë””ë¥¼ ë“±ë¡í•˜ì—¬ ì£¼ì‹­ì‹œì˜¤" option="regId"> <input type="button" value="ì¤‘ë³µì°¾ê¸°" class="button_green button_small" onClick="chk_double_admin_id();">
+				</td>
+				<th>ì´ë¦„</th>
+				<td class="left">
+					<input type="text" id="admin_name" name="name" value="" class="Text Kor" style="width:200px;" required hname="ì´ë¦„ë¥¼ ì…ë ¥í•˜ì—¬ ì£¼ì‹­ì‹œì˜¤">
+				</td>
+			</tr>
+			<tr>
+				<th>ë¹„ë°€ë²ˆí˜¸</th>
+				<td class="left">
+					<input type="password" id="admin_pass" name="password" value="" class="Text Eng" style="width:100px;" maxlength="15"  required hname="ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì—¬ ì£¼ì‹­ì‹œì˜¤"  option="regPass"> ( 4 ~ 16ì )
+				</td>
+				<th>ë¹„ë°€ë²ˆí˜¸í™•ì¸</th>
+				<td class="left">
+					<input type="password" id="re_pass" name="re_pass" value="" class="Text Eng" style="width:100px;" maxlength="15"  required hname="ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì—¬ ì£¼ì‹­ì‹œì˜¤">
+				</td>
+			</tr>
+			<tr>
+				<th>ì—°ë½ì²˜</th>
+				<td class="left">
+					<input type="text" id="Phone1" name="Phone" value="" class="Text Eng" style="width:50px;"> -
+					<input type="text" id="Phone2" name="Phone" value="" class="Text Eng" style="width:50px;"> -
+					<input type="text" id="Phone3" name="Phone" value="" class="Text Eng" style="width:50px;">
+				</td>
+				<th>í•¸ë“œí°</th>
+				<td class="left">
+					<input type="text" id="Mobile1" name="Mobile" value="" class="Text Eng" style="width:50px;"> -
+					<input type="text" id="Mobile2" name="Mobile" value="" class="Text Eng" style="width:50px;"> -
+					<input type="text" id="Mobile3" name="Mobile" value="" class="Text Eng" style="width:50px;">
+				</td>
+			</tr>
+			<tr>
+				<th>EMAIL</th>
+				<td colspan="3" class="left">
+					<input id="emailID" name="email" type="text" class="Text Eng" style="width:250px;" /> @
+					<select id="selectDomin" name="selectDomin" onChange="document.getElementById('emailDomain').value = this.value; ">
+						<option value="">ì§ì ‘ì…ë ¥</option>
+						<option value="naver.com">naver.com</option>
+						<option value="yahoo.co.kr">yahoo.co.kr</option>
+						<option value="gmail.com">gmail.com</option>
+					</select>
+					<input id="emailDomain" name="email" type="text" class="Text Eng" style="width:250px;" /> 
+				</td>
+			</tr>
+			<tr>
+				<th>ê´€ë¦¬ë“±ê¸‰</th>
+				<td colspan="3" style="padding:5px 5px 5px 10px;" class="left">
+					<input type="checkbox" id="g1" name="grade" value="g1" /> í™˜ê²½ì„¤ì •
+					<input type="checkbox" id="g2" name="grade" value="g2" /> íšŒì›ê´€ë¦¬
+					<input type="checkbox" id="g3" name="grade" value="g3" /> ìƒí’ˆê´€ë¦¬
+					<input type="checkbox" id="g4" name="grade" value="g4" /> ì£¼ë¬¸ê´€ë¦¬
+					<input type="checkbox" id="g5" name="grade" value="g5" /> ì»¤ë®¤ë‹ˆí‹°
+				</td>
+			</tr>
+			<tr>
+				<th>ì¶”ê°€ê´€ë¦¬ì •ë³´</th>
+				<td colspan="3" class="left">
+					<textarea id="admin_cmt" name="comment" class="Text Kor" style="width:97%;height:80pt;padding:3px;"></textarea>
+				</td>
+			</tr>
+		</table>
 
-	<div style="margin-top:20px;" class="center">
-		<input type="submit" value="µî·ÏÇÏ±â" class="button_green button_medium"> &nbsp; 
-		<input type="button" value="Ãë¼Ò" class="button_red button_medium" onClick="reset();">
+		<div style="margin-top:20px;" class="center">
+			<input type="submit" value="ë“±ë¡í•˜ê¸°" class="button_green button_medium"> &nbsp; 
+			<input type="button" value="ì·¨ì†Œ" class="button_red button_medium" onClick="reset();">
+		</div>
+		</form>
+
 	</div>
-	</form>
 
-</div>
-
-<!-- admin.bottom.html start-->
+	<!-- admin.bottom.html start-->
 </div>
 </body>
-</html>
+
+<c:import url="../inc/footer.jsp" />

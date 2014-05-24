@@ -38,7 +38,8 @@
 		                           ,t1.public_nm as publicNm
 		                           ,t1.content
 		                       FROM BOM_BOARD_TB t1
-		                       
+		          			   
+	
 		                      WHERE t1.del_yn = 'F'
 		                        AND t1.brd_typ = #{srchBrdTyp}
 								<if test="srchBrdTyp == 10">
@@ -59,10 +60,12 @@
 		                        </if>
 		                        
 		                   ORDER BY t1.root_seq DESC
-		                           ,t1.ref_seq
-		                           ,t1.DEPTH) s1, (select @rownum := 0)R ) s2
+		                           ,t1.ref_seq 
+		                           ,t1.DEPTH<if test="ordBy != null and ordBy eq 'n'.toString()">, t1.upd_Dt LIMIT 3</if>) s1,
+		                           (select @rownum := 0)R ) s2
+		                          
 		 WHERE rnum BETWEEN ((#{currentPage} - 1) * #{rowsPerPage} + 1) AND (((#{currentPage} - 1) * #{rowsPerPage} + 1) + #{rowsPerPage} - 1)
-		ORDER BY rnum
+		ORDER BY rnum 
 	</select>
 	
 	<!-- 특정게시판의 게시물전체갯수 -->
@@ -297,7 +300,7 @@
 		         ON t2.code_knd1 = 'MG'
 		        AND t2.code_knd2 = 'MG06'
 		        AND t2.code = t1.file_ext
-		   WHERE t1.brd_seq = #{brdSeq}
+		   WHERE t1.brdSeq = #{brdSeq}
 		ORDER BY t1.fl_no
 	</select>
 	
@@ -389,8 +392,27 @@
 	</update>
 	
 	<!-- 첨부파일 삭제처리 -->
-	<delete id="deleteTBL010103" parameterType="long">
+	<delete id="deleteBOM_ATTACHFILE_TB" parameterType="long">
 		DELETE FROM BOM_ATTACHFILE_TB
-		      WHERE brd_seq = #{brdseq}#
+		      WHERE brdSeq = #{brdseq}#
 	</delete>
+	
+	<!-- 게시판 삭제처리 -->
+	<delete id="deleteBOM_BOARD_TB" parameterType="com.blueone.board.domain.BoardInfo">
+		DELETE FROM BOM_BOARD_TB
+		      WHERE BRD_SEQ = #{brdSeq}
+	</delete>
+	
+	<update id="updateBOM_BOARD_TB_notice" parameterType="com.blueone.board.domain.BoardInfo">
+		UPDATE BOM_BOARD_TB
+			SET
+				`UPD_DT`=sysdate()
+				<if test="title != null and title != ''">,`TITLE` = #{title}</if>
+				<if test="content != null and content != ''">,`CONTENT` = #{content}</if>
+				<if test="updUser != null and updUser != ''">,`UPD_USER` = #{updUser}</if>
+				
+				
+		WHERE
+			BRD_SEQ = #{brdSeq}
+	</update>
 </mapper>

@@ -158,7 +158,7 @@
 					<th>
      					<input id="muti_chk" name="multi_chk" onClick="allCheckbox('document.cfrm.unit_chk','multi_chk');" type="checkbox">
 					</th>
-					<th>No</th>
+					<th>Code</th>
 					<th>이미지</th>
 					<th>상태</th>
 					<th>상품정보</th>
@@ -175,9 +175,9 @@
 
      					</td> 
 
-						<td style="text-align:center;">index</td>
+						<td style="text-align:center;">${produts.prdCd}</td>
 						<td style="text-align:center;">
-							<img src="${produts.attFilePath}" width="120">
+							<img src="${produts.attFilePath}" width="119">
 						</td>
 						<td style="text-align:center;">
 							<c:if test="${produts.prdDp eq 'y'}">진열</c:if>

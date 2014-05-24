@@ -32,11 +32,14 @@
 	CategoryInfo categoryInfo = new CategoryInfo();
 	List<CategoryInfo> largeMenuList = categoryService.getCategoryInfList2(categoryInfo);
 	
+	//메인 이미지
 	AdImgInfo AdImgDtl = new AdImgInfo();
 	AdImgDtl = shopService.getAdImg(AdImgDtl);
 	
+	//검색순위
 	SchWordInfo schWord = new SchWordInfo();
-	List<SchWordInfo> schWordList = schWordService.getSchWordDtlList();
+	schWord.setShowMain(true);
+	List<SchWordInfo> schWordList = schWordService.getSchWordDtlList(schWord);
 %>
 <!--  header 시작 -->
 <div class="header">
@@ -53,12 +56,12 @@
 				<a href="/user/userEdit.do">마이페이지</a>
 			</span>
 			<span class="search_box">
-				<input type="text" id="schWord" name="schWord" title="서치텍스트박스"/>
+				<input type="text" id="schWord" name="schWord" value="${schWord}"title="서치텍스트박스"/>
 				<!--  input type="button" value="검색" onClick="javascript:location.href='/product/searchProduct.do?schWord='+document.getElementById('schWord').value;"/-->
 				<button onClick="topSFrm.submit();" style="cursor:pointer;"></button>
-				<select>
+				<select onChange="document.getElementById('schWord').value = this.value;">
 					<c:forEach var="schWordList" items="<%=schWordList%>">
-						<option>${schWordList.swWord}</option>
+						<option value='${schWordList.swWord}'>${schWordList.swWord}</option>
 					</c:forEach>
 				</select>
 			</span>

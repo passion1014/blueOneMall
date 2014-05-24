@@ -116,6 +116,26 @@ public class BoardService implements IBoardService {
 		
 		return count;
 	}
+	
+	@Override
+    public int deleteBoardTBInf(BoardInfo boardModel){
+        
+        int rst = -1;
+        
+        
+            SqlSession sqlSession = sqlSessionFactory.openSession();
+            try {
+                // DB 수행
+                rst = sqlSession.delete("board.deleteBOM_BOARD_TB", boardModel);
+                
+            } finally {
+                sqlSession.close();
+            }
+        
+        
+        return rst;
+    }
+	
 	@Override
     public int deleteFaqInf(FaqInfo faqInfo){
         
@@ -316,6 +336,26 @@ public class BoardService implements IBoardService {
 		try {
 //			sqlMapClient.startTransaction();
 			sqlSession.update("board.updateBOM_BOARD_CMT_TB", boardCommentModel);
+//			sqlMapClient.commitTransaction();
+//			sqlMapClient.getCurrentConnection().commit();
+			
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return false;
+		} finally {
+			sqlSession.close();
+		}
+		
+		return true;
+	}
+	
+	@Override
+	public boolean updateBOM_BOARD_TB_notice(BoardInfo boardModel) {
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+//			sqlMapClient.startTransaction();
+			sqlSession.update("board.updateBOM_BOARD_CMT_TB", boardModel);
 //			sqlMapClient.commitTransaction();
 //			sqlMapClient.getCurrentConnection().commit();
 			

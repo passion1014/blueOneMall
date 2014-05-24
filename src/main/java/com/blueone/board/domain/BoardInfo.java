@@ -12,7 +12,7 @@ public class BoardInfo {
 	private long rootSeq;		// 부모일련번호
 	private long refSeq;		// 자식일련번호
 	private int depth;			// 게시물깊이
-	private String brdCodeType;	// 해당게시판이 다른 테이블과 조인될경우 그 테이블의 PK의 종류(01:상품QnA)
+	private String brdCodeType;	// 해당게시판이 다른 테이블과 조인될경우 그 테이블의 PK의 종류(01:상품QnA,02:공지사항)
 	private String brdCodeKey;	// 해당게시판이 다른 테이블과 조인될경우 그 테이블의 PK
 	private String passwd;		// 비밀번호
 	private String title;		// 제목
@@ -42,7 +42,6 @@ public class BoardInfo {
 	private String repreImage;
 	private String[] contImageFile;	// 내용에 추가된 이미지파일
 	private List<BoardAttachFileInfo> attachFiles;
-	
 	
 	public String getInsDtTyp1() {
 		return insDtTyp1;

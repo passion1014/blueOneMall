@@ -39,12 +39,12 @@ public class SearchWordServiceImpl implements ISearchWordService{
 	}
 	
 	@Override
-	public List<SchWordInfo> getSchWordDtlList(){
+	public List<SchWordInfo> getSchWordDtlList(SchWordInfo schWordInfo){
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		List<SchWordInfo> adDtl = new ArrayList<SchWordInfo>();
 		try{
-			adDtl =  sqlSession.selectList("searchWord.selectDtlBomSearchWordTb0001");
+			adDtl =  sqlSession.selectList("searchWord.selectDtlBomSearchWordTb0001", schWordInfo);
 			
 		}finally{
 			sqlSession.close();

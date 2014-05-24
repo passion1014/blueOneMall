@@ -51,6 +51,10 @@ public interface IBoardService {
 	public int deleteFaqInf(FaqInfo faqInfo);
 	public List<FaqInfo> getFaqInfoList(FaqInfo faqInfo);
 	
+	
+	public int deleteBoardTBInf(BoardInfo boardModel);
+	public boolean updateBOM_BOARD_TB_notice(BoardInfo boardModel);
+	
 
 /*	//공지사항
 	public List<NoticeInfo> getNoticeInfoList();*/

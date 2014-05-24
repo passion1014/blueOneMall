@@ -16,7 +16,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.blueone.admin.domain.AdminInfo;
 import com.blueone.admin.service.ICommunityService;
 import com.blueone.board.controller.BoardController;
-
+import com.blueone.board.domain.BoardInfo;
+import com.blueone.board.domain.BoardSrchInfo;
 import com.blueone.board.domain.FaqInfo;
 
 
@@ -37,14 +38,19 @@ public class CommunityController {
 
 
 	@RequestMapping(value = "/noticeBoard.do", method = RequestMethod.GET)
-	public String noticeBoard(@ModelAttribute("AdminInfo") AdminInfo adminInfo,
-			BindingResult result, Model model) {
+	public String noticeBoard(@ModelAttribute("AdminInfo") AdminInfo adminInfo,BindingResult result, Model model, HttpSession session) {
 
-		/*// 상품QnA 페이지
+		AdminInfo adminSession = (AdminInfo) session
+				.getAttribute("adminSession");
+		if (adminSession == null) {
+			return "redirect:adminLogin.do";
+		}
+
+		// 공지사항 페이지
 		int currentPage = adminInfo.getCurrentPage();
 
 		// ----------------------------------------------------
-		// 상품QnA 가져오기
+		// 공지사항 가져오기
 		// ----------------------------------------------------
 		BoardSrchInfo boardSrchInfo = new BoardSrchInfo();
 		boardSrchInfo.setSrchBrdTyp(8);
@@ -53,47 +59,118 @@ public class CommunityController {
 		if (currentPage != 0)
 			boardSrchInfo.setCurrentPage(currentPage);
 
-		List<BoardInfo> boardList = boardService
-				.getBrdTypBoardList(boardSrchInfo);
-		boardSrchInfo.setTotalCount(boardService
-				.getBrdTypTotalCount(boardSrchInfo));
+		List<BoardInfo> boardList = boardService.getBrdTypBoardList(boardSrchInfo);
+		boardSrchInfo.setTotalCount(boardService.getBrdTypTotalCount(boardSrchInfo));
 
-		model.addAttribute("qnaList", boardList);
+		model.addAttribute("noticeList", boardList);
 		model.addAttribute("pageHtml", getPageHtml(boardSrchInfo));
-*/
+
 		
 
-/*		List<NoticeInfo> noticeList=boardService.getNoticeInfoList();
-		 model.addAttribute("noticeList", noticeList);
-*/
 		 
 		 
 		return "admin/community/noticeBoard";
 
 	}
-
-	@RequestMapping(value = "/noticeWrite.do", method = RequestMethod.GET)
-	public String noticeWrite(@ModelAttribute("AdminInfo") AdminInfo adminInfo,
-			BindingResult result, Model model) {
-
-		return "admin/community/noticeWrite";
-
-	}
-	@RequestMapping(value = "/faqBoard.do", method = RequestMethod.GET)
-	public String faqBoard(@ModelAttribute("AdminInfo") AdminInfo adminInfo,
-			BindingResult result, Model model, HttpSession session) {
+	
+	@RequestMapping(value = "/noticeDelete.do", method = RequestMethod.GET)
+	public String noticeDelete(@ModelAttribute("AdminInfo") BoardInfo brdInfo,BindingResult result, Model model, HttpSession session) {
+		
 		AdminInfo adminSession = (AdminInfo) session
 				.getAttribute("adminSession");
 		if (adminSession == null) {
 			return "redirect:adminLogin.do";
 		}
-		// 상품QnA 페이지
+		
+		
+		boardService.deleteBoardTBInf(brdInfo);
+		
+		return "redirect:noticeBoard.do";
+
+	}
+	
+	@RequestMapping(value = "/noticeWrite.do", method = RequestMethod.GET)
+	public String noticeWrite(@ModelAttribute("AdminInfo") AdminInfo adminInfo,BindingResult result, Model model, HttpSession session) {
+	
+		AdminInfo adminSession = (AdminInfo) session.getAttribute("adminSession");
+		
+		if (adminSession == null) {
+			return "redirect:adminLogin.do";
+		}
+		
+		
+		model.addAttribute("admin", adminSession);
+		
+		return "admin/community/noticeWrite";
+
+	}
+	
+	@RequestMapping(value = "/noticeWriteProc.do", method = RequestMethod.POST)
+	public String noticeWriteProc(@ModelAttribute("AdminInfo") BoardInfo brdInfo,RedirectAttributes redirectAttributes,BindingResult result, Model model, HttpSession session) {
+	
+		AdminInfo adminSession = (AdminInfo) session.getAttribute("adminSession");
+		
+		if (adminSession == null) {
+			return "redirect:adminLogin.do";
+		}
+		
+		
+		boardService.insertBoard(brdInfo);
+		redirectAttributes.addFlashAttribute("reloadVar", "yes");
+		
+		return "redirect:noticeWrite.do";
+
+	}
+	
+	//공지사항 수정
+	@RequestMapping(value = "/noticeEdit.do", method = RequestMethod.GET)
+	public String noticeEdit(@ModelAttribute("AdminInfo") BoardInfo brdInfo,BindingResult result, Model model, HttpSession session) {
+	
+		AdminInfo adminSession = (AdminInfo) session.getAttribute("adminSession");
+		
+		if (adminSession == null) {
+			return "redirect:adminLogin.do";
+		}
+		
+		BoardInfo editBrd = boardService.selectBOM_BOARD_TB(brdInfo.getBrdSeq());
+		
+		model.addAttribute("editBrd", editBrd);
+		model.addAttribute("admin", adminSession);
+		return "admin/community/noticeEdit";
+
+	}
+	
+	@RequestMapping(value = "/noticeEditProc.do", method = RequestMethod.POST)
+	public String noticeEditProc(@ModelAttribute("AdminInfo") BoardInfo brdInfo,RedirectAttributes redirectAttributes,BindingResult result, Model model, HttpSession session) {
+	
+		AdminInfo adminSession = (AdminInfo) session.getAttribute("adminSession");
+		
+		if (adminSession == null) {
+			return "redirect:adminLogin.do";
+		}
+		
+		
+		boardService.updateBOM_BOARD_TB_notice(brdInfo);
+		redirectAttributes.addFlashAttribute("reloadVar", "yes");
+		
+		return "redirect:noticeEdit.do?brdSeq="+brdInfo.getBrdSeq();
+
+	}
+	@RequestMapping(value = "/faqBoard.do", method = RequestMethod.GET)
+	public String faqBoard(@ModelAttribute("AdminInfo") AdminInfo adminInfo,BindingResult result, Model model, HttpSession session) {
+		
+		AdminInfo adminSession = (AdminInfo) session
+				.getAttribute("adminSession");
+		if (adminSession == null) {
+			return "redirect:adminLogin.do";
+		}
+		/*// 상품QnA 페이지
 		int currentPage = adminInfo.getCurrentPage();
 
 		// ----------------------------------------------------
 		// 상품QnA 가져오기
 		// ----------------------------------------------------
-		/*BoardSrchInfo boardSrchInfo = new BoardSrchInfo();
+		BoardSrchInfo boardSrchInfo = new BoardSrchInfo();
 		boardSrchInfo.setSrchBrdTyp(9);
 
 		// 페이지정보 셋팅

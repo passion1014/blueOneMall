@@ -14,13 +14,13 @@
 		<h1>메인관리 &gt; 메인디자인 관리 &gt; <strong>디자인관리</strong></h1>
 		
 		<form name="tx_editor_form" method="post" enctype="multipart/form-data" action="adminDesignProc.do">
-		<input type="text" id="bnUrl1" name="bnUrl1" value="${adImgInfo.bnUrl1}">
-		<input type="text" id="bnUrl2" name="bnUrl2" value="${adImgInfo.bnUrl2}">
-		<input type="text" id="bnUrl3" name="bnUrl3" value="${adImgInfo.bnUrl3}">
-		<input type="text" id="bnUrl4" name="bnUrl4" value="${adImgInfo.bnUrl4}">
-		<input type="text" id="bnUrl5" name="bnUrl5" value="${adImgInfo.bnUrl5}">
-		<input type="text" id="bnUrl6" name="bnUrl6" value="${adImgInfo.bnUrl6}">
-		<input type="text" id="bnUrl7" name="bnUrl7" value="${adImgInfo.bnUrl7}">
+		<input type="hidden" id="bnUrl1" name="bnUrl1" value="${adImgInfo.bnUrl1}">
+		<input type="hidden" id="bnUrl2" name="bnUrl2" value="${adImgInfo.bnUrl2}">
+		<input type="hidden" id="bnUrl3" name="bnUrl3" value="${adImgInfo.bnUrl3}">
+		<input type="hidden" id="bnUrl4" name="bnUrl4" value="${adImgInfo.bnUrl4}">
+		<input type="hidden" id="bnUrl5" name="bnUrl5" value="${adImgInfo.bnUrl5}">
+		<input type="hidden" id="bnUrl6" name="bnUrl6" value="${adImgInfo.bnUrl6}">
+		<input type="hidden" id="bnUrl7" name="bnUrl7" value="${adImgInfo.bnUrl7}">
 		
 		<table>
 			<colgroup>
@@ -33,12 +33,12 @@
 				<td class="left">
 				<c:choose>
 					<c:when test="${adImgInfo.mdImg1 eq NULL || adImgInfo.mdImg1 == ''}">
-						<input type="file" id="main1Up" name="main1Up" style="width:80%;">
+						<input type="file" id="main1Up" name="main1Up" style="width:60%;"> [ 668px X 480px ] 
 					</c:when>
 					<c:otherwise>
-						<img src="${adImgInfo.mdImg1}" width="666">
+						<img src="${adImgInfo.mdImg1}" width="665">
 						<br />
-						<input type="button" value="이미지 삭제"  onClick="location.href='deleteDesignImgProc.do?fieldName=mdImg1&fileName=${adImgInfo.mdImg1}';"   class="Small_Button Gray" />
+						<input type="button" value="이미지 삭제"  onClick="confirm_process('','이미지를 삭제하시겠습니까? \n\n삭제 후에는 복구가 불가능합니다.','deleteDesignImgProc.do?fieldName=mdImg1&fileName=${adImgInfo.mdImg1}');"   class="Small_Button Gray" />
 					</c:otherwise>
 				</c:choose>
 				</td>
@@ -52,7 +52,7 @@
 			<tr>	
 				<th>링크주소1</th>
 				<td class="left">
-					<input type="text" id="mdUrl1" name="mdUrl1" value="${adImgInfo.mdUrl1}" style="width:80%;"> 
+					<input type="text" id="mdUrl1" name="mdUrl1" value="${adImgInfo.mdUrl1}" style="width:80%;">
 				</td>
 			</tr>
 			
@@ -61,12 +61,12 @@
 				<td class="left">
 				<c:choose>
 					<c:when test="${adImgInfo.mdImg2 eq NULL || adImgInfo.mdImg2 == ''}">
-						<input type="file" id="main2Up" name="main2Up" style="width:80%;">
+						<input type="file" id="main2Up" name="main2Up" style="width:60%;"> [ 668px X 480px ] 
 					</c:when>
 					<c:otherwise>
-						<img src="${adImgInfo.mdImg2}" width="666">
+						<img src="${adImgInfo.mdImg2}" width="665">
 						<br />
-						<input type="button" value="이미지 삭제"  onClick="location.href='deleteDesignImgProc.do?fieldName=mdImg2&fileName=${adImgInfo.mdImg2}';"   class="Small_Button Gray" />
+						<input type="button" value="이미지 삭제"  onClick="confirm_process('','이미지를 삭제하시겠습니까? \n\n삭제 후에는 복구가 불가능합니다.','deleteDesignImgProc.do?fieldName=mdImg2&fileName=${adImgInfo.mdImg2}');" class="Small_Button Gray" />
 					</c:otherwise>
 				</c:choose>
 				</td>
@@ -90,12 +90,12 @@
 				<td class="left">
 				<c:choose>
 					<c:when test="${adImgInfo.mdImg3 eq NULL || adImgInfo.mdImg3 == ''}">
-						<input type="file" id="main3Up" name="main3Up" style="width:80%;">
+						<input type="file" id="main3Up" name="main3Up" style="width:60%;"> [ 668px X 480px ] 
 					</c:when>
 					<c:otherwise>
-						<img src="${adImgInfo.mdImg3}" width="666">
+						<img src="${adImgInfo.mdImg3}" width="665">
 						<br />
-						<input type="button" value="이미지 삭제"  onClick="location.href='deleteDesignImgProc.do?fieldName=mdImg3&fileName=${adImgInfo.mdImg3}';"   class="Small_Button Gray" />
+						<input type="button" value="이미지 삭제"  onClick="confirm_process('','이미지를 삭제하시겠습니까? \n\n삭제 후에는 복구가 불가능합니다.','deleteDesignImgProc.do?fieldName=mdImg3&fileName=${adImgInfo.mdImg3}');" class="Small_Button Gray" />
 					</c:otherwise>
 				</c:choose>
 				</td>
@@ -119,12 +119,12 @@
 				<td class="left">
 				<c:choose>
 					<c:when test="${adImgInfo.mdImg4 eq NULL || adImgInfo.mdImg4 == ''}">
-						<input type="file" id="main4Up" name="main4Up" style="width:80%;">
+						<input type="file" id="main4Up" name="main4Up" style="width:60%;"> [ 668px X 480px ] 
 					</c:when>
 					<c:otherwise>
-						<img src="${adImgInfo.mdImg4}" width="666">
+						<img src="${adImgInfo.mdImg4}" width="665">
 						<br />
-						<input type="button" value="이미지 삭제"  onClick="location.href='deleteDesignImgProc.do?fieldName=mdImg4&fileName=${adImgInfo.mdImg4}';"   class="Small_Button Gray" />
+						<input type="button" value="이미지 삭제"  onClick="confirm_process('','이미지를 삭제하시겠습니까? \n\n삭제 후에는 복구가 불가능합니다.','deleteDesignImgProc.do?fieldName=mdImg4&fileName=${adImgInfo.mdImg4}');"   class="Small_Button Gray" />
 					</c:otherwise>
 				</c:choose>
 				</td>
@@ -148,12 +148,12 @@
 				<td class="left">
 				<c:choose>
 					<c:when test="${adImgInfo.mdImg5 eq NULL || adImgInfo.mdImg5 == ''}">
-						<input type="file" id="main5Up" name="main5Up" style="width:80%;">
+						<input type="file" id="main5Up" name="main5Up" style="width:60%;"> [ 668px X 480px ] 
 					</c:when>
 					<c:otherwise>
-						<img src="${adImgInfo.mdImg5}" width="666">
+						<img src="${adImgInfo.mdImg5}" width="665">
 						<br />
-						<input type="button" value="이미지 삭제"  onClick="location.href='deleteDesignImgProc.do?fieldName=mdImg5&fileName=${adImgInfo.mdImg5}';"   class="Small_Button Gray" />
+						<input type="button" value="이미지 삭제"  onClick="confirm_process('','이미지를 삭제하시겠습니까? \n\n삭제 후에는 복구가 불가능합니다.','deleteDesignImgProc.do?fieldName=mdImg5&fileName=${adImgInfo.mdImg5}');"   class="Small_Button Gray" />
 					</c:otherwise>
 				</c:choose>
 				</td>
@@ -177,12 +177,12 @@
 				<td class="left">
 				<c:choose>
 					<c:when test="${adImgInfo.mdImg6 eq NULL || adImgInfo.mdImg6 == ''}">
-						<input type="file" id="main6Up" name="main6Up" style="width:80%;">
+						<input type="file" id="main6Up" name="main6Up" style="width:60%;"> [ 668px X 480px ] 
 					</c:when>
 					<c:otherwise>
-						<img src="${adImgInfo.mdImg6}" width="666">
+						<img src="${adImgInfo.mdImg6}" width="665">
 						<br />
-						<input type="button" value="이미지 삭제"  onClick="location.href='deleteDesignImgProc.do?fieldName=mdImg6&fileName=${adImgInfo.mdImg6}';"   class="Small_Button Gray" />
+						<input type="button" value="이미지 삭제"  onClick="confirm_process('','이미지를 삭제하시겠습니까? \n\n삭제 후에는 복구가 불가능합니다.','deleteDesignImgProc.do?fieldName=mdImg6&fileName=${adImgInfo.mdImg6}');"   class="Small_Button Gray" />
 					</c:otherwise>
 				</c:choose>
 				</td>
@@ -199,23 +199,6 @@
 					<input type="text" id="mdUrl6" name="mdUrl6" value="${adImgInfo.mdUrl6}" style="width:80%;"> 
 				</td>
 			</tr>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
 		</table>
 	
 		<div class="Btn_area">
@@ -225,11 +208,9 @@
 	
 		</form>
 
-	</div>
+	</div><br /><br /><br /><br /><br /><br />
 
 </div>
 </body>
 
 <c:import url="../inc/footer.jsp" />
-</body>
-</html>

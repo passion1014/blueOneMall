@@ -1350,8 +1350,8 @@ public class ProductController {
 		if (adminSession == null) {
 			return "redirect:adminLogin.do";
 		}
-
-		List<SchWordInfo> list = schWordManageService.getSchWordDtlList();
+		SchWordInfo all = new SchWordInfo();
+		List<SchWordInfo> list = schWordManageService.getSchWordDtlList(all);
 
 
 		model.addAttribute("list", list);

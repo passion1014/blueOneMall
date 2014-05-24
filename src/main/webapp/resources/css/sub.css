@@ -52,11 +52,11 @@
 .protextbox {clear:both; background:#d6d6d6; min-height:128px; border:1px solid #bbb; margin:15px 0;}
 .detail_section ul {display:block; margin:35px 0 20px 0;}
 .detail_section ul:after {height:0; content:""; clear:both; display:block;}
-.detail_section ul li {width:193px; line-height:30px; border-top:1px solid #bbb; border-bottom:1px solid #bbb; float:left; text-align:center; cursor:pointer; background:#f0f0f0; font-family:"NanumGothicBold";}
-.detail_section ul li:hover { background:#fff; border-bottom:1px solid #fff;}
+.detail_section ul li {width:193px; height:30px; line-height:30px; border-top:1px solid #bbb; border-bottom:1px solid #bbb; float:left; text-align:center; cursor:pointer; background:#f0f0f0; font-family:"NanumGothicBold";}
 .detail_section ul li.on { background:#fff; border-bottom:1px solid #fff;}
 .detail_section ul li.leftline {border-left:1px solid #bbb;}
 .detail_section ul li.alignline {border-left:1px solid #bbb; border-right:1px solid #bbb;}
+.detail_section ul li.endline {background:#ffffff;border-left:1px solid #bbb;  height:31px; border-right:0px solid #bbb; border-top:0px solid #bbb;}
 .image_section {text-align:center;}
 
 /* ------------- review_section ------------- */

@@ -9,7 +9,7 @@ public class ProductInfo {
 	private String prdDp;		// 진열상태
 	private int  prdOrd;		// 정렬
 	private String prdNm;		// 상품명
-	private String prdCtgL;		// 대분류코드
+	private String prdCtgL;		// 대분류코드 & main.jsp subBanner
 	private String prdCtgM;		// 중분류코드
 	private String prdCtgS;		// 소분류코드
 	private String prdSpe1;		// 특수설정-베스트
@@ -38,8 +38,7 @@ public class ProductInfo {
 	//상품 옵션
 	private String optionKey[];
 	private String optionValue[];
-	
-	
+
 	
 	//대 중 소 분류 네임
 	private String ctgLargeCode;
@@ -72,8 +71,8 @@ public class ProductInfo {
 	
 	private int currentPage;	// 상품QnA목록의 페이지정보
 
-	
 
+	
 	public String getSearchWord() {
 		return searchWord;
 	}

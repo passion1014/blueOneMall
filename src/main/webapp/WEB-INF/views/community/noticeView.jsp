@@ -4,6 +4,8 @@
    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>###### 현대프로모션몰 ######</title>
@@ -16,7 +18,7 @@
 	<div class="container">
 		<c:import url="../inc/communityLnb.jsp" />
 		<div class="sub_content">
-			<form action="#" method="post">
+			<form action="#" method="post" name="noticeView">
 				<div class="customer_section">
 					<h4>공지사항</h4>
 					<p class="sub_tit">쇼핑몰의 새로운 소식이나 이벤트를 확인하실 수 있습니다.</p>
@@ -33,25 +35,35 @@
 									</colgroup>
 									<tbody>
 										<tr>
-											<th>상담유형</th>
-											<td>[구분]</td>
+											<th>제목</th>
+											<td>${brdView.title}</td>
 											<th>날짜</th>
-											<td>2014.02.14</td>
+											<td>${brdView.insDt.substring(0,10)}</td>
 										</tr>
 										<tr>
-											<td colspan="4">쿠폰사용 방법에 대해 알려드립니다.</td>
+											<td colspan="4">
+											<input type="hidden" name="content"/>
+											${content}
+												<script type="text/javascript">
+													document.open();
+													var text=unescape('${brdView.content}');
+													document.write(text);
+													document.close();
+													
+												</script> 
+											</td>
 										</tr>
 									</tbody>
 								</table>
 							</li>
 						</ul>
-						<div class="paging2">
+						<%-- <div class="paging2">
 							<a href="#" class="palign1"><img src="<c:url value='/resources/img/common/btn_first.gif'/>"  alt="처음으로"></a>
 							<a href="#" class="palign2"><img src="<c:url value='/resources/img/common/btn_prev.gif'/>"  alt="이전"></a>
 							<a href="#" class="on">1</a>
 							<a href="#" class="palign1"><img src="<c:url value='/resources/img/common/btn_next.gif'/>"  alt="다음"></a>
 							<a href="#" class="palign2"><img src="<c:url value='/resources/img/common/btn_end.gif'/>"  alt="끝으로"></a>
-						</div>
+						</div> --%>
 					</div>
 				</div>
 			</form>
