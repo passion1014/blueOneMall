@@ -20,7 +20,7 @@ int y = Integer.parseInt(year);
 		<c:import url="../inc/userLnb.jsp"/>
 		
 		<div class="sub_content">
-			<form name="frm" action="userRegisterProc.do" method="post">
+			<form name="frm" action="/user/userRegisterProc.do" method="post">
 			<input type="hidden" id="custId" name="custId" value="${customer.custId}"> 
 			<input type="hidden" id="custId" name="custNm" value="${customer.custNm}">
 			
@@ -179,9 +179,9 @@ int y = Integer.parseInt(year);
 								<tr>
 									<th>주소</th>
 									<td colspan="3" class="in_address">
-										<input type="text" title="address text" style="width:120px;" id="custZip" name="custZip" />
-										<button onClick="openWin('./searchZipCode.do?type=userRegi','searchZipForm',600,450,'scrollbars=no');">우편번호 찾기</button><br/>
-										<input type="text" title="address text" style="width:200px;"id="custAdd" name="custAdd"/>
+										<input type="text" title="address text" style="width:120px;" id="custZip" name="custZip" value="${customer.custZip}"/>
+										<input type="button" vlaue="우편번호 찾기" onClick="openWin('/user/searchZipCode.do?type=userRegi','searchZipuserRegiForm',600,450,'scrollbars=no');" /><br/>
+										<input type="text" title="address text" style="width:200px;"id="custAdd" name="custAdd" value="${customer.custAdd}"/>
 									</td>
 								</tr>
 								<tr>

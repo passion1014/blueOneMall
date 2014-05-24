@@ -209,6 +209,8 @@ public class UserController {
 		String mail2= mail.substring(a+1);
 		cus.seteMail1(mail1);
 		cus.seteMail2(mail2);
+		
+		
 		String add = sAdd.getAddress();
 		add = new String(add.getBytes("8859_1"), "UTF-8");
 		cus.setCustAdd(add);
@@ -222,7 +224,7 @@ public class UserController {
 		}else if(type.equals("userRegi")){
 			return "user/userRegister";
 		}else{
-			return "";
+			return "redirect:/";
 		}
 		
 	}
