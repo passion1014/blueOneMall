@@ -39,21 +39,21 @@
 		<!-- 에디터 컨테이너 시작 -->
 		<div id="tx_trex_container" class="tx-editor-container">
 			<!-- 사이드바 -->
-			<div id="tx_sidebar" class="tx-sidebar">
+			<!-- <div id="tx_sidebar" class="tx-sidebar">
 				<div class="tx-sidebar-boundary">
-					<!-- 사이드바 / 첨부 -->
+					사이드바 / 첨부
 					<ul class="tx-bar tx-bar-left tx-nav-attach">
-						<!-- 이미지 첨부 버튼 시작 -->
-						<!--
+						이미지 첨부 버튼 시작
+						
 							@decsription
 							<li></li> 단위로 위치를 이동할 수 있다.
-						-->
+						
 						<li class="tx-list">
 							<div unselectable="on" id="tx_image" class="tx-image tx-btn-trans">
 								<a href="javascript:;" title="사진" class="tx-text">사진</a>
 							</div>
 						</li>
-						<!-- 이미지 첨부 버튼 끝 -->
+						이미지 첨부 버튼 끝
 						<li class="tx-list">
 							<div unselectable="on" id="tx_file" class="tx-file tx-btn-trans">
 								<a href="javascript:;" title="파일" class="tx-text">파일</a>
@@ -69,14 +69,14 @@
 								<a href="javascript:;" class="tx-icon" title="버튼 더보기">버튼 더보기</a>
 							</div>
 							<ul class="tx-extra-menu tx-menu" style="left:-48px;" unselectable="on">
-								<!--
+								
 									@decsription
 									일부 버튼들을 빼서 레이어로 숨기는 기능을 원할 경우 이 곳으로 이동시킬 수 있다.
-								-->
+								
 							</ul>
 						</li>
 					</ul>
-					<!-- 사이드바 / 우측영역 -->
+					사이드바 / 우측영역
 					<ul class="tx-bar tx-bar-right">
 						<li class="tx-list">
 							<div unselectable="on" class="tx-btn-lrbg tx-fullscreen" id="tx_fullscreen">
@@ -92,7 +92,7 @@
 						</li>
 					</ul>
 				</div>
-			</div>
+			</div> -->
 
 			<!-- 툴바 - 기본 시작 -->
 			<!--
@@ -210,27 +210,28 @@
 						<div id="tx_styledlist_menu" class="tx-styledlist-menu tx-menu" unselectable="on"></div>
 					</li>
 				</ul>
+
 				<ul class="tx-bar tx-bar-left tx-group-etc">
-					<li class="tx-list">
+					<!-- <li class="tx-list">
 						<div unselectable="on" class="		 tx-btn-lbg 	tx-emoticon" id="tx_emoticon">
 							<a href="javascript:;" class="tx-icon" title="이모티콘">이모티콘</a>
 						</div>
 						<div id="tx_emoticon_menu" class="tx-emoticon-menu tx-menu" unselectable="on"></div>
-					</li>
+					</li> -->
 					<li class="tx-list">
-						<div unselectable="on" class="		 tx-btn-bg 	tx-link" id="tx_link">
+						<div unselectable="on" class="		 tx-btn-lbg 	tx-link" id="tx_link">
 							<a href="javascript:;" class="tx-icon" title="링크 (Ctrl+K)">링크</a>
 						</div>
 						<div id="tx_link_menu" class="tx-link-menu tx-menu"></div>
 					</li>
-					<li class="tx-list">
+					<!-- <li class="tx-list">
 						<div unselectable="on" class="		 tx-btn-bg 	tx-specialchar" id="tx_specialchar">
 							<a href="javascript:;" class="tx-icon" title="특수문자">특수문자</a>
 						</div>
 						<div id="tx_specialchar_menu" class="tx-specialchar-menu tx-menu"></div>
-					</li>
+					</li> -->
 					<li class="tx-list">
-						<div unselectable="on" class="		 tx-btn-bg 	tx-table" id="tx_table">
+						<div unselectable="on" class="		 tx-btn-rbg 	tx-table" id="tx_table">
 							<a href="javascript:;" class="tx-icon" title="표만들기">표만들기</a>
 						</div>
 						<div id="tx_table_menu" class="tx-table-menu tx-menu" unselectable="on">
@@ -242,14 +243,28 @@
 							</div>
 						</div>
 					</li>
-					<li class="tx-list">
+					
+						<li class="tx-list">
+							<div unselectable="on" id="tx_image" class="tx-image tx-btn-trans">
+								<a href="javascript:;" title="사진" class="tx-text">사진</a>
+							</div>
+						</li>
+						
+					<!-- <li class="tx-list">
 						<div unselectable="on" class="		 tx-btn-rbg 	tx-horizontalrule" id="tx_horizontalrule">
 							<a href="javascript:;" class="tx-icon" title="구분선">구분선</a>
 						</div>
 						<div id="tx_horizontalrule_menu" class="tx-horizontalrule-menu tx-menu" unselectable="on"></div>
-					</li>
+					</li> -->
 				</ul>
-				<ul class="tx-bar tx-bar-left">
+				<ul class="tx-bar tx-bar-right tx-nav-opt">
+					<li class="tx-list">
+						<div unselectable="on" class="tx-switchtoggle" id="tx_switchertoggle">
+							<a href="javascript:;" title="에디터 타입">에디터</a>
+						</div>
+					</li>
+				</ul>				
+				<!-- <ul class="tx-bar tx-bar-left">
 					<li class="tx-list">
 						<div unselectable="on" class="		 tx-btn-lbg 	tx-richtextbox" id="tx_richtextbox">
 							<a href="javascript:;" class="tx-icon" title="글상자">글상자</a>
@@ -311,7 +326,7 @@
 							<a href="javascript:;" class="tx-icon" title="툴바 더보기">툴바 더보기</a>
 						</div>
 					</li>
-				</ul>
+				</ul> -->
 			</div></div>
 			<!-- 툴바 - 기본 끝 -->
 			<!-- 툴바 - 더보기 시작 -->
@@ -556,7 +571,7 @@
             // existStage는 현재 본문에 존재하는지 여부
             if (images[i].existStage) {
                 // data는 팝업에서 execAttach 등을 통해 넘긴 데이터
-                alert('attachment information - image[' + i + '] \r\n' + JSON.stringify(images[i].data));
+//                alert('attachment information - image[' + i + '] \r\n' + JSON.stringify(images[i].data));
                 input = document.createElement('input');
                 input.type = 'hidden';
                 input.name = 'attach_image';

@@ -31,14 +31,15 @@ function initUploader() {
 	}
 
 	var _mockdata = {
-		'imageurl': '../upload/<%=imageurl%>',
+		<%-- 'imageurl': '../upload/<%=imageurl%>', --%>
+		'imageurl': '/resources/upload/<%=imageurl%>',
 		'filename': '<%=filename%>',
 		'filesize': '<%=filesize%>',
 		'imagealign': 'C',
 		'originalurl': '/file1/<%=originalurl%>',
 		'thumburl': '/file2/<%=thumburl%>',
 	};
-	alert(_mockdata.filesize + "\r\n" + _mockdata.originalurl);
+
 	parent.execAttach(_mockdata);
 	closeWindow();
 }
