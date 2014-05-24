@@ -4,24 +4,20 @@
 <c:import  url="../inc/top.jsp" />
 
 <script type="text/javascript">
-	function chk_double_admin_id() {
-		frm.action = "checkAdminId.do";
-		frm.submit();
-	}
 
-	/*
-	$(document).read(function() {
-		$('#loginidcheck').click(function() {
-			$.getJSON('checkloginid/' + $('#loginid').val(), function(result) {
-				if (result.duplicated == true) {
-					alert('이미 등록된 아이디입니다.');
-				} else {
-					alert('사용가능한 아이디입니다.');
-				}
-			});
+$(document).ready(function() {
+	$('#loginidcheck').click(function() {
+		$.getJSON('checkAdminId/' + $('#admin_id').val(), function(result) {
+			if (result == 0) {
+				alert('이미 등록된 아이디입니다.');
+				$('#admin_id').val("");
+			} else {
+				alert('사용가능한 아이디입니다.');
+			}
 		});
 	});
-	*/
+});
+
 </script>
 
 <body>
@@ -47,11 +43,11 @@
 			<tr>
 				<th>ID</th>
 				<td class="left">
-					<input type="text" id="admin_id" name="id" value="" class="Text Eng" style="width:120px;" required hname="아이디를 등록하여 주십시오" option="regId"> <input type="button" value="중복찾기" class="button_green button_small" onClick="chk_double_admin_id();">
+					<input type="text" id="admin_id" name="admin_id" value="" class="Text Eng" style="width:120px;" required hname="아이디를 등록하여 주십시오" option="regId"> <input type="button" value="중복찾기" id="loginidcheck" class="button_green button_small">
 				</td>
 				<th>이름</th>
 				<td class="left">
-					<input type="text" id="admin_name" name="name" value="" class="Text Kor" style="width:200px;" required hname="이름를 입력하여 주십시오">
+					<input type="text" id="admin_name" name="admin_name" value="" class="Text Kor" style="width:200px;" required hname="이름를 입력하여 주십시오">
 				</td>
 			</tr>
 			<tr>
