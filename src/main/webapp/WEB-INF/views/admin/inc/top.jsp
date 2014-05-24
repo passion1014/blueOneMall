@@ -27,7 +27,6 @@
 <script type="text/javascript">
 function fnAddClick() {
 	var f = tx_editor_form;
-	
 
 	f.action = '/transferRegisterProc.do';
 
@@ -35,3 +34,4 @@ function fnAddClick() {
 }
 </script>
 </head>
+<iframe name="actionForm" width="700" height="200" frameborder="0" style="display:none;"> </iframe>

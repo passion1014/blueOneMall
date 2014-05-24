@@ -6,7 +6,6 @@
 <body>
 <div class="wrap">
 	<c:import url="../inc/header.jsp"/>
-	<!--  header 끝   -->
 
 	<div class="container">
 		<c:import url="../inc/productLnb.jsp"/>
@@ -15,6 +14,7 @@
 			<div class="slide_section">
 				<img src="${largeInf.largeImgPath}" alt="서브 메인이미지"/>
 			</div>
+			
 			<div class="cont_section">
 				<ul class="cont_list">
 					<c:choose>					
@@ -74,7 +74,7 @@
 							<li class="mlalign" style="padding:20px 0 20px 0;">
 								<a href="javascript:location.href='productView.do?prdCd=${prdList.prdCd}&ctgCode=${largeInf.ctgCode}&ctgMiddleCode=${chkMiddleCode}';">
 								<dl class="list_product">
-									<dd><img src="${prdList.attFilePath}" alt="product image"  width="168" height="168" /></dd>
+									<dd><img src="${prdList.attFilePath}" alt="product image"  width="166" height="166" /></dd>
 									<dd>${prdList.prdBrand}</dd>
 									<dd>${prdList.prdNm}</dd>
 									<dd>${prdList.prdPrice}&nbsp;↓&nbsp;<span>${prdList.prdSellPrc}원</span></dd>
@@ -87,22 +87,22 @@
 							<div style="width:100%;height:200px;text-align:center;padding-top:200px;">상품이 없습니다</div>
 						</c:otherwise>	
 					</c:choose>		
-				</ul>
-				<div class="paging" style="padding-bottom:100px;">
-					<a href="javascript:void(0);" class="palign1"><img src="<c:url value='/resources/img/common/btn_first.gif'/>" alt="처음으로"></a>
-					<a href="javascript:void(0);" class="palign2"><img src="<c:url value='/resources/img/common/btn_prev.gif'/>" alt="이전"></a>
-					<c:forEach var="i" begin="1" end="${endNum}">
-						<a href="productList.do?ctgCode=${categoryInfo.ctgCode}&ctgMiddleCode=${categoryInfo.ctgMiddleCode}&prdCtgS=${productInfo.prdCtgS}&page=${i}">${i}</a>
-					</c:forEach>
-					<a href="javascript:void(0);" class="palign1"><img src="<c:url value='/resources/img/common/btn_next.gif'/>" alt="다음"></a>
-					<a href="javascript:void(0);" class="palign2"><img src="<c:url value='/resources/img/common/btn_end.gif'/>" alt="끝으로"></a>
+					</ul>
+					<div class="paging" style="padding-bottom:100px;">
+						<a href="javascript:void(0);" class="palign1"><img src="<c:url value='/resources/img/common/btn_first.gif'/>" alt="처음으로"></a>
+						<a href="javascript:void(0);" class="palign2"><img src="<c:url value='/resources/img/common/btn_prev.gif'/>" alt="이전"></a>
+						<c:forEach var="i" begin="1" end="${endNum}">
+							<a href="productList.do?ctgCode=${categoryInfo.ctgCode}&ctgMiddleCode=${categoryInfo.ctgMiddleCode}&prdCtgS=${productInfo.prdCtgS}&page=${i}">${i}</a>
+						</c:forEach>
+						<a href="javascript:void(0);" class="palign1"><img src="<c:url value='/resources/img/common/btn_next.gif'/>" alt="다음"></a>
+						<a href="javascript:void(0);" class="palign2"><img src="<c:url value='/resources/img/common/btn_end.gif'/>" alt="끝으로"></a>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
-<!--  container 끝   -->	
-	<c:import url="../inc/footer.jsp" />
+	<!--  container 끝   -->	
 </div>
 </body>
-</html>
+
+<c:import url="../inc/footer.jsp" />
