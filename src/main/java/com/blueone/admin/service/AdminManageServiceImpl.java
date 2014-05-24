@@ -32,7 +32,7 @@ public class AdminManageServiceImpl implements IAdminManageService {
 
 	@Override
 	public int checkDupAdminId(AdminInfo adminInfo) {
-		int rst = 0;
+		int rst = 1;
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
@@ -41,8 +41,8 @@ public class AdminManageServiceImpl implements IAdminManageService {
 			
 			adminInfo = sqlSession.selectOne("admin.selectDtlBomAdminTb0001", sqlParams);
 			
-			if (adminInfo == null) {
-				rst = 1;	// 입력된 아이디에 해당하는 관리자 정보는 없음!
+			if (adminInfo != null && StringUtils.isNotEmpty(adminInfo.getId())) {
+				rst = 0;	// 입력된 아이디에 해당하는 관리자 정보는 없음!
 			}
 		} finally {
 			sqlSession.close();

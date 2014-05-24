@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -118,24 +119,26 @@ public class AdminController {
     		
 		return "redirect:adminList.do";
 	}
-    
-    @RequestMapping("/checkAdminId.do")
+
+    @RequestMapping("/checkAdminId/{adminId}")
     @ResponseBody
-    public String checkAdminDuplicateId(@ModelAttribute("adminInfo") AdminInfo adminInfo, BindingResult result, Model model) {
-    	String viewName = "duplicateIdCheck";
+    public String checkAdminDuplicateId(@PathVariable String adminId) {
+    	AdminInfo adminInfo = new AdminInfo();
+    	adminInfo.setId(adminId);
     	
     	int rst = adminManageService.checkDupAdminId(adminInfo);
-   		model.addAttribute("checkRst", rst);
     	
-    	return viewName;
+    	return String.valueOf(rst);
     }
 	
 	@RequestMapping("/adminRegistForm.do")
 	public String registAdminForm(HttpSession session) {
 		AdminInfo adminSession = (AdminInfo)session.getAttribute("adminSession");
+
 		if(adminSession == null){
-		return "redirect:adminLogin.do";
+			return "redirect:adminLogin.do";
 		}
+
 		return "admin/admin/adminRegist";
 	}
 	
