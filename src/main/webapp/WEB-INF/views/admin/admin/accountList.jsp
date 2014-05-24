@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:if test="${reloadVar=='yes'}"><script>opener.location.reload();</script></c:if>
+
 <c:import  url="../inc/top.jsp" />
+
 <body>
-<div id="dialog-form"></div>
 <div id="Wrap">
 	<c:import url="../inc/gnb.jsp"/>
 	<c:import url="../inc/lnb.jsp">
@@ -22,16 +23,20 @@
 		<colgroup>
 			<col width="6%" />
 			<col width="8%" />
+			<col width="8%" />
+			<col width="12%" />
 			<col width="*" />
-			<col width="15%" />
+			<col width="12%" />
+			<col width="12%" />
 		</colgroup>
 	
 		<tr>
 			<th>No</th>
 			<th>표시</th>
-			<th>그룹</th>
-			<th>은행명</th>
-			<th>계좌정보</th>
+			<th>정렬순위</th>
+			<th>거래은행명</th>
+			<th>계좌번호</th>
+			<th>계좌주</th>
 			<th>수정/삭제</th>
 		</tr>
 			
@@ -39,17 +44,16 @@
 			<c:when test="${list.size() != 0}">
 				<c:forEach items="${list}" var="accList">
 					<tr>
-						<td style="text-align:center;">${accList.accIdx}</td>
-						<td style="text-align:center;">
-						<c:if test="${'y' eq accList.accShow}">표시</c:if>
-						<c:if test="${'n' eq accList.accShow}">숨김</c:if>
+						<td class="center">${accList.accIdx}</td>
+						<td class="center">
+							<c:if test="${'y' eq accList.accShow}">표시</c:if>
+							<c:if test="${'n' eq accList.accShow}">숨김</c:if>
 						</td>
-						<td style="text-align:center;">${accList.accGroup}</td>
-						<td style="text-align:center;">${accList.bankName}</td>
-						<td>계좌번호 : ${accList.accNum}<br>
-							계 좌 주 : ${accList.accName}
-						</td>
-						<td style="text-align:center;">
+						<td class="center">${accList.accGroup}</td>
+						<td class="center">${accList.bankName}</td>
+						<td>${accList.accNum}</td>
+						<td class="center">${accList.accName}</td>
+						<td class="center">
 							<input type="button" value="수정" onClick="dialogUpdate('${accList.accIdx}');" class="Button Gray">
 							<input type="button" value="삭제" class="Button Gray" onClick="confirm_process('','해당 계좌를 삭제하시겠습니까?','deleteAccountProc.do?accIdx=${accList.accIdx}');">
 						</td>
@@ -75,7 +79,8 @@
 
 <c:import url="../inc/footer.jsp" />
 
-<script language="JavaScript" type="text/JavaScript">
+<div id="dialog-form"></div>
+<script language="JavaScript">
 <!--
 $(document).ready(function() {
 	

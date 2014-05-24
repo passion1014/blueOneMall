@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
 <c:import  url="../inc/top.jsp" />
 
 <body>
@@ -24,6 +23,7 @@
 			<col width="7%" />
 			<col width="7%" />
 			<col width="7%" />
+			<col width="7%" />
 			<col width="6%" />
 			<col width="10%" />
 		</colgroup>
@@ -32,52 +32,60 @@
 			<th rowspan="2">상태</th>
 			<th rowspan="2">ID</th>
 			<th rowspan="2">이름</th>
-			<th colspan="5">관리권한</th>
+			<th colspan="6">관리권한</th>
 			<th rowspan="2">로그<br />횟수</th>
 			<th rowspan="2">등록일</th>
 		</tr>
 		<tr>
 			<th>환경설정</th>
+			<th>메인관리</th>
 			<th>회원관리</th>
 			<th>상품관리</th>
 			<th>주문관리</th>
 			<th>커뮤니티</th>
 		</tr>
-   		
-   		<c:forEach items="${list}" var="info">
-			<tr onClick="line_detail('1')" >
-				<td><b>${info.idx}</b></td>
-				<td class="center">${info.status}</td>
+		
+		<c:forEach items="${list}" var="info">
+			<tr onClick="line_detail('${info.idx}')" >
+				<td class="center"><b>${info.idx}</b></td>
+				<td class="center">${info.status}
+					<c:if test="${info.status eq 'Y'}" ></c:if>
+					<c:if test="${info.status ne 'Y'}" >X</c:if>
+				</td>
 				<td class="center" style="cursor:pointer;">${info.id}</td>
 				<td class="center">${info.name}</td>
-					<c:if test="${info.gd[0] eq 'g1'}" ><td class="center">○</td></c:if>
-					<c:if test="${info.gd[0] ne 'g1'}" ><td class="center">X</td></c:if>
-				
-					<c:if test="${info.gd[1] eq 'g2'}" ><td class="center">○</td></c:if>
-					<c:if test="${info.gd[1] ne 'g2'}" ><td class="center">X</td></c:if>
-				
-					<c:if test="${info.gd[2] eq 'g3'}" ><td class="center">○</td></c:if>
-					<c:if test="${info.gd[2] ne 'g3'}" ><td class="center">X</td></c:if>
-				
-					<c:if test="${info.gd[3] eq 'g4'}" ><td class="center">○</td></c:if>
-					<c:if test="${info.gd[3] ne 'g4'}" ><td class="center">X</td></c:if>
-				
-					<c:if test="${info.gd[4] eq 'g5'}" ><td class="center">○</td></c:if>
-					<c:if test="${info.gd[4] ne 'g5'}" ><td class="center">X</td></c:if>
-				
+
+				<c:if test="${info.gd[0] eq 'g1'}" ><td class="center">○</td></c:if>
+				<c:if test="${info.gd[0] ne 'g1'}" ><td class="center">X</td></c:if>
+					
+				<c:if test="${info.gd[1] eq 'g2'}" ><td class="center">○</td></c:if>
+				<c:if test="${info.gd[1] ne 'g2'}" ><td class="center">X</td></c:if>
+					
+				<c:if test="${info.gd[2] eq 'g3'}" ><td class="center">○</td></c:if>
+				<c:if test="${info.gd[2] ne 'g3'}" ><td class="center">X</td></c:if>
+					
+				<c:if test="${info.gd[3] eq 'g4'}" ><td class="center">○</td></c:if>
+				<c:if test="${info.gd[3] ne 'g4'}" ><td class="center">X</td></c:if>
+					
+				<c:if test="${info.gd[4] eq 'g5'}" ><td class="center">○</td></c:if>
+				<c:if test="${info.gd[4] ne 'g5'}" ><td class="center">X</td></c:if>
+					
+				<c:if test="${info.gd[4] eq 'g6'}" ><td class="center">○</td></c:if>
+				<c:if test="${info.gd[4] ne 'g6'}" ><td class="center">X</td></c:if>
+
 				<td class="center">${info.hit}</td>
 				<td class="center">${info.regDate}</td>
 			</tr>
 		
-			<tr id="line_1" style="display:none;">
+			<tr id="line_${info.idx}" style="display:none;">
 				<td colspan="13" style="padding:5px 5px 30px 50px;" class="right">
 						
 					<table>
 						<colgroup>
-							<col width="15%" align="center" bgcolor="#F7F7F7" />
-							<col width="35%" />
-							<col width="15%" align="center" bgcolor="#F7F7F7" />
-							<col width="*" />
+							<col width="15%">
+							<col width="35%">
+							<col width="15%">
+							<col width="*">
 						</colgroup>
 						<tr>
 							<th>상태</th>
@@ -119,9 +127,39 @@
 									</colgroup>
 									<tr>
 										<th>환경관리</th>
-										<td class="center">○</td>
+										<td class="center">
+											<c:if test="${info.gd[0] eq 'g1'}" >○</c:if>
+											<c:if test="${info.gd[0] ne 'g1'}" >X</c:if>
+										</td>
+										<th>메인관리</th>
+										<td class="center">
+											<c:if test="${info.gd[1] eq 'g2'}" >○</c:if>
+											<c:if test="${info.gd[1] ne 'g2'}" >X</c:if>
+										</td>
+									</tr>
+									<tr>
 										<th>회원관리</th>
-										<td class="center">○</td>
+										<td class="center">
+											<c:if test="${info.gd[2] eq 'g3'}" >○</c:if>
+											<c:if test="${info.gd[2] ne 'g3'}" >X</c:if>
+										</td>
+										<th>상품관리</th>
+										<td class="center">
+											<c:if test="${info.gd[3] eq 'g4'}" >○</c:if>
+											<c:if test="${info.gd[3] ne 'g4'}" >X</c:if>
+										</td>
+									</tr>
+									<tr>
+										<th>주문관리</th>
+										<td class="center">
+											<c:if test="${info.gd[4] eq 'g5'}" >○</c:if>
+											<c:if test="${info.gd[4] ne 'g5'}" >X</c:if>
+										</td>
+										<th>커뮤니티</th>
+										<td class="center">
+											<c:if test="${info.gd[5] eq 'g6'}" >○</c:if>
+											<c:if test="${info.gd[5] ne 'g6'}" >X</c:if>
+										</td>
 									</tr>
 								</table>
 							</td>

@@ -51,7 +51,8 @@
 .product_elist ul.pro_list:after {height:0; content:""; clear:both; display:block;}
 .product_elist ul.pro_list li {float:left; margin:0 0 20px 32px;}
 .product_elist ul.pro_list li a {color:#666666;}
-.product_elist ul.pro_list li dl.list_product dd {font-size:9px; text-align:right; font-family:"NanumGothicBold"; line-height:12px;}
+.product_elist ul.pro_list li dl.list_product dd {font-size:12px; text-align:right; font-family:"NanumGothicBold"; line-height:16px; width:120px; overflow : hidden;
+  white-space: nowrap; text-overflow:ellipsis;  -o-text-overflow:ellipsis;  -ms-text-overflow:ellipsis;}
 .product_elist ul.pro_list li dl.list_product dd strong.textline {text-decoration:line-through;}
 .product_elist ul.pro_list li dl.list_product dd span {color:#c81c1c; text-decoration:none;}
 .product_elist ul.pro_list li dl.list_product dd img {border:1px solid #bbbbbb;}

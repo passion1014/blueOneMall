@@ -1,123 +1,111 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<link type="text/css" rel="stylesheet" href="<c:url value='/resources/css/basic.css'/>" />
-<link type="text/css" rel="stylesheet" href="<c:url value='/resources/css/admin.css'/>" />
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<script type="text/javascript" src="<c:url value='/resources/js/js_ajax.js'/>"> </script>
-<script type="text/javascript" src="<c:url value='/resources/js/js_common.js'/>"> </script>
-<script type="text/javascript" src="<c:url value='/resources/js/js_admin.js'/>"> </script>
-<title>Insert title here</title>
-</head>
+<c:import  url="../inc/top.jsp" />
 
 <body>
 <div id="Wrap">
-<c:import url="../inc/gnb.jsp"/>
+	<c:import url="../inc/gnb.jsp"/>
 	<c:import url="../inc/lnb.jsp">
 		<c:param name="slot" value="conf"/>
 	</c:import>
 
-<iframe name="actionForm" width="700" height="200" frameborder="0" style="display:none;"> </iframe>
-<div id="Contents">
-	<h1>È¯°æ¼³Á¤ &gt; ¿î¿µÀÚ°ü¸® &gt; <strong>¿î¿µÀÚ¼öÁ¤</strong></h1>
+	<div id="Contents">
+		<h1>í™˜ê²½ì„¤ì • &gt; ìš´ì˜ìê´€ë¦¬ &gt; <strong>ìš´ì˜ììˆ˜ì •</strong></h1>
 
-	<form name="frm" method="post" action="editAdminInf.do" >
-	<input type="hidden" id="Mode" name="Mode" value="admin_add" />
-	<input type="hidden" id="admin_id" name="id" value="${info.id}" />
-	<input type="hidden" id="status" name="status" value="Y" />
-	
-	<table>
-		<colgroup>
-			<col width="15%" />
-			<col width="35%" />
-			<col width="15%" />
-			<col width="*" />
-		</colgroup>
-		<tr>
-			<th>ID</th>
-			<td class="left">
-				${info.id}
-			</td>
-			<th>ÀÌ¸§</th>
-			<td class="left">
-				<input type="text" id="admin_name" name="name" value="${info.name}" class="Text Kor" style="width:200px;" required hname="ÀÌ¸§¸¦ ÀÔ·ÂÇÏ¿© ÁÖ½Ê½Ã¿À">
-			</td>
-		</tr>
-		<tr>
-			<th>ºñ¹Ğ¹øÈ£</th>
-			<td class="left">
-				<input type="password" id="admin_pass" name="password" value="" class="Text Eng" style="width:100px;" maxlength="15"  required hname="ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇÏ¿© ÁÖ½Ê½Ã¿À"  option="regPass"> ( 4 ~ 16ÀÚ )
-			</td>
-			<th>ºñ¹Ğ¹øÈ£È®ÀÎ</th>
-			<td class="left">
-				<input type="password" id="re_pass" name="re_pass" value="" class="Text Eng" style="width:100px;" maxlength="15"  required hname="ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇÏ¿© ÁÖ½Ê½Ã¿À">
-			</td>
-		</tr>
-		<tr>
-			<th>¿¬¶ôÃ³</th>
-			<td class="left">
-				<c:forTokens items="${info.phone}" delims="," var="ph" varStatus="i">
-					<input type="text" id="Phone${i.index+1}" name="Phone" value="${ph}" class="Text Eng" style="width:50px;"> <c:if test="${i.index != 2}">-</c:if>
-				</c:forTokens>
-			</td>
-			<th>ÇÚµåÆù</th>
-			<td class="left">
-				<c:forTokens items="${info.mobile}" delims="," var="mb" varStatus="i">
-					<input type="text" id="Mobile${i.index+1}" name="Mobile" value="${mb}" class="Text Eng" style="width:50px;"> <c:if test="${i.index != 2}">-</c:if>
-				</c:forTokens>
-			
-			</td>
-		</tr>
-		<tr>
-			<th>EMAIL</th>
-			<td colspan="3" class="left">
-			 	<c:forTokens items="${info.email}" delims="," var="email" varStatus="i">
-			 	<c:if test="${i.index==0 }">
-				<input id="emailID" name="email" type="text" value="${email}" class="Text Eng" style="width:250px;" /> @
-				<select id="selectDomin" name="selectDomin" onChange="document.getElementById('emailDomain').value = this.value; ">
-					<option value="">Á÷Á¢ÀÔ·Â</option>
-					<option value="naver.com">naver.com</option>
-					<option value="yahoo.co.kr">yahoo.co.kr</option>
-					<option value="gmail.com">gmail.com</option>
-				</select>
-				</c:if>
-				<c:if test="${i.index==1 }">
-				<input id="emailDomain" name="email" value="${email}" type="text" class="Text Eng" style="width:250px;" /> 
-				</c:if>
-				</c:forTokens>
-			</td>
-		</tr>
-		<tr>
-			<th>°ü¸®µî±Ş</th>
-			<td colspan="3" style="padding:5px 5px 5px 10px;" class="left">
-				<input type="checkbox" id="g1" name="grade" value="g1" <c:if test="${info.gd[0] eq 'g1'}" >checked</c:if>/> È¯°æ¼³Á¤
-				<input type="checkbox" id="g2" name="grade" value="g2" <c:if test="${info.gd[1] eq 'g2'}" >checked</c:if> /> È¸¿ø°ü¸®
-				<input type="checkbox" id="g3" name="grade" value="g3" <c:if test="${info.gd[2] eq 'g3'}" >checked</c:if> /> »óÇ°°ü¸®
-				<input type="checkbox" id="g4" name="grade" value="g4" <c:if test="${info.gd[3] eq 'g4'}" >checked</c:if> /> ÁÖ¹®°ü¸®
-				<input type="checkbox" id="g5" name="grade" value="g5" <c:if test="${info.gd[4] eq 'g5'}" >checked</c:if> /> Ä¿¹Â´ÏÆ¼
-			</td>
-		</tr>
-		<tr>
-			<th>Ãß°¡°ü¸®Á¤º¸</th>
-			<td colspan="3" class="left">
-				<textarea id="admin_cmt" name="comment" class="Text Kor" style="width:97%;height:80pt;padding:3px;">${info.comment}</textarea>
-			</td>
-		</tr>
-	</table>
+		<form name="frm" method="post" action="editAdminInf.do" >
+		<input type="hidden" id="Mode" name="Mode" value="admin_add" />
+		<input type="hidden" id="admin_id" name="id" value="${info.id}" />
+		<input type="hidden" id="status" name="status" value="Y" />
+		
+		<table>
+			<colgroup>
+				<col width="15%" />
+				<col width="35%" />
+				<col width="15%" />
+				<col width="*" />
+			</colgroup>
+			<tr>
+				<th>ID</th>
+				<td class="left">
+					${info.id}
+				</td>
+				<th>ì´ë¦„</th>
+				<td class="left">
+					<input type="text" id="admin_name" name="name" value="${info.name}" class="Text Kor" style="width:200px;" required hname="ì´ë¦„ë¥¼ ì…ë ¥í•˜ì—¬ ì£¼ì‹­ì‹œì˜¤">
+				</td>
+			</tr>
+			<tr>
+				<th>ë¹„ë°€ë²ˆí˜¸</th>
+				<td class="left">
+					<input type="password" id="admin_pass" name="password" value="" class="Text Eng" style="width:100px;" maxlength="15"  required hname="ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì—¬ ì£¼ì‹­ì‹œì˜¤"  option="regPass"> ( 4 ~ 16ì )
+				</td>
+				<th>ë¹„ë°€ë²ˆí˜¸í™•ì¸</th>
+				<td class="left">
+					<input type="password" id="re_pass" name="re_pass" value="" class="Text Eng" style="width:100px;" maxlength="15"  required hname="ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì—¬ ì£¼ì‹­ì‹œì˜¤">
+				</td>
+			</tr>
+			<tr>
+				<th>ì—°ë½ì²˜</th>
+				<td class="left">
+					<c:forTokens items="${info.phone}" delims="-" var="ph" varStatus="i">
+						<input type="text" id="Phone${i.index+1}" name="Phone" value="${ph}" class="Text Eng" style="width:50px;"> <c:if test="${i.index != 2}">-</c:if>
+					</c:forTokens>
+				</td>
+				<th>í•¸ë“œí°</th>
+				<td class="left">
+					<c:forTokens items="${info.mobile}" delims="-" var="mb" varStatus="i">
+						<input type="text" id="Mobile${i.index+1}" name="Mobile" value="${mb}" class="Text Eng" style="width:50px;"> <c:if test="${i.index != 2}">-</c:if>
+					</c:forTokens>
+				</td>
+			</tr>
+			<tr>
+				<th>EMAIL</th>
+				<td colspan="3" class="left">
+					<c:forTokens items="${info.email}" delims="@" var="email" varStatus="i">
+					<c:if test="${i.index==0 }">
+					<input id="emailID" name="email" type="text" value="${email}" class="Text Eng" style="width:250px;" /> @
+					<select id="selectDomin" name="selectDomin" onChange="document.getElementById('emailDomain').value = this.value; ">
+						<option value="">ì§ì ‘ì…ë ¥</option>
+						<option value="naver.com">naver.com</option>
+						<option value="yahoo.co.kr">yahoo.co.kr</option>
+						<option value="gmail.com">gmail.com</option>
+					</select>
+					</c:if>
+					<c:if test="${i.index==1 }">
+					<input id="emailDomain" name="email" value="${email}" type="text" class="Text Eng" style="width:250px;" /> 
+					</c:if>
+					</c:forTokens>
+				</td>
+			</tr>
+			<tr>
+				<th>ê´€ë¦¬ë“±ê¸‰</th>
+				<td colspan="3" style="padding:5px 5px 5px 10px;" class="left">
+					<input type="checkbox" id="g1" name="grade" value="g1" <c:if test="${info.gd[0] eq 'g1'}" >checked</c:if> /> í™˜ê²½ì„¤ì • &nbsp;&nbsp;
+					<input type="checkbox" id="g2" name="grade" value="g2" <c:if test="${info.gd[1] eq 'g2'}" >checked</c:if> /> ë©”ì¸ê´€ë¦¬ &nbsp;&nbsp;
+					<input type="checkbox" id="g3" name="grade" value="g3" <c:if test="${info.gd[2] eq 'g3'}" >checked</c:if> /> íšŒì›ê´€ë¦¬ &nbsp;&nbsp;
+					<input type="checkbox" id="g4" name="grade" value="g4" <c:if test="${info.gd[3] eq 'g4'}" >checked</c:if> /> ìƒí’ˆê´€ë¦¬ &nbsp;&nbsp;
+					<input type="checkbox" id="g5" name="grade" value="g5" <c:if test="${info.gd[4] eq 'g5'}" >checked</c:if> /> ì£¼ë¬¸ê´€ë¦¬ &nbsp;&nbsp;
+					<input type="checkbox" id="g6" name="grade" value="g6" <c:if test="${info.gd[5] eq 'g6'}" >checked</c:if> /> ì»¤ë®¤ë‹ˆí‹°
+				</td>
+			</tr>
+			<tr>
+				<th>ì¶”ê°€ê´€ë¦¬ì •ë³´</th>
+				<td colspan="3" class="left">
+					<textarea id="admin_cmt" name="comment" class="Text Kor" style="width:97%;height:80pt;padding:3px;">${info.comment}</textarea>
+				</td>
+			</tr>
+		</table>
 
-	<div style="margin-top:20px;" class="center">
-		<input type="submit" value="¼öÁ¤ÇÏ±â" class="button_green button_medium"> &nbsp; 
-		<input type="button" value="Ãë¼Ò" class="button_red button_medium" onClick="reset();">
+		<div style="margin-top:20px;" class="center">
+			<input type="submit" value="ìˆ˜ì •í•˜ê¸°" class="button_green button_medium"> &nbsp; 
+			<input type="button" value="ì·¨ì†Œ" class="button_red button_medium" onClick="reset();">
+		</div>
+		</form>
+
 	</div>
-	</form>
-
-</div>
-
 
 </div>
 </body>
-</html>
+
+<c:import url="../inc/footer.jsp" />

@@ -59,9 +59,9 @@
 				<input type="text" id="schWord" name="schWord" value="${schWord}"title="서치텍스트박스"/>
 				<!--  input type="button" value="검색" onClick="javascript:location.href='/product/searchProduct.do?schWord='+document.getElementById('schWord').value;"/-->
 				<button onClick="topSFrm.submit();" style="cursor:pointer;"></button>
-				<select>
+				<select onChange="document.getElementById('schWord').value = this.value;">
 					<c:forEach var="schWordList" items="<%=schWordList%>">
-						<option>${schWordList.swWord}</option>
+						<option value='${schWordList.swWord}'>${schWordList.swWord}</option>
 					</c:forEach>
 				</select>
 			</span>
