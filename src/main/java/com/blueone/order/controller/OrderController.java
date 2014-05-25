@@ -165,11 +165,6 @@ public class OrderController {
 	// 장바구니-수량 수정
 	@RequestMapping(value="/order/editBuyCnt.do")
 	public String editBuyCnt(@ModelAttribute("orderProductInfo") OrderProductInfo orderProductInfo,BindingResult result,HttpSession session, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
-/*
- BOMP0295_0=",cn=15,"
- BOMP0798_0="cn=1,"
- BOMP0798_0=",cn=10,"
- */
 		//세션에 잇는 정보를 셋팅
 		CustomerInfo custom = setSession(session);
 				

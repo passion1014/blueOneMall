@@ -73,13 +73,13 @@ public class UserProductController {
 		List<CategoryInfo> lnbList = new ArrayList<CategoryInfo>(); // 중분류리스트
 		List<CategoryInfo> lnbSList = new ArrayList<CategoryInfo>(); // 소분류리스트
 
-		List<ProductInfo> prdLList = new ArrayList<ProductInfo>();
-		List<ProductInfo> prdMList = new ArrayList<ProductInfo>();
-		List<ProductInfo> prdSList = new ArrayList<ProductInfo>();
+//		List<ProductInfo> prdLList = new ArrayList<ProductInfo>();
+//		List<ProductInfo> prdMList = new ArrayList<ProductInfo>();
+//		List<ProductInfo> prdSList = new ArrayList<ProductInfo>();
 
 		List<ProductInfo> prdList = new ArrayList<ProductInfo>();
 
-		SearchProdInfo searchProdInfo = new SearchProdInfo();
+//		SearchProdInfo searchProdInfo = new SearchProdInfo();
 
 		String chkMiddleCode = null;
 		String prdCtgS = null;
@@ -129,8 +129,7 @@ public class UserProductController {
 		// ----------------------------------------------------------
 		CategoryInfo largeInf = new CategoryInfo();
 
-		if (categoryInfo.getCtgCode() == null
-				|| categoryInfo.getCtgCode() == "") {
+		if (categoryInfo.getCtgCode() == null || categoryInfo.getCtgCode() == "") {
 			largeInf = categoryManageService.getCategoryInfDetail2(categoryInfo);
 		} else {
 			largeInf = categoryManageService.getCategoryInfDetail(categoryInfo);

@@ -1005,23 +1005,24 @@ public class ProductController {
 
 
 		// ----------------------------------------------------------
-				// 변수선언
-				// ----------------------------------------------------------
-				List<CategoryInfo> middleCode = new ArrayList<CategoryInfo>(); // 중분류조회
+		// 변수선언
+		// ----------------------------------------------------------
+		List<CategoryInfo> middleCode = new ArrayList<CategoryInfo>(); // 중분류조회
 
-				List<CategoryInfo> lnbList = new ArrayList<CategoryInfo>(); // 중분류리스트
-				List<CategoryInfo> lnbSList = new ArrayList<CategoryInfo>(); // 소분류리스트
+		List<CategoryInfo> lnbList = new ArrayList<CategoryInfo>(); // 중분류리스트
+		List<CategoryInfo> lnbSList = new ArrayList<CategoryInfo>(); // 소분류리스트
 
-				List<ProductInfo> prdLList = new ArrayList<ProductInfo>();
-				List<ProductInfo> prdMList = new ArrayList<ProductInfo>();
-				List<ProductInfo> prdSList = new ArrayList<ProductInfo>();
+		List<ProductInfo> prdLList = new ArrayList<ProductInfo>();
+		List<ProductInfo> prdMList = new ArrayList<ProductInfo>();
+		List<ProductInfo> prdSList = new ArrayList<ProductInfo>();
 
-				List<ProductInfo> prdList = new ArrayList<ProductInfo>();
+		List<ProductInfo> prdList = new ArrayList<ProductInfo>();
 
-				SearchProdInfo searchProdInfo = new SearchProdInfo();
+		SearchProdInfo searchProdInfo = new SearchProdInfo();
 
-				String chkMiddleCode = null;
-				String prdCtgS = null;
+		String chkMiddleCode = null;
+		String prdCtgS = null;
+		
 		// ----------------------------------------------------------
 		// LNB 정보 조회 및 중간네비게이션용
 		// ----------------------------------------------------------
