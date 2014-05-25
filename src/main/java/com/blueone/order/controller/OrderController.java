@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.blueone.common.domain.AttachFileInfo;
 import com.blueone.common.service.IAttachFileManageService;
 import com.blueone.common.util.CookieBox;
+import com.blueone.common.util.CookieUtil;
 import com.blueone.customer.domain.CustomerContactInfo;
 import com.blueone.customer.domain.CustomerInfo;
 import com.blueone.customer.domain.RecipientInfo;
@@ -164,40 +165,23 @@ public class OrderController {
 	// 장바구니-수량 수정
 	@RequestMapping(value="/order/editBuyCnt.do")
 	public String editBuyCnt(@ModelAttribute("orderProductInfo") OrderProductInfo orderProductInfo,BindingResult result,HttpSession session, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
-		
+/*
+ BOMP0295_0=",cn=15,"
+ BOMP0798_0="cn=1,"
+ BOMP0798_0=",cn=10,"
+ */
 		//세션에 잇는 정보를 셋팅
 		CustomerInfo custom = setSession(session);
-			
 				
 		CookieBox cki = new CookieBox(request);
-		
 		String cookieVal = cki.getValue(orderProductInfo.getCookieKey());
-		StringTokenizer st = new StringTokenizer(cookieVal, ",");
-		String value="";
-		while (st.hasMoreElements()) {
-
-			String s = st.nextToken();
-
-			if ("cn".equals(s.substring(0, 2))) {
-				value+=","+"cn="+orderProductInfo.getBuyCnt()+",";
-			}else{
-				value+=","+s+",";
-			}
-
-			
-		}
 		
-		Cookie cookie =cki.createCookie(orderProductInfo.getCookieKey(),value,50000);
+		String changeValue = CookieUtil.changeProdOption(cookieVal, "cn", String.valueOf(orderProductInfo.getBuyCnt()));
+		
+		Cookie cookie =cki.createCookie(orderProductInfo.getCookieKey(),changeValue, 50000);
 		response.addCookie(cookie);//
-	
-		
-		
-		
-		
 		
 		return "redirect:cartListView.do";
-			
-		
 	}
 	
 	//상품구매 - 수량수정
@@ -900,6 +884,7 @@ public class OrderController {
 		
 		// 키를불러오면 처리해줄 부분
 		for(String each : ckKey){
+			if (each == null || each.length() < 4) continue;
 			
 			if("BOMP".equals(each.substring(0, 4))){
 			

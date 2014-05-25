@@ -10,11 +10,8 @@
 <script type="text/javascript">
 <!--
 function list_Submit(){
-
 	msg = "선택하신 상품을 구매하시겠습니까?" ;
 	document.getElementById("odfrm").action = "orderRegister.do" ;
-
-	
 	
 	var chk_num = document.odfrm.elements.length;
 	
@@ -28,8 +25,6 @@ function list_Submit(){
 		return false;
 	} else {
 		if(confirm(msg)){
-
-			
 			document.getElementById("odfrm").submit() ;
 			return false;
 		}
@@ -41,6 +36,7 @@ function allChk(obj){
     var chkObj = document.getElementsByName("ord_unit_chk");
     var rowCnt = chkObj.length - 1;
     var check = obj.checked;
+    
     if (check) {﻿
         for (var i=0; i<=rowCnt; i++){
          if(chkObj[i].type == "checkbox")
@@ -56,43 +52,28 @@ function allChk(obj){
 } 
 
 function all_Submit(){
+	var chkObj = document.getElementsByName("ord_unit_chk");
+	var rowCnt = chkObj.length - 1;
 
-	 var chkObj = document.getElementsByName("ord_unit_chk");
-	 var rowCnt = chkObj.length - 1;
+	for (var i=0; i<=rowCnt; i++) {
+		if(chkObj[i].type == "checkbox") chkObj[i].checked = true; 
+	}
 	
-	    ﻿
-	        for (var i=0; i<=rowCnt; i++){
-	         if(chkObj[i].type == "checkbox")
-	             chkObj[i].checked = true; 
-	        }
-	    
-	       
-	   
-	 list_Submit();
-	
-		
-
+	list_Submit();
 }
 
 function cnt_UP(){
-
-	 var chkObj = document.getElementsByName("ord_unit_chk");
-	 var rowCnt = chkObj.length - 1;
-	
+	var chkObj = document.getElementsByName("ord_unit_chk");
+	var rowCnt = chkObj.length - 1;
 	    ﻿
-	        for (var i=0; i<=rowCnt; i++){
-	         if(chkObj[i].type == "checkbox")
-	             chkObj[i].checked = true; 
-	        }
-	    
-	       
-	   
-	 list_Submit();
-	
-		
+	for (var i=0; i<=rowCnt; i++) {
+		if(chkObj[i].type == "checkbox") chkObj[i].checked = true; 
+	}
 
+	list_Submit();
 }
--->
+
+//-->
 </script>
 
 <html>

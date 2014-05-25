@@ -79,7 +79,8 @@ public class ShopController {
 		// ---------------------------------------------------
 		String[] srchCateCdArr = {"pdSList", "hpPrdList", "mmPrdList", "csPrdList", "xtPrdList", "epPrdList"};
 		//String[] srchCateArr = {"L1601", "L3862", "L3679", "L7451", "L2022", "L9540"}; //테스트서버용 설정
-		String[] srchCateArr = {"L4449", "L6123", "L6787", "L7773", "L3203", "L3432"}; //배포서버용 설정
+//		String[] srchCateArr = {"L4449", "L6123", "L6787", "L7773", "L3203", "L3432"}; //배포서버용 설정
+		String[] srchCateArr = {"L7773", "L6123", "L6787", "L3203", "L3432", "L4449"}; //배포서버용 설정
 		
 
 		ProductInfo srchPrdInfo = new ProductInfo();

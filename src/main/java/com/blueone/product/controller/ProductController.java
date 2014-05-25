@@ -1231,7 +1231,7 @@ public class ProductController {
 	/**
 	 * user-product search
 	 */
-	@RequestMapping(value = "/product/searchProduct.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/product/searchProduct.do")
 	public String searchProduct(
 			@ModelAttribute("productInfo") SearchProdInfo searchProdInfo,
 			BindingResult result, Model model, HttpSession session, String page) {

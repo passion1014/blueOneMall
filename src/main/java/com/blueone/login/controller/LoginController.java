@@ -170,7 +170,7 @@ public class LoginController {
 		
 		if(result!=null){
 			session.setAttribute("customerSession", result);
-			return "shop/main";
+			return "redirect:/";
 		}else{
 			// 회원가입시 ID, 이름은 받은 값으로 셋팅하여 화면에 표시한다.
 			cust.setCustNm(decMemNm);

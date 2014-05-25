@@ -48,7 +48,7 @@
 		<p class="top_img">
 			<img src="<%=AdImgDtl.getBnImg7()%>"/>
 		</p>
-		<form method="GET" id="topSFrm" name="topSFrm" action="/product/searchProduct.do">
+		<form method="POST" id="topSFrm" name="topSFrm" action="/product/searchProduct.do">
 		<div class="search_area">
 			<span class="search_menu" style="text-align:right;">
 				<a href="/order/cartListView.do" class="menu_site">장바구니</a>

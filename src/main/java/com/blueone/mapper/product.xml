@@ -147,11 +147,9 @@
 					ON ( T1.PRD_CTG_M = T3.CTG_CODE )
 				LEFT JOIN BOM_CATEGORY_TB T4 
 					ON ( T1.PRD_CTG_S = T4.CTG_CODE )
-				
-				
-				ORDER BY T1.PRD_SELL_PRICE
-					
-					
+		WHERE
+			PRD_DISPLAY_YN = 'y'					
+		ORDER BY T1.PRD_SELL_PRICE
 	
 				
 			
@@ -199,9 +197,9 @@
 					ON ( T1.PRD_CTG_M = T3.CTG_CODE )
 				LEFT JOIN BOM_CATEGORY_TB T4 
 					ON ( T1.PRD_CTG_S = T4.CTG_CODE )
-				ORDER BY T1.PRD_SELL_PRICE DESC
-					
-					
+		WHERE
+			PRD_DISPLAY_YN = 'y'					
+		ORDER BY T1.PRD_SELL_PRICE DESC
 	
 				
 			
@@ -249,9 +247,9 @@
 					ON ( T1.PRD_CTG_M = T3.CTG_CODE )
 				LEFT JOIN BOM_CATEGORY_TB T4 
 					ON ( T1.PRD_CTG_S = T4.CTG_CODE )
-				ORDER BY T1.PRD_NM
-							
-		
+		WHERE
+			PRD_DISPLAY_YN = 'y'
+		ORDER BY T1.PRD_NM
 			
 			
 	</select >
@@ -297,8 +295,9 @@
 					ON ( T1.PRD_CTG_M = T3.CTG_CODE )
 				LEFT JOIN BOM_CATEGORY_TB T4 
 					ON ( T1.PRD_CTG_S = T4.CTG_CODE )
-				ORDER BY T1.PRD_BRAND
-					
+		WHERE
+			PRD_DISPLAY_YN = 'y'
+		ORDER BY T1.PRD_BRAND
 	
 				
 			
