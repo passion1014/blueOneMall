@@ -7,9 +7,24 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @author daniel
  */
 public class OrderSrchInfo {
-	@NotEmpty private String srchStdDt;
-	@NotEmpty private String srchEdDt;
+	private String srchStdDt;
+	private String srchEdDt;
+	private int keyfield;
+	private String keyword;
 	
+	
+	public int getKeyfield() {
+		return keyfield;
+	}
+	public void setKeyfield(int keyfield) {
+		this.keyfield = keyfield;
+	}
+	public String getKeyword() {
+		return keyword;
+	}
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
 	public String getSrchStdDt() {
 		return srchStdDt;
 	}

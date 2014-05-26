@@ -75,6 +75,7 @@ public class OrderManageController {
 		orderInfo.setCustomerInfo(cus);
 		List<OrderInfo> odList = orderService.selectOrderInfoList(orderInfo);
 		model.addAttribute("odInfo",odList.get(0));
+		model.addAttribute("cus",cus);
 		
 		//결제상품 보여주기
 		String odNo=orderInfo.getOrderNo();
@@ -139,9 +140,40 @@ public class OrderManageController {
 		
 		//배송비관련 정보
 		ConfigInfo resConfigInfo = adminManageService.selectConfigInf();
-		
 		model.addAttribute("config", resConfigInfo);
 		return "admin/order/orderManagement";
+	}
+	
+	@RequestMapping(value="orderManagementProc.do", method=RequestMethod.POST)
+	public String orderManagementProc(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model,HttpSession session) {
+		
+		
+
+		orderService.updateOrderInf(orderInfo);
+		CustomerInfo cust = orderInfo.getCustomerInfo();
+		
+	
+		return "redirect:orderManagement.do?orderNo="+orderInfo.getOrderNo()+"&custId="+cust.getCustId();
+	}
+
+	//주문검색
+	@RequestMapping(value="/orderSearchList.do", method= RequestMethod.GET)
+	public String orderSearchList(@ModelAttribute("AdminInfo") AdminInfo adminInfo,OrderSrchInfo orderInfo, BindingResult result, Model model,HttpSession session){
+
+		AdminInfo adminSession = (AdminInfo) session.getAttribute("adminSession");
+
+		if (adminSession == null) {
+			return "redirect:adminLogin.do";
+		}
+
+		
+		List<OrderInfo> odList= orderManageService.getOrderInfoListBySchInfo(orderInfo);
+		model.addAttribute("odList",odList);
+		model.addAttribute("sh","all");
+		
+		
+		
+		return "admin/order/orderList";
 	}
 	
 	//신청중

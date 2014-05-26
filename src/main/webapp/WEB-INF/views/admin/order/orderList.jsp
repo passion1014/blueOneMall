@@ -45,30 +45,30 @@
 	
 	</c:choose>
 	</h1>
-	<form id="sfrm" name="sfrm" method="get" action="./admin.member.php">
+	<form id="sfrm" name="sfrm" method="get" action="orderSearchList.do">
 		<input type="hidden" id="slot" name="slot" value="member">
 		<input type="hidden" id="type" name="type" value="member_list">
 		<table>
 			<tr>
 				<td class="left">
 					<div style="margin-top:5px;">
-						<b>주문날짜검색</b> <input type="checkbox" id="schChkDate" name="schChkDate" value="Y" onClick="dateDisable();" /> &nbsp;&nbsp;
-							<input type="text" name="schReqSDate" id="schReqSDate" readonly value="" class="Text Kor" style="width:65px;" /> 일 부터
-							<input type="text" name="schReqEDate" id="schReqEDate" readonly value="" class="Text Kor" style="width:65px;" />일 까지 &nbsp;&nbsp;
+						<b>주문날짜검색</b> <input type="checkbox" id="schChkDate" name="schChkDate" value="Y" onClick="dateDisable();" checked/> &nbsp;&nbsp;
+							<input type="text" id="srchStdDt" name="srchStdDt" class="Text Kor" style="width:65px;" /> 일 부터
+							<input type="text" id="srchEdDt" name="srchEdDt" class="Text Kor" style="width:65px;" />일 까지 &nbsp;&nbsp;
 					</div>
 		
 					<div style="margin-top:5px;">
-						<select id="search_status" name="search_status" onChange="sfrm.submit();">
+						<!-- select id="search_status" name="search_status" onChange="sfrm.submit();">
 							<option value="01">:: 주문중 ::</option>
 							<option value="02">:: 결제완료 ::</option>
 							<option value="03">:: 배송중 ::</option>
 							<option value="04">:: 배송완료 ::</option>
 							<option value="05">:: 고객확인 ::</option>
-						</select>
+						</select> -->
 						
 						<select id="keyfield" name="keyfield">
-							<option value="orderNo">주문번호</option>
-							<option value="cust">주문자</option>
+							<option value="1" selected>주문번호</option>
+							<option value="2">주문자</option>
 						</select>
 						<input type="text" id="keyword" name="keyword" class="Text" value="">
 						<input type="submit" value="검색"   class="Small_Button Gray">&nbsp;&nbsp;
@@ -82,9 +82,9 @@
 	
 	<table>
 		<colgroup>
-			<col width="5%" />
-			<col width="8%" />
-			<col width="8%" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="10%" />
 			<col width="*" />
 			<col width="12%" />
 		</colgroup>
@@ -127,7 +127,7 @@
 						
 				</c:forEach>
 			</c:when>
-			<c:otherwise><tr><td>주문이 없습니다.</td></tr></c:otherwise>
+			<c:otherwise><tr><td colspan="5" height="100">주문이 없습니다.</td></tr></c:otherwise>
 		</c:choose>
 	
 	</table>

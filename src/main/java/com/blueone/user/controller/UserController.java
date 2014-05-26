@@ -379,6 +379,7 @@ public class UserController {
 		if (cust == null) {
 			return "user/errorPage";
 		}
+		
 		orderInfo.setCustomerInfo(cust);
 		orderInfo.setOrderStatCd("07");
 		orderService.updateOrderInf(orderInfo);

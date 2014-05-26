@@ -11,46 +11,12 @@
 	   <c:param name="slot" value="order"/>
 	</c:import>
  <div id="Contents">
-	<h1>주문관리 &gt; 주문서리스트 &gt; 
-	<c:choose>
-		<c:when test="${sh eq 'all'}"> 
-			<strong>전체리스트</strong>
-		</c:when>
-		<c:when test="${sh eq 'ordering'}"> 
-			<strong>신청중</strong>
-		</c:when>
-		<c:when test="${sh eq 'orderComplete'}"> 
-			<strong>주문완료</strong>
-		</c:when>
-		<c:when test="${sh eq 'Transfering'}"> 
-			<strong>배송중</strong>
-		</c:when>
-		<c:when test="${sh eq 'TransferReady'}"> 
-			<strong>배송준비중</strong>
-		</c:when>
-		<c:when test="${sh eq 'cancel'}"> 
-			<strong>취소신청</strong>
-		</c:when>
-		<c:when test="${sh eq 'cancelComplete'}"> 
-			<strong>취소완료</strong>
-		</c:when>
-		<c:when test="${sh eq 'return'}"> 
-			<strong>반품신청</strong>
-		</c:when>
-		<c:when test="${sh eq 'retrunComplete'}"> 
-			<strong>반품완료</strong>
-		</c:when>
-				
-				
-	
-	</c:choose>
-	</h1>
-	<form id="sfrm" name="sfrm" method="get" action="./admin.member.php">
-		<input type="hidden" id="slot" name="slot" value="member">
-		<input type="hidden" id="type" name="type" value="member_list">
-		<h5>주문하신 상품 ${orderInfo.orderNo }</h5>
+	<h1>주문관리 &gt; 주문서리스트 &gt; <strong>주문서수정</strong></h1>
+	<form id="sfrm" name="sfrm" method="post" action="orderManagementProc.do">
+		<input type="hidden" id="orderNo" name="orderNo" value="${odInfo.orderNo}">
+		<input type="hidden" id="customerInfo.custId"  name="customerInfo.custId"  value="${cus.custId}">
 			 <table class="order_tbl" summary="주문상품 리스트">
-				<caption>주문상품 목록표</caption>
+				<h5>주문상품 목록표</h5>
 				<colgroup>
 					<col width="65%"/>
 					<col width="12%"/>
@@ -117,7 +83,7 @@
 				</tbody>
 			</table>
 			<h5>배송지 현황</h5>
-			<table class="order_tblbox" summary="주문고객정보표">
+			<table class="order_tblbox">
 				<caption>고객정보 목록표</caption>
 				<colgroup>
 					<col width="15%"/>
@@ -154,8 +120,8 @@
 					</tr>
 				</tbody>
 			</table>
-			<h5>적립금 및 포인트 / 결제 현황</h5>
-			<table class="order_tblbox" summary="주문고객정보표">
+			<h5>적립금 및 포인트 / 결제 현황 / 주문 상태</h5>
+			<table class="order_tblbox" >
 				<caption>고객정보 목록표</caption>
 				<colgroup>
 					<col width="15%"/>
@@ -172,11 +138,30 @@
 						<td class="in_sectext">
 						</td>
 					</tr>
-				</tbody>
+					<tr>
+						<th>주문 상태</th>
+						<td class="in_sectext">
+							<select name=orderStatCd>
+							<option value=01 <c:if test="${odInfo.orderStatCd eq '01'}">selected</c:if>>신청대기</option>
+							<option value=02 <c:if test="${odInfo.orderStatCd eq '02'}">selected</c:if>>결제완료</option>
+							<option value=07 <c:if test="${odInfo.orderStatCd eq '07'}">selected</c:if>>취소신청</option>
+							<option value=08 <c:if test="${odInfo.orderStatCd eq '08'}">selected</c:if>>취소완료</option>
+							<option value=03 <c:if test="${odInfo.orderStatCd eq '03'}">selected</c:if>>배송분비</option>
+							<option value=04 <c:if test="${odInfo.orderStatCd eq '04'}">selected</c:if>>배송중</option>
+							<option value=05 <c:if test="${odInfo.orderStatCd eq '05'}">selected</c:if>>배송완료</option>
+							<option value=09 <c:if test="${odInfo.orderStatCd eq '09'}">selected</c:if>>반품신청</option>
+							<option value=10 <c:if test="${odInfo.orderStatCd eq '10'}">selected</c:if>>반품신청완료</option>
+							</select>
+						</td>
+					</tr>
+				</tbody>			
 			</table>
-</div>
-	
-
+			<div style="margin-top:20px;" class="center">
+				<input type="submit" value="수정하기" class="button_green button_medium"> &nbsp; 
+				<input type="button" value="취소" class="button_red button_medium" onClick="reset();">
+			</div>
+		</form>
+	</div>
 </div>
 </body>
 

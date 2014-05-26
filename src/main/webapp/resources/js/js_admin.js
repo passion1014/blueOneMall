@@ -150,11 +150,14 @@ function dateDisable()
 function dateDisable()
 {
 	if(document.getElementById("schChkDate").checked == true){
-		document.getElementById("schReqSDate").disabled  = false ;
-		document.getElementById("schReqEDate").disabled  = false ;
+		document.getElementById("srchStdDt").disabled  = false ;
+		document.getElementById("srchEdDt").disabled  = false ;
+	
 	}else{
-		document.getElementById("schReqSDate").disabled  = true ;
-		document.getElementById("schReqEDate").disabled  = true ;
+		
+		document.getElementById("srchStdDt").disabled  = true ;
+		document.getElementById("srchEdDt").disabled  = true ;
+		
 	}
 }
 

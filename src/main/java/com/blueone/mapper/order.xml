@@ -141,7 +141,52 @@
 			
 			
 	</select >
-
+	
+	<select id="selectListBomOrderTb0003" resultType="orderInfo" resultMap="OrderInfoMap" parameterType="orderSrchInfo">
+		SELECT
+			T1.IDX ,
+			T1.ORDER_NO ,
+			T1.CUST_ID AS custId ,
+			T1.ORDER_STAT_CD,
+			T1.ORDER_DATE ,
+			T1.REG_DATE ,
+			T1.LAST_DATE ,
+			T1.MODIFY_USER_ID ,
+			T2.IDX AS payIdx,
+			T2.ORDER_NO AS payOrdNo,
+			T2.ORDER_NO_SEQ AS payOrdNoSeq,
+			T2.PYMT_PAY_CD AS payCd,
+			T2.PYMT_AMOUNT AS payAmount,
+			T2.PYMT_DATE AS payDate,
+			T2.REG_DATE AS payRegDate,
+			T2.LAST_DATE AS payLastDate,
+			T2.MODIFY_USER_ID AS payModifyUserId,
+			T3.IDX AS pordIdx,
+			T3.ORDER_NO AS pordOrdNo,
+			T3.PRD_CD AS pordPrdCd, 
+			T4.PRD_CD AS prdCd,
+			T4.PRD_NM AS prdNm,
+			T4.PRD_CTG_L AS prdCtgL,
+			T4.PRD_CTG_M AS prdCtgM,
+			T4.PRD_CTG_S AS prdCtgS,
+			T4.FROM_DATE AS prdFromDate,
+			T4.TO_DATE AS prdToDate
+		FROM 
+				BOM_ORDER_TB T1
+			LEFT OUTER JOIN 
+				BOM_PAYMENT_TB T2 ON T1.ORDER_NO = T2.ORDER_NO
+			JOIN 
+				BOM_ORD_PRD_TB T3 ON T1.ORDER_NO = T3.ORDER_NO
+			JOIN 
+				BOM_PRODUCT_TB T4 ON T3.PRD_CD = T4.PRD_CD
+		WHERE
+			(1 = 1)
+			<if test="keyfield!= null and keyfield != '' and keyfield==2"> AND T1.CUST_ID LIKE CONCAT('%',#{keyword},'%') </if>
+			<if test="keyfield!= null and keyfield != '' and keyfield==1"> AND T1.ORDER_NO LIKE CONCAT('%',#{keyword},'%')</if>
+			<if test="srchStdDt != null and srchStdDt != '' and srchEdDt != null and srchEdDt != ''"> AND T1.REG_DATE BETWEEN  #{srchStdDt} AND #{srchEdDt}</if>
+			
+			
+	</select >
 	<insert id="insertBomOrderPrdTb0001" parameterType="orderProductInfo" >
 		INSERT BOM_ORD_PRD_TB
 			(`ORDER_NO`,`PRD_CD`,`REG_DATE`,`LAST_DATE`,`MODIFY_USER_ID`,`PRD_OPTION`,`BUY_COUNT`)

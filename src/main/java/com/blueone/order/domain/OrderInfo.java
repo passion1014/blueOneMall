@@ -39,6 +39,13 @@ public class OrderInfo {
 	private String srchEdDt;
 	
 	
+	
+	public int getOrdIdx() {
+		return ordIdx;
+	}
+	public void setOrdIdx(int ordIdx) {
+		this.ordIdx = ordIdx;
+	}
 	public String getSrchStdDt() {
 		return srchStdDt;
 	}

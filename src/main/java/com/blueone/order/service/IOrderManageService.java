@@ -20,6 +20,7 @@ public interface IOrderManageService {
 	public OrderProductInfo toProduct(OrderProductInfo opResInf);
 	public List<OrderInfo> getOrderInfoListByPeriod(OrderInfo orderInfo);
 	public int updateOrderInf(OrderInfo odInfo);
+	public List<OrderInfo> getOrderInfoListBySchInfo(OrderSrchInfo orderSrchInfo);
 	
 	
 }
