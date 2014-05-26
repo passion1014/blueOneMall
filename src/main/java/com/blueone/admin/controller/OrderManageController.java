@@ -1,6 +1,8 @@
 package com.blueone.admin.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,16 +16,30 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.blueone.admin.domain.AdminInfo;
+import com.blueone.admin.domain.ConfigInfo;
+import com.blueone.admin.service.IAdminManageService;
 import com.blueone.admin.service.IOrderService;
+import com.blueone.common.domain.AttachFileInfo;
+import com.blueone.common.service.IAttachFileManageService;
+import com.blueone.customer.domain.CustomerInfo;
+import com.blueone.customer.domain.RecipientInfo;
+import com.blueone.customer.service.ICustomerManageService;
 import com.blueone.order.domain.OrderInfo;
+import com.blueone.order.domain.OrderProductInfo;
 import com.blueone.order.domain.OrderSrchInfo;
 import com.blueone.order.service.IOrderManageService;
+import com.blueone.product.domain.ProductInfo;
+import com.blueone.product.service.IProductManageService;
 
 @Controller
 @RequestMapping(value = "/admin")
 public class OrderManageController {
-	private IOrderService orderService;
+	@Autowired IOrderManageService orderService;
 	@Autowired IOrderManageService orderManageService;
+	@Autowired private IProductManageService productManageService;
+	@Autowired private IAttachFileManageService attFileManageService;
+	@Autowired ICustomerManageService customerManageService;
+	@Autowired IAdminManageService adminManageService;
 	
 	@RequestMapping(value="/orderList.do", method= RequestMethod.GET)
 	public String orderList(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model,HttpSession session){
@@ -44,7 +60,90 @@ public class OrderManageController {
 		
 		return "admin/order/orderList";
 	}
+	
+	//관리 페이지
+	@RequestMapping(value="/orderManagement.do", method= RequestMethod.GET)
+	public String orderManagement(@ModelAttribute("AdminInfo") AdminInfo adminInfo,OrderInfo orderInfo,CustomerInfo customerInfo, BindingResult result, Model model,HttpSession session){
 
+		AdminInfo adminSession = (AdminInfo) session.getAttribute("adminSession");
+
+		if (adminSession == null) {
+			return "redirect:adminLogin.do";
+		}
+
+		CustomerInfo cus=customerManageService.getCustomerInfo2(customerInfo);
+		orderInfo.setCustomerInfo(cus);
+		List<OrderInfo> odList = orderService.selectOrderInfoList(orderInfo);
+		model.addAttribute("odInfo",odList.get(0));
+		
+		//결제상품 보여주기
+		String odNo=orderInfo.getOrderNo();
+			
+			
+		OrderProductInfo opRes = new OrderProductInfo();
+		opRes.setOrderNo(orderInfo.getOrderNo());
+		List<OrderProductInfo> opResInf = orderManageService.selectOrderPrdInfo(opRes);
+		
+		for(OrderProductInfo each : opResInf){
+			String prdCd = each.getPrdCd();
+			ProductInfo prInf = new ProductInfo();
+			prInf.setPrdCd(prdCd);
+			prInf=productManageService.getProductInfDetail(prInf);
+			
+			//상품 이름
+			each.setPrdNm(prInf.getPrdNm());
+			
+			//옵션
+			String option=each.getPrdOption();
+			StringTokenizer st = new StringTokenizer(option,",");
+			while(st.hasMoreElements()) {
+					
+					String s = st.nextToken();
+					
+					if("01".equals(s.substring(0, 2))){
+						option+=s+",";
+						each.setPrdOpColor(s.substring(3));
+					}
+					if("02".equals(s.substring(0, 2))){
+						option+=s+",";
+						each.setPrdOpSize(s.substring(3));
+					}
+			
+			}
+			
+			//수량 및 금액
+			each.setSellPrice(new BigDecimal(prInf.getPrdSellPrc()));
+			BigDecimal total = new BigDecimal(prInf.getPrdSellPrc()) ;
+			total=total.multiply(new BigDecimal(each.getBuyCnt()));
+			each.setTotalPrice(total);
+			
+			//사진
+			AttachFileInfo att = new AttachFileInfo();
+			att.setAttCdKey(prInf.getPrdCd());
+			att.setAttImgType("01");
+			att = attFileManageService.getAttFileInfListImg(att);
+			if(att==null){
+				each.setPrdSmallImg("");
+			}else { 
+				
+				each.setPrdSmallImg(att.getAttFilePath());
+			}
+			
+		}
+		model.addAttribute("odPrdInfo",opResInf);
+		
+		RecipientInfo reInf = new RecipientInfo();
+		reInf.setReciOdNum(odNo);
+		reInf = orderManageService.selectRecipientInfo(reInf);
+		model.addAttribute("reInfo",reInf);
+		
+		//배송비관련 정보
+		ConfigInfo resConfigInfo = adminManageService.selectConfigInf();
+		
+		model.addAttribute("config", resConfigInfo);
+		return "admin/order/orderManagement";
+	}
+	
 	//신청중
 	@RequestMapping(value="/orderingList.do", method= RequestMethod.GET)
 	public String orderingList(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model,HttpSession session){

@@ -1,5 +1,7 @@
 package com.blueone.admin.domain;
 
+import java.math.BigDecimal;
+
 public class ConfigInfo {
 	private String siteName;
 	private String siteDomain;

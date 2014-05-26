@@ -182,7 +182,7 @@ public class OrderManageServiceImpl implements IOrderManageService{
 	
 
 	@Override
-	//사용자 아이디 or 주문코드로로 주문내역 조회
+	//사용자 아이디 or 주문코드로or날짜로 주문내역 조회
 	public List<OrderInfo> selectOrderInfoList(OrderInfo odInfo){
 		 List<OrderInfo> result = new ArrayList<OrderInfo>();
 		

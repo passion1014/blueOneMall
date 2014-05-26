@@ -153,8 +153,10 @@ function cnt_UP(){
 								</tr>
 								<tr>
 									<td class="one_choice" colspan="6">
-										상품가격 : ${odPrdInfo.totalPrice}원 + 배송비 : 0원 = 합계 ${odPrdInfo.totalPrice}원
-									</td>
+										<c:set var="totalPrc" value="${odPrdInfo.totalPrice.intValue()}"/>
+										상품가격 : ${odPrdInfo.totalPrice}원  + <c:if test="${totalPrc>=config.buyPrice}">배송비 : ${config.trasferPrice}원</c:if>
+																			   <c:if test="${totalPrc<config.buyPrice}">배송비 : 0원 </c:if>= 합계 ${odPrdInfo.totalPrice}원
+									 </td>
 								</tr>
 								</c:forEach>
 								</c:when>
@@ -168,7 +170,9 @@ function cnt_UP(){
 										${odPrdInfo.totalPrice}원 +
 										<c:set var="total" value="${total+odPrdInfo.totalPrice}"/>
 										</c:forEach>
-										 배송비 : 0원 = 합계 <strong>${total}</strong>원
+										 <c:if test="${total>=config.buyPrice}">배송비 : ${config.trasferPrice}원</c:if>
+										 <c:if test="${total<config.buyPrice}">배송비 : 0원 </c:if>
+										 = 합계 <strong>${total}</strong>원
 									</td>
 								</tr>
 								

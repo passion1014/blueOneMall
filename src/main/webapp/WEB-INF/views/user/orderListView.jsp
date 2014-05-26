@@ -14,7 +14,7 @@
 		<c:import url="../inc/memberLnb.jsp" />
 		
 		<div class="sub_content">
-			<form action="#" method="post">
+			<form action="/user/orderListView.do" method="post">
 				<div class="mypage_section">
 					<h4>주문내역관리</h4>
 					<p class="sub_tit">나의 주문내역을 확인 하실 수 있습니다.</p>
@@ -23,9 +23,9 @@
 							<li class="datebox">
 								<span class="tit">주문일자</span>
 								<span>
-									<input type="text" title="날짜박스" value="2014-02-13"/>
+									<input type="text" title="날짜박스" id="srchStdDt" name="srchStdDt" value="2014-05-23"/>
 									<a href=""><img src="<c:url value='/resources/img/common/btn_date.gif'/>" alt="날짜체크박스"/></a>&nbsp; ~ &nbsp;
-									<input type="text" title="날짜박스" value="2014-02-14"/>
+									<input type="text" title="날짜박스" id="srchEdDt" name="srchEdDt"  value="2014-05-24"/>
 									<a href=""><img src="<c:url value='/resources/img/common/btn_date.gif'/>" alt="날짜체크박스"/></a>
 									<button class="titext">당일</button>
 									<button>1개월</button>
@@ -98,7 +98,7 @@
 							</li>
 							</c:when>
 							 <c:otherwise>
-								주문하신상품이 없습니다.
+								<br><h5>주문하신상품이 없습니다.</h5>
 							 </c:otherwise>
 							</c:choose>
 						</ul>
@@ -109,16 +109,4 @@
 	</div>
 <!--  container 끝   -->	
 
-	<div class="footer">
-		<div class="footer_area">
-			<h2><img src="./images/common/footer_logo.jpg" alt="현대 로고"/></h2>
-			<address>
-				공정거래위원회 고시 제2001-1호에 따른 사업자 등록번호:212-81-86027ㅣ대표이사 : 김화웅<br/>
-				개인정보관리 책임자 법인사업부 법인영업1팀 송선호 부장 l 주소:서울시 강동구 암사동 513-16번지 현대H&S<br/>
-				COPYRIGHT 2012 BY 현대H&S ALL RIGHT RESERVED.
-			</address>
-		</div>
-	</div>
-</div>
-</body>
-</html>
+<c:import url="../inc/footer.jsp" />

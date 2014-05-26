@@ -40,6 +40,7 @@ import org.xml.sax.SAXException;
 
 import com.blueone.admin.domain.AdminInfo;
 import com.blueone.admin.domain.AgreementInfo;
+import com.blueone.admin.domain.ConfigInfo;
 import com.blueone.admin.service.IAdminManageService;
 import com.blueone.board.domain.FaqInfo;
 import com.blueone.board.service.IBoardService;
@@ -278,26 +279,14 @@ public class UserController {
 					
 			return "user/userPoint";
 	}
-	//주문내역조회
-	@RequestMapping(value="/user/userOrderListSearch.do", method=RequestMethod.POST)
-	public String userOrderListSearch(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model,HttpSession session){
-		//CustomerInfo customerSesstion = (CustomerInfo)session.getAttribute("customerSession");	
-		CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");	
-		// 세션체크
-		if (cus == null) {
-			return "user/errorPage";
-		}	
-			
-		
-		return "user/userPoint";
-	}
+	
 
 	//주문내역리스트
-	@RequestMapping(value="/user/orderListView.do", method=RequestMethod.GET)
-	public String orderListView(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model,HttpSession session) {
+	@RequestMapping(value="/user/orderListView.do")
+	public String orderListView(@ModelAttribute("userInfo") UserInfo userInfo,OrderInfo od,BindingResult result, Model model,HttpSession session) {
 		
 		//아이디 셋팅
-		OrderInfo od = new OrderInfo();
+		//OrderInfo od = new OrderInfo();
 		// CustomerInfo customerSesstion =(CustomerInfo)session.getAttribute("customerSession");
 		CustomerInfo cust = (CustomerInfo) session
 				.getAttribute("customerSession");
@@ -496,7 +485,12 @@ public class UserController {
 		reInf = orderManageService.selectRecipientInfo(reInf);
 		model.addAttribute("reInfo",reInf);
 			
-	
+
+		//배송비관련 정보
+		ConfigInfo resConfigInfo = adminManageService.selectConfigInf();
+		
+		model.addAttribute("config", resConfigInfo);
+		
 		return "user/orderDetail";
 	}
 	//1:1문의하기 목록

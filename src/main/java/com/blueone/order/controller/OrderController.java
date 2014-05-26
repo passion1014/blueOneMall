@@ -27,6 +27,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.blueone.admin.domain.ConfigInfo;
+import com.blueone.admin.service.IAdminManageService;
 import com.blueone.common.domain.AttachFileInfo;
 import com.blueone.common.service.IAttachFileManageService;
 import com.blueone.common.util.CookieBox;
@@ -51,6 +53,7 @@ public class OrderController {
 	@Autowired IProductManageService productManageService;
 	@Autowired IAttachFileManageService attFileManageService;
 	@Autowired ICustomerManageService customerManageService;
+	@Autowired IAdminManageService adminManageService;
 	
 	@RequestMapping(value = "/order/getOrderList.do", method = RequestMethod.GET)
 	public String getOrderInfoListByDuration(@ModelAttribute("orderSrchInfo") @Valid OrderSrchInfo orderSrchInfo, BindingResult result, Model model) {
@@ -69,8 +72,28 @@ public class OrderController {
 	
 	//장바구니에 들어가기
 	@RequestMapping(value="/order/cartList.do")
-	public String order(@ModelAttribute("orderProductInfo") OrderProductInfo orderProductInfo,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
+	public String order(@ModelAttribute("orderProductInfo") OrderProductInfo orderProductInfo,HttpSession session,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
+		CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");	
+		// 세션체크
+		if (cus == null) {
+			return "user/errorPage";
+		}	
 		
+		
+		
+		/*CustomerInfo cus =new CustomerInfo();
+		cus.setCustId("100001639343");
+		cus=customerService.getCustomerInfo2(cus);
+		*/
+		String birth = cus.getCustBirth();
+//		cus = useStringToken(birth,"b",cus);
+		
+		String phone = cus.getCustPh();
+		cus = useStringToken(phone,"p",cus);
+		
+		String mobile = cus.getCustMb();
+		cus = useStringToken(mobile,"m",cus);
+				
 		CookieBox cki = new CookieBox(request);
 		
 		//상품이 선택되서 장바구니 페이지로 들어왔을 경우 해당
@@ -165,8 +188,26 @@ public class OrderController {
 	// 장바구니-수량 수정
 	@RequestMapping(value="/order/editBuyCnt.do")
 	public String editBuyCnt(@ModelAttribute("orderProductInfo") OrderProductInfo orderProductInfo,BindingResult result,HttpSession session, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
-		//세션에 잇는 정보를 셋팅
-		CustomerInfo custom = setSession(session);
+		CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");	
+		// 세션체크
+		if (cus == null) {
+			return "user/errorPage";
+		}	
+		
+		
+		
+		/*CustomerInfo cus =new CustomerInfo();
+		cus.setCustId("100001639343");
+		cus=customerService.getCustomerInfo2(cus);
+		*/
+		String birth = cus.getCustBirth();
+//		cus = useStringToken(birth,"b",cus);
+		
+		String phone = cus.getCustPh();
+		cus = useStringToken(phone,"p",cus);
+		
+		String mobile = cus.getCustMb();
+		cus = useStringToken(mobile,"m",cus);
 				
 		CookieBox cki = new CookieBox(request);
 		String cookieVal = cki.getValue(orderProductInfo.getCookieKey());
@@ -186,9 +227,27 @@ public class OrderController {
 		
 		
 		
-		//세션에 잇는 정보를 셋팅
-		CustomerInfo custom = setSession(session);
-		model.addAttribute("cus",custom);
+		CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");	
+		// 세션체크
+		if (cus == null) {
+			return "user/errorPage";
+		}	
+		
+		
+		
+		/*CustomerInfo cus =new CustomerInfo();
+		cus.setCustId("100001639343");
+		cus=customerService.getCustomerInfo2(cus);
+		*/
+		String birth = cus.getCustBirth();
+//		cus = useStringToken(birth,"b",cus);
+		
+		String phone = cus.getCustPh();
+		cus = useStringToken(phone,"p",cus);
+		
+		String mobile = cus.getCustMb();
+		cus = useStringToken(mobile,"m",cus);
+		model.addAttribute("cus",cus);
 		
 		
 		int IDX =orderInfo.getIdx();
@@ -301,10 +360,28 @@ public class OrderController {
 	
 		
 		
-		//세션에 잇는 정보를 셋팅
-		CustomerInfo custom = setSession(session);
+		CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");	
+		// 세션체크
+		if (cus == null) {
+			return "user/errorPage";
+		}	
 		
-		model.addAttribute("cus",custom);
+		
+		
+		/*CustomerInfo cus =new CustomerInfo();
+		cus.setCustId("100001639343");
+		cus=customerService.getCustomerInfo2(cus);
+		*/
+		String birth = cus.getCustBirth();
+//		cus = useStringToken(birth,"b",cus);
+		
+		String phone = cus.getCustPh();
+		cus = useStringToken(phone,"p",cus);
+		
+		String mobile = cus.getCustMb();
+		cus = useStringToken(mobile,"m",cus);
+		
+		model.addAttribute("cus",cus);
 		
 		List<OrderProductInfo> oPrdList = new ArrayList<OrderProductInfo>();
 		
@@ -416,6 +493,11 @@ public class OrderController {
 		model.addAttribute("orderInfo",od);
 		model.addAttribute("odPrdInfo",oPrdList);
 		
+		//배송비관련 정보
+		ConfigInfo resConfigInfo = adminManageService.selectConfigInf();
+		
+		model.addAttribute("config", resConfigInfo);
+		
 		return "order/order";
 	}
 	
@@ -424,13 +506,33 @@ public class OrderController {
 	public String orderView(@ModelAttribute("orderProductInfo") OrderProductInfo orderProductInfo,HttpSession session,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
 
 		
-		//세션에 잇는 정보를 셋팅
-		CustomerInfo custom = setSession(session);
+		CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");	
+		// 세션체크
+		if (cus == null) {
+			return "user/errorPage";
+		}	
+		
+		
+		
+		/*CustomerInfo cus =new CustomerInfo();
+		cus.setCustId("100001639343");
+		cus=customerService.getCustomerInfo2(cus);
+		*/
+		String birth = cus.getCustBirth();
+//		cus = useStringToken(birth,"b",cus);
+		
+		String phone = cus.getCustPh();
+		cus = useStringToken(phone,"p",cus);
+		
+		String mobile = cus.getCustMb();
+		cus = useStringToken(mobile,"m",cus);
 		
 		CookieBox cki = new CookieBox(request);
 		List<OrderProductInfo> ord = getCartList(cki);
 		
+		ConfigInfo resConfigInfo = adminManageService.selectConfigInf();
 		
+		model.addAttribute("config", resConfigInfo);
 		model.addAttribute("odPrdInfo",ord);
 		
 		
@@ -552,6 +654,10 @@ public class OrderController {
 					
 		model.addAttribute("orderInfo",orderInfo);
 		
+		//배송비관련 정보
+		ConfigInfo resConfigInfo = adminManageService.selectConfigInf();
+		
+		model.addAttribute("config", resConfigInfo);
 		return "order/order";
 	}
 	
@@ -619,8 +725,26 @@ public class OrderController {
 				//ipg.kspay_send_msg("3");		// 정상처리가 완료되었을 경우 호출합니다.(이 과정이 없으면 일시적으로 kspay_send_msg("1")을 호출하여 거래내역 조회가 가능합니다.)
 			}
 		}*/
-		//세션에 잇는 정보를 셋팅
-		CustomerInfo custom = setSession(session);
+		CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");	
+		// 세션체크
+		if (cus == null) {
+			return "user/errorPage";
+		}	
+		
+		
+		
+		/*CustomerInfo cus =new CustomerInfo();
+		cus.setCustId("100001639343");
+		cus=customerService.getCustomerInfo2(cus);
+		*/
+		String birth = cus.getCustBirth();
+//		cus = useStringToken(birth,"b",cus);
+		
+		String phone = cus.getCustPh();
+		cus = useStringToken(phone,"p",cus);
+		
+		String mobile = cus.getCustMb();
+		cus = useStringToken(mobile,"m",cus);
 		
 		
 		//주문번호
@@ -631,7 +755,7 @@ public class OrderController {
 			
 			//OrderProduct저장
 			each.setOrderNo(orderNum);
-			each.setModiUser(custom.getCustId());//user ID 입력
+			each.setModiUser(cus.getCustId());//user ID 입력
 			orderManageService.registOrderProductInfo(each);
 
 		
@@ -642,8 +766,8 @@ public class OrderController {
 		OrderInfo orderInfo1 = new OrderInfo();
 		orderInfo1.setOrderNo(orderNum);
 		orderInfo1.setOrderStatCd("02");
-		orderInfo1.setCustomerInfo(custom);
-		orderInfo1.setModifyUserId(custom.getCustId());
+		orderInfo1.setCustomerInfo(cus);
+		orderInfo1.setModifyUserId(cus.getCustId());
 		orderManageService.registOrderInfo(orderInfo1);
 		StringTokenizer st = new StringTokenizer(orderInfo.getOrd_unit_chk(),",");
 	
@@ -660,8 +784,8 @@ public class OrderController {
 		RecipientInfo re = new RecipientInfo();
 		re=orderInfo.getReciInfo();
 		re.setReciOdNum(orderNum);
-		custom.setCustAdd(re.getAdd1());
-		customerManageService.updateCustomerInf(custom);
+		cus.setCustAdd(re.getAdd1());
+		customerManageService.updateCustomerInf(cus);
 		orderManageService.registRecipientInfo(re);
 		
 	return "redirect:orderComplete.do?orderNo="+orderNum;
@@ -672,8 +796,26 @@ public class OrderController {
 	@RequestMapping(value="/order/orderPay.do")
 	public String orderPay(@ModelAttribute("orderInfo") OrderInfo orderInfo,HttpSession session,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
 		
-		//세션에 잇는 정보를 셋팅
-		CustomerInfo custom = setSession(session);
+		CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");	
+		// 세션체크
+		if (cus == null) {
+			return "user/errorPage";
+		}	
+		
+		
+		
+		/*CustomerInfo cus =new CustomerInfo();
+		cus.setCustId("100001639343");
+		cus=customerService.getCustomerInfo2(cus);
+		*/
+		String birth = cus.getCustBirth();
+//		cus = useStringToken(birth,"b",cus);
+		
+		String phone = cus.getCustPh();
+		cus = useStringToken(phone,"p",cus);
+		
+		String mobile = cus.getCustMb();
+		cus = useStringToken(mobile,"m",cus);
 		
 		
 		//주문번호
@@ -684,7 +826,7 @@ public class OrderController {
 			
 			//OrderProduct저장
 			each.setOrderNo(orderNum);
-			each.setModiUser(custom.getCustId());//user ID 입력
+			each.setModiUser(cus.getCustId());//user ID 입력
 			orderManageService.registOrderProductInfo(each);
 
 		
@@ -695,8 +837,8 @@ public class OrderController {
 		OrderInfo orderInfo1 = new OrderInfo();
 		orderInfo1.setOrderNo(orderNum);
 		orderInfo1.setOrderStatCd("01");
-		orderInfo1.setCustomerInfo(custom);
-		orderInfo1.setModifyUserId(custom.getCustId());
+		orderInfo1.setCustomerInfo(cus);
+		orderInfo1.setModifyUserId(cus.getCustId());
 		orderManageService.registOrderInfo(orderInfo1);
 		StringTokenizer st = new StringTokenizer(orderInfo.getOrd_unit_chk(),",");
 	
@@ -713,8 +855,8 @@ public class OrderController {
 		RecipientInfo re = new RecipientInfo();
 		re=orderInfo.getReciInfo();
 		re.setReciOdNum(orderNum);
-		custom.setCustAdd(re.getAdd1());
-		customerManageService.updateCustomerInf(custom);
+		cus.setCustAdd(re.getAdd1());
+		customerManageService.updateCustomerInf(cus);
 		orderManageService.registRecipientInfo(re);
 		
 		model.addAttribute("orderInfo1",orderInfo1);
@@ -737,10 +879,27 @@ public class OrderController {
 	//주문성공페이지
 	@RequestMapping(value="/order/orderComplete.do")
 	public String orderComplete(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result,HttpSession session, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
+		CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");	
+		// 세션체크
+		if (cus == null) {
+			return "user/errorPage";
+		}	
 		
-		//세션에 잇는 정보를 셋팅
-		CustomerInfo custom = setSession(session);
-		model.addAttribute("cus",custom);
+		
+		
+		/*CustomerInfo cus =new CustomerInfo();
+		cus.setCustId("100001639343");
+		cus=customerService.getCustomerInfo2(cus);
+		*/
+		String birth = cus.getCustBirth();
+//		cus = useStringToken(birth,"b",cus);
+		
+		String phone = cus.getCustPh();
+		cus = useStringToken(phone,"p",cus);
+		
+		String mobile = cus.getCustMb();
+		cus = useStringToken(mobile,"m",cus);
+		model.addAttribute("cus",cus);
 		
 		//결제상품 보여주기
 		String odNo=orderInfo.getOrderNo();

@@ -20,7 +20,7 @@
 			<strong>신청중</strong>
 		</c:when>
 		<c:when test="${sh eq 'orderComplete'}"> 
-			<strong>주문완료</strong>
+			<strong>결제완료</strong>
 		</c:when>
 		<c:when test="${sh eq 'Transfering'}"> 
 			<strong>배송중</strong>
@@ -122,7 +122,7 @@
 							${odList.customerInfo.custId}
 						</td>
 						
-						<td><input type="button" value="관리"class="Small_Button Gray"onClick="location.href='<?=$_information_ref?>'"></td>
+						<td><input type="button" value="관리"class="Small_Button Gray"onClick="location.href='orderManagement.do?orderNo=${odList.orderNo}&custId=${odList.customerInfo.custId}'"></td>
 					</tr>
 						
 				</c:forEach>
