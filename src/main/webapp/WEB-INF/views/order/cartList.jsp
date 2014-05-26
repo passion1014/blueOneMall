@@ -158,7 +158,7 @@ function cnt_UP(){
 								</tr>
 								</c:forEach>
 								</c:when>
-								<c:otherwise><tr><td>장바구니에 상품이 없습니다.</td></tr></c:otherwise>
+								<c:otherwise><tr><td colspan="6" height="100">장바구니에 상품이 없습니다.</td></tr></c:otherwise>
 								</c:choose>
 								<tr>
 									<c:set var="total"  value="0"/>

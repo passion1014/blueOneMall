@@ -62,7 +62,7 @@
 				<c:forEach items="${cust}" var="cust">
 					<tr>
 						<td class="center">${cust.custSeq}</td>
-						<td class="center">${cust.custRegDt}</td>
+						<td class="center">${cust.custRegDt.substring(0,10)}</td>
 						<td class="center">${cust.custId}</td>
 						<td class="center">${cust.custNm}</td>
 						<td class="center">${cust.custPh}</td>

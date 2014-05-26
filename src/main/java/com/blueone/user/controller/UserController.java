@@ -278,8 +278,20 @@ public class UserController {
 					
 			return "user/userPoint";
 	}
+	//주문내역조회
+	@RequestMapping(value="/user/userOrderListSearch.do", method=RequestMethod.POST)
+	public String userOrderListSearch(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model,HttpSession session){
+		//CustomerInfo customerSesstion = (CustomerInfo)session.getAttribute("customerSession");	
+		CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");	
+		// 세션체크
+		if (cus == null) {
+			return "user/errorPage";
+		}	
+			
 		
-	
+		return "user/userPoint";
+	}
+
 	//주문내역리스트
 	@RequestMapping(value="/user/orderListView.do", method=RequestMethod.GET)
 	public String orderListView(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model,HttpSession session) {

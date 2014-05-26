@@ -991,11 +991,13 @@ public class OrderController {
 		String mobile = custom.getCustMb();
 		custom = useStringToken(mobile,"m",custom);
 		
+		custom.setCustMb(mobile);
+		custom.setCustPh(phone);
 		return custom;
 		
 	}
 			
-public CustomerInfo useStringToken(String st, String Type,CustomerInfo cus ){
+	public CustomerInfo useStringToken(String st, String Type,CustomerInfo cus ){
 		
 		CustomerInfo result = cus;
 		

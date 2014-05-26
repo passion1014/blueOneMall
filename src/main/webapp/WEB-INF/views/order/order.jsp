@@ -1,171 +1,215 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html;charset=euc-kr"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 
- 
-    
 <c:import  url="../inc/topSub.jsp" />
 <c:import  url="../inc/topMain.jsp" />    
+<%
+    /* ============================================================================== */
+    /* =   PAGE : °áÁ¦ ¿äÃ» PAGE                                                    = */
+    /* = -------------------------------------------------------------------------- = */
+    /* =   ÀÌ ÆäÀÌÁö´Â Payplus Plug-inÀ» ÅëÇØ¼­ °áÁ¦ÀÚ°¡ °áÁ¦ ¿äÃ»À» ÇÏ´Â ÆäÀÌÁö    = */
+    /* =   ÀÔ´Ï´Ù. ¾Æ·¡ÀÇ ¡Ø ÇÊ¼ö, ¡Ø ¿É¼Ç ºÎºÐ°ú ¸Å´º¾óÀ» ÂüÁ¶ÇÏ¼Å¼­ ¿¬µ¿À»        = */
+    /* =   ÁøÇàÇÏ¿© ÁÖ½Ã±â ¹Ù¶ø´Ï´Ù.                                                = */
+    /* = -------------------------------------------------------------------------- = */
+    /* =   ¿¬µ¿½Ã ¿À·ù°¡ ¹ß»ýÇÏ´Â °æ¿ì ¾Æ·¡ÀÇ ÁÖ¼Ò·Î Á¢¼ÓÇÏ¼Å¼­ È®ÀÎÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.= */
+    /* =   Á¢¼Ó ÁÖ¼Ò : http://kcp.co.kr/technique.requestcode.do			        = */
+    /* = -------------------------------------------------------------------------- = */
+    /* =   Copyright (c)  2013   KCP Inc.   All Rights Reserverd.                   = */
+    /* ============================================================================== */
+%>
+<%
+    /* ============================================================================== */
+    /* =   È¯°æ ¼³Á¤ ÆÄÀÏ Include                                                   = */
+    /* = -------------------------------------------------------------------------- = */
+    /* =   ¡Ø ÇÊ¼ö                                                                  = */
+    /* =   Å×½ºÆ® ¹× ½Ç°áÁ¦ ¿¬µ¿½Ã site_conf_inc.jsp ÆÄÀÏÀ» ¼öÁ¤ÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.    = */
+    /* = -------------------------------------------------------------------------- = */
+%>
+	<%@ include file="/resources/kcp/site_conf_inc.jsp" %>
+<%
+	request.setCharacterEncoding ( "euc-kr" ) ;
+    /* = -------------------------------------------------------------------------- = */
+    /* =   È¯°æ ¼³Á¤ ÆÄÀÏ Include END                                               = */
+    /* ============================================================================== */
+%>
+<%!
+    /* ============================================================================== */
+    /* =   null °ªÀ» Ã³¸®ÇÏ´Â ¸Þ¼Òµå                                                = */
+    /* = -------------------------------------------------------------------------- = */
+        public String f_get_parm( String val )
+        {
+          if ( val == null ) val = "";
+          return  val;
+        }
+    /* ============================================================================== */
+%>
+    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" >
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>###### í˜„ëŒ€í”„ë¡œëª¨ì…˜ëª° ######</title>
-<!-- <script language="javascript">
+<title>###### Çö´ëÇÁ·Î¸ð¼Ç¸ô ######</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
+<link href="css/style.css" rel="stylesheet" type="text/css" id="cssLink"/>
 
-	function _pay(_frm) 
-	{
-		_frm.sndReply.value = getLocalUrl("kspay_wh_rcv.jsp") ;
-		var agent = navigator.userAgent;
-		var midx = agent.indexOf("MSIE");
+<%
+    /* ============================================================================== */
+    /* =   Javascript source Include                                                = */
+    /* = -------------------------------------------------------------------------- = */
+    /* =   ¡Ø ÇÊ¼ö                                                                  = */
+    /* =   Å×½ºÆ® ¹× ½Ç°áÁ¦ ¿¬µ¿½Ã site_conf_inc.jspÆÄÀÏÀ» ¼öÁ¤ÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.     = */
+    /* = -------------------------------------------------------------------------- = */
+%>
+    <script type="text/javascript" src="<%= g_conf_js_url %>"></script>
+<%
+    /* = -------------------------------------------------------------------------- = */
+    /* =   Javascript source Include END                                            = */
+    /* ============================================================================== */
+%>
+    <script type="text/javascript">
+        /* ÇÃ·¯±×ÀÎ ¼³Ä¡(È®ÀÎ) */
+        StartSmartUpdate();
+        
+        /*  ÇØ´ç ½ºÅ©¸³Æ®´Â Å¸ºê¶ó¿ìÁ®¿¡¼­ Àû¿ëÀÌ µÇÁö ¾Ê½À´Ï´Ù.
+        if( document.Payplus.object == null )
+        {
+            openwin = window.open( "chk_plugin.html", "chk_plugin", "width=420, height=100, top=300, left=300" );
+        }
+        */
 
-		var out_size = (midx != -1 && agent.charAt(midx+5) < '7');
-    	
-		var width_	= 500;
-		var height_	= out_size ? 568 : 518;
-		var left_	= screen.width;
-		var top_	= screen.height;
-    	
-		left_ = left_/2 - (width_/2);
-		top_ = top_/2 - (height_/2);
-		
-		op = window.open('about:blank','AuthFrmUp',
-		        'height='+height_+',width='+width_+',status=yes,scrollbars=no,resizable=no,left='+left_+',top='+top_+'');
+        /* Payplus Plug-in ½ÇÇà */
+        function  jsf__pay( form )
+        {
+            var RetVal = false;
 
-		if (op == null)
-		{
-			alert("íŒì—…ì´ ì°¨ë‹¨ë˜ì–´ ê²°ì œë¥¼ ì§„í–‰í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
-			return false;
-		}
-		
-		_frm.target = 'AuthFrmUp';
-		_frm.action ='https://kspay.ksnet.to/store/KSPayFlashV1.3/KSPayPWeb.jsp?sndCharSet=utf-8';
-		//_frm.action ='http://210.181.28.116/store/KSPayFlashV1.3/KSPayPWeb.jsp?sndCharSet=utf-8';
-		
-		_frm.submit();
-    }
+            /* Payplus Plugin ½ÇÇà */
+            if ( MakePayMessage( form ) == true )
+            {
+                openwin = window.open( "/resources/kcp/proc_win.html", "proc_win", "width=449, height=209, top=300, left=300" );
+                RetVal = true ;
+            }
+            
+            else
+            {
+                /*  res_cd¿Í res_msgº¯¼ö¿¡ ÇØ´ç ¿À·ùÄÚµå¿Í ¿À·ù¸Þ½ÃÁö°¡ ¼³Á¤µË´Ï´Ù.
+                    ex) °í°´ÀÌ Payplus Plugin¿¡¼­ Ãë¼Ò ¹öÆ° Å¬¸¯½Ã res_cd=3001, res_msg=»ç¿ëÀÚ Ãë¼Ò
+                    °ªÀÌ ¼³Á¤µË´Ï´Ù.
+                */
+                res_cd  = document.order_info.res_cd.value ;
+                res_msg = document.order_info.res_msg.value ;
 
-	function getLocalUrl(mypage) 
-	{ 
-		var myloc = location.href;
-		alert(myloc);
-		alert(myloc.substring(0, myloc.lastIndexOf('/')) + '/');
-		return mypage;
-	} 
-	
-	// goResult() - í•¨ìˆ˜ì„¤ëª… : ê²°ìž¬ì™„ë£Œí›„ ê²°ê³¼ê°’ì„ ì§€ì •ëœ ê²°ê³¼íŽ˜ì´ì§€(kspay_wh_result.jsp)ë¡œ ì „ì†¡í•©ë‹ˆë‹¤.
-	function goResult(){
-		alert("goResult");
-		document.KSPayWeb.target = "";
-		document.KSPayWeb.action = "orderRegisterProc.do";
-		document.KSPayWeb.submit();
-	}
-	// eparamSet() - í•¨ìˆ˜ì„¤ëª… : ê²°ìž¬ì™„ë£Œí›„ (kspay_wh_rcv.jspë¡œë¶€í„°)ê²°ê³¼ê°’ì„ ë°›ì•„ ì§€ì •ëœ ê²°ê³¼íŽ˜ì´ì§€(kspay_wh_result.jsp)ë¡œ ì „ì†¡ë  formì— ì„¸íŒ…í•©ë‹ˆë‹¤.
-	function eparamSet(rcid, rctype, rhash){
-		document.KSPayWeb.reWHCid.value 	= rcid;
-		document.KSPayWeb.reWHCtype.value   = rctype  ;
-		document.KSPayWeb.reWHHash.value 	= rhash  ;
-	}
+            }
 
-</script>    
-    -->
+            return RetVal ;
+        }
+
+        // Payplus Plug-in ¼³Ä¡ ¾È³» 
+        function init_pay_button()
+        {
+            if ((navigator.userAgent.indexOf('MSIE') > 0) || (navigator.userAgent.indexOf('Trident/7.0') > 0))
+            {
+                try
+                {
+                    if( document.Payplus.object == null )
+                    {
+                        document.getElementById("display_setup_message").style.display = "block" ;
+                    }
+                    else{
+                        document.getElementById("display_pay_button").style.display = "block" ;
+                    }
+                }
+                catch (e)
+                {
+                    document.getElementById("display_setup_message").style.display = "block" ;
+                }
+            }
+            else
+            {
+                try
+                {
+                    if( Payplus == null )
+                    {
+                        document.getElementById("display_setup_message").style.display = "block" ;
+                    }
+                    else{
+                        document.getElementById("display_pay_button").style.display = "block" ;
+                    }
+                }
+                catch (e)
+                {
+                    document.getElementById("display_setup_message").style.display = "block" ;
+                }
+            }
+        }
+
+        /* ÁÖ¹®¹øÈ£ »ý¼º ¿¹Á¦ */
+        function init_orderid()
+        {
+            /* var today = new Date();
+            var year  = today.getFullYear();
+            var month = today.getMonth() + 1;
+            var date  = today.getDate();
+            var time  = today.getTime();
+
+            if(parseInt(month) < 10) {
+                month = "0" + month;
+            }
+
+            if(parseInt(date) < 10) {
+                date = "0" + date;
+            }
+
+            var order_idxx = "TEST" + year + "" + month + "" + date + "" + time;
+ */
+            document.order_info.ordr_idxx.value =document.getElementById('order_idxx').value;
+
+            /*
+             * ÀÎÅÍ³Ý ÀÍ½ºÇÃ·Î·¯¿Í ÆÄÀÌ¾îÆø½º(»çÆÄ¸®, Å©·Ò.. µîµî)´Â javascript ÆÄ½Ì¹ýÀÌ Æ²¸®±â ¶§¹®¿¡ object °¡ ÀÎ½Ä Àü¿¡ ½ÇÇà µÇ´Â ¹®Á¦
+             * ±âÁ¸¿¡´Â onload ºÎºÐ¿¡ Ãß°¡¸¦ ÇßÁö¸¸ setTimeout ºÎºÐ¿¡ Ãß°¡
+             * setTimeout 300ÀÇ ÀÇ¹Ì´Â ÇÃ·¯±×ÀÎ ÀÎ½Ä¼Óµµ¿¡ µû¸¥ ¿©À¯½Ã°£ ¼³Á¤
+             * - 20101018 -
+             */
+            setTimeout("init_pay_button();",300);
+        }
+
+        /* onLoad ÀÌº¥Æ® ½Ã Payplus Plug-inÀÌ ½ÇÇàµÇµµ·Ï ±¸¼ºÇÏ½Ã·Á¸é ´ÙÀ½ÀÇ ±¸¹®À» onLoad ÀÌº¥Æ®¿¡ ³Ö¾îÁÖ½Ã±â ¹Ù¶ø´Ï´Ù. */
+        function onload_pay()
+        {
+             if( jsf__pay(document.order_info) )
+                document.order_info.submit();
+        }
+
+    </script>
 </head>
-<body>
+
+<body onload="init_orderid();">
 	<div class="wrap">
 	<c:import url="../inc/header.jsp"/>
-<!--  header ë   -->
+<!--  header ³¡   -->
 
 	<div class="container">
 		<c:import url="../inc/orderLnb.jsp" />
 		<div class="sub_content">
-			<form action="orderPay.do" method="post" name="KSPayWeb">
+			<!-- ÁÖ¹®Á¤º¸ ÀÔ·Â form : order_info -->
+			<form name="order_info" method="post" action="/resources/kcp/pp_ax_hub.jsp" >
 			<input type="hidden" id="customerInfo.custId"  name="customerInfo.custId"  value="${cus.custId}">
 			<input type="hidden" id="ord_unit_chk"  name="ord_unit_chk"  value="${orderInfo.ord_unit_chk}">
-			<input type="hidden" id="orderNo"  name="orderNo"  value="${orderInfo.orderNo}">
-			
+			<%-- <input type="hidden" id="orderNo"  name="orderNo"  value="${orderInfo.orderNo}"> --%>
+			<input type="hidden"  id="ordr_idxx" name="ordr_idxx" value="${orderInfo.orderNo}">
 			<input type="hidden" id="customerInfo.modifyUserId"  name="customerInfo.modifyUserId"  value="${cus.custId}">
-			<c:if test="${odPrdInfo.size() == 1}"><input type="hidden" id="ordPrd.prdNm"  name="ordPrd.prdNm"  value="${odPrdInfo[0].prdNm}" /></c:if>
-			<c:if test="${odPrdInfo.size() != 1}">			
-			<input type="hidden" id="ordPrd.prdNm"  name="ordPrd.prdNm"  value="${odPrdInfo[0].prdNm} ì™¸ ${odPrdInfo.size()-1}ê°œ" /></c:if>
-			<%-- <c:if test="${odPrdInfo.size() == 1}"><input type="hidden" id="sndGoodname"  name="sndGoodname"  value="${odPrdInfo[0].prdNm}" /></c:if>
-			<c:if test="${odPrdInfo.size() != 1}">			
-			<input type="hidden" id="sndGoodname"  name="sndGoodname"  value="${odPrdInfo[0].prdNm} ì™¸ ${odPrdInfo.size()}ê°œ" /></c:if>
+			<c:if test="${odPrdInfo.size() == 1}"><input type="hidden"  name="good_name"  value="${odPrdInfo[0].prdNm}" /></c:if>
+			<c:if test="${odPrdInfo.size() != 1}"><input type="hidden" id="ordPrd.prdNm"   name="good_name" value="${odPrdInfo[0].prdNm} ¿Ü ${odPrdInfo.size()-1}°³" /></c:if>
 			
-			<input type="hidden" id="sndOrdername"  name="sndOrdername"  value="${cus.custNm}" />
-			<input type="hidden" id="sndEmail"  name="sndEmail"  value="${cus.custEmail}" />
-			<input type="hidden" id="sndMobile"  name="sndMobile"  value="${cus.custMb}" />
-									
-			<input type=hidden  name=sndServicePeriod  value="YYYYë…„MMì›”DDì¼~YYYYë…„MMì›”DDì¼"> <!-- ì‹¤ì œ ë°°ì†¡ìƒí’ˆì´ì•„ë‹Œ ì»¨í…ì¸ ìƒí’ˆì‹œ ì œê³µê¸°ê°„í‘œì‹œ -->
-<!----------------------------------------------- <Part 2. ì¶”ê°€ì„¤ì •í•­ëª©(ë©”ë‰´ì–¼ì°¸ì¡°)>  ----------------------------------------------->
-
-	<!-- 0. ê³µí†µ í™˜ê²½ì„¤ì • -->
-	<input type=hidden	name=sndReply value="">
-	<input type=hidden  name=sndGoodType value="1"> 	<!-- ìƒí’ˆìœ í˜•: ì‹¤ë¬¼(1),ë””ì§€í„¸(2) -->
-	
-	<!-- 1. ì‹ ìš©ì¹´ë“œ ê´€ë ¨ì„¤ì • -->
-	
-	<!-- ì‹ ìš©ì¹´ë“œ ê²°ì œë°©ë²•  -->
-	<!-- ì¼ë°˜ì ì¸ ì—…ì²´ì˜ ê²½ìš° ISP,ì•ˆì‹¬ê²°ì œë§Œ ì‚¬ìš©í•˜ë©´ ë˜ë©° ë‹¤ë¥¸ ê²°ì œë°©ë²• ì¶”ê°€ì‹œì—ëŠ” ì‚¬ì „ì— í˜‘ì˜ì´í›„ ì ìš©ë°”ëžë‹ˆë‹¤ -->
-	<input type=hidden  name=sndShowcard value="I,M"> <!-- I(ISP), M(ì•ˆì‹¬ê²°ì œ), N(ì¼ë°˜ìŠ¹ì¸:êµ¬ì¸ì¦ë°©ì‹), A(í•´ì™¸ì¹´ë“œ), W(í•´ì™¸ì•ˆì‹¬)-->
-	
-	<!-- ì‹ ìš©ì¹´ë“œ(í•´ì™¸ì¹´ë“œ) í†µí™”ì½”ë“œ: í•´ì™¸ì¹´ë“œê²°ì œì‹œ ë‹¬ëŸ¬ê²°ì œë¥¼ ì‚¬ìš©í• ê²½ìš° ë³€ê²½ -->
-	<input type=hidden	name=sndCurrencytype value="WON"> <!-- ì›í™”(WON), ë‹¬ëŸ¬(USD) -->
-	
-	<!-- í• ë¶€ê°œì›”ìˆ˜ ì„ íƒë²”ìœ„ -->
-	<!--ìƒì ì—ì„œ ì ìš©í•  í• ë¶€ê°œì›”ìˆ˜ë¥¼ ì„¸íŒ…í•©ë‹ˆë‹¤. ì—¬ê¸°ì„œ ì„¸íŒ…í•˜ì‹  ê°’ì€ ê²°ì œì°½ì—ì„œ ê³ ê°ì´ ìŠ¤í¬ë¡¤í•˜ì—¬ ì„ íƒí•˜ê²Œ ë©ë‹ˆë‹¤ -->
-	<!--ì•„ëž˜ì˜ ì˜ˆì˜ê²½ìš° ê³ ê°ì€ 0~12ê°œì›”ì˜ í• ë¶€ê±°ëž˜ë¥¼ ì„ íƒí• ìˆ˜ìžˆê²Œ ë©ë‹ˆë‹¤. -->
-	<input type=hidden	name=sndInstallmenttype value="ALL(0:2:3:4:5:6:7:8:9:10:11:12)">
-	
-	<!-- ê°€ë§¹ì ë¶€ë‹´ ë¬´ì´ìží• ë¶€ì„¤ì • -->
-	<!-- ì¹´ë“œì‚¬ ë¬´ì´ìží–‰ì‚¬ë§Œ ì´ìš©í•˜ì‹¤ê²½ìš°  ë˜ëŠ” ë¬´ì´ìž í• ë¶€ë¥¼ ì ìš©í•˜ì§€ ì•ŠëŠ” ì—…ì²´ëŠ”  "NONE"ë¡œ ì„¸íŒ…  -->
-	<!-- ì˜ˆ : ì „ì²´ì¹´ë“œì‚¬ ë° ì „ì²´ í• ë¶€ì—ëŒ€í•´ì„œ ë¬´ì´ìž ì ìš©í•  ë•ŒëŠ” value="ALL" / ë¬´ì´ìž ë¯¸ì ìš©í•  ë•ŒëŠ” value="NONE" -->
-	<!-- ì˜ˆ : ì „ì²´ì¹´ë“œì‚¬ 3,4,5,6ê°œì›” ë¬´ì´ìž ì ìš©í•  ë•ŒëŠ” value="ALL(3:4:5:6)" -->
-	<!-- ì˜ˆ : ì‚¼ì„±ì¹´ë“œ(ì¹´ë“œì‚¬ì½”ë“œ:04) 2,3ê°œì›” ë¬´ì´ìž ì ìš©í•  ë•ŒëŠ” value="04(3:4:5:6)"-->
-	<!-- <input type=hidden	name=sndInteresttype value="10(02:03),05(06)"> -->
-	<input type=hidden	name=sndInteresttype value="NONE">
-
-	<!-- 2. ì˜¨ë¼ì¸ìž…ê¸ˆ(ê°€ìƒê³„ì¢Œ) ê´€ë ¨ì„¤ì • -->
-	<input type=hidden	name=sndEscrow value="1"> 			<!-- ì—ìŠ¤í¬ë¡œì‚¬ìš©ì—¬ë¶€ (0:ì‚¬ìš©ì•ˆí•¨, 1:ì‚¬ìš©) -->
-	
-	<!-- 3. ì›”ë“œíŒ¨ìŠ¤ì¹´ë“œ ê´€ë ¨ì„¤ì • -->
-	<input type=hidden	name=sndWptype value="1">  			<!--ì„ /í›„ë¶ˆì¹´ë“œêµ¬ë¶„ (1:ì„ ë¶ˆì¹´ë“œ, 2:í›„ë¶ˆì¹´ë“œ, 3:ëª¨ë“ ì¹´ë“œ) -->
-	<input type=hidden	name=sndAdulttype value="1">  		<!--ì„±ì¸í™•ì¸ì—¬ë¶€ (0:ì„±ì¸í™•ì¸ë¶ˆí•„ìš”, 1:ì„±ì¸í™•ì¸í•„ìš”) -->
-	
-	<!-- 4. ê³„ì¢Œì´ì²´ í˜„ê¸ˆì˜ìˆ˜ì¦ë°œê¸‰ì—¬ë¶€ ì„¤ì • -->
-    <input type=hidden  name=sndCashReceipt value="0">          <!--ê³„ì¢Œì´ì²´ì‹œ í˜„ê¸ˆì˜ìˆ˜ì¦ ë°œê¸‰ì—¬ë¶€ (0: ë°œê¸‰ì•ˆí•¨, 1:ë°œê¸‰) -->
-
-	<!-- 5. ìƒí’ˆê¶Œ, ê²Œìž„ë¬¸í™”ìƒí’ˆê¶Œ ê´€ë ¨ ì„¤ì • -->
-	<input type=hidden  name=sndMembId value="userid"> <!-- ê°€ë§¹ì ì‚¬ìš©ìžID (ë¬¸í™”,ê²Œìž„ë¬¸í™” ìƒí’ˆê¶Œê²°ì œì‹œ í•„ìˆ˜) -->
-	
-<!----------------------------------------------- <Part 3. ìŠ¹ì¸ì‘ë‹µ ê²°ê³¼ë°ì´í„°>  ----------------------------------------------->
-<!-- ê²°ê³¼ë°ì´íƒ€: ìŠ¹ì¸ì´í›„ ìžë™ìœ¼ë¡œ ì±„ì›Œì§‘ë‹ˆë‹¤. (*ë³€ìˆ˜ëª…ì„ ë³€ê²½í•˜ì§€ ë§ˆì„¸ìš”) -->
-
-	<input type=hidden name=reWHCid 	value="">
-	<input type=hidden name=reWHCtype 	value="">
-	<input type=hidden name=reWHHash 	value="">
-<!--------------------------------------------------------------------------------------------------------------------------->
-
-<!--ì—…ì²´ì—ì„œ ì¶”ê°€í•˜ê³ ìží•˜ëŠ” ìž„ì˜ì˜ íŒŒë¼ë¯¸í„°ë¥¼ ìž…ë ¥í•˜ë©´ ë©ë‹ˆë‹¤.-->
-<!--ì´ íŒŒë¼ë©”í„°ë“¤ì€ ì§€ì •ëœê²°ê³¼ íŽ˜ì´ì§€(kspay_result.jsp)ë¡œ ì „ì†¡ë©ë‹ˆë‹¤.-->
-	<input type=hidden name=a        value="a1">
-	<input type=hidden name=b        value="b1">
-	<input type=hidden name=c        value="c1">
-	<input type=hidden name=d        value="d1">
-<!--------------------------------------------------------------------------------------------------------------------------->
-	<input type=hidden name=sndPaymethod    value="1000000000">
-<input type='hidden' name='sndStoreid' value='2999199999'>
-<input type='hidden' name='sndOrdernumber' value='carrot_1234' size='30'> --%>
 				<div class="porder_section">
-					<h4>ì œí’ˆì£¼ë¬¸</h4>
+					<h4>Á¦Ç°ÁÖ¹®</h4>
 					<div class="porder_step">
 						<ul>
-							<li><img src="<c:url value='/resources/img/sub/shopping_loc3_off.png'/>"  alt="SETP3 ì£¼ë¬¸ì™„ë£Œì´ë¯¸ì§€"/></li>
-							<li class="mmargin"><img src="<c:url value='/resources/img/sub/shopping_loc2_on.png'/>"  alt="SETP2 ì£¼ë¬¸/ê²°ì œì´ë¯¸ì§€"/></li>
-							<li class="mmargin"><img src="<c:url value='/resources/img/sub/shopping_loc1_off.png'/>"  alt="SETP1 ì¹´íŠ¸ì´ë¯¸ì§€"/></li>
+							<li><img src="<c:url value='/resources/img/sub/shopping_loc3_off.png'/>"  alt="SETP3 ÁÖ¹®¿Ï·áÀÌ¹ÌÁö"/></li>
+							<li class="mmargin"><img src="<c:url value='/resources/img/sub/shopping_loc2_on.png'/>"  alt="SETP2 ÁÖ¹®/°áÁ¦ÀÌ¹ÌÁö"/></li>
+							<li class="mmargin"><img src="<c:url value='/resources/img/sub/shopping_loc1_off.png'/>"  alt="SETP1 Ä«Æ®ÀÌ¹ÌÁö"/></li>
 						</ul>
-						<h5>ì£¼ë¬¸í•˜ì‹¤ ìƒí’ˆ</h5>
-						<table class="order_tbl" summary="ì£¼ë¬¸ìƒí’ˆ ë¦¬ìŠ¤íŠ¸">
-							<caption>ì£¼ë¬¸ìƒí’ˆ ëª©ë¡í‘œ</caption>
+						<h5>ÁÖ¹®ÇÏ½Ç »óÇ°</h5>
+						<table class="order_tbl" summary="ÁÖ¹®»óÇ° ¸®½ºÆ®">
+							<caption>ÁÖ¹®»óÇ° ¸ñ·ÏÇ¥</caption>
 							<colgroup>
 								<col width="5%"/>
 								<col width="51%"/>
@@ -176,11 +220,11 @@
 							</colgroup>
 							<thead>
 								<tr>
-									<th>ìƒí’ˆëª…/ì˜µì…˜</th>
-									<th>íŒë§¤ê¸ˆì•¡</th>
-									<th>ìˆ˜ëŸ‰</th>
-									<th>ì£¼ë¬¸ê¸ˆì•¡</th>
-									<th>ì„ íƒ</th>
+									<th>»óÇ°¸í/¿É¼Ç</th>
+									<th>ÆÇ¸Å±Ý¾×</th>
+									<th>¼ö·®</th>
+									<th>ÁÖ¹®±Ý¾×</th>
+									<th>¼±ÅÃ</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -190,7 +234,7 @@
 								<tr>
 									<td class="product_area leftalign">
 										<span>
-										<img src="${odPrdInfo.prdSmallImg}"  alt="ìƒí’ˆì´ë¯¸ì§€"  width="71" height="71"></span>
+										<img src="${odPrdInfo.prdSmallImg}"  alt="»óÇ°ÀÌ¹ÌÁö"  width="71" height="71"></span>
 										<input type="hidden" id="orderProductList[${i.index}].prdCd" name="orderProductList[${i.index}].prdCd"  value="${odPrdInfo.prdCd}"  />
 										<input type="hidden" id="orderProductList[${i.index}].buyCnt" name="orderProductList[${i.index}].buyCnt"  value="${odPrdInfo.buyCnt}"  />
 										<input type="hidden" id="orderProductList[${i.index}].prdOption" name="orderProductList[${i.index}].prdOption"  value="${odPrdInfo.prdOption}"  />
@@ -205,45 +249,45 @@
 									</td>
 									<td>${odPrdInfo.sellPrice}</td>
 									<td>
-										<span class="input_text">${odPrdInfo.buyCnt}<%-- <input type="text" id="buyCnt${i.index}" naem="buyCnt${i.index}" value="${odPrdInfo.buyCnt}" title="ìˆ˜ëŸ‰ê¸°ìž…"><!-- <button class="btn_triangle1"></button> --> --%></span>
-										<span class="input_btn"><%-- <input type="button" value="ìˆ˜ì •" title="ìˆ˜ì •" onClick="location.href='editOrderBuycn.do?ordIdx=${i.index}&ord_unit_chk=${orderInfo.ord_unit_chk}&orderProductList[${i.index}].buyCnt='+document.getElementById('buyCnt${i.index}').value;"> <!-- <button class="btn_triangle2"></button> --> --%></span>
+										<span class="input_text">${odPrdInfo.buyCnt}<%-- <input type="text" id="buyCnt${i.index}" naem="buyCnt${i.index}" value="${odPrdInfo.buyCnt}" title="¼ö·®±âÀÔ"><!-- <button class="btn_triangle1"></button> --> --%></span>
+										<span class="input_btn"><%-- <input type="button" value="¼öÁ¤" title="¼öÁ¤" onClick="location.href='editOrderBuycn.do?ordIdx=${i.index}&ord_unit_chk=${orderInfo.ord_unit_chk}&orderProductList[${i.index}].buyCnt='+document.getElementById('buyCnt${i.index}').value;"> <!-- <button class="btn_triangle2"></button> --> --%></span>
 									</td>
 									<td>${odPrdInfo.totalPrice}</td>
 									<td>
-										<input type="button" value="ì‚­ì œí•˜ê¸°"class="btn_choice2" onClick="confirm_process('','í•´ë‹¹ ìƒí’ˆì„ ì‚­ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?','deleteOrderList.do?cookieKey=${odPrdInfo.cookieKey}&ord_unit_chk=${orderInfo.ord_unit_chk}');" />
+										<input type="button" value="»èÁ¦ÇÏ±â"class="btn_choice2" onClick="confirm_process('','ÇØ´ç »óÇ°À» »èÁ¦ÇÏ½Ã°Ú½À´Ï±î?','deleteOrderList.do?cookieKey=${odPrdInfo.cookieKey}&ord_unit_chk=${orderInfo.ord_unit_chk}');" />
 									</td>
 								</tr>
 								<tr>
 									<td class="one_choice" colspan="6">
-										ìƒí’ˆê°€ê²© : ${odPrdInfo.totalPrice}ì› + ë°°ì†¡ë¹„ : 0ì› = í•©ê³„ ${odPrdInfo.totalPrice}ì›
+										»óÇ°°¡°Ý : ${odPrdInfo.totalPrice}¿ø + ¹è¼Ûºñ : 0¿ø = ÇÕ°è ${odPrdInfo.totalPrice}¿ø
 									</td>
 								</tr>
 								</c:forEach>
 								</c:when>
-								<c:otherwise><tr><td>êµ¬ë§¤í•˜ì‹¤ ìƒí’ˆì´ ì—†ìŠµë‹ˆë‹¤.</td></tr></c:otherwise>
+								<c:otherwise><tr><td>±¸¸ÅÇÏ½Ç »óÇ°ÀÌ ¾ø½À´Ï´Ù.</td></tr></c:otherwise>
 								</c:choose>
 								<tr>
 									<c:set var="total"  value="0"/>
 									<td class="total_choice" colspan="6">
-										ì´ ì£¼ë¬¸ê¸ˆì•¡ : 
+										ÃÑ ÁÖ¹®±Ý¾× : 
 										<c:forEach items="${odPrdInfo}" var="odPrdInfo">
-										${odPrdInfo.totalPrice}ì› +
+										${odPrdInfo.totalPrice}¿ø +
 										<c:set var="total" value="${total+odPrdInfo.totalPrice}"/>
 										</c:forEach>
-										 ë°°ì†¡ë¹„ : 0ì› = í•©ê³„ <strong>${total}</strong>ì›
+										 ¹è¼Ûºñ : 0¿ø = ÇÕ°è <strong>${total}</strong>¿ø
 										 <input type="hidden" id="sndAmount"  name="sndAmount"  value="${total}" />
-										 <input type="hidden" id="totalOrderPrice"  name="totalOrderPrice"  value="${total}">
+										 <input type="hidden"  name="good_mny"  value="${total}"/>
 			
 									</td>
 								</tr>
 								
 							</tbody>
 						</table>
-						<h5>ì£¼ë¬¸ì„œ ìž‘ì„± ë° ê²°ì œ</h5>
-						<p class="sub_tit1">ì£¼ë¬¸ê³ ê°/ë°°ì†¡ì§€ì •ë³´ ìž…ë ¥</p>
-						<p class="sub_tit2">< ì£¼ë¬¸í•˜ì‹œëŠ” ë¶„ ></p>
-						<table class="order_tblbox" summary="ì£¼ë¬¸ê³ ê°ì •ë³´í‘œ">
-							<caption>ê³ ê°ì •ë³´ ëª©ë¡í‘œ</caption>
+						<h5>ÁÖ¹®¼­ ÀÛ¼º ¹× °áÁ¦</h5>
+						<p class="sub_tit1">ÁÖ¹®°í°´/¹è¼ÛÁöÁ¤º¸ ÀÔ·Â</p>
+						<p class="sub_tit2">< ÁÖ¹®ÇÏ½Ã´Â ºÐ ></p>
+						<table class="order_tblbox" summary="ÁÖ¹®°í°´Á¤º¸Ç¥">
+							<caption>°í°´Á¤º¸ ¸ñ·ÏÇ¥</caption>
 							<colgroup>
 								<col width="15%"/>
 								<col width="35%"/>
@@ -252,13 +296,13 @@
 							</colgroup>
 							<tbody>
 								<tr>
-									<th>ì„±ëª…</th>
+									<th>¼º¸í</th>
 									<td class="in_text">
-										<input type="text" name="customerInfo.custNm" id="customerInfo.custNm" title="ì„±ëª…" value="${cus.custNm}"/>
+										<input type="text"  name="buyr_name" title="¼º¸í" value="${cus.custNm}"/>
 									</td>
-									<th>ì „í™”ë²ˆí˜¸</th>
+									<th>ÀüÈ­¹øÈ£</th>
 									<td class="in_sectext">
-										<select  name="customerInfo.telNo1" id="customerInfo.telNo1">
+										<select  name="customerInfo.telNo1" id="telNo1">
 											<option <c:if test="${cus.telNo1}">selected</c:if>>02</option>
 											<option <c:if test="${cus.telNo1}">selected</c:if>>031</option>
 											<option <c:if test="${cus.telNo1}">selected</c:if>>032</option>
@@ -275,14 +319,15 @@
 											<option <c:if test="${cus.telNo1}">selected</c:if>>063</option>
 											<option <c:if test="${cus.telNo1}">selected</c:if>>064</option>
 										</select>
-										-<input type="text" title="ì „í™”ë²ˆí˜¸" name="customerInfo.telNo2" id="customerInfo.telNo2" value="${cus.telNo2}" />-
-										<input type="text" title="ì „í™”ë²ˆí˜¸" name="customerInfo.telNo3" id="customerInfo.telNo3" value="${cus.telNo3}"/>
+										-<input type="text" title="ÀüÈ­¹øÈ£" name="customerInfo.telNo2" id="telNo2" value="${cus.telNo2}" />-
+										<input type="text" title="ÀüÈ­¹øÈ£" name="customerInfo.telNo3" id="telNo3" value="${cus.telNo3}"/>
+										 <input type="hidden" name="buyr_tel1" value="document.getElementById(telNo1)+document.getElementById(telNo2)+document.getElementById(telNo3);"/>		
 									</td>
 								</tr>
 								<tr>
-									<th>íœ´ëŒ€ì „í™”</th>
+									<th>ÈÞ´ëÀüÈ­</th>
 									<td class="in_sectext">
-										<select  name="customerInfo.hpNo1" id="customerInfo.hpNo1">
+										<select  name="customerInfo.hpNo1" id="hpNo1">
 											<option <c:if test="${cus.hpNo1}">selected</c:if>>010</option>
 											<option <c:if test="${cus.hpNo1}">selected</c:if>>011</option>
 											<option <c:if test="${cus.hpNo1}">selected</c:if>>017</option>
@@ -290,19 +335,20 @@
 											<option <c:if test="${cus.hpNo1}">selected</c:if>>019</option>
 											<option <c:if test="${cus.hpNo1}">selected</c:if>>018</option>
 										</select>
-										-<input type="text"  name="customerInfo.hpNo2" id="customerInfo.hpNo2"title="íœ´ëŒ€ì „í™”ë²ˆí˜¸" value="${cus.hpNo2}"/>-
-										<input type="text"  name="customerInfo.hpNo3" id="customerInfo.hpNo3" title="íœ´ëŒ€ì „í™”ë²ˆí˜¸" value="${cus.hpNo3}"/>
+										-<input type="text"  name="customerInfo.hpNo2" id="hpNo2"title="ÈÞ´ëÀüÈ­¹øÈ£" value="${cus.hpNo2}"/>-
+										<input type="text"  name="customerInfo.hpNo3" id="hpNo3" title="ÈÞ´ëÀüÈ­¹øÈ£" value="${cus.hpNo3}"/>
+										<input type="hidden" name="buyr_tel2" value="document.getElementById(hpNo1)+document.getElementById(hpNo2)+document.getElementById(hpNo3);"/>	
 									</td>
-									<th>ì´ë©”ì¼</th>
+									<th>ÀÌ¸ÞÀÏ</th>
 									<td class="in_text">
-										<input type="text" name="customerInfo.custEmail" id="customerInfo.custEmail" title="ì´ë©”ì¼" value="${cus.custEmail}"/>
+										<input type="text" name="buyr_mail" title="ÀÌ¸ÞÀÏ" value="${cus.custEmail}"/>
 									</td>
 								</tr>
 							</tbody>
 						</table>
-						<p class="sub_tit2">< ë°›ìœ¼ì‹œëŠ” ë¶„ ></p>
-						<table class="order_tblbox" summary="ì£¼ë¬¸ê³ ê°ì •ë³´í‘œ">
-							<caption>ê³ ê°ì •ë³´ ëª©ë¡í‘œ</caption>
+						<p class="sub_tit2">< ¹ÞÀ¸½Ã´Â ºÐ ></p>
+						<table class="order_tblbox" summary="ÁÖ¹®°í°´Á¤º¸Ç¥">
+							<caption>°í°´Á¤º¸ ¸ñ·ÏÇ¥</caption>
 							<colgroup>
 								<col width="15%"/>
 								<col width="35%"/>
@@ -311,19 +357,19 @@
 							</colgroup>
 							<tbody>
 								<tr>
-									<th>ë°°ì†¡ì§€ ì„ íƒ</th>
+									<th>¹è¼ÛÁö ¼±ÅÃ</th>
 									<td class="check_box">
-										<input type="radio" id="new_check" name="choice"/><label for="new_check">ìƒˆë¡œìž…ë ¥</label>
-										<input type="radio" id="basic_check" name="choice"/><label for="basic_check">ê¸°ë³¸ë°°ì†¡ì§€</label>
-										<button><img src="<c:url value='/resources/img/./images/common/btn_checkbox.gif'/>" alt="ë‚´ ë°°ì†¡ì§€ì—ì„œ ì„ íƒì´ë¯¸ì§€"/></button>
+										<input type="radio" id="new_check" name="choice"/><label for="new_check">»õ·ÎÀÔ·Â</label>
+										<input type="radio" id="basic_check" name="choice"/><label for="basic_check">±âº»¹è¼ÛÁö</label>
+										<button><img src="<c:url value='/resources/img/./images/common/btn_checkbox.gif'/>" alt="³» ¹è¼ÛÁö¿¡¼­ ¼±ÅÃÀÌ¹ÌÁö"/></button>
 									</td>
-									<th>ë°›ìœ¼ì‹œëŠ”ë¶„</th>
+									<th>¹ÞÀ¸½Ã´ÂºÐ</th>
 									<td class="in_text">
-										<input type="text" id="reciInfo.reciNm" name="reciInfo.reciNm" title="ë°›ìœ¼ì‹œëŠ”ë¶„ ì„±ëª… ê¸°ìž…"/>
+										<input type="text" id="reciInfo.reciNm" name="reciInfo.reciNm" title="¹ÞÀ¸½Ã´ÂºÐ ¼º¸í ±âÀÔ"/>
 									</td>
 								</tr>
 								<tr>
-									<th>ì „í™”ë²ˆí˜¸</th>
+									<th>ÀüÈ­¹øÈ£</th>
 									<td class="in_sectext">
 										<select  id="reciInfo.reciPh" name="reciInfo.reciPh" >
 											<option selected>02</option>
@@ -342,10 +388,10 @@
 											<option>063</option>
 											<option>064</option>
 										</select>
-										-<input type="text" id="reciInfo.reciPh" name="reciInfo.reciPh" title="ì „í™”ë²ˆí˜¸"/>-
-										<input type="text"  id="reciInfo.reciPh" name="reciInfo.reciPh" title="ì „í™”ë²ˆí˜¸"/>
+										-<input type="text" id="reciInfo.reciPh" name="reciInfo.reciPh" title="ÀüÈ­¹øÈ£"/>-
+										<input type="text"  id="reciInfo.reciPh" name="reciInfo.reciPh" title="ÀüÈ­¹øÈ£"/>
 									</td>
-									<th>íœ´ëŒ€ì „í™”ë²ˆí˜¸</th>
+									<th>ÈÞ´ëÀüÈ­¹øÈ£</th>
 									<td class="in_sectext">
 										<select  id="reciInfo.reciMb" name="reciInfo.reciMb"  >
 											<option selected>010</option>
@@ -355,38 +401,38 @@
 											<option>019</option>
 											<option>018</option>
 										</select>
-										-<input type="text" id="reciInfo.reciMb" name="reciInfo.reciMb" title="íœ´ëŒ€ì „í™”ë²ˆí˜¸"/>-
-										<input type="text" id="reciInfo.reciMb" name="reciInfo.reciMb"  title="íœ´ëŒ€ì „í™”ë²ˆí˜¸"/>
+										-<input type="text" id="reciInfo.reciMb" name="reciInfo.reciMb" title="ÈÞ´ëÀüÈ­¹øÈ£"/>-
+										<input type="text" id="reciInfo.reciMb" name="reciInfo.reciMb"  title="ÈÞ´ëÀüÈ­¹øÈ£"/>
 									</td>
 								</tr>
 								<tr>
-									<th>ì£¼ì†Œ</th>
+									<th>ÁÖ¼Ò</th>
 									<td colspan="3" class="address_box">
 										<span class="adr_box1">
-											<input type="text" title="ìš°íŽ¸ë²ˆí˜¸"  id="reciInfo.reciAdd" name="reciInfo.reciAdd" />
-											<input type="button" value="ìš°íŽ¸ë²ˆí˜¸ ì°¾ê¸°"onClick="openWin('/user/searchZipCode.do','searchZipForm',600,450,'scrollbars=no');"/><br/>
+											<input type="text" title="¿ìÆí¹øÈ£"  id="reciInfo.reciAdd" name="reciInfo.reciAdd" />
+											<input type="button" value="¿ìÆí¹øÈ£ Ã£±â"onClick="openWin('/user/searchZipCode.do','searchZipForm',600,450,'scrollbars=no');"/><br/>
 										</span>
 										<span class="adr_box2">
-											<input type="text" title="ìžë™ì£¼ì†Œ" id="reciInfo.reciAdd" name="reciInfo.reciAdd" />
+											<input type="text" title="ÀÚµ¿ÁÖ¼Ò" id="reciInfo.reciAdd" name="reciInfo.reciAdd" />
 										</span>
 									</td>
 								</tr>
 								<tr>
-									<th>ë°°ì†¡ì‹œ ìš”ì²­ì‚¬í•­</th>
+									<th>¹è¼Û½Ã ¿äÃ»»çÇ×</th>
 									<td colspan="3" class="arrive_box">
-										<input type="text" id="reciInfo.reciReq" name="reciInfo.reciReq" title="ë°°ì†¡ì‹œ ìš”ì²­ì‚¬í•­ ê¸°ìž…"/>
+										<input type="text" id="reciInfo.reciReq" name="reciInfo.reciReq" title="¹è¼Û½Ã ¿äÃ»»çÇ× ±âÀÔ"/>
 									</td>
 								</tr>
 							</tbody>
 						</table>
 						<p class="adr_check">
 							<input type="checkbox" id="adr_check" />
-							<label for="adr_check">í¬ë§ë°°ì†¡ì§€ ì¶”ê°€(ìƒê¸° ìž…ë ¥ëœ ë°°ì†¡ì§€ ì •ë³´ë¥¼ ë‚´ ë°°ì†¡ì§€ ëª©ë¡ì— ì¶”ê°€í•©ë‹ˆë‹¤.)</label>
+							<label for="adr_check">Èñ¸Á¹è¼ÛÁö Ãß°¡(»ó±â ÀÔ·ÂµÈ ¹è¼ÛÁö Á¤º¸¸¦ ³» ¹è¼ÛÁö ¸ñ·Ï¿¡ Ãß°¡ÇÕ´Ï´Ù.)</label>
 						</p>
 						<div class="point_employ1">
-							<p class="sub_tit1">ì ë¦½ê¸ˆ/í¬ì¸íŠ¸ ì‚¬ìš©í•˜ê¸°</p>
-							<table class="employ_tbl" summary="ê³ ê°í¬ì¸íŠ¸í‘œ">
-								<caption>í¬ì¸íŠ¸ ëª©ë¡í‘œ</caption>
+							<p class="sub_tit1">Àû¸³±Ý/Æ÷ÀÎÆ® »ç¿ëÇÏ±â</p>
+							<table class="employ_tbl" summary="°í°´Æ÷ÀÎÆ®Ç¥">
+								<caption>Æ÷ÀÎÆ® ¸ñ·ÏÇ¥</caption>
 								<colgroup>
 									<col width="30%"/>
 									<col width="30%"/>
@@ -394,35 +440,46 @@
 								</colgroup>
 								<thead>
 									<tr>
-										<th class="rb_line">êµ¬ë¶„</th>
-										<th class="rb_line">ë³´ìœ ê¸ˆì•¡</th>
-										<th>ì‚¬ìš©ê¸ˆì•¡</th>
+										<th class="rb_line">±¸ºÐ</th>
+										<th class="rb_line">º¸À¯±Ý¾×</th>
+										<th>»ç¿ë±Ý¾×</th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr>
-										<th class="rb_line">ê¸°ë³¸ê¸‰</th>
-										<td class="rb_line">0ì›</td>
+										<th class="rb_line">±âº»±Þ</th>
+										<td class="rb_line">0¿ø</td>
 										<td class="in_text">
-											<input type="text"/><label>ì›</label>
+											<input type="text"/><label>¿ø</label>
 										</td>
 									</tr>
 								</tbody>
 							</table>
-							<p class="sub_tit1">ê²°ì œ ìˆ˜ë‹¨ ì„ íƒ</p>
+							<p class="sub_tit1">°áÁ¦ ¼ö´Ü ¼±ÅÃ</p>
 							<span class="payment1">
-								<input type="radio" id="credit_card" name="payment1"/><label for="credit_card">ì‹ ìš©ì¹´ë“œ</label>
-								<input type="radio" id="account_transfer" name="payment1"/><label for="account_transfer">ì‹¤ì‹œê°„ ê³„ì¢Œì´ì²´</label>
+								<input type="radio" id="pay_method" name="pay_method" value="100000000000"><label for="credit_card">½Å¿ëÄ«µå</label>
+								<input type="radio" id="pay_method" name="pay_method" value="010000000000"><label for="account_transfer">½Ç½Ã°£ °èÁÂÀÌÃ¼</label>
+						
+								<!--  <select name="pay_method">
+	                                <option value="100000000000">½Å¿ëÄ«µå</option>
+	                                <option value="010000000000">°èÁÂÀÌÃ¼</option>
+	                                <option value="001000000000">°¡»ó°èÁÂ</option>
+	                                <option value="000100000000">Æ÷ÀÎÆ®</option>
+	                                <option value="000010000000">ÈÞ´ëÆù</option>
+	                                <option value="000000001000">»óÇ°±Ç</option>
+	                                <option value="000000000010">ARS</option>
+	                                <option value="111000000000">½Å¿ëÄ«µå/°èÁÂÀÌÃ¼/°¡»ó°èÁÂ</option>
+	                            </select> -->
 							</span>
 							<span class="payment2">
-								<input type="radio" id="welfare_card" name="payment2"/><label for="welfare_card">ë³µì§€ ì¹´ë“œ í¬ì¸íŠ¸ ì‚¬ìš©ì•ˆí•¨</label>
-								<input type="radio" id="welfare_ncard" name="payment2"/><label for="welfare_ncard">ë³µì§€ ì¹´ë“œ í¬ì¸íŠ¸ ì‚¬ìš©</label>
+								<input type="radio" id="welfare_card" name="payment2"/><label for="welfare_card">º¹Áö Ä«µå Æ÷ÀÎÆ® »ç¿ë¾ÈÇÔ</label>
+								<input type="radio" id="welfare_ncard" name="payment2"/><label for="welfare_ncard">º¹Áö Ä«µå Æ÷ÀÎÆ® »ç¿ë</label>
 							</span>
 						</div>
 						<div class="point_employ2">
-							<p class="sub_tit1">ì ë¦½ê¸ˆ/í¬ì¸íŠ¸ ì‚¬ìš©í•˜ê¸°</p>
-							<table class="employ_tbl" summary="ê³ ê°í¬ì¸íŠ¸í‘œ">
-								<caption>í¬ì¸íŠ¸ ëª©ë¡í‘œ</caption>
+							<p class="sub_tit1">Àû¸³±Ý/Æ÷ÀÎÆ® »ç¿ëÇÏ±â</p>
+							<table class="employ_tbl" summary="°í°´Æ÷ÀÎÆ®Ç¥">
+								<caption>Æ÷ÀÎÆ® ¸ñ·ÏÇ¥</caption>
 								<colgroup>
 									<col width="20%"/>
 									<col width="20%"/>
@@ -430,59 +487,232 @@
 								</colgroup>
 								<thead>
 									<tr>
-										<th class="rb_line">ì´ ì£¼ë¬¸ê¸ˆì•¡</th>
+										<th class="rb_line">ÃÑ ÁÖ¹®±Ý¾×</th>
 										<th colspan="2"></th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr>
-										<th class="rb_line">í¬ì¸íŠ¸</th>
-										<td class="rb_line">ê¸°ë³¸ê¸‰</td>
-										<td>0ì›</td>
+										<th class="rb_line">Æ÷ÀÎÆ®</th>
+										<td class="rb_line">±âº»±Þ</td>
+										<td>0¿ø</td>
 									</tr>
 									<tr>
-										<td colspan="2" class="tbb_line rb_line" style="text-align:center;">ì†Œê³„</td>
-										<td class="tbb_line">0ì›</td>
+										<td colspan="2" class="tbb_line rb_line" style="text-align:center;">¼Ò°è</td>
+										<td class="tbb_line">0¿ø</td>
 									</tr>
 									<tr>
-										<td colspan="2" class="rb_line" style="text-align:center;">í• ì¸ ë° í¬ì¸íŠ¸ ì°¨ê° í›„ ê²°ì œ ê¸ˆì•¡</td>
-										<td>0ì›</td>
+										<td colspan="2" class="rb_line" style="text-align:center;">ÇÒÀÎ ¹× Æ÷ÀÎÆ® Â÷°¨ ÈÄ °áÁ¦ ±Ý¾×</td>
+										<td>0¿ø</td>
 									</tr>
 								</tbody>
 							</table>
-							<p class="sub_tit3">< ì£¼ë¬¸ë™ì˜ ></p>
+							<p class="sub_tit3">< ÁÖ¹®µ¿ÀÇ ></p>
 							<span class="complete">
-								ì£¼ë¬¸í•˜ì‹œë ¤ëŠ” ìƒí’ˆì— ëŒ€í•œ ìˆ˜ëŸ‰, ê°€ê²©, ë°°ì†¡ì •ë³´ ë“±ì— ëŒ€í•˜ì—¬ í™•ì¸í•˜ì˜€ìœ¼ë©°,
-								ì´ì— ë™ì˜í•˜ì‹­ë‹ˆê¹Œ?
+								ÁÖ¹®ÇÏ½Ã·Á´Â »óÇ°¿¡ ´ëÇÑ ¼ö·®, °¡°Ý, ¹è¼ÛÁ¤º¸ µî¿¡ ´ëÇÏ¿© È®ÀÎÇÏ¿´À¸¸ç,
+								ÀÌ¿¡ µ¿ÀÇÇÏ½Ê´Ï±î?
 							</span>
 							<p class="agree_check">
 							<input type="checkbox" id="agr_check" />
-							<label for="agr_check">ë™ì˜í•©ë‹ˆë‹¤.</label>
+							<label for="agr_check">µ¿ÀÇÇÕ´Ï´Ù.</label>
 						</p>
 						</div>
 					</div>
 					<div class="complet_area">
 						<span class="btn_complete">
-							<!-- <input type="button" value="ê²°ì œí•˜ê¸°" title="ê²°ì œë²„íŠ¼" onClick="_pay(document.KSPayWeb);"/> -->
-							<input type="submit" value="ê²°ì œí•˜ê¸°" title="ê²°ì œë²„íŠ¼" />
+							<!-- <input type="button" value="°áÁ¦ÇÏ±â" title="°áÁ¦¹öÆ°" onClick="_pay(document.KSPayWeb);"/> -->
+							<input name="" type="submit" class="submit" value="°áÁ¦ÇÏ±â" onclick="return jsf__pay(this.form);"/>
 						</span>
 						<span class="btn_cancle">
-							<input type="reset" value="ì·¨ì†Œí•˜ê¸°" title="ì·¨ì†Œë²„íŠ¼"/>
+							<input type="reset" value="Ãë¼ÒÇÏ±â" title="Ãë¼Ò¹öÆ°"/>
 						</span>
 					</div>
 				</div>
+<%
+    /* = -------------------------------------------------------------------------- = */
+    /* =   1. ÁÖ¹® Á¤º¸ ÀÔ·Â END                                                    = */
+    /* ============================================================================== */
+%>
+
+<%
+    /* ============================================================================== */
+    /* =   2. °¡¸ÍÁ¡ ÇÊ¼ö Á¤º¸ ¼³Á¤                                                 = */
+    /* = -------------------------------------------------------------------------- = */
+    /* =   ¡Ø ÇÊ¼ö - °áÁ¦¿¡ ¹Ýµå½Ã ÇÊ¿äÇÑ Á¤º¸ÀÔ´Ï´Ù.                               = */
+    /* =   site_conf_inc.jsp ÆÄÀÏÀ» Âü°íÇÏ¼Å¼­ ¼öÁ¤ÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.                 = */
+    /* = -------------------------------------------------------------------------- = */
+    // ¿äÃ»Á¾·ù : ½ÂÀÎ(pay)/Ãë¼Ò,¸ÅÀÔ(mod) ¿äÃ»½Ã »ç¿ë
+%>
+    <input type="hidden" name="req_tx"          value="pay" />
+    <input type="hidden" name="site_cd"         value="<%= g_conf_site_cd   %>" />
+    <input type="hidden" name="site_name"       value="<%= g_conf_site_name %>" />
+<%
+    /*
+       ÇÒºÎ¿É¼Ç : Payplus Plug-in¿¡¼­ Ä«µå°áÁ¦½Ã ÃÖ´ë·Î Ç¥½ÃÇÒ ÇÒºÎ°³¿ù ¼ö¸¦ ¼³Á¤ÇÕ´Ï´Ù.(0 ~ 18 ±îÁö ¼³Á¤ °¡´É)
+       ¡Ø ÁÖÀÇ  - ÇÒºÎ ¼±ÅÃÀº °áÁ¦±Ý¾×ÀÌ 50,000¿ø ÀÌ»óÀÏ °æ¿ì¿¡¸¸ °¡´É, 50000¿ø ¹Ì¸¸ÀÇ ±Ý¾×Àº ÀÏ½ÃºÒ·Î¸¸ Ç¥±âµË´Ï´Ù
+                  ¿¹) value °ªÀ» "5" ·Î ¼³Á¤ÇßÀ» °æ¿ì => Ä«µå°áÁ¦½Ã °áÁ¦Ã¢¿¡ ÀÏ½ÃºÒºÎÅÍ 5°³¿ù±îÁö ¼±ÅÃ°¡´É
+    */
+%>
+    <input type="hidden" name="quotaopt"        value="12"/>
+    <!-- ÇÊ¼ö Ç×¸ñ : °áÁ¦ ±Ý¾×/È­Æó´ÜÀ§ -->
+    <input type="hidden" name="currency"        value="WON"/>
+<%
+    /* = -------------------------------------------------------------------------- = */
+    /* =   2. °¡¸ÍÁ¡ ÇÊ¼ö Á¤º¸ ¼³Á¤ END                                             = */
+    /* ============================================================================== */
+%>
+
+<%
+    /* ============================================================================== */
+    /* =   3. Payplus Plugin ÇÊ¼ö Á¤º¸(º¯°æ ºÒ°¡)                                   = */
+    /* = -------------------------------------------------------------------------- = */
+    /* =   °áÁ¦¿¡ ÇÊ¿äÇÑ ÁÖ¹® Á¤º¸¸¦ ÀÔ·Â ¹× ¼³Á¤ÇÕ´Ï´Ù.                            = */
+    /* = -------------------------------------------------------------------------- = */
+%>
+    <!-- PLUGIN ¼³Á¤ Á¤º¸ÀÔ´Ï´Ù(º¯°æ ºÒ°¡) -->
+    <input type="hidden" name="module_type"     value="<%= module_type %>"/>
+<!--
+      ¡Ø ÇÊ ¼ö
+          ÇÊ¼ö Ç×¸ñ : Payplus Plugin¿¡¼­ °ªÀ» ¼³Á¤ÇÏ´Â ºÎºÐÀ¸·Î ¹Ýµå½Ã Æ÷ÇÔµÇ¾î¾ß ÇÕ´Ï´Ù
+          °ªÀ» ¼³Á¤ÇÏÁö ¸¶½Ê½Ã¿À
+-->
+    <input type="hidden" name="res_cd"          value=""/>
+    <input type="hidden" name="res_msg"         value=""/>
+    <input type="hidden" name="tno"             value=""/>
+    <input type="hidden" name="trace_no"        value=""/>
+    <input type="hidden" name="enc_info"        value=""/>
+    <input type="hidden" name="enc_data"        value=""/>
+    <input type="hidden" name="ret_pay_method"  value=""/>
+    <input type="hidden" name="tran_cd"         value=""/>
+    <input type="hidden" name="bank_name"       value=""/>
+    <input type="hidden" name="bank_issu"       value=""/>
+    <input type="hidden" name="use_pay_method"  value=""/>
+
+    <!--  Çö±Ý¿µ¼öÁõ °ü·Ã Á¤º¸ : Payplus Plugin ¿¡¼­ ¼³Á¤ÇÏ´Â Á¤º¸ÀÔ´Ï´Ù -->
+    <input type="hidden" name="cash_tsdtime"    value=""/>
+    <input type="hidden" name="cash_yn"         value=""/>
+    <input type="hidden" name="cash_authno"     value=""/>
+    <input type="hidden" name="cash_tr_code"    value=""/>
+    <input type="hidden" name="cash_id_info"    value=""/>
+
+	<!-- 2012³â 8¿ù 18ÀÏ ÀüÀÚ»ó°Å·¡¹ý °³Á¤ °ü·Ã ¼³Á¤ ºÎºÐ -->
+	<!-- Á¦°ø ±â°£ ¼³Á¤ 0:ÀÏÈ¸¼º 1:±â°£¼³Á¤(ex 1:2012010120120131)  -->
+	<input type="hidden" name="good_expr" value="0">
+
+	<!-- °¡¸ÍÁ¡¿¡¼­ °ü¸®ÇÏ´Â °í°´ ¾ÆÀÌµð ¼³Á¤À» ÇØ¾ß ÇÕ´Ï´Ù.(ÇÊ¼ö ¼³Á¤) -->
+	<input type="hidden" name="shop_user_id"    value=""/>
+	<!-- º¹ÁöÆ÷ÀÎÆ® °áÁ¦½Ã °¡¸ÍÁ¡¿¡ ÇÒ´çµÇ¾îÁø ÄÚµå °ªÀ» ÀÔ·ÂÇØ¾ßÇÕ´Ï´Ù.(ÇÊ¼ö ¼³Á¤) -->
+    <input type="hidden" name="pt_memcorp_cd"   value=""/>
+
+<%
+    /* = -------------------------------------------------------------------------- = */
+    /* =   3. Payplus Plugin ÇÊ¼ö Á¤º¸ END                                          = */
+    /* ============================================================================== */
+%>
+
+<%
+    /* ============================================================================== */
+    /* =   4. ¿É¼Ç Á¤º¸                                                             = */
+    /* = -------------------------------------------------------------------------- = */
+    /* =   ¡Ø ¿É¼Ç - °áÁ¦¿¡ ÇÊ¿äÇÑ Ãß°¡ ¿É¼Ç Á¤º¸¸¦ ÀÔ·Â ¹× ¼³Á¤ÇÕ´Ï´Ù.             = */
+    /* = -------------------------------------------------------------------------- = */
+
+    /* »ç¿ëÄ«µå ¼³Á¤ ¿©ºÎ ÆÄ¶ó¹ÌÅÍ ÀÔ´Ï´Ù.(ÅëÇÕ°áÁ¦Ã¢ ³ëÃâ À¯¹«)
+    <input type="hidden" name="used_card_YN"        value="Y"/> */
+    /* »ç¿ëÄ«µå ¼³Á¤ ÆÄ¶ó¹ÌÅÍ ÀÔ´Ï´Ù. (ÇØ´ç Ä«µå¸¸ °áÁ¦Ã¢¿¡ º¸ÀÌ°Ô ¼³Á¤ÇÏ´Â ÆÄ¶ó¹ÌÅÍÀÔ´Ï´Ù. used_card_YN °ªÀÌ YÀÏ¶§ Àû¿ëµË´Ï´Ù.
+    /<input type="hidden" name="used_card"        value="CCBC:CCKM:CCSS"/> */
+
+    /* ½Å¿ëÄ«µå °áÁ¦½Ã OKÄ³½¬¹é Àû¸³ ¿©ºÎ¸¦ ¹¯´Â Ã¢À» ¼³Á¤ÇÏ´Â ÆÄ¶ó¹ÌÅÍ ÀÔ´Ï´Ù
+         Æ÷ÀÎÆ® °¡¸ÍÁ¡ÀÇ °æ¿ì¿¡¸¸ Ã¢ÀÌ º¸¿©Áý´Ï´Ù
+        <input type="hidden" name="save_ocb"        value="Y"/> */
+
+    /* °íÁ¤ ÇÒºÎ °³¿ù ¼ö ¼±ÅÃ
+           value°ªÀ» "7" ·Î ¼³Á¤ÇßÀ» °æ¿ì => Ä«µå°áÁ¦½Ã °áÁ¦Ã¢¿¡ ÇÒºÎ 7°³¿ù¸¸ ¼±ÅÃ°¡´É
+    <input type="hidden" name="fix_inst"        value="07"/> */
+
+    /*  ¹«ÀÌÀÚ ¿É¼Ç
+            ¡Ø ¼³Á¤ÇÒºÎ    (°¡¸ÍÁ¡ °ü¸®ÀÚ ÆäÀÌÁö¿¡ ¼³Á¤ µÈ ¹«ÀÌÀÚ ¼³Á¤À» µû¸¥´Ù)                             - "" ·Î ¼³Á¤
+            ¡Ø ÀÏ¹ÝÇÒºÎ    (KCP ÀÌº¥Æ® ÀÌ¿Ü¿¡ ¼³Á¤ µÈ ¸ðµç ¹«ÀÌÀÚ ¼³Á¤À» ¹«½ÃÇÑ´Ù)                           - "N" ·Î ¼³Á¤
+            ¡Ø ¹«ÀÌÀÚ ÇÒºÎ (°¡¸ÍÁ¡ °ü¸®ÀÚ ÆäÀÌÁö¿¡ ¼³Á¤ µÈ ¹«ÀÌÀÚ ÀÌº¥Æ® Áß ¿øÇÏ´Â ¹«ÀÌÀÚ ¼³Á¤À» ¼¼ÆÃÇÑ´Ù)   - "Y" ·Î ¼³Á¤
+    <input type="hidden" name="kcp_noint"       value=""/> */
+
+    /*  ¹«ÀÌÀÚ ¼³Á¤
+            ¡Ø ÁÖÀÇ 1 : ÇÒºÎ´Â °áÁ¦±Ý¾×ÀÌ 50,000 ¿ø ÀÌ»óÀÏ °æ¿ì¿¡¸¸ °¡´É
+            ¡Ø ÁÖÀÇ 2 : ¹«ÀÌÀÚ ¼³Á¤°ªÀº ¹«ÀÌÀÚ ¿É¼ÇÀÌ YÀÏ °æ¿ì¿¡¸¸ °áÁ¦ Ã¢¿¡ Àû¿ë
+            ¿¹) Àü Ä«µå 2,3,6°³¿ù ¹«ÀÌÀÚ(±¹¹Î,ºñ¾¾,¿¤Áö,»ï¼º,½ÅÇÑ,Çö´ë,·Ôµ¥,¿ÜÈ¯) : ALL-02:03:04
+            BC 2,3,6°³¿ù, ±¹¹Î 3,6°³¿ù, »ï¼º 6,9°³¿ù ¹«ÀÌÀÚ : CCBC-02:03:06,CCKM-03:06,CCSS-03:06:04
+    <input type="hidden" name="kcp_noint_quota" value="CCBC-02:03:06,CCKM-03:06,CCSS-03:06:09"/> */
+
+    /* ÇØ¿ÜÄ«µå ±¸ºÐÇÏ´Â ÆÄ¶ó¹ÌÅÍ ÀÔ´Ï´Ù.(ÇØ¿ÜºñÀÚ, ÇØ¿Ü¸¶½ºÅÍ, ÇØ¿ÜJCB·Î ±¸ºÐÇÏ¿© Ç¥½Ã)
+    <input type="hidden" name="used_card_CCXX"        value="Y"/> */
+
+    /*  °¡»ó°èÁÂ ÀºÇà ¼±ÅÃ ÆÄ¶ó¹ÌÅÍ
+         ¡Ø ÇØ´ç ÀºÇàÀ» °áÁ¦Ã¢¿¡¼­ º¸ÀÌ°Ô ÇÕ´Ï´Ù.(ÀºÇàÄÚµå´Â ¸Å´º¾óÀ» ÂüÁ¶)
+    <input type="hidden" name="wish_vbank_list" value="05:03:04:07:11:23:26:32:34:81:71"/> */
+
+    /*  °¡»ó°èÁÂ ÀÔ±Ý ±âÇÑ ¼³Á¤ÇÏ´Â ÆÄ¶ó¹ÌÅÍ - ¹ß±ÞÀÏ + 3ÀÏ
+    <input type="hidden" name="vcnt_expire_term" value="3"/> */
+
+    /*  °¡»ó°èÁÂ ÀÔ±Ý ½Ã°£ ¼³Á¤ÇÏ´Â ÆÄ¶ó¹ÌÅÍ
+         HHMMSSÇü½ÄÀ¸·Î ÀÔ·ÂÇÏ½Ã±â ¹Ù¶ø´Ï´Ù
+         ¼³Á¤À» ¾ÈÇÏ½Ã´Â°æ¿ì ±âº»ÀûÀ¸·Î 23½Ã59ºÐ59ÃÊ°¡ ¼¼ÆÃÀÌ µË´Ï´Ù
+         <input type="hidden" name="vcnt_expire_term_time" value="120000"/> */
+
+    /* Æ÷ÀÎÆ® °áÁ¦½Ã º¹ÇÕ °áÁ¦(½Å¿ëÄ«µå+Æ÷ÀÎÆ®) ¿©ºÎ¸¦ °áÁ¤ÇÒ ¼ö ÀÖ½À´Ï´Ù.- N ÀÏ°æ¿ì º¹ÇÕ°áÁ¦ »ç¿ë¾ÈÇÔ
+        <input type="hidden" name="complex_pnt_yn" value="N"/>    */
+
+    /* Çö±Ý¿µ¼öÁõ µî·Ï Ã¢À» Ãâ·Â ¿©ºÎ¸¦ ¼³Á¤ÇÏ´Â ÆÄ¶ó¹ÌÅÍ ÀÔ´Ï´Ù
+         ¡Ø Y : Çö±Ý¿µ¼öÁõ µî·Ï Ã¢ Ãâ·Â
+         ¡Ø N : Çö±Ý¿µ¼öÁõ µî·Ï Ã¢ Ãâ·Â ¾ÈÇÔ 
+    ¡Ø ÁÖÀÇ : Çö±Ý¿µ¼öÁõ »ç¿ë ½Ã KCP »óÁ¡°ü¸®ÀÚ ÆäÀÌÁö¿¡¼­ Çö±Ý¿µ¼öÁõ »ç¿ë µ¿ÀÇ¸¦ ÇÏ¼Å¾ß ÇÕ´Ï´Ù
+        <input type="hidden" name="disp_tax_yn"     value="Y"/> */
+
+    /* °áÁ¦Ã¢¿¡ °¡¸ÍÁ¡ »çÀÌÆ®ÀÇ ·Î°í¸¦ ÇÃ·¯±×ÀÎ ÁÂÃø »ó´Ü¿¡ Ãâ·ÂÇÏ´Â ÆÄ¶ó¹ÌÅÍ ÀÔ´Ï´Ù
+       ¾÷Ã¼ÀÇ ·Î°í°¡ ÀÖ´Â URLÀ» Á¤È®È÷ ÀÔ·ÂÇÏ¼Å¾ß ÇÏ¸ç, ÃÖ´ë 150 X 50  ¹Ì¸¸ Å©±â Áö¿ø
+
+    ¡Ø ÁÖÀÇ : ·Î°í ¿ë·®ÀÌ 150 X 50 ÀÌ»óÀÏ °æ¿ì site_name °ªÀÌ Ç¥½ÃµË´Ï´Ù.
+        <input type="hidden" name="site_logo"       value="" /> */
+
+    /* °áÁ¦Ã¢ ¿µ¹® Ç¥½Ã ÆÄ¶ó¹ÌÅÍ ÀÔ´Ï´Ù. ¿µ¹®À» ±âº»À¸·Î »ç¿ëÇÏ½Ã·Á¸é Y·Î ¼¼ÆÃÇÏ½Ã±â ¹Ù¶ø´Ï´Ù
+    	2010-06¿ù ÇöÀç ½Å¿ëÄ«µå¿Í °¡»ó°èÁÂ¸¸ Áö¿øµË´Ï´Ù
+        <input type='hidden' name='eng_flag'      value='Y'> */
+
+    /* KCP´Â °ú¼¼»óÇ°°ú ºñ°ú¼¼»óÇ°À» µ¿½Ã¿¡ ÆÇ¸ÅÇÏ´Â ¾÷Ã¼µéÀÇ °áÁ¦°ü¸®¿¡ ´ëÇÑ ÆíÀÇ¼ºÀ» Á¦°øÇØµå¸®°íÀÚ, 
+       º¹ÇÕ°ú¼¼ Àü¿ë »çÀÌÆ®ÄÚµå¸¦ Áö¿øÇØ µå¸®¸ç ÃÑ ±Ý¾×¿¡ ´ëÇØ º¹ÇÕ°ú¼¼ Ã³¸®°¡ °¡´ÉÇÏµµ·Ï Á¦°øÇÏ°í ÀÖ½À´Ï´Ù
+       º¹ÇÕ°ú¼¼ Àü¿ë »çÀÌÆ® ÄÚµå·Î °è¾àÇÏ½Å °¡¸ÍÁ¡¿¡¸¸ ÇØ´çÀÌ µË´Ï´Ù
+       »óÇ°º°ÀÌ ¾Æ´Ï¶ó ±Ý¾×À¸·Î ±¸ºÐÇÏ¿© ¿äÃ»ÇÏ¼Å¾ß ÇÕ´Ï´Ù
+       ÃÑ°áÁ¦ ±Ý¾×Àº °ú¼¼±Ý¾× + ºÎ°ú¼¼ + ºñ°ú¼¼±Ý¾×ÀÇ ÇÕ°ú °°¾Æ¾ß ÇÕ´Ï´Ù. 
+       (good_mny = comm_tax_mny + comm_vat_mny + comm_free_mny)
+
+        <input type="hidden" name="tax_flag"       value="TG03">  <!-- º¯°æºÒ°¡	   -->
+        <input type="hidden" name="comm_tax_mny"   value=""    >  <!-- °ú¼¼±Ý¾×	   --> 
+        <input type="hidden" name="comm_vat_mny"   value=""    >  <!-- ºÎ°¡¼¼	   -->
+        <input type="hidden" name="comm_free_mny"  value=""    >  <!-- ºñ°ú¼¼ ±Ý¾× --> */
+
+    /* skin_indx °ªÀº ½ºÅ²À» º¯°æÇÒ ¼ö ÀÖ´Â ÆÄ¶ó¹ÌÅÍÀÌ¸ç ÃÑ 7°¡Áö°¡ Áö¿øµË´Ï´Ù. 
+       º¯°æÀ» ¿øÇÏ½Ã¸é 1ºÎÅÍ 7±îÁö °ªÀ» ³Ö¾îÁÖ½Ã±â ¹Ù¶ø´Ï´Ù. 
+
+        <input type='hidden' name='skin_indx'      value='1'> */
+
+    /* »óÇ°ÄÚµå ¼³Á¤ ÆÄ¶ó¹ÌÅÍ ÀÔ´Ï´Ù.(»óÇ°±ÇÀ» µû·Î ±¸ºÐÇÏ¿© Ã³¸®ÇÒ ¼ö ÀÖ´Â ¿É¼Ç±â´ÉÀÔ´Ï´Ù.)
+        <input type='hidden' name='good_cd'      value=''> */
+
+    /* = -------------------------------------------------------------------------- = */
+    /* =   4. ¿É¼Ç Á¤º¸ END                                                         = */
+    /* ============================================================================== */
+%>
 			</form>
 		</div>
 	</div>
-<!--  container ë   -->	
+<!--  container ³¡   -->	
 
 	<div class="footer">
 		<div class="footer_area">
-			<h2><img src="<c:url value='/resources/img/common/footer_logo.jpg'/>"  alt="í˜„ëŒ€ ë¡œê³ "/></h2>
+			<h2><img src="<c:url value='/resources/img/common/footer_logo.jpg'/>"  alt="Çö´ë ·Î°í"/></h2>
 			<address>
-				ê³µì •ê±°ëž˜ìœ„ì›íšŒ ê³ ì‹œ ì œ2001-1í˜¸ì— ë”°ë¥¸ ì‚¬ì—…ìž ë“±ë¡ë²ˆí˜¸:212-81-86027ã…£ëŒ€í‘œì´ì‚¬ : ê¹€í™”ì›…<br/>
-				ê°œì¸ì •ë³´ê´€ë¦¬ ì±…ìž„ìž ë²•ì¸ì‚¬ì—…ë¶€ ë²•ì¸ì˜ì—…1íŒ€ ì†¡ì„ í˜¸ ë¶€ìž¥ l ì£¼ì†Œ:ì„œìš¸ì‹œ ê°•ë™êµ¬ ì•”ì‚¬ë™ 513-16ë²ˆì§€ í˜„ëŒ€H&S<br/>
-				COPYRIGHT 2012 BY í˜„ëŒ€H&S ALL RIGHT RESERVED.
+				°øÁ¤°Å·¡À§¿øÈ¸ °í½Ã Á¦2001-1È£¿¡ µû¸¥ »ç¾÷ÀÚ µî·Ï¹øÈ£:212-81-86027¤Ó´ëÇ¥ÀÌ»ç : ±èÈ­¿õ<br/>
+				°³ÀÎÁ¤º¸°ü¸® Ã¥ÀÓÀÚ ¹ýÀÎ»ç¾÷ºÎ ¹ýÀÎ¿µ¾÷1ÆÀ ¼Û¼±È£ ºÎÀå l ÁÖ¼Ò:¼­¿ï½Ã °­µ¿±¸ ¾Ï»çµ¿ 513-16¹øÁö Çö´ëH&S<br/>
+				COPYRIGHT 2012 BY Çö´ëH&S ALL RIGHT RESERVED.
 			</address>
 		</div>
 	</div>
