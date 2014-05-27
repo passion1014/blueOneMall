@@ -7,7 +7,7 @@ public class CustomerSrchInfo {
 	@NotEmpty private String custId;
 	private int custColum; //1: 회원명, 2: 회원ID, 3:이메일, 4:핸드폰번호
 	private String word;
-	
+
 	
 	public int getCustColum() {
 		return custColum;

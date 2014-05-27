@@ -30,6 +30,8 @@ import com.blueone.common.util.Utility;
 import com.blueone.customer.domain.CustomerInfo;
 import com.blueone.customer.domain.CustomerSrchInfo;
 import com.blueone.customer.service.ICustomerManageService;
+import com.blueone.order.domain.OrderInfo;
+import com.blueone.order.domain.OrderSrchInfo;
 import com.blueone.user.domain.UserInfo;
 
 @Controller
@@ -41,7 +43,7 @@ public class MemberController {
 	@Autowired IAdminManageService adminManageService;
 	
 	@RequestMapping(value="/memberList.do", method= RequestMethod.GET)
-	public String memberList(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model, HttpSession session){
+	public String memberList(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result,String page, Model model, HttpSession session){
 		
 		AdminInfo adminSession = (AdminInfo)session.getAttribute("adminSession");
 		
@@ -50,14 +52,37 @@ public class MemberController {
 			return "redirect:adminLogin.do";
 		}	
 		
-		List<CustomerInfo> allCust=customerManageService.getCustomerInfoList();
+		
+		
+		CustomerInfo custInfo = new CustomerInfo();
+		
+		if (StringUtils.isEmpty(page))
+		{page="1";custInfo.setStartIdx(Integer.parseInt(page));}
+		else 
+			custInfo.setStartIdx(Integer.parseInt(page));
+		
+		List<CustomerInfo> allCust=customerManageService.getCustomerInfoList(custInfo);
 		model.addAttribute("cust", allCust);
 		
+		
+		int endNum;
+		int total= customerManageService.getCustomerTypTotalCount(custInfo);
+		
+		if(total%15==0 || total/15<0  ) {
+			endNum=total/15;
+		}
+		else{
+			endNum=total/15+1;
+			}
+	
+	
+		model.addAttribute("endNum",endNum);
+		model.addAttribute("custURL","memberList.do");
 		return "admin/member/memberList";
 	}
 	
 	@RequestMapping(value="/searchMember.do", method= RequestMethod.GET)
-	public String searchMember(@ModelAttribute("AdminInfo") CustomerSrchInfo customerSrchInfo, BindingResult result, Model model, HttpSession session){
+	public String searchMember(@ModelAttribute("AdminInfo") CustomerSrchInfo customerSrchInfo,String page, BindingResult result, Model model, HttpSession session){
 		
 		AdminInfo adminSession = (AdminInfo)session.getAttribute("adminSession");
 		
@@ -85,9 +110,30 @@ public class MemberController {
 			
 		}
 	
+		
+		if (StringUtils.isEmpty(page))
+		{page="1";search.setStartIdx(Integer.parseInt(page));}
+		else 
+			search.setStartIdx(Integer.parseInt(page));
+		
 		List<CustomerInfo> allCust=customerManageService.searchCustomerInfoList(search);
 		model.addAttribute("cust", allCust);
 		
+		
+		
+		int endNum;
+		int total= customerManageService.getCustomerTypTotalCount(search);
+		
+		if(total%15==0 || total/15<0 ) {
+			endNum=total/15;
+		}
+		else{
+			endNum=total/15+1;
+			}
+	
+	
+		model.addAttribute("endNum",endNum);
+		model.addAttribute("custURL","searchMember.do");
 		return "admin/member/memberList";
 	}
 	//회원정보 삭제
@@ -142,76 +188,76 @@ public class MemberController {
 		return "admin/member/memberEdit";
 	}
 	//우편번호 찾기 팝업
-		@RequestMapping(value="/searchZipCode.do", method=RequestMethod.GET)
-		public String searchZipCode(HttpServletRequest request, HttpServletResponse response, ModelMap model, String custId) throws Exception {
-			model.addAttribute("custId", custId);
-			
-				return "admin/member/searchZipCode";
-		}
-		//우편번호 찾기 팝업
-		@RequestMapping(value="/searchZipCodeProc.do", method=RequestMethod.GET)
-		public String searchZipCodeProc(@ModelAttribute("searchAddress")SearchAddress sAdd,String custId, HttpServletRequest request, HttpServletResponse response, Map<String, Object> commandMap, ModelMap model,HttpSession session) throws Exception {
-	       
-			
-			
-			
-			
-			CustomerInfo cus =new CustomerInfo();
-			cus.setCustId(custId);
-			cus=customerManageService.getCustomerInfo2(cus);
-			
-			String birth = cus.getCustBirth();
-			if(!birth.isEmpty() || birth !=null){
-				cus = useStringToken(birth,"b",cus);
-			}
-			
-			String phone = cus.getCustPh();
-			if(!phone.isEmpty() || phone !=null){
-				cus = useStringToken(phone,"p",cus);
-			}
-			String mobile = cus.getCustMb();
-			if(!mobile.isEmpty() || mobile !=null){
-				cus = useStringToken(mobile,"m",cus);
-			}
-			
-			String mail=cus.getCustEmail();
-			if(!mail.isEmpty() || mail !=null || !mail.equals("")){
-				int a = mail.indexOf("@");
-				String mail1= mail.substring(0, a);
-				String mail2= mail.substring(a+1);
-				cus.seteMail1(mail1);
-				cus.seteMail2(mail2);
-			}
-			
-			String add = sAdd.getAddress();
-			add = new String(add.getBytes("8859_1"), "UTF-8");
-			cus.setCustAdd(add);
-			cus.setCustZip(sAdd.getZipCode());
-			
+	@RequestMapping(value="/searchZipCode.do", method=RequestMethod.GET)
+	public String searchZipCode(HttpServletRequest request, HttpServletResponse response, ModelMap model, String custId) throws Exception {
+		model.addAttribute("custId", custId);
 		
-			model.addAttribute("customer",cus);
-			
-			
-				return  "admin/member/memberEdit";
-			
-			
+			return "admin/member/searchZipCode";
+	}
+	//우편번호 찾기 팝업
+	@RequestMapping(value="/searchZipCodeProc.do", method=RequestMethod.GET)
+	public String searchZipCodeProc(@ModelAttribute("searchAddress")SearchAddress sAdd,String custId, HttpServletRequest request, HttpServletResponse response, Map<String, Object> commandMap, ModelMap model,HttpSession session) throws Exception {
+       
+		
+		
+		
+		
+		CustomerInfo cus =new CustomerInfo();
+		cus.setCustId(custId);
+		cus=customerManageService.getCustomerInfo2(cus);
+		
+		String birth = cus.getCustBirth();
+		if(!birth.isEmpty() || birth !=null){
+			cus = useStringToken(birth,"b",cus);
 		}
-		//주소 찾기 action
-		@RequestMapping(value="/searchAddress.do", method=RequestMethod.GET)
-		public String searchAddress(@ModelAttribute("userInfo") UserInfo userInfo,String custId,BindingResult result, Model model,String dong) throws ParserConfigurationException, SAXException, IOException{
-			dong = new String(dong.getBytes("8859_1"), "UTF-8");
-			
-			 List<SearchAddress> nList =Utility.searchAdd(dong);
-			
-				model.addAttribute("nList", nList);
-				model.addAttribute("custId",custId);
-				return "admin/member/searchZipCode";
+		
+		String phone = cus.getCustPh();
+		if(!phone.isEmpty() || phone !=null){
+			cus = useStringToken(phone,"p",cus);
 		}
+		String mobile = cus.getCustMb();
+		if(!mobile.isEmpty() || mobile !=null){
+			cus = useStringToken(mobile,"m",cus);
+		}
+		
+		String mail=cus.getCustEmail();
+		if(!mail.isEmpty() || mail !=null || !mail.equals("")){
+			int a = mail.indexOf("@");
+			String mail1= mail.substring(0, a);
+			String mail2= mail.substring(a+1);
+			cus.seteMail1(mail1);
+			cus.seteMail2(mail2);
+		}
+		
+		String add = sAdd.getAddress();
+		add = new String(add.getBytes("8859_1"), "UTF-8");
+		cus.setCustAdd(add);
+		cus.setCustZip(sAdd.getZipCode());
+		
+	
+		model.addAttribute("customer",cus);
+		
+		
+			return  "admin/member/memberEdit";
+		
+		
+	}
+	//주소 찾기 action
+	@RequestMapping(value="/searchAddress.do", method=RequestMethod.GET)
+	public String searchAddress(@ModelAttribute("userInfo") UserInfo userInfo,String custId,BindingResult result, Model model,String dong) throws ParserConfigurationException, SAXException, IOException{
+		dong = new String(dong.getBytes("8859_1"), "UTF-8");
+		
+		 List<SearchAddress> nList =Utility.searchAdd(dong);
+		
+			model.addAttribute("nList", nList);
+			model.addAttribute("custId",custId);
+			return "admin/member/searchZipCode";
+	}
 	//회원정보 수정 처리
 	@RequestMapping(value="/memberEditProc.do", method= RequestMethod.POST)
 	public String memberEditProc(@ModelAttribute("customerInfo") CustomerInfo customerInfo, BindingResult result, Model model, HttpSession session){
 		
-		String birth = customerInfo.getBirthY()+"-"+customerInfo.getBirthM()+"-"+customerInfo.getBirthD();
+		String birth = "1990-11-12";
 		customerInfo.setCustBirth(birth);
 		
 		String phone=customerInfo.getTelNo1()+"-"+customerInfo.getTelNo2()+"-"+customerInfo.getTelNo3();

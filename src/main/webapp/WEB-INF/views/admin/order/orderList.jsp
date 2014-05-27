@@ -11,38 +11,49 @@
 	   <c:param name="slot" value="order"/>
 	</c:import>
  <div id="Contents">
-	<h1>주문관리 &gt; 주문서리스트 &gt; 
+	<h1>주문관리 &gt; 주문서리스트 &gt;
 	<c:choose>
 		<c:when test="${sh eq 'all'}"> 
 			<strong>전체리스트</strong>
+			<c:set var="ordUrl" value="orderList.do"/>
 		</c:when>
 		<c:when test="${sh eq 'ordering'}"> 
 			<strong>신청중</strong>
+			<c:set var="ordUrl" value="orderingList.do"/>
 		</c:when>
 		<c:when test="${sh eq 'orderComplete'}"> 
 			<strong>결제완료</strong>
+			<c:set var="ordUrl" value="orderCompleteList.do"/>
 		</c:when>
 		<c:when test="${sh eq 'Transfering'}"> 
 			<strong>배송중</strong>
+			<c:set var="ordUrl" value="orderTransferingList.do"/>
 		</c:when>
 		<c:when test="${sh eq 'TransferReady'}"> 
 			<strong>배송준비중</strong>
+			<c:set var="ordUrl" value="orderTransferReadyList.do"/>
 		</c:when>
 		<c:when test="${sh eq 'cancel'}"> 
 			<strong>취소신청</strong>
+			<c:set var="ordUrl" value="orderCancelList.do"/>
 		</c:when>
 		<c:when test="${sh eq 'cancelComplete'}"> 
 			<strong>취소완료</strong>
+			<c:set var="ordUrl" value="orderCancelCompleteList.do"/>
 		</c:when>
 		<c:when test="${sh eq 'return'}"> 
 			<strong>반품신청</strong>
+			<c:set var="ordUrl" value="orderTakeBackList.do"/>
 		</c:when>
 		<c:when test="${sh eq 'retrunComplete'}"> 
 			<strong>반품완료</strong>
+			<c:set var="ordUrl" value="orderTakeBackCompleteList.do"/>
+		</c:when>
+		<c:when test="${sh eq 'search'}"> 
+			<strong>검색결과</strong>
+			<c:set var="ordUrl" value="orderSearchList.do"/>
 		</c:when>
 				
-				
-	
 	</c:choose>
 	</h1>
 	<form id="sfrm" name="sfrm" method="get" action="orderSearchList.do">
@@ -53,8 +64,8 @@
 				<td class="left">
 					<div style="margin-top:5px;">
 						<b>주문날짜검색</b> <input type="checkbox" id="schChkDate" name="schChkDate" value="Y" onClick="dateDisable();" checked/> &nbsp;&nbsp;
-							<input type="text" id="srchStdDt" name="srchStdDt" class="Text Kor" style="width:65px;" /> 일 부터
-							<input type="text" id="srchEdDt" name="srchEdDt" class="Text Kor" style="width:65px;" />일 까지 &nbsp;&nbsp;
+							<input type="text" id="srchStdDt" name="srchStdDt" value="${srchStdDt}" class="Text Kor" style="width:65px;" /> 일 부터
+							<input type="text" id="srchEdDt" name="srchEdDt" value="${srchEdDt}" class="Text Kor" style="width:65px;" />일 까지 &nbsp;&nbsp;
 					</div>
 		
 					<div style="margin-top:5px;">
@@ -134,7 +145,7 @@
 
 	<div align="center" style="padding-top:10px;">
 		<c:forEach var="i" begin="1" end="${endNum}">
-				<input type="button" value="${i}" onClick="javascript:location.href='orderList.do?page=${i}'">				
+				<input type="button" value="${i}" onClick="javascript:location.href='${ordUrl}?page=${i}'">				
 		</c:forEach>
 	</div>
 	
@@ -145,4 +156,24 @@
 </div>
 </body>
 
+<script language="JavaScript" type="text/JavaScript">
+<!--
+$(document).ready(function() {
+	var dates = $("#srchStdDt,#srchEdDt").datepicker({
+		changeYear: true,
+		changeMonth: true,
+		showMonthAfterYear: true,
+		onSelect: function(selectedDate) {
+			var option = this.id == "srchStdDt" ? "minDate": "maxDate",
+			instance = $(this).data("datepicker"),
+			date = $.datepicker.parseDate(instance.settings.dateFormat || $.datepicker._defaults.dateFormat, selectedDate, instance.settings);
+			dates.not(this).datepicker("option", option, date);
+		}
+	});
+
+});
+//-->
+</script>
+
 <c:import url="../inc/footer.jsp" />
+

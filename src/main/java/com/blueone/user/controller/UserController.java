@@ -241,14 +241,20 @@ public class UserController {
 		dong = new String(dong.getBytes("8859_1"), "UTF-8");
 	
 		int lastIdx = dong.lastIndexOf("동");
-		if(dong.equals(dong.indexOf(lastIdx))&&!StringUtils.isEmpty(dong)&&!dong.isEmpty()){
+		
+		if(lastIdx!=-1){
+			if(dong.substring(lastIdx).equals("동")&&!StringUtils.isEmpty(dong)&&!dong.isEmpty()){
+				
 			
-		
-		 List<SearchAddress> nList =Utility.searchAdd(dong);
-		
-			model.addAttribute("nList", nList);
-			model.addAttribute("type",type);
-			return "user/searchZipCode";
+			 List<SearchAddress> nList =Utility.searchAdd(dong);
+			
+				model.addAttribute("nList", nList);
+				model.addAttribute("type",type);
+				return "user/searchZipCode";
+				
+			}else{
+				return "redirect:/user/searchZipCode.do?type="+type;
+			}
 		}else{
 			return "redirect:/user/searchZipCode.do?type="+type;
 		}

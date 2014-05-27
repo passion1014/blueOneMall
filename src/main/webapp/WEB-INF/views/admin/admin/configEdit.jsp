@@ -71,8 +71,6 @@
 					</select>
 					</td>
 				</tr>
-				
-				
 			</table>
 		
 			<div style="margin-top:20px;" class="center">

@@ -2091,7 +2091,7 @@ public final class Utility
 				  
 		}
 		 Document doc=docBuilder.parse(query);
-		 
+		 if(doc!=null){
 		 nodeDOC=doc.getElementsByTagName("item");
 		 
 		  for (int temp = 0; temp < nodeDOC.getLength(); temp++) {
@@ -2112,7 +2112,8 @@ public final class Utility
 
 
 		  }
-		return result;
+		}
+		 return result;
 	}
 
 }

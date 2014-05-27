@@ -2,6 +2,26 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 
 <c:import  url="../inc/topSub.jsp" />
+
+<script language="JavaScript" type="text/JavaScript">
+<!--
+$(document).ready(function() {
+	var dates = $("#srchStdDt,#srchEdDt").datepicker({
+		changeYear: true,
+		changeMonth: true,
+		showMonthAfterYear: true,
+		onSelect: function(selectedDate) {
+			var option = this.id == "srchStdDt" ? "minDate": "maxDate",
+			instance = $(this).data("datepicker"),
+			date = $.datepicker.parseDate(instance.settings.dateFormat || $.datepicker._defaults.dateFormat, selectedDate, instance.settings);
+			dates.not(this).datepicker("option", option, date);
+		}
+	});
+
+});
+//-->
+</script>
+
 <html>
 <body>
 	<div class="wrap">
@@ -23,10 +43,10 @@
 							<li class="datebox">
 								<span class="tit">주문일자</span>
 								<span>
-									<input type="text" title="날짜박스" id="srchStdDt" name="srchStdDt" value="2014-05-23"/>
-									<a href=""><img src="<c:url value='/resources/img/common/btn_date.gif'/>" alt="날짜체크박스"/></a>&nbsp; ~ &nbsp;
-									<input type="text" title="날짜박스" id="srchEdDt" name="srchEdDt"  value="2014-05-24"/>
-									<a href=""><img src="<c:url value='/resources/img/common/btn_date.gif'/>" alt="날짜체크박스"/></a>
+									<input type="text" title="날짜박스" id="srchStdDt" name="srchStdDt" value="${srchStdDt}"/>
+									<!--<a><img src="<c:url value='/resources/img/common/btn_date.gif'/>" alt="날짜체크박스" onClick="dateDisable();"/></a>-->&nbsp; ~ &nbsp;
+									<input type="text" title="날짜박스" id="srchEdDt" name="srchEdDt"  value="${srchEdDt}"/>
+									<!--<a><img src="<c:url value='/resources/img/common/btn_date.gif'/>" alt="날짜체크박스" onClick="dateDisable();"/></a>-->
 									<button class="titext">당일</button>
 									<button>1개월</button>
 									<button>3개월</button>

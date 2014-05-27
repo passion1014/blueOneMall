@@ -63,13 +63,15 @@ public class OrderManageController {
 		model.addAttribute("odList",odList);
 		model.addAttribute("sh","all");
 		OrderSrchInfo orderSrchInfo = new OrderSrchInfo();
+		
 		int endNum;
 		int total= orderManageService.getOrderTypTotalCount(orderSrchInfo);
-		if(total%5==0) {
-			endNum=total/5;
+		
+		if(total%15==0 || total/15<0 ) {
+			endNum=total/15;
 		}
 		else{
-			endNum=total/5+1;
+			endNum=total/15+1;
 			}
 		
 		
@@ -175,7 +177,7 @@ public class OrderManageController {
 
 	//주문검색
 	@RequestMapping(value="/orderSearchList.do", method= RequestMethod.GET)
-	public String orderSearchList(@ModelAttribute("AdminInfo") AdminInfo adminInfo,OrderSrchInfo orderInfo, BindingResult result, Model model,HttpSession session){
+	public String orderSearchList(@ModelAttribute("AdminInfo") AdminInfo adminInfo,OrderSrchInfo orderInfo, String page,BindingResult result, Model model,HttpSession session){
 
 		AdminInfo adminSession = (AdminInfo) session.getAttribute("adminSession");
 
@@ -184,18 +186,38 @@ public class OrderManageController {
 		}
 
 		
-		List<OrderInfo> odList= orderManageService.getOrderInfoListBySchInfo(orderInfo);
+		
+		
+		
+		if (StringUtils.isEmpty(page))
+			{page="1";orderInfo.setStartIdx(Integer.parseInt(page));}
+		else 
+			orderInfo.setStartIdx(Integer.parseInt(page));
+		
+		List<OrderInfo> odList =orderManageService.getOrderInfoListBySchInfo(orderInfo);
+		
 		model.addAttribute("odList",odList);
-		model.addAttribute("sh","all");
+		model.addAttribute("sh","search");
+	
+		int endNum;
+		int total= orderManageService.getOrderTypTotalCount(orderInfo);
+		
+		if(total%15==0 || total/15<0  || total/15>0 ) {
+			endNum=total/15;
+		}
+		else{
+			endNum=total/15+1;
+		}
 		
 		
+		model.addAttribute("endNum",endNum);
 		
 		return "admin/order/orderList";
 	}
 	
 	//신청중
 	@RequestMapping(value="/orderingList.do", method= RequestMethod.GET)
-	public String orderingList(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model,HttpSession session){
+	public String orderingList(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result,String page, Model model,HttpSession session){
 
 		AdminInfo adminSession = (AdminInfo) session.getAttribute("adminSession");
 
@@ -204,13 +226,34 @@ public class OrderManageController {
 		}
 
 		
+	
 		OrderInfo os = new OrderInfo();
 		os.setOrderStatCd("01");
+		if (StringUtils.isEmpty(page))
+			{page="1";os.setStartIdx(Integer.parseInt(page));}
+		else 
+			os.setStartIdx(Integer.parseInt(page));
+		
 		List<OrderInfo> odList =orderManageService.getOrderInfoListByPeriod(os);
 		
 		model.addAttribute("odList",odList);
 		model.addAttribute("sh","ordering");
+		OrderSrchInfo orderSrchInfo = new OrderSrchInfo();
+		orderSrchInfo.setKeyfield(3);
+		orderSrchInfo.setKeyword("01");
 		
+		int endNum;
+		int total= orderManageService.getOrderTypTotalCount(orderSrchInfo);
+		
+		if(total%15==0 || total/15<0 ) {
+			endNum=total/15;
+		}
+		else{
+			endNum=total/15+1;
+			}
+		
+		
+		model.addAttribute("endNum",endNum);
 		
 		
 		return "admin/order/orderList";
@@ -218,7 +261,7 @@ public class OrderManageController {
 	
 	//주문완료
 	@RequestMapping(value="/orderCompleteList.do", method= RequestMethod.GET)
-	public String orderCompleteList(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model,HttpSession session){
+	public String orderCompleteList(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result,String page, Model model,HttpSession session){
 
 		AdminInfo adminSession = (AdminInfo) session.getAttribute("adminSession");
 
@@ -229,19 +272,38 @@ public class OrderManageController {
 		
 		OrderInfo os = new OrderInfo();
 		os.setOrderStatCd("02");
+		if (StringUtils.isEmpty(page))
+			{page="1";os.setStartIdx(Integer.parseInt(page));}
+		else 
+			os.setStartIdx(Integer.parseInt(page));
+		
 		List<OrderInfo> odList =orderManageService.getOrderInfoListByPeriod(os);
 		
 		model.addAttribute("odList",odList);
 		model.addAttribute("sh","orderComplete");
+		OrderSrchInfo orderSrchInfo = new OrderSrchInfo();
+		orderSrchInfo.setKeyfield(3);
+		orderSrchInfo.setKeyword("02");
+		
+		int endNum;
+		int total= orderManageService.getOrderTypTotalCount(orderSrchInfo);
+		
+		if(total%15==0 || total/15<0 ) {
+			endNum=total/15;
+		}
+		else{
+			endNum=total/15+1;
+			}
 		
 		
+		model.addAttribute("endNum",endNum);
 		
 		return "admin/order/orderList";
 	}
 	
 	//배송중
 	@RequestMapping(value="/orderTransferingList.do", method= RequestMethod.GET)
-	public String orderTransferingList(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model,HttpSession session){
+	public String orderTransferingList(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result,String page, Model model,HttpSession session){
 
 		AdminInfo adminSession = (AdminInfo) session.getAttribute("adminSession");
 
@@ -252,11 +314,32 @@ public class OrderManageController {
 		
 		OrderInfo os = new OrderInfo();
 		os.setOrderStatCd("04");
+		if (StringUtils.isEmpty(page))
+		{page="1";os.setStartIdx(Integer.parseInt(page));}
+		else 
+			os.setStartIdx(Integer.parseInt(page));
+		
 		List<OrderInfo> odList =orderManageService.getOrderInfoListByPeriod(os);
 		
 		model.addAttribute("odList",odList);
 		model.addAttribute("sh","Transfering");
+		OrderSrchInfo orderSrchInfo = new OrderSrchInfo();
+		orderSrchInfo.setKeyfield(3);
+		orderSrchInfo.setKeyword("04");
 		
+		int endNum;
+		int total= orderManageService.getOrderTypTotalCount(orderSrchInfo);
+		
+		if(total%15==0 || total/15<0 ) {
+			endNum=total/15;
+		}
+		else{
+			endNum=total/15+1;
+			}
+		
+		
+		model.addAttribute("endNum",endNum);
+	
 		
 		
 		return "admin/order/orderList";
@@ -264,7 +347,7 @@ public class OrderManageController {
 	
 	// 배송준비중
 	@RequestMapping(value = "/orderTransferReadyList.do", method = RequestMethod.GET)
-	public String orderTransferReadyList(@ModelAttribute("AdminInfo") AdminInfo adminInfo,BindingResult result, Model model, HttpSession session) {
+	public String orderTransferReadyList(@ModelAttribute("AdminInfo") AdminInfo adminInfo,BindingResult result, String page, Model model, HttpSession session) {
 		
 		  AdminInfo adminSession = (AdminInfo) session.getAttribute("adminSession");
 		  
@@ -273,17 +356,38 @@ public class OrderManageController {
 
 		OrderInfo os = new OrderInfo();
 		os.setOrderStatCd("03");
-		List<OrderInfo> odList = orderManageService
-				.getOrderInfoListByPeriod(os);
-
-		model.addAttribute("odList", odList);
-		model.addAttribute("sh", "TransferReady");
+		if (StringUtils.isEmpty(page))
+		{page="1";os.setStartIdx(Integer.parseInt(page));}
+		else 
+			os.setStartIdx(Integer.parseInt(page));
+		
+		List<OrderInfo> odList =orderManageService.getOrderInfoListByPeriod(os);
+		
+		model.addAttribute("odList",odList);
+		model.addAttribute("sh","TransferReady");
+		OrderSrchInfo orderSrchInfo = new OrderSrchInfo();
+		orderSrchInfo.setKeyfield(3);
+		orderSrchInfo.setKeyword("03");
+		
+		int endNum;
+		int total= orderManageService.getOrderTypTotalCount(orderSrchInfo);
+		
+		if(total%15==0 || total/15<0 ) {
+			endNum=total/15;
+		}
+		else{
+			endNum=total/15+1;
+			}
+		
+		
+		model.addAttribute("endNum",endNum);
+	
 
 		return "admin/order/orderList";
 	}
 	// 주문취소신청
 	@RequestMapping(value = "/orderCancelList.do", method = RequestMethod.GET)
-	public String orderCancelList(@ModelAttribute("AdminInfo") AdminInfo adminInfo,BindingResult result, Model model, HttpSession session) {
+	public String orderCancelList(@ModelAttribute("AdminInfo") AdminInfo adminInfo,BindingResult result,String page, Model model, HttpSession session) {
 		
 		  AdminInfo adminSession = (AdminInfo) session.getAttribute("adminSession");
 		  
@@ -292,16 +396,39 @@ public class OrderManageController {
 
 		OrderInfo os = new OrderInfo();
 		os.setOrderStatCd("07");
-		List<OrderInfo> odList = orderManageService.getOrderInfoListByPeriod(os);
+		
+		if (StringUtils.isEmpty(page))
+		{page="1";os.setStartIdx(Integer.parseInt(page));}
+		else 
+			os.setStartIdx(Integer.parseInt(page));
+		
+		List<OrderInfo> odList =orderManageService.getOrderInfoListByPeriod(os);
+		
+		model.addAttribute("odList",odList);
+		model.addAttribute("sh","cancel");
+		OrderSrchInfo orderSrchInfo = new OrderSrchInfo();
+		orderSrchInfo.setKeyfield(3);
+		orderSrchInfo.setKeyword("07");
+		
+		int endNum;
+		int total= orderManageService.getOrderTypTotalCount(orderSrchInfo);
+		
+		if(total%15==0 || total/15<0 ) {
+			endNum=total/15;
+		}
+		else{
+			endNum=total/15+1;
+			}
+		
+		
+		model.addAttribute("endNum",endNum);
 
-		model.addAttribute("odList", odList);
-		model.addAttribute("sh", "cancel");
 
 		return "admin/order/orderList";
 	}
 	//주문취소신청완료
 	@RequestMapping(value = "/orderCancelCompleteList.do", method = RequestMethod.GET)
-	public String orderCancelCompleteList(@ModelAttribute("AdminInfo") AdminInfo adminInfo,BindingResult result, Model model, HttpSession session) {
+	public String orderCancelCompleteList(@ModelAttribute("AdminInfo") AdminInfo adminInfo,BindingResult result,String page, Model model, HttpSession session) {
 		
 		  AdminInfo adminSession = (AdminInfo) session.getAttribute("adminSession");
 		  
@@ -310,17 +437,38 @@ public class OrderManageController {
 
 		OrderInfo os = new OrderInfo();
 		os.setOrderStatCd("08");
-		List<OrderInfo> odList = orderManageService
-				.getOrderInfoListByPeriod(os);
+		if (StringUtils.isEmpty(page))
+		{page="1";os.setStartIdx(Integer.parseInt(page));}
+		else 
+			os.setStartIdx(Integer.parseInt(page));
+		
+		List<OrderInfo> odList =orderManageService.getOrderInfoListByPeriod(os);
+		
+		model.addAttribute("odList",odList);
+		model.addAttribute("sh","cancelComplete");
+		OrderSrchInfo orderSrchInfo = new OrderSrchInfo();
+		orderSrchInfo.setKeyfield(3);
+		orderSrchInfo.setKeyword("08");
+		
+		int endNum;
+		int total= orderManageService.getOrderTypTotalCount(orderSrchInfo);
+		
+		if(total%15==0 || total/15<0 ) {
+			endNum=total/15;
+		}
+		else{
+			endNum=total/15+1;
+			}
+		
+		
+		model.addAttribute("endNum",endNum);
 
-		model.addAttribute("odList", odList);
-		model.addAttribute("sh", "cancelComplete");
 
 		return "admin/order/orderList";
 	}
 	// 반품신청
 	@RequestMapping(value = "/orderTakeBackList.do", method = RequestMethod.GET)
-	public String orderTakeBackList(@ModelAttribute("AdminInfo") AdminInfo adminInfo,BindingResult result, Model model, HttpSession session) {
+	public String orderTakeBackList(@ModelAttribute("AdminInfo") AdminInfo adminInfo,BindingResult result,String page, Model model, HttpSession session) {
 		
 		  AdminInfo adminSession = (AdminInfo) session.getAttribute("adminSession");
 		  
@@ -329,18 +477,39 @@ public class OrderManageController {
 
 		OrderInfo os = new OrderInfo();
 		os.setOrderStatCd("09");
-		List<OrderInfo> odList = orderManageService
-				.getOrderInfoListByPeriod(os);
+		if (StringUtils.isEmpty(page))
+		{page="1";os.setStartIdx(Integer.parseInt(page));}
+		else 
+			os.setStartIdx(Integer.parseInt(page));
+		
+		List<OrderInfo> odList =orderManageService.getOrderInfoListByPeriod(os);
+		
+		model.addAttribute("odList",odList);
+		model.addAttribute("sh","return");
+		OrderSrchInfo orderSrchInfo = new OrderSrchInfo();
+		orderSrchInfo.setKeyfield(3);
+		orderSrchInfo.setKeyword("09");
+		
+		int endNum;
+		int total= orderManageService.getOrderTypTotalCount(orderSrchInfo);
+		
+		if(total%15==0 || total/15<0 ) {
+			endNum=total/15;
+		}
+		else{
+			endNum=total/15+1;
+			}
+		
+		
+		model.addAttribute("endNum",endNum);
 
-		model.addAttribute("odList", odList);
-		model.addAttribute("sh", "return");
 
 		return "admin/order/orderList";
 	}
 	
 	// 반품신청완료
 	@RequestMapping(value = "/orderTakeBackCompleteList.do", method = RequestMethod.GET)
-	public String orderTakeBackCompleteList(@ModelAttribute("AdminInfo") AdminInfo adminInfo,BindingResult result, Model model, HttpSession session) {
+	public String orderTakeBackCompleteList(@ModelAttribute("AdminInfo") AdminInfo adminInfo,BindingResult result,String page, Model model, HttpSession session) {
 		
 		  AdminInfo adminSession = (AdminInfo) session.getAttribute("adminSession");
 		  
@@ -349,11 +518,32 @@ public class OrderManageController {
 
 		OrderInfo os = new OrderInfo();
 		os.setOrderStatCd("10");
-		List<OrderInfo> odList = orderManageService
-				.getOrderInfoListByPeriod(os);
+		
+		if (StringUtils.isEmpty(page))
+		{page="1";os.setStartIdx(Integer.parseInt(page));}
+		else 
+			os.setStartIdx(Integer.parseInt(page));
+		
+		List<OrderInfo> odList =orderManageService.getOrderInfoListByPeriod(os);
+		
+		model.addAttribute("odList",odList);
+		model.addAttribute("sh","retrunComplete");
+		OrderSrchInfo orderSrchInfo = new OrderSrchInfo();
+		orderSrchInfo.setKeyfield(3);
+		orderSrchInfo.setKeyword("10");
+		int endNum;
+		int total= orderManageService.getOrderTypTotalCount(orderSrchInfo);
+		
+		if(total%15==0 || total/15<0 ) {
+			endNum=total/15;
+		}
+		else{
+			endNum=total/15+1;
+			}
+		
+		
+		model.addAttribute("endNum",endNum);
 
-		model.addAttribute("odList", odList);
-		model.addAttribute("sh", "retrunComplete");
 
 		return "admin/order/orderList";
 	}

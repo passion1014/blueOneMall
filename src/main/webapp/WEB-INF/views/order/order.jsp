@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html;charset=euc-kr"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c_rt"%> 
+<%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
 
-<c:import  url="../inc/topSub.jsp" />
-<c:import  url="../inc/topMain.jsp" />    
 <%
     /* ============================================================================== */
     /* =   PAGE : 결제 요청 PAGE                                                    = */
@@ -43,12 +43,25 @@
         }
     /* ============================================================================== */
 %>
-    
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" >
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Expires" content="0" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="imagetoolbar" content="no" />
 <title>###### 현대프로모션몰 ######</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
+<link type="text/css" rel="stylesheet" href="<c:url value='/resources/css/common.css'/>" />
+<link type="text/css" rel="stylesheet" href="<c:url value='/resources/css/sub.css'/>" />
+<link type="text/css" rel="stylesheet" href="<c:url value='/resources/css/custom-theme/jquery-ui-1.8.16.custom.css'/>" />
+
+<script type="text/javascript" src="<c:url value='/resources/js/jquery-1.4.3.min.js'/>"> </script>
+<script type="text/javascript" src="<c:url value='/resources/js/jquery-1.7.2.min.js'/>"> </script>
+<script type="text/javascript" src="<c:url value='/resources/js/jquery-ui-1.8.16.custom.min.js'/>"> </script>
+
+
 <link href="css/style.css" rel="stylesheet" type="text/css" id="cssLink"/>
 
 <%
@@ -104,7 +117,7 @@
 
         // Payplus Plug-in 설치 안내 
         function init_pay_button()
-        {
+        { 
             if ((navigator.userAgent.indexOf('MSIE') > 0) || (navigator.userAgent.indexOf('Trident/7.0') > 0))
             {
                 try
@@ -160,7 +173,7 @@
 
             var order_idxx = "TEST" + year + "" + month + "" + date + "" + time;
  */
-            document.order_info.ordr_idxx.value =document.getElementById('order_idxx').value;
+            //document.order_info.ordr_idxx.value =document.getElementById('order_idxx').value;
 
             /*
              * 인터넷 익스플로러와 파이어폭스(사파리, 크롬.. 등등)는 javascript 파싱법이 틀리기 때문에 object 가 인식 전에 실행 되는 문제
@@ -184,17 +197,17 @@
 <body onload="init_orderid();">
 	<div class="wrap">
 	<c:import url="../inc/header.jsp"/>
-<!--  header 끝   -->
-
+	
+	<!--  header 끝   -->
 	<div class="container">
 		<c:import url="../inc/orderLnb.jsp" />
 		<div class="sub_content">
+			
 			<!-- 주문정보 입력 form : order_info -->
 			<form name="order_info" method="post" action="/resources/kcp/pp_ax_hub.jsp" >
-			<input type="hidden" id="customerInfo.custId"  name="customerInfo.custId"  value="${cus.custId}">
-			<input type="hidden" id="ord_unit_chk"  name="ord_unit_chk"  value="${orderInfo.ord_unit_chk}">
-			<%-- <input type="hidden" id="orderNo"  name="orderNo"  value="${orderInfo.orderNo}"> --%>
-			<input type="hidden"  id="ordr_idxx" name="ordr_idxx" value="${orderInfo.orderNo}">
+			<input type="hidden" id="customerInfo.custId"        name="customerInfo.custId"  value="${cus.custId}">
+			<input type="hidden" id="ord_unit_chk"               name="ord_unit_chk"  value="${orderInfo.ord_unit_chk}">
+			<input type="hidden" id="ordr_idxx"                  name="ordr_idxx" value="${orderInfo.orderNo}">
 			<input type="hidden" id="customerInfo.modifyUserId"  name="customerInfo.modifyUserId"  value="${cus.custId}">
 			<c:if test="${odPrdInfo.size() == 1}"><input type="hidden"  name="good_name"  value="${odPrdInfo[0].prdNm}" /></c:if>
 			<c:if test="${odPrdInfo.size() != 1}"><input type="hidden" id="ordPrd.prdNm"   name="good_name" value="${odPrdInfo[0].prdNm} 외 ${odPrdInfo.size()-1}개" /></c:if>
@@ -211,8 +224,7 @@
 						<table class="order_tbl" summary="주문상품 리스트">
 							<caption>주문상품 목록표</caption>
 							<colgroup>
-								<col width="5%"/>
-								<col width="51%"/>
+								<col />
 								<col width="12%"/>
 								<col width="10%"/>
 								<col width="12%"/>
@@ -220,7 +232,7 @@
 							</colgroup>
 							<thead>
 								<tr>
-									<th>상품명/옵션</th>
+									<th>상품명 / 옵션</th>
 									<th>판매금액</th>
 									<th>수량</th>
 									<th>주문금액</th>
@@ -228,54 +240,48 @@
 								</tr>
 							</thead>
 							<tbody>
-								<c:choose>
-									<c:when test="${odPrdInfo.size() != 0}">
-										<c:forEach items="${odPrdInfo}" var="odPrdInfo" varStatus="i">
-								<tr>
-									<td class="product_area leftalign">
-										<span>
-										<img src="${odPrdInfo.prdSmallImg}"  alt="상품이미지"  width="71" height="71"></span>
-										<input type="hidden" id="orderProductList[${i.index}].prdCd" name="orderProductList[${i.index}].prdCd"  value="${odPrdInfo.prdCd}"  />
-										<input type="hidden" id="orderProductList[${i.index}].buyCnt" name="orderProductList[${i.index}].buyCnt"  value="${odPrdInfo.buyCnt}"  />
-										<input type="hidden" id="orderProductList[${i.index}].prdOption" name="orderProductList[${i.index}].prdOption"  value="${odPrdInfo.prdOption}"  />
-										 
-										 
-										<span>
-											${odPrdInfo.prdNm}
-											<c:if test="${'null' ne odPrdInfo.prdOpColor}">/${odPrdInfo.prdOpColor}</c:if>
-											<c:if test="${'null' ne odPrdInfo.prdOpSize}">/${odPrdInfo.prdOpSize}</c:if>
-											
-										</span>
-									</td>
-									<td>${odPrdInfo.sellPrice}</td>
-									<td>
-										<span class="input_text">${odPrdInfo.buyCnt}<%-- <input type="text" id="buyCnt${i.index}" naem="buyCnt${i.index}" value="${odPrdInfo.buyCnt}" title="수량기입"><!-- <button class="btn_triangle1"></button> --> --%></span>
-										<span class="input_btn"><%-- <input type="button" value="수정" title="수정" onClick="location.href='editOrderBuycn.do?ordIdx=${i.index}&ord_unit_chk=${orderInfo.ord_unit_chk}&orderProductList[${i.index}].buyCnt='+document.getElementById('buyCnt${i.index}').value;"> <!-- <button class="btn_triangle2"></button> --> --%></span>
-									</td>
-									<td>${odPrdInfo.totalPrice}</td>
-									<td>
-										<input type="button" value="삭제하기"class="btn_choice2" onClick="confirm_process('','해당 상품을 삭제하시겠습니까?','deleteOrderList.do?cookieKey=${odPrdInfo.cookieKey}&ord_unit_chk=${orderInfo.ord_unit_chk}');" />
-									</td>
-									<tr>
-									<td class="one_choice" colspan="6">
-									</td>
-								</tr>
-								</tr>
-								</c:forEach>
+							<c:choose>
+								<c:when test="${odPrdInfo.size() != 0}">
+									<c:forEach items="${odPrdInfo}" var="odPrdInfo" varStatus="i">
+										<tr>
+											<td class="product_area leftalign">
+												<span>
+													<img src="${odPrdInfo.prdSmallImg}"  alt="상품이미지"  width="71" height="71">
+												</span>
+												<input type="hidden" id="orderProductList[${i.index}].prdCd" name="orderProductList[${i.index}].prdCd"  value="${odPrdInfo.prdCd}"  />
+												<input type="hidden" id="orderProductList[${i.index}].buyCnt" name="orderProductList[${i.index}].buyCnt"  value="${odPrdInfo.buyCnt}"  />
+												<input type="hidden" id="orderProductList[${i.index}].prdOption" name="orderProductList[${i.index}].prdOption"  value="${odPrdInfo.prdOption}"  />
+												<span>
+													${odPrdInfo.prdNm}
+													<c:if test="${'null' ne odPrdInfo.prdOpColor}">/${odPrdInfo.prdOpColor}</c:if>
+													<c:if test="${'null' ne odPrdInfo.prdOpSize}">/${odPrdInfo.prdOpSize}</c:if>
+												</span>
+											</td>
+											<td>${odPrdInfo.sellPrice}</td>
+											<td>
+												<span class="input_text">${odPrdInfo.buyCnt}</span>
+											</td>
+											<td>${odPrdInfo.totalPrice}</td>
+											<td>
+												<input type="button" value="삭제하기"class="btn_choice2" onClick="confirm_process('','해당 상품을 삭제하시겠습니까?','deleteOrderList.do?cookieKey=${odPrdInfo.cookieKey}&ord_unit_chk=${orderInfo.ord_unit_chk}');" />
+											</td>
+										</tr>
+										<tr><td height="1" colspan="6" bgcolor="#E0E0E0"></td></tr>
+									</c:forEach>
 								</c:when>
-								<c:otherwise><tr><td>구매하실 상품이 없습니다.</td></tr></c:otherwise>
+								<c:otherwise><tr><td colspan="5">구매하실 상품이 없습니다.</td></tr></c:otherwise>
 								</c:choose>
 								<tr>
 									<c:set var="total"  value="0"/>
 									<td class="total_choice" colspan="6">
 										총 주문금액 : 
 										<c:forEach items="${odPrdInfo}" var="odPrdInfo">
-										${odPrdInfo.totalPrice}원 +
+										${odPrdInfo.totalPrice} 원 +
 										<c:set var="total" value="${total+odPrdInfo.totalPrice}"/>
 										</c:forEach>
-										 <c:if test="${total>=config.buyPrice}">배송비 : ${config.trasferPrice}원</c:if>
-										 <c:if test="${total<config.buyPrice}">배송비 : 0원 </c:if>
-										 = 합계 <strong>${total}</strong>원
+										 <c:if test="${total<config.buyPrice}">배송비 : ${config.trasferPrice} 원</c:if>
+										 <c:if test="${total>=config.buyPrice}">배송비 : 0 원 </c:if>
+										 = 합계 &nbsp; <strong>${total}</strong> 원
 										 <input type="hidden" id="sndAmount"  name="sndAmount"  value="${total}" />
 										 <input type="hidden"  name="good_mny"  value="${total}"/>
 			
@@ -293,7 +299,7 @@
 								<col width="15%"/>
 								<col width="35%"/>
 								<col width="15%"/>
-								<col width="35%"/>
+								<col width="*"/>
 							</colgroup>
 							<tbody>
 								<tr>
@@ -304,24 +310,24 @@
 									<th>전화번호</th>
 									<td class="in_sectext">
 										<select  name="customerInfo.telNo1" id="telNo1">
-											<option <c:if test="${cus.telNo1}">selected</c:if>>02</option>
-											<option <c:if test="${cus.telNo1}">selected</c:if>>031</option>
-											<option <c:if test="${cus.telNo1}">selected</c:if>>032</option>
-											<option <c:if test="${cus.telNo1}">selected</c:if>>033</option>
-											<option <c:if test="${cus.telNo1}">selected</c:if>>041</option>
-											<option <c:if test="${cus.telNo1}">selected</c:if>>042</option>
-											<option <c:if test="${cus.telNo1}">selected</c:if>>043</option>
-											<option <c:if test="${cus.telNo1}">selected</c:if>>051</option>
-											<option <c:if test="${cus.telNo1}">selected</c:if>>052</option>
-											<option <c:if test="${cus.telNo1}">selected</c:if>>053</option>
-											<option <c:if test="${cus.telNo1}">selected</c:if>>054</option>
-											<option <c:if test="${cus.telNo1}">selected</c:if>>061</option>
-											<option <c:if test="${cus.telNo1}">selected</c:if>>062</option>
-											<option <c:if test="${cus.telNo1}">selected</c:if>>063</option>
-											<option <c:if test="${cus.telNo1}">selected</c:if>>064</option>
+											<option <c:if test="${cus.telNo1 eq '02'}">selected</c:if>>02</option>
+											<option <c:if test="${cus.telNo1 eq '031'}">selected</c:if>>031</option>
+											<option <c:if test="${cus.telNo1 eq '032'}">selected</c:if>>032</option>
+											<option <c:if test="${cus.telNo1 eq '033'}">selected</c:if>>033</option>
+											<option <c:if test="${cus.telNo1 eq '041'}">selected</c:if>>041</option>
+											<option <c:if test="${cus.telNo1 eq '042'}">selected</c:if>>042</option>
+											<option <c:if test="${cus.telNo1 eq '043'}">selected</c:if>>043</option>
+											<option <c:if test="${cus.telNo1 eq '051'}">selected</c:if>>051</option>
+											<option <c:if test="${cus.telNo1 eq '052'}">selected</c:if>>052</option>
+											<option <c:if test="${cus.telNo1 eq '053'}">selected</c:if>>053</option>
+											<option <c:if test="${cus.telNo1 eq '054'}">selected</c:if>>054</option>
+											<option <c:if test="${cus.telNo1 eq '061'}">selected</c:if>>061</option>
+											<option <c:if test="${cus.telNo1 eq '062'}">selected</c:if>>062</option>
+											<option <c:if test="${cus.telNo1 eq '063'}">selected</c:if>>063</option>
+											<option <c:if test="${cus.telNo1 eq '064'}">selected</c:if>>064</option>
 										</select>
-										-<input type="text" title="전화번호" name="customerInfo.telNo2" id="telNo2" value="${cus.telNo2}" />-
-										<input type="text" title="전화번호" name="customerInfo.telNo3" id="telNo3" value="${cus.telNo3}"/>
+										-<input type="text"  title="전화번호" name="customerInfo.telNo2" id="telNo2" value="${cus.telNo2}" />-
+										<input type="text"   title="전화번호" name="customerInfo.telNo3" id="telNo3" value="${cus.telNo3}"/>
 										 <input type="hidden" name="buyr_tel1" value="document.getElementById(telNo1)+document.getElementById(telNo2)+document.getElementById(telNo3);"/>		
 									</td>
 								</tr>
@@ -329,15 +335,15 @@
 									<th>휴대전화</th>
 									<td class="in_sectext">
 										<select  name="customerInfo.hpNo1" id="hpNo1">
-											<option <c:if test="${cus.hpNo1}">selected</c:if>>010</option>
-											<option <c:if test="${cus.hpNo1}">selected</c:if>>011</option>
-											<option <c:if test="${cus.hpNo1}">selected</c:if>>017</option>
-											<option <c:if test="${cus.hpNo1}">selected</c:if>>016</option>
-											<option <c:if test="${cus.hpNo1}">selected</c:if>>019</option>
-											<option <c:if test="${cus.hpNo1}">selected</c:if>>018</option>
+											<option <c:if test="${cus.hpNo1 eq '010'}">selected</c:if>>010</option>
+											<option <c:if test="${cus.hpNo1 eq '011'}">selected</c:if>>011</option>
+											<option <c:if test="${cus.hpNo1 eq '016'}">selected</c:if>>016</option>
+											<option <c:if test="${cus.hpNo1 eq '017'}">selected</c:if>>017</option>
+											<option <c:if test="${cus.hpNo1 eq '018'}">selected</c:if>>018</option>
+											<option <c:if test="${cus.hpNo1 eq '019'}">selected</c:if>>019</option>
 										</select>
 										-<input type="text"  name="customerInfo.hpNo2" id="hpNo2"title="휴대전화번호" value="${cus.hpNo2}"/>-
-										<input type="text"  name="customerInfo.hpNo3" id="hpNo3" title="휴대전화번호" value="${cus.hpNo3}"/>
+										<input type="text"   name="customerInfo.hpNo3" id="hpNo3" title="휴대전화번호" value="${cus.hpNo3}"/>
 										<input type="hidden" name="buyr_tel2" value="document.getElementById(hpNo1)+document.getElementById(hpNo2)+document.getElementById(hpNo3);"/>	
 									</td>
 									<th>이메일</th>
@@ -354,40 +360,39 @@
 								<col width="15%"/>
 								<col width="35%"/>
 								<col width="15%"/>
-								<col width="35%"/>
+								<col width="*"/>
 							</colgroup>
 							<tbody>
 								<tr>
 									<th>배송지 선택</th>
 									<td class="check_box">
+										<input type="radio" id="basic_check" name="choice" checked/><label for="basic_check">기본배송지</label> &nbsp;&nbsp;
 										<input type="radio" id="new_check" name="choice"/><label for="new_check">새로입력</label>
-										<input type="radio" id="basic_check" name="choice"/><label for="basic_check">기본배송지</label>
-										<button><img src="<c:url value='/resources/img/./images/common/btn_checkbox.gif'/>" alt="내 배송지에서 선택이미지"/></button>
 									</td>
 									<th>받으시는분</th>
 									<td class="in_text">
-										<input type="text" id="reciInfo.reciNm" name="reciInfo.reciNm" title="받으시는분 성명 기입"/>
+										<input type="text" id="reciInfo.reciNm" name="reciInfo.reciNm" value="${cus.custNm}" title="받으시는분 성명 기입"/>
 									</td>
 								</tr>
 								<tr>
 									<th>전화번호</th>
 									<td class="in_sectext">
 										<select  id="reciInfo.reciPh" name="reciInfo.reciPh" >
-											<option selected>02</option>
-											<option>031</option>
-											<option>032</option>
-											<option>033</option>
-											<option>041</option>
-											<option>042</option>
-											<option>043</option>
-											<option>051</option>
-											<option>052</option>
-											<option>053</option>
-											<option>054</option>
-											<option>061</option>
-											<option>062</option>
-											<option>063</option>
-											<option>064</option>
+											<option value="02" selected>02</option>
+											<option value="031">031</option>
+											<option value="032">032</option>
+											<option value="033">033</option>
+											<option value="041">041</option>
+											<option value="042">042</option>
+											<option value="043">043</option>
+											<option value="051">051</option>
+											<option value="052">052</option>
+											<option value="053">053</option>
+											<option value="054">054</option>
+											<option value="061">061</option>
+											<option value="062">062</option>
+											<option value="063">063</option>
+											<option value="064">064</option>
 										</select>
 										-<input type="text" id="reciInfo.reciPh" name="reciInfo.reciPh" title="전화번호"/>-
 										<input type="text"  id="reciInfo.reciPh" name="reciInfo.reciPh" title="전화번호"/>
@@ -720,3 +725,14 @@
 </div>
 </body>
 </html>
+
+<!-- 결제 요청/처음으로 이미지 -->
+<div class="btnset" id="display_pay_button" style="display:block"></div>
+
+<!-- Payplus Plug-in 설치 안내 -->
+<div id="display_setup_message" style="display:none">
+	<p class="txt">
+	결제를 계속 하시려면 상단의 노란색 표시줄을 클릭 하시거나 <a href="http://pay.kcp.co.kr/plugin_new/file/KCPUXWizard.exe"><span>[수동설치]</span></a>를 눌러 Payplus Plug-in을 설치하시기 바랍니다.
+	[수동설치]를 눌러 설치하신 경우 새로고침(F5)키를 눌러 진행하시기 바랍니다.
+	</p>
+</div>

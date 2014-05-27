@@ -12,7 +12,8 @@ public interface ICustomerManageService {
 	public int updateCustomerInf(CustomerInfo customerInfo);
 	public CustomerInfo getCustomerInfo2(CustomerInfo customerInfo);
 	public int registUserInfo(CustomerInfo customerInfo);
-	public List<CustomerInfo> getCustomerInfoList();
+	public List<CustomerInfo> getCustomerInfoList(CustomerInfo custInfo);
 	public int deleteCustomerInf(CustomerInfo customerInfo);
 	public List<CustomerInfo> searchCustomerInfoList(CustomerInfo customerInfo);
+	public int getCustomerTypTotalCount(CustomerInfo customerInfo);
 }

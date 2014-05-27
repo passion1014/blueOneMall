@@ -69,7 +69,17 @@ public class CustomerInfo {
 	private String hpNo3;
 	
 	private List<CustomerContactInfo> customerContactList;
-
+	
+	private int startIdx;
+	
+	
+	public int getStartIdx() {
+		return startIdx;
+	}
+	public void setStartIdx(int inx) {
+		this.startIdx = inx*15-15;
+	}
+	
 	public String getMerryed() {
 		return merryed;
 	}

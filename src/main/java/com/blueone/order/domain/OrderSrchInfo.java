@@ -1,6 +1,6 @@
 package com.blueone.order.domain;
 
-import org.hibernate.validator.constraints.NotEmpty;
+
 
 /**
  * 주문목록조회를 위한 조회정보
@@ -11,7 +11,15 @@ public class OrderSrchInfo {
 	private String srchEdDt;
 	private int keyfield;
 	private String keyword;
+	private int startIdx;
 	
+	
+	public int getStartIdx() {
+		return startIdx;
+	}
+	public void setStartIdx(int inx) {
+		this.startIdx = inx*15-15;
+	}
 	
 	public int getKeyfield() {
 		return keyfield;

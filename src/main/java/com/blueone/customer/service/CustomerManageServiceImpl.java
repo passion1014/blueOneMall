@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.blueone.admin.domain.AccountInfo;
 import com.blueone.customer.domain.CustomerInfo;
 import com.blueone.customer.domain.CustomerSrchInfo;
+import com.blueone.order.domain.OrderSrchInfo;
 import com.blueone.product.domain.ProductInfo;
 import com.blueone.user.domain.UserInfo;
 
@@ -64,12 +65,12 @@ public class CustomerManageServiceImpl implements ICustomerManageService {
 	 * 모든 고객정보(CustomerInfo)를 가져온다. 3
 	 */
 	@Override
-	public List<CustomerInfo> getCustomerInfoList() {
+	public List<CustomerInfo> getCustomerInfoList(CustomerInfo custInfo) {
 		List<CustomerInfo> result = new ArrayList<CustomerInfo>();
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
-			result = sqlSession.selectList("customer.selectDtlBomCustTb0003");
+			result = sqlSession.selectList("customer.selectDtlBomCustTb0003",custInfo);
 		} finally {
 			sqlSession.close();
 		}
@@ -162,4 +163,19 @@ public class CustomerManageServiceImpl implements ICustomerManageService {
 			
 			return rst;
 		}
+		
+		@Override
+		public int getCustomerTypTotalCount(CustomerInfo customerInfo) {
+			Integer count = new Integer(0);
+			
+			SqlSession sqlSession = sqlSessionFactory.openSession();
+			try {
+				count = sqlSession.selectOne("customer.getCustomerTypTotalCount", customerInfo);
+			} finally {
+				sqlSession.close();
+			}
+			
+			return count;
+		}
+		
 }

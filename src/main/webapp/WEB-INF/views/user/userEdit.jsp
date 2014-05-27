@@ -40,8 +40,8 @@
 							<tbody>
 								<tr>
 									<th class="topline">이름</th>
-									<td class="topline"><input type="text" id="custNm" name="custNm" value="${customer.custNm}"/></td>
-									<th class="topline">생년월일</th>
+									<td class="topline" colspan="3"><input type="text" id="custNm" name="custNm" value="${customer.custNm}"/></td>
+									<%-- <th class="topline">생년월일</th>
 									<td class="topline">
 										<span class="in_text">
 											<select id="birthY" name="birthY">
@@ -78,7 +78,7 @@
 											<label for="man">남성</label>
 										</span>
 									</td>
-								</tr>
+								</tr> --%>
 								<tr>
 									<th>전화번호</th>
 									<td>

@@ -78,7 +78,7 @@
 
 			<c:otherwise>
 				<tr>
-					<th colspan="3">회원 정보가 없습니다.</th>
+					<td colspan="8" height="150">회원 정보가 없습니다.</th>
 				</tr>
 			</c:otherwise>
 		</c:choose>
@@ -86,7 +86,9 @@
 	</table>
 
 	<div align="center" style="padding-top:10px;">
-	
+		<c:forEach var="i" begin="1" end="${endNum}">
+				<input type="button" value="${i}" onClick="javascript:location.href='${custURL}?page=${i}'">				
+		</c:forEach>
 	</div>
 	
 	

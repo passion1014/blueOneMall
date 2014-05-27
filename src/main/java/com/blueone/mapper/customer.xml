@@ -105,7 +105,7 @@
 			T1.CUST_ID = #{custId}
 		
 	</select >
-	<select id="selectDtlBomCustTb0003" resultType="customerInfo" resultMap="CustomerInfoMap" >
+	<select id="selectDtlBomCustTb0003" resultType="customerInfo" resultMap="CustomerInfoMap"  parameterType="customerInfo">
 		SELECT
 			T1.IDX,
 			T1.CUST_ID,
@@ -124,8 +124,9 @@
 			T1.REG_DATE
 		FROM
 			BOM_CUST_TB T1
+		<if test="startIdx>=0">LIMIT #{startIdx},15</if>
 	</select >
-		<select id="selectDtlBomCustTb0004" resultType="customerInfo" resultMap="CustomerInfoMap" parameterType="customerInfo">
+	<select id="selectDtlBomCustTb0004" resultType="customerInfo" resultMap="CustomerInfoMap" parameterType="customerInfo">
 		SELECT
 			T1.IDX,
 			T1.CUST_ID,
@@ -140,7 +141,8 @@
 			T1.CUST_SMS_RCV_YN,
 			T1.CUST_EMAIL_RCV_YN,
 			T1.CUST_MERRY_DAY,
-			T1.CUST_CHILD
+			T1.CUST_CHILD,
+			T1.REG_DATE
 		FROM
 			BOM_CUST_TB T1
 		WHERE
@@ -149,6 +151,7 @@
 			<if test="custId != null and custId != ''">AND T1.CUST_ID LIKE CONCAT('%',#{custId},'%')</if>
 			<if test="custEmail != null and custEmail != ''">AND T1.CUST_EMAIL1 LIKE CONCAT('%',#{custEmail},'%')</if>
 			<if test="custMb != null and custMb != ''">AND T1.CUST_MOBILE_NO LIKE CONCAT('%',#{custMb},'%')</if>
+			 <if test="startIdx>=0">LIMIT #{startIdx},15</if>
 	</select >
 	
 	<update id="updateBomCustomerTb0001" parameterType="customerInfo">
@@ -188,5 +191,13 @@
 			`CUST_ID`= #{custId}
 	</delete>
 	
-	
+	<select id="getCustomerTypTotalCount" parameterType="customerInfo" resultType="int">
+		SELECT COUNT(T1.CUST_ID)
+		  FROM BOM_CUST_TB AS T1
+		 WHERE (1 = 1)
+ 			<if test="custNm != null and custNm != ''">AND T1.CUST_NM LIKE CONCAT('%',#{custNm},'%')</if>
+			<if test="custId != null and custId != ''">AND T1.CUST_ID LIKE CONCAT('%',#{custId},'%')</if>
+			<if test="custEmail != null and custEmail != ''">AND T1.CUST_EMAIL1 LIKE CONCAT('%',#{custEmail},'%')</if>
+			<if test="custMb != null and custMb != ''">AND T1.CUST_MOBILE_NO LIKE CONCAT('%',#{custMb},'%')</if>
+	</select>
 </mapper>

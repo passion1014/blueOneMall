@@ -105,7 +105,7 @@
 				 --><if test="orderStatCd != null and orderStatCd != ''">AND T1.ORDER_STAT_CD= #{orderStatCd} </if>
 			<!--  	<if test="customerInfo.custId != null and customerInfo.custId != ''">AND T1.CUST_ID=#{customerInfo.custId} </if>
 			 --> 	<if test="customerInfo != null">AND T1.CUST_ID=#{customerInfo.custId} </if>
-		 <if test="startIdx != null and startIdx!=''" >LIMIT #{startIdx},5</if>	
+		 <if test="startIdx>=0">LIMIT #{startIdx},15</if>
 		 	
 	</select >
 
@@ -184,7 +184,7 @@
 			<if test="keyfield!= null and keyfield != '' and keyfield==2"> AND T1.CUST_ID LIKE CONCAT('%',#{keyword},'%') </if>
 			<if test="keyfield!= null and keyfield != '' and keyfield==1"> AND T1.ORDER_NO LIKE CONCAT('%',#{keyword},'%')</if>
 			<if test="srchStdDt != null and srchStdDt != '' and srchEdDt != null and srchEdDt != ''"> AND T1.REG_DATE BETWEEN  #{srchStdDt} AND #{srchEdDt}</if>
-			
+		<if test="startIdx>=0">LIMIT #{startIdx},15</if>
 			
 	</select >
 	<insert id="insertBomOrderPrdTb0001" parameterType="orderProductInfo" >
@@ -215,11 +215,12 @@
 	</update>
 	
 	<select id="getOrderTypTotalCount" parameterType="orderSrchInfo" resultType="int">
-		SELECT COUNT(t1.ORDER_NO)
-		  FROM BOM_ORDER_TB t1
+		SELECT COUNT(T1.ORDER_NO)
+		  FROM BOM_ORDER_TB AS T1
 		 WHERE (1 = 1)
  			<if test="keyfield!= null and keyfield != '' and keyfield==2"> AND T1.CUST_ID LIKE CONCAT('%',#{keyword},'%') </if>
 			<if test="keyfield!= null and keyfield != '' and keyfield==1"> AND T1.ORDER_NO LIKE CONCAT('%',#{keyword},'%')</if>
+			<if test="keyfield!= null and keyfield != '' and keyfield==3"> AND T1.ORDER_STAT_CD = #{keyword}</if>
 			<if test="srchStdDt != null and srchStdDt != '' and srchEdDt != null and srchEdDt != ''"> AND T1.REG_DATE BETWEEN  #{srchStdDt} AND #{srchEdDt}</if>
 	</select>
 	

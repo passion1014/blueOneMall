@@ -130,13 +130,13 @@
 				</ul>
 				<div class="product_elist" style="height:580px;">		
 					<ul class="pro_list">
-						<c:forEach items="${epPrdList}" var="epPrdList" begin="1" end="9" step="1">
+						<c:forEach items="${epPrdList}" var="epPrdList" begin="0" end="8" step="1">
 						<li>
 							<a href="../product/productView.do?prdCd=${epPrdList.prdCd}&ctgCode=${epPrdList.prdCtgL}&ctgMiddleCode=${epPrdList.prdCtgM}">
 							<dl class="list_product">
 								<dd><img src="${epPrdList.attFilePath}" width="118" height="118" alt="prouct IMG"/></dd>
 								<dd>${epPrdList.prdBrand}</dd>
-								<dd>${epPrdList.prdModel}</dd>
+								<dd>${epPrdList.prdNm}</dd>
 								<dd><strong class="textline">${epPrdList.prdPrice}</strong>↓<span>${epPrdList.prdSellPrc}원</span></dd>
 							</dl>
 							</a>
@@ -155,13 +155,13 @@
 				</ul>
 				<div class="product_elist" style="height:580px;">
 					<ul class="pro_list">
-						<c:forEach items="${hpPrdList}" var="hpPrdList" begin="1" end="9" step="1">
+						<c:forEach items="${hpPrdList}" var="hpPrdList" begin="0" end="8" step="1">
 						<li>
 							<a href="../product/productView.do?prdCd=${hpPrdList.prdCd}&ctgCode=${hpPrdList.prdCtgL}&ctgMiddleCode=${hpPrdList.prdCtgM}">
 							<dl class="list_product">
 								<dd><img src="${hpPrdList.attFilePath}" width="118" height="118" alt="prouct IMG"/></dd>
 								<dd>${hpPrdList.prdBrand}</dd>
-								<dd>${hpPrdList.prdModel}</dd>
+								<dd>${hpPrdList.prdNm}</dd>
 								<dd><strong class="textline">${hpPrdList.prdPrice}</strong>↓<span>${hpPrdList.prdSellPrc}원</span></dd>
 							</dl>
 							</a>
@@ -180,13 +180,13 @@
 				</ul>
 				<div class="product_elist" style="height:580px;">
 					<ul class="pro_list">
-						<c:forEach items="${mmPrdList}" var="mmPrdList" begin="1" end="9" step="1">
+						<c:forEach items="${mmPrdList}" var="mmPrdList" begin="0" end="8" step="1">
 						<li>
 							<a href="../product/productView.do?prdCd=${mmPrdList.prdCd}&ctgCode=${mmPrdList.prdCtgL}&ctgMiddleCode=${mmPrdList.prdCtgM}">
 							<dl class="list_product">
 								<dd><img src="${mmPrdList.attFilePath}" width="118" height="118" alt="prouct IMG"/></dd>
 								<dd>${mmPrdList.prdBrand}</dd>
-								<dd>${mmPrdList.prdModel}</dd>
+								<dd>${mmPrdList.prdNm}</dd>
 								<dd><strong class="textline">${mmPrdList.prdPrice}</strong>↓<span>${mmPrdList.prdSellPrc}원</span></dd>
 							</dl>
 							</a>
@@ -206,13 +206,13 @@
 				
 				<div class="product_elist" style="height:580px;">
 					<ul id="pd_area" class="pro_list">
-						<c:forEach items="${pdSList}" var="pdSList" begin="1" end="9" step="1">
+						<c:forEach items="${pdSList}" var="pdSList" begin="0" end="8" step="1">
 						<li>
 							<a href="../product/productView.do?prdCd=${pdSList.prdCd}&ctgCode=${pdSList.prdCtgL}&ctgMiddleCode=${pdSList.prdCtgM}">
 							<dl class="list_product">
 								<dd><img src="${pdSList.attFilePath}" width="118" height="118" alt="prouct IMG"/></dd>
 								<dd>${pdSList.prdBrand}</dd>
-								<dd>${pdSList.prdModel}</dd>
+								<dd>${pdSList.prdNm}</dd>
 								<dd><strong class="textline">${pdSList.prdPrice}</strong>↓<span>${pdSList.prdSellPrc}원</span></dd>
 							</dl>
 							</a>
@@ -232,13 +232,13 @@
 				
 				<div class="product_elist" style="height:580px;">	
 					<ul id="cs_area" class="pro_list">
-						<c:forEach items="${csPrdList}" var="csPrdList" begin="1" end="9" step="1">
+						<c:forEach items="${csPrdList}" var="csPrdList" begin="0" end="8" step="1">
 						<li>
 							<a href="../product/productView.do?prdCd=${csPrdList.prdCd}&ctgCode=${csPrdList.prdCtgL}&ctgMiddleCode=${csPrdList.prdCtgM}">
 							<dl class="list_product">
 								<dd><img src="${csPrdList.attFilePath}" width="118" height="118" alt="prouct IMG"/></dd>
 								<dd>${csPrdList.prdBrand}</dd>
-								<dd>${csPrdList.prdModel}</dd>
+								<dd>${csPrdList.prdNm}</dd>
 								<dd><strong class="textline">${csPrdList.prdPrice}</strong>↓<span>${csPrdList.prdSellPrc}원</span></dd>
 							</dl>
 							</a>
@@ -258,13 +258,13 @@
 				
 				<div class="product_elist" style="height:580px;">
 					<ul id="xt_area" class="pro_list">
-						<c:forEach items="${xtPrdList}" var="xtPrdList" begin="1" end="9" step="1">
+						<c:forEach items="${xtPrdList}" var="xtPrdList" begin="0" end="8" step="1">
 						<li>
 							<a href="../product/productView.do?prdCd=${xtPrdList.prdCd}&ctgCode=${xtPrdList.prdCtgL}&ctgMiddleCode=${xtPrdList.prdCtgM}">
 							<dl class="list_product">
 								<dd><img src="${xtPrdList.attFilePath}" width="118" height="118" alt="prouct IMG"/></dd>
 								<dd>${xtPrdList.prdBrand}</dd>
-								<dd>${xtPrdList.prdModel}</dd>
+								<dd>${xtPrdList.prdNm}</dd>
 								<dd><strong class="textline">${xtPrdList.prdPrice}</strong>↓<span>${xtPrdList.prdSellPrc}원</span></dd>
 							</dl>
 							</a>

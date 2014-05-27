@@ -16,9 +16,10 @@
 		
 	<table>
 		<colgroup>
-			<col width="15%" />
+			<col width="10%" />
 			<col width="*" />
-			<col width="15%" />
+			<col width="10%" />
+			<col width="10%" />
 		</colgroup>
 	
 		<tr>
@@ -32,10 +33,10 @@
 			<c:when test="${list.size() != 0}">
 				<c:forEach items="${list}" var="schWord" varStatus="i">
 					<tr>
-						<td style="text-align:center;">${i.index+1}</td>
-						<td>${schWord.swWord}</td>
-						<td>${schWord.swHit}</td>
-						<td style="text-align:center;">
+						<td class="center">${i.index+1}</td>
+						<td style="padding-left:30px;">${schWord.swWord}</td>
+						<td class="center">${schWord.swHit}</td>
+						<td class="center">
 							<input type="button" value="수정" onClick="openWin('./searchWordEdit.do?swRank=${schWord.swRank}','largeTypeEditForm',600,450,'scrollbars=no');" class="Button Gray">
 							<%-- <input type="button" value="삭제" onClick="confirm_process('','해당 분류를 삭제하시겠습니까?','deleteCategoryInf.do?ctgCode=${category.ctgCode}');"  class="Button Gray"> --%>
 						</td>

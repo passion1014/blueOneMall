@@ -6,13 +6,32 @@
 <script type="text/javascript">
 <!--
 function list_Submit(){
-	
-	msg = "선택하신 상품을 구매하시겠습니까?" ;
-	
 	document.getElementById("prdfm").action = "/order/orderDirect.do" ;
 	document.getElementById("prdfm").submit() ;
-	
 }
+
+function sumPrice(n){
+	price = $("#unitPrice").val();
+	sell_price = parseInt( price * n ) ;
+
+	$("#sellPrice").val(sell_price);
+	document.getElementById("sellPriceView").innerHTML = sell_price ;
+}
+
+function chk_shopForm(f){
+	if($("#sellPrice").val() <= 0){
+		alert("금액이 옳바르지 않습니다");
+		return false;
+	}
+
+	if($("#buyCnt").val() <= 0){
+		alert("구매 수량이 옳바르지 않습니다");
+		return false;
+	}
+
+	return ;
+}
+
 //-->
 </script>
 
@@ -21,30 +40,32 @@ function list_Submit(){
 	<!--  header 시작   -->
 	<c:import url="../inc/header.jsp"/>
 	<!--  header 끝   -->
-	<c:import url="../inc/productLnb.jsp"/>
 	<div class="container">
+
+		<c:import url="../inc/productLnb.jsp"/>
+
 		<div class="sub_content">
-				<div class="product_view">
-				<form action="/order/cartList.do" method="post" id="prdfm" name="prdfm">
+			<div class="product_view">
+				<form method="post" id="prdfm" name="prdfm" action="/order/cartList.do" onSubmit="return chk_shopForm(this);">
 				<input type="hidden" id="prdCd"  name="prdCd"  value="${pro.prdCd}">
 				<input type="hidden" id="prdNm"  name="prdNm"  value="${pro.prdNm}">
+				<input type="hidden" id="unitPrice"  name="unitPrice"  value="${pro.prdSellPrc}">
 				<input type="hidden" id="sellPrice"  name="sellPrice"  value="${pro.prdSellPrc}">
-					<span class="locat_box">Home&nbsp;>&nbsp;
-					${pro.ctgLargeName}&nbsp;>&nbsp;
+					<span class="locat_box">Home&nbsp;>&nbsp;${pro.ctgLargeName}&nbsp;>&nbsp;
 					<c:if test="${'' eq pro.ctgMiddleName}"><c:out value="없음"/></c:if>
 					<c:if test="${'' ne pro.ctgMiddleName}"><c:out value="${pro.ctgMiddleName}"/></c:if>
 					&nbsp;>&nbsp;
 					<c:if test="${'' eq pro.ctgSmallName}"><c:out value="없음"/></c:if>
 					<c:if test="${'' ne pro.ctgSmallName}"><c:out value="${pro.ctgSmallName}"/></c:if>
-					<h4>${pro.prdCd}&nbsp;${pro.prdNm}</h4>
+					<h4>${pro.prdNm}</h4>
 					<div class="view_dbox1">
-						<p>
-							<c:forEach items="${imgList}" var="prdImg">
-								<c:if test="${'01' eq prdImg.attImgType}">
-									<img src="${prdImg.attFilePath}"  width="378" height="379">
-									<input type="hidden" id="prdSmallImg"  name="prdSmallImg"  value="${prdImg.attFilePath}">
-								</c:if>
-							</c:forEach>
+						<p style="width:378px;height:379px;">
+						<c:forEach items="${imgList}" var="prdImg">
+							<c:if test="${'01' eq prdImg.attImgType}">
+								<img src="${prdImg.attFilePath}"  width="378" height="379">
+								<input type="hidden" id="prdSmallImg"  name="prdSmallImg"  value="${prdImg.attFilePath}">
+							</c:if>
+						</c:forEach>
 						</p>
 						<button><img src="<c:url value='/resources/img/common/btn_viewpro.jpg'/>" alt="자세히보기"/></button>
 						<c:forEach items="${imgList}" var="prdImg">
@@ -89,30 +110,28 @@ function list_Submit(){
 									<th class="bottomline">배송비</th>
 									<td colspan="2" class="bottomline">배송조건 : (조건)</td>
 								</tr>
+
+								<tr>
+									<th>상품코드</th>
+									<td colspan="2">${pro.prdCd}</td>
+								</tr>
 								<tr>
 									<th>모델명</th>
 									<td colspan="2">${pro.prdModel}</td>
-								</tr>
-								<tr>
-									<th>브랜드</th>
-									<td colspan="2">${pro.prdBrand}</td>
 								</tr>
 								<tr>
 									<th>모델번호</th>
 									<td colspan="2">${pro.prdModelNo}</td>
 								</tr>
 								<tr>
-									<th>제조사</th>
+									<th>브랜드</th>
 									<td colspan="2">${pro.prdBrand}</td>
 								</tr>
 								<tr>
-									<th class="bottomline">상품코드</th>
-									<td colspan="2" class="bottomline">${pro.prdCd}</td>
+									<th class="bottomline">제조사</th>
+									<td colspan="2" class="bottomline">${pro.prdBrand}</td>
 								</tr>
-								<tr>
-									<th>옵션적용가</th>
-									<td colspan="2">${pro.prdSellPrc} 원</td>
-								</tr>
+								
 								<c:if test="${pro.prdColor eq 'y'}">
 								<tr>
 									<th>색상</th>
@@ -128,6 +147,7 @@ function list_Submit(){
 									</td>
 								</tr>
 								</c:if>
+
 								<c:if test="${pro.prdSize eq 'y'}">
 								<tr>
 									<th>크기</th>
@@ -146,51 +166,17 @@ function list_Submit(){
 								<tr>
 									<th>수량</th>
 									<td colspan="2">
-										<select id="buyCnt" name="buyCnt">
+										<select id="buyCnt" name="buyCnt" onChange="sumPrice(this.value);">
 											<c:forEach var="i" begin="1" end="50" step="1">
-												<option value="<c:out value="${i}"></c:out>" <c:if test="${i==1}">selected</c:if>><c:out value="${i}"></c:out></option>
+												<option value="<c:out value="${i}"></c:out>" <c:if test="${i==1 }">selected</c:if>><c:out value="${i}"></c:out></option>
 											</c:forEach>
 										</select>	
 									</td>
 								</tr>
-								<!-- <tr>
-									<th class="bottomline">추가옵션</th>
-									<td colspan="2" class="bottomline">
-										<select>
-											<option>옵션선택</option>
-										</select>
-									</td>
-								</tr>
-								
-								<tr>
-									<th class="bgcolor"></th>
-									<td class="bgcolor salign">
-										<select>
-											<option>1</option>
-										</select>
-										<label>개</label>
-									</td>
-									<td class="bgcolor salign">
-										<strong class="stext">66,700 원</strong>
-									</td>
-								</tr>
-								
-								<tr>
-									<th class="bgcolor">화이트</th>
-									<td class="bgcolor salign">
-										<select>
-											<option>1</option>
-										</select>
-										<label>개</label>
-									</td>
-									<td class="bgcolor salign">
-										<strong class="stext">66,700 원</strong>
-									</td>
-								</tr> -->
 								<tr>
 									<th class="bgcolor bottomline">총 합계 금액</th>
 									<td colspan="2" class="bgcolor salign bottomline">
-										<strong class="stext">${document.getElementById('buyCnt').value()*pro.prdSellPrc} 원</strong>
+										<strong class="stext"><span id="sellPriceView">${pro.prdSellPrc}</span> 원</strong>
 									</td>
 								</tr>
 								<tr>
@@ -205,75 +191,58 @@ function list_Submit(){
 				</form>
 				</div>
 				
-				<div class="protextbox">
-				</div>
-				<div class="detail_section">
+				<div class="protextbox"></div>
+				
+				<div id="mark1" class="detail_section">
 					<ul>
 						<li class="leftline on">상세정보</li>
-						<li class="leftline">상품평</li>
-						<li class="leftline">상품 Q & A</li>
-						<li class="alignline">배송/반품/교환정보</li>
+						<li class="leftline" onClick="location.href='#mark2';">배송/반품/교환정보</li>
+						<li class="leftline" onClick="location.href='#mark3';">제품후기</li>
+						<li class="endline">&nbsp;</li>
 					</ul>
 					<p class="image_section">
 						${pro.prdConts}
 					</p>
 				</div>
-				<div class="detail_section">
+
+				<div id="mark2" class="detail_section">
 					<ul>
-						<li class="leftline on">상세정보</li>
-						<li class="leftline">상품평</li>
-						<li class="leftline">상품 Q & A</li>
-						<li class="alignline">배송/반품/교환정보</li>
+						<li class="leftline" onClick="location.href='#mark1';">상세정보</li>
+						<li class="leftline on">배송/반품/교환정보</li>
+						<li class="leftline" onClick="location.href='#mark3';">제품후기</li>
+						<li class="endline">&nbsp;</li>
 					</ul>
 					<p class="image_section">
 						배송/반품/교환정보
 					</p>
 				</div>
-				<div class="detail_section">
+
+				<div id="mark3" class="detail_section">
 					<ul>
-						<li class="leftline on">상세정보</li>
-						<li class="leftline">상품평</li>
-						<li class="leftline">상품 Q & A</li>
-						<li class="alignline">배송/반품/교환정보</li>
+						<li class="leftline" onClick="location.href='#mark1';">상세정보</li>
+						<li class="leftline" onClick="location.href='#mark2';">배송/반품/교환정보</li>
+						<li class="leftline on">제품후기</li>
+						<li class="endline">&nbsp;</li>
 					</ul>
 					<div class="review_section">
-					<form action="/product/writeQnA.do" method="post" name="qnaform">
-					<input type="hidden" name="prdCd" value="${pro.prdCd}" />
-						<h5>제품후기</h5>
-						<dl class="review_textbox">
-							<dt>이름</dt>
-							<dd></dd>
-							<!-- <dt class="clearfix">첨부</dt>
-							<dd>
-								<input type="file" title="첨부파일"/>
-							</dd> -->
-							<dt class="clearfix textarea">내용</dt>
-							<dd class="textarea">
-								<textarea name="content"></textarea>
-								<button>후기쓰기</button>
-							</dd>
-							<%-- <dt class="clearfix">평가하기</dt>
-							<dd>
-								<span>
-									<img src="<c:url value='/resources/img/common/bullet_lstar.png'/>" alt="큰 별 이미지"/>
-									<img src="<c:url value='/resources/img/common/bullet_lstar.png'/>" alt="큰 별 이미지"/>
-									<img src="<c:url value='/resources/img/common/bullet_lstar.png'/>" alt="큰 별 이미지"/>
-									<img src="<c:url value='/resources/img/common/bullet_lstar.png'/>" alt="큰 별 이미지"/>
-								</span>
-							</dd> --%>
-						</dl>
-					</form>
+						<form action="/product/writeQnA.do" method="post" name="qnaform">
+						<input type="hidden" name="prdCd" value="${pro.prdCd}" />
+							<dl class="review_textbox">
+								<dt>이름</dt>
+								<dd>${customerSession.custNm}</dd>
+								<!-- <dt class="clearfix">첨부</dt>
+								<dd>
+									<input type="file" title="첨부파일"/>
+								</dd> -->
+								<dt class="clearfix textarea">내용</dt>
+								<dd class="textarea">
+									<textarea name="content" style="height:80px;"></textarea>
+									<button>후기쓰기</button>
+								</dd>
+							</dl>
+						</form>
 					</div>
-				</div>
-				<div class="detail_section">
-					<ul>
-						<li class="leftline on">상세정보</li>
-						<li class="leftline">상품평</li>
-						<li class="leftline">상품 Q & A</li>
-						<li class="alignline">배송/반품/교환정보</li>
-					</ul>
 					<div class="inquire_section">
-						<h6>제품문의</h6>
 						<table class="inquire_tbl" summary="제품문의목록표">
 							<caption>제품문의목록</caption>
 							<colgroup>
@@ -285,9 +254,9 @@ function list_Submit(){
 							</colgroup>
 							<thead>
 								<th class="bgcolor">번호</th>
-								<th>내용</th>
+								<th class="bgcolor">내용</th>
 								<th class="bgcolor">작성자</th>
-								<th>작성일</th>
+								<th class="bgcolor">작성일</th>
 								<!-- <th class="bgcolor">평가</th> -->
 							</thead>
 							<tbody>

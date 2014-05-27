@@ -541,8 +541,12 @@ public class OrderController {
 	
 	//장바구니 상품 삭제
 	@RequestMapping(value="/order/deleteCartList.do", method = RequestMethod.GET)
-	public String deleteCartList(@ModelAttribute("orderProductInfo") OrderProductInfo orderProductInfo,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
-		
+	public String deleteCartList(@ModelAttribute("orderProductInfo") OrderProductInfo orderProductInfo,HttpSession session,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
+		CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");	
+		// 세션체크
+		if (cus == null) {
+			return "user/errorPage";
+		}	
 		CookieBox cki = new CookieBox(request);
 		
 		Cookie cookie =cki.createCookie(orderProductInfo.getCookieKey(),"null",-1);
@@ -554,8 +558,12 @@ public class OrderController {
 	
 	//주문 상품 삭제
 	@RequestMapping(value="/order/deleteOrderList.do", method = RequestMethod.GET)
-	public String deleteOrderList(@ModelAttribute("orderProductInfo") OrderProductInfo orderProductInfo,@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
-		
+	public String deleteOrderList(@ModelAttribute("orderProductInfo") OrderProductInfo orderProductInfo,HttpSession session,@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
+		CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");	
+		// 세션체크
+		if (cus == null) {
+			return "user/errorPage";
+		}	
 		CookieBox cki = new CookieBox(request);
 		
 		Cookie cookie =cki.createCookie(orderProductInfo.getCookieKey(),"null",-1);
@@ -578,7 +586,11 @@ public class OrderController {
 	//장바구니->결제페이지
 	@RequestMapping(value="/order/orderRegister.do")
 	public String orderRegister(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result,HttpSession session, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
-		
+		CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");	
+		// 세션체크
+		if (cus == null) {
+			return "user/errorPage";
+		}	
 		StringTokenizer st = new StringTokenizer(orderInfo.getOrd_unit_chk(),",");
 		
 		List<OrderProductInfo> oPrdList = new ArrayList<OrderProductInfo>();
