@@ -21,6 +21,7 @@ public interface IOrderManageService {
 	public List<OrderInfo> getOrderInfoListByPeriod(OrderInfo orderInfo);
 	public int updateOrderInf(OrderInfo odInfo);
 	public List<OrderInfo> getOrderInfoListBySchInfo(OrderSrchInfo orderSrchInfo);
+	public int getOrderTypTotalCount(OrderSrchInfo orderSrchInfo);
 	
 	
 }

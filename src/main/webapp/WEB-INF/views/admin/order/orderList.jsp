@@ -133,7 +133,9 @@
 	</table>
 
 	<div align="center" style="padding-top:10px;">
-	
+		<c:forEach var="i" begin="1" end="${endNum}">
+				<input type="button" value="${i}" onClick="javascript:location.href='orderList.do?page=${i}'">				
+		</c:forEach>
 	</div>
 	
 	

@@ -38,8 +38,15 @@ public class OrderInfo {
 	private String srchStdDt;
 	private String srchEdDt;
 	
+	int startIdx;
 	
 	
+	public int getStartIdx() {
+		return startIdx;
+	}
+	public void setStartIdx(int inx) {
+		this.startIdx = inx*5-5;
+	}
 	public int getOrdIdx() {
 		return ordIdx;
 	}

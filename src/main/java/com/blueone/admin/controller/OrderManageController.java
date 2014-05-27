@@ -6,6 +6,7 @@ import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,21 +43,37 @@ public class OrderManageController {
 	@Autowired IAdminManageService adminManageService;
 	
 	@RequestMapping(value="/orderList.do", method= RequestMethod.GET)
-	public String orderList(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model,HttpSession session){
+	public String orderList(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model,HttpSession session,String page){
 
 		AdminInfo adminSession = (AdminInfo) session.getAttribute("adminSession");
 
 		if (adminSession == null) {
 			return "redirect:adminLogin.do";
 		}
-
+		
 		
 		OrderInfo os = new OrderInfo();
+		if (StringUtils.isEmpty(page))
+			{page="1";os.setStartIdx(Integer.parseInt(page));}
+		else 
+			os.setStartIdx(Integer.parseInt(page));
+		
 		List<OrderInfo> odList =orderManageService.getOrderInfoListByPeriod(os);
 		
 		model.addAttribute("odList",odList);
 		model.addAttribute("sh","all");
+		OrderSrchInfo orderSrchInfo = new OrderSrchInfo();
+		int endNum;
+		int total= orderManageService.getOrderTypTotalCount(orderSrchInfo);
+		if(total%5==0) {
+			endNum=total/5;
+		}
+		else{
+			endNum=total/5+1;
+			}
 		
+		
+		model.addAttribute("endNum",endNum);
 		
 		return "admin/order/orderList";
 	}

@@ -11,6 +11,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.blueone.board.domain.BoardSrchInfo;
 import com.blueone.common.domain.AttachFileInfo;
 import com.blueone.common.domain.ResultInfo;
 import com.blueone.common.service.IAttachFileManageService;
@@ -351,5 +352,19 @@ public class OrderManageServiceImpl implements IOrderManageService{
 		return null;
 	}
 
+	@Override
+	public int getOrderTypTotalCount(OrderSrchInfo orderSrchInfo) {
+		Integer count = new Integer(0);
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			count = sqlSession.selectOne("order.getOrderTypTotalCount", orderSrchInfo);
+		} finally {
+			sqlSession.close();
+		}
+		
+		return count;
+	}
+	
 	
 }
