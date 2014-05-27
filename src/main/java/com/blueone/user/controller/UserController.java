@@ -71,7 +71,7 @@ public class UserController {
 	@Autowired private IProductManageService productManageService;
 	@Autowired private IAttachFileManageService attFileManageService;
 	@Autowired IBoardService boardService;
-	//회원가입 폼 생성
+	//�쉶�썝媛��엯 �뤌 �깮�꽦
 	@RequestMapping(value = "/user/userRegister.do", method=RequestMethod.GET)
 	public String userRegister(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model,HttpSession session){
 		
@@ -82,7 +82,7 @@ public class UserController {
 		return "user/userRegister";
 	}
 
-	//회원가입 처리
+	//�쉶�썝媛��엯 泥섎━
 	@RequestMapping(value = "/user/userRegisterProc.do", method=RequestMethod.POST)
 	public String userRegisterProc(@ModelAttribute("customerInfo") CustomerInfo customerInfo,BindingResult result, Model model, HttpSession session){
 		
@@ -98,7 +98,7 @@ public class UserController {
 		String email = customerInfo.geteMail1()+"@"+customerInfo.geteMail2();
 		customerInfo.setCustEmail(email);
 		
-		// 고객등록처리
+		// 怨좉컼�벑濡앹쿂由�
 		int rst = customerService.registUserInfo(customerInfo);
 		if (rst == -1) {
 			model.addAttribute("isRegistYn", "N");
@@ -111,12 +111,12 @@ public class UserController {
 		return "redirect:/";	
 	}
 
-	//마이페이지
+	//留덉씠�럹�씠吏�
 	@RequestMapping(value="/user/userEdit.do", method=RequestMethod.GET)
 	public String userEdit(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model,HttpSession session){
 		//CustomerInfo customerSesstion = (CustomerInfo)session.getAttribute("customerSession");	
 		CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");	
-		// 세션체크
+		// �꽭�뀡泥댄겕
 		if (cus == null) {
 			return "user/errorPage";
 		}	
@@ -148,7 +148,7 @@ public class UserController {
 		return "user/userEdit";
 	}
 
-	//마이페이지 처리
+	//留덉씠�럹�씠吏� 泥섎━
 	@RequestMapping(value="/user/userEditProc.do", method=RequestMethod.POST)
 	public String userEditProc(@ModelAttribute("customerInfo") CustomerInfo customerInfo,BindingResult result, HttpSession session, Model model, SessionStatus status){
 		
@@ -175,21 +175,21 @@ public class UserController {
 		return "redirect:userEdit.do";
 	}
 	
-	//우편번호 찾기 팝업
+	//�슦�렪踰덊샇 李얘린 �뙘�뾽
 	@RequestMapping(value="/user/searchZipCode.do", method=RequestMethod.GET)
 	public String searchZipCode(HttpServletRequest request,String type, HttpServletResponse response, ModelMap model) throws Exception {
 			
 			model.addAttribute("type",type);	
 			return "user/searchZipCode";
 	}
-	//우편번호 찾기 팝업
+	//�슦�렪踰덊샇 李얘린 �뙘�뾽
 	@RequestMapping(value="/user/searchZipCodeProc.do", method=RequestMethod.GET)
 	public String searchZipCodeProc(@ModelAttribute("searchAddress")SearchAddress sAdd,String type, HttpServletRequest request, HttpServletResponse response, Map<String, Object> commandMap, ModelMap model,HttpSession session) throws Exception {
        
 		// CustomerInfo customerSesstion =(CustomerInfo)session.getAttribute("customerSession");
 		CustomerInfo cus = (CustomerInfo) session
 				.getAttribute("customerSession");
-		// 세션체크
+		// �꽭�뀡泥댄겕
 		if (cus == null) {
 			return "user/errorPage";
 		}
@@ -235,50 +235,60 @@ public class UserController {
 	}
 
 		
-	//주소 찾기 action
+	//二쇱냼 李얘린 action
 	@RequestMapping(value="/user/searchAddress.do", method=RequestMethod.GET)
 	public String searchAddress(@ModelAttribute("userInfo") UserInfo userInfo,String type,BindingResult result, Model model,String dong) throws ParserConfigurationException, SAXException, IOException{
 		dong = new String(dong.getBytes("8859_1"), "UTF-8");
 	
-		int lastIdx = dong.lastIndexOf("동");
-		
-		if(lastIdx!=-1){
-			if(dong.substring(lastIdx).equals("동")&&!StringUtils.isEmpty(dong)&&!dong.isEmpty()){
+		if(!StringUtils.isEmpty(dong)&&!dong.isEmpty()){
+			int lastIdx1 = dong.lastIndexOf("동");
+			int lastIdx2 = dong.lastIndexOf("읍");
+			int lastIdx3 = dong.lastIndexOf("면");
+			
+			if(lastIdx!=-1){
+				if(dong.substring(lastIdx1).equals("동")||dong.substring(lastIdx2).equals("읍")||dong.substring(lastIdx3).equals("면"))
+					
 				
-			
-			 List<SearchAddress> nList =Utility.searchAdd(dong);
-			
-				model.addAttribute("nList", nList);
-				model.addAttribute("type",type);
-				return "user/searchZipCode";
+					List<SearchAddress> nList =Utility.searchAdd(dong);
+				
+					model.addAttribute("nList", nList);
+					model.addAttribute("type",type);
+					return "user/searchZipCode";
+					
+				}else{
+					model.addAttribute("error","동/읍/면까지 다 입력해주세요");
+					return "redirect:/user/searchZipCode.do?type="+type;
+				}
 				
 			}else{
+				model.addAttribute("error","동/읍/면까지 다 입력해주세요");
 				return "redirect:/user/searchZipCode.do?type="+type;
 			}
 		}else{
+			model.addAttribute("error","다시 입력해주세요");
 			return "redirect:/user/searchZipCode.do?type="+type;
 		}
 		
 	}
 	
-	//적립금현황
+	//�쟻由쎄툑�쁽�솴
 	@RequestMapping(value="/user/userPointSaving.do", method=RequestMethod.GET)
 	public String userPointSaving(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model,HttpSession session){
 		//CustomerInfo customerSesstion = (CustomerInfo)session.getAttribute("customerSession");	
 				CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");	
-				// 세션체크
+				// �꽭�뀡泥댄겕
 				if (cus == null) {
 					return "user/errorPage";
 				}	
 					
 		return "user/userPointSaving";
 	}
-	//사용내역조회
+	//�궗�슜�궡�뿭議고쉶
 	@RequestMapping(value="/user/userPoint.do", method=RequestMethod.GET)
 	public String userPoint(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model,HttpSession session){
 		//CustomerInfo customerSesstion = (CustomerInfo)session.getAttribute("customerSession");	
 				CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");	
-				// 세션체크
+				// �꽭�뀡泥댄겕
 				if (cus == null) {
 					return "user/errorPage";
 				}	
@@ -287,28 +297,28 @@ public class UserController {
 	}
 	
 
-	//주문내역리스트
+	//二쇰Ц�궡�뿭由ъ뒪�듃
 	@RequestMapping(value="/user/orderListView.do")
 	public String orderListView(@ModelAttribute("userInfo") UserInfo userInfo,OrderInfo od,BindingResult result, Model model,HttpSession session) {
 		
-		//아이디 셋팅
+		//�븘�씠�뵒 �뀑�똿
 		//OrderInfo od = new OrderInfo();
 		// CustomerInfo customerSesstion =(CustomerInfo)session.getAttribute("customerSession");
 		CustomerInfo cust = (CustomerInfo) session
 				.getAttribute("customerSession");
-		// 세션체크
+		// �꽭�뀡泥댄겕
 		if (cust == null) {
 			return "user/errorPage";
 		}
 						
 		od.setCustomerInfo(cust);
 		
-		//아이디로 주문내역가져오기
+		//�븘�씠�뵒濡� 二쇰Ц�궡�뿭媛��졇�삤湲�
 		List<OrderInfo> odList = orderService.selectOrderInfoList(od);
 		
 		if(odList!=null && odList.size()>0){
 			
-		//주문코드로 주문상품 정보 가져오기
+		//二쇰Ц肄붾뱶濡� 二쇰Ц�긽�뭹 �젙蹂� 媛��졇�삤湲�
 		for(OrderInfo each : odList){
 			
 			String odNo = each.getOrderNo();
@@ -324,9 +334,9 @@ public class UserController {
 				prInf=productManageService.getProductInfDetail(prInf);
 				
 				if(prInf !=null){
-				//상품 이름
+				//�긽�뭹 �씠由�
 					if(opResInf.size()>1){
-						odPrd.setPrdNm(prInf.getPrdNm()+"외 "+(opResInf.size()-1)+"개");
+						odPrd.setPrdNm(prInf.getPrdNm()+"�쇅 "+(opResInf.size()-1)+"媛�");
 						
 						
 					}else{
@@ -335,7 +345,7 @@ public class UserController {
 						
 					}
 					
-					//수량 및 금액
+					//�닔�웾 諛� 湲덉븸
 	
 					BigDecimal total=null;
 					BigDecimal realTotal=new BigDecimal(0);
@@ -374,14 +384,14 @@ public class UserController {
 		return "user/orderListView";
 	}
 
-	//주문취소신청
+	//二쇰Ц痍⑥냼�떊泥�
 	@RequestMapping(value="/user/orderCancel.do", method=RequestMethod.GET)
 	public String orderCancel(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model,HttpSession session) {
 		
 		
 		// CustomerInfo customerSesstion =(CustomerInfo)session.getAttribute("customerSession");
 		CustomerInfo cust = (CustomerInfo) session.getAttribute("customerSession");
-		// 세션체크
+		// �꽭�뀡泥댄겕
 		if (cust == null) {
 			return "user/errorPage";
 		}
@@ -395,14 +405,14 @@ public class UserController {
 	}
 
 
-	//반품신청
+	//諛섑뭹�떊泥�
 	@RequestMapping(value="/user/orderTakeBack.do", method=RequestMethod.GET)
 	public String orderTakeBack(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model,HttpSession session) {
 		
 		
 		// CustomerInfo customerSesstion =(CustomerInfo)session.getAttribute("customerSession");
 		CustomerInfo cust = (CustomerInfo) session.getAttribute("customerSession");
-		// 세션체크
+		// �꽭�뀡泥댄겕
 		if (cust == null) {
 			return "user/errorPage";
 		}
@@ -414,24 +424,24 @@ public class UserController {
 		return "redirect:orderListView.do";
 	}
 
-	//주문상세내역
+	//二쇰Ц�긽�꽭�궡�뿭
 	@RequestMapping(value="/user/orderDetail.do", method=RequestMethod.GET)
 	public String orderDetail(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model,HttpSession session) {
 		
 		
 		// CustomerInfo customerSesstion =(CustomerInfo)session.getAttribute("customerSession");
 		CustomerInfo cust = (CustomerInfo) session.getAttribute("customerSession");
-		// 세션체크
+		// �꽭�뀡泥댄겕
 		if (cust == null) {
 			return "user/errorPage";
 		}
 		
-		//주문 정보
+		//二쇰Ц �젙蹂�
 		orderInfo.setCustomerInfo(cust);
 		List<OrderInfo> odList = orderService.selectOrderInfoList(orderInfo);
 		model.addAttribute("odInfo",odList.get(0));
 		
-		//결제상품 보여주기
+		//寃곗젣�긽�뭹 蹂댁뿬二쇨린
 		String odNo=orderInfo.getOrderNo();
 			
 			
@@ -445,10 +455,10 @@ public class UserController {
 			prInf.setPrdCd(prdCd);
 			prInf=productManageService.getProductInfDetail(prInf);
 			
-			//상품 이름
+			//�긽�뭹 �씠由�
 			each.setPrdNm(prInf.getPrdNm());
 			
-			//옵션
+			//�샃�뀡
 			String option=each.getPrdOption();
 			StringTokenizer st = new StringTokenizer(option,",");
 			while(st.hasMoreElements()) {
@@ -466,13 +476,13 @@ public class UserController {
 			
 			}
 			
-			//수량 및 금액
+			//�닔�웾 諛� 湲덉븸
 			each.setSellPrice(new BigDecimal(prInf.getPrdSellPrc()));
 			BigDecimal total = new BigDecimal(prInf.getPrdSellPrc()) ;
 			total=total.multiply(new BigDecimal(each.getBuyCnt()));
 			each.setTotalPrice(total);
 			
-			//사진
+			//�궗吏�
 			AttachFileInfo att = new AttachFileInfo();
 			att.setAttCdKey(prInf.getPrdCd());
 			att.setAttImgType("01");
@@ -493,19 +503,19 @@ public class UserController {
 		model.addAttribute("reInfo",reInf);
 			
 
-		//배송비관련 정보
+		//諛곗넚鍮꾧��젴 �젙蹂�
 		ConfigInfo resConfigInfo = adminManageService.selectConfigInf();
 		
 		model.addAttribute("config", resConfigInfo);
 		
 		return "user/orderDetail";
 	}
-	//1:1문의하기 목록
+	//1:1臾몄쓽�븯湲� 紐⑸줉
 	@RequestMapping(value="/user/qnaList.do", method=RequestMethod.GET)
 	public String qnaList(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model,HttpSession session){
 		// CustomerInfo customerSesstion =(CustomerInfo)session.getAttribute("customerSession");
 		CustomerInfo cust = (CustomerInfo) session.getAttribute("customerSession");
-		// 세션체크
+		// �꽭�뀡泥댄겕
 		if (cust == null) {
 			return "user/errorPage";
 		}
