@@ -2062,58 +2062,50 @@ public final class Utility
 		else return null;
 	}
 	
-
-	public static void main(String[] args)
-	{
-		GregorianCalendar gc = new GregorianCalendar();
-		System.out.println("==>" + gc.get(Calendar.DATE));
-	}
-	
-	public static List<SearchAddress>  searchAdd(String q) throws ParserConfigurationException, SAXException, IOException{
+	public static List<SearchAddress> searchAdd(String q) throws ParserConfigurationException, SAXException, IOException{
 		List<SearchAddress> result = new ArrayList<SearchAddress>();
 		
-		 NodeList nodeDOC;
-		 String query="http://udml.co.kr/api_hwi/zipcode/get_address_xml.php?query=";
+		NodeList nodeDOC;
+		String query="http://udml.co.kr/api_hwi/zipcode/get_address_xml.php?query=";
 		
-		 DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-		DocumentBuilder docBuilder=dbf.newDocumentBuilder(); 
-		 
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		DocumentBuilder docBuilder = dbf.newDocumentBuilder(); 
 		
-		
+		Document doc = null;
 		try{
-			
 			query+=URLEncoder.encode(q,"UTF-8");
+			doc = docBuilder.parse(query);
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{}
+		
+		
+		if( doc != null ){
+			nodeDOC=doc.getElementsByTagName("item");
 
-			 
-			}catch(Exception e){
-				  e.printStackTrace();
-				 }finally{
-				  
-		}
-		 Document doc=docBuilder.parse(query);
-		 if(doc!=null){
-		 nodeDOC=doc.getElementsByTagName("item");
-		 
-		  for (int temp = 0; temp < nodeDOC.getLength(); temp++) {
-			  
-			  Node nNode = nodeDOC.item(temp);
-			  SearchAddress re = new SearchAddress();
-			  if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-			 
-			   Element eElement = (Element) nNode;
-			   String zip = eElement.getElementsByTagName("postcd").item(0).getFirstChild().getNodeValue();
-			   zip= zip.substring(0, 3)+"-"+zip.substring(3);
+			for (int temp = 0; temp < nodeDOC.getLength(); temp++) {
+				Node nNode = nodeDOC.item(temp);
+				SearchAddress re = new SearchAddress();
+				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+
+				Element eElement = (Element) nNode;
+				String zip = eElement.getElementsByTagName("postcd").item(0).getFirstChild().getNodeValue();
+				zip= zip.substring(0, 3)+"-"+zip.substring(3);
 				
-			  re.setZipCode(zip);
-			  re.setAddress( eElement.getElementsByTagName("address").item(0).getFirstChild().getNodeValue());
-			  result.add(re);
-			  
+				re.setZipCode(zip);
+				re.setAddress( eElement.getElementsByTagName("address").item(0).getFirstChild().getNodeValue());
+				result.add(re);
 			  }
-
-
-		  }
+			}
 		}
-		 return result;
+		return result;
 	}
-
+	
+	public static void main(String[] args) throws Exception {
+//		GregorianCalendar gc = new GregorianCalendar();
+//		System.out.println("==>" + gc.get(Calendar.DATE));
+		
+		// 주소조회 테스트
+		Utility.searchAdd("응안동");
+	}
 }

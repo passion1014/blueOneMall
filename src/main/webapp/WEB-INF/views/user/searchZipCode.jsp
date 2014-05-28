@@ -48,7 +48,7 @@
 				<c:forEach items="${nList}"  var="nList">
 					<tr>
 						<td style="text-align:center;">${nList.zipCode}</td>
-						<td style="text-align:center;"><a href="javascript:location.href='searchZipCodeProc.do?address=${nList.address}&zipCode=${nList.zipCode}&type=${type}'">${nList.address}</a></td>
+						<td style="text-align:center;">&{error}<a href="javascript:location.href='searchZipCodeProc.do?address=${nList.address}&zipCode=${nList.zipCode}&type=${type}'">${nList.address}</a></td>
 					</tr>
 				</c:forEach>
 			</c:when>
