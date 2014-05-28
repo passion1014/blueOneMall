@@ -59,7 +59,6 @@ public class CustomerInfo {
 	private int birthY;
 	private int birthM;
 	private int birthD;
-	
 
 	private String eMail1;
 	private String eMail2;
@@ -482,6 +481,5 @@ public class CustomerInfo {
 	public void setCustomerContactList(List<CustomerContactInfo> customerContactList) {
 		this.customerContactList = customerContactList;
 	}
-
 
 }
