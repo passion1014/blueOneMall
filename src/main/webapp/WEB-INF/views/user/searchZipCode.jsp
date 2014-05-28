@@ -31,15 +31,18 @@
 			</tr>
 		</thead>
 		<tfoot>
+			<c:if test="${error.isEmpty() == false}">
+				<tr>
+					<td colspan="2"><c:out value="${error}"></c:out></td>
+				</tr>
+			</c:if>
 			<tr>
-				<th>선택주소</th>
-				<td>지번주소 먼저 선택해 주세요</td>
-			</tr>
-			<tr>
-				<th>나머지주소</th>
+				<!-- <th>나머지주소</th>
 				<td>
 					<input type="text" class="text_adrinfo" title="주소입력창"/>
-				</td>
+				</td> -->
+				<th>선택주소</th>
+				<td>지번주소 먼저 선택해 주세요</td>
 			</tr>
 		</tfoot>
 		<tbody>
@@ -48,13 +51,13 @@
 				<c:forEach items="${nList}"  var="nList">
 					<tr>
 						<td style="text-align:center;">${nList.zipCode}</td>
-						<td style="text-align:center;">&{error}<a href="javascript:location.href='searchZipCodeProc.do?address=${nList.address}&zipCode=${nList.zipCode}&type=${type}'">${nList.address}</a></td>
+						<td style="text-align:center;"><a href="javascript:location.href='searchZipCodeProc.do?address=${nList.address}&zipCode=${nList.zipCode}&type=${type}'">${nList.address}</a></td>
 					</tr>
 				</c:forEach>
 			</c:when>
 			<c:otherwise>
 				<tr>
-					<th>검색결과가 없습니다. 다시입력해주세요</th>
+					<th colspan="2">검색결과가 없습니다. 다시입력해주세요</th>
 				</tr>
 			</c:otherwise>
 		</c:choose>

@@ -140,19 +140,11 @@ public class OrderController {
 				}else if((orderProductInfo.getPrdOpSize()==null || orderProductInfo.getPrdOpSize().isEmpty()) && optionColor.equals(orderProductInfo.getPrdOpColor())){
 					count += orderProductInfo.getBuyCnt();
 					break;
-				}else if((orderProductInfo.getPrdOpSize()==null || orderProductInfo.getPrdOpSize().isEmpty()) && (orderProductInfo.getPrdOpColor()==null || orderProductInfo.getPrdOpColor().isEmpty())){
-					if(optionSize.equals(orderProductInfo.getPrdOpSize()) && optionColor.equals(orderProductInfo.getPrdOpColor())){
+				}else if(optionSize.equals(orderProductInfo.getPrdOpSize()) && optionColor.equals(orderProductInfo.getPrdOpColor())&&countExist.equals("y")){
 						count += orderProductInfo.getBuyCnt();
 						break;
-					}else if(countExist.equals("y")){
-						count += orderProductInfo.getBuyCnt();
-					}else{
-						pNum = prdCount+1 ;
-						count=orderProductInfo.getBuyCnt();
-						
-					}
-					
 				}else{
+	
 					pNum = prdCount+1 ;
 					count=orderProductInfo.getBuyCnt();
 					
@@ -433,11 +425,9 @@ public class OrderController {
 						count += orderProductInfo.getBuyCnt();
 						break;
 					}else if((orderProductInfo.getPrdOpSize()==null || orderProductInfo.getPrdOpSize().isEmpty()) && (orderProductInfo.getPrdOpColor()==null || orderProductInfo.getPrdOpColor().isEmpty())){
-						if(optionSize.equals(orderProductInfo.getPrdOpSize()) && optionColor.equals(orderProductInfo.getPrdOpColor())){
+						if(optionSize.equals(orderProductInfo.getPrdOpSize()) && optionColor.equals(orderProductInfo.getPrdOpColor()) && countExist.equals("y")){
 							count += orderProductInfo.getBuyCnt();
 							break;
-						}else if(countExist.equals("y")){
-							count += orderProductInfo.getBuyCnt();
 						}else{
 							pNum = prdCount+1 ;
 							count=orderProductInfo.getBuyCnt();

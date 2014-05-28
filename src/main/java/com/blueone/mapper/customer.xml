@@ -14,8 +14,10 @@
 		<id property="custPh" column="CUST_PHONE_NO" javaType="java.lang.String"/>
 		<id property="custMb" column="CUST_MOBILE_NO" javaType="java.lang.String"/>
 		<id property="custEmail" column="CUST_EMAIL1" javaType="java.lang.String"/>
-		<id property="custZip" column="CUST_ZIP_CD1" javaType="java.lang.String"/>
+		<id property="custZip1" column="CUST_ZIP_CD1" javaType="java.lang.String"/>
+		<id property="custZip2" column="CUST_ZIP_CD2" javaType="java.lang.String"/>
 		<id property="custAdd" column="CUST_ADDR" javaType="java.lang.String"/>
+		<id property="custAddDetail" column="CUST_ADDR_DETAIL" javaType="java.lang.String"/>
 		<id property="custSmSRcv" column="CUST_SMS_RCV_YN" javaType="java.lang.String"/>
 		<id property="custMailRcv" column="CUST_EMAIL_RCV_YN" javaType="java.lang.String"/>
 		<id property="custPass" column="CUST_PASSWORD" javaType="java.lang.String"/>
@@ -94,7 +96,9 @@
 			T1.CUST_MOBILE_NO,
 			T1.CUST_EMAIL1,
 			T1.CUST_ZIP_CD1,
+			T1.CUST_ZIP_CD2,
 			T1.CUST_ADDR,
+			T1.CUST_ADDR_DETAIL,	
 			T1.CUST_SMS_RCV_YN,
 			T1.CUST_EMAIL_RCV_YN,
 			T1.CUST_MERRY_DAY,
@@ -116,7 +120,9 @@
 			T1.CUST_MOBILE_NO,
 			T1.CUST_EMAIL1,
 			T1.CUST_ZIP_CD1,
+			T1.CUST_ZIP_CD2,
 			T1.CUST_ADDR,
+			T1.CUST_ADDR_DETAIL,	
 			T1.CUST_SMS_RCV_YN,
 			T1.CUST_EMAIL_RCV_YN,
 			T1.CUST_MERRY_DAY,
@@ -137,7 +143,9 @@
 			T1.CUST_MOBILE_NO,
 			T1.CUST_EMAIL1,
 			T1.CUST_ZIP_CD1,
+			T1.CUST_ZIP_CD2,
 			T1.CUST_ADDR,
+			T1.CUST_ADDR_DETAIL,			
 			T1.CUST_SMS_RCV_YN,
 			T1.CUST_EMAIL_RCV_YN,
 			T1.CUST_MERRY_DAY,
@@ -163,8 +171,10 @@
 				<if test="custSx != null and custSx != ''">,`CUST_SEX` = #{custSx}</if>
 				<if test="custPh != null and custPh != ''">,`CUST_PHONE_NO` = #{custPh}</if>
 				<if test="custMb != null and custMb != ''">,`CUST_MOBILE_NO` = #{custMb}</if>
-				<if test="custZip != null and custZip != ''">,`CUST_ZIP_CD1` = #{custZip}</if>
+				<if test="custZip1 != null and custZip1 != ''">,`CUST_ZIP_CD1` = #{custZip1}</if>
+				<if test="custZip2 != null and custZip2 != ''">,`CUST_ZIP_CD2` = #{custZip2}</if>
 				<if test="custAdd != null and custAdd != ''">,`CUST_ADDR` = #{custAdd}</if>
+				<if test="custAddDetail != null and custAddDetail != ''">,`CUST_ADDR_DETAIL` = #{custAddDetail}</if>
 				<if test="custSmSRcv != null and custSmSRcv != ''">,`CUST_SMS_RCV_YN` = #{custSmSRcv}</if>
 				<if test="custMailRcv != null and custMailRcv != ''">,`CUST_EMAIL_RCV_YN` = #{custMailRcv}</if>
 				<if test="custMerry != null and custMerry != ''">,`CUST_MERRY_DAY` = #{custMerry}</if>
@@ -178,11 +188,12 @@
 	<insert id="insertBomCustTb0001" parameterType="customerInfo">
 		INSERT BOM_CUST_TB
 			(`CUST_ID`,`CUST_NM`,`CUST_BIRTH_DATE`,`CUST_PHONE_NO`,`CUST_MOBILE_NO`,`CUST_EMAIL1`
-				,`CUST_ZIP_CD1`,`CUST_ADDR`,`CUST_SMS_RCV_YN`,`CUST_EMAIL_RCV_YN`,`CUST_SEX`
+				,`CUST_ZIP_CD1`,`CUST_ZIP_CD2`,`CUST_ADDR`,`CUST_ADDR_DETAIL`,`CUST_SMS_RCV_YN`,`CUST_EMAIL_RCV_YN`,`CUST_SEX`
 				,`REG_DATE`,`LAST_DATE`, `MODIFY_USER_ID`)
 			VALUES
-			(#{custId}, #{custNm}, #{custBirth}, #{custPh}, #{custMb}, #{custEmail}, #{custZip}
-			  , #{custAdd}, #{custSmSRcv}, #{custMailRcv},#{custSx}, now(), now(),#{custId})
+			(#{custId}, #{custNm}, #{custBirth}, #{custPh}, #{custMb}, #{custEmail}, 
+			#{custZip1}, #{custZip2} , #{custAdd}, #{custAddDetail}, #{custSmSRcv}, #{custMailRcv},#{custSx}, 
+			now(), now(),#{custId})
 	</insert>
 		
 	<delete id="deleteBomCustomerTb0001" parameterType="customerInfo">

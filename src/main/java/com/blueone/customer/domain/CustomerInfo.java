@@ -20,8 +20,11 @@ public class CustomerInfo {
 	private String custPh; 
 	private String custMb; 
 	private String custEmail; 
-	private String custZip; 
-	private String custAdd; 
+	private String custZip;	//지워야함
+	private String custZip1;
+	private String custZip2;
+	private String custAdd;
+	private String custAddDetail;
 	private String custSmSRcv; 
 	private String custMailRcv; 
 	private String custPass; 
@@ -73,6 +76,30 @@ public class CustomerInfo {
 	private int startIdx;
 	
 	
+	public String getCustZip() {
+		return custZip;
+	}
+	public void setCustZip(String custZip) {
+		this.custZip = custZip;
+	}
+	public String getCustZip1() {
+		return custZip1;
+	}
+	public void setCustZip1(String custZip1) {
+		this.custZip1 = custZip1;
+	}
+	public String getCustZip2() {
+		return custZip2;
+	}
+	public void setCustZip2(String custZip2) {
+		this.custZip2 = custZip2;
+	}
+	public String getCustAddDetail() {
+		return custAddDetail;
+	}
+	public void setCustAddDetail(String custAddDetail) {
+		this.custAddDetail = custAddDetail;
+	}
 	public int getStartIdx() {
 		return startIdx;
 	}
@@ -158,14 +185,6 @@ public class CustomerInfo {
 
 	public void setCustEmail(String custEmail) {
 		this.custEmail = custEmail;
-	}
-
-	public String getCustZip() {
-		return custZip;
-	}
-
-	public void setCustZip(String custZip) {
-		this.custZip = custZip;
 	}
 
 	public String getCustAdd() {
