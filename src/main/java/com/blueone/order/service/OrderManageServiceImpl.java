@@ -24,6 +24,7 @@ import com.blueone.customer.service.ICustomerManageService;
 import com.blueone.order.domain.OrderInfo;
 import com.blueone.order.domain.OrderProductInfo;
 import com.blueone.order.domain.OrderSrchInfo;
+import com.blueone.order.domain.PaymentInfo;
 import com.blueone.product.domain.ProductInfo;
 import com.blueone.product.service.IProductManageService;
 
@@ -147,7 +148,29 @@ public class OrderManageServiceImpl implements IOrderManageService{
 		return rst;
 	}
 	
-	
+	//주문-결제-등록
+		@Override
+		public int registPaymentInfo(PaymentInfo paymentInfo) {
+			
+			
+			int rst=0;
+			// -----------------------------------------------
+			// DB Insert 수행
+			// -----------------------------------------------
+			SqlSession sqlSession = sqlSessionFactory.openSession();
+			try {
+				
+				
+				rst = sqlSession.insert("order.insertBomPaymentTb0001", paymentInfo);
+				
+				
+				
+			} finally {
+				sqlSession.close();
+			}
+			
+			return rst;
+		}
 	//주문-등록
 	@Override
 	public int registOrderInfo(OrderInfo odInfo) {

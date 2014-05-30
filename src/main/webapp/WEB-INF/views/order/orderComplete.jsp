@@ -148,20 +148,18 @@
 							<tbody>
 								<tr>
 									<th>적립금/포인트</th>
-									<td class="in_text" colspan="3">
-									</td>
+									<td class="in_text" colspan="3">${usePoint}</td>
 								</tr>
 								<tr>
 									<th>결제 수단</th>
-									<td class="in_sectext">
-									</td>
+									<td class="in_sectext">${pay}</td>
 								</tr>
 							</tbody>
 						</table>
 					</div>
 					<div class="complet_box">
 						<a href="/product/productList.do" class="btn_success">계속쇼핑하기</a>
-						<a href="#" class="btn_continue">확인</a>
+						<a href="" class="btn_continue">확인</a>
 					</div>
 				</div>
 			</form>

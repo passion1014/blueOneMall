@@ -5,11 +5,35 @@ import java.math.BigDecimal;
 public class PaymentInfo {
 	private int idx;
 	private String payMdCd;			// 금종코드 (01:신용카드, 02:실시간이체, 03:핸드폰결제, 04:포인트)
+	private String orderNo;		// 등록일
+	private int orderNoSeq;		// 등록일
+	private String payDate;		// 등록일
+	
 	private BigDecimal payPrice;	// 결제금액
 	private String regDate;		// 등록일
 	private String lastDate;	// 최종수정일
 	private String modifyUserId;// 최종수정자
 	
+	
+	
+	public String getOrderNo() {
+		return orderNo;
+	}
+	public void setOrderNo(String orderNo) {
+		this.orderNo = orderNo;
+	}
+	public int getOrderNoSeq() {
+		return orderNoSeq;
+	}
+	public void setOrderNoSeq(int orderNoSeq) {
+		this.orderNoSeq = orderNoSeq;
+	}
+	public String getPayDate() {
+		return payDate;
+	}
+	public void setPayDate(String payDate) {
+		this.payDate = payDate;
+	}
 	public int getIdx() {
 		return idx;
 	}

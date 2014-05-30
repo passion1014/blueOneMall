@@ -179,6 +179,7 @@
 
 <body>
     <form name="cancel" action="./cancel.jsp?param=<%=tno%>" method="post">
+    
     <div id="sample_wrap">
         <h1>[결과출력]<span> 이 페이지는 결제 결과를 출력하는 샘플(예시) 페이지입니다.</span></h1>
     <div class="sample">
@@ -652,7 +653,7 @@
                     <!-- 매입 요청/처음으로 이미지 버튼 -->
                 <tr>
                 <div class="btnset">
-                <a href="/order/orderComplete.do?orderNo=<%=ordr_idxx %>" class="home">확인</a>
+                <a href="/order/orderComplete.do?orderNo=<%=ordr_idxx %>&pay=<%=use_pay_method%>" class="home">확인</a>
                 </div>
                 </tr>
               </tr>

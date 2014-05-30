@@ -68,6 +68,7 @@
 		<typeAlias alias="orderSrchInfo" type="com.blueone.order.domain.OrderSrchInfo" />
 		<typeAlias alias="orderInfo" type="com.blueone.order.domain.OrderInfo" />
 		<typeAlias alias="orderProductInfo" type="com.blueone.order.domain.OrderProductInfo" />
+		<typeAlias alias="paymentInfo" type="com.blueone.order.domain.PaymentInfo" />
 		<typeAlias alias="categoryInfo" type="com.blueone.category.domain.CategoryInfo" />
 		<typeAlias alias="productInfo" type="com.blueone.product.domain.ProductInfo" />
 		<typeAlias alias="searchProdInfo" type="com.blueone.product.domain.SearchProdInfo" />

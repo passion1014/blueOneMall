@@ -61,6 +61,18 @@
 		<id property="buyCnt" column="BUY_COUNT" javaType="int"/>
 	</resultMap>
 
+	<resultMap id="PaymentInfoMap" type="paymentInfo">
+		<id property="idx" column="IDX" javaType="int"/>
+		<id property="orderNo" column="ORDER_NO" javaType="java.lang.String"/>
+		<id property="orderNoSeq" column="ORDER_NO_SEQ" javaType="int"/>
+		<id property="payMdCd" column="PYMT_PAY_CD" javaType="java.lang.String"/>
+		<id property="payPrice" column="PYMT_AMOUNT" javaType="int"/>
+		<id property="payDate" column="PYMT_DATE" javaType="java.lang.String"/>
+		<id property="regDate" column="REG_DATE" javaType="java.lang.String"/>
+		<id property="lastDate" column="LAST_DATE" javaType="java.lang.String"/>
+		<id property="modifyUserId" column="MODIFY_USER_ID" javaType="int"/>
+	</resultMap>
+
 
 	<select id="selectListBomOrderTb0001" resultType="orderInfo" resultMap="OrderInfoMap" parameterType="orderInfo">
 		SELECT
@@ -72,7 +84,7 @@
 			T1.REG_DATE ,
 			T1.LAST_DATE ,
 			T1.MODIFY_USER_ID 
-			<!-- T2.IDX AS payIdx,
+			T2.IDX AS payIdx,
 			T2.ORDER_NO AS payOrdNo,
 			T2.ORDER_NO_SEQ AS payOrdNoSeq,
 			T2.PYMT_PAY_CD AS payCd,
@@ -90,21 +102,21 @@
 			T4.PRD_CTG_M AS prdCtgM,
 			T4.PRD_CTG_S AS prdCtgS,
 			T4.FROM_DATE AS prdFromDate,
-			T4.TO_DATE AS prdToDate -->
+			T4.TO_DATE AS prdToDate 
 		FROM 
 				BOM_ORDER_TB T1
-			<!-- LEFT OUTER JOIN 
+			LEFT OUTER JOIN 
 				BOM_PAYMENT_TB T2 ON T1.ORDER_NO = T2.ORDER_NO
 			JOIN 
 				BOM_ORD_PRD_TB T3 ON T1.ORDER_NO = T3.ORDER_NO
 			JOIN 
-				BOM_PRODUCT_TB T4 ON T3.PRD_CD = T4.PRD_CD -->
+				BOM_PRODUCT_TB T4 ON T3.PRD_CD = T4.PRD_CD 
 		WHERE
 			(1 = 1)
 				<!-- <if test="srchStdDt != null and srchStdDt != '' and srchEdDt != null and srchEdDt != ''">AND T1.ORDER_DATE BETWEEN #{srchStdDt} AND #{srchEdDt} </if>
 				 --><if test="orderStatCd != null and orderStatCd != ''">AND T1.ORDER_STAT_CD= #{orderStatCd} </if>
-			<!--  	<if test="customerInfo.custId != null and customerInfo.custId != ''">AND T1.CUST_ID=#{customerInfo.custId} </if>
-			 --> 	<if test="customerInfo != null">AND T1.CUST_ID=#{customerInfo.custId} </if>
+				<if test="customerInfo.custId != null and customerInfo.custId != ''"> AND T1.CUST_ID = #{customerInfo.custId}</if>
+			
 		 <if test="startIdx>=0">LIMIT #{startIdx},15</if>
 		 	
 	</select >
@@ -200,6 +212,13 @@
 			(`ORDER_NO`,`CUST_ID`,`ORDER_STAT_CD`,`ORDER_DATE`,`REG_DATE`,`LAST_DATE`,`MODIFY_USER_ID`)
 			VALUES
 			(#{orderNo}, #{customerInfo.custId},#{orderStatCd},sysdate(), sysdate(), sysdate(),#{modifyUserId})
+	</insert>
+	
+	<insert id="insertBomPaymentTb0001" parameterType="paymentInfo" >
+		INSERT BOM_PAYMENT_TB
+			(`ORDER_NO`,`ORDER_NO_SEQ`,`PYMT_PAY_CD`,`PYMT_AMOUNT`,`PYMT_DATE`,`REG_DATE`,`LAST_DATE`,`MODIFY_USER_ID`)
+			VALUES
+			(#{orderNo}, #{orderNoSeq},#{payMdCd},#{payPrice}, sysdate(), sysdate(), sysdate(),#{modifyUserId})
 	</insert>
 	
 	<update id="updateBomOrderTb0001" parameterType="orderInfo">

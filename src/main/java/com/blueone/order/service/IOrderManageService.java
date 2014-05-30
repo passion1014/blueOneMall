@@ -6,6 +6,7 @@ import com.blueone.customer.domain.RecipientInfo;
 import com.blueone.order.domain.OrderInfo;
 import com.blueone.order.domain.OrderProductInfo;
 import com.blueone.order.domain.OrderSrchInfo;
+import com.blueone.order.domain.PaymentInfo;
 
 
 public interface IOrderManageService {
@@ -22,6 +23,7 @@ public interface IOrderManageService {
 	public int updateOrderInf(OrderInfo odInfo);
 	public List<OrderInfo> getOrderInfoListBySchInfo(OrderSrchInfo orderSrchInfo);
 	public int getOrderTypTotalCount(OrderSrchInfo orderSrchInfo);
+	public int registPaymentInfo(PaymentInfo paymentInfo);
 	
 	
 }

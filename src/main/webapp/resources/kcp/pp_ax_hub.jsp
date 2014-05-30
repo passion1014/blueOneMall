@@ -116,8 +116,19 @@
     /* ============================================================================== */
 	/* =   02. 지불 요청 정보 설정 END
 	/* ============================================================================== */
-
-
+	
+  	/* ============================================================================== */
+    /* =   02-1.받는사람 정보                                                = */
+    /* = -------------------------------------------------------------------------- = */
+ /* 	String reci_name     = f_get_parm( request.getParameter( "reciInfo.reciNm"      ) ); //받는사람 이름
+ 	String reci_ph     = f_get_parm( request.getParameter( "reciInfo.reciPh"      ) ); //받는사람 전화번호
+ 	String reci_mb     = f_get_parm( request.getParameter( "reciInfo.reciMb"      ) ); //받는사람 핸드폰번호
+ 	String reci_add     = f_get_parm( request.getParameter( "reciInfo.reciAdd"      ) ); //받는사람 주소
+ 	String reci_req     = f_get_parm( request.getParameter( "reciInfo.reciReq"      ) ); //받는사람 요청사항 */
+ 	
+ 	
+ 	
+ 	
     /* ============================================================================== */
     /* =   03. 인스턴스 생성 및 초기화(변경 불가)                                   = */
     /* = -------------------------------------------------------------------------- = */
@@ -497,7 +508,8 @@
     </head>
 
     <body onload="goResult()">
-    <form name="pay_info" method="post" action="/resources/kcp/result.jsp">
+    <!-- <form name="pay_info" method="post" action="/resources/kcp/result.jsp">-->    
+    <form name="pay_info" method="post" action="/order/orderComplete.do?orderNo=<%=ordr_idxx %>">
 		<input type="hidden" name="site_cd"         value="<%= g_conf_site_cd	%>">    <!-- 사이트 코드 -->
 		<input type="hidden" name="req_tx"          value="<%= req_tx			%>">    <!-- 요청 구분 -->
         <input type="hidden" name="use_pay_method"  value="<%= use_pay_method	%>">    <!-- 사용한 결제 수단 -->
@@ -555,6 +567,14 @@
         <input type="hidden" name="cash_authno"     value="<%= cash_authno		%>">	<!-- 현금 영수증 승인 번호 -->
         <input type="hidden" name="cash_tr_code"    value="<%= cash_tr_code		%>">	<!-- 현금 영수증 발행 구분 -->
         <input type="hidden" name="cash_id_info"    value="<%= cash_id_info		%>">	<!-- 현금 영수증 등록 번호 -->
+        <%-- <!-- 받는사람 정보 -->
+        <input type="hidden" name="reciInfo.reciNm"         value="<%= reci_name			%>">    <!-- 이름 -->
+        <input type="hidden" name="reciInfo.reciPh"         value="<%= reci_ph			%>">    <!-- 전화번호 -->
+        <input type="hidden" name="reciInfo.reciMb"         value="<%= reci_mb			%>">    <!-- 핸드폰번호-->
+        <input type="hidden" name="reciInfo.reciAdd"         value="<%= reci_add			%>">    <!-- 주소 -->
+        <input type="hidden" name="reciInfo.reciReq"         value="<%= reci_req			%>">    <!-- 요청사항 --> --%>
+        
+        
     </form>
 	</body>
 </html>

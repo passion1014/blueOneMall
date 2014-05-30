@@ -47,6 +47,7 @@ import com.blueone.board.service.IBoardService;
 import com.blueone.common.domain.AttachFileInfo;
 import com.blueone.common.domain.SearchAddress;
 import com.blueone.common.service.IAttachFileManageService;
+import com.blueone.common.util.HMallInterworkUtility;
 import com.blueone.common.util.Utility;
 import com.blueone.customer.domain.CustomerInfo;
 import com.blueone.customer.domain.RecipientInfo;
@@ -406,6 +407,38 @@ public class UserController {
 		orderInfo.setOrderStatCd("07");
 		orderService.updateOrderInf(orderInfo);
 	
+		
+		String decMemNm = cust.getCustNm();
+		String decMemNo = cust.getCustId();
+		String decShopEventNo = (String)session.getAttribute("shopEventNo");
+		String decPoint = "1000"; //수정해줘야할 부분
+		String decOrderNo = orderInfo.getOrderNo();
+		
+		// --------------------------------------------
+		// 2. SSO처리를 위한 웹서비스 호출
+		// --------------------------------------------
+		Map<String, String> rstMap = null;
+		try {
+			rstMap = HMallInterworkUtility.procUsePoint(decMemNm, decMemNo, decShopEventNo, decPoint, decOrderNo);
+		} catch (Exception e) {
+			model.addAttribute("msg", "SSO처리시 에러발생하였습니다.");
+			return "user/loginError";
+		}
+		
+		// --------------------------------------------
+		// 3. 체크 - SSO처리 결과를 확인한다.
+		// --------------------------------------------
+		if (rstMap == null) {
+			model.addAttribute("msg", "SSO처리 결과가 없습니다.(1)");
+			return "user/loginError";
+		} else {
+			String returnCode = (String)rstMap.get("return_code");
+			
+			if (!"000".equals(returnCode)) {
+				model.addAttribute("msg", HMallInterworkUtility.getErrorMsgByCode(returnCode));
+				return "user/loginError";
+			}
+		}
 	
 		return "redirect:orderListView.do";
 	}

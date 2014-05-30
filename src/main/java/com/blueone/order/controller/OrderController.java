@@ -33,6 +33,7 @@ import com.blueone.common.domain.AttachFileInfo;
 import com.blueone.common.service.IAttachFileManageService;
 import com.blueone.common.util.CookieBox;
 import com.blueone.common.util.CookieUtil;
+import com.blueone.common.util.HMallInterworkUtility;
 import com.blueone.customer.domain.CustomerContactInfo;
 import com.blueone.customer.domain.CustomerInfo;
 import com.blueone.customer.domain.RecipientInfo;
@@ -40,6 +41,7 @@ import com.blueone.customer.service.ICustomerManageService;
 import com.blueone.order.domain.OrderInfo;
 import com.blueone.order.domain.OrderProductInfo;
 import com.blueone.order.domain.OrderSrchInfo;
+import com.blueone.order.domain.PaymentInfo;
 import com.blueone.order.service.IOrderManageService;
 import com.blueone.product.domain.ProductInfo;
 import com.blueone.product.service.IProductManageService;
@@ -488,6 +490,9 @@ public class OrderController {
 		
 		model.addAttribute("config", resConfigInfo);
 		
+		Map<String, String> map = HMallInterworkUtility.procSearchPoint(cus.getCustNm(), cus.getCustId(),(String)session.getAttribute("shopEventNo"));
+		String point = (String)map.get("return_point");
+		
 		return "order/order";
 	}
 	
@@ -794,7 +799,7 @@ public class OrderController {
 }
 
 
-	//결제 팝업
+	/*//결제 팝업
 	@RequestMapping(value="/order/orderPay.do")
 	public String orderPay(@ModelAttribute("orderInfo") OrderInfo orderInfo,HttpSession session,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
 		
@@ -806,10 +811,10 @@ public class OrderController {
 		
 		
 		
-		/*CustomerInfo cus =new CustomerInfo();
+		CustomerInfo cus =new CustomerInfo();
 		cus.setCustId("100001639343");
 		cus=customerService.getCustomerInfo2(cus);
-		*/
+		
 		String birth = cus.getCustBirth();
 //		cus = useStringToken(birth,"b",cus);
 		
@@ -866,22 +871,23 @@ public class OrderController {
 		
 		model.addAttribute("recipientInfo",re);
 		
-		return "order/orderPay";
+		return "";
 	}
+	*/
 	
-	
-	//결제 팝업
+	/*//결제 팝업
 	@RequestMapping(value="/order/orderPayKcp.do")
 	public String orderPayKcp(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		
 		return "order/pp_ax_hub";
-	}
+	}*/
 
 
 	//주문성공페이지
 	@RequestMapping(value="/order/orderComplete.do")
-	public String orderComplete(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result,HttpSession session, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
-		CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");	
+	public String orderComplete(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result,String card_cd,int amount,HttpSession session, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
+		CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");
+		
 		// 세션체크
 		if (cus == null) {
 			return "user/errorPage";
@@ -893,7 +899,7 @@ public class OrderController {
 		cus.setCustId("100001639343");
 		cus=customerService.getCustomerInfo2(cus);
 		*/
-		String birth = cus.getCustBirth();
+	/*	String birth = cus.getCustBirth();*/
 //		cus = useStringToken(birth,"b",cus);
 		
 		String phone = cus.getCustPh();
@@ -906,7 +912,7 @@ public class OrderController {
 		//결제상품 보여주기
 		String odNo=orderInfo.getOrderNo();
 		
-		
+		BigDecimal total = null;
 		OrderProductInfo opRes = new OrderProductInfo();
 		opRes.setOrderNo(orderInfo.getOrderNo());
 		List<OrderProductInfo> opResInf = orderManageService.selectOrderPrdInfo(opRes);
@@ -940,7 +946,7 @@ public class OrderController {
 			
 			//수량 및 금액
 			each.setSellPrice(new BigDecimal(prInf.getPrdSellPrc()));
-			BigDecimal total = new BigDecimal(prInf.getPrdSellPrc()) ;
+			total = new BigDecimal(prInf.getPrdSellPrc()) ;
 			total=total.multiply(new BigDecimal(each.getBuyCnt()));
 			each.setTotalPrice(total);
 			
@@ -959,16 +965,64 @@ public class OrderController {
 		}
 		model.addAttribute("odPrdInfo",opResInf);
 		
-		RecipientInfo reInf = new RecipientInfo();
-		reInf.setReciOdNum(odNo);
-		reInf = orderManageService.selectRecipientInfo(reInf);
-		model.addAttribute("reInfo",reInf);
-			
+		//받는사람 정보
+		RecipientInfo re = new RecipientInfo();
+		re=orderInfo.getReciInfo();
+		re.setReciOdNum(odNo);
+		cus.setCustAdd(re.getAdd1());
+		customerManageService.updateCustomerInf(cus);
+		orderManageService.registRecipientInfo(re);model.addAttribute("reInfo",re);
+		
 		//Order 저장
-		orderInfo.setOrderStatCd("0");
-		
+		orderInfo.setOrderStatCd("02");
 		orderManageService.updateOrderInf(orderInfo);
+	
+		//pay
+		PaymentInfo payment = new PaymentInfo();
+		payment.setOrderNo(odNo);
+		payment.setOrderNoSeq(1);
+		payment.setPayPrice(total);
+		payment.setPayMdCd(card_cd);
+		payment.setModifyUserId(cus.getCustId());
+		orderManageService.registPaymentInfo(payment);
 		
+		
+		//현대몰에 포인트 전달
+		if(amount!=total.intValue()){
+			String decMemNm = cus.getCustNm();
+			String decMemNo = cus.getCustId();
+			String decShopEventNo = (String)session.getAttribute("shopEventNo");
+			String decPoint = Integer.toString(amount);
+			String decOrderNo = odNo;
+			
+			// --------------------------------------------
+			// 2. SSO처리를 위한 웹서비스 호출
+			// --------------------------------------------
+			Map<String, String> rstMap = null;
+			try {
+				rstMap = HMallInterworkUtility.procUsePoint(decMemNm, decMemNo, decShopEventNo, decPoint, decOrderNo);
+			} catch (Exception e) {
+				model.addAttribute("msg", "SSO처리시 에러발생하였습니다.");
+				return "user/loginError";
+			}
+			
+			// --------------------------------------------
+			// 3. 체크 - SSO처리 결과를 확인한다.
+			// --------------------------------------------
+			if (rstMap == null) {
+				model.addAttribute("msg", "SSO처리 결과가 없습니다.(1)");
+				return "user/loginError";
+			} else {
+				String returnCode = (String)rstMap.get("return_code");
+				
+				if (!"000".equals(returnCode)) {
+					model.addAttribute("msg", HMallInterworkUtility.getErrorMsgByCode(returnCode));
+					return "user/loginError";
+				}
+			}
+			
+			model.addAttribute("usePoint",total.intValue()-amount);
+		}
 		return "order/orderComplete";
 	}
 	
