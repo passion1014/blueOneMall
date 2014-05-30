@@ -350,7 +350,7 @@ public class OrderController {
 	
 	//바로구매
 	@RequestMapping(value="/order/orderDirect.do")
-	public String orderDirect(@ModelAttribute("orderProductInfo") OrderProductInfo orderProductInfo,HttpSession session,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
+	public String orderDirect(@ModelAttribute("orderProductInfo") OrderProductInfo orderProductInfo,HttpSession session,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws Exception{
 	
 		
 		
@@ -393,58 +393,64 @@ public class OrderController {
 		int prdCount=-1;
 		String countExist="n";
 		
-		if(ckKey!=null){
-			for(String each : ckKey){
+for(String each : ckKey){
+			
+			if("BOM".equals(each.substring(0, 3)) && orderProductInfo.getPrdCd().equals(each.substring(3, each.indexOf("_")))){
+				++prdCount;
+				String vl = cki.getValue(each);
+				StringTokenizer st = new StringTokenizer(vl, ",");
+				String optionColor="";
+				String optionSize= "";
 				
-				if("BOM".equals(each.substring(0, 3)) && orderProductInfo.getPrdCd().equals(each.substring(3, each.indexOf("_")))){
-					++prdCount;
-					String vl = cki.getValue(each);
-					StringTokenizer st = new StringTokenizer(vl, ",");
-					String optionColor="";
-					String optionSize= "";
-					
-					while (st.hasMoreElements()) {
-	
-						String s = st.nextToken();
-						if ("01".equals(s.substring(0, 2))) {
-							optionColor=s.substring(3);
-						}
-						if ("02".equals(s.substring(0, 2))) {
-							optionSize= s.substring(3);
-						}
-						if ("cn".equals(s.substring(0, 2))) {
-							countExist="y";
-							count=Integer.parseInt(s.substring(3));
-						}
-						
+				while (st.hasMoreElements()) {
+
+					String s = st.nextToken();
+					if ("01".equals(s.substring(0, 2))) {
+						optionColor=s.substring(3);
+					}
+					if ("02".equals(s.substring(0, 2))) {
+						optionSize= s.substring(3);
+					}
+					if ("cn".equals(s.substring(0, 2))) {
+						countExist="y";
+						count=Integer.parseInt(s.substring(3));
 					}
 					
-					pNum = Integer.parseInt(each.substring(each.indexOf("_")+1));
-					if((orderProductInfo.getPrdOpColor()==null || orderProductInfo.getPrdOpColor().isEmpty()) && optionSize.equals(orderProductInfo.getPrdOpSize())){
-						count += orderProductInfo.getBuyCnt();
-						break;
-					}else if((orderProductInfo.getPrdOpSize()==null || orderProductInfo.getPrdOpSize().isEmpty()) && optionColor.equals(orderProductInfo.getPrdOpColor())){
-						count += orderProductInfo.getBuyCnt();
-						break;
-					}else if((orderProductInfo.getPrdOpSize()==null || orderProductInfo.getPrdOpSize().isEmpty()) && (orderProductInfo.getPrdOpColor()==null || orderProductInfo.getPrdOpColor().isEmpty())){
-						if(optionSize.equals(orderProductInfo.getPrdOpSize()) && optionColor.equals(orderProductInfo.getPrdOpColor()) && countExist.equals("y")){
-							count += orderProductInfo.getBuyCnt();
-							break;
-						}else{
-							pNum = prdCount+1 ;
-							count=orderProductInfo.getBuyCnt();
-							
-						}
-						
-					}else{
-						pNum = prdCount+1 ;
-						count=orderProductInfo.getBuyCnt();
-						
-					}
 				}
+				
+				pNum = Integer.parseInt(each.substring(each.indexOf("_")+1));
+				if((orderProductInfo.getPrdOpColor()==null || orderProductInfo.getPrdOpColor().isEmpty()) && optionSize.equals(orderProductInfo.getPrdOpSize())){
+					count += orderProductInfo.getBuyCnt();
+					break;
+				}else if((orderProductInfo.getPrdOpSize()==null || orderProductInfo.getPrdOpSize().isEmpty()) && optionColor.equals(orderProductInfo.getPrdOpColor())){
+					count += orderProductInfo.getBuyCnt();
+					break;
+				}else if(optionSize.equals(orderProductInfo.getPrdOpSize()) && optionColor.equals(orderProductInfo.getPrdOpColor())&&countExist.equals("y")){
+						count += orderProductInfo.getBuyCnt();
+						break;
+				}else{
+	
+					pNum = prdCount+1 ;
+					count=orderProductInfo.getBuyCnt();
 					
-					
+				}
 			}
+				
+				
+		}
+		
+		if(orderProductInfo.getPrdOpColor()!=null){
+			value+="01="+orderProductInfo.getPrdOpColor()+",";
+		}
+		if(orderProductInfo.getPrdOpSize()!=null){
+			value+="02="+orderProductInfo.getPrdOpSize()+",";
+		}
+		if(orderProductInfo.getPrdSmallImg()!=null){
+			value+="cn="+count+",";
+			Cookie cookie =cki.createCookie("BOM"+orderProductInfo.getPrdCd()+"_"+pNum,value,50000);
+			response.addCookie(cookie);//
+	
+		
 		}
 		
 		
@@ -580,12 +586,13 @@ public class OrderController {
 		
 	//장바구니->결제페이지
 	@RequestMapping(value="/order/orderRegister.do")
-	public String orderRegister(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result,HttpSession session, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
+	public String orderRegister(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result,HttpSession session, Model model,HttpServletRequest request,HttpServletResponse response) throws Exception{
 		CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");	
 		// 세션체크
 		if (cus == null) {
 			return "user/errorPage";
-		}	
+		}
+		
 		StringTokenizer st = new StringTokenizer(orderInfo.getOrd_unit_chk(),",");
 		
 		List<OrderProductInfo> oPrdList = new ArrayList<OrderProductInfo>();
@@ -665,6 +672,12 @@ public class OrderController {
 		ConfigInfo resConfigInfo = adminManageService.selectConfigInf();
 		
 		model.addAttribute("config", resConfigInfo);
+		
+		
+		
+		Map<String, String> map = HMallInterworkUtility.procSearchPoint(cus.getCustNm(), cus.getCustId(),(String)session.getAttribute("shopEventNo"));
+		String point = (String)map.get("return_point");
+		
 		return "order/order";
 	}
 	
@@ -885,7 +898,7 @@ public class OrderController {
 
 	//주문성공페이지
 	@RequestMapping(value="/order/orderComplete.do")
-	public String orderComplete(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result,String card_cd,int amount,HttpSession session, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
+	public String orderComplete(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result,String card_cd,String amount,HttpSession session, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
 		CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");
 		
 		// 세션체크
@@ -915,40 +928,111 @@ public class OrderController {
 		BigDecimal total = null;
 		OrderProductInfo opRes = new OrderProductInfo();
 		opRes.setOrderNo(orderInfo.getOrderNo());
-		List<OrderProductInfo> opResInf = orderManageService.selectOrderPrdInfo(opRes);
 		
-		for(OrderProductInfo each : opResInf){
-			String prdCd = each.getPrdCd();
+		List<OrderProductInfo> opResInf = new ArrayList<OrderProductInfo>();
+		StringTokenizer st1 = new StringTokenizer(orderInfo.getOrd_unit_chk(),",");
+		
+		//List<OrderProductInfo> opResInf = new ArrayList<OrderProductInfo>();
+		
+		CookieBox cki = new CookieBox(request);
+		
+		while(st1.hasMoreTokens()){
+			OrderProductInfo odPrdInfo = new OrderProductInfo();
+			
+			String cookieKey = st1.nextToken();
+			odPrdInfo.setCookieKey(cookieKey);
+			String prdCd =cookieKey.substring(3,cookieKey.indexOf("_"));
 			ProductInfo prInf = new ProductInfo();
 			prInf.setPrdCd(prdCd);
 			prInf=productManageService.getProductInfDetail(prInf);
 			
 			//상품 이름
-			each.setPrdNm(prInf.getPrdNm());
+			odPrdInfo.setPrdNm(prInf.getPrdNm());
 			
 			//옵션
-			String option=each.getPrdOption();
-			StringTokenizer st = new StringTokenizer(option,",");
-			while(st.hasMoreElements()) {
-					
-					String s = st.nextToken();
-					
-					if("01".equals(s.substring(0, 2))){
-						option+=s+",";
-						each.setPrdOpColor(s.substring(3));
-					}
-					if("02".equals(s.substring(0, 2))){
-						option+=s+",";
-						each.setPrdOpSize(s.substring(3));
-					}
+			String vl = cki.getValue(cookieKey);
+			StringTokenizer st = new StringTokenizer(vl, ",");
+			String option = "";
 			
+			while (st.hasMoreElements()) {
+
+				String s = st.nextToken();
+
+				if ("01".equals(s.substring(0, 2))) {
+					option += s + ",";
+					odPrdInfo.setPrdOpColor(s.substring(3));
+				}
+				if ("02".equals(s.substring(0, 2))) {
+					option += s + ",";
+					odPrdInfo.setPrdOpSize(s.substring(3));
+				}
+				if("no".equals(s.substring(0, 2))){
+					odPrdInfo.setOrderNo(s.substring(3));
+				}
+				if ("cn".equals(s.substring(0, 2))) {
+					odPrdInfo.setBuyCnt(Integer.parseInt(s.substring(3)));
+					total = new BigDecimal(prInf.getPrdSellPrc());
+					total = total.multiply(new BigDecimal(odPrdInfo.getBuyCnt()));
+					odPrdInfo.setTotalPrice(total);
+				}
 			}
+			odPrdInfo.setPrdOption(option);
 			
 			//수량 및 금액
-			each.setSellPrice(new BigDecimal(prInf.getPrdSellPrc()));
+			odPrdInfo.setSellPrice(new BigDecimal(prInf.getPrdSellPrc()));
 			total = new BigDecimal(prInf.getPrdSellPrc()) ;
-			total=total.multiply(new BigDecimal(each.getBuyCnt()));
-			each.setTotalPrice(total);
+			total=total.multiply(new BigDecimal(odPrdInfo.getBuyCnt()));
+			odPrdInfo.setTotalPrice(total);
+			
+			//pay
+			PaymentInfo payment = new PaymentInfo();
+			payment.setOrderNo(odNo);
+			payment.setOrderNoSeq(1);
+			payment.setPayPrice(total);
+			payment.setPayMdCd(card_cd);
+			model.addAttribute("pay",card_cd);
+			payment.setModifyUserId(cus.getCustId());
+			
+			
+			//현대몰에 포인트 전달
+			if(amount.equals(total.toString())){
+				String decMemNm = cus.getCustNm();
+				String decMemNo = cus.getCustId();
+				String decShopEventNo = (String)session.getAttribute("shopEventNo");
+				String decPoint = amount;
+				String decOrderNo = odNo;
+				
+				// --------------------------------------------
+				// 2. SSO처리를 위한 웹서비스 호출
+				// --------------------------------------------
+				Map<String, String> rstMap = null;
+				try {
+					rstMap = HMallInterworkUtility.procUsePoint(decMemNm, decMemNo, decShopEventNo, decPoint, decOrderNo);
+				} catch (Exception e) {
+					model.addAttribute("msg", "SSO처리시 에러발생하였습니다.");
+					return "user/loginError";
+				}
+				
+				// --------------------------------------------
+				// 3. 체크 - SSO처리 결과를 확인한다.
+				// --------------------------------------------
+				if (rstMap == null) {
+					model.addAttribute("msg", "SSO처리 결과가 없습니다.(1)");
+					return "user/loginError";
+				} else {
+					String returnCode = (String)rstMap.get("return_code");
+					
+					if (!"000".equals(returnCode)) {
+						model.addAttribute("msg", HMallInterworkUtility.getErrorMsgByCode(returnCode));
+						return "user/loginError";
+					}
+				}
+				
+				model.addAttribute("usePoint",total.intValue()-Integer.parseInt(amount));
+				payment.setPayPoint(total.intValue()-Integer.parseInt(amount));
+			}
+			
+			orderManageService.registPaymentInfo(payment);
 			
 			//사진
 			AttachFileInfo att = new AttachFileInfo();
@@ -956,13 +1040,16 @@ public class OrderController {
 			att.setAttImgType("01");
 			att = attFileManageService.getAttFileInfListImg(att);
 			if(att==null){
-				each.setPrdSmallImg("");
+				odPrdInfo.setPrdSmallImg("");
 			}else { 
 				
-				each.setPrdSmallImg(att.getAttFilePath());
+				odPrdInfo.setPrdSmallImg(att.getAttFilePath());
 			}
 			
+			opResInf.add(odPrdInfo);
 		}
+		
+		
 		model.addAttribute("odPrdInfo",opResInf);
 		
 		//받는사람 정보
@@ -971,58 +1058,16 @@ public class OrderController {
 		re.setReciOdNum(odNo);
 		cus.setCustAdd(re.getAdd1());
 		customerManageService.updateCustomerInf(cus);
-		orderManageService.registRecipientInfo(re);model.addAttribute("reInfo",re);
+		orderManageService.registRecipientInfo(re);
+		model.addAttribute("reInfo",re);
 		
 		//Order 저장
+		orderInfo.setCustomerInfo(cus);
 		orderInfo.setOrderStatCd("02");
 		orderManageService.updateOrderInf(orderInfo);
 	
-		//pay
-		PaymentInfo payment = new PaymentInfo();
-		payment.setOrderNo(odNo);
-		payment.setOrderNoSeq(1);
-		payment.setPayPrice(total);
-		payment.setPayMdCd(card_cd);
-		payment.setModifyUserId(cus.getCustId());
-		orderManageService.registPaymentInfo(payment);
 		
 		
-		//현대몰에 포인트 전달
-		if(amount!=total.intValue()){
-			String decMemNm = cus.getCustNm();
-			String decMemNo = cus.getCustId();
-			String decShopEventNo = (String)session.getAttribute("shopEventNo");
-			String decPoint = Integer.toString(amount);
-			String decOrderNo = odNo;
-			
-			// --------------------------------------------
-			// 2. SSO처리를 위한 웹서비스 호출
-			// --------------------------------------------
-			Map<String, String> rstMap = null;
-			try {
-				rstMap = HMallInterworkUtility.procUsePoint(decMemNm, decMemNo, decShopEventNo, decPoint, decOrderNo);
-			} catch (Exception e) {
-				model.addAttribute("msg", "SSO처리시 에러발생하였습니다.");
-				return "user/loginError";
-			}
-			
-			// --------------------------------------------
-			// 3. 체크 - SSO처리 결과를 확인한다.
-			// --------------------------------------------
-			if (rstMap == null) {
-				model.addAttribute("msg", "SSO처리 결과가 없습니다.(1)");
-				return "user/loginError";
-			} else {
-				String returnCode = (String)rstMap.get("return_code");
-				
-				if (!"000".equals(returnCode)) {
-					model.addAttribute("msg", HMallInterworkUtility.getErrorMsgByCode(returnCode));
-					return "user/loginError";
-				}
-			}
-			
-			model.addAttribute("usePoint",total.intValue()-amount);
-		}
 		return "order/orderComplete";
 	}
 	

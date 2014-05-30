@@ -8,7 +8,7 @@ public class PaymentInfo {
 	private String orderNo;		// 등록일
 	private int orderNoSeq;		// 등록일
 	private String payDate;		// 등록일
-	
+	private int payPoint; // 포인트 사용금액
 	private BigDecimal payPrice;	// 결제금액
 	private String regDate;		// 등록일
 	private String lastDate;	// 최종수정일
@@ -16,6 +16,12 @@ public class PaymentInfo {
 	
 	
 	
+	public int getPayPoint() {
+		return payPoint;
+	}
+	public void setPayPoint(int payPoint) {
+		this.payPoint = payPoint;
+	}
 	public String getOrderNo() {
 		return orderNo;
 	}

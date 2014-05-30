@@ -241,6 +241,25 @@ public class OrderManageServiceImpl implements IOrderManageService{
 		
 	}
 	
+	@Override
+	//포인트사용 조회
+	public List<PaymentInfo> selectPaymentInfo(PaymentInfo paymentInfo){
+		 List<PaymentInfo> result = new  ArrayList<PaymentInfo>();
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			// -----------------------------------------------
+			// 1. 상품코드 기본값 조회
+			// -----------------------------------------------
+			result = sqlSession.selectList("order.selectListBomPaymentTb0001", paymentInfo);
+			
+		} finally {
+			sqlSession.close();
+		}
+		return result;
+		
+		
+	}
 
 	@Override
 	//사용자 아이디 or 주문코드로or날짜로 주문내역 조회

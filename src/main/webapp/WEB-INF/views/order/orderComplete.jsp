@@ -159,7 +159,7 @@
 					</div>
 					<div class="complet_box">
 						<a href="/product/productList.do" class="btn_success">계속쇼핑하기</a>
-						<a href="" class="btn_continue">확인</a>
+						<a href="#" class="btn_continue">확인</a>
 					</div>
 				</div>
 			</form>

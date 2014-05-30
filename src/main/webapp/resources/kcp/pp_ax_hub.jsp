@@ -120,11 +120,12 @@
   	/* ============================================================================== */
     /* =   02-1.받는사람 정보                                                = */
     /* = -------------------------------------------------------------------------- = */
- /* 	String reci_name     = f_get_parm( request.getParameter( "reciInfo.reciNm"      ) ); //받는사람 이름
- 	String reci_ph     = f_get_parm( request.getParameter( "reciInfo.reciPh"      ) ); //받는사람 전화번호
- 	String reci_mb     = f_get_parm( request.getParameter( "reciInfo.reciMb"      ) ); //받는사람 핸드폰번호
- 	String reci_add     = f_get_parm( request.getParameter( "reciInfo.reciAdd"      ) ); //받는사람 주소
- 	String reci_req     = f_get_parm( request.getParameter( "reciInfo.reciReq"      ) ); //받는사람 요청사항 */
+	String reci_name     = f_get_parm( request.getParameter( "reciNm"      ) ); //받는사람 이름
+ 	String reci_ph     = f_get_parm( request.getParameter("tel1"))+","+f_get_parm( request.getParameter("tel2"))+","+f_get_parm( request.getParameter("tel3"));//받는사람 전화번호
+ 	String reci_mb     = f_get_parm( request.getParameter("hp1"))+","+f_get_parm( request.getParameter("hp2"))+","+f_get_parm( request.getParameter("hp3")); //받는사람 핸드폰번호
+ 	String reci_add     = f_get_parm( request.getParameter( "reciAdd"      ) ); //받는사람 주소
+ 	String reci_req     = f_get_parm( request.getParameter( "reciReq"      ) ); //받는사람 요청사항 
+ 	String ord_unit_chk     = f_get_parm( request.getParameter( "ord_unit_chk"      ) ); //
  	
  	
  	
@@ -509,7 +510,7 @@
 
     <body onload="goResult()">
     <!-- <form name="pay_info" method="post" action="/resources/kcp/result.jsp">-->    
-    <form name="pay_info" method="post" action="/order/orderComplete.do?orderNo=<%=ordr_idxx %>">
+    <form name="pay_info" method="get" action="/order/orderComplete.do">
 		<input type="hidden" name="site_cd"         value="<%= g_conf_site_cd	%>">    <!-- 사이트 코드 -->
 		<input type="hidden" name="req_tx"          value="<%= req_tx			%>">    <!-- 요청 구분 -->
         <input type="hidden" name="use_pay_method"  value="<%= use_pay_method	%>">    <!-- 사용한 결제 수단 -->
@@ -521,7 +522,7 @@
         <input type="hidden" name="amount"          value="<%= amount		    %>">	<!-- 금액 -->
         <input type="hidden" name="res_cd"          value="<%= res_cd			%>">    <!-- 결과 코드 -->
         <input type="hidden" name="res_msg"         value="<%= res_msg			%>">    <!-- 결과 메세지 -->
-        <input type="hidden" name="ordr_idxx"       value="<%= ordr_idxx		%>">    <!-- 주문번호 -->
+        <input type="hidden" name="orderNo"       value="<%= ordr_idxx		%>">    <!-- 주문번호 -->
         <input type="hidden" name="tno"             value="<%= tno				%>">    <!-- KCP 거래번호 -->
         <input type="hidden" name="good_mny"        value="<%= good_mny			%>">    <!-- 결제금액 -->
         <input type="hidden" name="good_name"       value="<%= good_name		%>">    <!-- 상품명 -->
@@ -567,14 +568,14 @@
         <input type="hidden" name="cash_authno"     value="<%= cash_authno		%>">	<!-- 현금 영수증 승인 번호 -->
         <input type="hidden" name="cash_tr_code"    value="<%= cash_tr_code		%>">	<!-- 현금 영수증 발행 구분 -->
         <input type="hidden" name="cash_id_info"    value="<%= cash_id_info		%>">	<!-- 현금 영수증 등록 번호 -->
-        <%-- <!-- 받는사람 정보 -->
+        <!-- 받는사람 정보 -->
         <input type="hidden" name="reciInfo.reciNm"         value="<%= reci_name			%>">    <!-- 이름 -->
         <input type="hidden" name="reciInfo.reciPh"         value="<%= reci_ph			%>">    <!-- 전화번호 -->
         <input type="hidden" name="reciInfo.reciMb"         value="<%= reci_mb			%>">    <!-- 핸드폰번호-->
         <input type="hidden" name="reciInfo.reciAdd"         value="<%= reci_add			%>">    <!-- 주소 -->
-        <input type="hidden" name="reciInfo.reciReq"         value="<%= reci_req			%>">    <!-- 요청사항 --> --%>
+        <input type="hidden" name="reciInfo.reciReq"         value="<%= reci_req			%>">    <!-- 요청사항 --> 
         
-        
+        <input type="hidden" id="ord_unit_chk" name="ord_unit_chk"  value="<%= ord_unit_chk			%>"/>
     </form>
 	</body>
 </html>

@@ -54,6 +54,7 @@ import com.blueone.customer.domain.RecipientInfo;
 import com.blueone.customer.service.ICustomerManageService;
 import com.blueone.order.domain.OrderInfo;
 import com.blueone.order.domain.OrderProductInfo;
+import com.blueone.order.domain.PaymentInfo;
 import com.blueone.order.service.IOrderManageService;
 import com.blueone.product.domain.ProductInfo;
 import com.blueone.product.service.IProductManageService;
@@ -282,7 +283,7 @@ public class UserController {
 			return "user/errorPage";
 		}	
 		
-
+		
 		return "user/userPointSaving";
 	}
 	//�궗�슜�궡�뿭議고쉶
@@ -297,7 +298,83 @@ public class UserController {
 		if (cus == null) {
 			return "user/errorPage";
 		}	
+		OrderInfo od = new OrderInfo();
+		od.setCustomerInfo(cus);
+		
+		//�븘�씠�뵒濡� 二쇰Ц�궡�뿭媛��졇�삤湲�
+		List<OrderInfo> odList = orderService.selectOrderInfoList(od);
+		
+		if(odList!=null && odList.size()>0){
 			
+		//二쇰Ц肄붾뱶濡� 二쇰Ц�긽�뭹 �젙蹂� 媛��졇�삤湲�
+		for(OrderInfo each : odList){
+			
+			String odNo = each.getOrderNo();
+			OrderProductInfo odPrd = new OrderProductInfo();
+			odPrd.setOrderNo(odNo);
+			List<OrderProductInfo> opResInf = orderService.selectOrderPrdInfo(odPrd);
+			
+			
+			if(opResInf!=null && opResInf.size()>0){
+				odPrd=opResInf.get(0);
+				String prdCd = odPrd.getPrdCd();
+				ProductInfo prInf = new ProductInfo();
+				prInf.setPrdCd(prdCd);
+				prInf=productManageService.getProductInfDetail(prInf);
+				
+				if(prInf !=null){
+				//�긽�뭹 �씠由�
+					if(opResInf.size()>1){
+						odPrd.setPrdNm(prInf.getPrdNm()+"외 "+(opResInf.size()-1)+"개");
+						
+						
+					}else{
+						odPrd.setPrdNm(prInf.getPrdNm());
+						
+						
+					}
+					
+					//�닔�웾 諛� 湲덉븸
+	
+					BigDecimal total=null;
+					BigDecimal realTotal=new BigDecimal(0);
+					
+					for(OrderProductInfo odp:opResInf){
+						odp.setSellPrice(new BigDecimal(prInf.getPrdSellPrc()));
+						total = new BigDecimal(prInf.getPrdSellPrc()) ;
+						total=total.multiply(new BigDecimal(odp.getBuyCnt()));
+						realTotal=realTotal.add(total);
+					}
+					each.setTotalOrderPrice(realTotal);
+					
+					}
+					else{
+						
+					}
+					
+					each.setOrdPrd(odPrd);
+				
+				
+				
+					
+					
+					String reg = each.getRegDate();
+					int a = reg.indexOf(" ");
+					reg= reg.substring(0, a);
+					each.setRegDate(reg);
+					
+					PaymentInfo pay = new PaymentInfo();
+					pay.setOrderNo(odNo);
+					List<PaymentInfo> point = orderService.selectPaymentInfo(pay);
+					each.setPaymentInfo(point.get(0));
+				}
+			}
+		}else{
+			
+		}
+	
+		model.addAttribute("ordList", odList);
+		
 		return "user/userPoint";
 
 	}
@@ -345,7 +422,7 @@ public class UserController {
 				if(prInf !=null){
 				//�긽�뭹 �씠由�
 					if(opResInf.size()>1){
-						odPrd.setPrdNm(prInf.getPrdNm()+"�쇅 "+(opResInf.size()-1)+"媛�");
+						odPrd.setPrdNm(prInf.getPrdNm()+"외 "+(opResInf.size()-1)+"개");
 						
 						
 					}else{

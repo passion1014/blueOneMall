@@ -11,7 +11,7 @@
 			<a href="/user/userPoint.do">주문반품신청</a>
 		</div>
 		-->
-		<li><a href="javascript:void(0)">포인트사용현황</a></li>
+		<li><a href="/user/userPoint.do">포인트사용현황</a></li>
 		<!--
 		<div class="onclick_list">
 			<a href="/user/userPointSaving.do">적립금현황</a>

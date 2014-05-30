@@ -40,7 +40,10 @@
 		<!-- <association property="customerInfo" column="custId" javaType="customerInfo" resultMap="CustomerInfoMap"/> -->
 		<association property="customerInfo" column="custId" select="customer.selectDtlBomCustTb0002"></association>
 		
-
+		<!-- 결제내역 셋팅 -->
+		<association property="paymentInfo" column="orderNo" select="order.selectListBomPaymentTb0001"></association>
+		
+	
 		<!-- 주문상품정보 셋팅 -->
 		<collection property="orderProductList" ofType="orderProductInfo" resultMap="OrdProductInfo"></collection>
 
@@ -67,6 +70,7 @@
 		<id property="orderNoSeq" column="ORDER_NO_SEQ" javaType="int"/>
 		<id property="payMdCd" column="PYMT_PAY_CD" javaType="java.lang.String"/>
 		<id property="payPrice" column="PYMT_AMOUNT" javaType="int"/>
+		<id property="payPoint" column="PYMT_POINT" javaType="int"/>
 		<id property="payDate" column="PYMT_DATE" javaType="java.lang.String"/>
 		<id property="regDate" column="REG_DATE" javaType="java.lang.String"/>
 		<id property="lastDate" column="LAST_DATE" javaType="java.lang.String"/>
@@ -102,7 +106,11 @@
 			T4.PRD_CTG_M AS prdCtgM,
 			T4.PRD_CTG_S AS prdCtgS,
 			T4.FROM_DATE AS prdFromDate,
-			T4.TO_DATE AS prdToDate 
+			T4.TO_DATE AS prdToDate,
+			T5.PYMT_PAY_CD,
+			T5.PYMT_AMOUNT,
+			T5.PYMT_POINT,
+			T5.PYMT_DATE
 		FROM 
 				BOM_ORDER_TB T1
 			LEFT OUTER JOIN 
@@ -110,13 +118,16 @@
 			JOIN 
 				BOM_ORD_PRD_TB T3 ON T1.ORDER_NO = T3.ORDER_NO
 			JOIN 
-				BOM_PRODUCT_TB T4 ON T3.PRD_CD = T4.PRD_CD 
+				BOM_PRODUCT_TB T4 ON T3.PRD_CD = T4.PRD_CD
+			JOIN 
+				BOM_PAYMENT_TB T5 ON T1.ORDER_NO = T5.ORDER_NO	
 		WHERE
 			(1 = 1)
 				<!-- <if test="srchStdDt != null and srchStdDt != '' and srchEdDt != null and srchEdDt != ''">AND T1.ORDER_DATE BETWEEN #{srchStdDt} AND #{srchEdDt} </if>
 				 --><if test="orderStatCd != null and orderStatCd != ''">AND T1.ORDER_STAT_CD= #{orderStatCd} </if>
 				<if test="customerInfo.custId != null and customerInfo.custId != ''"> AND T1.CUST_ID = #{customerInfo.custId}</if>
-			
+				
+				
 		 <if test="startIdx>=0">LIMIT #{startIdx},15</if>
 		 	
 	</select >
@@ -198,7 +209,30 @@
 			<if test="srchStdDt != null and srchStdDt != '' and srchEdDt != null and srchEdDt != ''"> AND T1.REG_DATE BETWEEN  #{srchStdDt} AND #{srchEdDt}</if>
 		<if test="startIdx>=0">LIMIT #{startIdx},15</if>
 			
+	</select>
+	
+	<select id="selectListBomPaymentTb0001" resultType="paymentInfo" resultMap="PaymentInfoMap" parameterType="paymentInfo">
+		SELECT
+			T1.IDX,
+			T1.ORDER_NO,
+			T1.ORDER_NO_SEQ,
+			T1.PYMT_PAY_CD,
+			T1.PYMT_AMOUNT,
+			T1.PYMT_POINT,
+			T1.PYMT_DATE,
+			T1.REG_DATE,
+			T1.LAST_DATE,
+			T1.MODIFY_USER_ID
+			
+		FROM 
+			BOM_PAYMENT_TB T1
+		WHERE
+			(1 = 1)
+			<if test="modifyUserId != null and modifyUserId != ''"> AND T1.MODIFY_USER_ID = #{modifyUserId}</if>
+			<if test="orderNo != null and orderNo != ''"> AND T1.ORDER_NO = #{orderNo}</if>
+			
 	</select >
+	
 	<insert id="insertBomOrderPrdTb0001" parameterType="orderProductInfo" >
 		INSERT BOM_ORD_PRD_TB
 			(`ORDER_NO`,`PRD_CD`,`REG_DATE`,`LAST_DATE`,`MODIFY_USER_ID`,`PRD_OPTION`,`BUY_COUNT`)
@@ -216,9 +250,9 @@
 	
 	<insert id="insertBomPaymentTb0001" parameterType="paymentInfo" >
 		INSERT BOM_PAYMENT_TB
-			(`ORDER_NO`,`ORDER_NO_SEQ`,`PYMT_PAY_CD`,`PYMT_AMOUNT`,`PYMT_DATE`,`REG_DATE`,`LAST_DATE`,`MODIFY_USER_ID`)
+			(`ORDER_NO`,`ORDER_NO_SEQ`,`PYMT_PAY_CD`,`PYMT_AMOUNT`,`PYMT_POINT`,`PYMT_DATE`,`REG_DATE`,`LAST_DATE`,`MODIFY_USER_ID`)
 			VALUES
-			(#{orderNo}, #{orderNoSeq},#{payMdCd},#{payPrice}, sysdate(), sysdate(), sysdate(),#{modifyUserId})
+			(#{orderNo}, #{orderNoSeq},#{payMdCd},#{payPrice},#{payPoint}, sysdate(), sysdate(), sysdate(),#{modifyUserId})
 	</insert>
 	
 	<update id="updateBomOrderTb0001" parameterType="orderInfo">
