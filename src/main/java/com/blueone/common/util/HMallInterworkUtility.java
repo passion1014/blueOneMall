@@ -25,6 +25,7 @@ import javax.xml.xpath.XPathFactory;
 import net.welfare.HCDESUtil;
 
 import org.apache.commons.lang.StringUtils;
+import org.jfree.util.PublicCloneable;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -122,6 +123,22 @@ public class HMallInterworkUtility {
 		}
 
 		return rstMap;
+	}
+	
+	/**
+	 * 포인트 조회하는 함수
+	 * @param decMemNm
+	 * @param decMemNo
+	 * @param decShopEventNo
+	 * @return
+	 * @throws Exception
+	 */
+	public static Map<String, String> procSearchPoint(String decMemNm, String decMemNo, String decShopEventNo) throws Exception {
+		String encMemNm = convertEnc(decMemNm);
+		String encMemNo = convertEnc(decMemNo);
+		String encShopEventNo = convertEnc(decShopEventNo);
+
+		return procSSO(encMemNm, encMemNo, encShopEventNo);
 	}
 	
 	/**
