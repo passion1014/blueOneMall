@@ -72,11 +72,11 @@ public class OrderController {
 		return viewName;
 	}
 	
-	//장바구니에 들어가기
+	//�λ컮援щ땲���ㅼ뼱媛�린
 	@RequestMapping(value="/order/cartList.do")
 	public String order(@ModelAttribute("orderProductInfo") OrderProductInfo orderProductInfo,HttpSession session,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
 		CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");	
-		// 세션체크
+		// �몄뀡泥댄겕
 		if (cus == null) {
 			return "user/errorPage";
 		}	
@@ -98,7 +98,7 @@ public class OrderController {
 				
 		CookieBox cki = new CookieBox(request);
 		
-		//상품이 선택되서 장바구니 페이지로 들어왔을 경우 해당
+		//�곹뭹���좏깮�섏꽌 �λ컮援щ땲 �섏씠吏�줈 �ㅼ뼱�붿쓣 寃쎌슦 �대떦
 		String value="";
 		
 		
@@ -179,11 +179,11 @@ public class OrderController {
 		
 	}
 
-	// 장바구니-수량 수정
+	// �λ컮援щ땲-�섎웾 �섏젙
 	@RequestMapping(value="/order/editBuyCnt.do")
 	public String editBuyCnt(@ModelAttribute("orderProductInfo") OrderProductInfo orderProductInfo,BindingResult result,HttpSession session, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
 		CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");	
-		// 세션체크
+		// �몄뀡泥댄겕
 		if (cus == null) {
 			return "user/errorPage";
 		}	
@@ -214,7 +214,7 @@ public class OrderController {
 		return "redirect:cartListView.do";
 	}
 	
-	//상품구매 - 수량수정
+	//�곹뭹援щℓ - �섎웾�섏젙
 	@RequestMapping(value="/order/editOrderBuycn.do")
 	public String editOrderBuycn(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result,HttpSession session, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
 	
@@ -222,7 +222,7 @@ public class OrderController {
 		
 		
 		CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");	
-		// 세션체크
+		// �몄뀡泥댄겕
 		if (cus == null) {
 			return "user/errorPage";
 		}	
@@ -254,7 +254,7 @@ public class OrderController {
 		CookieBox cki = new CookieBox(request);
 		
 		
-		while(st.hasMoreTokens()){ // 반활할 토큰이 있는가? true/false;
+		while(st.hasMoreTokens()){ // 諛섑솢���좏겙���덈뒗媛� true/false;
 			OrderProductInfo odPrdInfo = new OrderProductInfo();
 			
 			String key = st.nextToken();
@@ -348,14 +348,14 @@ public class OrderController {
 	}
 	
 	
-	//바로구매
+	//諛붾줈援щℓ
 	@RequestMapping(value="/order/orderDirect.do")
 	public String orderDirect(@ModelAttribute("orderProductInfo") OrderProductInfo orderProductInfo,HttpSession session,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws Exception{
 	
 		
 		
 		CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");	
-		// 세션체크
+		// �몄뀡泥댄겕
 		if (cus == null) {
 			return "user/errorPage";
 		}	
@@ -381,7 +381,7 @@ public class OrderController {
 		
 		CookieBox cki = new CookieBox(request);
 		
-		//상품이 선택되서 장바구니 페이지로 들어왔을 경우 해당
+		//�곹뭹���좏깮�섏꽌 �λ컮援щ땲 �섏씠吏�줈 �ㅼ뼱�붿쓣 寃쎌슦 �대떦
 		String value="";
 		
 		
@@ -393,7 +393,7 @@ public class OrderController {
 		int prdCount=-1;
 		String countExist="n";
 		
-for(String each : ckKey){
+		for(String each : ckKey){
 			
 			if("BOM".equals(each.substring(0, 3)) && orderProductInfo.getPrdCd().equals(each.substring(3, each.indexOf("_")))){
 				++prdCount;
@@ -491,7 +491,7 @@ for(String each : ckKey){
 		model.addAttribute("orderInfo",od);
 		model.addAttribute("odPrdInfo",oPrdList);
 		
-		//배송비관련 정보
+		//諛곗넚鍮꾧����뺣낫
 		ConfigInfo resConfigInfo = adminManageService.selectConfigInf();
 		
 		model.addAttribute("config", resConfigInfo);
@@ -502,13 +502,13 @@ for(String each : ckKey){
 		return "order/order";
 	}
 	
-	//장바구니 보여줌
+	//�λ컮援щ땲 蹂댁뿬以�
 	@RequestMapping(value="/order/cartListView.do")
 	public String orderView(@ModelAttribute("orderProductInfo") OrderProductInfo orderProductInfo,HttpSession session,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
 
 		
 		CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");	
-		// 세션체크
+		// �몄뀡泥댄겕
 		if (cus == null) {
 			return "user/errorPage";
 		}	
@@ -540,11 +540,11 @@ for(String each : ckKey){
 		return "order/cartList";
 	}
 	
-	//장바구니 상품 삭제
+	//�λ컮援щ땲 �곹뭹 ��젣
 	@RequestMapping(value="/order/deleteCartList.do", method = RequestMethod.GET)
 	public String deleteCartList(@ModelAttribute("orderProductInfo") OrderProductInfo orderProductInfo,HttpSession session,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
 		CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");	
-		// 세션체크
+		// �몄뀡泥댄겕
 		if (cus == null) {
 			return "user/errorPage";
 		}	
@@ -557,11 +557,11 @@ for(String each : ckKey){
 		return "redirect:cartListView.do";
 	}
 	
-	//주문 상품 삭제
+	//二쇰Ц �곹뭹 ��젣
 	@RequestMapping(value="/order/deleteOrderList.do", method = RequestMethod.GET)
 	public String deleteOrderList(@ModelAttribute("orderProductInfo") OrderProductInfo orderProductInfo,HttpSession session,@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
 		CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");	
-		// 세션체크
+		// �몄뀡泥댄겕
 		if (cus == null) {
 			return "user/errorPage";
 		}	
@@ -572,7 +572,7 @@ for(String each : ckKey){
 		StringTokenizer st = new StringTokenizer(orderInfo.getOrd_unit_chk(),",");
 		
 		String checked ="";
-		while(st.hasMoreTokens()){ // 반활할 토큰이 있는가? true/false;
+		while(st.hasMoreTokens()){ // 諛섑솢���좏겙���덈뒗媛� true/false;
 			String cookieKey = st.nextToken();
 			if(orderProductInfo.getCookieKey().equals(cookieKey)){
 				
@@ -584,11 +584,11 @@ for(String each : ckKey){
 		return "redirect:orderRegister.do?ord_unit_chk="+checked;
 	}
 		
-	//장바구니->결제페이지
+	//�λ컮援щ땲->寃곗젣�섏씠吏�
 	@RequestMapping(value="/order/orderRegister.do")
 	public String orderRegister(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result,HttpSession session, Model model,HttpServletRequest request,HttpServletResponse response) throws Exception{
 		CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");	
-		// 세션체크
+		// �몄뀡泥댄겕
 		if (cus == null) {
 			return "user/errorPage";
 		}
@@ -600,7 +600,7 @@ for(String each : ckKey){
 		CookieBox cki = new CookieBox(request);
 		
 		
-		while(st.hasMoreTokens()){ // 반활할 토큰이 있는가? true/false;
+		while(st.hasMoreTokens()){ // 諛섑솢���좏겙���덈뒗媛� true/false;
 			OrderProductInfo odPrdInfo = new OrderProductInfo();
 			
 			String cookieKey = st.nextToken();
@@ -662,13 +662,13 @@ for(String each : ckKey){
 		orderInfo.setOrderNo(getOrderCode());
 		model.addAttribute("odPrdInfo",oPrdList);
 		
-		//세션에 잇는 정보를 셋팅
+		//�몄뀡���뉖뒗 �뺣낫瑜��뗮똿
 		CustomerInfo custom  = setSession(session);
 		model.addAttribute("cus",custom);
 					
 		model.addAttribute("orderInfo",orderInfo);
 		
-		//배송비관련 정보
+		//諛곗넚鍮꾧����뺣낫
 		ConfigInfo resConfigInfo = adminManageService.selectConfigInf();
 		
 		model.addAttribute("config", resConfigInfo);
@@ -681,7 +681,7 @@ for(String each : ckKey){
 		return "order/order";
 	}
 	
-	//결제페이지-처리
+	//寃곗젣�섏씠吏�泥섎━
 	@RequestMapping(value="/order/orderRegisterProc.do")
 	public String orderRegisteProc(@ModelAttribute("orderInfo") OrderInfo orderInfo,HttpSession session,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
 		/*String rcid		= request.getParameter("reWHCid"		);
@@ -706,14 +706,14 @@ for(String each : ckKey){
 		String	cbauthno =  "";
 		String	resultcd =  "";
 
-		//업체에서 추가하신 인자값을 받는 부분입니다
+		//�낆껜�먯꽌 異붽��섏떊 �몄옄媛믪쓣 諛쏅뒗 遺�텇�낅땲��
 		String	a =  request.getParameter("a"); 
 		String	b =  request.getParameter("b"); 
 		String	c =  request.getParameter("c"); 
 		String	d =  request.getParameter("d");
 
 		com.blueone.common.util.KSPayWebHostBean ipg = new com.blueone.common.util.KSPayWebHostBean(rcid);
-		if (ipg.kspay_send_msg("1"))		//KSNET 결제결과 중 아래에 나타나지 않은 항목이 필요한 경우 Null 대신 필요한 항목명을 설정할 수 있습니다.
+		if (ipg.kspay_send_msg("1"))		//KSNET 寃곗젣寃곌낵 以��꾨옒���섑��섏� �딆� ��ぉ���꾩슂��寃쎌슦 Null ��떊 �꾩슂����ぉ紐낆쓣 �ㅼ젙�����덉뒿�덈떎.
 		{
 			authyn	 = ipg.kspay_get_value("authyn");
 			trno	 = ipg.kspay_get_value("trno"  );
@@ -742,11 +742,11 @@ for(String each : ckKey){
 					resultcd = authno.trim();
 				}
 
-				//ipg.kspay_send_msg("3");		// 정상처리가 완료되었을 경우 호출합니다.(이 과정이 없으면 일시적으로 kspay_send_msg("1")을 호출하여 거래내역 조회가 가능합니다.)
+				//ipg.kspay_send_msg("3");		// �뺤긽泥섎━媛��꾨즺�섏뿀��寃쎌슦 �몄텧�⑸땲��(��怨쇱젙���놁쑝硫��쇱떆�곸쑝濡�kspay_send_msg("1")���몄텧�섏뿬 嫄곕옒�댁뿭 議고쉶媛�媛�뒫�⑸땲��)
 			}
 		}*/
 		CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");	
-		// 세션체크
+		// �몄뀡泥댄겕
 		if (cus == null) {
 			return "user/errorPage";
 		}	
@@ -767,22 +767,22 @@ for(String each : ckKey){
 		cus = useStringToken(mobile,"m",cus);
 		
 		
-		//주문번호
+		//二쇰Ц踰덊샇
 		String orderNum=orderInfo.getOrderNo();
 		
 		List<OrderProductInfo> ord  = orderInfo.getOrderProductList();
 		for(OrderProductInfo each : ord){
 			
-			//OrderProduct저장
+			//OrderProduct��옣
 			each.setOrderNo(orderNum);
-			each.setModiUser(cus.getCustId());//user ID 입력
+			each.setModiUser(cus.getCustId());//user ID �낅젰
 			orderManageService.registOrderProductInfo(each);
 
 		
 		
 		}
 		
-		//Order 저장
+		//Order ��옣
 		OrderInfo orderInfo1 = new OrderInfo();
 		orderInfo1.setOrderNo(orderNum);
 		orderInfo1.setOrderStatCd("02");
@@ -795,7 +795,7 @@ for(String each : ckKey){
 		CookieBox cki = new CookieBox(request);
 		
 		
-		while(st.hasMoreTokens()){ // 반활할 토큰이 있는가? true/false;
+		while(st.hasMoreTokens()){ // 諛섑솢���좏겙���덈뒗媛� true/false;
 			Cookie cookie =cki.createCookie(st.nextToken(),"null",-1);
 			response.addCookie(cookie);
 		}
@@ -812,12 +812,12 @@ for(String each : ckKey){
 }
 
 
-	/*//결제 팝업
+	/*//寃곗젣 �앹뾽
 	@RequestMapping(value="/order/orderPay.do")
 	public String orderPay(@ModelAttribute("orderInfo") OrderInfo orderInfo,HttpSession session,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
 		
 		CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");	
-		// 세션체크
+		// �몄뀡泥댄겕
 		if (cus == null) {
 			return "user/errorPage";
 		}	
@@ -838,22 +838,22 @@ for(String each : ckKey){
 		cus = useStringToken(mobile,"m",cus);
 		
 		
-		//주문번호
+		//二쇰Ц踰덊샇
 		String orderNum=orderInfo.getOrderNo();
 		
 		List<OrderProductInfo> ord  = orderInfo.getOrderProductList();
 		for(OrderProductInfo each : ord){
 			
-			//OrderProduct저장
+			//OrderProduct��옣
 			each.setOrderNo(orderNum);
-			each.setModiUser(cus.getCustId());//user ID 입력
+			each.setModiUser(cus.getCustId());//user ID �낅젰
 			orderManageService.registOrderProductInfo(each);
 
 		
 		
 		}
 		
-		//Order 저장
+		//Order ��옣
 		OrderInfo orderInfo1 = new OrderInfo();
 		orderInfo1.setOrderNo(orderNum);
 		orderInfo1.setOrderStatCd("01");
@@ -866,7 +866,7 @@ for(String each : ckKey){
 		CookieBox cki = new CookieBox(request);
 		
 		
-		while(st.hasMoreTokens()){ // 반활할 토큰이 있는가? true/false;
+		while(st.hasMoreTokens()){ // 諛섑솢���좏겙���덈뒗媛� true/false;
 			Cookie cookie =cki.createCookie(st.nextToken(),"null",-1);
 			response.addCookie(cookie);
 		}
@@ -888,7 +888,7 @@ for(String each : ckKey){
 	}
 	*/
 	
-	/*//결제 팝업
+	/*//寃곗젣 �앹뾽
 	@RequestMapping(value="/order/orderPayKcp.do")
 	public String orderPayKcp(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		
@@ -896,12 +896,12 @@ for(String each : ckKey){
 	}*/
 
 
-	//주문성공페이지
+	//二쇰Ц�깃났�섏씠吏�
 	@RequestMapping(value="/order/orderComplete.do")
-	public String orderComplete(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result,String card_cd,String amount,HttpSession session, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
+	public String orderComplete(@ModelAttribute("orderInfo") OrderInfo orderInfo,String use_pay_method,BindingResult result,String card_cd,String amount,HttpSession session, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
 		CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");
 		
-		// 세션체크
+		// �몄뀡泥댄겕
 		if (cus == null) {
 			return "user/errorPage";
 		}	
@@ -922,7 +922,7 @@ for(String each : ckKey){
 		cus = useStringToken(mobile,"m",cus);
 		model.addAttribute("cus",cus);
 		
-		//결제상품 보여주기
+		//寃곗젣�곹뭹 蹂댁뿬二쇨린
 		String odNo=orderInfo.getOrderNo();
 		
 		BigDecimal total = null;
@@ -946,10 +946,10 @@ for(String each : ckKey){
 			prInf.setPrdCd(prdCd);
 			prInf=productManageService.getProductInfDetail(prInf);
 			
-			//상품 이름
+			//�곹뭹 �대쫫
 			odPrdInfo.setPrdNm(prInf.getPrdNm());
 			
-			//옵션
+			//�듭뀡
 			String vl = cki.getValue(cookieKey);
 			StringTokenizer st = new StringTokenizer(vl, ",");
 			String option = "";
@@ -978,7 +978,7 @@ for(String each : ckKey){
 			}
 			odPrdInfo.setPrdOption(option);
 			
-			//수량 및 금액
+			//�섎웾 諛�湲덉븸
 			odPrdInfo.setSellPrice(new BigDecimal(prInf.getPrdSellPrc()));
 			total = new BigDecimal(prInf.getPrdSellPrc()) ;
 			total=total.multiply(new BigDecimal(odPrdInfo.getBuyCnt()));
@@ -989,13 +989,13 @@ for(String each : ckKey){
 			payment.setOrderNo(odNo);
 			payment.setOrderNoSeq(1);
 			payment.setPayPrice(total);
-			payment.setPayMdCd(card_cd);
-			model.addAttribute("pay",card_cd);
+			payment.setPayMdCd(use_pay_method);
+			model.addAttribute("pay",use_pay_method);
 			payment.setModifyUserId(cus.getCustId());
 			
 			
-			//현대몰에 포인트 전달
-			if(amount.equals(total.toString())){
+			//�꾨�紐곗뿉 �ъ씤���꾨떖
+			if(!amount.equals(total.toString())){
 				String decMemNm = cus.getCustNm();
 				String decMemNo = cus.getCustId();
 				String decShopEventNo = (String)session.getAttribute("shopEventNo");
@@ -1003,21 +1003,21 @@ for(String each : ckKey){
 				String decOrderNo = odNo;
 				
 				// --------------------------------------------
-				// 2. SSO처리를 위한 웹서비스 호출
+				// 2. SSO泥섎━瑜��꾪븳 �뱀꽌鍮꾩뒪 �몄텧
 				// --------------------------------------------
 				Map<String, String> rstMap = null;
 				try {
 					rstMap = HMallInterworkUtility.procUsePoint(decMemNm, decMemNo, decShopEventNo, decPoint, decOrderNo);
 				} catch (Exception e) {
-					model.addAttribute("msg", "SSO처리시 에러발생하였습니다.");
+					model.addAttribute("msg", "SSO泥섎━���먮윭諛쒖깮�섏��듬땲��");
 					return "user/loginError";
 				}
 				
 				// --------------------------------------------
-				// 3. 체크 - SSO처리 결과를 확인한다.
+				// 3. 泥댄겕 - SSO泥섎━ 寃곌낵瑜��뺤씤�쒕떎.
 				// --------------------------------------------
 				if (rstMap == null) {
-					model.addAttribute("msg", "SSO처리 결과가 없습니다.(1)");
+					model.addAttribute("msg", "SSO泥섎━ 寃곌낵媛��놁뒿�덈떎.(1)");
 					return "user/loginError";
 				} else {
 					String returnCode = (String)rstMap.get("return_code");
@@ -1034,7 +1034,7 @@ for(String each : ckKey){
 			
 			orderManageService.registPaymentInfo(payment);
 			
-			//사진
+			//�ъ쭊
 			AttachFileInfo att = new AttachFileInfo();
 			att.setAttCdKey(prInf.getPrdCd());
 			att.setAttImgType("01");
@@ -1052,16 +1052,18 @@ for(String each : ckKey){
 		
 		model.addAttribute("odPrdInfo",opResInf);
 		
-		//받는사람 정보
+		//諛쏅뒗�щ엺 �뺣낫
 		RecipientInfo re = new RecipientInfo();
 		re=orderInfo.getReciInfo();
 		re.setReciOdNum(odNo);
+		re.setReciNm(new String(re.getReciNm().getBytes("8859_1"), "UTF-8"));
+		re.setReciAdd(new String(re.getReciAdd().getBytes("8859_1"), "UTF-8"));
 		cus.setCustAdd(re.getAdd1());
 		customerManageService.updateCustomerInf(cus);
 		orderManageService.registRecipientInfo(re);
 		model.addAttribute("reInfo",re);
 		
-		//Order 저장
+		//Order ��옣
 		orderInfo.setCustomerInfo(cus);
 		orderInfo.setOrderStatCd("02");
 		orderManageService.updateOrderInf(orderInfo);
@@ -1071,15 +1073,15 @@ for(String each : ckKey){
 		return "order/orderComplete";
 	}
 	
-	//주문실패페이지
+	//二쇰Ц�ㅽ뙣�섏씠吏�
 	@RequestMapping(value="/order/orderError.do")
 	public String orderError(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model){
 		return "order/orderError";
 	}
-	//주문코드 생성하는 메소드 - 이것도 바꿔주심 감사
+	//二쇰Ц肄붾뱶 �앹꽦�섎뒗 硫붿냼��- �닿쾬��諛붽퓭二쇱떖 媛먯궗
 	public String getOrderCode(){
 
-		// 주문 코드 채번
+		// 二쇰Ц 肄붾뱶 梨꾨쾲
 		int code= (int) Math.round(Math.random() * 100000);
 		Calendar cal = Calendar.getInstance();
 		int year  = cal.get(Calendar.YEAR)-2000;
@@ -1137,7 +1139,7 @@ for(String each : ckKey){
 		List<String> ckKey = cki.getKey();
 		List<OrderProductInfo> ord = new ArrayList<OrderProductInfo>();
 		
-		// 키를불러오면 처리해줄 부분
+		// �ㅻ�遺덈윭�ㅻ㈃ 泥섎━�댁쨪 遺�텇
 		for(String each : ckKey){
 			if (each == null || each.length() < 4) continue;
 			
@@ -1243,7 +1245,7 @@ for(String each : ckKey){
 		 custom.setHpNo3(mobileArr[2]);
 		mobile = mobileArr[0]+mobileArr[1]+mobileArr[2];
 		custom.setCustMb(mobile);*/
-		// 세션체크
+		// �몄뀡泥댄겕
 		
 		String phone = custom.getCustPh();
 		custom = useStringToken(phone,"p",custom);
