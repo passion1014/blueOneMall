@@ -313,11 +313,18 @@ public class HMallInterworkUtility {
 	
 	public static void main(String[] args) throws Exception {
 		String str = "%C3%D6%B5%BF%BD%C4";
+//		String str = "ÃÖµ¿½Ä";
 		
-		System.out.println(URLDecoder.decode(str, "euc-kr"));
+//		System.out.println(URLDecoder.decode(str, "euc-kr"));
+//		System.out.println(URLDecoder.decode(str, "utf-8"));
 		
-		String encStr = URLEncoder.encode("이성욱");
-		System.out.println(encStr);
-		System.out.println(URLDecoder.decode(encStr));
+//		System.out.println(new String(URLDecoder.decode(str, "euc-kr").getBytes(), ENC_TYPE));
+		System.out.println(new String(URLDecoder.decode(str, "euc-kr").getBytes(), "utf-8"));
+		System.out.println(new String(URLDecoder.decode(str, "euc-kr").getBytes(ENC_TYPE), "utf-8"));
+		System.out.println(new String(URLDecoder.decode(str, "euc-kr")));
+		
+//		String encStr = URLEncoder.encode("이성욱");
+//		System.out.println(encStr);
+//		System.out.println(URLDecoder.decode(encStr));
 	}
 }

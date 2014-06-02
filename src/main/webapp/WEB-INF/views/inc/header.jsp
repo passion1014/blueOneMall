@@ -6,7 +6,7 @@
 
 <%@page import="com.blueone.category.service.CategoryManageServiceImpl"%>
 <%@page import="com.blueone.category.service.ICategoryManageService"%>
-
+<%@page import="java.net.URLDecoder"%>
 <%@page import= "com.blueone.shop.service.IShopService"%>
 <%@page import ="com.blueone.shop.service.ShopServiceImpl"%>
 <%@page import= "com.blueone.admin.service.ISearchWordService"%>
@@ -40,6 +40,7 @@
 	SchWordInfo schWord = new SchWordInfo();
 	schWord.setShowMain(true);
 	List<SchWordInfo> schWordList = schWordService.getSchWordDtlList(schWord);
+	
 %>
 <!--  header 시작 -->
 <div class="header">
@@ -56,7 +57,7 @@
 				<a href="/user/userEdit.do">마이페이지</a>
 			</span>
 			<span class="search_box">
-				<input type="text" id="schWord" name="schWord" value="${schWord}"title="서치텍스트박스"/>
+				<input type="text" id="schWord" name="schWord" value="${schword}"title="서치텍스트박스"/>
 				<!--  input type="button" value="검색" onClick="javascript:location.href='/product/searchProduct.do?schWord='+document.getElementById('schWord').value;"/-->
 				<button onClick="topSFrm.submit();" style="cursor:pointer;"></button>
 				<select onChange="document.getElementById('schWord').value = this.value;">

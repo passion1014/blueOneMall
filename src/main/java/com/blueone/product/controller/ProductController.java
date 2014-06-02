@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -297,25 +300,7 @@ public class ProductController {
 		return "product/result";
 	}
 
-	@RequestMapping(value = "/product/searchProductList.do", method = RequestMethod.GET)
-	public String searchUserProductList(
-			@ModelAttribute("searchProdInfo") SearchProdInfo searchProdInfo,
-			BindingResult result, Model model, HttpSession session) {
-
-		// CustomerInfo customerSesstion
-		// =(CustomerInfo)session.getAttribute("customerSession");
-		CustomerInfo cust = (CustomerInfo) session
-				.getAttribute("customerSession");
-		// 세션체크
-		if (cust == null) {
-			return "user/errorPage";
-		}
-		List<ProductInfo> list = productManageService
-				.getProductSearchList(searchProdInfo);
-		model.addAttribute("list", list);
-
-		return "product/productSearch";
-	}
+	
 	
 	@RequestMapping(value = "/admin/searchProductList.do", method = RequestMethod.POST)
 	public String searchAdminProductList(
@@ -1231,11 +1216,12 @@ public class ProductController {
 
 	/**
 	 * user-product search
+	 * @throws UnsupportedEncodingException 
 	 */
 	@RequestMapping(value = "/product/searchProduct.do")
 	public String searchProduct(
 			@ModelAttribute("productInfo") SearchProdInfo searchProdInfo,
-			BindingResult result, Model model, HttpSession session, String page) {
+			BindingResult result, Model model, HttpSession session, String page) throws UnsupportedEncodingException {
 		// CustomerInfo customerSesstion
 		// =(CustomerInfo)session.getAttribute("customerSession");
 		CustomerInfo cust = (CustomerInfo) session
@@ -1250,12 +1236,12 @@ public class ProductController {
 			pd.pageNum("1");
 		else
 			pd.pageNum(page);
-		pd.setItemNum(6);
 		
-
+		pd.setItemNum(6);
 		
 		if (word != null && !word.isEmpty()) {
 			SchWordInfo schWordInfo = new SchWordInfo();
+			//if(StringUtils.isEmpty(page)&&Integer.parseInt(page)>1) word = URLDecoder.decode(word, "UTF-8");
 			schWordInfo.setUserSchword(word);
 			 List<SchWordInfo> schWdList=schWordManageService.getSchWordDtlList(schWordInfo);
 			if(schWdList!=null){
@@ -1266,10 +1252,11 @@ public class ProductController {
 			List<ProductInfo> prdList = productManageService.getProductInfList(searchProdInfo);
 			pd.setPrdList(prdList);
 
+			
 			List<ProductInfo> resultList = pd.getPrdList();
 			model.addAttribute("prdList", resultList);
 			model.addAttribute("endNum", pd.getEndPageNum());
-			model.addAttribute("schWord", word);
+			model.addAttribute("schWord",word);
 
 			return "product/productSearch";
 		} else {

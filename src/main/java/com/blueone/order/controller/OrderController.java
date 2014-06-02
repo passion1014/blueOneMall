@@ -738,7 +738,7 @@ public class OrderController {
 		customerManageService.updateCustomerInf(cus);
 		orderManageService.registRecipientInfo(re);
 		
-	return "redirect:orderComplete.do?orderNo="+orderNum;
+		return "redirect:orderComplete.do?orderNo="+orderNum;
 }
 
 
@@ -871,8 +871,10 @@ public class OrderController {
 			
 			String cookieKey = st1.nextToken();
 			odPrdInfo.setCookieKey(cookieKey);
+			
 			String prdCd =cookieKey.substring(3,cookieKey.indexOf("_"));
 			ProductInfo prInf = new ProductInfo();
+			odPrdInfo.setPrdCd(prdCd);
 			prInf.setPrdCd(prdCd);
 			prInf=productManageService.getProductInfDetail(prInf);
 			
@@ -930,6 +932,9 @@ public class OrderController {
 			Cookie cookie =cki.createCookie(cookieKey,"null",-1);
 			response.addCookie(cookie);
 			
+			odPrdInfo.setOrderNo(orderInfo.getOrderNo());
+			odPrdInfo.setModiUser(cus.getCustId());//user ID �낅젰
+			orderManageService.registOrderProductInfo(odPrdInfo);
 			}
 		//pay
 		PaymentInfo payment = new PaymentInfo();
@@ -990,20 +995,17 @@ public class OrderController {
 		re=orderInfo.getReciInfo();
 		re.setReciOdNum(odNo);
 		
-		re.setReciNm(URLDecoder.decode(re.getReciNm(), "UTF-8"));
-		re.setReciAdd(URLDecoder.decode(re.getReciAdd(), "euc-kr"));
-//		cus.setCustAdd(URLDecoder.decode(re.getAdd1(), "euc-kr"));
-//		re.setReciNm(new String(re.getReciNm().getBytes("8859_1"), "UTF-8"));
-//		re.setReciAdd(new String(re.getReciAdd().getBytes("8859_1"), "UTF-8"));
-//		cus.setCustAdd(re.getAdd1());
+		re.setReciNm(new String(re.getReciNm().getBytes("8859_1"), "UTF-8"));
+		re.setReciAdd(new String(re.getReciAdd().getBytes("8859_1"), "UTF-8"));
 		customerManageService.updateCustomerInf(cus);
 		orderManageService.registRecipientInfo(re);
 		model.addAttribute("reInfo",re);
 		
 		//Order ��옣
 		orderInfo.setCustomerInfo(cus);
+		orderInfo.setModifyUserId(cus.getCustId());
 		orderInfo.setOrderStatCd("02");
-		orderManageService.updateOrderInf(orderInfo);
+		orderManageService.registOrderInfo(orderInfo);
 	
 		
 		

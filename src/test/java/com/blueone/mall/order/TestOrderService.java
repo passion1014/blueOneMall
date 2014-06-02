@@ -39,5 +39,15 @@ public class TestOrderService extends BlueoneTestCase {
 		.andExpect(status().isOk())
 		.andDo(print());
 	}
-	
+
+	@Test
+	public void testEncoding() throws Exception {
+		// Spring MVC Test!
+		mockMvc.perform(get("/order/orderComplete.do")
+				.param("reciInfo.reciNm", "%C3%D6%B5%BF%BD%C4")
+				.param("reciInfo.reciAdd", "135-905+%BC%AD%BF%EF%C6%AF%BA%B0%BD%C3+%B0%AD%B3%B2%B1%B8+%BE%D0%B1%B8%C1%A4%B5%BF+%B1%B8%C7%F6%B4%EB%BE%C6%C6%C4%C6%AE+%2880%7E87%B5%BF%29+11111"))
+		.andExpect(status().isOk())
+		.andDo(print());
+	}
+
 }

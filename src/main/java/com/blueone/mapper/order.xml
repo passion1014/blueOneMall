@@ -87,7 +87,7 @@
 			T1.ORDER_DATE ,
 			T1.REG_DATE ,
 			T1.LAST_DATE ,
-			T1.MODIFY_USER_ID 
+			T1.MODIFY_USER_ID,
 			T2.IDX AS payIdx,
 			T2.ORDER_NO AS payOrdNo,
 			T2.ORDER_NO_SEQ AS payOrdNoSeq,
@@ -125,7 +125,7 @@
 			(1 = 1)
 				<!-- <if test="srchStdDt != null and srchStdDt != '' and srchEdDt != null and srchEdDt != ''">AND T1.ORDER_DATE BETWEEN #{srchStdDt} AND #{srchEdDt} </if>
 				 --><if test="orderStatCd != null and orderStatCd != ''">AND T1.ORDER_STAT_CD= #{orderStatCd} </if>
-				<if test="customerInfo.custId != null and customerInfo.custId != ''"> AND T1.CUST_ID = #{customerInfo.custId}</if>
+				<if test="customerInfo != null and customerInfo.custId != null and customerInfo.custId != ''"> AND T1.CUST_ID = #{customerInfo.custId}</if>
 				
 				
 		 <if test="startIdx>=0">LIMIT #{startIdx},15</if>
