@@ -140,21 +140,23 @@
 								<col width="85%"/>
 							</colgroup>
 							<tbody>
-								<tr>
-									<th>적립금/포인트</th>
-									<td class="in_text" colspan="3">
-									</td>
-								</tr>
-								<tr>
-									<th>결제 수단</th>
-									<td class="in_sectext">
-									</td>
-								</tr>
+								<c:when test="${payList.size() != 0}">
+									<c:forEach var="payList" items="${payList}">
+										<tr>
+											<th>적립금/포인트</th>
+											<td class="in_text" colspan="3">${payList.payPoint}</td>
+										</tr>
+										<tr>
+											<th>결제 수단</th>
+											<td class="in_sectext">${payList.payMdCd}</td>
+										</tr>
+										</c:forEach>
+								</c:when>
 							</tbody>
 						</table>
 					</div>
 					<div class="complet_box">
-						<c:if test="${odInfo.orderStatCd eq '01' or odInfo.orderStatCd eq '02'}"><a href="orderCancel.do?orderNo=${odInfo.orderNo}" class="btn_success">주문취소</a></c:if>
+						<c:if test="${odInfo.orderStatCd eq '01' or odInfo.orderStatCd eq '02'}"><a href="orderCancel.do?orderNo=${odInfo.orderNo}&" class="btn_success">주문취소</a></c:if>
 						<c:if test="${odInfo.orderStatCd eq '03' or odInfo.orderStatCd eq '04'}"><a href="orderTakeBack.do?orderNo=${odInfo.orderNo}" class="btn_continue">반품신청</a></c:if>
 					</div>
 				</div>

@@ -484,11 +484,15 @@ public class UserController {
 		orderInfo.setOrderStatCd("07");
 		orderService.updateOrderInf(orderInfo);
 	
+		PaymentInfo pay = new PaymentInfo();
+		pay.setOrderNo(orderInfo.getOrderNo());
+		List<PaymentInfo> payList = orderManageService.selectPaymentInfo(pay);
+		
 		
 		String decMemNm = cust.getCustNm();
 		String decMemNo = cust.getCustId();
 		String decShopEventNo = (String)session.getAttribute("shopEventNo");
-		String decPoint = "1000"; //수정해줘야할 부분
+		String decPoint = Integer.toString(payList.get(0).getPayPoint()); //수정해줘야할 부분
 		String decOrderNo = orderInfo.getOrderNo();
 		
 		// --------------------------------------------
@@ -621,10 +625,15 @@ public class UserController {
 		model.addAttribute("reInfo",reInf);
 			
 
-		//諛곗넚鍮꾧��젴 �젙蹂�
+		//배송비
 		ConfigInfo resConfigInfo = adminManageService.selectConfigInf();
-		
 		model.addAttribute("config", resConfigInfo);
+		
+		
+		PaymentInfo pay = new PaymentInfo();
+		pay.setOrderNo(odNo);
+		List<PaymentInfo> payList = orderManageService.selectPaymentInfo(pay);
+		model.addAttribute("payList", payList);
 		
 		return "user/orderDetail";
 	}

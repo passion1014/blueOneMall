@@ -2,6 +2,7 @@ package com.blueone.order.controller;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.net.URLDecoder;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -74,7 +75,7 @@ public class OrderController {
 	
 	//�λ컮援щ땲���ㅼ뼱媛�린
 	@RequestMapping(value="/order/cartList.do")
-	public String order(@ModelAttribute("orderProductInfo") OrderProductInfo orderProductInfo,HttpSession session,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
+	public String order(@ModelAttribute("orderProductInfo") OrderProductInfo orderProductInfo,String buyType,HttpSession session,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
 		CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");	
 		// �몄뀡泥댄겕
 		if (cus == null) {
@@ -142,7 +143,10 @@ public class OrderController {
 				}else if((orderProductInfo.getPrdOpSize()==null || orderProductInfo.getPrdOpSize().isEmpty()) && optionColor.equals(orderProductInfo.getPrdOpColor())){
 					count += orderProductInfo.getBuyCnt();
 					break;
-				}else if(optionSize.equals(orderProductInfo.getPrdOpSize()) && optionColor.equals(orderProductInfo.getPrdOpColor())&&countExist.equals("y")){
+				}else if((orderProductInfo.getPrdOpColor()==null || orderProductInfo.getPrdOpColor().isEmpty()) &&(orderProductInfo.getPrdOpSize()==null || orderProductInfo.getPrdOpSize().isEmpty()) ){ 
+					count += orderProductInfo.getBuyCnt();
+					break;
+				}else if(optionSize.equals(orderProductInfo.getPrdOpSize()) && optionColor.equals(orderProductInfo.getPrdOpColor())){
 						count += orderProductInfo.getBuyCnt();
 						break;
 				}else{
@@ -173,9 +177,11 @@ public class OrderController {
 		
 		
 
-		
-		return "redirect:cartListView.do";
-			
+		if(buyType.equals("cart")){
+			return "redirect:cartListView.do";
+		}else{
+			return "redirect:orderRegister.do?ord_unit_chk="+"BOM"+orderProductInfo.getPrdCd()+"_"+pNum;
+		}
 		
 	}
 
@@ -348,7 +354,7 @@ public class OrderController {
 	}
 	
 	
-	//諛붾줈援щℓ
+	/*//諛붾줈援щℓ
 	@RequestMapping(value="/order/orderDirect.do")
 	public String orderDirect(@ModelAttribute("orderProductInfo") OrderProductInfo orderProductInfo,HttpSession session,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws Exception{
 	
@@ -362,10 +368,10 @@ public class OrderController {
 		
 		
 		
-		/*CustomerInfo cus =new CustomerInfo();
+		CustomerInfo cus =new CustomerInfo();
 		cus.setCustId("100001639343");
 		cus=customerService.getCustomerInfo2(cus);
-		*/
+		
 		String birth = cus.getCustBirth();
 //		cus = useStringToken(birth,"b",cus);
 		
@@ -378,83 +384,6 @@ public class OrderController {
 		model.addAttribute("cus",cus);
 		
 		List<OrderProductInfo> oPrdList = new ArrayList<OrderProductInfo>();
-		
-		CookieBox cki = new CookieBox(request);
-		
-		//�곹뭹���좏깮�섏꽌 �λ컮援щ땲 �섏씠吏�줈 �ㅼ뼱�붿쓣 寃쎌슦 �대떦
-		String value="";
-		
-		
-		List<String> ckKey = cki.getKey();
-	
-		
-		int pNum=0;
-		int count= orderProductInfo.getBuyCnt(); 
-		int prdCount=-1;
-		String countExist="n";
-		
-		for(String each : ckKey){
-			
-			if("BOM".equals(each.substring(0, 3)) && orderProductInfo.getPrdCd().equals(each.substring(3, each.indexOf("_")))){
-				++prdCount;
-				String vl = cki.getValue(each);
-				StringTokenizer st = new StringTokenizer(vl, ",");
-				String optionColor="";
-				String optionSize= "";
-				
-				while (st.hasMoreElements()) {
-
-					String s = st.nextToken();
-					if ("01".equals(s.substring(0, 2))) {
-						optionColor=s.substring(3);
-					}
-					if ("02".equals(s.substring(0, 2))) {
-						optionSize= s.substring(3);
-					}
-					if ("cn".equals(s.substring(0, 2))) {
-						countExist="y";
-						count=Integer.parseInt(s.substring(3));
-					}
-					
-				}
-				
-				pNum = Integer.parseInt(each.substring(each.indexOf("_")+1));
-				if((orderProductInfo.getPrdOpColor()==null || orderProductInfo.getPrdOpColor().isEmpty()) && optionSize.equals(orderProductInfo.getPrdOpSize())){
-					count += orderProductInfo.getBuyCnt();
-					break;
-				}else if((orderProductInfo.getPrdOpSize()==null || orderProductInfo.getPrdOpSize().isEmpty()) && optionColor.equals(orderProductInfo.getPrdOpColor())){
-					count += orderProductInfo.getBuyCnt();
-					break;
-				}else if(optionSize.equals(orderProductInfo.getPrdOpSize()) && optionColor.equals(orderProductInfo.getPrdOpColor())&&countExist.equals("y")){
-						count += orderProductInfo.getBuyCnt();
-						break;
-				}else{
-	
-					pNum = prdCount+1 ;
-					count=orderProductInfo.getBuyCnt();
-					
-				}
-			}
-				
-				
-		}
-		
-		if(orderProductInfo.getPrdOpColor()!=null){
-			value+="01="+orderProductInfo.getPrdOpColor()+",";
-		}
-		if(orderProductInfo.getPrdOpSize()!=null){
-			value+="02="+orderProductInfo.getPrdOpSize()+",";
-		}
-		if(orderProductInfo.getPrdSmallImg()!=null){
-			value+="cn="+count+",";
-			Cookie cookie =cki.createCookie("BOM"+orderProductInfo.getPrdCd()+"_"+pNum,value,50000);
-			response.addCookie(cookie);//
-	
-		
-		}
-		
-		
-		
 		
 		String key = orderProductInfo.getPrdCd();
 		ProductInfo prdInfo = new ProductInfo();
@@ -500,7 +429,7 @@ public class OrderController {
 		String point = (String)map.get("return_point");
 		
 		return "order/order";
-	}
+	}*/
 	
 	//�λ컮援щ땲 蹂댁뿬以�
 	@RequestMapping(value="/order/cartListView.do")
@@ -674,10 +603,11 @@ public class OrderController {
 		model.addAttribute("config", resConfigInfo);
 		
 		
-		
+		cus.setCustNm("최동식");
 		Map<String, String> map = HMallInterworkUtility.procSearchPoint(cus.getCustNm(), cus.getCustId(),(String)session.getAttribute("shopEventNo"));
 		String point = (String)map.get("return_point");
 		
+		model.addAttribute("userPoint", point);
 		return "order/order";
 	}
 	
@@ -978,61 +908,11 @@ public class OrderController {
 			}
 			odPrdInfo.setPrdOption(option);
 			
-			//�섎웾 諛�湲덉븸
+			/*//�섎웾 諛�湲덉븸
 			odPrdInfo.setSellPrice(new BigDecimal(prInf.getPrdSellPrc()));
 			total = new BigDecimal(prInf.getPrdSellPrc()) ;
 			total=total.multiply(new BigDecimal(odPrdInfo.getBuyCnt()));
-			odPrdInfo.setTotalPrice(total);
-			
-			//pay
-			PaymentInfo payment = new PaymentInfo();
-			payment.setOrderNo(odNo);
-			payment.setOrderNoSeq(1);
-			payment.setPayPrice(total);
-			payment.setPayMdCd(use_pay_method);
-			model.addAttribute("pay",use_pay_method);
-			payment.setModifyUserId(cus.getCustId());
-			
-			
-			//�꾨�紐곗뿉 �ъ씤���꾨떖
-			if(!amount.equals(total.toString())){
-				String decMemNm = cus.getCustNm();
-				String decMemNo = cus.getCustId();
-				String decShopEventNo = (String)session.getAttribute("shopEventNo");
-				String decPoint = amount;
-				String decOrderNo = odNo;
-				
-				// --------------------------------------------
-				// 2. SSO泥섎━瑜��꾪븳 �뱀꽌鍮꾩뒪 �몄텧
-				// --------------------------------------------
-				Map<String, String> rstMap = null;
-				try {
-					rstMap = HMallInterworkUtility.procUsePoint(decMemNm, decMemNo, decShopEventNo, decPoint, decOrderNo);
-				} catch (Exception e) {
-					model.addAttribute("msg", "SSO泥섎━���먮윭諛쒖깮�섏��듬땲��");
-					return "user/loginError";
-				}
-				
-				// --------------------------------------------
-				// 3. 泥댄겕 - SSO泥섎━ 寃곌낵瑜��뺤씤�쒕떎.
-				// --------------------------------------------
-				if (rstMap == null) {
-					model.addAttribute("msg", "SSO泥섎━ 寃곌낵媛��놁뒿�덈떎.(1)");
-					return "user/loginError";
-				} else {
-					String returnCode = (String)rstMap.get("return_code");
-					
-					if (!"000".equals(returnCode)) {
-						model.addAttribute("msg", HMallInterworkUtility.getErrorMsgByCode(returnCode));
-						return "user/loginError";
-					}
-				}
-				
-				model.addAttribute("usePoint",total.intValue()-Integer.parseInt(amount));
-				payment.setPayPoint(total.intValue()-Integer.parseInt(amount));
-			}
-			
-			orderManageService.registPaymentInfo(payment);
+			odPrdInfo.setTotalPrice(total);*/
 			
 			//�ъ쭊
 			AttachFileInfo att = new AttachFileInfo();
@@ -1047,18 +927,75 @@ public class OrderController {
 			}
 			
 			opResInf.add(odPrdInfo);
+			Cookie cookie =cki.createCookie(cookieKey,"null",-1);
+			response.addCookie(cookie);
+			
+			}
+		//pay
+		PaymentInfo payment = new PaymentInfo();
+		payment.setOrderNo(odNo);
+		payment.setOrderNoSeq(1);
+		payment.setPayPrice(total);
+		payment.setPayMdCd(use_pay_method);
+		model.addAttribute("pay",use_pay_method);
+		payment.setModifyUserId(cus.getCustId());
+		
+		
+		//�꾨�紐곗뿉 �ъ씤���꾨떖
+		if(!amount.equals(total.toString())){
+			String decMemNm = cus.getCustNm();
+			String decMemNo = cus.getCustId();
+			String decShopEventNo = (String)session.getAttribute("shopEventNo");
+			String decPoint = amount;
+			String decOrderNo = odNo;
+			
+			// --------------------------------------------
+			// 2. SSO泥섎━瑜��꾪븳 �뱀꽌鍮꾩뒪 �몄텧
+			// --------------------------------------------
+			Map<String, String> rstMap = null;
+			try {
+				rstMap = HMallInterworkUtility.procUsePoint(decMemNm, decMemNo, decShopEventNo, decPoint, decOrderNo);
+			} catch (Exception e) {
+				model.addAttribute("msg", "SSO泥섎━���먮윭諛쒖깮�섏��듬땲��");
+				return "user/loginError";
+			}
+			
+			// --------------------------------------------
+			// 3. 泥댄겕 - SSO泥섎━ 寃곌낵瑜��뺤씤�쒕떎.
+			// --------------------------------------------
+			if (rstMap == null) {
+				model.addAttribute("msg", "SSO泥섎━ 寃곌낵媛��놁뒿�덈떎.(1)");
+				return "user/loginError";
+			} else {
+				String returnCode = (String)rstMap.get("return_code");
+				
+				if (!"000".equals(returnCode)) {
+					model.addAttribute("msg", HMallInterworkUtility.getErrorMsgByCode(returnCode));
+					return "user/loginError";
+				}
+			}
+			
+			model.addAttribute("usePoint",total.intValue()-Integer.parseInt(amount));
+			payment.setPayPoint(total.intValue()-Integer.parseInt(amount));
+			
+			
+			
 		}
 		
-		
+		orderManageService.registPaymentInfo(payment);
 		model.addAttribute("odPrdInfo",opResInf);
 		
 		//諛쏅뒗�щ엺 �뺣낫
 		RecipientInfo re = new RecipientInfo();
 		re=orderInfo.getReciInfo();
 		re.setReciOdNum(odNo);
-		re.setReciNm(new String(re.getReciNm().getBytes("8859_1"), "UTF-8"));
-		re.setReciAdd(new String(re.getReciAdd().getBytes("8859_1"), "UTF-8"));
-		cus.setCustAdd(re.getAdd1());
+		
+		re.setReciNm(URLDecoder.decode(re.getReciNm(), "UTF-8"));
+		re.setReciAdd(URLDecoder.decode(re.getReciAdd(), "euc-kr"));
+//		cus.setCustAdd(URLDecoder.decode(re.getAdd1(), "euc-kr"));
+//		re.setReciNm(new String(re.getReciNm().getBytes("8859_1"), "UTF-8"));
+//		re.setReciAdd(new String(re.getReciAdd().getBytes("8859_1"), "UTF-8"));
+//		cus.setCustAdd(re.getAdd1());
 		customerManageService.updateCustomerInf(cus);
 		orderManageService.registRecipientInfo(re);
 		model.addAttribute("reInfo",re);
@@ -1068,6 +1005,9 @@ public class OrderController {
 		orderInfo.setOrderStatCd("02");
 		orderManageService.updateOrderInf(orderInfo);
 	
+		
+		
+		
 		
 		
 		return "order/orderComplete";

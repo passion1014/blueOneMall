@@ -5,20 +5,16 @@
 
 <script type="text/javascript">
 <!--
-function list_Submit(){
-	document.getElementById("prdfm").action = "/order/orderDirect.do" ;
-	document.getElementById("prdfm").submit() ;
-}
 
-function sumPrice(n){
-	price = $("#unitPrice").val();
-	sell_price = parseInt( price * n ) ;
+function chk_shopForm(k){
+	
+	document.getElementById("buyType").value = k ;
 
-	$("#sellPrice").val(sell_price);
-	document.getElementById("sellPriceView").innerHTML = sell_price ;
-}
+	if(!$("#buyType").val()){
+		alert("정보가 옳바르지 않습니다.");
+		return false ;
+	}
 
-function chk_shopForm(f){
 	if($("#sellPrice").val() <= 0){
 		alert("금액이 옳바르지 않습니다");
 		return false;
@@ -28,8 +24,16 @@ function chk_shopForm(f){
 		alert("구매 수량이 옳바르지 않습니다");
 		return false;
 	}
+	
+	document.getElementById("prdfm").submit() ;
+}
 
-	return ;
+function sumPrice(n){
+	price = $("#unitPrice").val();
+	sell_price = parseInt( price * n ) ;
+
+	$("#sellPrice").val(sell_price);
+	document.getElementById("sellPriceView").innerHTML = sell_price ;
 }
 
 //-->
@@ -46,11 +50,16 @@ function chk_shopForm(f){
 
 		<div class="sub_content">
 			<div class="product_view">
-				<form method="post" id="prdfm" name="prdfm" action="/order/cartList.do" onSubmit="return chk_shopForm(this);">
+				<form method="post" id="prdfm" name="prdfm" action="/order/cartList.do">
 				<input type="hidden" id="prdCd"  name="prdCd"  value="${pro.prdCd}">
 				<input type="hidden" id="prdNm"  name="prdNm"  value="${pro.prdNm}">
 				<input type="hidden" id="unitPrice"  name="unitPrice"  value="${pro.prdSellPrc}">
 				<input type="hidden" id="sellPrice"  name="sellPrice"  value="${pro.prdSellPrc}">
+				<input type="hidden" id="buyType"  name="buyType"  value="">
+
+
+
+
 					<span class="locat_box">Home&nbsp;>&nbsp;${pro.ctgLargeName}&nbsp;>&nbsp;
 					<c:if test="${'' eq pro.ctgMiddleName}"><c:out value="없음"/></c:if>
 					<c:if test="${'' ne pro.ctgMiddleName}"><c:out value="${pro.ctgMiddleName}"/></c:if>
@@ -179,12 +188,23 @@ function chk_shopForm(f){
 										<strong class="stext"><span id="sellPriceView">${pro.prdSellPrc}</span> 원</strong>
 									</td>
 								</tr>
+								
+								<!--
 								<tr>
 									<td colspan="3" class="btn_box">
 										<input type="button" value="바로 구매하기" onClick="list_Submit()" class="btn_buy" title="구매하기"/>
 										<input type="submit" class="btn_buy" value="장바구니">
 									</td>
 								</tr>
+								-->
+
+								<tr>
+									<td colspan="3" class="btn_box">
+										<input type="button" value="바로 구매하기" class="btn_buy" title="구매하기" onClick="chk_shopForm('direct')"/>
+										<input type="button" value="장바구니" class="btn_buy" title="장바구니" onClick="chk_shopForm('cart')">
+									</td>
+								</tr>
+
 							</tbody>
 						</table>
 					</div>

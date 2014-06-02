@@ -25,7 +25,7 @@
     /* =   테스트 및 실결제 연동시 site_conf_inc.jsp 파일을 수정하시기 바랍니다.    = */
     /* = -------------------------------------------------------------------------- = */
 %>
-	<%@ include file="/resources/kcp/site_conf_inc.jsp" %>
+<%@ include file="/resources/kcp/site_conf_inc.jsp" %>
 <%
 	request.setCharacterEncoding ( "euc-kr" ) ;
     /* = -------------------------------------------------------------------------- = */
@@ -60,6 +60,7 @@
 <script type="text/javascript" src="<c:url value='/resources/js/jquery-1.4.3.min.js'/>"> </script>
 <script type="text/javascript" src="<c:url value='/resources/js/jquery-1.7.2.min.js'/>"> </script>
 <script type="text/javascript" src="<c:url value='/resources/js/jquery-ui-1.8.16.custom.min.js'/>"> </script>
+<script type="text/javascript" src="<c:url value='/resources/js/js_common.js'/>"> </script>
 
 
 <link href="css/style.css" rel="stylesheet" type="text/css" id="cssLink"/>
@@ -93,6 +94,14 @@
         function  jsf__pay( form )
         {
             var RetVal = false;
+
+						/*
+						고객 데이터 세팅
+						*/
+
+						
+						document.getElementById("buyr_tel1").value = document.getElementById("tel1").value + document.getElementById("tel2").value + document.getElementById("tel3").value ;
+						document.getElementById("buyr_tel2").value = document.getElementById("hp1").value + document.getElementById("hp2").value + document.getElementById("hp3").value ;
 
             /* Payplus Plugin 실행 */
             if ( MakePayMessage( form ) == true )
@@ -191,6 +200,82 @@
                 document.order_info.submit();
         }
 
+
+				function addr_samsam(key){
+					if(key == "basic"){
+
+						document.getElementById("buyr_name").value = document.getElementById("orderName").value ;
+
+						document.getElementById("buyr_tel1").value = document.getElementById("orderTel1").value + document.getElementById("orderTel2").value + document.getElementById("orderTel3").value  ;
+						document.getElementById("tel1").value      = document.getElementById("orderTel1").value ;
+						document.getElementById("tel2").value      = document.getElementById("orderTel2").value ;
+						document.getElementById("tel3").value      = document.getElementById("orderTel3").value ;
+
+						document.getElementById("buyr_tel2").value = document.getElementById("orderHp1").value + document.getElementById("orderHp2").value + document.getElementById("orderHp3").value  ;
+						document.getElementById("hp1").value       = document.getElementById("orderHp1").value ;
+						document.getElementById("hp2").value       = document.getElementById("orderHp2").value ;
+						document.getElementById("hp3").value       = document.getElementById("orderHp3").value ;
+
+						document.getElementById("buyr_mail").value = document.getElementById("orderEmail").value ;
+
+						document.getElementById("custZip1").value  = document.getElementById("orderZip1").value ;
+						document.getElementById("custZip2").value  = document.getElementById("orderZip2").value ;
+						document.getElementById("custAdd").value   = document.getElementById("orderAdd").value ;
+						document.getElementById("custAddDetail").value = document.getElementById("orderAddDetail").value ;
+						
+					}else if(key == "new"){
+
+						document.getElementById("buyr_name").value = "" ;
+
+						document.getElementById("buyr_tel1").value = "" ;
+						document.getElementById("tel1").value = "02" ;
+						document.getElementById("tel2").value = "" ;
+						document.getElementById("tel3").value = "" ;
+
+						document.getElementById("buyr_tel2").value = "" ;
+						document.getElementById("hp1").value = "010" ;
+						document.getElementById("hp2").value = "" ;
+						document.getElementById("hp3").value = "" ;
+
+						document.getElementById("buyr_mail").value = "" ;
+
+						document.getElementById("custZip1").value  = "" ;
+						document.getElementById("custZip2").value  = "" ;
+						document.getElementById("custAdd").value   = "" ;
+						document.getElementById("custAddDetail").value = "" ;
+
+					}
+				}
+
+				function usePointChecker(){
+
+					// 고객이 사용한 포인트를 확인한다
+					if($.isNumeric(document.getElementById("use_point").value)){
+						var usePoint = parseInt(document.getElementById("use_point").value) ;
+					}else{
+						var usePoint = 0 ;
+						document.getElementById("use_point").value = 0 ;
+					}
+
+					// 고객이 원래 보유한 포인트를 확인한다
+					var getUserPoint = parseInt(document.getElementById("user_point").value) ;
+
+					if(getUserPoint < usePoint){
+
+						alert("사용포인트가 보유포인트보다 많습니다.") ;
+						document.getElementById("use_point").value = 0 ;
+						usePointChecker();
+						return false ; 
+
+					}else{
+
+						var resultValue = getUserPoint - usePoint ;
+						document.getElementById("result_user_point").value = resultValue ; 
+
+					}
+
+				}
+
     </script>
 </head>
 
@@ -209,9 +294,32 @@
 			<input type="hidden" id="ord_unit_chk"               name="ord_unit_chk"  value="${orderInfo.ord_unit_chk}">
 			<input type="hidden" id="ordr_idxx"                  name="ordr_idxx" value="${orderInfo.orderNo}">
 			<input type="hidden" id="customerInfo.modifyUserId"  name="customerInfo.modifyUserId"  value="${cus.custId}">
+			<input type="hidden" id="ord_unit_chk" name="ord_unit_chk"  value="${orderInfo.ord_unit_chk}"/>
 			<c:if test="${odPrdInfo.size() == 1}"><input type="hidden"  name="good_name"  value="${odPrdInfo[0].prdNm}" /></c:if>
 			<c:if test="${odPrdInfo.size() != 1}"><input type="hidden" id="ordPrd.prdNm"   name="good_name" value="${odPrdInfo[0].prdNm} 외 ${odPrdInfo.size()-1}개" /></c:if>
-			
+
+			<!-- 유저 보유포인트 시작 -->
+			<!--<input type="text" id="user_point" name="user_point"  value="${userPoint}"/>-->
+			<input type="text" id="user_point"        name="user_point"         value="300000"/>
+			<input type="text" id="result_user_point" name="result_user_point"  value="300000"/>
+
+			<!-- 유저 보유포인트 끝 -->
+
+			<!-- 주문시 폼 변화에 필요한 필드 시작 -->
+			<input type="hidden" id="orderName" name="orderName" value="${cus.custNm}" />
+			<input type="hidden" name="orderTel1" id="orderTel1" value="${cus.telNo1}" />
+			<input type="hidden" name="orderTel2" id="orderTel2" value="${cus.telNo2}" />
+			<input type="hidden" name="orderTel3" id="orderTel3" value="${cus.telNo3}" />
+			<input type="hidden" name="orderHp1"  id="orderHp1"  value="${cus.hpNo1}" />
+			<input type="hidden" name="orderHp2"  id="orderHp2"  value="${cus.hpNo2}" />
+			<input type="hidden" name="orderHp3"  id="orderHp3"  value="${cus.hpNo3}" />
+			<input type="hidden" name="orderZip1" id="orderZip1" value="${cus.custZip1}" />
+			<input type="hidden" name="orderZip2" id="orderZip2" value="${cus.custZip2}" />
+			<input type="hidden" name="orderAdd"  id="orderAdd"  value="${cus.custAdd}" />
+			<input type="hidden" name="orderAddDetail" id="orderAddDetail" value="${cus.custAddDetail}" />
+			<input type="hidden" name="orderEmail" id="orderEmail" value="${cus.custEmail}"/>
+			<!-- 주문시 폼 변화에 필요한 필드 끝 -->
+
 				<div class="porder_section">
 					<h4>제품주문</h4>
 					<div class="porder_step">
@@ -290,6 +398,7 @@
 								
 							</tbody>
 						</table>
+						
 						<h5>주문서 작성 및 결제</h5>
 						<p class="sub_tit1">주문고객/배송지정보 입력</p>
 						<p class="sub_tit2">< 주문하시는 분 ></p>
@@ -304,52 +413,21 @@
 							<tbody>
 								<tr>
 									<th>성명</th>
-									<td class="in_text">
-										<input type="text"  name="buyr_name" title="성명" value="${cus.custNm}"/>
-									</td>
+									<td class="in_text">${cus.custNm}</td>
 									<th>전화번호</th>
 									<td class="in_sectext">
-										<select  name="customerInfo.telNo1" id="telNo1">
-											<option <c:if test="${cus.telNo1 eq '02'}">selected</c:if>>02</option>
-											<option <c:if test="${cus.telNo1 eq '031'}">selected</c:if>>031</option>
-											<option <c:if test="${cus.telNo1 eq '032'}">selected</c:if>>032</option>
-											<option <c:if test="${cus.telNo1 eq '033'}">selected</c:if>>033</option>
-											<option <c:if test="${cus.telNo1 eq '041'}">selected</c:if>>041</option>
-											<option <c:if test="${cus.telNo1 eq '042'}">selected</c:if>>042</option>
-											<option <c:if test="${cus.telNo1 eq '043'}">selected</c:if>>043</option>
-											<option <c:if test="${cus.telNo1 eq '051'}">selected</c:if>>051</option>
-											<option <c:if test="${cus.telNo1 eq '052'}">selected</c:if>>052</option>
-											<option <c:if test="${cus.telNo1 eq '053'}">selected</c:if>>053</option>
-											<option <c:if test="${cus.telNo1 eq '054'}">selected</c:if>>054</option>
-											<option <c:if test="${cus.telNo1 eq '061'}">selected</c:if>>061</option>
-											<option <c:if test="${cus.telNo1 eq '062'}">selected</c:if>>062</option>
-											<option <c:if test="${cus.telNo1 eq '063'}">selected</c:if>>063</option>
-											<option <c:if test="${cus.telNo1 eq '064'}">selected</c:if>>064</option>
-										</select>
-										-<input type="text"  title="전화번호" name="customerInfo.telNo2" id="telNo2" value="${cus.telNo2}" />-
-										<input type="text"   title="전화번호" name="customerInfo.telNo3" id="telNo3" value="${cus.telNo3}"/>
-										 <input type="hidden" name="buyr_tel1" value="document.getElementById(telNo1)+document.getElementById(telNo2)+document.getElementById(telNo3);"/>		
+										${cus.telNo1}-${cus.telNo2}-${cus.telNo3}
+										<input type="hidden" id="buyr_tel1" name="buyr_tel1" value="${cus.telNo1}${cus.telNo2}${cus.telNo3}"/>
 									</td>
 								</tr>
 								<tr>
 									<th>휴대전화</th>
 									<td class="in_sectext">
-										<select  name="customerInfo.hpNo1" id="hpNo1">
-											<option <c:if test="${cus.hpNo1 eq '010'}">selected</c:if>>010</option>
-											<option <c:if test="${cus.hpNo1 eq '011'}">selected</c:if>>011</option>
-											<option <c:if test="${cus.hpNo1 eq '016'}">selected</c:if>>016</option>
-											<option <c:if test="${cus.hpNo1 eq '017'}">selected</c:if>>017</option>
-											<option <c:if test="${cus.hpNo1 eq '018'}">selected</c:if>>018</option>
-											<option <c:if test="${cus.hpNo1 eq '019'}">selected</c:if>>019</option>
-										</select>
-										-<input type="text"  name="customerInfo.hpNo2" id="hpNo2"title="휴대전화번호" value="${cus.hpNo2}"/>-
-										<input type="text"   name="customerInfo.hpNo3" id="hpNo3" title="휴대전화번호" value="${cus.hpNo3}"/>
-										<input type="hidden" name="buyr_tel2" value="document.getElementById(hpNo1)+document.getElementById(hpNo2)+document.getElementById(hpNo3);"/>	
+										${cus.hpNo1}-${cus.hpNo2}-${cus.hpNo3}
+										<input type="hidden" id="buyr_tel2" name="buyr_tel2" value="${cus.hpNo1}${cus.hpNo2}${cus.hpNo3}"/>
 									</td>
 									<th>이메일</th>
-									<td class="in_text">
-										<input type="text" name="buyr_mail" title="이메일" value="${cus.custEmail}"/>
-									</td>
+									<td class="in_text">${cus.custEmail}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -366,79 +444,80 @@
 								<tr>
 									<th>배송지 선택</th>
 									<td class="check_box">
-										<input type="radio" id="basic_check" name="choice" checked/><label for="basic_check">기본배송지</label> &nbsp;&nbsp;
-										<input type="radio" id="new_check" name="choice"/><label for="new_check">새로입력</label>
+										<input type="radio" id="basic_check" name="choice" onClick="addr_samsam('basic');" checked /><label for="basic_check">기본배송지</label> &nbsp;&nbsp;
+										<input type="radio" id="new_check"   name="choice" onClick="addr_samsam('new');" /><label for="new_check">새로입력</label>
 									</td>
 									<th>받으시는분</th>
 									<td class="in_text">
-										<input type="text" id="reciInfo.reciNm" name="reciInfo.reciNm" value="${cus.custNm}" title="받으시는분 성명 기입"/>
+										<input type="text" id="reciNm" name="reciNm" value="${cus.custNm}" title="받으시는분 성명 기입"/>
+										<input type="hidden"  id="buyr_name" name="buyr_name" value="${cus.custNm}" />
 									</td>
 								</tr>
 								<tr>
 									<th>전화번호</th>
 									<td class="in_sectext">
-										<select  id="reciInfo.reciPh" name="reciInfo.reciPh" >
-											<option value="02" selected>02</option>
-											<option value="031">031</option>
-											<option value="032">032</option>
-											<option value="033">033</option>
-											<option value="041">041</option>
-											<option value="042">042</option>
-											<option value="043">043</option>
-											<option value="051">051</option>
-											<option value="052">052</option>
-											<option value="053">053</option>
-											<option value="054">054</option>
-											<option value="061">061</option>
-											<option value="062">062</option>
-											<option value="063">063</option>
-											<option value="064">064</option>
-										</select>
-										-<input type="text" id="reciInfo.reciPh" name="reciInfo.reciPh" title="전화번호"/>-
-										<input type="text"  id="reciInfo.reciPh" name="reciInfo.reciPh" title="전화번호"/>
+										<select  id="tel1" name="tel1" >
+											<option value="02"  <c:if test="${cus.telNo1 eq '02'}">selected</c:if>>02</option>
+											<option value="031" <c:if test="${cus.telNo1 eq '031'}">selected</c:if>>031</option>
+											<option value="032" <c:if test="${cus.telNo1 eq '032'}">selected</c:if>>032</option>
+											<option value="033" <c:if test="${cus.telNo1 eq '033'}">selected</c:if>>033</option>
+											<option value="041" <c:if test="${cus.telNo1 eq '041'}">selected</c:if>>041</option>
+											<option value="042" <c:if test="${cus.telNo1 eq '042'}">selected</c:if>>042</option>
+											<option value="043" <c:if test="${cus.telNo1 eq '043'}">selected</c:if>>043</option>
+											<option value="051" <c:if test="${cus.telNo1 eq '051'}">selected</c:if>>051</option>
+											<option value="052" <c:if test="${cus.telNo1 eq '052'}">selected</c:if>>052</option>
+											<option value="053" <c:if test="${cus.telNo1 eq '053'}">selected</c:if>>053</option>
+											<option value="054" <c:if test="${cus.telNo1 eq '054'}">selected</c:if>>054</option>
+											<option value="061" <c:if test="${cus.telNo1 eq '061'}">selected</c:if>>061</option>
+											<option value="062" <c:if test="${cus.telNo1 eq '062'}">selected</c:if>>062</option>
+											<option value="063" <c:if test="${cus.telNo1 eq '063'}">selected</c:if>>063</option>
+											<option value="064" <c:if test="${cus.telNo1 eq '064'}">selected</c:if>>064</option>
+										</select> -
+										<input type="text" id="tel2" name="tel2" value="${cus.telNo2}" title="전화번호" maxlength="4" style="width:40px;"/> -
+										<input type="text" id="tel3" name="tel3" value="${cus.telNo3}" title="전화번호" maxlength="4" style="width:40px;"/>
 									</td>
 									<th>휴대전화번호</th>
 									<td class="in_sectext">
-										<select  id="reciInfo.reciMb" name="reciInfo.reciMb"  >
-											<option selected>010</option>
-											<option>011</option>
-											<option>017</option>
-											<option>016</option>
-											<option>019</option>
-											<option>018</option>
-										</select>
-										-<input type="text" id="reciInfo.reciMb" name="reciInfo.reciMb" title="휴대전화번호"/>-
-										<input type="text" id="reciInfo.reciMb" name="reciInfo.reciMb"  title="휴대전화번호"/>
+										<select id="hp1" name="hp1">
+											<option value="010" <c:if test="${cus.hpNo1 eq '010'}">selected</c:if>>010</option>
+											<option value="011" <c:if test="${cus.hpNo1 eq '011'}">selected</c:if>>011</option>
+											<option value="016" <c:if test="${cus.hpNo1 eq '016'}">selected</c:if>>016</option>
+											<option value="017" <c:if test="${cus.hpNo1 eq '017'}">selected</c:if>>017</option>
+											<option value="018" <c:if test="${cus.hpNo1 eq '018'}">selected</c:if>>018</option>
+											<option value="019" <c:if test="${cus.hpNo1 eq '019'}">selected</c:if>>019</option>
+										</select> -
+										<input type="text" id="hp2" name="hp2" value="${cus.hpNo2}" title="휴대전화번호" maxlength="4" style="width:40px;"/> -
+										<input type="text" id="hp3" name="hp3" value="${cus.hpNo3}" title="휴대전화번호" maxlength="4" style="width:40px;"/>
 									</td>
 								</tr>
 								<tr>
-									<th>주소</th>
-									<td colspan="3" class="address_box">
-										<span class="adr_box1">
-											<input type="text" title="우편번호"  id="reciInfo.reciAdd" name="reciInfo.reciAdd" />
-											<input type="button" value="우편번호 찾기"onClick="openWin('/user/searchZipCode.do','searchZipForm',600,450,'scrollbars=no');"/><br/>
-										</span>
-										<span class="adr_box2">
-											<input type="text" title="자동주소" id="reciInfo.reciAdd" name="reciInfo.reciAdd" />
-										</span>
+									<th>이메일주소</th>
+									<td colspan="3" class="in_sectext" style="padding:5px;">
+										<input type="text" title="email text"  name="buyr_mail" id="buyr_mail" value="${cus.custEmail}" style="width:300px;" required hname="이메일을 입력하여 주십시오" />
+									</td>
+								</tr>
+								<tr>
+									<th>배송주소</th>
+									<td colspan="3" class="in_sectext" style="padding:5px;">
+										<input type="text" title="address text" style="width:60px;" id="custZip1" name="reciAdd1" value="${cus.custZip1}" readonly required hname="우편번호를 입력하여 주십시오" />-
+										<input type="text" title="address text" style="width:60px;" id="custZip2" name="reciAdd2" value="${cus.custZip2}" readonly required hname="우편번호를 입력하여 주십시오" />
+										<input type="button" value="우편번호 찾기" style="width:100px;height:21px;" onClick="openWin('/user/searchZipCode.do?type=userEdit','searchZipuserRegiForm',650,450,'scrollbars=yes');" /><br/>
+										<input type="text" title="address text" style="width:50%;" id="custAdd"       name="reciAdd3" value="${cus.custAdd}" readonly/>
+										<input type="text" title="address text" style="width:40%;" id="custAddDetail" name="reciAdd4" value="${cus.custAddDetail}"/>
 									</td>
 								</tr>
 								<tr>
 									<th>배송시 요청사항</th>
-									<td colspan="3" class="arrive_box">
-										<input type="text" id="reciInfo.reciReq" name="reciInfo.reciReq" title="배송시 요청사항 기입"/>
+									<td colspan="3" class="arrive_box" style="padding:5px;">
+										<textarea id="reciReq" name="reciReq" title="배송시 요청사항 기입" style="width:95%;height:120px;"></textarea>
 									</td>
 								</tr>
 							</tbody>
 						</table>
-						<p class="adr_check">
-							<input type="checkbox" id="adr_check" />
-							<label for="adr_check">희망배송지 추가(상기 입력된 배송지 정보를 내 배송지 목록에 추가합니다.)</label>
-						</p>
 						<div class="point_employ1">
-							<p class="sub_tit1">적립금/포인트 사용하기</p>
+							<p class="sub_tit1">포인트 사용하기</p>
 							<table class="employ_tbl" summary="고객포인트표">
-								<caption>포인트 목록표</caption>
+								<caption>포인트 표</caption>
 								<colgroup>
 									<col width="30%"/>
 									<col width="30%"/>
@@ -446,39 +525,39 @@
 								</colgroup>
 								<thead>
 									<tr>
-										<th class="rb_line">구분</th>
-										<th class="rb_line">보유금액</th>
-										<th>사용금액</th>
+										<th class="rb_line">구 분</th>
+										<th class="rb_line">보유 포인트</th>
+										<th>사용 포인트</th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr>
-										<th class="rb_line">기본급</th>
-										<td class="rb_line">0원</td>
+										<th class="rb_line">사용현황</th>
+										<td class="rb_line"><span id="myPointView">${userPoint} P</span></td>
 										<td class="in_text">
-											<input type="text"/><label>원</label>
+											<input type="text" id="use_point" name="use_point" value="0" style="width:80%;text-align:right;padding-right:5px;" onBlur="usePointChecker();" onkeypress="numKeyOnly()" /><label>P</label>
 										</td>
 									</tr>
 								</tbody>
 							</table>
 							<p class="sub_tit1">결제 수단 선택</p>
 							<span class="payment1">
-								<input type="radio" id="pay_method" name="pay_method" value="100000000000"><label for="credit_card">신용카드</label>
-								<input type="radio" id="pay_method" name="pay_method" value="010000000000"><label for="account_transfer">실시간 계좌이체</label>
-						
-								<!--  <select name="pay_method">
-	                                <option value="100000000000">신용카드</option>
-	                                <option value="010000000000">계좌이체</option>
-	                                <option value="001000000000">가상계좌</option>
-	                                <option value="000100000000">포인트</option>
-	                                <option value="000010000000">휴대폰</option>
-	                                <option value="000000001000">상품권</option>
-	                                <option value="000000000010">ARS</option>
-	                                <option value="111000000000">신용카드/계좌이체/가상계좌</option>
-	                            </select> -->
+								
+								<input type="radio" id="settlement_type" name="settlement_type" onClick="document.getElementById('pay_method').value='100000000000' ;" value="100000000000" checked /><label for="credit_card">신용카드</label>
+								<input type="radio" id="settlement_type" name="settlement_type" onClick="document.getElementById('pay_method').value='010000000000' ;" value="010000000000" /><label for="account_transfer">실시간 계좌이체</label>
+								<input type="hidden" id="pay_method" name="pay_method" value="100000000000">
+								
+								<!--
+								<select name="pay_method">
+									<option value="100000000000">신용카드</option>
+									<option value="010000000000">계좌이체</option>
+									<option value="000100000000">포인트</option>
+								</select>
+								-->
+
 							</span>
 							<span class="payment2">
-								<input type="radio" id="welfare_card" name="payment2"/><label for="welfare_card">복지 카드 포인트 사용안함</label>
+								<input type="radio" id="welfare_card" name="payment2" checked /><label for="welfare_card">복지 카드 포인트 사용안함</label>
 								<input type="radio" id="welfare_ncard" name="payment2"/><label for="welfare_ncard">복지 카드 포인트 사용</label>
 							</span>
 						</div>
@@ -494,22 +573,18 @@
 								<thead>
 									<tr>
 										<th class="rb_line">총 주문금액</th>
-										<th colspan="2"></th>
+										<th colspan="2">${total} 원</th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr>
-										<th class="rb_line">포인트</th>
-										<td class="rb_line">기본급</td>
-										<td>0원</td>
-									</tr>
-									<tr>
-										<td colspan="2" class="tbb_line rb_line" style="text-align:center;">소계</td>
-										<td class="tbb_line">0원</td>
+										<th class="tbb_line rb_line">포인트</th>
+										<td class="tbb_line rb_line">사용</td>
+										<td class="tbb_line"><span id="usePointView2">0</span> P</td>
 									</tr>
 									<tr>
 										<td colspan="2" class="rb_line" style="text-align:center;">할인 및 포인트 차감 후 결제 금액</td>
-										<td>0원</td>
+										<td><span id="resultPriceView" style="color:#5d85bc;font-weight:bold;">${total}</span> 원</td>
 									</tr>
 								</tbody>
 							</table>
@@ -519,7 +594,7 @@
 								이에 동의하십니까?
 							</span>
 							<p class="agree_check">
-							<input type="checkbox" id="agr_check" />
+							<input type="checkbox" id="agr_check" name="agr_check" value="y"/>
 							<label for="agr_check">동의합니다.</label>
 						</p>
 						</div>
