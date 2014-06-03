@@ -318,13 +318,9 @@ public class HMallInterworkUtility {
 //		System.out.println(URLDecoder.decode(str, "euc-kr"));
 //		System.out.println(URLDecoder.decode(str, "utf-8"));
 		
-//		System.out.println(new String(URLDecoder.decode(str, "euc-kr").getBytes(), ENC_TYPE));
 		System.out.println(new String(URLDecoder.decode(str, "euc-kr").getBytes(), "utf-8"));
 		System.out.println(new String(URLDecoder.decode(str, "euc-kr").getBytes(ENC_TYPE), "utf-8"));
 		System.out.println(new String(URLDecoder.decode(str, "euc-kr")));
 		
-//		String encStr = URLEncoder.encode("이성욱");
-//		System.out.println(encStr);
-//		System.out.println(URLDecoder.decode(encStr));
 	}
 }
