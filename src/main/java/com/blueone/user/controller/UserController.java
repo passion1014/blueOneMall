@@ -480,14 +480,14 @@ public class UserController {
 			return "user/errorPage";
 		}
 		
+		// 주문 테이블의 상태값을 07(주문취소)로 셋팅
 		orderInfo.setCustomerInfo(cust);
 		orderInfo.setOrderStatCd("07");
 		orderService.updateOrderInf(orderInfo);
-	
+
 		PaymentInfo pay = new PaymentInfo();
 		pay.setOrderNo(orderInfo.getOrderNo());
 		List<PaymentInfo> payList = orderManageService.selectPaymentInfo(pay);
-		
 		
 		String decMemNm = cust.getCustNm();
 		String decMemNo = cust.getCustId();
@@ -500,7 +500,7 @@ public class UserController {
 		// --------------------------------------------
 		Map<String, String> rstMap = null;
 		try {
-			rstMap = HMallInterworkUtility.procUsePoint(decMemNm, decMemNo, decShopEventNo, decPoint, decOrderNo);
+			rstMap = HMallInterworkUtility.procCancelPoint(decMemNm, decMemNo, decShopEventNo, decPoint, decOrderNo);
 		} catch (Exception e) {
 			model.addAttribute("msg", "SSO처리시 에러발생하였습니다.");
 			return "user/loginError";
