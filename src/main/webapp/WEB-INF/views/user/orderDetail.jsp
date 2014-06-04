@@ -140,7 +140,7 @@
 								<col width="85%"/>
 							</colgroup>
 							<tbody>
-								<c:when test="${payList.size() != 0}">
+								<c:if test="${payList.size() != 0}">
 									<c:forEach var="payList" items="${payList}">
 										<tr>
 											<th>적립금/포인트</th>
@@ -151,7 +151,7 @@
 											<td class="in_sectext">${payList.payMdCd}</td>
 										</tr>
 										</c:forEach>
-								</c:when>
+								</c:if>
 							</tbody>
 						</table>
 					</div>
