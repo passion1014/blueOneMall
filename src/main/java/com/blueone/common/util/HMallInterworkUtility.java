@@ -42,8 +42,8 @@ public class HMallInterworkUtility {
 	private static final String ENC_TYPE = "euc-kr";		// 현대몰에서는 인코딩을 euc-kr로 보내준다.
 	
 	// SSO을 위해 호출할 웹서비스 도메인정보
-	private static final String URL = "https://giftdev.e-hyundai.com:1443/hb2efront_new/pointOpenAPI.do?";	// 개발서버
-//	private static final String URL = "https://gift.e-hyundai.com:1443/hb2efront_new/pointOpenAPI.do?";	// 운영서버 
+//	private static final String URL = "https://giftdev.e-hyundai.com:1443/hb2efront_new/pointOpenAPI.do?";	// 개발서버
+	private static final String URL = "https://gift.e-hyundai.com:1443/hb2efront_new/pointOpenAPI.do?";	// 운영서버 
 
 	/**
 	 * 포인트 사용시 호출하는 함수
@@ -312,7 +312,7 @@ public class HMallInterworkUtility {
 	}
 	
 	public static void main(String[] args) throws Exception {
-		String str = "%C3%D6%B5%BF%BD%C4";
+/*		String str = "%C3%D6%B5%BF%BD%C4";
 //		String str = "ÃÖµ¿½Ä";
 		
 //		System.out.println(URLDecoder.decode(str, "euc-kr"));
@@ -322,5 +322,10 @@ public class HMallInterworkUtility {
 		System.out.println(new String(URLDecoder.decode(str, "euc-kr").getBytes(ENC_TYPE), "utf-8"));
 		System.out.println(new String(URLDecoder.decode(str, "euc-kr")));
 		
+		
+*/		
+		Map<String, String> map = procSearchPoint("최동식", "100001639343", "");
+		
+		System.out.println(map.toString());
 	}
 }

@@ -32,7 +32,7 @@ public class ProductInfo {
 	private String prdMany;
 	private String prdColor;
 	private String prdSize;
-
+	private int prdStock;
 	private String searchWord;
 	private int schType;
 	//상품 옵션
@@ -73,6 +73,12 @@ public class ProductInfo {
 
 
 	
+	public int getPrdStock() {
+		return prdStock;
+	}
+	public void setPrdStock(int prdStock) {
+		this.prdStock = prdStock;
+	}
 	public String getSearchWord() {
 		return searchWord;
 	}

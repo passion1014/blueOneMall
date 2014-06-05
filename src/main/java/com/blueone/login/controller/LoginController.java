@@ -167,7 +167,7 @@ public class LoginController {
 		String decMemNo = "100001639343";
 		String decShopEventNo = (String)session.getAttribute("shopEventNo");
 		String decPoint = "1000";
-		String decOrderNo = "order00002";
+		String decOrderNo = "order00012";
 		
 		// --------------------------------------------
 		// 2. SSO처리를 위한 웹서비스 호출
@@ -205,7 +205,7 @@ public class LoginController {
 		String decMemNo = "100001639343";
 		String decShopEventNo = (String)session.getAttribute("shopEventNo");
 		String decPoint = "1000";
-		String decOrderNo = "order00002";
+		String decOrderNo = "order00012";
 		
 		// --------------------------------------------
 		// 2. SSO처리를 위한 웹서비스 호출

@@ -69,12 +69,12 @@
 		<id property="orderNo" column="ORDER_NO" javaType="java.lang.String"/>
 		<id property="orderNoSeq" column="ORDER_NO_SEQ" javaType="int"/>
 		<id property="payMdCd" column="PYMT_PAY_CD" javaType="java.lang.String"/>
-		<id property="payPrice" column="PYMT_AMOUNT" javaType="int"/>
+		<id property="payPrice" column="PYMT_AMOUNT" javaType="bigdecimal"/>
 		<id property="payPoint" column="PYMT_POINT" javaType="int"/>
 		<id property="payDate" column="PYMT_DATE" javaType="java.lang.String"/>
 		<id property="regDate" column="REG_DATE" javaType="java.lang.String"/>
 		<id property="lastDate" column="LAST_DATE" javaType="java.lang.String"/>
-		<id property="modifyUserId" column="MODIFY_USER_ID" javaType="int"/>
+		<id property="modifyUserId" column="MODIFY_USER_ID" javaType="java.lang.String"/>
 	</resultMap>
 
 
