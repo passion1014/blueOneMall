@@ -29,6 +29,7 @@
 		<result property="prdTransInf" column="PRD_TRANSFOR_INF" javaType="int"/>
 		<result property="admMemo" column="ADMIN_MEMO" javaType="java.lang.String"/>
 		<result property="modifyUserId" column="MODIFY_USER_ID" javaType="java.lang.String"/>
+		<result property="prdStock" column="PRD_STOCK" javaType="int"/>
 		
 		<result property="ctgLargeCode"  column="t2ctgCode"    javaType="java.lang.String"/>
 		<result property="ctgLargeName"  column="t2ctgName"    javaType="java.lang.String"/>
@@ -84,6 +85,7 @@
 			T1.PRD_TRANSFOR_INF, 
 			T1.ADMIN_MEMO,
 			T1.MODIFY_USER_ID,
+			T1.PRD_STOCK,
 			T2.CTG_CODE       AS t2ctgCode,
 			T2.CTG_NAME       AS t2ctgName,
 			T3.CTG_CODE       AS t3ctgCode,
@@ -134,6 +136,7 @@
 			T1.PRD_TRANSFOR_INF, 
 			T1.ADMIN_MEMO,
 			T1.MODIFY_USER_ID,
+			T1.PRD_STOCK,
 			T2.CTG_CODE       AS t2ctgCode,
 			T2.CTG_NAME       AS t2ctgName,
 			T3.CTG_CODE       AS t3ctgCode,
@@ -183,6 +186,7 @@
 			T1.PRD_TRANSFOR_INF, 
 			T1.ADMIN_MEMO,
 			T1.MODIFY_USER_ID,
+			T1.PRD_STOCK,
 			T2.CTG_CODE       AS t2ctgCode,
 			T2.CTG_NAME       AS t2ctgName,
 			T3.CTG_CODE       AS t3ctgCode,
@@ -233,6 +237,7 @@
 			T1.PRD_TRANSFOR_INF, 
 			T1.ADMIN_MEMO,
 			T1.MODIFY_USER_ID,
+			T1.PRD_STOCK,
 			T2.CTG_CODE       AS t2ctgCode,
 			T2.CTG_NAME       AS t2ctgName,
 			T3.CTG_CODE       AS t3ctgCode,
@@ -281,6 +286,7 @@
 			T1.PRD_TRANSFOR_INF, 
 			T1.ADMIN_MEMO,
 			T1.MODIFY_USER_ID,
+			T1.PRD_STOCK,
 			T2.CTG_CODE       AS t2ctgCode,
 			T2.CTG_NAME       AS t2ctgName,
 			T3.CTG_CODE       AS t3ctgCode,
@@ -331,6 +337,7 @@
 			T1.PRD_TRANSFOR_INF, 
 			T1.ADMIN_MEMO,
 			T1.MODIFY_USER_ID,
+			T1.PRD_STOCK,
 			T2.CTG_CODE       AS t2ctgCode,
 			T2.CTG_NAME       AS t2ctgName,
 			T3.CTG_CODE       AS t3ctgCode,
@@ -396,6 +403,7 @@
 			T1.PRD_TRANSFOR_INF, 
 			T1.ADMIN_MEMO,
 			T1.MODIFY_USER_ID,
+			T1.PRD_STOCK,
 			T2.CTG_CODE       AS t2ctgCode,
 			T2.CTG_NAME       AS t2ctgName,
 			T3.CTG_CODE       AS t3ctgCode,
@@ -440,6 +448,7 @@
 			T1.PRD_TRANSFOR_INF, 
 			T1.ADMIN_MEMO,
 			T1.MODIFY_USER_ID,
+			T1.PRD_STOCK,
 			T2.CTG_CODE       AS t2ctgCode,
 			T2.CTG_NAME       AS t2ctgName,
 			T3.CTG_CODE       AS t3ctgCode,
@@ -492,7 +501,7 @@
 			(`PRD_CD`,`PRD_DISPLAY_YN`,`PRD_ORDER`,`PRD_NM`,`PRD_CTG_L`,`PRD_CTG_M`,`PRD_CTG_S`,
 			`PRD_SPECAL_1`,`SEARCH_WORD`,`PRD_SPECAL_2`,`FROM_DATE`,`TO_DATE`,`REG_DATE`,
 			`LAST_DATE`,`PRD_PRICE`,`PRD_SELL_PRICE`,`PRD_MODEL`,`PRD_MODEL_NO`,`PRD_BRAND`,
-			`PRD_LIST_CMT`,`PRD_CONTENTS`,`PRD_TRANSFOR_INF`,`ADMIN_MEMO`,`MODIFY_USER_ID`)
+			`PRD_LIST_CMT`,`PRD_CONTENTS`,`PRD_TRANSFOR_INF`,`ADMIN_MEMO`,`MODIFY_USER_ID`,`PRD_STOCK`)
 			VALUES
 			(#{prdCd},#{prdDp},#{prdOrd}, #{prdNm}, #{prdCtgL}, #{prdCtgM},#{prdCtgS}, 
 			#{prdSpe1}, #{schWord},#{prdSpe2}, #{fromDate}, #{toDate}, sysdate(), sysdate(), 
@@ -547,6 +556,8 @@
 				<if test="admMemo != null and admMemo != ''">,`ADMIN_MEMO` = #{admMemo}</if>
 				<if test="fromDate != null and fromDate != ''">,`FROM_DATE` = #{fromDate}</if>
 				<if test="toDate != null and toDate != ''">,`TO_DATE` = #{toDate}</if>
+				<if test="prdStock != null and prdStock != ''">,`PRD_STOCK` = #{prdStock}</if>
+				
 		WHERE
 			`PRD_CD`= #{prdCd}
 	</update>
