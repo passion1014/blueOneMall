@@ -2,6 +2,7 @@ package com.blueone.admin.controller;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpSession;
@@ -22,12 +23,14 @@ import com.blueone.admin.service.IAdminManageService;
 import com.blueone.admin.service.IOrderService;
 import com.blueone.common.domain.AttachFileInfo;
 import com.blueone.common.service.IAttachFileManageService;
+import com.blueone.common.util.HMallInterworkUtility;
 import com.blueone.customer.domain.CustomerInfo;
 import com.blueone.customer.domain.RecipientInfo;
 import com.blueone.customer.service.ICustomerManageService;
 import com.blueone.order.domain.OrderInfo;
 import com.blueone.order.domain.OrderProductInfo;
 import com.blueone.order.domain.OrderSrchInfo;
+import com.blueone.order.domain.PaymentInfo;
 import com.blueone.order.service.IOrderManageService;
 import com.blueone.product.domain.ProductInfo;
 import com.blueone.product.service.IProductManageService;
@@ -171,6 +174,44 @@ public class OrderManageController {
 		orderService.updateOrderInf(orderInfo);
 		CustomerInfo cust = orderInfo.getCustomerInfo();
 		
+		if(orderInfo.getOrderStatCd().equals("08") || orderInfo.getOrderStatCd().equals("10")){
+			PaymentInfo pay = new PaymentInfo();
+			pay.setOrderNo(orderInfo.getOrderNo());
+			List<PaymentInfo> payList = orderManageService.selectPaymentInfo(pay);
+			
+			String decMemNm = cust.getCustNm();
+			String decMemNo = cust.getCustId();
+			String decShopEventNo = (String)session.getAttribute("shopEventNo");
+			String decPoint = Integer.toString(payList.get(0).getPayPoint()); //수정해줘야할 부분
+			String decOrderNo = orderInfo.getOrderNo();
+			
+			// --------------------------------------------
+			// 2. SSO처리를 위한 웹서비스 호출
+			// --------------------------------------------
+			Map<String, String> rstMap = null;
+			try {
+				rstMap = HMallInterworkUtility.procCancelPoint(decMemNm, decMemNo, decShopEventNo, decPoint, decOrderNo);
+			} catch (Exception e) {
+				model.addAttribute("msg", "SSO처리시 에러발생하였습니다.");
+				return "user/loginError";
+			}
+			
+			// --------------------------------------------
+			// 3. 체크 - SSO처리 결과를 확인한다.
+			// --------------------------------------------
+			if (rstMap == null) {
+				model.addAttribute("msg", "SSO처리 결과가 없습니다.(1)");
+				return "user/loginError";
+			} else {
+				String returnCode = (String)rstMap.get("return_code");
+				
+				if (!"000".equals(returnCode)) {
+					model.addAttribute("msg", HMallInterworkUtility.getErrorMsgByCode(returnCode));
+					return "user/loginError";
+				}
+			}
+			
+		}
 	
 		return "redirect:orderManagement.do?orderNo="+orderInfo.getOrderNo()+"&custId="+cust.getCustId();
 	}

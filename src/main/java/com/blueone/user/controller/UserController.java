@@ -115,7 +115,7 @@ public class UserController {
 
 	//留덉씠�럹�씠吏�
 	@RequestMapping(value="/user/userEdit.do", method=RequestMethod.GET)
-	public String userEdit(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model,HttpSession session,String succcess){
+	public String userEdit(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model,HttpSession session,String succcess) throws Exception{
 		//CustomerInfo customerSesstion = (CustomerInfo)session.getAttribute("customerSession");	
 		CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");	
 		// �꽭�뀡泥댄겕
@@ -150,6 +150,11 @@ public class UserController {
 		cus.seteMail2(mail2);
 	
 		model.addAttribute("customer",cus);
+		
+		Map<String, String> map = HMallInterworkUtility.procSearchPoint(cus.getCustNm(), cus.getCustId(),(String)session.getAttribute("shopEventNo"));
+		String point = (String)map.get("return_point");
+		
+		model.addAttribute("userPoint", point);
 		
 		return "user/userEdit";
 	}
@@ -485,41 +490,7 @@ public class UserController {
 		orderInfo.setOrderStatCd("07");
 		orderService.updateOrderInf(orderInfo);
 
-		PaymentInfo pay = new PaymentInfo();
-		pay.setOrderNo(orderInfo.getOrderNo());
-		List<PaymentInfo> payList = orderManageService.selectPaymentInfo(pay);
 		
-		String decMemNm = cust.getCustNm();
-		String decMemNo = cust.getCustId();
-		String decShopEventNo = (String)session.getAttribute("shopEventNo");
-		String decPoint = Integer.toString(payList.get(0).getPayPoint()); //수정해줘야할 부분
-		String decOrderNo = orderInfo.getOrderNo();
-		
-		// --------------------------------------------
-		// 2. SSO처리를 위한 웹서비스 호출
-		// --------------------------------------------
-		Map<String, String> rstMap = null;
-		try {
-			rstMap = HMallInterworkUtility.procCancelPoint(decMemNm, decMemNo, decShopEventNo, decPoint, decOrderNo);
-		} catch (Exception e) {
-			model.addAttribute("msg", "SSO처리시 에러발생하였습니다.");
-			return "user/loginError";
-		}
-		
-		// --------------------------------------------
-		// 3. 체크 - SSO처리 결과를 확인한다.
-		// --------------------------------------------
-		if (rstMap == null) {
-			model.addAttribute("msg", "SSO처리 결과가 없습니다.(1)");
-			return "user/loginError";
-		} else {
-			String returnCode = (String)rstMap.get("return_code");
-			
-			if (!"000".equals(returnCode)) {
-				model.addAttribute("msg", HMallInterworkUtility.getErrorMsgByCode(returnCode));
-				return "user/loginError";
-			}
-		}
 	
 		return "redirect:orderListView.do";
 	}

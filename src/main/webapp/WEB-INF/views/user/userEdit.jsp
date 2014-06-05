@@ -147,6 +147,10 @@
 									</td>
 								</tr>
 								<tr>
+									<th>사용가능 포인트</th>
+									<td>${userPoint}</td>
+								</tr>
+								<tr>
 									<th class="bottomline">SMS수신여부</th>
 									<td class="bottomline">
 										<span class="in_radio">
