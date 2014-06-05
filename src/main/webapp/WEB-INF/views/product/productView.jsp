@@ -187,11 +187,19 @@ function SetPriceInput(str)
 								<tr>
 									<th>수량</th>
 									<td colspan="2">
-										<select id="buyCnt" name="buyCnt" onChange="sumPrice(this.value);">
-											<c:forEach var="i" begin="1" end="50" step="1">
-												<option value="<c:out value="${i}"></c:out>" <c:if test="${i==1 }">selected</c:if>><c:out value="${i}"></c:out></option>
-											</c:forEach>
-										</select>	
+										<c:choose>
+											<c:when test="${pro.prdModelNo > 0}">
+												<select id="buyCnt" name="buyCnt" onChange="sumPrice(this.value);">
+													<c:forEach var="i" begin="1" end="50" step="1">
+														<option value="<c:out value="${i}"></c:out>" <c:if test="${i==1 }">selected</c:if>><c:out value="${i}"></c:out></option>
+													</c:forEach>
+												</select>
+											</c:when>
+											<c:otherwise>
+												품절
+											</c:otherwise>
+										</c:choose>
+												
 									</td>
 								</tr>
 								<tr>

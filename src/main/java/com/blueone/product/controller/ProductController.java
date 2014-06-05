@@ -979,14 +979,14 @@ public class ProductController {
 
 	@RequestMapping(value = "/product/productView.do", method = RequestMethod.GET)
 	public String productView(@ModelAttribute("productInfo") ProductInfo productInfo,@ModelAttribute("categoryInfo") CategoryInfo categoryInfo,BindingResult result, Model model, HttpSession session) {
-		// CustomerInfo customerSesstion
+		/*// CustomerInfo customerSesstion
 		// =(CustomerInfo)session.getAttribute("customerSession");
 		CustomerInfo cust = (CustomerInfo) session
 				.getAttribute("customerSession");
 		// 세션체크
 		if (cust == null) {
 			return "user/errorPage";
-		}
+		}*/
 
 
 		// ----------------------------------------------------------

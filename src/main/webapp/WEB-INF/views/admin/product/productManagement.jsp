@@ -188,7 +188,12 @@
 			</td>
 		</tr>
 
-	
+		<tr>
+			<th>재고량</th>
+			<td colspan="3" class="left">
+				<input type="text" id="prdStock" name="prdStock" value="${prdInfo.prdStock}" style="width:80%;" required hname=" 상품명을 입력하여 주십시오">
+			</td>
+		</tr>
 	
 		<tr>
 			<th>리스트 이미지</th>

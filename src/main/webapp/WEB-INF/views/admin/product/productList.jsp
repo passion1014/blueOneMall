@@ -74,6 +74,20 @@
 		}
 
 	}
+	
+	function SetPriceInput(str)
+	{
+		str=str.replace(/,/g,'');
+		var retValue = "";
+		for(i=1; i<=str.length; i++)
+		{
+			if(i > 1 && (i%3)==1) 
+				  retValue = str.charAt(str.length - i) + "," + retValue;
+			else 
+				  retValue = str.charAt(str.length - i) + retValue;    
+		}
+		document.write(retValue); 
+	}
 //-->
 </script>
 
@@ -209,12 +223,12 @@
 											<c:out value="행사품목"></c:out>
 										</c:if><br />
 									
-							상품명:${produts.prdNm}
-								
+							상품명 : ${produts.prdNm}<br />
+							재고 : ${produts.prdStock}
 						</td>
 						<td class="right">
-							<strike>${produts.prdPrice}</strike> 원<br />
-							<b>${produts.prdSellPrc}</b> 원						
+							<strike><script>SetPriceInput('${produts.prdPrice}');</script></strike> 원<br />
+							<b><script>SetPriceInput('${produts.prdSellPrc}');</script></b> 원						
 						</td>
 						<td class="center">
 						<input value="보기" class="Small_Button Gray" style="margin-bottom:5px;" onclick="openWin('./adminProductView.do?prdCd=${produts.prdCd}','goods_viewer',1028,900,'scrollbars=yes');" type="button"> <br>

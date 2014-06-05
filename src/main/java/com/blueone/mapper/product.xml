@@ -506,7 +506,7 @@
 			(#{prdCd},#{prdDp},#{prdOrd}, #{prdNm}, #{prdCtgL}, #{prdCtgM},#{prdCtgS}, 
 			#{prdSpe1}, #{schWord},#{prdSpe2}, #{fromDate}, #{toDate}, sysdate(), sysdate(), 
 			#{prdPrice},#{prdSellPrc},#{prdModel}, #{prdModelNo},#{prdBrand},
-			#{prdListCmt},#{prdConts},#{prdTransInf},#{admMemo}, 'default')
+			#{prdListCmt},#{prdConts},#{prdTransInf},#{admMemo}, 'default',#{prdStock})
 	</insert>
 	
 
