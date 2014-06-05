@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ page import="java.util.Calendar"%>
-
+<c:if test="${succcess=='Y'}"><script>alert("정보가 수정되었습니다");</script></c:if>
 <%
 	Calendar calendar = Calendar.getInstance();
 	String year = Integer.toString(calendar.get(Calendar.YEAR)); //년도를 구한다
@@ -39,68 +39,32 @@
 							</colgroup>
 							<tbody>
 								<tr>
+									<th class="topline">아이디</th>
+									<td class="topline">${customer.custId}</td>
 									<th class="topline">이름</th>
-									<td class="topline" colspan="3"><input type="text" id="custNm" name="custNm" value="${customer.custNm}"/></td>
-									<%-- <th class="topline">생년월일</th>
-									<td class="topline">
-										<span class="in_text">
-											<select id="birthY" name="birthY">
-												<c:forEach var="i" begin="1930" end="<%=y%>">
-												<option <c:if test="${customer.birthY == i}">selected</c:if>>${i}</option>
-												</c:forEach>
-											</select>
-											<label for="year">년</label>
-											
-											<select id="birthM" name="birthM">
-												<c:forEach var="i" begin="1" end="12">
-												<option <c:if test="${customer.birthM == i}">selected</c:if>>${i}</option>
-												</c:forEach>
-											</select>
-											<label for="month">월</label>
-											
-											<select id="birthD" name="birthD">
-												<c:forEach var="i" begin="1" end="31">
-												<option <c:if test="${customer.birthD == i}">selected</c:if>>${i}</option>
-												</c:forEach>
-											</select>
-											<label for="day">일</label>
-										</span>
-										
-									</td>
-								</tr>
-								<tr>
-									<th>성별</th>
-									<td colspan="3">
-										<span class="in_radio">
-											<input type="radio" id="custSx" name="custSx" value="f" <c:if test="${customer.custSx eq 'f'}">checked</c:if>/>
-											<label for="woman">여성</label>
-											<input type="radio" id="custSx" name="custSx" value="m" <c:if test="${customer.custSx eq 'm'}">checked</c:if>/>
-											<label for="man">남성</label>
-										</span>
-									</td>
-								</tr> --%>
+									<td class="topline">${customer.custNm}</td>
 								<tr>
 									<th>전화번호</th>
 									<td>
 										<span class="in_number">
 										<select  name="telNo1" id="telNo1">
-											<option <c:if test="${customer.telNo1}">selected</c:if>>02</option>
-											<option <c:if test="${customer.telNo1}">selected</c:if>>031</option>
-											<option <c:if test="${customer.telNo1}">selected</c:if>>032</option>
-											<option <c:if test="${customer.telNo1}">selected</c:if>>033</option>
-											<option <c:if test="${customer.telNo1}">selected</c:if>>041</option>
-											<option <c:if test="${customer.telNo1}">selected</c:if>>042</option>
-											<option <c:if test="${customer.telNo1}">selected</c:if>>043</option>
-											<option <c:if test="${customer.telNo1}">selected</c:if>>051</option>
-											<option <c:if test="${customer.telNo1}">selected</c:if>>052</option>
-											<option <c:if test="${customer.telNo1}">selected</c:if>>053</option>
-											<option <c:if test="${customer.telNo1}">selected</c:if>>054</option>
-											<option <c:if test="${customer.telNo1}">selected</c:if>>061</option>
-											<option <c:if test="${customer.telNo1}">selected</c:if>>062</option>
-											<option <c:if test="${customer.telNo1}">selected</c:if>>063</option>
-											<option <c:if test="${customer.telNo1}">selected</c:if>>064</option>
-										</select>
-										-<input type="text" title="전화번호" name="telNo2" id="telNo2" maxlength="4"  value="${customer.telNo2}" />-
+											<option <c:if test="${customer.telNo1 eq '02'}">selected</c:if>>02</option>
+											<option <c:if test="${customer.telNo1 eq '031'}">selected</c:if>>031</option>
+											<option <c:if test="${customer.telNo1 eq '032'}">selected</c:if>>032</option>
+											<option <c:if test="${customer.telNo1 eq '033'}">selected</c:if>>033</option>
+											<option <c:if test="${customer.telNo1 eq '041'}">selected</c:if>>041</option>
+											<option <c:if test="${customer.telNo1 eq '042'}">selected</c:if>>042</option>
+											<option <c:if test="${customer.telNo1 eq '043'}">selected</c:if>>043</option>
+											<option <c:if test="${customer.telNo1 eq '051'}">selected</c:if>>051</option>
+											<option <c:if test="${customer.telNo1 eq '052'}">selected</c:if>>052</option>
+											<option <c:if test="${customer.telNo1 eq '053'}">selected</c:if>>053</option>
+											<option <c:if test="${customer.telNo1 eq '054'}">selected</c:if>>054</option>
+											<option <c:if test="${customer.telNo1 eq '061'}">selected</c:if>>061</option>
+											<option <c:if test="${customer.telNo1 eq '062'}">selected</c:if>>062</option>
+											<option <c:if test="${customer.telNo1 eq '063'}">selected</c:if>>063</option>
+											<option <c:if test="${customer.telNo1 eq '064'}">selected</c:if>>064</option>
+										</select>-
+										<input type="text" title="전화번호" name="telNo2" id="telNo2" maxlength="4" value="${customer.telNo2}" />-
 										<input type="text" title="전화번호" name="telNo3" id="telNo3" maxlength="4" value="${customer.telNo3}"/>
 									</span>
 									</td>
@@ -141,9 +105,11 @@
 								<tr>
 									<th>주소</th>
 									<td colspan="3" class="in_address">
-										<input type="text" title="address text" style="width:120px;" id="custZip" name="custZip" value="${customer.custZip}"/>
-										<input type="button" vlaue="우편번호 찾기" onClick="openWin('./searchZipCode.do?type=userEdit','searchZipForm',600,450,'scrollbars=no');" /><br/>
-										<input type="text" title="address text" style="width:200px;"id="custAdd" name="custAdd" value="${customer.custAdd}"/>
+										<input type="text" title="address text" style="width:60px;" id="custZip1" name="custZip1" value="${customer.custZip1}" readonly required hname="우편번호를 입력하여 주십시오" />-
+										<input type="text" title="address text" style="width:60px;" id="custZip2" name="custZip2" value="${customer.custZip2}" readonly required hname="우편번호를 입력하여 주십시오" />
+										<input type="button" value="우편번호 찾기" style="width:100px;height:21px;" onClick="openWin('/user/searchZipCode.do?type=userEdit','searchZipuserRegiForm',650,450,'scrollbars=yes');" /><br/>
+										<input type="text" title="address text" style="width:50%;" id="custAdd"       name="custAdd"       value="${customer.custAdd}" readonly/>
+										<input type="text" title="address text" style="width:40%;" id="custAddDetail" name="custAddDetail" value="${customer.custAddDetail}"/>
 									</td>
 								</tr>
 								<tr>

@@ -4,6 +4,6 @@
 <div class="lnb">
 	<h3>회원영역</h3>
 	<ul class="lnb_list">
-		<li><a href="userRegister.do">정보동의</a></li>
+		<li><a href="javascript:void(0);">회원가입</a></li>
 	</ul>
 </div>

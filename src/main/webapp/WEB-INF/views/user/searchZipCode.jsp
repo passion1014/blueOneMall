@@ -4,6 +4,17 @@
 
 <script language="javascript">
 <!--
+function addZipCode(zipcode1, zipcode2, address){
+
+	opener.document.getElementById("custZip1").value = zipcode1 ;
+	opener.document.getElementById("custZip2").value = zipcode2 ;
+
+	opener.document.getElementById("custAdd").value = address ;
+	opener.document.getElementById("custAddDetail").focus() ;
+
+	self.close();
+
+}
 //-->
 </script>
 
@@ -51,7 +62,8 @@
 				<c:forEach items="${nList}"  var="nList">
 					<tr>
 						<td style="text-align:center;">${nList.zipCode}</td>
-						<td style="text-align:center;"><a href="javascript:location.href='searchZipCodeProc.do?address=${nList.address}&zipCode=${nList.zipCode}&type=${type}'">${nList.address}</a></td>
+						<!--<td style="text-align:center;"><a href="javascript:location.href='searchZipCodeProc.do?address=${nList.address}&zipCode=${nList.zipCode}&type=${type}'">${nList.address}</a></td>-->
+						<td style="text-align:center;"><a href="javascript:void(0);" onClick="addZipCode('${nList.zipCode.substring(0,3)}', '${nList.zipCode.substring(4)}','${nList.address}')">${nList.address}</a></td>
 					</tr>
 				</c:forEach>
 			</c:when>

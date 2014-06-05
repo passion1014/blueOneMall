@@ -8,6 +8,74 @@ int y = Integer.parseInt(year);
 %>
 <c:import  url="../inc/topSub.jsp" />    
 
+<script language="javascript">
+<!--
+function chk_mem_form(f){
+
+	if(!jQuery("#agre_check1").is(":checked")){
+		alert("이용약관에 동의하여 주십시오!");
+		return false;
+	}
+
+	if(!jQuery("#agre_check2").is(":checked")){
+		alert("개인정보 취급방침에 동의하여 주십시오!");
+		return false;
+	}
+
+	if(f.telNo2.value == ""){
+		alert("전화번호를 입력하여 주십시오!");
+		f.telNo2.focus();
+		return false;
+	}
+
+	if(f.telNo3.value == ""){
+		alert("전화번호를 입력하여 주십시오!");
+		f.telNo3.focus();
+		return false;
+	}
+
+	if(f.hpNo2.value == ""){
+		alert("핸드폰 번호를 입력하여 주십시오!");
+		f.hpNo2.focus();
+		return false;
+	}
+
+	if(f.hpNo3.value == ""){
+		alert("핸드폰 번호를 입력하여 주십시오!");
+		f.hpNo3.focus();
+		return false;
+	}
+
+	if(f.eMail1.value == ""){
+		alert("이메일을 입력하여 주십시오!");
+		f.eMail1.focus();
+		return false;
+	}
+
+	if(f.eMail2.value == ""){
+		alert("이메일을 입력하여 주십시오!");
+		f.eMail2.focus();
+		return false;
+	}
+
+	if(f.custZip1.value == ""){
+		alert("우편번호를 찾아 주십시오!");
+		f.custZip1.focus();
+		return false;
+	}
+
+	if(f.custZip2.value == ""){
+		alert("우편번호를 찾아 주십시오!");
+		f.custZip2.focus();
+		return false;
+	}
+
+	return true ;
+
+}
+//-->
+</script>
+
 <body>
 <div class="wrap">
 	<!--  header 시작 -->
@@ -20,9 +88,10 @@ int y = Integer.parseInt(year);
 		
 		<div class="sub_content">
 
-			<form method="post" name="frm" action="/user/userRegisterProc.do" onSubmit="return ">
+			<form id="frm" name="frm" method="post" action="/user/userRegisterProc.do" onSubmit="return chk_mem_form(this);">
+			<!--form id="frm" name="frm" method="post" onSubmit="return chk_mem_form(this);"-->
 			<input type="hidden" id="custId" name="custId" value="${customer.custId}"> 
-			<input type="hidden" id="custId" name="custNm" value="${customer.custNm}">
+			<input type="hidden" id="custNm" name="custNm" value="${customer.custNm}">
 			<div class="membership_section">
 				<h4>회원가입</h4>
 				<ul class="lctit_section">
@@ -41,13 +110,13 @@ int y = Integer.parseInt(year);
 					<c:forEach items="${agreementInfo}" var="agreementInfo">
 						<c:if test="${agreementInfo.agrType == 1}">
 							<p class="sub_tit1">> 회원약관</p>
-							<textarea>${agreementInfo.agrContents}</textarea>
-							<span class="agree_box"> <input type="checkbox" id="agre_check1" name="agree_checked1" value="y" /> <label for="agre_check1">이용약관에 동의합니다</label> </span>
+							<textarea style="width:98%;height:250px;padding:5px;">${agreementInfo.agrContents}</textarea>
+							<span class="agree_box"> <input type="checkbox" id="agre_check1" name="agree_checked1" value="y" required hname="이용약관에 동의하여 주십시오" /> <label for="agre_check1">&nbsp;이용약관에 동의합니다</label> </span>
 						</c:if>
 						<c:if test="${agreementInfo.agrType == 2}">
 							<p class="sub_tit1 clearfix">> 개인정보 수집항목, 목적 및 이용안내</p>
-							<textarea>${agreementInfo.agrContents}</textarea>
-							<span class="agree_box"> <input type="checkbox" id="agre_check2" name="agree checked2" value="y" /> <label for="agre_check2">이용약관에 동의합니다</label> </span>
+							<textarea style="width:98%;height:250px;padding:5px;">${agreementInfo.agrContents}</textarea>
+							<span class="agree_box"> <input type="checkbox" id="agre_check2" name="agree checked2" value="y" required hname="개인보호 취급방침에 동의하여 주십시오" /> <label for="agre_check2">&nbsp;개인정보 취급방침에 동의합니다</label> </span>
 						</c:if>
 					</c:forEach>
 				</div>
@@ -65,53 +134,12 @@ int y = Integer.parseInt(year);
 					<tr>
 						<th>이름</th>
 						<td>${customer.custNm}<!-- <input type="text" id="custNm" name="custNm" title="아이디입력창"/> --></td>
-						<th><span class="bullet_color">*</span>아이디</th>
+						<th>아이디</th>
 						<td>${customer.custId}</td>
 					</tr>
 
-					<!--
 					<tr>
-						<th class="topline">생년월일</th>
-						<td class="topline">
-							<span class="in_text">
-							<select id="birthY" name="birthY">
-								<c:forEach var="i" begin="1930" end="<%=y%>">
-									<option>${i}</option>
-								</c:forEach>
-							</select>
-							<label for="year">년</label>
-							
-							<select id="birthM" name="birthM">
-								<c:forEach var="i" begin="1" end="12">
-									<option>${i}</option>
-								</c:forEach>
-							</select>
-							<label for="month">월</label>
-							
-							<select id="birthD" name="birthD">
-								<c:forEach var="i" begin="1" end="31">
-									<option>${i}</option>
-								</c:forEach>
-							</select>
-							<label for="day">일</label>
-							</span>
-						</td>
-					</tr>
-
-					<tr>
-						<th>성별</th>
-						<td colspan="3">
-							<span class="in_radio">
-								<input type="radio" id="custSx" name="custSx" value="f" <c:if test="${customer.custSx eq 'f'}">checked</c:if>/>
-								<label for="woman">여성</label>
-								<input type="radio" id="custSx" name="custSx" value="m" <c:if test="${customer.custSx eq 'm'}">checked</c:if>/>
-								<label for="man">남성</label>
-							</span>
-						</td>
-					</tr>
-					-->
-					<tr>
-						<th>전화번호</th>
+						<th><span class="bullet_color">*</span>전화번호</th>
 						<td>
 							<span class="in_number">
 								<select  name="telNo1" id="telNo1">
@@ -131,12 +159,12 @@ int y = Integer.parseInt(year);
 									<option value="063">063</option>
 									<option value="064">064</option>
 								</select> - 
-								<input type="text" title="전화번호" name="telNo2" id="telNo2" maxlength="4" /> -
-								<input type="text" title="전화번호" name="telNo3" id="telNo3" maxlength="4"/>
+								<input type="text" title="전화번호" name="telNo2" id="telNo2" maxlength="4" size="4" onkeyup="passTab('telNo2','telNo3',4)" required hname="전화번호를 입력하여 주십시오" /> -
+								<input type="text" title="전화번호" name="telNo3" id="telNo3" maxlength="4" size="4" onkeyup="passTab('telNo3','hpNo2',4)" required hname="전화번호를 입력하여 주십시오" />
 							</span>
 						</td>
 
-						<th>휴대전화</th>
+						<th><span class="bullet_color">*</span>휴대전화</th>
 						<td>
 							<span class="in_number">
 								<select  name="hpNo1" id="hpNo1">
@@ -147,25 +175,26 @@ int y = Integer.parseInt(year);
 									<option value="018">018</option>
 									<option value="019">019</option>
 								</select> -
-								<input type="text"  name="hpNo2" id="hpNo2"title="휴대전화번호" maxlength="4"/> -
-								<input type="text"  name="hpNo3" id="hpNo3" title="휴대전화번호" maxlength="4""/>
+								<input type="text" name="hpNo2" id="hpNo2" title="휴대전화번호" maxlength="4" size="4" onkeyup="passTab('hpNo2','hpNo3',4)" required hname="휴대전화번호를 입력하여 주십시오" /> -
+								<input type="text" name="hpNo3" id="hpNo3" title="휴대전화번호" maxlength="4" size="4" onkeyup="passTab('hpNo3','eMail1',4)" required hname="휴대전화번호를 입력하여 주십시오" />
 							</span>
 						</td>
 					</tr>
 					
 					<tr>
-						<th>이메일</th>
+						<th><span class="bullet_color">*</span>이메일</th>
 						<td colspan="3">
 							<span class="in_email">
-								<input type="text" title="email text"  name="eMail1" id="eMail1"/>&nbsp;@&nbsp;<input type="text" title="email text"  name="eMail2" id="eMail2"/>
-								<select name="mail" id="mail">
-									<option>직접입력</option>
-									<option>hanmail.net</option>
-									<option>nate.com</option>
-									<option>naver.com</option>
-									<option>gmail.com</option>
-									<option>hotmail.com</option>
+								<input type="text" title="email text"  name="eMail1" id="eMail1" required hname="이메일을 입력하여 주십시오" />&nbsp;@&nbsp;
+								<select name="mailDomain" id="mailDomain" onChange="document.getElementById('eMail2').value=this.value;">
+									<option value="">직접입력</option>
+									<option value="naver.com">naver.com</option>
+									<option value="hanmail.net">hanmail.net</option>
+									<option value="nate.com">nate.com</option>
+									<option value="gmail.com">gmail.com</option>
+									<option value="hotmail.com">hotmail.com</option>
 								</select>
+								<input type="text" title="email text"  name="eMail2" id="eMail2" required hname="이메일을 입력하여 주십시오"/>
 							</span>
 						</td>
 					</tr>
@@ -173,9 +202,11 @@ int y = Integer.parseInt(year);
 					<tr>
 						<th>주소</th>
 						<td colspan="3" class="in_address">
-							<input type="text" title="address text" style="width:120px;" id="custZip" name="custZip" value="${customer.custZip}"/>
-							<input type="button" value="우편번호 찾기" onClick="openWin('/user/searchZipCode.do?type=userRegi','searchZipuserRegiForm',650,450,'scrollbars=yes');" /><br/>
-							<input type="text" title="address text" style="width:200px;"id="custAdd" name="custAdd" value="${customer.custAdd}"/>
+							<input type="text" title="address text" style="width:60px;" id="custZip1" name="custZip1" value="" readonly required hname="우편번호를 입력하여 주십시오" />-
+							<input type="text" title="address text" style="width:60px;" id="custZip2" name="custZip2" value="" readonly required hname="우편번호를 입력하여 주십시오" />
+							<input type="button" value="우편번호 찾기" style="width:100px;height:21px;" onClick="openWin('/user/searchZipCode.do?type=userRegi','searchZipuserRegiForm',650,450,'scrollbars=yes');" /><br/>
+							<input type="text" title="address text" style="width:50%;" id="custAdd"       name="custAdd"       value="" readonly/>
+							<input type="text" title="address text" style="width:40%;" id="custAddDetail" name="custAddDetail" value=""/>
 						</td>
 					</tr>
 					<tr>

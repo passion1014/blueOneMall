@@ -1,9 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-    
-    
-    
+
+<script type="text/javascript">
+<!--
+function SetPriceInput(str)
+{
+	str=str.replace(/,/g,'');
+	var retValue = "";
+	for(i=1; i<=str.length; i++)
+	{
+		if(i > 1 && (i%3)==1) 
+			  retValue = str.charAt(str.length - i) + "," + retValue;
+		else 
+			  retValue = str.charAt(str.length - i) + retValue;    
+	}
+	document.write(retValue); 
+}
+//-->
+</script>
+
 <c:import  url="../inc/topSub.jsp" />
 <c:import  url="../inc/topMain.jsp" />  
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -64,11 +80,11 @@
 											
 										</span>
 									</td>
-									<td>${odPrdInfo.sellPrice}</td>
+									<td><script>SetPriceInput('${odPrdInfo.sellPrice}');</script></td>
 									<td>
 										<span class="input_text">${odPrdInfo.buyCnt}<!-- <button class="btn_triangle1"></button> --></span>
 									</td>
-									<td>${odPrdInfo.totalPrice}</td>
+									<td><script>SetPriceInput('${odPrdInfo.totalPrice}');</script></td>
 									
 								</tr>
 								<tr>
@@ -82,12 +98,12 @@
 									<td class="total_choice" colspan="6">
 										총 주문금액 : 
 										<c:forEach items="${odPrdInfo}" var="odPrdInfo">
-										${odPrdInfo.totalPrice}원 +
+										<script>SetPriceInput('${odPrdInfo.totalPrice}');</script>원 +
 										<c:set var="total" value="${total+odPrdInfo.totalPrice}"/>
 										</c:forEach>
-										<c:if test="${total>=config.buyPrice}">배송비 : ${config.trasferPrice}원</c:if>
+										 <c:if test="${total>=config.buyPrice}">배송비 :  <script>SetPriceInput('${config.trasferPrice}');</script>원</c:if>
 										 <c:if test="${total<config.buyPrice}">배송비 : 0원 </c:if>
-										 = 합계 <strong>${total}</strong>원
+										 = 합계 <strong><script>SetPriceInput('${total}');</script></strong>원
 										 <input type="hidden" id="sndAmount"  name="sndAmount"  value="${total}" />
 									</td>
 								</tr>
@@ -143,12 +159,16 @@
 								<c:if test="${payList.size() != 0}">
 									<c:forEach var="payList" items="${payList}">
 										<tr>
-											<th>적립금/포인트</th>
+											<th>사용 적립금/포인트</th>
 											<td class="in_text" colspan="3">${payList.payPoint}</td>
 										</tr>
 										<tr>
 											<th>결제 수단</th>
-											<td class="in_sectext">${payList.payMdCd}</td>
+											<td class="in_sectext">
+												<c:if test="${payList.payMdCd eq '100000000000'}">신용카드</c:if>
+												<c:if test="${payList.payMdCd eq '010000000000'}">계좌이체</c:if>
+												<c:if test="${payList.payMdCd eq '000100000000'}">복지카드</c:if>
+											</td>
 										</tr>
 										</c:forEach>
 								</c:if>

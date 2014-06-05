@@ -2,7 +2,23 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:import  url="../inc/topMain.jsp" />
-
+<script type="text/javascript">
+<!--
+function SetPriceInput(str)
+{
+	str=str.replace(/,/g,'');
+	var retValue = "";
+	for(i=1; i<=str.length; i++)
+	{
+		if(i > 1 && (i%3)==1) 
+			  retValue = str.charAt(str.length - i) + "," + retValue;
+		else 
+			  retValue = str.charAt(str.length - i) + retValue;    
+	}
+	document.write(retValue); 
+}
+//-->
+</script>
 <body>
 <div class="wrap">
 	
@@ -137,7 +153,7 @@
 								<dd><img src="${epPrdList.attFilePath}" width="118" height="118" alt="prouct IMG"/></dd>
 								<dd>${epPrdList.prdBrand}</dd>
 								<dd>${epPrdList.prdNm}</dd>
-								<dd><strong class="textline">${epPrdList.prdPrice}</strong>↓<span>${epPrdList.prdSellPrc}원</span></dd>
+								<dd><strong class="textline"><script>SetPriceInput('${epPrdList.prdPrice}');</script></strong>↓<span><script>SetPriceInput('${epPrdList.prdSellPrc}');</script>원</span></dd>
 							</dl>
 							</a>
 						</li>
@@ -162,7 +178,7 @@
 								<dd><img src="${hpPrdList.attFilePath}" width="118" height="118" alt="prouct IMG"/></dd>
 								<dd>${hpPrdList.prdBrand}</dd>
 								<dd>${hpPrdList.prdNm}</dd>
-								<dd><strong class="textline">${hpPrdList.prdPrice}</strong>↓<span>${hpPrdList.prdSellPrc}원</span></dd>
+								<dd><strong class="textline"><script>SetPriceInput('${hpPrdList.prdPrice}');</script></strong>↓<span><script>SetPriceInput('${hpPrdList.prdSellPrc}');</script>원</span></dd>
 							</dl>
 							</a>
 						</li>
@@ -187,7 +203,7 @@
 								<dd><img src="${mmPrdList.attFilePath}" width="118" height="118" alt="prouct IMG"/></dd>
 								<dd>${mmPrdList.prdBrand}</dd>
 								<dd>${mmPrdList.prdNm}</dd>
-								<dd><strong class="textline">${mmPrdList.prdPrice}</strong>↓<span>${mmPrdList.prdSellPrc}원</span></dd>
+								<dd><strong class="textline"><script>SetPriceInput('${mmPrdList.prdPrice}');</script></strong>↓<span><script>SetPriceInput('${mmPrdList.prdSellPrc}');</script>원</span></dd>
 							</dl>
 							</a>
 						</li>
@@ -213,7 +229,7 @@
 								<dd><img src="${pdSList.attFilePath}" width="118" height="118" alt="prouct IMG"/></dd>
 								<dd>${pdSList.prdBrand}</dd>
 								<dd>${pdSList.prdNm}</dd>
-								<dd><strong class="textline">${pdSList.prdPrice}</strong>↓<span>${pdSList.prdSellPrc}원</span></dd>
+								<dd><strong class="textline"><script>SetPriceInput('${pdSList.prdPrice}');</script></strong>↓<span><script>SetPriceInput('${pdSList.prdSellPrc}');</script>원</span></dd>
 							</dl>
 							</a>
 						</li>
@@ -239,7 +255,7 @@
 								<dd><img src="${csPrdList.attFilePath}" width="118" height="118" alt="prouct IMG"/></dd>
 								<dd>${csPrdList.prdBrand}</dd>
 								<dd>${csPrdList.prdNm}</dd>
-								<dd><strong class="textline">${csPrdList.prdPrice}</strong>↓<span>${csPrdList.prdSellPrc}원</span></dd>
+								<dd><strong class="textline"><script>SetPriceInput('${csPrdList.prdPrice}');</script></strong>↓<span><script>SetPriceInput('${csPrdList.prdSellPrc}');</script>원</span></dd>
 							</dl>
 							</a>
 						</li>
@@ -265,7 +281,7 @@
 								<dd><img src="${xtPrdList.attFilePath}" width="118" height="118" alt="prouct IMG"/></dd>
 								<dd>${xtPrdList.prdBrand}</dd>
 								<dd>${xtPrdList.prdNm}</dd>
-								<dd><strong class="textline">${xtPrdList.prdPrice}</strong>↓<span>${xtPrdList.prdSellPrc}원</span></dd>
+								<dd><strong class="textline"><script>SetPriceInput('${xtPrdList.prdPrice}');</script></strong>↓<span><script>SetPriceInput('${xtPrdList.prdSellPrc}');</script>원</span></dd>
 							</dl>
 							</a>
 						</li>

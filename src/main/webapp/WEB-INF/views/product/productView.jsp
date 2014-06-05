@@ -33,9 +33,21 @@ function sumPrice(n){
 	sell_price = parseInt( price * n ) ;
 
 	$("#sellPrice").val(sell_price);
-	document.getElementById("sellPriceView").innerHTML = sell_price ;
+	document.getElementById("sellPriceView").innerHTML= sell_price 
 }
-
+function SetPriceInput(str)
+{
+	str=str.replace(/,/g,'');
+	var retValue = "";
+	for(i=1; i<=str.length; i++)
+	{
+		if(i > 1 && (i%3)==1) 
+			  retValue = str.charAt(str.length - i) + "," + retValue;
+		else 
+			  retValue = str.charAt(str.length - i) + retValue;    
+	}
+	document.write(retValue); 
+}
 //-->
 </script>
 
@@ -109,11 +121,11 @@ function sumPrice(n){
 							<tbody>
 								<tr>
 									<th>소비자 가격</th>
-									<td colspan="2"><span class="textline">${pro.prdPrice} 원</span></td>
+									<td colspan="2"><span class="textline"><script>SetPriceInput('${pro.prdPrice}');</script> 원</span></td>
 								</tr>
 								<tr>
 									<th>판매 가격</th>
-									<td colspan="2"><strong class="stext">${pro.prdSellPrc} 원</strong></td>
+									<td colspan="2"><strong class="stext"><script>SetPriceInput('${pro.prdSellPrc}');</script> 원</strong></td>
 								</tr>
 								<tr>
 									<th class="bottomline">배송비</th>
@@ -185,7 +197,7 @@ function sumPrice(n){
 								<tr>
 									<th class="bgcolor bottomline">총 합계 금액</th>
 									<td colspan="2" class="bgcolor salign bottomline">
-										<strong class="stext"><span id="sellPriceView">${pro.prdSellPrc}</span> 원</strong>
+										<strong class="stext"><span id="sellPriceView"><script>SetPriceInput('${pro.prdSellPrc}');</script></span> 원</strong>
 									</td>
 								</tr>
 								
