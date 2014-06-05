@@ -331,13 +331,13 @@ public class ProductManageServiceImpl implements IProductManageService {
                 rst = sqlSession.update("product.updateBomProductTb0001", productInfo);
                 
                 for(int i=0; i<50; i++){
-                    if(!productInfo.getOptionValue()[i].equals("") && productInfo.getOptionIdx()!=null){
+                    if(!StringUtils.isEmpty(productInfo.getOptionValue()[i]) && !productInfo.getOptionValue()[i].equals("") && productInfo.getOptionIdx()!=null){
                         productInfo.setPropType(productInfo.getOptionKey()[i]);
                         productInfo.setPropName(productInfo.getOptionValue()[i]);
                         productInfo.setPropIdx(productInfo.getOptionIdx()[i]);
                         rst = sqlSession.insert("product.updateBomProductTb0001", productInfo);
                     }
-                    else if(!productInfo.getOptionValue()[i].equals("")  && productInfo.getOptionIdx()==null){
+                    else if(!StringUtils.isEmpty(productInfo.getOptionValue()[i])&&!productInfo.getOptionValue()[i].equals("")  && productInfo.getOptionIdx()==null){
                         productInfo.setPropType(productInfo.getOptionKey()[i]);
                         productInfo.setPropName(productInfo.getOptionValue()[i]);
                         rst = sqlSession.insert("product.insertBomProductOptionTb0001", productInfo);
