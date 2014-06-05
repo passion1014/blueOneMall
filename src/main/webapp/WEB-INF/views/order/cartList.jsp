@@ -72,7 +72,19 @@ function cnt_UP(){
 
 	list_Submit();
 }
-
+function SetPriceInput(str)
+{
+	str=str.replace(/,/g,'');
+	var retValue = "";
+	for(i=1; i<=str.length; i++)
+	{
+		if(i > 1 && (i%3)==1) 
+			  retValue = str.charAt(str.length - i) + "," + retValue;
+		else 
+			  retValue = str.charAt(str.length - i) + retValue;    
+	}
+	document.write(retValue); 
+}
 //-->
 </script>
 
@@ -140,22 +152,23 @@ function cnt_UP(){
 											
 										</span>
 									</td>
-									<td>${odPrdInfo.sellPrice}</td>
+									<td><script>SetPriceInput('${odPrdInfo.sellPrice}');</script></td>
 									<td>
 										<span class="input_text"><input type="text" value="${odPrdInfo.buyCnt}" id="buyCnt" nam="buyCnt" title="수량기입"><!-- <button class="btn_triangle1" ></button> --></span>
 										<span class="input_btn"><input type="button" value="수정" title="수정" onClick="location.href='editBuyCnt.do?cookieKey=${odPrdInfo.cookieKey}&buyCnt='+document.getElementById('buyCnt').value;"><!-- <button class="btn_triangle2"></button> --></span>
 									</td>
-									<td>${odPrdInfo.totalPrice}</td>
+									<td><script>SetPriceInput('${odPrdInfo.totalPrice}');</script></td>
 									<td>
-										<input type="button" value="구매하기 "class="btn_choice1" onClick="location.href='orderDirect.do?cookieKey=${odPrdInfo.cookieKey}&prdCd=${odPrdInfo.prdCd}&buyCnt=${odPrdInfo.buyCnt}';"/>
+										<input type="button" value="구매하기 "class="btn_choice1" onClick="location.href='orderRegister.do?ord_unit_chk=${odPrdInfo.cookieKey}';"/>
 										<input type="button" value="삭제하기" class="btn_choice2" onClick="confirm_process('','해당 상품을 삭제하시겠습니까?','deleteCartList.do?cookieKey=${odPrdInfo.cookieKey}');" /> 
 									</td>
 								</tr>
 								<tr>
 									<td class="one_choice" colspan="6">
 										<c:set var="totalPrc" value="${odPrdInfo.totalPrice.intValue()}"/>
-										상품가격 : ${odPrdInfo.totalPrice}원  + <c:if test="${totalPrc>=config.buyPrice}">배송비 : ${config.trasferPrice}원</c:if>
-																			   <c:if test="${totalPrc<config.buyPrice}">배송비 : 0원 </c:if>= 합계 ${odPrdInfo.totalPrice}원
+										상품가격 : <script>SetPriceInput('${odPrdInfo.totalPrice}');</script>원  + <c:if test="${totalPrc>=config.buyPrice}">배송비 : <script>SetPriceInput('${config.trasferPrice}');</script>원</c:if>
+																			   <c:if test="${totalPrc<config.buyPrice}">배송비 : 0원 </c:if>= 합계
+																			   <script>SetPriceInput('${odPrdInfo.totalPrice}');</script>원
 									 </td>
 								</tr>
 								</c:forEach>
@@ -167,12 +180,12 @@ function cnt_UP(){
 									<td class="total_choice" colspan="6">
 										총 주문금액 : 
 										<c:forEach items="${odPrdInfo}" var="odPrdInfo">
-										${odPrdInfo.totalPrice}원 +
+										<script>SetPriceInput('${odPrdInfo.totalPrice}');</script>원 +
 										<c:set var="total" value="${total+odPrdInfo.totalPrice}"/>
 										</c:forEach>
-										 <c:if test="${total>=config.buyPrice}">배송비 : ${config.trasferPrice}원</c:if>
+										 <c:if test="${total>=config.buyPrice}">배송비 :  <script>SetPriceInput('${config.trasferPrice}');</script>원</c:if>
 										 <c:if test="${total<config.buyPrice}">배송비 : 0원 </c:if>
-										 = 합계 <strong>${total}</strong>원
+										 = 합계 <strong><script>SetPriceInput('${total}');</script></strong>원
 									</td>
 								</tr>
 								

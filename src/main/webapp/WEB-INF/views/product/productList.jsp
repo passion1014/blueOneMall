@@ -2,6 +2,23 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     
 <c:import  url="../inc/topSub.jsp" />
+<script type="text/javascript">
+<!--
+function SetPriceInput(str)
+{
+	str=str.replace(/,/g,'');
+	var retValue = "";
+	for(i=1; i<=str.length; i++)
+	{
+		if(i > 1 && (i%3)==1) 
+			  retValue = str.charAt(str.length - i) + "," + retValue;
+		else 
+			  retValue = str.charAt(str.length - i) + retValue;    
+	}
+	document.write(retValue); 
+}
+//-->
+</script>
 
 <body>
 <div class="wrap">
@@ -77,7 +94,7 @@
 									<dd><img src="${prdList.attFilePath}" alt="product image"  width="166" height="166" /></dd>
 									<dd>${prdList.prdBrand}</dd>
 									<dd>${prdList.prdNm}</dd>
-									<dd>${prdList.prdPrice}&nbsp;↓&nbsp;<span>${prdList.prdSellPrc}원</span></dd>
+									<dd><script>SetPriceInput('${prdList.prdPrice}');</script>&nbsp;↓&nbsp;<span><script>SetPriceInput('${prdList.prdSellPrc}');</script>원</span></dd>
 								</dl>
 								</a>
 							</li>

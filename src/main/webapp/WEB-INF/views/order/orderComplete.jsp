@@ -2,8 +2,23 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
     
-    
-    
+<script type="text/javascript">
+<!--
+function SetPriceInput(str)
+{
+	str=str.replace(/,/g,'');
+	var retValue = "";
+	for(i=1; i<=str.length; i++)
+	{
+		if(i > 1 && (i%3)==1) 
+			  retValue = str.charAt(str.length - i) + "," + retValue;
+		else 
+			  retValue = str.charAt(str.length - i) + retValue;    
+	}
+	document.write(retValue); 
+}
+//-->
+</script>
 <c:import  url="../inc/topSub.jsp" />
 <c:import  url="../inc/topMain.jsp" />  
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -68,19 +83,19 @@
 											
 										</span>
 									</td>
-									<td>${odPrdInfo.sellPrice}</td>
+									<td><script>SetPriceInput('${odPrdInfo.sellPrice}');</script></td>
 									<td>
 										<span class="input_text">${odPrdInfo.buyCnt}<%-- <input type="text" id="buyCnt${i.index}" naem="buyCnt${i.index}" value="${odPrdInfo.buyCnt}" title="수량기입"><!-- <button class="btn_triangle1"></button> --> --%></span>
 										<span class="input_btn"><%-- <input type="button" value="수정" title="수정" onClick="location.href='editOrderBuycn.do?ordIdx=${i.index}&ord_unit_chk=${orderInfo.ord_unit_chk}&orderProductList[${i.index}].buyCnt='+document.getElementById('buyCnt${i.index}').value;"> <!-- <button class="btn_triangle2"></button> --> --%></span>
 									</td>
-									<td>${odPrdInfo.totalPrice}</td>
+									<td><script>SetPriceInput('${odPrdInfo.totalPrice}');</script></td>
 									
 								</tr>
-								<tr>
+								<!--<tr>
 									<td class="one_choice" colspan="6">
 										상품가격 : ${odPrdInfo.totalPrice}원 + 배송비 : 0원 = 합계 ${odPrdInfo.totalPrice}원
 									</td>
-								</tr>
+								</tr>-->
 								</c:forEach>
 								</c:when>
 								<c:otherwise><tr><td>장바구니에 상품이 없습니다.</td></tr></c:otherwise>
@@ -90,10 +105,12 @@
 									<td class="total_choice" colspan="6">
 										총 주문금액 : 
 										<c:forEach items="${odPrdInfo}" var="odPrdInfo">
-										${odPrdInfo.totalPrice}원 +
+										<script>SetPriceInput('${odPrdInfo.totalPrice}');</script>원 +
 										<c:set var="total" value="${total+odPrdInfo.totalPrice}"/>
 										</c:forEach>
-										 배송비 : 0원 = 합계 <strong>${total}</strong>원
+										 <c:if test="${total>=config.buyPrice}">배송비 :  <script>SetPriceInput('${config.trasferPrice}');</script>원</c:if>
+										 <c:if test="${total<config.buyPrice}">배송비 : 0원 </c:if>
+										 = 합계 <strong><script>SetPriceInput('${total}');</script></strong>원
 										 <input type="hidden" id="sndAmount"  name="sndAmount"  value="${total}" />
 									</td>
 								</tr>
@@ -159,7 +176,7 @@
 					</div>
 					<div class="complet_box">
 						<a href="/product/productList.do" class="btn_success">계속쇼핑하기</a>
-						<a href="#" class="btn_continue">확인</a>
+						<a href="" class="btn_continue">확인</a>
 					</div>
 				</div>
 			</form>

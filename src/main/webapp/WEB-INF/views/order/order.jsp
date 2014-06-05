@@ -95,13 +95,21 @@
         {
             var RetVal = false;
 
-						/*
-						고객 데이터 세팅
-						*/
-
-						
+						/* 고객 데이터 세팅 시작 */
 						document.getElementById("buyr_tel1").value = document.getElementById("tel1").value + document.getElementById("tel2").value + document.getElementById("tel3").value ;
 						document.getElementById("buyr_tel2").value = document.getElementById("hp1").value + document.getElementById("hp2").value + document.getElementById("hp3").value ;
+
+						if(parseInt(document.getElementById("good_mny").value) <= 0){
+							alert("최소결제금액이 1000원 이상이어야 합니다");
+							return false ;
+						}
+
+						if (!$('input[name="agr_check"]').is(":checked")){
+							alert("주문에 동의하여야 주문이 완료됩니다.") ;
+							return false;
+						}
+						/* 고객 데이터 세팅 끝 */
+
 
             /* Payplus Plugin 실행 */
             if ( MakePayMessage( form ) == true )
@@ -259,6 +267,7 @@
 
 					// 고객이 원래 보유한 포인트를 확인한다
 					var getUserPoint = parseInt(document.getElementById("user_point").value) ;
+					var buyPrice     = parseInt(document.getElementById("total_price").value) ; 
 
 					if(getUserPoint < usePoint){
 
@@ -269,13 +278,59 @@
 
 					}else{
 
-						var resultValue = getUserPoint - usePoint ;
-						document.getElementById("result_user_point").value = resultValue ; 
+						var resultBuyPrice = parseInt(buyPrice - usePoint) ;
+
+						if(resultBuyPrice >= 0){
+
+							if(resultBuyPrice >= 1000){
+
+								var resultValue    = getUserPoint - usePoint ;
+								var resultBuyPrice = buyPrice - usePoint ;
+
+								// 포인트 계산
+								document.getElementById("use_point").value         = usePoint ; 
+								document.getElementById("myPointView").innerHTML   = resultValue + " P" ; 
+								document.getElementById("usePointView2").innerHTML = usePoint ; 
+
+								// 결제금 계산
+								document.getElementById("good_mny").value            = resultBuyPrice ; 
+								document.getElementById("resultPriceView").innerHTML = resultBuyPrice ; 
+								document.getElementById("result_user_point").value   = resultValue ; 
+
+							}else{
+
+								alert("최소결제금액이 1000원이상이어야 합니다.") ;
+								document.getElementById("use_point").value = 0 ;
+								//usePointChecker();
+								return false ; 
+
+							}
+
+						}else{
+
+							alert("사용포인트가 결제금액보다 많습니다.") ;
+							document.getElementById("use_point").value = 0 ;
+							usePointChecker();
+							return false ; 
+
+						}
 
 					}
 
 				}
-
+function SetPriceInput(str)
+{
+	str=str.replace(/,/g,'');
+	var retValue = "";
+	for(i=1; i<=str.length; i++)
+	{
+		if(i > 1 && (i%3)==1) 
+			  retValue = str.charAt(str.length - i) + "," + retValue;
+		else 
+			  retValue = str.charAt(str.length - i) + retValue;    
+	}
+	document.write(retValue); 
+}
     </script>
 </head>
 
@@ -300,8 +355,8 @@
 
 			<!-- 유저 보유포인트 시작 -->
 			<!--<input type="text" id="user_point" name="user_point"  value="${userPoint}"/>-->
-			<input type="text" id="user_point"        name="user_point"         value="300000"/>
-			<input type="text" id="result_user_point" name="result_user_point"  value="300000"/>
+			<input type="hidden" id="user_point"        name="user_point"         value="10000000"/>
+			<input type="hidden" id="result_user_point" name="result_user_point"  value="10000000"/>
 
 			<!-- 유저 보유포인트 끝 -->
 
@@ -365,11 +420,11 @@
 													<c:if test="${'null' ne odPrdInfo.prdOpSize}">/${odPrdInfo.prdOpSize}</c:if>
 												</span>
 											</td>
-											<td>${odPrdInfo.sellPrice}</td>
+											<td><script>SetPriceInput('${odPrdInfo.sellPrice}');</script></td>
 											<td>
 												<span class="input_text">${odPrdInfo.buyCnt}</span>
 											</td>
-											<td>${odPrdInfo.totalPrice}</td>
+											<td><script>SetPriceInput('${odPrdInfo.totalPrice}');</script></td>
 											<td>
 												<input type="button" value="삭제하기"class="btn_choice2" onClick="confirm_process('','해당 상품을 삭제하시겠습니까?','deleteOrderList.do?cookieKey=${odPrdInfo.cookieKey}&ord_unit_chk=${orderInfo.ord_unit_chk}');" />
 											</td>
@@ -377,22 +432,25 @@
 										<tr><td height="1" colspan="6" bgcolor="#E0E0E0"></td></tr>
 									</c:forEach>
 								</c:when>
-								<c:otherwise><tr><td colspan="5">구매하실 상품이 없습니다.</td></tr></c:otherwise>
+								<c:otherwise><tr><td colspan="5" height="90">구매하실 상품이 없습니다.</td></tr></c:otherwise>
 								</c:choose>
 								<tr>
 									<c:set var="total"  value="0"/>
 									<td class="total_choice" colspan="6">
 										총 주문금액 : 
 										<c:forEach items="${odPrdInfo}" var="odPrdInfo">
-										${odPrdInfo.totalPrice} 원 +
+										<script>SetPriceInput('${odPrdInfo.totalPrice}');</script>원 +
 										<c:set var="total" value="${total+odPrdInfo.totalPrice}"/>
 										</c:forEach>
-										 <c:if test="${total<config.buyPrice}">배송비 : ${config.trasferPrice} 원</c:if>
-										 <c:if test="${total>=config.buyPrice}">배송비 : 0 원 </c:if>
-										 = 합계 &nbsp; <strong>${total}</strong> 원
-										 <input type="hidden" id="sndAmount"  name="sndAmount"  value="${total}" />
-										 <input type="hidden"  name="good_mny"  value="${total}"/>
-			
+										 <c:if test="${total>=config.buyPrice}">배송비 :  <script>SetPriceInput('${config.trasferPrice}');</script>원</c:if>
+										 <c:if test="${total<config.buyPrice}">배송비 : 0원 </c:if>
+										 = 합계 <strong><script>SetPriceInput('${total}');</script></strong>원
+
+
+										 <input type="hidden" id="total_price" name="total_price" value="${total}"/>
+										 <input type="hidden" id="good_mny"    name="good_mny"    value="${total}"/>
+
+										 <input type="hidden" id="sndAmount"  name="sndAmount"  value="${total}" /><!-- kst net -->
 									</td>
 								</tr>
 								
