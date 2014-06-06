@@ -2,7 +2,23 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:import  url="../inc/top.jsp" />
- 
+ <script type="text/javascript">
+<!--
+function SetPriceInput(str)
+{
+	str=str.replace(/,/g,'');
+	var retValue = "";
+	for(i=1; i<=str.length; i++)
+	{
+		if(i > 1 && (i%3)==1) 
+			  retValue = str.charAt(str.length - i) + "," + retValue;
+		else 
+			  retValue = str.charAt(str.length - i) + retValue;    
+	}
+	document.write(retValue); 
+}
+//-->
+</script>
 <body>
 <div id="Wrap">
 
@@ -51,16 +67,12 @@
 								
 							</span>
 						</td>
-						<td>${odPrdInfo.sellPrice}</td>
+						<td><script>SetPriceInput('${odPrdInfo.sellPrice}');</script></td>
 						<td>
 							<span class="input_text">${odPrdInfo.buyCnt}<!-- <button class="btn_triangle1"></button> --></span>
 						</td>
-						<td>${odPrdInfo.totalPrice}</td>
+						<td><script>SetPriceInput('${odPrdInfo.totalPrice}');</script></td>
 						
-					</tr>
-					<tr>
-						<td class="one_choice" colspan="6">
-						</td>
 					</tr>
 					</c:forEach>
 					</c:when>
@@ -73,8 +85,8 @@
 							${odPrdInfo.totalPrice}원 +
 							<c:set var="total" value="${total+odPrdInfo.totalPrice}"/>
 							</c:forEach>
-							<c:if test="${total>=config.buyPrice}">배송비 : ${config.trasferPrice}원</c:if>
-							 <c:if test="${total<config.buyPrice}">배송비 : 0원 </c:if>
+							<c:if test="${total<=config.buyPrice}">배송비 : ${config.trasferPrice}원<c:set var="total"  value="${total+config.trasferPrice}"/></c:if>
+							 <c:if test="${total>config.buyPrice}">배송비 : 0원 </c:if>
 							 = 합계 <strong>${total}</strong>원
 							 <input type="hidden" id="sndAmount"  name="sndAmount"  value="${total}" />
 						</td>
