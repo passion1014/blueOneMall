@@ -193,63 +193,11 @@ public class UserController {
 			model.addAttribute("type",type);	
 			return "user/searchZipCode";
 	}
-	/*//�슦�렪踰덊샇 李얘린 �뙘�뾽
-	@RequestMapping(value="/user/searchZipCodeProc.do", method=RequestMethod.GET)
-	public String searchZipCodeProc(@ModelAttribute("searchAddress")SearchAddress sAdd,String type, HttpServletRequest request, HttpServletResponse response, Map<String, Object> commandMap, ModelMap model,HttpSession session) throws Exception {
-       
-		// CustomerInfo customerSesstion =(CustomerInfo)session.getAttribute("customerSession");
-		CustomerInfo cus = (CustomerInfo) session
-				.getAttribute("customerSession");
-		// �꽭�뀡泥댄겕
-		if (cus == null) {
-			return "user/errorPage";
-		}
-		
-		
-		CustomerInfo cus =new CustomerInfo();
-		cus.setCustId("100001639343");
-		cus=customerService.getCustomerInfo2(cus);
-		
-		String birth = cus.getCustBirth();
-//		cus = useStringToken(birth,"b",cus);
-		
-		String phone = cus.getCustPh();
-		cus = useStringToken(phone,"p",cus);
-		
-		String mobile = cus.getCustMb();
-		cus = useStringToken(mobile,"m",cus);
-		
-		String mail=cus.getCustEmail();
-		int a = mail.indexOf("@");
-		String mail1= mail.substring(0, a);
-		String mail2= mail.substring(a+1);
-		cus.seteMail1(mail1);
-		cus.seteMail2(mail2);
-		
-		
-		String add = sAdd.getAddress();
-		add = new String(add.getBytes("8859_1"), "UTF-8");
-		cus.setCustAdd(add);
-		cus.setCustZip(sAdd.getZipCode());
-		
 	
-		model.addAttribute("customer",cus);
-		
-		if(type.equals("userEdit")){
-			return "user/userEdit";
-		}else if(type.equals("userRegi")){
-			return "user/userRegister";
-		}else{
-			return "redirect:/";
-		}
-		
-	}*/
-
-		
 	//二쇱냼 李얘린 action
 	@RequestMapping(value="/user/searchAddress.do", method=RequestMethod.GET)
 	public String searchAddress(@ModelAttribute("userInfo") UserInfo userInfo,String type,BindingResult result, Model model,String dong) throws ParserConfigurationException, SAXException, IOException{
-		dong = new String(dong.getBytes("8859_1"), "UTF-8");
+		
 		
 		if(!StringUtils.isEmpty(dong)&&!dong.isEmpty()){
 	
