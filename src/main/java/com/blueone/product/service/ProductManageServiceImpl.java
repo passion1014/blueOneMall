@@ -330,8 +330,8 @@ public class ProductManageServiceImpl implements IProductManageService {
                 // DB 수행
                 rst = sqlSession.update("product.updateBomProductTb0001", productInfo);
                 
-                for(int i=0; i<50; i++){
-                    if(!productInfo.getOptionValue()[i].equals("")  && productInfo.getOptionIdx()==null){
+                /*for(int i=0; i<50; i++){
+                    if(productInfo.getOptionValue()[i].equals("")  && productInfo.getOptionIdx()==null){
                         productInfo.setPropType(productInfo.getOptionKey()[i]);
                         productInfo.setPropName(productInfo.getOptionValue()[i]);
                         productInfo.setPropIdx(productInfo.getOptionIdx()[i]);
@@ -343,7 +343,7 @@ public class ProductManageServiceImpl implements IProductManageService {
                         rst = sqlSession.insert("product.insertBomProductOptionTb0001", productInfo);
                     }
                     
-                }
+                }*/
             } finally {
                 sqlSession.close();
             }

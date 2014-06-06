@@ -380,12 +380,14 @@ public class ProductController {
 		int[] opIdx = new int[50];
 		String[] opKey = new String[50];
 		String[] opValue = new String[50];
+		
 		for (ProductInfo each : prdOpList) {
 			opKey[i] = each.getPropType();
 			opValue[i] = each.getPropName();
 			opIdx[i] = each.getPropIdx();
 			i++;
 		}
+		
 		productInfo.setOptionKey(opKey);
 		productInfo.setOptionValue(opValue);
 

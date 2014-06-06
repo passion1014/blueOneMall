@@ -339,6 +339,7 @@ function chgOption(op,n){
 	      document.getElementById(targetField).style.display = "block" ;
 	   }else{
 	      document.getElementById(targetField).style.display = "none" ;
+	      
 	   }
 	}
 	

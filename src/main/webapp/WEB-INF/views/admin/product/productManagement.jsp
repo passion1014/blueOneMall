@@ -395,7 +395,10 @@ function chgOption(op,n,Idx){
 	      document.getElementById(targetField).style.display = "block" ;
 	   }else{
 	      document.getElementById(targetField).style.display = "none" ;
-	      location.href='deletePrdOptionInf.do?idx='+Idx+','+${prdInfo.prdCd};
+	      alert();
+	      //location.href='deletePrdOptionInf.do?idx='+Idx+','+${prdInfo.prdCd};
+	      alert(Idx);
+	      
 	   }
 	}
 </script>
