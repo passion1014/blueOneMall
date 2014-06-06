@@ -1258,7 +1258,7 @@ public class ProductController {
 			List<ProductInfo> resultList = pd.getPrdList();
 			model.addAttribute("prdList", resultList);
 			model.addAttribute("endNum", pd.getEndPageNum());
-			model.addAttribute("schWord",word);
+			model.addAttribute("preSchWord",word);
 
 			return "product/productSearch";
 		} else {

@@ -47,7 +47,7 @@
 				<a href="#" class="palign2"><img src="<c:url value='/resources/img/common/btn_prev.gif'/>" alt="이전"></a>
 				
 				<c:forEach var="i" begin="1" end="${endNum}">
-					<a href="searchProduct.do?page=${i}&schWord=${schWord}">${i}</a>	
+					<a href="searchProduct.do?page=${i}&schWord=${preSchWord}">${i}</a>	
 				</c:forEach>
 
 				<a href="#" class="palign1"><img src="<c:url value='/resources/img/common/btn_next.gif'/>" alt="다음"></a>
