@@ -138,16 +138,16 @@ public class OrderController {
 				}
 				
 				pNum = Integer.parseInt(each.substring(each.indexOf("_")+1));
-				if((orderProductInfo.getPrdOpColor()==null || orderProductInfo.getPrdOpColor().isEmpty()) && optionSize.equals(orderProductInfo.getPrdOpSize())){
+				if((orderProductInfo.getPrdOpColor()==null || orderProductInfo.getPrdOpColor().isEmpty()) && optionSize.equals(orderProductInfo.getPrdOpSize()) && countExist.equals("y")){
 					count += orderProductInfo.getBuyCnt();
 					break;
-				}else if((orderProductInfo.getPrdOpSize()==null || orderProductInfo.getPrdOpSize().isEmpty()) && optionColor.equals(orderProductInfo.getPrdOpColor())){
+				}else if((orderProductInfo.getPrdOpSize()==null || orderProductInfo.getPrdOpSize().isEmpty()) && optionColor.equals(orderProductInfo.getPrdOpColor()) && countExist.equals("y")){
 					count += orderProductInfo.getBuyCnt();
 					break;
-				}else if((orderProductInfo.getPrdOpColor()==null || orderProductInfo.getPrdOpColor().isEmpty()) &&(orderProductInfo.getPrdOpSize()==null || orderProductInfo.getPrdOpSize().isEmpty()) ){ 
+				}else if((orderProductInfo.getPrdOpColor()==null || orderProductInfo.getPrdOpColor().isEmpty()) &&(orderProductInfo.getPrdOpSize()==null || orderProductInfo.getPrdOpSize().isEmpty()) && countExist.equals("y") ){ 
 					count += orderProductInfo.getBuyCnt();
 					break;
-				}else if(optionSize.equals(orderProductInfo.getPrdOpSize()) && optionColor.equals(orderProductInfo.getPrdOpColor())){
+				}else if(optionSize.equals(orderProductInfo.getPrdOpSize()) && optionColor.equals(orderProductInfo.getPrdOpColor()) && countExist.equals("y")){
 						count += orderProductInfo.getBuyCnt();
 						break;
 				}else{
@@ -853,9 +853,12 @@ public class OrderController {
 		cus = useStringToken(mobile,"m",cus);
 		model.addAttribute("cus",cus);
 		
-		//寃곗젣?곹뭹 蹂댁뿬二쇨린
-		String odNo=orderInfo.getOrderNo();
 		
+		
+		String odNo=orderInfo.getOrderNo();
+		if(odNo==null || StringUtils.isEmpty(odNo)){
+			return "redirect:/";
+		}
 		BigDecimal total = null;
 		OrderProductInfo opRes = new OrderProductInfo();
 		opRes.setOrderNo(orderInfo.getOrderNo());
@@ -884,6 +887,9 @@ public class OrderController {
 			
 			//?듭뀡
 			String vl = cki.getValue(cookieKey);
+			if(vl==null || StringUtils.isEmpty(vl)){
+				return "redirect:/";
+			}
 			StringTokenizer st = new StringTokenizer(vl, ",");
 			String option = "";
 			
@@ -963,6 +969,8 @@ public class OrderController {
 				rstMap = HMallInterworkUtility.procUsePoint(decMemNm, decMemNo, decShopEventNo, decPoint, decOrderNo);
 			} catch (Exception e) {
 				model.addAttribute("msg", "SSO泥섎━???먮윭諛쒖깮?섏??듬땲??");
+				payment.setPymtMemo("포인트 결제 에러");
+				orderManageService.registPaymentInfo(payment);
 				return "user/loginError";
 			}
 			
@@ -971,12 +979,17 @@ public class OrderController {
 			// --------------------------------------------
 			if (rstMap == null) {
 				model.addAttribute("msg", "SSO泥섎━ 寃곌낵媛??놁뒿?덈떎.(1)");
+				payment.setPymtMemo("포인트 결제 에러");
+				orderManageService.registPaymentInfo(payment);
+				
 				return "user/loginError";
 			} else {
 				String returnCode = (String)rstMap.get("return_code");
 				
 				if (!"000".equals(returnCode)) {
 					model.addAttribute("msg", HMallInterworkUtility.getErrorMsgByCode(returnCode));
+					payment.setPymtMemo("포인트 결제 에러");
+					orderManageService.registPaymentInfo(payment);
 					return "user/loginError";
 				}
 			}
@@ -1007,7 +1020,7 @@ public class OrderController {
 		//Order ??옣
 		orderInfo.setCustomerInfo(cus);
 		orderInfo.setModifyUserId(cus.getCustId());
-		orderInfo.setOrderStatCd("02");
+		orderInfo.setOrderStatCd("03");
 		orderManageService.registOrderInfo(orderInfo);
 	
 		return "order/orderComplete";

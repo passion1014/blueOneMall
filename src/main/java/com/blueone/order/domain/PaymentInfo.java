@@ -13,9 +13,16 @@ public class PaymentInfo {
 	private String regDate;		// 등록일
 	private String lastDate;	// 최종수정일
 	private String modifyUserId;// 최종수정자
+	private String pymtMemo;
 	
 	
 	
+	public String getPymtMemo() {
+		return pymtMemo;
+	}
+	public void setPymtMemo(String pymtMemo) {
+		this.pymtMemo = pymtMemo;
+	}
 	public int getPayPoint() {
 		return payPoint;
 	}

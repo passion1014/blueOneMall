@@ -170,6 +170,10 @@ function SetPriceInput(str)
 												<c:if test="${payList.payMdCd eq '000100000000'}">복지카드</c:if>
 											</td>
 										</tr>
+										<tr>
+											<th>비고</th>
+											<td class="in_text" colspan="3">${payList.pymtMemo}</td>
+										</tr>
 										</c:forEach>
 								</c:if>
 							</tbody>

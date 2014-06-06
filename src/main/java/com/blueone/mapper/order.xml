@@ -75,6 +75,7 @@
 		<id property="regDate" column="REG_DATE" javaType="java.lang.String"/>
 		<id property="lastDate" column="LAST_DATE" javaType="java.lang.String"/>
 		<id property="modifyUserId" column="MODIFY_USER_ID" javaType="java.lang.String"/>
+		<id property="pymtMemo" column="PYMT_MEMO" javaType="java.lang.String"/>
 	</resultMap>
 
 
@@ -110,7 +111,8 @@
 			T5.PYMT_PAY_CD,
 			T5.PYMT_AMOUNT,
 			T5.PYMT_POINT,
-			T5.PYMT_DATE
+			T5.PYMT_DATE,
+			T5.PYMT_MEMO
 		FROM 
 				BOM_ORDER_TB T1
 			LEFT OUTER JOIN 
@@ -184,6 +186,7 @@
 			T2.REG_DATE AS payRegDate,
 			T2.LAST_DATE AS payLastDate,
 			T2.MODIFY_USER_ID AS payModifyUserId,
+			T2.T5.PYMT_MEMO,
 			T3.IDX AS pordIdx,
 			T3.ORDER_NO AS pordOrdNo,
 			T3.PRD_CD AS pordPrdCd, 
@@ -222,7 +225,8 @@
 			T1.PYMT_DATE,
 			T1.REG_DATE,
 			T1.LAST_DATE,
-			T1.MODIFY_USER_ID
+			T1.MODIFY_USER_ID,
+			T1.PYMT_MEMO
 			
 		FROM 
 			BOM_PAYMENT_TB T1
@@ -250,9 +254,9 @@
 	
 	<insert id="insertBomPaymentTb0001" parameterType="paymentInfo" >
 		INSERT BOM_PAYMENT_TB
-			(`ORDER_NO`,`ORDER_NO_SEQ`,`PYMT_PAY_CD`,`PYMT_AMOUNT`,`PYMT_POINT`,`PYMT_DATE`,`REG_DATE`,`LAST_DATE`,`MODIFY_USER_ID`)
+			(`ORDER_NO`,`ORDER_NO_SEQ`,`PYMT_PAY_CD`,`PYMT_AMOUNT`,`PYMT_POINT`,`PYMT_DATE`,`REG_DATE`,`LAST_DATE`,`MODIFY_USER_ID`,`PYMT_MEMO`)
 			VALUES
-			(#{orderNo}, #{orderNoSeq},#{payMdCd},#{payPrice},#{payPoint}, sysdate(), sysdate(), sysdate(),#{modifyUserId})
+			(#{orderNo}, #{orderNoSeq},#{payMdCd},#{payPrice},#{payPoint}, sysdate(), sysdate(), sysdate(),#{modifyUserId},#{pymtMemo})
 	</insert>
 	
 	<update id="updateBomOrderTb0001" parameterType="orderInfo">
