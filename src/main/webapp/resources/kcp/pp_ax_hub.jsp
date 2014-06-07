@@ -523,7 +523,7 @@
         <input type="hidden" name="amount"          value="<%= amount		    %>">	<!-- 금액 -->
         <input type="hidden" name="res_cd"          value="<%= res_cd			%>">    <!-- 결과 코드 -->
         <input type="hidden" name="res_msg"         value="<%= res_msg			%>">    <!-- 결과 메세지 -->
-        <input type="hidden" name="orderNo"       value="<%= ordr_idxx		%>">    <!-- 주문번호 -->
+        <input type="hidden" name="orderNo"         value="<%= ordr_idxx		%>">    <!-- 주문번호 -->
         <input type="hidden" name="tno"             value="<%= tno				%>">    <!-- KCP 거래번호 -->
         <input type="hidden" name="good_mny"        value="<%= good_mny			%>">    <!-- 결제금액 -->
         <input type="hidden" name="good_name"       value="<%= good_name		%>">    <!-- 상품명 -->
@@ -570,11 +570,46 @@
         <input type="hidden" name="cash_tr_code"    value="<%= cash_tr_code		%>">	<!-- 현금 영수증 발행 구분 -->
         <input type="hidden" name="cash_id_info"    value="<%= cash_id_info		%>">	<!-- 현금 영수증 등록 번호 -->
         <!-- 받는사람 정보 -->
-        <input type="hidden" name="reciInfo.reciNm"         value="<%= reci_name			%>">    <!-- 이름 -->
-        <input type="hidden" name="reciInfo.reciPh"         value="<%= reci_ph			%>">    <!-- 전화번호 -->
-        <input type="hidden" name="reciInfo.reciMb"         value="<%= reci_mb			%>">    <!-- 핸드폰번호-->
-        <input type="hidden" name="reciInfo.reciAdd"         value="<%= reci_add			%>">    <!-- 주소 -->
-        <input type="hidden" name="reciInfo.reciReq"         value="<%= reci_req			%>">    <!-- 요청사항 --> 
+        <input type="hidden" name="reciInfo.reciNm"  value="<%= URLEncoder.encode(reci_name, "UTF-8") %>">    <!-- 이름 -->
+        <input type="hidden" name="reciInfo.reciPh"  value="<%= URLEncoder.encode(reci_ph, "UTF-8")	 %>">    <!-- 전화번호 -->
+        <input type="hidden" name="reciInfo.reciMb"  value="<%= URLEncoder.encode(reci_mb, "UTF-8")	 %>">    <!-- 핸드폰번호-->
+        <input type="hidden" name="reciInfo.reciAdd" value="<%= URLEncoder.encode(reci_add, "UTF-8") %>">    <!-- 주소 -->
+        <input type="hidden" name="reciInfo.reciReq" value="<%= URLEncoder.encode(reci_req, "UTF-8") %>">    <!-- 요청사항 -->
+        <input type="hidden" name="reciInfo.reciNmb" value="<%= URLEncoder.encode(reci_req, "UTF-8") %>">    <!-- 요청사항 -->
+        
+
+<%
+/*
+System.out.println("========================pp_ax_hub================================");
+byte[] byte1 = reci_name.getBytes("euc-kr");
+System.out.println("1" + byte1);
+System.out.println("1.1 " + new String(byte1));
+System.out.println("1.2 " + new String(byte1, "euc-kr"));
+System.out.println("1.3 " + new String(byte1, "utf-8"));
+System.out.println("1.4 " + new String(byte1, "ISO-8859-1"));
+
+byte[] byte2 = reci_name.getBytes("utf-8");
+System.out.println("2" + byte2);
+System.out.println("2.1 " + new String(byte2));
+System.out.println("2.2 " + new String(byte2, "euc-kr"));
+System.out.println("2.3 " + new String(byte2, "utf-8"));
+System.out.println("2.4 " + new String(byte2, "ISO-8859-1"));
+
+byte[] byte3 = reci_name.getBytes("ISO-8859-1");
+System.out.println("3" + byte3);
+System.out.println("3.1 " + new String(byte3));
+System.out.println("3.2 " + new String(byte3, "euc-kr"));
+System.out.println("3.3 " + new String(byte3, "utf-8"));
+System.out.println("3.4 " + new String(byte3, "ISO-8859-1"));
+
+byte[] byte4 = reci_name.getBytes();
+System.out.println("4" + byte4);
+System.out.println("4.1 " + new String(byte4));
+System.out.println("4.2 " + new String(byte4, "euc-kr"));
+System.out.println("4.3 " + new String(byte4, "utf-8"));
+System.out.println("4.4 " + new String(byte4, "ISO-8859-1"));
+*/
+%>
         
         <input type="hidden" id="ord_unit_chk" name="ord_unit_chk"  value="<%= ord_unit_chk			%>"/>
     </form>

@@ -21,15 +21,30 @@
 		</filter-class>
 		<init-param>
 			<param-name>encoding</param-name>
-			<param-value>UTF-8</param-value>
+			<param-value>EUC-KR</param-value>
 		</init-param>
 	</filter>
-	 
+
+	<filter>
+		<filter-name>encoding_EUCKR</filter-name>
+		<filter-class>
+			org.springframework.web.filter.CharacterEncodingFilter
+		</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>EUC-KR</param-value>
+		</init-param>
+	</filter>
+	
 	<filter-mapping>
 		<filter-name>encoding</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
+	<filter-mapping>
+		<filter-name>encoding_EUCKR</filter-name>
+		<url-pattern>/resources/*</url-pattern>
+	</filter-mapping>
 	
 	<servlet>
 		<servlet-name>appServlet</servlet-name>
