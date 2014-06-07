@@ -235,7 +235,46 @@ public class LoginController {
 				
 		return "";
 	}
-	
+
+	@RequestMapping(value="/sso/retrievePoint.do", method= RequestMethod.GET)
+	public String retireivelPointSample(HttpServletRequest request, Model model, HttpSession session) throws Exception {
+		String decMemNm = "최동식";
+		String decMemNo = "100001639343";
+		String decShopEventNo = (String)session.getAttribute("shopEventNo");
+		String decPoint = "1000";
+		String decOrderNo = "order00012";
+		
+		// --------------------------------------------
+		// 2. SSO처리를 위한 웹서비스 호출
+		// --------------------------------------------
+		Map<String, String> rstMap = null;
+		try {
+			rstMap = HMallInterworkUtility.procSearchPoint(decMemNm, decMemNo, decShopEventNo);
+		} catch (Exception e) {
+			model.addAttribute("msg", "SSO처리시 에러발생하였습니다.");
+			return "user/loginError";
+		}
+		
+		// --------------------------------------------
+		// 3. 체크 - SSO처리 결과를 확인한다.
+		// --------------------------------------------
+		if (rstMap == null) {
+			model.addAttribute("msg", "SSO처리 결과가 없습니다.(1)");
+			return "user/loginError";
+		} else {
+			String returnCode = (String)rstMap.get("return_code");
+			
+			if (!"000".equals(returnCode)) {
+				model.addAttribute("msg", HMallInterworkUtility.getErrorMsgByCode(returnCode));
+				return "user/loginError";
+			}
+		}
+		
+		return "";
+	}
+
+		
+		
 //	/**
 //	 * 현대몰에서는 euc-kr의 인코딩방식으로 데이터를 보내준다.
 //	 * @return

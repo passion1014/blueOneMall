@@ -358,35 +358,32 @@ public class OrderManageServiceImpl implements IOrderManageService{
 		
 		
 	}
-	  //상품관리(수정)
-    @Override
-    public int updateOrderInf(OrderInfo odInfo) {
-        
-        int rst = -1;
-        
-       /* // -----------------------------------------------
-        // 해당하는 상품 데이터가 있는지 확인
-        // -----------------------------------------------
-        ProductInfo searchRstInf = getProductInfDetail(productInfo);
-        */
-        // -----------------------------------------------
-        // 조회한 결과값이 있으면 DB업데이트
-        // -----------------------------------------------
-       // if (searchRstInf != null && StringUtils.isNotEmpty(searchRstInf.getPrdCd())) {
-            SqlSession sqlSession = sqlSessionFactory.openSession();
-            try {
-                // DB 수행
-                rst = sqlSession.update("order.updateBomOrderTb0001", odInfo);
-                
-               
-               
-            } finally {
-                sqlSession.close();
-            }
-        //}
-        
-        return rst;
-    }
+
+	//상품관리(수정)
+	@Override
+	public int updateOrderInf(OrderInfo odInfo) {
+		int rst = -1;
+
+		// -----------------------------------------------
+		// 해당하는 상품 데이터가 있는지 확인
+		// -----------------------------------------------
+//		ProductInfo searchRstInf = getProductInfDetail(productInfo);
+	
+		// -----------------------------------------------
+		// 조회한 결과값이 있으면 DB업데이트
+		// -----------------------------------------------
+		// if (searchRstInf != null && StringUtils.isNotEmpty(searchRstInf.getPrdCd())) {
+			SqlSession sqlSession = sqlSessionFactory.openSession();
+			try {
+				// DB 수행
+				rst = sqlSession.update("order.updateBomOrderTb0001", odInfo);
+			} finally {
+				sqlSession.close();
+			}
+		//}
+
+		return rst;
+	}
 
 	@Override
 	public List<OrderInfo> getOrderInfoListByPeriod(OrderSrchInfo orderSrchInfo) {
