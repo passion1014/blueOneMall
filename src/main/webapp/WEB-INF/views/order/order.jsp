@@ -370,7 +370,7 @@ function SetPriceInput(str)
 			<input type="hidden" name="orderHp3"  id="orderHp3"  value="${cus.hpNo3}" />
 			<input type="hidden" name="orderZip1" id="orderZip1" value="${cus.custZip1}" />
 			<input type="hidden" name="orderZip2" id="orderZip2" value="${cus.custZip2}" />
-			<input type="hidden" name="orderAdd"  id="orderAdd"  value="${cus.custAdd}" />
+			<input type="hidden" name="orderAdd"  id="reciAdd"  value="document.getElementById('reciAdd1').value+document.getElementById('reciAdd2').value+document.getElementById('reciAdd3').value+document.getElementById('reciAdd4').value;" />
 			<input type="hidden" name="orderAddDetail" id="orderAddDetail" value="${cus.custAddDetail}" />
 			<input type="hidden" name="orderEmail" id="orderEmail" value="${cus.custEmail}"/>
 			<!-- 주문시 폼 변화에 필요한 필드 끝 -->

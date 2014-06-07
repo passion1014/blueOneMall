@@ -110,6 +110,7 @@ function SetPriceInput(str)
 										</c:forEach>
 										 <c:if test="${total>=config.buyPrice}">배송비 :  <script>SetPriceInput('${config.trasferPrice}');</script>원</c:if>
 										 <c:if test="${total<config.buyPrice}">배송비 : 0원 </c:if>
+										  <c:if test="${usePoint>0}">- 사용포인트 : <script>SetPriceInput('${usePoint}');</script>원 </c:if>
 										 = 합계 <strong><script>SetPriceInput('${total}');</script></strong>원
 										 <input type="hidden" id="sndAmount"  name="sndAmount"  value="${total}" />
 									</td>
@@ -169,7 +170,11 @@ function SetPriceInput(str)
 								</tr>
 								<tr>
 									<th>결제 수단</th>
-									<td class="in_sectext">${pay}</td>
+									<td class="in_sectext">
+										<c:if test="${pay eq '100000000000'}">신용카드</c:if>
+										<c:if test="${pay eq '010000000000'}">계좌이체</c:if>
+										<c:if test="${pay eq '000100000000'}">복지카드</c:if>
+									</td>
 								</tr>
 							</tbody>
 						</table>
