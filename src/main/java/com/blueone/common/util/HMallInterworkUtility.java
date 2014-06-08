@@ -312,7 +312,8 @@ public class HMallInterworkUtility {
 	}
 	
 	public static void main(String[] args) throws Exception {
-/*		String str = "%C3%D6%B5%BF%BD%C4";
+		String str = "%C3%D6%B5%BF%BD%C4";
+
 //		String str = "ÃÖµ¿½Ä";
 		
 //		System.out.println(URLDecoder.decode(str, "euc-kr"));
@@ -323,9 +324,5 @@ public class HMallInterworkUtility {
 		System.out.println(new String(URLDecoder.decode(str, "euc-kr")));
 		
 		
-*/		
-		Map<String, String> map = procSearchPoint("최동식", "100001639343", "");
-		
-		System.out.println(map.toString());
 	}
 }

@@ -39,7 +39,7 @@
     /* = 실결제 시(UTF-8) : src="http://pay.kcp.co.kr/plugin/payplus_un.js"         = */
 	/* =                    src="https://pay.kcp.co.kr/plugin/payplus_un.js"        = */
     /* ============================================================================== */
-    String g_conf_js_url    = "https://pay.kcp.co.kr/plugin/payplus_test.js";
+    String g_conf_js_url    = "http://pay.kcp.co.kr/plugin/payplus_test.js";
 
     /* ============================================================================== */
     /* = 스마트폰 SOAP 통신 설정                                                    = */
