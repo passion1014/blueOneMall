@@ -344,7 +344,7 @@
       			</select> 
       			<input type="text" id="optionValue_${i.index}" name="optionValue" value="${prdInfo.optionValue[i.index]}">
       			<input type="button" value="추가" onClick="chgOption('add','${i.index+1}','${prdInfo.optionIdx[i.index+1]}')">
-      			<input type="button" value="삭제" onClick="chgOption('del','${i.index}','${prdInfo.optionIdx[i.index]}')">
+      			<input type="button" value="삭제" onClick="chgOption('del','${i.index}','${prdInfo.optionIdx[i.index]},${prdInfo.prdCd}')">
       		</ul>
       	</c:forEach>
       	
@@ -395,9 +395,8 @@ function chgOption(op,n,Idx){
 	      document.getElementById(targetField).style.display = "block" ;
 	   }else{
 	      document.getElementById(targetField).style.display = "none" ;
-	      alert();
-	      //location.href='deletePrdOptionInf.do?idx='+Idx+','+${prdInfo.prdCd};
-	      alert(Idx);
+	      location.href='deletePrdOptionInf.do?idx='+Idx;
+	      
 	      
 	   }
 	}
