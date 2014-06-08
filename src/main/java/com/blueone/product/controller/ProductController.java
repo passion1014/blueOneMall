@@ -67,7 +67,6 @@ public class ProductController {
 	IProductManageService productManageService;
 	@Autowired
 	ISearchWordService schWordManageService;
-	
 	@Autowired
 	ICategoryManageService categoryManageService;
 	@Autowired
@@ -557,13 +556,14 @@ public class ProductController {
 			@ModelAttribute("productInfo") ProductInfo productInfo,
 			BindingResult result, Model model, String idx, HttpSession session) {
 		// -----------------------------------------------------------------
-				// 1. 세션정보를 확인해서 세션정보가 없을 경우 로그인 페이지로 이동한다.
-				// -----------------------------------------------------------------
-				AdminInfo adminSession = (AdminInfo) session
-						.getAttribute("adminSession");
-				if (adminSession == null) {
-					return "redirect:adminLogin.do";
-				}
+		// 1. 세션정보를 확인해서 세션정보가 없을 경우 로그인 페이지로 이동한다.
+		// -----------------------------------------------------------------
+		AdminInfo adminSession = (AdminInfo) session
+				.getAttribute("adminSession");
+		if (adminSession == null) {
+			return "redirect:adminLogin.do";
+		}
+		
 		StringTokenizer st = new StringTokenizer(idx, ",");
 
 		String index = st.nextToken();
