@@ -226,8 +226,7 @@ public class ProductController {
 			// 상품 이미지 등록
 			AttachFileInfo contImg1 = new AttachFileInfo();
 			FileUploadUtility utilList1 = new FileUploadUtility();
-			contImg1 = utilList1.doFileUpload(7, productInfo.getProImg1Up(),
-					false);
+			contImg1 = utilList1.doFileUpload(7, productInfo.getProImg1Up(),false);
 			contImg1.setAttCdType("01");// 등록유형 : 상품
 			contImg1.setAttCdKey(productInfo.getPrdCd()); //
 			contImg1.setAttImgType("02");// 뷰
@@ -241,8 +240,7 @@ public class ProductController {
 			// 상품 이미지 등록
 			AttachFileInfo contImg2 = new AttachFileInfo();
 			FileUploadUtility utilList2 = new FileUploadUtility();
-			contImg2 = FileUploadUtility.doFileUpload(7,
-					productInfo.getProImg2Up(), false);
+			contImg2 = FileUploadUtility.doFileUpload(7,productInfo.getProImg2Up(), false);
 			contImg2.setAttCdType("01");// 등록유형 : 상품
 			contImg2.setAttCdKey(productInfo.getPrdCd()); //
 			contImg2.setAttImgType("02");// 뷰
@@ -256,8 +254,7 @@ public class ProductController {
 			// 상품 이미지 등록
 			AttachFileInfo contImg3 = new AttachFileInfo();
 			FileUploadUtility utilList3 = new FileUploadUtility();
-			contImg3 = utilList3.doFileUpload(7, productInfo.getProImg3Up(),
-					false);
+			contImg3 = utilList3.doFileUpload(7, productInfo.getProImg3Up(),false);
 			contImg3.setAttCdType("01");// 등록유형 : 상품
 			contImg3.setAttCdKey(productInfo.getPrdCd()); //
 			contImg3.setAttImgType("02");// 뷰
@@ -271,8 +268,7 @@ public class ProductController {
 			// 상품 이미지 등록
 			AttachFileInfo contImg4 = new AttachFileInfo();
 			FileUploadUtility utilList4 = new FileUploadUtility();
-			contImg4 = utilList4.doFileUpload(7, productInfo.getProImg4Up(),
-					false);
+			contImg4 = utilList4.doFileUpload(7, productInfo.getProImg4Up(),false);
 			contImg4.setAttCdType("01");// 등록유형 : 상품
 			contImg4.setAttCdKey(productInfo.getPrdCd()); //
 			contImg4.setAttImgType("02");// 뷰
@@ -302,9 +298,7 @@ public class ProductController {
 	
 	
 	@RequestMapping(value = "/admin/searchProductList.do", method = RequestMethod.POST)
-	public String searchAdminProductList(
-			@ModelAttribute("searchProdInfo") ProductInfo searchProdInfo,
-			BindingResult result, Model model, HttpSession session) {
+	public String searchAdminProductList(@ModelAttribute("searchProdInfo") ProductInfo searchProdInfo,BindingResult result, Model model, HttpSession session) {
 		// -----------------------------------------------------------------
 		// 1. 세션정보를 확인해서 세션정보가 없을 경우 로그인 페이지로 이동한다.
 		// -----------------------------------------------------------------
@@ -313,6 +307,7 @@ public class ProductController {
 		if (adminSession == null) {
 			return "redirect:adminLogin.do";
 		}
+		
 		// -----------------------------------------------------------------
 		// 2. 상품등록을 위한 카테고리(대분류) 리스트를 넘긴다.
 		// -----------------------------------------------------------------
@@ -338,6 +333,7 @@ public class ProductController {
 		model.addAttribute("ctgLList", rstList);
 		
 		switch(searchProdInfo.getSchType()){
+		
 			case 1 :
 				searchProdInfo.setSchWord(searchProdInfo.getSearchWord());
 				break;
@@ -491,8 +487,7 @@ public class ProductController {
 			// 상품 이미지 등록
 			AttachFileInfo contImg1 = new AttachFileInfo();
 			FileUploadUtility utilList1 = new FileUploadUtility();
-			contImg1 = utilList1.doFileUpload(7, productInfo.getProImg1Up(),
-					false);
+			contImg1 = utilList1.doFileUpload(7, productInfo.getProImg1Up(),false);
 			contImg1.setAttCdType("01");// 등록유형 : 상품
 			contImg1.setAttCdKey(productInfo.getPrdCd()); //
 			contImg1.setAttImgType("02");// 뷰
@@ -506,8 +501,7 @@ public class ProductController {
 			// 상품 이미지 등록
 			AttachFileInfo contImg2 = new AttachFileInfo();
 			FileUploadUtility utilList2 = new FileUploadUtility();
-			contImg2 = FileUploadUtility.doFileUpload(7,
-					productInfo.getProImg2Up(), false);
+			contImg2 = FileUploadUtility.doFileUpload(7,productInfo.getProImg2Up(), false);
 			contImg2.setAttCdType("01");// 등록유형 : 상품
 			contImg2.setAttCdKey(productInfo.getPrdCd()); //
 			contImg2.setAttImgType("02");// 뷰
@@ -521,8 +515,7 @@ public class ProductController {
 			// 상품 이미지 등록
 			AttachFileInfo contImg3 = new AttachFileInfo();
 			FileUploadUtility utilList3 = new FileUploadUtility();
-			contImg3 = utilList3.doFileUpload(7, productInfo.getProImg3Up(),
-					false);
+			contImg3 = utilList3.doFileUpload(7, productInfo.getProImg3Up(),false);
 			contImg3.setAttCdType("01");// 등록유형 : 상품
 			contImg3.setAttCdKey(productInfo.getPrdCd()); //
 			contImg3.setAttImgType("02");// 뷰
@@ -536,8 +529,7 @@ public class ProductController {
 			// 상품 이미지 등록
 			AttachFileInfo contImg4 = new AttachFileInfo();
 			FileUploadUtility utilList4 = new FileUploadUtility();
-			contImg4 = utilList4.doFileUpload(7, productInfo.getProImg4Up(),
-					false);
+			contImg4 = utilList4.doFileUpload(7, productInfo.getProImg4Up(),false);
 			contImg4.setAttCdType("01");// 등록유형 : 상품
 			contImg4.setAttCdKey(productInfo.getPrdCd()); //
 			contImg4.setAttImgType("02");// 뷰
@@ -552,9 +544,8 @@ public class ProductController {
 	 * 상품 옵션 삭제
 	 */
 	@RequestMapping(value = "/admin/deletePrdOptionInf.do", method = RequestMethod.GET)
-	public String deletePrdOptionInfo(
-			@ModelAttribute("productInfo") ProductInfo productInfo,
-			BindingResult result, Model model, String idx, HttpSession session) {
+	public String deletePrdOptionInfo(@ModelAttribute("productInfo") ProductInfo productInfo,BindingResult result, Model model, String idx, HttpSession session) {
+		
 		// -----------------------------------------------------------------
 		// 1. 세션정보를 확인해서 세션정보가 없을 경우 로그인 페이지로 이동한다.
 		// -----------------------------------------------------------------
@@ -582,17 +573,16 @@ public class ProductController {
 	 * 상품 삭제
 	 */
 	@RequestMapping(value = "/admin/deleteProductInf.do", method = RequestMethod.GET)
-	public String deleteProductInfo(
-			@ModelAttribute("productInfo") ProductInfo productInfo,
-			BindingResult result, Model model, HttpSession session) {
+	public String deleteProductInfo(@ModelAttribute("productInfo") ProductInfo productInfo,BindingResult result, Model model, HttpSession session) {
 		// -----------------------------------------------------------------
-				// 1. 세션정보를 확인해서 세션정보가 없을 경우 로그인 페이지로 이동한다.
-				// -----------------------------------------------------------------
-				AdminInfo adminSession = (AdminInfo) session
-						.getAttribute("adminSession");
-				if (adminSession == null) {
-					return "redirect:adminLogin.do";
-				}
+		// 1. 세션정보를 확인해서 세션정보가 없을 경우 로그인 페이지로 이동한다.
+		// -----------------------------------------------------------------
+		AdminInfo adminSession = (AdminInfo) session
+				.getAttribute("adminSession");
+		if (adminSession == null) {
+			return "redirect:adminLogin.do";
+		}
+		
 		productManageService.deleteProductInf(productInfo);
 
 		return "redirect:productList.do";
@@ -606,13 +596,14 @@ public class ProductController {
 			@ModelAttribute("productInfo") ProductInfo productInfo,
 			BindingResult result, Model model, HttpSession session) {
 		// -----------------------------------------------------------------
-				// 1. 세션정보를 확인해서 세션정보가 없을 경우 로그인 페이지로 이동한다.
-				// -----------------------------------------------------------------
-				AdminInfo adminSession = (AdminInfo) session
-						.getAttribute("adminSession");
-				if (adminSession == null) {
-					return "redirect:adminLogin.do";
-				}
+		// 1. 세션정보를 확인해서 세션정보가 없을 경우 로그인 페이지로 이동한다.
+		// -----------------------------------------------------------------
+		AdminInfo adminSession = (AdminInfo) session
+				.getAttribute("adminSession");
+		if (adminSession == null) {
+			return "redirect:adminLogin.do";
+		}
+		
 		StringTokenizer st = new StringTokenizer(productInfo.getUnit_chk(), ",");
 
 		while (st.hasMoreTokens()) { // 반활할 토큰이 있는가? true/false;
@@ -632,13 +623,14 @@ public class ProductController {
 			@ModelAttribute("productInfo") ProductInfo productInfo,
 			BindingResult result, Model model, HttpSession session) {
 		// -----------------------------------------------------------------
-				// 1. 세션정보를 확인해서 세션정보가 없을 경우 로그인 페이지로 이동한다.
-				// -----------------------------------------------------------------
-				AdminInfo adminSession = (AdminInfo) session
-						.getAttribute("adminSession");
-				if (adminSession == null) {
-					return "redirect:adminLogin.do";
-				}
+		// 1. 세션정보를 확인해서 세션정보가 없을 경우 로그인 페이지로 이동한다.
+		// -----------------------------------------------------------------
+		AdminInfo adminSession = (AdminInfo) session
+				.getAttribute("adminSession");
+		if (adminSession == null) {
+			return "redirect:adminLogin.do";
+		}
+		
 		StringTokenizer st = new StringTokenizer(productInfo.getUnit_chk(), ",");
 
 		while (st.hasMoreTokens()) { // 반활할 토큰이 있는가? true/false;
@@ -687,6 +679,7 @@ public class ProductController {
 		if (adminSession == null) {
 			return "redirect:adminLogin.do";
 		}
+		
 		StringTokenizer st = new StringTokenizer(idx, ",");
 
 		String index = st.nextToken();
@@ -704,9 +697,7 @@ public class ProductController {
 	 * 배송-배송목록
 	 */
 	@RequestMapping(value = "/admin/transferList.do", method = RequestMethod.GET)
-	public String transferList(
-			@ModelAttribute("transferInfo") TransferInfo transferInfo,
-			BindingResult result, Model model, HttpSession session, String page) {
+	public String transferList(@ModelAttribute("transferInfo") TransferInfo transferInfo,BindingResult result, Model model, HttpSession session, String page) {
 		// -----------------------------------------------------------------
 		// 1. 세션정보를 확인해서 세션정보가 없을 경우 로그인 페이지로 이동한다.
 		// -----------------------------------------------------------------
@@ -715,6 +706,7 @@ public class ProductController {
 		if (adminSession == null) {
 			return "redirect:adminLogin.do";
 		}
+		
 		PageDivision pd = new PageDivision();
 
 		List<TransferInfo> transferList = new ArrayList<TransferInfo>();
@@ -737,9 +729,7 @@ public class ProductController {
 	 * 배송-배송등록
 	 */
 	@RequestMapping(value = "/admin/transferRegister.do", method = RequestMethod.GET)
-	public String transferRegister(
-			@ModelAttribute("transferInfo") TransferInfo transferInfo,
-			BindingResult result, Model model, HttpSession session) {
+	public String transferRegister(@ModelAttribute("transferInfo") TransferInfo transferInfo,BindingResult result, Model model, HttpSession session) {
 
 	
 		// -----------------------------------------------------------------
@@ -754,9 +744,7 @@ public class ProductController {
 	}
 
 	@RequestMapping(value = "/admin/transferRegisterProc.do", method = RequestMethod.POST)
-	public String transferRegisterProc(
-			@ModelAttribute("transferInfo") TransferInfo transferInfo,
-			BindingResult result, Model model, HttpSession session) {
+	public String transferRegisterProc(@ModelAttribute("transferInfo") TransferInfo transferInfo,BindingResult result, Model model, HttpSession session) {
 
 		transferInfo.settContents(transferInfo.getContent());
 		transferService.transferInsert(transferInfo);
@@ -768,9 +756,7 @@ public class ProductController {
 	 * 배송-배송수정
 	 */
 	@RequestMapping(value = "/admin/transferEdit.do", method = RequestMethod.GET)
-	public String transferEdit(
-			@ModelAttribute("transferInfo") TransferInfo transferInfo,
-			BindingResult result, Model model, HttpSession session) {
+	public String transferEdit(@ModelAttribute("transferInfo") TransferInfo transferInfo,BindingResult result, Model model, HttpSession session) {
 	
 		// -----------------------------------------------------------------
 		// 1. 세션정보를 확인해서 세션정보가 없을 경우 로그인 페이지로 이동한다.
@@ -1221,9 +1207,7 @@ public class ProductController {
 	 * @throws UnsupportedEncodingException 
 	 */
 	@RequestMapping(value = "/product/searchProduct.do")
-	public String searchProduct(
-			@ModelAttribute("productInfo") SearchProdInfo searchProdInfo,
-			BindingResult result, Model model, HttpSession session, String page) throws UnsupportedEncodingException {
+	public String searchProduct(@ModelAttribute("productInfo") SearchProdInfo searchProdInfo,BindingResult result, Model model, HttpSession session, String page) throws UnsupportedEncodingException {
 		// CustomerInfo customerSesstion
 		// =(CustomerInfo)session.getAttribute("customerSession");
 		CustomerInfo cust = (CustomerInfo) session
