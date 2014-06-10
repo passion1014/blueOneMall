@@ -20,6 +20,8 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import javax.xml.ws.Response;
 
+import net.welfare.HCDESUtil;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -49,6 +51,7 @@ import com.blueone.product.domain.ProductInfo;
 import com.blueone.product.service.IProductManageService;
 import com.blueone.user.domain.UserInfo;
 import com.jidesoft.converter.BigDecimalConverter;
+import com.oreilly.servlet.Base64Encoder;
 
 @Controller
 public class OrderController {
@@ -58,7 +61,9 @@ public class OrderController {
 	@Autowired IAttachFileManageService attFileManageService;
 	@Autowired ICustomerManageService customerManageService;
 	@Autowired IAdminManageService adminManageService;
-	
+	private static final String MEDIA_CD = "HM";			// 매체구분(포인트 사용하는 사이트 구분값)
+	private static final String ENC_TYPE = "euc-kr";		// 현대몰에서는 인코딩을 euc-kr로 보내준다.
+	private static final String HCDES_KEY = "hd!d$w4shm";	// 암호화키
 	@RequestMapping(value = "/order/getOrderList.do", method = RequestMethod.GET)
 	public String getOrderInfoListByDuration(@ModelAttribute("orderSrchInfo") @Valid OrderSrchInfo orderSrchInfo, BindingResult result, Model model) {
 		String viewName = "";
@@ -954,12 +959,12 @@ public class OrderController {
 		
 		//포인트 결제
 		if(!amount.equals(total.toString())){
-			String decMemNm = cus.getCustNm();
-			String decMemNo = cus.getCustId();
-			String decShopEventNo = (String)session.getAttribute("shopEventNo");
+			String decMemNm = convertEnc(cus.getCustNm());
+			String decMemNo = convertEnc(cus.getCustId());
+			String decShopEventNo = convertEnc((String)session.getAttribute("shopEventNo"));
 			usePoint = total.intValue()-Integer.parseInt(amount);
-			String decPoint = Integer.toString(usePoint);
-			String decOrderNo = odNo;
+			String decPoint = convertEnc(Integer.toString(usePoint));
+			String decOrderNo = convertEnc(odNo);
 			
 			// --------------------------------------------
 			// 2. SSO泥섎━瑜??꾪븳 ?뱀꽌鍮꾩뒪 ?몄텧
@@ -1442,5 +1447,10 @@ public class OrderController {
 		return result;
 	
 
+	}
+	
+	public static String convertEnc(String str) throws IOException {
+		String rtn = HCDESUtil.encoding(Base64Encoder.encode(str.getBytes(ENC_TYPE)), HCDES_KEY);
+		return rtn;
 	}
 }
