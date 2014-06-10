@@ -43,6 +43,11 @@
 									<td class="topline">${customer.custId}</td>
 									<th class="topline">이름</th>
 									<td class="topline">${customer.custNm}</td>
+								</tr>
+								<tr>
+									<th>사용가능 포인트</th>
+									<td colspan="3">${userPoint}</td>
+								</tr>
 								<tr>
 									<th>전화번호</th>
 									<td>
@@ -111,11 +116,7 @@
 										<input type="text" title="address text" style="width:50%;" id="custAdd"       name="custAdd"       value="${customer.custAdd}" readonly/>
 										<input type="text" title="address text" style="width:40%;" id="custAddDetail" name="custAddDetail" value="${customer.custAddDetail}"/>
 									</td>
-								</tr>
-								<tr>
-									<th>사용가능 포인트</th>
-									<td>${userPoint}</td>
-								</tr>
+								</tr>								
 								<tr>
 									<th class="bottomline">SMS수신여부</th>
 									<td class="bottomline">

@@ -354,9 +354,9 @@ function SetPriceInput(str)
 			<c:if test="${odPrdInfo.size() != 1}"><input type="hidden" id="ordPrd.prdNm"   name="good_name" value="${odPrdInfo[0].prdNm} 외 ${odPrdInfo.size()-1}개" /></c:if>
 
 			<!-- 유저 보유포인트 시작 -->
-			<!--<input type="text" id="user_point" name="user_point"  value="${userPoint}"/>-->
-			<input type="hidden" id="user_point"        name="user_point"         value="10000000"/>
-			<input type="hidden" id="result_user_point" name="result_user_point"  value="10000000"/>
+			<input type="text" id="user_point" name="user_point"  value="${userPoint}"/>
+			<!--<input type="hidden" id="user_point"        name="user_point"         value="10000000"/>-->
+			<input type="hidden" id="result_user_point" name="result_user_point"  value="${userPoint}"/>
 
 			<!-- 유저 보유포인트 끝 -->
 
