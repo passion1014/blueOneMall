@@ -315,12 +315,12 @@ public class ProductManageServiceImpl implements IProductManageService {
     public int manageProductInf(ProductInfo productInfo) {
         
         int rst = -1;
-        
+        int rst1 = -1; 
         // -----------------------------------------------
         // 해당하는 상품 데이터가 있는지 확인
         // -----------------------------------------------
         ProductInfo searchRstInf = getProductInfDetail(productInfo);
-        
+       
         // -----------------------------------------------
         // 조회한 결과값이 있으면 DB업데이트
         // -----------------------------------------------
@@ -329,21 +329,22 @@ public class ProductManageServiceImpl implements IProductManageService {
             try {
                 // DB 수행
                 rst = sqlSession.update("product.updateBomProductTb0001", productInfo);
+             
                 
-                /*for(int i=0; i<50; i++){
-                    if(productInfo.getOptionValue()[i].equals("")  && productInfo.getOptionIdx()==null){
+                for(int i=0; i<50; i++){
+                    if(!productInfo.getOptionValue()[i].equals("")){
                         productInfo.setPropType(productInfo.getOptionKey()[i]);
                         productInfo.setPropName(productInfo.getOptionValue()[i]);
-                        productInfo.setPropIdx(productInfo.getOptionIdx()[i]);
-                        rst = sqlSession.insert("product.updateBomProductTb0001", productInfo);
+                        if(productInfo.getOptionIdx()[i]>0){
+                        	 productInfo.setPropIdx(productInfo.getOptionIdx()[i]);
+                             rst1 = sqlSession.update("product.updateBomProductOptionTb0001", productInfo);
+                        }else{
+        
+                        	rst1 = sqlSession.insert("product.insertBomProductOptionTb0001", productInfo);
+                        }
                     }
-                    else if(productInfo.getOptionValue()[i].equals("")  && productInfo.getOptionIdx()==null){
-                        productInfo.setPropType(productInfo.getOptionKey()[i]);
-                        productInfo.setPropName(productInfo.getOptionValue()[i]);
-                        rst = sqlSession.insert("product.insertBomProductOptionTb0001", productInfo);
-                    }
-                    
-                }*/
+                }
+                
             } finally {
                 sqlSession.close();
             }
@@ -351,7 +352,27 @@ public class ProductManageServiceImpl implements IProductManageService {
         
         return rst;
     }
-
+    
+    //상품 옵션(수정)
+    @Override
+    public int manageProductOptionInf(ProductInfo productInfo) {
+        
+        int rst = -1;
+        
+        
+            SqlSession sqlSession = sqlSessionFactory.openSession();
+            try {
+                // DB 수행
+                rst = sqlSession.update("product.updateBomProductOptionTb0001", productInfo);
+             
+            } finally {
+                sqlSession.close();
+            }
+       
+        
+        return rst;
+    }
+    
     
 
     @Override

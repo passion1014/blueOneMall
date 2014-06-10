@@ -345,6 +345,7 @@
       			<input type="text" id="optionValue_${i.index}" name="optionValue" value="${prdInfo.optionValue[i.index]}">
       			<input type="button" value="추가" onClick="chgOption('add','${i.index+1}','${prdInfo.optionIdx[i.index+1]}')">
       			<input type="button" value="삭제" onClick="chgOption('del','${i.index}','${prdInfo.optionIdx[i.index]},${prdInfo.prdCd}')">
+      			<input type="hidden" name="optionIdx" value="${prdInfo.optionIdx[i.index]}" />
       		</ul>
       	</c:forEach>
       	

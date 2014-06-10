@@ -1,4 +1,4 @@
-
+	
 package com.blueone.order.controller;
 
 import java.io.IOException;
@@ -957,7 +957,8 @@ public class OrderController {
 			String decMemNm = cus.getCustNm();
 			String decMemNo = cus.getCustId();
 			String decShopEventNo = (String)session.getAttribute("shopEventNo");
-			String decPoint = amount;
+			usePoint = total.intValue()-Integer.parseInt(amount);
+			String decPoint = Integer.toString(usePoint);
 			String decOrderNo = odNo;
 			
 			// --------------------------------------------
@@ -992,7 +993,6 @@ public class OrderController {
 					return "user/loginError";
 				}
 			}
-			usePoint = total.intValue()-Integer.parseInt(amount);
 			
 			payment.setPayPoint(total.intValue()-Integer.parseInt(amount));
 			

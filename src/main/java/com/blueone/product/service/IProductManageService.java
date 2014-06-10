@@ -36,5 +36,6 @@ public interface IProductManageService {
 	public List<ProductInfo> oderByBrdPriceList();
 	public List<ProductInfo> getProductInfList1(SearchProdInfo srchProdInfo);
 	public List<ProductInfo> getAdminProductSearchList(ProductInfo prdInfo);
+	public int manageProductOptionInf(ProductInfo productInfo);
 	
 }

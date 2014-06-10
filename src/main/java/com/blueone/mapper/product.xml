@@ -511,9 +511,9 @@
 
 	<insert id="insertBomProductOptionTb0001" parameterType="productInfo">
 		INSERT  BOM_PRODUCT_OPTION_TB
-			(`PROP_IDX`,`PROP_PRD_CD`,`PROP_OP_TYPE`,`PROP_OP_NAME`)
+			(`PROP_PRD_CD`,`PROP_OP_TYPE`,`PROP_OP_NAME`)
 			VALUES
-			(#{propIdx},#{prdCd},#{propType},#{propName})
+			(#{prdCd},#{propType},#{propName})
 	</insert>
 	
 		
@@ -567,7 +567,7 @@
 			SET
 				
 				<if test="propType != null and propType != ''">`PROP_OP_TYPE` = #{propType}</if>
-				<if test="propName != null and propName != ''">,`PROP_OP_NAME` = #{prdOrd}</if>
+				<if test="propName != null and propName != ''">,`PROP_OP_NAME` = #{propName}</if>
 			WHERE
 			`PROP_IDX`= #{propIdx}
 	</update>

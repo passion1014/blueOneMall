@@ -385,7 +385,8 @@ public class ProductController {
 		
 		productInfo.setOptionKey(opKey);
 		productInfo.setOptionValue(opValue);
-
+		productInfo.setOptionIdx(opIdx);
+		
 		// 2. 상품수정을 위한 카테고리(대분류) 리스트를 넘긴다.
 		// -----------------------------------------------------------------
 		CategoryInfo categoryInfo = new CategoryInfo();
@@ -469,6 +470,7 @@ public class ProductController {
 			IOException {
 		productManageService.manageProductInf(productInfo);
 
+		
 		MultipartFile proListImgUp = productInfo.getProListImgUp();
 		if (proListImgUp != null && !proListImgUp.isEmpty()) {
 			// 상품 리스트 이미지 등록
@@ -565,7 +567,7 @@ public class ProductController {
 		productManageService.deleteProductOptionInf(productInfo);
 
 		String redi = "redirect:productManagement.do?pCd="
-				+ productInfo.getPrdCd();
+				+ prdCd;
 		return redi;
 	}
 
