@@ -834,7 +834,7 @@ public class OrderController {
 
 	//二쇰Ц?깃났?섏씠吏?
 	@RequestMapping(value="/order/orderComplete.do")
-	public String orderComplete(@ModelAttribute("orderInfo") OrderInfo orderInfo,String use_pay_method,BindingResult result,String card_cd,String amount,HttpSession session, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
+	public String orderComplete(@ModelAttribute("orderInfo") OrderInfo orderInfo,String use_pay_method,BindingResult result,String card_cd,String good_mny,HttpSession session, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
 		CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");
 		
 		// ?몄뀡泥댄겕
@@ -842,11 +842,9 @@ public class OrderController {
 			return "user/errorPage";
 		}	
 		
-		/*CustomerInfo cus =new CustomerInfo();
-		cus.setCustId("100001639343");
-		cus=customerService.getCustomerInfo2(cus);
-		*/
-	/*	String birth = cus.getCustBirth();*/
+	
+		
+		String birth = cus.getCustBirth();
 //		cus = useStringToken(birth,"b",cus);
 		
 		String phone = cus.getCustPh();
@@ -924,8 +922,8 @@ public class OrderController {
 			odPrdInfo.setSellPrice(new BigDecimal(prInf.getPrdSellPrc()));
 			total = new BigDecimal(prInf.getPrdSellPrc()) ;
 			total=total.multiply(new BigDecimal(odPrdInfo.getBuyCnt()));
-			odPrdInfo.setTotalPrice(total);*/
-			
+			odPrdInfo.setTotalPrice(total);
+			*/
 			//?ъ쭊
 			AttachFileInfo att = new AttachFileInfo();
 			att.setAttCdKey(prInf.getPrdCd());
@@ -939,9 +937,9 @@ public class OrderController {
 			}
 			
 			opResInf.add(odPrdInfo);
-			Cookie cookie =cki.createCookie(cookieKey,"null",-1);
+			/*Cookie cookie =cki.createCookie(cookieKey,"null",-1);
 			response.addCookie(cookie);
-			
+			*/
 			odPrdInfo.setOrderNo(orderInfo.getOrderNo());
 			odPrdInfo.setModiUser(cus.getCustId());//user ID ?낅젰
 			orderManageService.registOrderProductInfo(odPrdInfo);
@@ -958,13 +956,13 @@ public class OrderController {
 		int usePoint =0;
 		
 		//포인트 결제
-		if(!amount.equals(total.toString())){
-			String decMemNm = convertEnc(cus.getCustNm());
-			String decMemNo = convertEnc(cus.getCustId());
-			String decShopEventNo = convertEnc((String)session.getAttribute("shopEventNo"));
-			usePoint = total.intValue()-Integer.parseInt(amount);
-			String decPoint = convertEnc(Integer.toString(usePoint));
-			String decOrderNo = convertEnc(odNo);
+		if(!good_mny.equals(total.toString())){
+			String decMemNm = cus.getCustNm();
+			String decMemNo = cus.getCustId();
+			String decShopEventNo = (String)session.getAttribute("shopEventNo");
+			usePoint = total.intValue()-Integer.parseInt(good_mny);
+			String decPoint = Integer.toString(usePoint);
+			String decOrderNo = odNo;
 			
 			// --------------------------------------------
 			// 2. SSO泥섎━瑜??꾪븳 ?뱀꽌鍮꾩뒪 ?몄텧
@@ -999,7 +997,7 @@ public class OrderController {
 				}
 			}
 			
-			payment.setPayPoint(total.intValue()-Integer.parseInt(amount));
+			payment.setPayPoint(total.intValue()-Integer.parseInt(good_mny));
 			
 			
 			
@@ -1009,7 +1007,7 @@ public class OrderController {
 		orderManageService.registPaymentInfo(payment);
 		model.addAttribute("odPrdInfo",opResInf);
 		
-		//諛쏅뒗?щ엺 ?뺣낫
+		/*//諛쏅뒗?щ엺 ?뺣낫
 		RecipientInfo re = new RecipientInfo();
 		re=orderInfo.getReciInfo();
 		re.setReciOdNum(odNo);
@@ -1027,14 +1025,14 @@ public class OrderController {
 		orderInfo.setCustomerInfo(cus);
 		orderInfo.setModifyUserId(cus.getCustId());
 		orderInfo.setOrderStatCd("03");
-		orderManageService.registOrderInfo(orderInfo);
+		orderManageService.registOrderInfo(orderInfo);*/
 	
 		return "order/orderComplete";
 	}
 	
 	//二쇰Ц?깃났?섏씠吏?
 	@RequestMapping(value="/order/orderComplete_allPoint.do")
-	public String orderComplete_allPoint(@ModelAttribute("orderInfo") OrderInfo orderInfo,String use_pay_method,BindingResult result,String card_cd,String amount,HttpSession session, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
+	public String orderComplete_allPoint(@ModelAttribute("orderInfo") OrderInfo orderInfo,String use_pay_method,BindingResult result,String card_cd,String good_mny,HttpSession session, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
 		CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");
 		
 		// ?몄뀡泥댄겕
@@ -1134,9 +1132,9 @@ public class OrderController {
 				odPrdInfo.setPrdSmallImg(att.getAttFilePath());
 			}
 			
-			opResInf.add(odPrdInfo);
+			/*opResInf.add(odPrdInfo);
 			Cookie cookie =cki.createCookie(cookieKey,"null",-1);
-			response.addCookie(cookie);
+			response.addCookie(cookie);*/
 			
 			odPrdInfo.setOrderNo(orderInfo.getOrderNo());
 			odPrdInfo.setModiUser(cus.getCustId());//user ID ?낅젰
@@ -1151,40 +1149,48 @@ public class OrderController {
 		model.addAttribute("pay",use_pay_method);
 		payment.setModifyUserId(cus.getCustId());
 		
-			String decMemNm = cus.getCustNm();
-			String decMemNo = cus.getCustId();
-			String decShopEventNo = (String)session.getAttribute("shopEventNo");
-			String decPoint = amount;
-			String decOrderNo = odNo;
+		String decMemNm = cus.getCustNm();
+		String decMemNo = cus.getCustId();
+		String decShopEventNo = (String)session.getAttribute("shopEventNo");
+		int usePoint = total.intValue()-Integer.parseInt(good_mny);
+		String decPoint = String.valueOf(good_mny);
+		String decOrderNo = odNo;
+		
+		// --------------------------------------------
+		// 2. SSO泥섎━瑜??꾪븳 ?뱀꽌鍮꾩뒪 ?몄텧
+		// --------------------------------------------
+		Map<String, String> rstMap = null;
+		try {
+			rstMap = HMallInterworkUtility.procUsePoint(decMemNm, decMemNo, decShopEventNo, decPoint, decOrderNo);
+		} catch (Exception e) {
+			model.addAttribute("msg", "SSO泥섎━???먮윭諛쒖깮?섏??듬땲??");
+			payment.setPymtMemo("포인트 결제 에러");
+			orderManageService.registPaymentInfo(payment);
+			return "user/loginError";
+		}
+		
+		// --------------------------------------------
+		// 3. 泥댄겕 - SSO泥섎━ 寃곌낵瑜??뺤씤?쒕떎.
+		// --------------------------------------------
+		if (rstMap == null) {
+			model.addAttribute("msg", "SSO泥섎━ 寃곌낵媛??놁뒿?덈떎.(1)");
+			payment.setPymtMemo("포인트 결제 에러");
+			orderManageService.registPaymentInfo(payment);
 			
-			// --------------------------------------------
-			// 2. SSO泥섎━瑜??꾪븳 ?뱀꽌鍮꾩뒪 ?몄텧
-			// --------------------------------------------
-			Map<String, String> rstMap = null;
-			try {
-				rstMap = HMallInterworkUtility.procUsePoint(decMemNm, decMemNo, decShopEventNo, decPoint, decOrderNo);
-			} catch (Exception e) {
-				model.addAttribute("msg", "SSO泥섎━???먮윭諛쒖깮?섏??듬땲??");
+			return "user/loginError";
+		} else {
+			String returnCode = (String)rstMap.get("return_code");
+			
+			if (!"000".equals(returnCode)) {
+				model.addAttribute("msg", HMallInterworkUtility.getErrorMsgByCode(returnCode));
+				payment.setPymtMemo("포인트 결제 에러");
+				orderManageService.registPaymentInfo(payment);
 				return "user/loginError";
 			}
-			
-			// --------------------------------------------
-			// 3. 泥댄겕 - SSO泥섎━ 寃곌낵瑜??뺤씤?쒕떎.
-			// --------------------------------------------
-			if (rstMap == null) {
-				model.addAttribute("msg", "SSO泥섎━ 寃곌낵媛??놁뒿?덈떎.(1)");
-				return "user/loginError";
-			} else {
-				String returnCode = (String)rstMap.get("return_code");
-				
-				if (!"000".equals(returnCode)) {
-					model.addAttribute("msg", HMallInterworkUtility.getErrorMsgByCode(returnCode));
-					return "user/loginError";
-				}
-			}
-			
-			model.addAttribute("usePoint",total.intValue()-Integer.parseInt(amount));
-			payment.setPayPoint(total.intValue()-Integer.parseInt(amount));
+		}
+		
+		payment.setPayPoint(usePoint);
+		model.addAttribute("usePoint",usePoint);
 			
 			
 			
