@@ -511,7 +511,7 @@
 
     <body onload="goResult()">
     <!-- <form name="pay_info" method="post" action="/resources/kcp/result.jsp">-->    
-    <form name="pay_info" method="get" action="/order/orderComplete.do">
+    <form name="pay_info" method="post" action="/order/orderComplete.do">
 		<input type="hidden" name="site_cd"         value="<%= g_conf_site_cd	%>">    <!-- 사이트 코드 -->
 		<input type="hidden" name="req_tx"          value="<%= req_tx			%>">    <!-- 요청 구분 -->
         <input type="hidden" name="use_pay_method"  value="<%= use_pay_method	%>">    <!-- 사용한 결제 수단 -->
