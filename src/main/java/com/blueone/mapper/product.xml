@@ -18,7 +18,6 @@
 		<result property="fromDate" column="FROM_DATE" javaType="java.lang.String"/>
 		<result property="toDate" column="TO_DATE" javaType="java.lang.String"/>
 		<result property="regDate" column="REG_DATE" javaType="java.lang.String"/>
-		<result property="lastDate" column="LAST_DATE" javaType="java.lang.String"/>
 		<result property="prdPrice" column="PRD_PRICE" javaType="int"/>
 		<result property="prdSellPrc" column="PRD_SELL_PRICE" javaType="int"/>
 		<result property="prdModel" column="PRD_MODEL" javaType="java.lang.String"/>
