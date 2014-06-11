@@ -1007,7 +1007,7 @@ public class OrderController {
 		orderManageService.registPaymentInfo(payment);
 		model.addAttribute("odPrdInfo",opResInf);
 		
-		/*//諛쏅뒗?щ엺 ?뺣낫
+		//諛쏅뒗?щ엺 ?뺣낫
 		RecipientInfo re = new RecipientInfo();
 		re=orderInfo.getReciInfo();
 		re.setReciOdNum(odNo);
@@ -1025,7 +1025,7 @@ public class OrderController {
 		orderInfo.setCustomerInfo(cus);
 		orderInfo.setModifyUserId(cus.getCustId());
 		orderInfo.setOrderStatCd("03");
-		orderManageService.registOrderInfo(orderInfo);*/
+		orderManageService.registOrderInfo(orderInfo);
 	
 		return "order/orderComplete";
 	}
