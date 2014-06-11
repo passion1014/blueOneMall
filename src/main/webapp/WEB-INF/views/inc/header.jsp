@@ -43,6 +43,12 @@
 	
 %>
 <!--  header 시작 -->
+<div class="top_member">
+	<div class="member_info" >
+		<span>안녕하세요! <b>--</b>회원님.</span>
+		<span>포인트 : --point</span>
+	</div>
+<div>
 <div class="header">
 	<div class="top">
 		<h1><a href="../"><img src="<c:url value='/resources/img/main/common/blueone_logo.png'/>"/></a></h1>

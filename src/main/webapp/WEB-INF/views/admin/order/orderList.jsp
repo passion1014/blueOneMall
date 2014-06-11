@@ -22,7 +22,7 @@
 			<c:set var="ordUrl" value="orderingList.do"/>
 		</c:when>
 		<c:when test="${sh eq 'orderComplete'}"> 
-			<strong>결제완료</strong>
+			<strong>주문완료</strong>
 			<c:set var="ordUrl" value="orderCompleteList.do"/>
 		</c:when>
 		<c:when test="${sh eq 'Transfering'}"> 
@@ -117,9 +117,9 @@
 						<td>
 							${odList.orderNo}
 						</td>
-						<td>
+						<td class="center">
 							<c:if test="${odList.orderStatCd eq '01'}">신청대기</c:if>
-							<c:if test="${odList.orderStatCd eq '02'}">결제완료</c:if>
+							<c:if test="${odList.orderStatCd eq '02'}">주문완료</c:if>
 							<c:if test="${odList.orderStatCd eq '07'}">취소신청</c:if>
 							<c:if test="${odList.orderStatCd eq '08'}">취소완료</c:if>
 							<c:if test="${odList.orderStatCd eq '03'}">배송준비</c:if>

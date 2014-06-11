@@ -188,7 +188,7 @@ function SetPriceInput(str)
 									<th>수량</th>
 									<td colspan="2">
 										<c:choose>
-											<c:when test="${pro.prdModelNo > 0}">
+											<c:when test="${pro.prdStock > 0}"> (재고수량 : ${pro.prdStock} ) 
 												<select id="buyCnt" name="buyCnt" onChange="sumPrice(this.value);">
 													<c:forEach var="i" begin="1" end="50" step="1">
 														<option value="<c:out value="${i}"></c:out>" <c:if test="${i==1 }">selected</c:if>><c:out value="${i}"></c:out></option>
@@ -218,13 +218,23 @@ function SetPriceInput(str)
 								</tr>
 								-->
 
-								<tr>
-									<td colspan="3" class="btn_box">
-										<input type="button" value="바로 구매하기" class="btn_buy" title="구매하기" onClick="chk_shopForm('direct')"/>
-										<input type="button" value="장바구니" class="btn_buy" title="장바구니" onClick="chk_shopForm('cart')">
-									</td>
-								</tr>
-
+								<c:choose>
+									<c:when test="${pro.prdStock > 0}">
+										<tr>
+											<td colspan="3" class="btn_box">
+												<input type="button" value="바로 구매하기" class="btn_buy" title="구매하기" onClick="chk_shopForm('direct')"/>
+												<input type="button" value="장바구니" class="btn_buy" title="장바구니" onClick="chk_shopForm('cart')">
+											</td>
+										</tr>
+									</c:when>
+									<c:otherwise>
+										<tr>
+											<td colspan="3" class="btn_box">
+												<input type="button" value="품절입니다" class="btn_buy" title="품절" onClick="alert('품절입니다')" style="cursor:pointer;"/>
+											</td>
+										</tr>
+									</c:otherwise>
+								</c:choose>
 							</tbody>
 						</table>
 					</div>

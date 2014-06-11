@@ -354,9 +354,9 @@ function SetPriceInput(str)
 			<c:if test="${odPrdInfo.size() != 1}"><input type="hidden" id="ordPrd.prdNm"   name="good_name" value="${odPrdInfo[0].prdNm} 외 ${odPrdInfo.size()-1}개" /></c:if>
 
 			<!-- 유저 보유포인트 시작 -->
-			<input type="text" id="user_point" name="user_point"  value="${userPoint}"/>
-			<!--<input type="hidden" id="user_point"        name="user_point"         value="10000000"/>-->
-			<input type="hidden" id="result_user_point" name="result_user_point"  value="${userPoint}"/>
+			<!--<input type="text" id="user_point" name="user_point"  value="${userPoint}"/>-->
+			<input type="hidden" id="user_point"        name="user_point"         value="10000000"/>
+			<input type="hidden" id="result_user_point" name="result_user_point"  value="10000000"/>
 
 			<!-- 유저 보유포인트 끝 -->
 
@@ -370,7 +370,6 @@ function SetPriceInput(str)
 			<input type="hidden" name="orderHp3"  id="orderHp3"  value="${cus.hpNo3}" />
 			<input type="hidden" name="orderZip1" id="orderZip1" value="${cus.custZip1}" />
 			<input type="hidden" name="orderZip2" id="orderZip2" value="${cus.custZip2}" />
-			<input type="hidden" name="reciAdd"  id="reciAdd"  value="document.getElementById('custZip1').value+document.getElementById('custZip2').value+document.getElementById('custAdd').value+document.getElementById('custAddDetail').value;" />
 			<input type="hidden" name="orderAddDetail" id="orderAddDetail" value="${cus.custAddDetail}" />
 			<input type="hidden" name="orderEmail" id="orderEmail" value="${cus.custEmail}"/>
 			<!-- 주문시 폼 변화에 필요한 필드 끝 -->
@@ -431,10 +430,11 @@ function SetPriceInput(str)
 										</tr>
 										<tr><td height="1" colspan="6" bgcolor="#E0E0E0"></td></tr>
 									</c:forEach>
-								</c:when>
-								<c:otherwise><tr><td colspan="5" height="90">구매하실 상품이 없습니다.</td></tr></c:otherwise>
-								</c:choose>
-								<tr>
+
+
+
+
+									<tr>
 									<c:set var="total"  value="0"/>
 									<td class="total_choice" colspan="6">
 										총 주문금액 : 
@@ -562,6 +562,7 @@ function SetPriceInput(str)
 										<input type="button" value="우편번호 찾기" style="width:100px;height:21px;" onClick="openWin('/user/searchZipCode.do?type=userEdit','searchZipuserRegiForm',650,450,'scrollbars=yes');" /><br/>
 										<input type="text" title="address text" style="width:50%;" id="custAdd"       name="reciAdd3" value="${cus.custAdd}" readonly/>
 										<input type="text" title="address text" style="width:40%;" id="custAddDetail" name="reciAdd4" value="${cus.custAddDetail}"/>
+										<input type="hidden" name="reciAdd"  id="reciAdd"  value="document.getElementById('custZip1').value+document.getElementById('custZip2').value+document.getElementById('custAdd').value+document.getElementById('custAddDetail').value;" />
 									</td>
 								</tr>
 								<tr>
@@ -615,8 +616,8 @@ function SetPriceInput(str)
 
 							</span>
 							<span class="payment2">
-								<input type="radio" id="welfare_card" name="payment2" checked /><label for="welfare_card">복지 카드 포인트 사용안함</label>
-								<input type="radio" id="welfare_ncard" name="payment2"/><label for="welfare_ncard">복지 카드 포인트 사용</label>
+								<input type="radio" id="welfare_card" name="payment2" checked onClick="document.getElementById('pt_memcorp_cd').value='';"/><label for="welfare_card">복지 카드 포인트 사용안함</label>
+								<input type="radio" id="welfare_ncard" name="payment2" onClick="document.getElementById('pt_memcorp_cd').value='hdhns3';"/><label for="welfare_ncard">복지 카드 포인트 사용</label>
 							</span>
 						</div>
 						<div class="point_employ2">
@@ -667,6 +668,41 @@ function SetPriceInput(str)
 						</span>
 					</div>
 				</div>
+
+
+
+
+
+								</c:when>
+								<c:otherwise>
+									<tr><td colspan="5" height="90">구매하실 상품이 없습니다.</td></tr>
+									<tr>
+									<c:set var="total"  value="0"/>
+									<td class="total_choice" colspan="6">
+										총 주문금액 : 
+										<c:forEach items="${odPrdInfo}" var="odPrdInfo">
+										<script>SetPriceInput('${odPrdInfo.totalPrice}');</script>원 +
+										<c:set var="total" value="${total+odPrdInfo.totalPrice}"/>
+										</c:forEach>
+										 <c:if test="${total>=config.buyPrice}">배송비 :  <script>SetPriceInput('${config.trasferPrice}');</script>원</c:if>
+										 <c:if test="${total<config.buyPrice}">배송비 : 0원 </c:if>
+										 = 합계 <strong><script>SetPriceInput('${total}');</script></strong>원
+
+
+										 <input type="hidden" id="total_price" name="total_price" value="${total}"/>
+										 <input type="hidden" id="good_mny"    name="good_mny"    value="${total}"/>
+
+										 <input type="hidden" id="sndAmount"  name="sndAmount"  value="${total}" /><!-- kst net -->
+									</td>
+								</tr>
+								
+							</tbody>
+						</table>
+				</div>
+									
+									</c:otherwise>
+								</c:choose>
+								
 <%
     /* = -------------------------------------------------------------------------- = */
     /* =   1. 주문 정보 입력 END                                                    = */
@@ -739,9 +775,10 @@ function SetPriceInput(str)
 	<input type="hidden" name="good_expr" value="0">
 
 	<!-- 가맹점에서 관리하는 고객 아이디 설정을 해야 합니다.(필수 설정) -->
-	<input type="hidden" name="shop_user_id"    value=""/>
+	<!--input type="hidden" id="shop_user_id" name="shop_user_id"    value="hdhns1"/-->
+	<input type="hidden" id="shop_user_id" name="shop_user_id"    value="hdhns1"/>
 	<!-- 복지포인트 결제시 가맹점에 할당되어진 코드 값을 입력해야합니다.(필수 설정) -->
-    <input type="hidden" name="pt_memcorp_cd"   value=""/>
+	<input type="hidden" id="pt_memcorp_cd" name="pt_memcorp_cd"   value="hdhns3"/>
 
 <%
     /* = -------------------------------------------------------------------------- = */

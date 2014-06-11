@@ -1016,7 +1016,7 @@ public class OrderController {
 		re.setReciPh(URLDecoder.decode(re.getReciPh(), "UTF-8"));
 		re.setReciMb(URLDecoder.decode(re.getReciMb(), "UTF-8"));
 		re.setReciAdd(URLDecoder.decode(re.getReciAdd(), "UTF-8"));
-		
+		re.setReciReq(URLDecoder.decode(re.getReciReq(), "UTF-8"));
 		customerManageService.updateCustomerInf(cus);
 		orderManageService.registRecipientInfo(re);
 		model.addAttribute("reInfo",re);

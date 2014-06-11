@@ -193,12 +193,8 @@ function SetPriceInput(str)
 		
 							</tbody>
 						</table>
-						<span class="btn_bottom1">
-							<button>선택상품삭제</button>
-							<button>단품/품절 상품삭제</button>
-						</span>
 						<span class="btn_bottom2">
-							<input type="button" class="btn_boximg1" value="쇼핑계속" onClick="location.href='/product/productList.do'"/>
+							<input type="button" class="btn_boximg1" value="쇼핑계속" onClick="location.href='/'"/>
 							<input type="button" class="btn_boximg2" value="선택상품주문" onClick="list_Submit()"/>
 	
 							<input type="button" class="btn_boximg3" value="전체상품주문" onClick="all_Submit();"/>

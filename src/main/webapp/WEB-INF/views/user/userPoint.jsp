@@ -42,12 +42,14 @@
 								<table class="cupon_tbl" summary="포인트내역관리표">
 									<caption>포인트내역관리목록표</caption>
 									<colgroup>
+										<col width="5%"/>
 										<col width="15%"/>
 										<col width="20%"/>
-										<col width="30%"/>
+										<col width="20%"/>
 										<col width="15%"/>
 										<col width="10%"/>
 										<col width="10%"/>
+										<col width="20%"/>
 									</colgroup>
 									<thead>
 										<tr>

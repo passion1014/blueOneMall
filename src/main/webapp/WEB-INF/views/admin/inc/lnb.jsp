@@ -88,7 +88,7 @@
 			<li><a href="orderingList.do">신청대기</a></li>
 			<li><a href="orderTransferReadyList.do">배송준비중</a></li>
 			<li><a href="orderTransferingList.do">배송중</a></li>
-			<li><a href="orderCompleteList.do">결제완료</a></li>
+			<li><a href="orderCompleteList.do">주문완료</a></li>
 			<li><a href="orderCancelList.do">최소신청</a></li>
 			<li><a href="orderCancelCompleteList.do">취소완료</a></li>
 			<li><a href="orderTakeBackList.do">반품신청</a></li>

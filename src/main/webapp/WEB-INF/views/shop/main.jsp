@@ -299,7 +299,7 @@ function SetPriceInput(str)
 
 		<div class="cont_bottom">
 			<dl class="cont_botbox1">
-				<dt>입점 브래드	<span>Sound Brand</span></dt>
+				<dt>입점 브랜드	<span>Sound Brand</span></dt>
 				<dd>
 					<a href="#" class="mart"><img src="<c:url value='/resources/img/main/main/lglogo.gif'/>" alt="LG전자 logo"/></a>
 					<a href="#" class="mart"><img src="<c:url value='/resources/img/main/main/akglogo.gif'/>" alt="AKG logo"/></a>
@@ -323,7 +323,7 @@ function SetPriceInput(str)
 				<dt class="notice_tit">NEWS & NOTICE</dt>
 				<dd>
 					<c:forEach items="${noticeList}" var="qna">
-						<a href="/community/noticeView.do?brdSeq=${qna.brdSeq}">${qna.title}</a><br>
+						<a class="noticeblet" href="/community/noticeView.do?brdSeq=${qna.brdSeq}">${qna.title}</a><br>
 					</c:forEach>
 				</dd>
 			</dl>

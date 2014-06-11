@@ -116,7 +116,7 @@
 										<input type="text" title="address text" style="width:50%;" id="custAdd"       name="custAdd"       value="${customer.custAdd}" readonly/>
 										<input type="text" title="address text" style="width:40%;" id="custAddDetail" name="custAddDetail" value="${customer.custAddDetail}"/>
 									</td>
-								</tr>								
+								</tr>
 								<tr>
 									<th class="bottomline">SMS수신여부</th>
 									<td class="bottomline">

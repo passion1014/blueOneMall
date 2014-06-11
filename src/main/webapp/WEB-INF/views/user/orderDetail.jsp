@@ -103,7 +103,6 @@ function SetPriceInput(str)
 										</c:forEach>
 										 <c:if test="${total>=config.buyPrice}">배송비 :  <script>SetPriceInput('${config.trasferPrice}');</script>원</c:if>
 										 <c:if test="${total<config.buyPrice}">배송비 : 0원 </c:if>
-										 <c:if test="${total<config.buyPrice}"></c:if>
 										 = 합계 <strong><script>SetPriceInput('${total}');</script></strong>원
 										 <input type="hidden" id="sndAmount"  name="sndAmount"  value="${total}" />
 									</td>
