@@ -69,7 +69,7 @@
 										<tr>
 											
 											<td>${ordList.paymentInfo.idx}</td>
-											<td>${ordList.paymentInfo.regDate}</td>
+											<td>${ordList.paymentInfo.regDate.substring(0,10)}</td>
 											<td>${ordList.orderNo}</td>
 											<td>${ordList.ordPrd.prdNm}</td>
 											<td>

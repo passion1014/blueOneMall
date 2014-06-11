@@ -51,6 +51,9 @@ public class UserProductController {
 		if (cust == null) {
 			return "user/errorPage";
 		}
+		model.addAttribute("CUST_NAME", cust.getCustNm());
+		String customerPoint = (String)session.getAttribute("customerPoint");
+		model.addAttribute("CUST_POINT", customerPoint);
 		
 		PageDivision pd = new PageDivision();
 

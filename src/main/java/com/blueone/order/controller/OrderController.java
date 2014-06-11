@@ -61,9 +61,11 @@ public class OrderController {
 	@Autowired IAttachFileManageService attFileManageService;
 	@Autowired ICustomerManageService customerManageService;
 	@Autowired IAdminManageService adminManageService;
+	
 	private static final String MEDIA_CD = "HM";			// 매체구분(포인트 사용하는 사이트 구분값)
 	private static final String ENC_TYPE = "euc-kr";		// 현대몰에서는 인코딩을 euc-kr로 보내준다.
 	private static final String HCDES_KEY = "hd!d$w4shm";	// 암호화키
+	
 	@RequestMapping(value = "/order/getOrderList.do", method = RequestMethod.GET)
 	public String getOrderInfoListByDuration(@ModelAttribute("orderSrchInfo") @Valid OrderSrchInfo orderSrchInfo, BindingResult result, Model model) {
 		String viewName = "";
@@ -88,8 +90,9 @@ public class OrderController {
 			return "user/errorPage";
 		}	
 		
-		
-		
+		model.addAttribute("CUST_NAME", cus.getCustNm());
+		String customerPoint = (String)session.getAttribute("customerPoint");
+		model.addAttribute("CUST_POINT", customerPoint);
 		/*CustomerInfo cus =new CustomerInfo();
 		cus.setCustId("100001639343");
 		cus=customerService.getCustomerInfo2(cus);
@@ -201,7 +204,9 @@ public class OrderController {
 		}	
 		
 		
-		
+		model.addAttribute("CUST_NAME", cus.getCustNm());
+		String customerPoint = (String)session.getAttribute("customerPoint");
+		model.addAttribute("CUST_POINT", customerPoint);
 		/*CustomerInfo cus =new CustomerInfo();
 		cus.setCustId("100001639343");
 		cus=customerService.getCustomerInfo2(cus);
@@ -239,8 +244,9 @@ public class OrderController {
 			return "user/errorPage";
 		}	
 		
-		
-		
+		model.addAttribute("CUST_NAME", cus.getCustNm());
+		String customerPoint = (String)session.getAttribute("customerPoint");
+		model.addAttribute("CUST_POINT", customerPoint);
 		/*CustomerInfo cus =new CustomerInfo();
 		cus.setCustId("100001639343");
 		cus=customerService.getCustomerInfo2(cus);
@@ -360,82 +366,6 @@ public class OrderController {
 	}
 	
 	
-	/*//諛붾줈援щℓ
-	@RequestMapping(value="/order/orderDirect.do")
-	public String orderDirect(@ModelAttribute("orderProductInfo") OrderProductInfo orderProductInfo,HttpSession session,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws Exception{
-	
-		
-		
-		CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");	
-		// ?몄뀡泥댄겕
-		if (cus == null) {
-			return "user/errorPage";
-		}	
-		
-		
-		
-		CustomerInfo cus =new CustomerInfo();
-		cus.setCustId("100001639343");
-		cus=customerService.getCustomerInfo2(cus);
-		
-		String birth = cus.getCustBirth();
-//		cus = useStringToken(birth,"b",cus);
-		
-		String phone = cus.getCustPh();
-		cus = useStringToken(phone,"p",cus);
-		
-		String mobile = cus.getCustMb();
-		cus = useStringToken(mobile,"m",cus);
-		
-		model.addAttribute("cus",cus);
-		
-		List<OrderProductInfo> oPrdList = new ArrayList<OrderProductInfo>();
-		
-		String key = orderProductInfo.getPrdCd();
-		ProductInfo prdInfo = new ProductInfo();
-		prdInfo.setPrdCd(key);
-		prdInfo = productManageService.getProductInfDetail(prdInfo);
-
-		orderProductInfo.setPrdNm(prdInfo.getPrdNm());
-		orderProductInfo.setSellPrice(new BigDecimal(prdInfo.getPrdSellPrc()));
-
-		AttachFileInfo att = new AttachFileInfo();
-		att.setAttCdKey(prdInfo.getPrdCd());
-		att.setAttImgType("01");
-		att = attFileManageService.getAttFileInfListImg(att);
-		if (att == null) {
-			orderProductInfo.setPrdSmallImg("");
-		} else {
-
-			orderProductInfo.setPrdSmallImg(att.getAttFilePath());
-		}
-
-	
-			
-		orderProductInfo.setOrderNo(getOrderCode());
-
-		BigDecimal total = new BigDecimal(prdInfo.getPrdSellPrc());
-		total = total.multiply(new BigDecimal(orderProductInfo.getBuyCnt()));
-		orderProductInfo.setTotalPrice(total);
-		OrderInfo od = new OrderInfo();
-		od.setOrd_unit_chk("BOM"+orderProductInfo.getPrdCd()+"_"+pNum);
-		od.setOrderNo(getOrderCode());
-		oPrdList.add(orderProductInfo);
-		
-	
-		model.addAttribute("orderInfo",od);
-		model.addAttribute("odPrdInfo",oPrdList);
-		
-		//諛곗넚鍮꾧????뺣낫
-		ConfigInfo resConfigInfo = adminManageService.selectConfigInf();
-		
-		model.addAttribute("config", resConfigInfo);
-		
-		Map<String, String> map = HMallInterworkUtility.procSearchPoint(cus.getCustNm(), cus.getCustId(),(String)session.getAttribute("shopEventNo"));
-		String point = (String)map.get("return_point");
-		
-		return "order/order";
-	}*/
 	
 	//?λ컮援щ땲 蹂댁뿬以?
 	@RequestMapping(value="/order/cartListView.do")
@@ -447,8 +377,9 @@ public class OrderController {
 		if (cus == null) {
 			return "user/errorPage";
 		}	
-		
-		
+		model.addAttribute("CUST_NAME", cus.getCustNm());
+		String customerPoint = (String)session.getAttribute("customerPoint");
+		model.addAttribute("CUST_POINT", customerPoint);
 		
 		/*CustomerInfo cus =new CustomerInfo();
 		cus.setCustId("100001639343");
@@ -483,6 +414,8 @@ public class OrderController {
 		if (cus == null) {
 			return "user/errorPage";
 		}	
+		
+	
 		CookieBox cki = new CookieBox(request);
 		
 		Cookie cookie =cki.createCookie(orderProductInfo.getCookieKey(),"null",-1);
@@ -527,7 +460,9 @@ public class OrderController {
 		if (cus == null) {
 			return "user/errorPage";
 		}
-		
+		model.addAttribute("CUST_NAME", cus.getCustNm());
+		String customerPoint = (String)session.getAttribute("customerPoint");
+		model.addAttribute("CUST_POINT", customerPoint);
 		StringTokenizer st = new StringTokenizer(orderInfo.getOrd_unit_chk(),",");
 		
 		List<OrderProductInfo> oPrdList = new ArrayList<OrderProductInfo>();
@@ -748,101 +683,19 @@ public class OrderController {
 }
 
 
-	/*//寃곗젣 ?앹뾽
-	@RequestMapping(value="/order/orderPay.do")
-	public String orderPay(@ModelAttribute("orderInfo") OrderInfo orderInfo,HttpSession session,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
-		
-		CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");	
-		// ?몄뀡泥댄겕
-		if (cus == null) {
-			return "user/errorPage";
-		}	
-		
-		
-		
-		CustomerInfo cus =new CustomerInfo();
-		cus.setCustId("100001639343");
-		cus=customerService.getCustomerInfo2(cus);
-		
-		String birth = cus.getCustBirth();
-//		cus = useStringToken(birth,"b",cus);
-		
-		String phone = cus.getCustPh();
-		cus = useStringToken(phone,"p",cus);
-		
-		String mobile = cus.getCustMb();
-		cus = useStringToken(mobile,"m",cus);
-		
-		
-		//二쇰Ц踰덊샇
-		String orderNum=orderInfo.getOrderNo();
-		
-		List<OrderProductInfo> ord  = orderInfo.getOrderProductList();
-		for(OrderProductInfo each : ord){
-			
-			//OrderProduct??옣
-			each.setOrderNo(orderNum);
-			each.setModiUser(cus.getCustId());//user ID ?낅젰
-			orderManageService.registOrderProductInfo(each);
-
-		
-		
-		}
-		
-		//Order ??옣
-		OrderInfo orderInfo1 = new OrderInfo();
-		orderInfo1.setOrderNo(orderNum);
-		orderInfo1.setOrderStatCd("01");
-		orderInfo1.setCustomerInfo(cus);
-		orderInfo1.setModifyUserId(cus.getCustId());
-		orderManageService.registOrderInfo(orderInfo1);
-		StringTokenizer st = new StringTokenizer(orderInfo.getOrd_unit_chk(),",");
-	
-		
-		CookieBox cki = new CookieBox(request);
-		
-		
-		while(st.hasMoreTokens()){ // 諛섑솢???좏겙???덈뒗媛? true/false;
-			Cookie cookie =cki.createCookie(st.nextToken(),"null",-1);
-			response.addCookie(cookie);
-		}
-
-		
-		RecipientInfo re = new RecipientInfo();
-		re=orderInfo.getReciInfo();
-		re.setReciOdNum(orderNum);
-		cus.setCustAdd(re.getAdd1());
-		customerManageService.updateCustomerInf(cus);
-		orderManageService.registRecipientInfo(re);
-		
-		model.addAttribute("orderInfo1",orderInfo1);
-		model.addAttribute("orderInfo",orderInfo);
-		
-		model.addAttribute("recipientInfo",re);
-		
-		return "";
-	}
-	*/
-	
-	/*//寃곗젣 ?앹뾽
-	@RequestMapping(value="/order/orderPayKcp.do")
-	public String orderPayKcp(HttpServletRequest request, HttpServletResponse response) throws IOException{
-		
-		return "order/pp_ax_hub";
-	}*/
-
-
 	//二쇰Ц?깃났?섏씠吏?
 	@RequestMapping(value="/order/orderComplete.do")
-	public String orderComplete(@ModelAttribute("orderInfo") OrderInfo orderInfo,String use_pay_method,BindingResult result,String card_cd,String good_mny,HttpSession session, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
+	public String orderComplete(@ModelAttribute("orderInfo") OrderInfo orderInfo,String use_pay_method,BindingResult result,String card_cd,String good_mny,HttpSession session, Model model,HttpServletRequest request,HttpServletResponse response) throws Exception{
 		CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");
 		
 		// ?몄뀡泥댄겕
 		if (cus == null) {
 			return "user/errorPage";
 		}	
-		
+		model.addAttribute("CUST_NAME", cus.getCustNm());
 	
+		String customerPoint = (String)session.getAttribute("customerPoint");
+		model.addAttribute("CUST_POINT", customerPoint);
 		
 		String birth = cus.getCustBirth();
 //		cus = useStringToken(birth,"b",cus);
@@ -998,8 +851,10 @@ public class OrderController {
 			}
 			
 			payment.setPayPoint(total.intValue()-Integer.parseInt(good_mny));
-			
-			
+			Map<String, String> map = HMallInterworkUtility.procSearchPoint(cus.getCustNm(), cus.getCustId(),decShopEventNo);
+			customerPoint = (String)map.get("return_point");
+			model.addAttribute("CUST_POINT", customerPoint);
+			session.setAttribute("customerPoint", customerPoint);
 			
 		}
 		model.addAttribute("usePoint",usePoint);
@@ -1032,7 +887,7 @@ public class OrderController {
 	
 	//二쇰Ц?깃났?섏씠吏?
 	@RequestMapping(value="/order/orderComplete_allPoint.do")
-	public String orderComplete_allPoint(@ModelAttribute("orderInfo") OrderInfo orderInfo,String use_pay_method,BindingResult result,String card_cd,String good_mny,HttpSession session, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
+	public String orderComplete_allPoint(@ModelAttribute("orderInfo") OrderInfo orderInfo,String use_pay_method,BindingResult result,String card_cd,String good_mny,HttpSession session, Model model,HttpServletRequest request,HttpServletResponse response) throws Exception{
 		CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");
 		
 		// ?몄뀡泥댄겕
@@ -1041,7 +896,9 @@ public class OrderController {
 		}	
 		
 		
-		
+		model.addAttribute("CUST_NAME", cus.getCustNm());
+		String customerPoint = (String)session.getAttribute("customerPoint");
+		model.addAttribute("CUST_POINT", customerPoint);
 		/*CustomerInfo cus =new CustomerInfo();
 		cus.setCustId("100001639343");
 		cus=customerService.getCustomerInfo2(cus);
@@ -1191,9 +1048,10 @@ public class OrderController {
 		
 		payment.setPayPoint(usePoint);
 		model.addAttribute("usePoint",usePoint);
-			
-			
-			
+		Map<String, String> map = HMallInterworkUtility.procSearchPoint(cus.getCustNm(), cus.getCustId(),decShopEventNo);
+		customerPoint = (String)map.get("return_point");
+		model.addAttribute("CUST_POINT", customerPoint);
+		session.setAttribute("customerPoint", customerPoint);
 		
 		
 		orderManageService.registPaymentInfo(payment);

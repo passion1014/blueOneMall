@@ -327,6 +327,8 @@
       		</select>
       			<input type="text" id="optionValue_0" name="optionValue" value="${prdInfo.optionValue[0]}">
       			<input type="button" value="추가" onClick="chgOption('add','2')">
+      			<input type="hidden" id="optionIdx_0" name="optionIdx" value="${prdInfo.optionIdx[0]}" >
+      			
       		</ul>
       		
       		<c:forEach var="opKey" items="${prdInfo.optionKey}" begin="1" end="49" varStatus="i">
@@ -345,6 +347,8 @@
       			<input type="text" id="optionValue_${i.index}" name="optionValue" value="${prdInfo.optionValue[i.index]}">
       			<input type="button" value="추가" onClick="chgOption('add','${i.index+1}','${prdInfo.optionIdx[i.index+1]}')">
       			<input type="button" value="삭제" onClick="chgOption('del','${i.index}','${prdInfo.optionIdx[i.index]}')">
+      			<input type="hidden" id="optionIdx_${i.index}" name="optionIdx" value="${prdInfo.optionIdx[i.index]}" >
+      			
       		</ul>
       	</c:forEach>
       	

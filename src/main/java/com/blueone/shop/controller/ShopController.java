@@ -64,6 +64,9 @@ public class ShopController {
 		if (customerSesstion == null) {
 			return "user/errorPage";
 		}
+		model.addAttribute("CUST_NAME", customerSesstion.getCustNm());
+		String customerPoint = (String)session.getAttribute("customerPoint");
+		model.addAttribute("CUST_POINT", customerPoint);
 		
 		/*// ---------------------------------------------------
 		// 세션임시셋팅 - 추후 삭제해야 함

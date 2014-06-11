@@ -45,8 +45,8 @@
 <!--  header 시작 -->
 <div class="top_member">
 	<div class="member_info" >
-		<span>안녕하세요! <b>--</b>회원님.</span>
-		<span>포인트 : --point</span>
+		<span>안녕하세요! <b>${CUST_NAME}</b>회원님.</span>
+		<span>포인트 : ${CUST_POINT}point</span>
 	</div>
 <div>
 <div class="header">

@@ -143,7 +143,11 @@ public class LoginController {
 		if(result!=null){
 			// 포인트 연동을 위한 이벤트번호 세션에 함께 셋팅한다.
 			session.setAttribute("shopEventNo", decShopEventNo);
-
+			
+			//포인트 세션에 저장
+			Map<String, String> map = HMallInterworkUtility.procSearchPoint(result.getCustNm(), result.getCustId(),decShopEventNo);
+			String point = (String)map.get("return_point");
+			session.setAttribute("customerPoint", point);
 			// 고객정보를 세션에 저장한다.
 			session.setAttribute("customerSession", result);
 			
