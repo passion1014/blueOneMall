@@ -937,9 +937,9 @@ public class OrderController {
 			}
 			
 			opResInf.add(odPrdInfo);
-			/*Cookie cookie =cki.createCookie(cookieKey,"null",-1);
+			Cookie cookie =cki.createCookie(cookieKey,"null",-1);
 			response.addCookie(cookie);
-			*/
+		
 			odPrdInfo.setOrderNo(orderInfo.getOrderNo());
 			odPrdInfo.setModiUser(cus.getCustId());//user ID ?낅젰
 			orderManageService.registOrderProductInfo(odPrdInfo);
