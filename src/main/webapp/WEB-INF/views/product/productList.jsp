@@ -94,7 +94,14 @@ function SetPriceInput(str)
 									<dd><img src="${prdList.attFilePath}" alt="product image"  width="166" height="166" /></dd>
 									<dd>${prdList.prdBrand}</dd>
 									<dd>${prdList.prdNm}</dd>
-									<dd><script>SetPriceInput('${prdList.prdPrice}');</script>&nbsp;↓&nbsp;<span><script>SetPriceInput('${prdList.prdSellPrc}');</script>원</span></dd>
+									<dd>
+										<c:if test="${prdList.prdStock>0}">
+											<script>SetPriceInput('${prdList.prdPrice}');</script>&nbsp;↓&nbsp;<span><script>SetPriceInput('${prdList.prdSellPrc}');</script>원</span>
+										</c:if>
+										<c:if test="${prdList.prdStock==0}">
+											품절
+										</c:if>
+									</dd>
 								</dl>
 								</a>
 							</li>
