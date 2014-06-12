@@ -35,9 +35,12 @@ public class ProductInfo {
 	private int prdStock;
 	private String searchWord;
 	private int schType;
+	
+	
+	
 	//상품 옵션
-	private String optionKey[];
-	private String optionValue[];
+	private String optionKey[]= null;
+	private String optionValue[]=null;
 
 	
 	//대 중 소 분류 네임
@@ -71,8 +74,6 @@ public class ProductInfo {
 	
 	private int currentPage;	// 상품QnA목록의 페이지정보
 
-
-	
 	public int getPrdStock() {
 		return prdStock;
 	}
