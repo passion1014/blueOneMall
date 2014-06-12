@@ -74,7 +74,6 @@ public class LoginController {
 		String encMemNm = request.getParameter("MEM_NM");				// 고객명
 		String encShopEventNo = request.getParameter("SHOPEVENT_NO");	// 행사번호(자사에서 고객사를 구분 짓기 위한 코드(고정))
 		String encEntrNo = request.getParameter("ENTR_NO");				// 고객사번호
-		
 		// --------------------------------------------
 		// 1.1 체크 - 필요한 값이 모두 있는지 확인한다.
 		// --------------------------------------------

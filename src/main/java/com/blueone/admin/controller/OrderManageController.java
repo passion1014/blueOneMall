@@ -211,10 +211,7 @@ public class OrderManageController {
 				}
 			}
 			
-		}
-		
-		//재고 감소
-		if(orderInfo.getOrderStatCd().equals("03")){
+			//재고증가
 			OrderProductInfo opRes = new OrderProductInfo();
 			opRes.setOrderNo(orderInfo.getOrderNo());
 			List<OrderProductInfo> opResInf = orderManageService.selectOrderPrdInfo(opRes);
@@ -224,11 +221,13 @@ public class OrderManageController {
 				ProductInfo productInfo = new ProductInfo();
 				productInfo.setPrdCd(prdCd);
 				productInfo = productManageService.getProductInfDetail(productInfo);
-				productInfo.setPrdStock(productInfo.getPrdStock()-each.getBuyCnt());
+				productInfo.setPrdStock(productInfo.getPrdStock()+each.getBuyCnt());
 				productManageService.manageProductInf(productInfo);
 			}
 			
 		}
+		
+		
 		
 		return "redirect:orderManagement.do?orderNo="+orderInfo.getOrderNo()+"&custId="+cust.getCustId();
 	}

@@ -18,11 +18,11 @@ public class TestSSO extends BlueoneTestCase {
 		MockHttpSession session = new MockHttpSession();
 		
 		mockMvc .perform(get("/sso/login.do").session(session)
-				.param("MEM_NO", "B856E909E78FDFA2132E230C3A557FC3")
-				.param("SHOP_NO", "F18A132281C854DE34799E99601BB6FE")
-				.param("MEM_NM", "88E47E665935EEFE")
-				.param("SHOPEVENT_NO", "5E1F456A9D36B942B97F35E597E81E5A")
-				.param("ENTR_NO", "C21E2B1234BAD6A1DD6A02B59467204C")
+				.param("MEM_NO", "B856E909E78FDFA2690CD9705BFD4D92")
+				.param("SHOP_NO", "6831A9DA1B37FA0E34799E99601BB6FE")
+				.param("MEM_NM", "88E39D2EF58C719D")
+				.param("SHOPEVENT_NO", "73FB843F801B403D809F23C00A436192")
+				.param("ENTR_NO", "7A056D96076367AD9F864B7B869D8201")
 				)
 		.andExpect(status().isOk())
 		.andDo(print());

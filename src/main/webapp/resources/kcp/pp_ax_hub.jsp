@@ -124,7 +124,7 @@
 	String reci_name     = f_get_parm( request.getParameter( "reciNm"      ) ); //받는사람 이름
  	String reci_ph     = f_get_parm( request.getParameter("tel1"))+","+f_get_parm( request.getParameter("tel2"))+","+f_get_parm( request.getParameter("tel3"));//받는사람 전화번호
  	String reci_mb     = f_get_parm( request.getParameter("hp1"))+","+f_get_parm( request.getParameter("hp2"))+","+f_get_parm( request.getParameter("hp3")); //받는사람 핸드폰번호
- 	String reci_add     = f_get_parm( request.getParameter( "reciAdd") ); //받는사람 주소
+ 	String reci_add     = f_get_parm( request.getParameter("reciAdd1")+"-"+request.getParameter("reciAdd2")+" "+request.getParameter("reciAdd3")+" "+request.getParameter("reciAdd4") ); //받는사람 주소
  	String reci_req     = f_get_parm( request.getParameter( "reciReq"      ) ); //받는사람 요청사항 
  	String ord_unit_chk     = f_get_parm( request.getParameter( "ord_unit_chk"      ) ); //
  	
