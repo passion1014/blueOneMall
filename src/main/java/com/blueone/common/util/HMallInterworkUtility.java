@@ -177,6 +177,15 @@ public class HMallInterworkUtility {
 			System.out.println("[호출결과] = " + rstXml);
 		}
 		
+		// Log 출력
+		try {
+			System.out.println("MEMBER_NAME = " + convertDec(encMemNm));
+			System.out.println("MEMBER_ID   = " + convertDec(encMemNo));
+			System.out.println("EVENT_NO    = " + convertDec(encShopEventNo));
+			System.out.println("PROC_CD     = " + convertDec(encProcCd));			
+		} catch (Exception e) {}
+
+		
 		return rstMap;
 	}
 	
