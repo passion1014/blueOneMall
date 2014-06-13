@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-    
+
+<c:import  url="../inc/topSub.jsp" />
+
 <script type="text/javascript">
 <!--
 function SetPriceInput(str)
@@ -18,23 +20,15 @@ function SetPriceInput(str)
 }
 //-->
 </script>
-<c:import  url="../inc/topSub.jsp" />
-<c:import  url="../inc/topMain.jsp" />  
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
+
 <body>
 	<div class="wrap">
 	<c:import url="../inc/header.jsp"/>
-<!--  header 끝   -->
 
 	<div class="container">
 		<c:import url="../inc/orderLnb.jsp" />
 		<div class="sub_content">
-			<form action="#" method="post">
+			<form method="post">
 				<div class="porder_section">
 					<h4>주문 완료</h4>
 					<p class="sub_tit">내가 발급 받을 수 있는 쿠폰리스트 입니다.</p>
@@ -180,7 +174,7 @@ function SetPriceInput(str)
 					</div>
 					<div class="complet_box">
 						<a href="/product/productList.do" class="btn_success">계속쇼핑하기</a>
-						<a href="" class="btn_continue">확인</a>
+						<a href="/user/orderListView.do" class="btn_continue">주문내역관리</a>
 					</div>
 				</div>
 			</form>

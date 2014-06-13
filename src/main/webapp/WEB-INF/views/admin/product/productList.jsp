@@ -261,7 +261,7 @@
 				</select> &nbsp;
 				<input name="prdSpe1" value="y" type="checkbox"> 베스트 &nbsp;
 				<input name="prdSpe2" value="y" type="checkbox"> 행사품목 &nbsp;
-				<input name="prdStock" value="0" type="checkbox"> 품절항목 &nbsp;
+				<input name="prdStock" value="0" type="checkbox"> 품절항목&nbsp;
 				<input type="button" value="선택수정" class="Small_Button Green" onClick="list_Submit('modify')" /> 
 				<input type="button" value="선택삭제" class="Small_Button Gray" onClick="list_Submit('del')"/>
 				
