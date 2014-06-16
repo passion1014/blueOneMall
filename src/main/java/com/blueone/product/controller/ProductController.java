@@ -969,16 +969,17 @@ public class ProductController {
 
 	@RequestMapping(value = "/product/productView.do", method = RequestMethod.GET)
 	public String productView(@ModelAttribute("productInfo") ProductInfo productInfo,@ModelAttribute("categoryInfo") CategoryInfo categoryInfo,BindingResult result, Model model, HttpSession session) {
-		/*// CustomerInfo customerSesstion
+		// CustomerInfo customerSesstion
 		// =(CustomerInfo)session.getAttribute("customerSession");
 		CustomerInfo cust = (CustomerInfo) session
 				.getAttribute("customerSession");
 		// 세션체크
 		if (cust == null) {
 			return "user/errorPage";
-		}*/
-
-
+		}
+		model.addAttribute("CUST_NAME", cust.getCustNm());
+		String customerPoint = (String)session.getAttribute("customerPoint");
+		model.addAttribute("CUST_POINT", customerPoint);
 		// ----------------------------------------------------------
 		// 변수선언
 		// ----------------------------------------------------------
@@ -1098,7 +1099,7 @@ public class ProductController {
 			cust = new CustomerInfo();
 			cust.setCustId("Guest!");
 		}
-
+		
 		int brdTyp = 10;// 게시판유형 = 10 (QNA게시판)
 
 		BoardInfo boardInfo = new BoardInfo();
@@ -1218,6 +1219,9 @@ public class ProductController {
 		if (cust == null) {
 			return "user/errorPage";
 		}
+		model.addAttribute("CUST_NAME", cust.getCustNm());
+		String customerPoint = (String)session.getAttribute("customerPoint");
+		model.addAttribute("CUST_POINT", customerPoint);
 		String word = searchProdInfo.getSchWord();
 		PageDivision pd = new PageDivision();
 		if (StringUtils.isEmpty(page))

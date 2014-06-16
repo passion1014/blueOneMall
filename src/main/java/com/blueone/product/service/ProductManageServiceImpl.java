@@ -332,7 +332,7 @@ public class ProductManageServiceImpl implements IProductManageService {
              
                 
                 for(int i=0; i<50; i++){
-                    if(!productInfo.getOptionValue()[i].equals("")){
+                    if(productInfo.getOptionValue()!=null && !productInfo.getOptionValue()[i].equals("")){
                         productInfo.setPropType(productInfo.getOptionKey()[i]);
                         productInfo.setPropName(productInfo.getOptionValue()[i]);
                         if(productInfo.getOptionIdx()[i]>0){

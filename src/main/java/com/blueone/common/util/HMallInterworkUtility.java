@@ -43,7 +43,7 @@ public class HMallInterworkUtility {
 	
 	// SSO을 위해 호출할 웹서비스 도메인정보
 	private static final String URL = "https://giftdev.e-hyundai.com:1443/hb2efront_new/pointOpenAPI.do?";	// 개발서버
-//	private static final String URL = "https://gift.e-hyundai.com:1443/hb2efront_new/pointOpenAPI.do?";	// 운영서버 
+	//private static final String URL = "https://gift.e-hyundai.com:1443/hb2efront_new/pointOpenAPI.do?";	// 운영서버 
 
 	/**
 	 * 포인트 사용시 호출하는 함수
@@ -176,6 +176,15 @@ public class HMallInterworkUtility {
 			System.out.println("[웹서비스 URL] = " + invokeUrl);
 			System.out.println("[호출결과] = " + rstXml);
 		}
+		
+		// Log 출력
+		try {
+			System.out.println("MEMBER_NAME = " + convertDec(encMemNm));
+			System.out.println("MEMBER_ID   = " + convertDec(encMemNo));
+			System.out.println("EVENT_NO    = " + convertDec(encShopEventNo));
+			System.out.println("PROC_CD     = " + convertDec(encProcCd));			
+		} catch (Exception e) {}
+
 		
 		return rstMap;
 	}

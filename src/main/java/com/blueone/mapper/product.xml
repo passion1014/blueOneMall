@@ -555,7 +555,8 @@
 				<if test="admMemo != null and admMemo != ''">,`ADMIN_MEMO` = #{admMemo}</if>
 				<if test="fromDate != null and fromDate != ''">,`FROM_DATE` = #{fromDate}</if>
 				<if test="toDate != null and toDate != ''">,`TO_DATE` = #{toDate}</if>
-				<if test="prdStock != null and prdStock != ''">,`PRD_STOCK` = #{prdStock}</if>
+				<if test="prdStock != null and prdStock >=0">,`PRD_STOCK` = #{prdStock}</if>
+				
 				
 		WHERE
 			`PRD_CD`= #{prdCd}

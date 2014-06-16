@@ -74,7 +74,6 @@ public class LoginController {
 		String encMemNm = request.getParameter("MEM_NM");				// 고객명
 		String encShopEventNo = request.getParameter("SHOPEVENT_NO");	// 행사번호(자사에서 고객사를 구분 짓기 위한 코드(고정))
 		String encEntrNo = request.getParameter("ENTR_NO");				// 고객사번호
-		
 		// --------------------------------------------
 		// 1.1 체크 - 필요한 값이 모두 있는지 확인한다.
 		// --------------------------------------------
@@ -144,7 +143,11 @@ public class LoginController {
 		if(result!=null){
 			// 포인트 연동을 위한 이벤트번호 세션에 함께 셋팅한다.
 			session.setAttribute("shopEventNo", decShopEventNo);
-
+			
+			//포인트 세션에 저장
+			Map<String, String> map = HMallInterworkUtility.procSearchPoint(result.getCustNm(), result.getCustId(),decShopEventNo);
+			String point = (String)map.get("return_point");
+			session.setAttribute("customerPoint", point);
 			// 고객정보를 세션에 저장한다.
 			session.setAttribute("customerSession", result);
 			

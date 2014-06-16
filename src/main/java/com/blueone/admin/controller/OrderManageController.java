@@ -211,8 +211,24 @@ public class OrderManageController {
 				}
 			}
 			
+			//재고증가
+			OrderProductInfo opRes = new OrderProductInfo();
+			opRes.setOrderNo(orderInfo.getOrderNo());
+			List<OrderProductInfo> opResInf = orderManageService.selectOrderPrdInfo(opRes);
+			
+			for(OrderProductInfo each : opResInf){
+				String prdCd = each.getPrdCd();
+				ProductInfo productInfo = new ProductInfo();
+				productInfo.setPrdCd(prdCd);
+				productInfo = productManageService.getProductInfDetail(productInfo);
+				productInfo.setPrdStock(productInfo.getPrdStock()+each.getBuyCnt());
+				productManageService.manageProductInf(productInfo);
+			}
+			
 		}
-	
+		
+		
+		
 		return "redirect:orderManagement.do?orderNo="+orderInfo.getOrderNo()+"&custId="+cust.getCustId();
 	}
 
@@ -338,6 +354,7 @@ public class OrderManageController {
 		
 		
 		model.addAttribute("endNum",endNum);
+		
 		
 		return "admin/order/orderList";
 	}

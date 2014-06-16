@@ -153,7 +153,15 @@ function SetPriceInput(str)
 								<dd><img src="${epPrdList.attFilePath}" width="118" height="118" alt="prouct IMG"/></dd>
 								<dd>${epPrdList.prdBrand}</dd>
 								<dd>${epPrdList.prdNm}</dd>
-								<dd><strong class="textline"><script>SetPriceInput('${epPrdList.prdPrice}');</script></strong>↓<span><script>SetPriceInput('${epPrdList.prdSellPrc}');</script>원</span></dd>
+								<dd>
+									<c:if test="${epPrdList.prdStock>0}">
+										<strong class="textline"><script>SetPriceInput('${epPrdList.prdPrice}');</script></strong>↓<span><script>SetPriceInput('${epPrdList.prdSellPrc}');</script>원</span>
+									</c:if>
+									<c:if test="${epPrdList.prdStock==0}">
+										품절
+									</c:if>
+
+								</dd>
 							</dl>
 							</a>
 						</li>
@@ -178,7 +186,14 @@ function SetPriceInput(str)
 								<dd><img src="${hpPrdList.attFilePath}" width="118" height="118" alt="prouct IMG"/></dd>
 								<dd>${hpPrdList.prdBrand}</dd>
 								<dd>${hpPrdList.prdNm}</dd>
-								<dd><strong class="textline"><script>SetPriceInput('${hpPrdList.prdPrice}');</script></strong>↓<span><script>SetPriceInput('${hpPrdList.prdSellPrc}');</script>원</span></dd>
+								<dd>
+									<c:if test="${hpPrdList.prdStock>0}">
+										<strong class="textline"><script>SetPriceInput('${hpPrdList.prdPrice}');</script></strong>↓<span><script>SetPriceInput('${hpPrdList.prdSellPrc}');</script>원</span>
+									</c:if>
+									<c:if test="${hpPrdList.prdStock==0}">
+										품절
+									</c:if>
+								</dd>
 							</dl>
 							</a>
 						</li>
@@ -203,7 +218,14 @@ function SetPriceInput(str)
 								<dd><img src="${mmPrdList.attFilePath}" width="118" height="118" alt="prouct IMG"/></dd>
 								<dd>${mmPrdList.prdBrand}</dd>
 								<dd>${mmPrdList.prdNm}</dd>
-								<dd><strong class="textline"><script>SetPriceInput('${mmPrdList.prdPrice}');</script></strong>↓<span><script>SetPriceInput('${mmPrdList.prdSellPrc}');</script>원</span></dd>
+								<dd>
+									<c:if test="${mmPrdList.prdStock>0}">
+										<strong class="textline"><script>SetPriceInput('${mmPrdList.prdPrice}');</script></strong>↓<span><script>SetPriceInput('${mmPrdList.prdSellPrc}');</script>원</span>
+									</c:if>
+									<c:if test="${mmPrdList.prdStock==0}">
+										품절
+									</c:if>
+								</dd>
 							</dl>
 							</a>
 						</li>
@@ -229,7 +251,14 @@ function SetPriceInput(str)
 								<dd><img src="${pdSList.attFilePath}" width="118" height="118" alt="prouct IMG"/></dd>
 								<dd>${pdSList.prdBrand}</dd>
 								<dd>${pdSList.prdNm}</dd>
-								<dd><strong class="textline"><script>SetPriceInput('${pdSList.prdPrice}');</script></strong>↓<span><script>SetPriceInput('${pdSList.prdSellPrc}');</script>원</span></dd>
+								<dd>
+									<c:if test="${pdSList.prdStock>0}">
+										<strong class="textline"><script>SetPriceInput('${pdSList.prdPrice}');</script></strong>↓<span><script>SetPriceInput('${pdSList.prdSellPrc}');</script>원</span>
+									</c:if>
+									<c:if test="${pdSList.prdStock==0}">
+											품절
+									</c:if>
+								</dd>
 							</dl>
 							</a>
 						</li>
@@ -255,7 +284,14 @@ function SetPriceInput(str)
 								<dd><img src="${csPrdList.attFilePath}" width="118" height="118" alt="prouct IMG"/></dd>
 								<dd>${csPrdList.prdBrand}</dd>
 								<dd>${csPrdList.prdNm}</dd>
-								<dd><strong class="textline"><script>SetPriceInput('${csPrdList.prdPrice}');</script></strong>↓<span><script>SetPriceInput('${csPrdList.prdSellPrc}');</script>원</span></dd>
+								<dd>
+									<c:if test="${csPrdList.prdStock>0}">
+										<strong class="textline"><script>SetPriceInput('${csPrdList.prdPrice}');</script></strong>↓<span><script>SetPriceInput('${csPrdList.prdSellPrc}');</script>원</span>
+									</c:if>
+									<c:if test="${csPrdList.prdStock==0}">
+											품절
+									</c:if>
+								</dd>
 							</dl>
 							</a>
 						</li>
@@ -281,7 +317,14 @@ function SetPriceInput(str)
 								<dd><img src="${xtPrdList.attFilePath}" width="118" height="118" alt="prouct IMG"/></dd>
 								<dd>${xtPrdList.prdBrand}</dd>
 								<dd>${xtPrdList.prdNm}</dd>
-								<dd><strong class="textline"><script>SetPriceInput('${xtPrdList.prdPrice}');</script></strong>↓<span><script>SetPriceInput('${xtPrdList.prdSellPrc}');</script>원</span></dd>
+								<dd>
+									<c:if test="${xtPrdList.prdStock>0}">
+										<strong class="textline"><script>SetPriceInput('${xtPrdList.prdPrice}');</script></strong>↓<span><script>SetPriceInput('${xtPrdList.prdSellPrc}');</script>원</span>
+									</c:if>
+									<c:if test="${xtPrdList.prdStock==0}">
+											품절
+									</c:if>
+								</dd>
 							</dl>
 							</a>
 						</li>

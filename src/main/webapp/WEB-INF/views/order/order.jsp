@@ -562,7 +562,6 @@ function SetPriceInput(str)
 										<input type="button" value="우편번호 찾기" style="width:100px;height:21px;" onClick="openWin('/user/searchZipCode.do?type=userEdit','searchZipuserRegiForm',650,450,'scrollbars=yes');" /><br/>
 										<input type="text" title="address text" style="width:50%;" id="custAdd"       name="reciAdd3" value="${cus.custAdd}" readonly/>
 										<input type="text" title="address text" style="width:40%;" id="custAddDetail" name="reciAdd4" value="${cus.custAddDetail}"/>
-										<input type="hidden" name="reciAdd"  id="reciAdd"  value="document.getElementById('custZip1').value+document.getElementById('custZip2').value+document.getElementById('custAdd').value+document.getElementById('custAddDetail').value;" />
 									</td>
 								</tr>
 								<tr>
@@ -603,8 +602,7 @@ function SetPriceInput(str)
 							<span class="payment1">
 								
 								<input type="radio" id="settlement_type" name="settlement_type" onClick="document.getElementById('pay_method').value='100000000000' ;" value="100000000000" checked /><label for="credit_card">신용카드</label>
-								<input type="radio" id="settlement_type" name="settlement_type" onClick="document.getElementById('pay_method').value='010000000000' ;" value="010000000000" /><label for="account_transfer">실시간 계좌이체</label>
-								<input type="hidden" id="pay_method" name="pay_method" value="100000000000">
+								
 								
 								<!--
 								<select name="pay_method">
@@ -616,8 +614,12 @@ function SetPriceInput(str)
 
 							</span>
 							<span class="payment2">
+								<input type="radio" id="settlement_type" name="settlement_type" onClick="document.getElementById('pay_method').value='010000000000' ;" value="010000000000" /><label for="account_transfer">실시간 계좌이체</label>
+								<input type="hidden" id="pay_method" name="pay_method" value="100000000000">
+								<!--
 								<input type="radio" id="welfare_card" name="payment2" checked onClick="document.getElementById('pt_memcorp_cd').value='';"/><label for="welfare_card">복지 카드 포인트 사용안함</label>
 								<input type="radio" id="welfare_ncard" name="payment2" onClick="document.getElementById('pt_memcorp_cd').value='hdhns3';"/><label for="welfare_ncard">복지 카드 포인트 사용</label>
+								-->
 							</span>
 						</div>
 						<div class="point_employ2">

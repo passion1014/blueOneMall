@@ -144,7 +144,9 @@ public class UserController {
 		else
 			model.addAttribute("succcess", "Y");
 		
-		
+		model.addAttribute("CUST_NAME", cus.getCustNm());
+		String customerPoint = (String)session.getAttribute("customerPoint");
+		model.addAttribute("CUST_POINT", customerPoint);
 		/*CustomerInfo cus =new CustomerInfo();
 		cus.setCustId("100001639343");
 		cus=customerService.getCustomerInfo2(cus);
@@ -256,7 +258,9 @@ public class UserController {
 			return "user/errorPage";
 		}	
 		
-		
+		model.addAttribute("CUST_NAME", cus.getCustNm());
+		String customerPoint = (String)session.getAttribute("customerPoint");
+		model.addAttribute("CUST_POINT", customerPoint);
 		return "user/userPointSaving";
 	}
 	//�궗�슜�궡�뿭議고쉶
@@ -270,7 +274,10 @@ public class UserController {
 		// 세션체크
 		if (cus == null) {
 			return "user/errorPage";
-		}	
+		}
+		model.addAttribute("CUST_NAME", cus.getCustNm());
+		String customerPoint = (String)session.getAttribute("customerPoint");
+		model.addAttribute("CUST_POINT", customerPoint);
 		OrderInfo od = new OrderInfo();
 		od.setCustomerInfo(cus);
 		
@@ -369,7 +376,9 @@ public class UserController {
 		if (cust == null) {
 			return "user/errorPage";
 		}
-						
+		model.addAttribute("CUST_NAME", cust.getCustNm());
+		String customerPoint = (String)session.getAttribute("customerPoint");
+		model.addAttribute("CUST_POINT", customerPoint);			
 		od.setCustomerInfo(cust);
 		
 		//�븘�씠�뵒濡� 二쇰Ц�궡�뿭媛��졇�삤湲�
@@ -452,7 +461,9 @@ public class UserController {
 		if (cust == null) {
 			return "user/errorPage";
 		}
-		
+		model.addAttribute("CUST_NAME", cust.getCustNm());
+		String customerPoint = (String)session.getAttribute("customerPoint");
+		model.addAttribute("CUST_POINT", customerPoint);
 		// 주문 테이블의 상태값을 07(주문취소)로 셋팅
 		orderInfo.setCustomerInfo(cust);
 		orderInfo.setOrderStatCd("07");
@@ -475,6 +486,9 @@ public class UserController {
 		if (cust == null) {
 			return "user/errorPage";
 		}
+		model.addAttribute("CUST_NAME", cust.getCustNm());
+		String customerPoint = (String)session.getAttribute("customerPoint");
+		model.addAttribute("CUST_POINT", customerPoint);
 		
 		orderInfo.setCustomerInfo(cust);
 		orderInfo.setOrderStatCd("09");
@@ -496,7 +510,9 @@ public class UserController {
 		if (cust == null) {
 			return "user/errorPage";
 		}
-		
+		model.addAttribute("CUST_NAME", cust.getCustNm());
+		String customerPoint = (String)session.getAttribute("customerPoint");
+		model.addAttribute("CUST_POINT", customerPoint);
 		//二쇰Ц �젙蹂�
 		orderInfo.setCustomerInfo(cust);
 		List<OrderInfo> odList = orderService.selectOrderInfoList(orderInfo);
@@ -587,6 +603,9 @@ public class UserController {
 		if (cust == null) {
 			return "user/errorPage";
 		}
+		model.addAttribute("CUST_NAME", cust.getCustNm());
+		String customerPoint = (String)session.getAttribute("customerPoint");
+		model.addAttribute("CUST_POINT", customerPoint);
 		return "user/qnaPage";
 	}
 
