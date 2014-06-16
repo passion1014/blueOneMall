@@ -22,7 +22,7 @@ function chk_mem_form(f){
 		return false;
 	}
 
-	if(f.telNo2.value == ""){
+	/* if(f.telNo2.value == ""){
 		alert("전화번호를 입력하여 주십시오!");
 		f.telNo2.focus();
 		return false;
@@ -68,7 +68,7 @@ function chk_mem_form(f){
 		alert("우편번호를 찾아 주십시오!");
 		f.custZip2.focus();
 		return false;
-	}
+	} */
 
 	return true ;
 

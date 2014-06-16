@@ -128,10 +128,11 @@ public class LoginController {
 		String decMemNm = HMallInterworkUtility.convertDec(encMemNm);
 //		String decShopNo = HMallInterworkUtility.convert(encShopNo);
 		String decShopEventNo = HMallInterworkUtility.convertDec(encShopEventNo);
-//		String decEntrNo = HMallInterworkUtility.convert(encEntrNo);
+//\		String decEntrNo = HMallInterworkUtility.convert(encEntrNo);
 //		String decProcCd = HMallInterworkUtility.convert(encProcCd);
 		
-
+		
+		
 		// --------------------------------------------
 		// 5. DB조회하여 회원정보가 있는지 확인한다.
 		// --------------------------------------------

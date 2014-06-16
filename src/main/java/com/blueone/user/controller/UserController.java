@@ -73,6 +73,7 @@ public class UserController {
 	@Autowired private IProductManageService productManageService;
 	@Autowired private IAttachFileManageService attFileManageService;
 	@Autowired IBoardService boardService;
+	
 	//회원가입 폼 생성
 	@RequestMapping(value = "/user/userRegister.do", method=RequestMethod.GET)
 	public String userRegister(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model,HttpSession session){
@@ -91,14 +92,28 @@ public class UserController {
 		String birth ="1999-11-22";
 		customerInfo.setCustBirth(birth);
 		
-		String phone=customerInfo.getTelNo1()+"-"+customerInfo.getTelNo2()+"-"+customerInfo.getTelNo3();
+		//String phone=customerInfo.getTelNo1()+"-"+customerInfo.getTelNo2()+"-"+customerInfo.getTelNo3();
+		String phone ="";
 		customerInfo.setCustPh(phone);
 		
-		String mobile=customerInfo.getHpNo1()+"-"+customerInfo.getHpNo2()+"-"+customerInfo.getHpNo3();
+		//String mobile=customerInfo.getHpNo1()+"-"+customerInfo.getHpNo2()+"-"+customerInfo.getHpNo3();
+		String mobile="";
 		customerInfo.setCustMb(mobile);
 		
-		String email = customerInfo.geteMail1()+"@"+customerInfo.geteMail2();
+		//String email = customerInfo.geteMail1()+"@"+customerInfo.geteMail2();
+		String email ="";
 		customerInfo.setCustEmail(email);
+		
+		customerInfo.setCustZip1("");
+		customerInfo.setCustZip2("");
+		customerInfo.setCustAdd("");
+		customerInfo.setCustAddDetail("");
+		customerInfo.setCustSmSRcv("n");
+		customerInfo.setCustMailRcv("n");
+		customerInfo.setCustSx("");
+		
+		
+		
 		
 		// 怨좉컼�벑濡앹쿂由�
 		int rst = customerService.registUserInfo(customerInfo);
@@ -117,7 +132,8 @@ public class UserController {
 	@RequestMapping(value="/user/userEdit.do", method=RequestMethod.GET)
 	public String userEdit(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model,HttpSession session,String succcess) throws Exception{
 		//CustomerInfo customerSesstion = (CustomerInfo)session.getAttribute("customerSession");	
-		CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");	
+		CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");
+		
 		// �꽭�뀡泥댄겕
 		if (cus == null) {
 			return "user/errorPage";
@@ -137,17 +153,21 @@ public class UserController {
 //		cus = useStringToken(birth,"b",cus);
 		
 		String phone = cus.getCustPh();
-		cus = useStringToken(phone,"p",cus);
+		if(!phone.equals("") || !phone.isEmpty())
+			cus = useStringToken(phone,"p",cus);
 		
 		String mobile = cus.getCustMb();
-		cus = useStringToken(mobile,"m",cus);
+		if(!mobile.equals("") || !mobile.isEmpty())
+			cus = useStringToken(mobile,"m",cus);
 		
 		String mail=cus.getCustEmail();
+		if(!mail.equals("") || !mail.isEmpty()){
 		int a = mail.indexOf("@");
 		String mail1= mail.substring(0, a);
 		String mail2= mail.substring(a+1);
 		cus.seteMail1(mail1);
 		cus.seteMail2(mail2);
+		}
 	
 		model.addAttribute("customer",cus);
 		
@@ -180,7 +200,7 @@ public class UserController {
 			customerInfo.setCustMerry(merry);
 		}
 		customerService.updateCustomerInf(customerInfo);
-			
+		
 		session.setAttribute("customerSession", customerInfo);
 	
 		return "redirect:userEdit.do?succcess=y";
