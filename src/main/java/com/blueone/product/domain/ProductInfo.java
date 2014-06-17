@@ -27,6 +27,7 @@ public class ProductInfo {
 	private String prdListCmt;	//목록간략내용
 	private String prdConts;	//상세보기
 	private int prdTransInf;	//배송,반품,교환정보
+	private String prdTransContents;
 	private String admMemo;		//관리자메모
 	private String modifyUserId;// 최종수정자
 	private String prdMany;
@@ -74,6 +75,14 @@ public class ProductInfo {
 	
 	private int currentPage;	// 상품QnA목록의 페이지정보
 
+	
+	
+	public String getPrdTransContents() {
+		return prdTransContents;
+	}
+	public void setPrdTransContents(String prdTransContents) {
+		this.prdTransContents = prdTransContents;
+	}
 	public int getPrdStock() {
 		return prdStock;
 	}

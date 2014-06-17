@@ -313,9 +313,6 @@
 			<th>상세내용</th>
 			<td colspan="3" style="text-align:left;">
 				<jsp:include page="/resources/editor/editor.jsp" />
-				
-				
-				
 			</td>
 		</tr>
 		<th>옵션</th>
@@ -364,7 +361,10 @@
 		<tr>
 			<th>배송/반품/교환정보</th>
 			<td colspan="3" style="text-align:left;">
-				<div><input type="button" value="배송정보선택"></div>
+				<div><input type="button" value="배송정보변경" class="Small_Button Gray" onClick="openWin('./transferInfoPopup.do','transferInfoPopup',600,300,'scrollbars=no');">${transDetail.tTitle}</div>
+				<div>
+					<span id="transferInfoValue">${prdInfo.prdTransContents}</span>
+				</div>
 			</td>
 		</tr>
 

@@ -153,6 +153,10 @@ public class LoginController {
 			
 			return "redirect:/";
 		}else{
+			// 포인트 연동을 위한 이벤트번호 세션에 함께 셋팅한다.
+			session.setAttribute("shopEventNo", decShopEventNo);
+			
+			
 			// 회원가입시 ID, 이름은 받은 값으로 셋팅하여 화면에 표시한다.
 			cust.setCustNm(decMemNm);
 			

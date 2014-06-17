@@ -298,7 +298,7 @@ public class ProductController {
 	
 	
 	@RequestMapping(value = "/admin/searchProductList.do", method = RequestMethod.POST)
-	public String searchAdminProductList(@ModelAttribute("searchProdInfo") ProductInfo searchProdInfo,BindingResult result, Model model, HttpSession session) {
+	public String searchAdminProductList(@ModelAttribute("searchProdInfo") ProductInfo searchProdInfo,BindingResult result,String page, Model model, HttpSession session) {
 		// -----------------------------------------------------------------
 		// 1. 세션정보를 확인해서 세션정보가 없을 경우 로그인 페이지로 이동한다.
 		// -----------------------------------------------------------------
@@ -343,7 +343,33 @@ public class ProductController {
 		
 		}
 		List<ProductInfo> prolist = productManageService.getAdminProductSearchList(searchProdInfo);
-		model.addAttribute("list", prolist);
+		PageDivision pd = new PageDivision();
+
+		if (StringUtils.isEmpty(page))
+			pd.pageNum("1");
+		else
+			pd.pageNum(page);
+		pd.setItemNum(10);
+		pd.setPrdList(prolist);
+
+		List<ProductInfo> resultList = pd.getPrdList();
+
+		for (ProductInfo each : resultList) {
+			AttachFileInfo att = new AttachFileInfo();
+			att.setAttCdKey(each.getPrdCd());
+			att = attFileManageService.getAttFileInfListImg(att);
+
+			if (att == null) {
+				each.setAttFilePath("");
+			} else {
+
+				each.setAttFilePath(att.getAttFilePath());
+			}
+
+		}
+		model.addAttribute("list", resultList);
+
+		//model.addAttribute("endNum", pd.getEndPageNum());
 
 		return "admin/product/productList";
 	}
@@ -468,6 +494,7 @@ public class ProductController {
 			@ModelAttribute("productInfo") ProductInfo productInfo,
 			BindingResult result, Model model) throws FileNotFoundException,
 			IOException {
+		productInfo.setPrdConts(productInfo.getContent());
 		productManageService.manageProductInf(productInfo);
 
 		

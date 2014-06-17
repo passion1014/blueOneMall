@@ -52,8 +52,9 @@
 		<result property="propPrdCD" column="PROP_PRD_CD" javaType="java.lang.String"/>
 		<result property="propType" column="PROP_OP_TYPE" javaType="java.lang.String"/>
 		<result property="propName"  column="PROP_OP_NAME"   javaType="java.lang.String"/>
+			
+		<result property="prdTransContents"  column="transferContents"   javaType="java.lang.String"/>
 	
-		
 	</resultMap>
 	
 
@@ -453,7 +454,8 @@
 			T3.CTG_CODE       AS t3ctgCode,
 			T3.CTG_NAME       AS t3ctgName,
 			T4.CTG_CODE       AS t4ctgCode,
-			T4.CTG_NAME       AS t4ctgName
+			T4.CTG_NAME       AS t4ctgName,
+			T5.T_CONTENTS AS transferContents
 			
 		FROM BOM_PRODUCT_TB AS T1
 				LEFT JOIN BOM_CATEGORY_TB T2
@@ -462,6 +464,8 @@
 					ON ( T1.PRD_CTG_M = T3.CTG_CODE )
 				LEFT JOIN BOM_CATEGORY_TB T4 
 					ON ( T1.PRD_CTG_S = T4.CTG_CODE )
+				LEFT JOIN BOM_TRANSFER_INFO_TB T5
+					ON ( T1.PRD_TRANSFOR_INF = T5.IDX )
 		
 		WHERE
 			T1.PRD_CD = #{prdCd}
@@ -556,6 +560,8 @@
 				<if test="fromDate != null and fromDate != ''">,`FROM_DATE` = #{fromDate}</if>
 				<if test="toDate != null and toDate != ''">,`TO_DATE` = #{toDate}</if>
 				<if test="prdStock != null and prdStock >=0">,`PRD_STOCK` = #{prdStock}</if>
+				<if test="prdTransInf != null and prdTransInf >=0">,`PRD_TRANSFOR_INF` = #{prdTransInf}</if>
+				
 				
 				
 		WHERE

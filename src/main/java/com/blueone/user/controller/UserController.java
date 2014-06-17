@@ -87,7 +87,7 @@ public class UserController {
 
 	//�쉶�썝媛��엯 泥섎━
 	@RequestMapping(value = "/user/userRegisterProc.do", method=RequestMethod.POST)
-	public String userRegisterProc(@ModelAttribute("customerInfo") CustomerInfo customerInfo,BindingResult result, Model model, HttpSession session){
+	public String userRegisterProc(@ModelAttribute("customerInfo") CustomerInfo customerInfo,BindingResult result, Model model, HttpSession session) throws Exception{
 		
 		String birth ="1999-11-22";
 		customerInfo.setCustBirth(birth);
@@ -113,7 +113,9 @@ public class UserController {
 		customerInfo.setCustSx("");
 		
 		
-		
+		Map<String, String> map = HMallInterworkUtility.procSearchPoint(customerInfo.getCustNm(), customerInfo.getCustId(),(String)session.getAttribute("shopEventNo"));
+		String point = (String)map.get("return_point");
+		session.setAttribute("customerPoint", point);
 		
 		// 怨좉컼�벑濡앹쿂由�
 		int rst = customerService.registUserInfo(customerInfo);
