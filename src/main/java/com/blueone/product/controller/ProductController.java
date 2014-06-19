@@ -392,7 +392,11 @@ public class ProductController {
 
 		productInfo = productManageService.getProductInfDetail(productInfo);
 
-		productInfo.setContent(productInfo.getPrdConts());
+		String prdContents =productInfo.getPrdConts();
+		prdContents.replaceAll("\n", "<br>");
+		prdContents.replaceAll("\r", "");
+		
+		productInfo.setContent(prdContents);
 
 		List<ProductInfo> prdOpList = new ArrayList<ProductInfo>();
 		prdOpList = productManageService.getProductOptionInfDetail(productInfo);
@@ -494,6 +498,7 @@ public class ProductController {
 			@ModelAttribute("productInfo") ProductInfo productInfo,
 			BindingResult result, Model model) throws FileNotFoundException,
 			IOException {
+		
 		productInfo.setPrdConts(productInfo.getContent());
 		productManageService.manageProductInf(productInfo);
 

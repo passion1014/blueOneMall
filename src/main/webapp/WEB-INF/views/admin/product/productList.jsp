@@ -148,7 +148,7 @@
 						
 	
 						<input value="검색" class="Small_Button Gray" type="submit">
-						<input value="초기화" class="Small_Button Gray" title="초기하기" onclick="location.href='./admin.product.php?slot=product&amp;type=goods_list'" type="button">
+						<input value="초기화" class="Small_Button Gray" title="초기하기" onclick="#" type="button">
 					</div>
 				</td>
 			</tr>
