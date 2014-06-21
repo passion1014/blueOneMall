@@ -26,6 +26,7 @@ public class BoardInfo {
 	private String insDt;		// 최초입력일
 	private String insDtTyp1;	// 최초입력일
 	private String insUser;		// 최초입력자
+	private String insUserNm;   // 최초입력자이름
 	private String updDt;		// 최종변경일
 	private String updUser;		// 최종변경자
 	private MultipartFile[] uploadFile;		// 첩부파일
@@ -43,6 +44,13 @@ public class BoardInfo {
 	private String[] contImageFile;	// 내용에 추가된 이미지파일
 	private List<BoardAttachFileInfo> attachFiles;
 	
+	
+	public String getInsUserNm() {
+		return insUserNm;
+	}
+	public void setInsUserNm(String insUserNm) {
+		this.insUserNm = insUserNm;
+	}
 	public String getInsDtTyp1() {
 		return insDtTyp1;
 	}

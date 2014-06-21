@@ -163,6 +163,14 @@ public class OrderManageController {
 		//배송비관련 정보
 		ConfigInfo resConfigInfo = adminManageService.selectConfigInf();
 		model.addAttribute("config", resConfigInfo);
+		
+		
+		//결제 정보
+		PaymentInfo pay = new PaymentInfo();
+		pay.setOrderNo(odNo);
+		List<PaymentInfo> payList = orderManageService.selectPaymentInfo(pay);
+		model.addAttribute("payList", payList);
+		
 		return "admin/order/orderManagement";
 	}
 	

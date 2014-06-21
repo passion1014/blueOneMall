@@ -354,9 +354,9 @@ function SetPriceInput(str)
 			<c:if test="${odPrdInfo.size() != 1}"><input type="hidden" id="ordPrd.prdNm"   name="good_name" value="${odPrdInfo[0].prdNm} 외 ${odPrdInfo.size()-1}개" /></c:if>
 
 			<!-- 유저 보유포인트 시작 -->
-			<!--<input type="text" id="user_point" name="user_point"  value="${userPoint}"/>-->
-			<input type="hidden" id="user_point"        name="user_point"         value="10000000"/>
-			<input type="hidden" id="result_user_point" name="result_user_point"  value="10000000"/>
+			<!--<input type="hidden" id="user_point"        name="user_point"         value="10000000"/>-->
+			<input type="hidden" id="user_point"        name="user_point"         value="${userPoint}"/>
+			<input type="hidden" id="result_user_point" name="result_user_point"  value="${userPoint}"/>
 
 			<!-- 유저 보유포인트 끝 -->
 
@@ -431,7 +431,8 @@ function SetPriceInput(str)
 										<tr><td height="1" colspan="6" bgcolor="#E0E0E0"></td></tr>
 									</c:forEach>
 
-
+								</c:when>
+								</c:choose>
 
 
 									<tr>
@@ -439,11 +440,14 @@ function SetPriceInput(str)
 									<td class="total_choice" colspan="6">
 										총 주문금액 : 
 										<c:forEach items="${odPrdInfo}" var="odPrdInfo">
-										<script>SetPriceInput('${odPrdInfo.totalPrice}');</script>원 +
+										<script>SetPriceInput('${odPrdInfo.totalPrice}');</script>원
 										<c:set var="total" value="${total+odPrdInfo.totalPrice}"/>
 										</c:forEach>
-										 <c:if test="${total>=config.buyPrice}">배송비 :  <script>SetPriceInput('${config.trasferPrice}');</script>원</c:if>
-										 <c:if test="${total<config.buyPrice}">배송비 : 0원 </c:if>
+										 <c:if test="${total<=config.buyPrice}">
+											+ 배송비 :  <script>SetPriceInput('${config.trasferPrice}');</script>원
+											<c:set var="total" value="${total+config.trasferPrice}"/>
+										 </c:if>
+										 <c:if test="${total>config.buyPrice}">배송비 : 0원 </c:if>
 										 = 합계 <strong><script>SetPriceInput('${total}');</script></strong>원
 
 
@@ -599,11 +603,44 @@ function SetPriceInput(str)
 								</tbody>
 							</table>
 							<p class="sub_tit1">결제 수단 선택</p>
+							<script>
+
+							function settlement_change(kk){
+								if(kk=="card"){
+									document.getElementById('pay_method').value='100000000000';
+									document.getElementById('pArea').style.display='block';
+								}else{
+									document.getElementById('pay_method').value='010000000000';
+									document.getElementById('pArea').style.display='none';
+								}
+							}
+
+							
+							function pp_change(kk){
+								if(kk=="y"){
+									document.order_info.site_cd.value = "E6902" ;
+									document.order_info.site_key.value = "14JUn1FLX1gAcSb.DCP9J3d__" ;
+									//document.order_info.site_cd.value = "T0000" ;
+									//document.order_info.quotaopt.value = "80" ;
+									document.order_info.used_card_YN.value = "Y" ;
+									document.order_info.action = "/resources/kcp/pp_ax_hub_p.jsp" ;
+								}else{
+									document.order_info.site_cd.value = "E6513" ;
+									document.order_info.site_key.value = "48xS6dqDIAo9A1rds6UfaxX__" ;
+									//document.order_info.site_cd.value = "T0000" ;
+									//document.order_info.quotaopt.value = "12" ;
+									document.order_info.used_card_YN.value = "N" ;
+									document.order_info.action = "/resources/kcp/pp_ax_hub.jsp" ;
+								}
+							}
+
+							</script>
+
 							<span class="payment1">
 								
-								<input type="radio" id="settlement_type" name="settlement_type" onClick="document.getElementById('pay_method').value='100000000000' ;" value="100000000000" checked /><label for="credit_card">신용카드</label>
-								
-								
+								<input type="radio" id="settlement_type" name="settlement_type" onClick="settlement_change('card')" value="100000000000" checked /><label for="credit_card">신용카드</label>
+								<input type="radio" id="settlement_type" name="settlement_type" onClick="settlement_change('bank')" value="010000000000" /><label for="account_transfer">실시간 계좌이체</label>
+								<input type="hidden" id="pay_method" name="pay_method" value="100000000000">
 								<!--
 								<select name="pay_method">
 									<option value="100000000000">신용카드</option>
@@ -611,15 +648,11 @@ function SetPriceInput(str)
 									<option value="000100000000">포인트</option>
 								</select>
 								-->
-
 							</span>
-							<span class="payment2">
-								<input type="radio" id="settlement_type" name="settlement_type" onClick="document.getElementById('pay_method').value='010000000000' ;" value="010000000000" /><label for="account_transfer">실시간 계좌이체</label>
-								<input type="hidden" id="pay_method" name="pay_method" value="100000000000">
-								<!--
-								<input type="radio" id="welfare_card" name="payment2" checked onClick="document.getElementById('pt_memcorp_cd').value='';"/><label for="welfare_card">복지 카드 포인트 사용안함</label>
-								<input type="radio" id="welfare_ncard" name="payment2" onClick="document.getElementById('pt_memcorp_cd').value='hdhns3';"/><label for="welfare_ncard">복지 카드 포인트 사용</label>
-								-->
+							
+							<span id="pArea" class="payment2">
+								<input type="radio" id="welfare_card" name="payment2" checked onClick="pp_change('n');" /><label for="welfare_card">복지 카드 포인트 사용안함</label>
+								<input type="radio" id="welfare_ncard" name="payment2" onClick="pp_change('y');" /><label for="welfare_ncard">복지 카드 포인트 사용</label>
 							</span>
 						</div>
 						<div class="point_employ2">
@@ -675,35 +708,6 @@ function SetPriceInput(str)
 
 
 
-								</c:when>
-								<c:otherwise>
-									<tr><td colspan="5" height="90">구매하실 상품이 없습니다.</td></tr>
-									<tr>
-									<c:set var="total"  value="0"/>
-									<td class="total_choice" colspan="6">
-										총 주문금액 : 
-										<c:forEach items="${odPrdInfo}" var="odPrdInfo">
-										<script>SetPriceInput('${odPrdInfo.totalPrice}');</script>원 +
-										<c:set var="total" value="${total+odPrdInfo.totalPrice}"/>
-										</c:forEach>
-										 <c:if test="${total>=config.buyPrice}">배송비 :  <script>SetPriceInput('${config.trasferPrice}');</script>원</c:if>
-										 <c:if test="${total<config.buyPrice}">배송비 : 0원 </c:if>
-										 = 합계 <strong><script>SetPriceInput('${total}');</script></strong>원
-
-
-										 <input type="hidden" id="total_price" name="total_price" value="${total}"/>
-										 <input type="hidden" id="good_mny"    name="good_mny"    value="${total}"/>
-
-										 <input type="hidden" id="sndAmount"  name="sndAmount"  value="${total}" /><!-- kst net -->
-									</td>
-								</tr>
-								
-							</tbody>
-						</table>
-				</div>
-									
-									</c:otherwise>
-								</c:choose>
 								
 <%
     /* = -------------------------------------------------------------------------- = */
@@ -722,6 +726,7 @@ function SetPriceInput(str)
 %>
     <input type="hidden" name="req_tx"          value="pay" />
     <input type="hidden" name="site_cd"         value="<%= g_conf_site_cd   %>" />
+		<input type="hidden" name="site_key"         value="<%= g_conf_site_key   %>" />
     <input type="hidden" name="site_name"       value="<%= g_conf_site_name %>" />
 <%
     /*
@@ -777,10 +782,14 @@ function SetPriceInput(str)
 	<input type="hidden" name="good_expr" value="0">
 
 	<!-- 가맹점에서 관리하는 고객 아이디 설정을 해야 합니다.(필수 설정) -->
-	<!--input type="hidden" id="shop_user_id" name="shop_user_id"    value="hdhns1"/-->
-	<input type="hidden" id="shop_user_id" name="shop_user_id"    value="hdhns1"/>
+	<input type="hidden" id="shop_user_id" name="shop_user_id" value=""/>
 	<!-- 복지포인트 결제시 가맹점에 할당되어진 코드 값을 입력해야합니다.(필수 설정) -->
-	<input type="hidden" id="pt_memcorp_cd" name="pt_memcorp_cd"   value="hdhns3"/>
+	<input type="hidden" id="pt_memcorp_cd" name="pt_memcorp_cd" value=""/>
+	
+	<!-- 사용카드 설정 여부 파라미터 입니다.(통합결제창 노출 유무) -->
+	<input type="hidden" name="used_card_YN" value="N"/> 
+	<!-- 사용카드 설정 파라미터 입니다. (해당 카드만 결제창에 보이게 설정하는 파라미터입니다. used_card_YN 값이 Y일때 적용됩니다. -->
+  <input type="hidden" name="used_card"    value="CCDI"/>
 
 <%
     /* = -------------------------------------------------------------------------- = */
