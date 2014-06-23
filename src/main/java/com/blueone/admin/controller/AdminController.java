@@ -64,7 +64,7 @@ public class AdminController {
 			if (loggedInfo != null) {
 				if(inpw.equals(loggedInfo.getPassword())){
 					mav.addObject("adminSession", loggedInfo);// 세션에 정보 셋팅
-					mav.setViewName("redirect:adminDefault.do");
+					mav.setViewName("redirect:orderList.do");
 				}else{
 					mav.setViewName("redirect:adminLogin.do");
 				}
