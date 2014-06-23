@@ -99,14 +99,26 @@
 						document.getElementById("buyr_tel1").value = document.getElementById("tel1").value + document.getElementById("tel2").value + document.getElementById("tel3").value ;
 						document.getElementById("buyr_tel2").value = document.getElementById("hp1").value + document.getElementById("hp2").value + document.getElementById("hp3").value ;
 
-						if(parseInt(document.getElementById("good_mny").value) <= 0){
-							alert("최소결제금액이 1000원 이상이어야 합니다");
-							return false ;
-						}
-
 						if (!$('input[name="agr_check"]').is(":checked")){
 							alert("주문에 동의하여야 주문이 완료됩니다.") ;
 							return false;
+						}
+
+						if(parseInt(document.getElementById("good_mny").value) == 0){
+
+							var Address = document.getElementById("custZip1").value +"-"+ document.getElementById("custZip2").value +" "+ document.getElementById("custAdd").value +" "+ document.getElementById("custAddDetail").value;
+
+
+							document.getElementById("reciInfo.reciNm").value   = document.getElementById("reciNm").value ;
+							document.getElementById("reciInfo.reciPh").value   = document.getElementById("tel1").value + document.getElementById("tel2").value + document.getElementById("tel3").value  ;
+							document.getElementById("reciInfo.reciMb").value   = document.getElementById("hp1").value + document.getElementById("hp2").value + document.getElementById("hp3").value  ;
+							document.getElementById("reciInfo.reciAdd").value  = Address ;
+							document.getElementById("reciInfo.reciReq").value  = document.getElementById("reciReq").value ;
+
+							document.order_info.action = "orderComplete_allPoint.do" ;
+							document.order_info.submit();
+							return false ;
+
 						}
 						/* 고객 데이터 세팅 끝 */
 
@@ -282,6 +294,7 @@
 
 						if(resultBuyPrice >= 0){
 
+							/*
 							if(resultBuyPrice >= 1000){
 
 								var resultValue    = getUserPoint - usePoint ;
@@ -305,6 +318,20 @@
 								return false ; 
 
 							}
+							*/
+
+							var resultValue    = getUserPoint - usePoint ;
+							var resultBuyPrice = buyPrice - usePoint ;
+
+							// 포인트 계산
+							document.getElementById("use_point").value         = usePoint ; 
+							document.getElementById("myPointView").innerHTML   = resultValue + " P" ; 
+							document.getElementById("usePointView2").innerHTML = usePoint ; 
+
+							// 결제금 계산
+							document.getElementById("good_mny").value            = resultBuyPrice ; 
+							document.getElementById("resultPriceView").innerHTML = resultBuyPrice ; 
+							document.getElementById("result_user_point").value   = resultValue ; 
 
 						}else{
 
@@ -331,10 +358,21 @@ function SetPriceInput(str)
 	}
 	document.write(retValue); 
 }
+
+function pre_count(){
+	var my_point    = "${userPoint}" ;
+	var total_price = document.getElementById("total_price").value ;
+
+	if(parseInt(total_price) <= parseInt(my_point)){
+		document.getElementById("use_point").value = total_price ;
+		usePointChecker();
+	}
+
+}
     </script>
 </head>
 
-<body onload="init_orderid();">
+<body onload="init_orderid();pre_count();">
 	<div class="wrap">
 	<c:import url="../inc/header.jsp"/>
 	
@@ -373,6 +411,17 @@ function SetPriceInput(str)
 			<input type="hidden" name="orderAddDetail" id="orderAddDetail" value="${cus.custAddDetail}" />
 			<input type="hidden" name="orderEmail" id="orderEmail" value="${cus.custEmail}"/>
 			<!-- 주문시 폼 변화에 필요한 필드 끝 -->
+
+
+			<!-- 0 결제시 필요정보 -->
+			<input type="hidden" id="use_pay_method2"  name="use_pay_method2"  value="000000000001">    <!-- 방식 -->
+			<input type="hidden" id="orderNo"          name="orderNo"          value="${orderInfo.orderNo}">    <!-- 주문번호 -->
+			<input type="hidden" id="reciInfo.reciNm"  name="reciInfo.reciNm"  value="${cus.custNm}">   <!-- 이름 -->
+			<input type="hidden" id="reciInfo.reciPh"  name="reciInfo.reciPh"  value="${cus.telNo1},${cus.telNo2},${cus.telNo3}">  <!-- 전화번호 -->
+			<input type="hidden" id="reciInfo.reciMb"  name="reciInfo.reciMb"  value="${cus.hpNo1},${cus.hpNo2},${cus.hpNo3}">     <!-- 핸드폰번호-->
+			<input type="hidden" id="reciInfo.reciAdd" name="reciInfo.reciAdd" value="${cus.custZip1}-${cus.custZip2} ${cus.custAddDetail}">    <!-- 주소 -->
+			<input type="hidden" id="reciInfo.reciReq" name="reciInfo.reciReq" value="">    <!-- 요청사항 -->
+			<!-- 0 결제시 필요정보 -->
 
 				<div class="porder_section">
 					<h4>제품주문</h4>
