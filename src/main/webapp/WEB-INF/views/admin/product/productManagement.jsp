@@ -43,7 +43,7 @@
 	});
 	function fnAddClick() {
 		var f = tx_editor_form;
-
+		
 		f.action = 'manageProductInfProc.do';
 
 		Editor.save(); // 다음 에디터
