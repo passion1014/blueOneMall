@@ -1,4 +1,4 @@
-	
+
 package com.blueone.order.controller;
 
 import java.io.IOException;
@@ -935,7 +935,7 @@ public class OrderController {
 	
 	//二쇰Ц?깃났?섏씠吏?
 	@RequestMapping(value="/order/orderComplete_allPoint.do")
-	public String orderComplete_allPoint(@ModelAttribute("orderInfo") OrderInfo orderInfo,String use_pay_method,BindingResult result,String card_cd,String good_mny,HttpSession session, Model model,HttpServletRequest request,HttpServletResponse response) throws Exception{
+	public String orderComplete_allPoint(@ModelAttribute("orderInfo") OrderInfo orderInfo,String use_pay_method2,BindingResult result,String card_cd,String good_mny,HttpSession session, Model model,HttpServletRequest request,HttpServletResponse response) throws Exception{
 CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");
 		
 		// ?몄뀡泥댄겕
@@ -1062,8 +1062,8 @@ CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");
 		payment.setOrderNo(odNo);
 		payment.setOrderNoSeq(1);
 		payment.setPayPrice(total);
-		payment.setPayMdCd(use_pay_method);
-		model.addAttribute("pay",use_pay_method);
+		payment.setPayMdCd(use_pay_method2);
+		model.addAttribute("pay",use_pay_method2);
 		payment.setModifyUserId(cus.getCustId());
 		
 		int usePoint =0;

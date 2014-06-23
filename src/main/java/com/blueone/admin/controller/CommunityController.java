@@ -356,9 +356,58 @@ public class CommunityController {
 		return "redirect:qnaBoard.do";
 
 	}
+
 	
-	//Q&A 등록
-	@RequestMapping(value = "/qnaWrite.do", method = RequestMethod.GET)
+	//Event 리스트
+	@RequestMapping(value = "/eventBoard.do", method = RequestMethod.GET)
+	public String eventBoard(@ModelAttribute("AdminInfo") AdminInfo adminInfo,BindingResult result, Model model, HttpSession session) {
+		
+		AdminInfo adminSession = (AdminInfo) session
+				.getAttribute("adminSession");
+		if (adminSession == null) {
+			return "redirect:adminLogin.do";
+		}
+
+		// 공지사항 페이지
+		int currentPage = adminInfo.getCurrentPage();
+
+		// ----------------------------------------------------
+		// 공지사항 가져오기
+		// ----------------------------------------------------
+		BoardSrchInfo boardSrchInfo = new BoardSrchInfo();
+		boardSrchInfo.setSrchBrdTyp(11);
+
+		// 페이지정보 셋팅
+		if (currentPage != 0)
+			boardSrchInfo.setCurrentPage(currentPage);
+
+		List<BoardInfo> boardList = boardService.getBrdTypBoardList(boardSrchInfo);
+		boardSrchInfo.setTotalCount(boardService.getBrdTypTotalCount(boardSrchInfo));
+
+		model.addAttribute("eventList", boardList);
+		model.addAttribute("pageHtml", getPageHtml(boardSrchInfo));
+		 
+		return "admin/community/event";
+
+	}
+	//event 삭제
+	@RequestMapping(value = "/eventDelete.do", method = RequestMethod.GET)
+	public String eventDelete(@ModelAttribute("AdminInfo") BoardInfo brdInfo,BindingResult result, Model model, HttpSession session) {
+		
+		AdminInfo adminSession = (AdminInfo) session
+				.getAttribute("adminSession");
+		if (adminSession == null) {
+			return "redirect:adminLogin.do";
+		}
+		
+		
+		boardService.deleteBoardTBInf(brdInfo);
+		
+		return "redirect:eventBoard.do";
+
+	}
+	//event 등록
+	@RequestMapping(value = "/eventWrite.do", method = RequestMethod.GET)
 	public String qnaWrite(@ModelAttribute("AdminInfo") AdminInfo adminInfo,BindingResult result, Model model, HttpSession session) {
 	
 		AdminInfo adminSession = (AdminInfo) session.getAttribute("adminSession");
@@ -370,12 +419,12 @@ public class CommunityController {
 		
 		model.addAttribute("admin", adminSession);
 		
-		return "admin/community/qnaWrite";
+		return "admin/community/eventWrite";
 
 	}
 	
-	//Q&A 등록 처리
-	@RequestMapping(value = "/qnaWriteProc.do", method = RequestMethod.POST)
+	//event 등록 처리
+	@RequestMapping(value = "/eventWriteProc.do", method = RequestMethod.POST)
 	public String qnaWriteProc(@ModelAttribute("AdminInfo") BoardInfo brdInfo,RedirectAttributes redirectAttributes,BindingResult result, Model model, HttpSession session) {
 	
 		AdminInfo adminSession = (AdminInfo) session.getAttribute("adminSession");
@@ -388,11 +437,44 @@ public class CommunityController {
 		boardService.insertBoard(brdInfo);
 		redirectAttributes.addFlashAttribute("reloadVar", "yes");
 		
-		return "redirect:noticeWrite.do";
+		return "redirect:eventBoard.do";
 
 	}
 	
+	//이벤트 수정
+	@RequestMapping(value = "/eventEdit.do", method = RequestMethod.GET)
+	public String eventEdit(@ModelAttribute("AdminInfo") BoardInfo brdInfo,BindingResult result, Model model, HttpSession session) {
 	
+		AdminInfo adminSession = (AdminInfo) session.getAttribute("adminSession");
+		
+		if (adminSession == null) {
+			return "redirect:adminLogin.do";
+		}
+		
+		BoardInfo editBrd = boardService.selectBOM_BOARD_TB(brdInfo.getBrdSeq());
+		
+		model.addAttribute("editBrd", editBrd);
+		model.addAttribute("admin", adminSession);
+		return "admin/community/eventEdit";
+
+	}
+	
+	@RequestMapping(value = "/eventEditProc.do", method = RequestMethod.POST)
+	public String eventEditProc(@ModelAttribute("AdminInfo") BoardInfo brdInfo,RedirectAttributes redirectAttributes,BindingResult result, Model model, HttpSession session) {
+	
+		AdminInfo adminSession = (AdminInfo) session.getAttribute("adminSession");
+		
+		if (adminSession == null) {
+			return "redirect:adminLogin.do";
+		}
+		
+		
+		boardService.updateBOM_BOARD_TB_notice(brdInfo);
+		redirectAttributes.addFlashAttribute("reloadVar", "yes");
+		
+		return "redirect:noticeEdit.do?brdSeq="+brdInfo.getBrdSeq();
+
+	}
 	/**
 	 * 리스트의 하단 페이지를 돌려주는 메소드
 	 * 

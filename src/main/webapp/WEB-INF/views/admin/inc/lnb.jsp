@@ -120,7 +120,8 @@
 		</ul>
 		<ul>
 			<h2>Event</h2>
-			<li><a href="qnaBoard.do">Event</a></li>
+			<li><a href="eventBoard.do">Event</a></li>
+			<li><a href="eventWrite.do">Event 등록</a></li>
 		</ul>
 	</div>
 	</c:when>		
