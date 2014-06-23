@@ -544,41 +544,6 @@ public class OrderController {
 		model.addAttribute("config", resConfigInfo);
 		
 		
-		//포인트 선차감
-		String decMemNm = cus.getCustNm();
-		String decMemNo = cus.getCustId();
-		String decShopEventNo = (String)session.getAttribute("shopEventNo");
-		String decPoint = total.toString();
-		String decOrderNo = orderInfo.getOrderNo();
-		
-		// --------------------------------------------
-		// 2. SSO泥섎━瑜??꾪븳 ?뱀꽌鍮꾩뒪 ?몄텧
-		// --------------------------------------------
-		Map<String, String> rstMap = null;
-		try {
-			rstMap = HMallInterworkUtility.procUsePoint(decMemNm, decMemNo, decShopEventNo, decPoint, decOrderNo);
-		} catch (Exception e) {
-			model.addAttribute("msg", "SSO泥섎━???먮윭諛쒖깮?섏??듬땲??");
-			return "user/loginError";
-		}
-		
-		// --------------------------------------------
-		// 3. 泥댄겕 - SSO泥섎━ 寃곌낵瑜??뺤씤?쒕떎.
-		// --------------------------------------------
-		if (rstMap == null) {
-			model.addAttribute("msg", "SSO泥섎━ 寃곌낵媛??놁뒿?덈떎.(1)");
-			
-			return "user/loginError";
-		} else {
-			String returnCode = (String)rstMap.get("return_code");
-			
-			if (!"000".equals(returnCode)) {
-				model.addAttribute("msg", HMallInterworkUtility.getErrorMsgByCode(returnCode));
-				return "user/loginError";
-			}
-		}
-		
-		
 		//포인트 조회
 		Map<String, String> pointmap = HMallInterworkUtility.procSearchPoint(cus.getCustNm(), cus.getCustId(),(String)session.getAttribute("shopEventNo"));
 		String point = (String)pointmap.get("return_point");
@@ -936,7 +901,7 @@ public class OrderController {
 	//二쇰Ц?깃났?섏씠吏?
 	@RequestMapping(value="/order/orderComplete_allPoint.do")
 	public String orderComplete_allPoint(@ModelAttribute("orderInfo") OrderInfo orderInfo,String use_pay_method2,BindingResult result,String card_cd,String good_mny,HttpSession session, Model model,HttpServletRequest request,HttpServletResponse response) throws Exception{
-CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");
+		CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");
 		
 		// ?몄뀡泥댄겕
 		if (cus == null) {
@@ -1066,17 +1031,21 @@ CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");
 		model.addAttribute("pay",use_pay_method2);
 		payment.setModifyUserId(cus.getCustId());
 		
-		int usePoint =0;
 		
+		//諛곗넚鍮꾧????뺣낫
+		ConfigInfo resConfigInfo = adminManageService.selectConfigInf();
+
+		if(resConfigInfo.getBuyPrice()<=total.intValue()){
+			total.add(new BigDecimal(resConfigInfo.getTrasferPrice()));
+		}
 		
 		String decMemNm = cus.getCustNm();
 		String decMemNo = cus.getCustId();
 		String decShopEventNo = (String)session.getAttribute("shopEventNo");
-		
 		String decPoint = total.toString();
 		String decOrderNo = odNo;
 		
-		// --------------------------------------------
+		/*// --------------------------------------------
 		// 2. SSO泥섎━瑜??꾪븳 ?뱀꽌鍮꾩뒪 ?몄텧
 		// --------------------------------------------
 		Map<String, String> rstMap = null;
@@ -1108,15 +1077,15 @@ CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");
 				return "user/loginError";
 			}
 		}
-		
+		*/
 		payment.setPayPoint(total.intValue());
 		Map<String, String> map = HMallInterworkUtility.procSearchPoint(cus.getCustNm(), cus.getCustId(),decShopEventNo);
 		customerPoint = (String)map.get("return_point");
 		model.addAttribute("CUST_POINT", customerPoint);
 		session.setAttribute("customerPoint", customerPoint);
-			
 		
-		model.addAttribute("usePoint",usePoint);
+
+		model.addAttribute("usePoint",total);
 		payment.setPymtMemo("결제완료");
 		orderManageService.registPaymentInfo(payment);
 		model.addAttribute("odPrdInfo",opResInf);
@@ -1126,11 +1095,6 @@ CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");
 		re=orderInfo.getReciInfo();
 		re.setReciOdNum(odNo);
 		
-		re.setReciNm(URLDecoder.decode(re.getReciNm(), "UTF-8"));
-		re.setReciPh(URLDecoder.decode(re.getReciPh(), "UTF-8"));
-		re.setReciMb(URLDecoder.decode(re.getReciMb(), "UTF-8"));
-		re.setReciAdd(URLDecoder.decode(re.getReciAdd(), "UTF-8"));
-		re.setReciReq(URLDecoder.decode(re.getReciReq(), "UTF-8"));
 		
 		customerManageService.updateCustomerInf(cus);
 		orderManageService.registRecipientInfo(re);
