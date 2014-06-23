@@ -109,6 +109,7 @@ Trex.Save = Trex.Class.create({
 	},
 	submit: function() {
 		if(this.save()) {
+			
 			this.editor.fireJobs(Trex.Ev.__ON_SUBMIT, this.editor);
 			if ( this.config.save && typeof this.config.save.onSave == "function" ){
 				var externalSaveHandler = this.config.save.onSave;
@@ -126,6 +127,7 @@ Trex.Save = Trex.Class.create({
 		var _outputMode = outputMode || "original";
 		
 		var _content = _canvas.getContent(); // getContent() of current mode
+		_content=_content.replace(/\n/gi,'');
 		_content = this.docparser.convertAtSave(_content, _editorMode, _outputMode);
 		
 		return _content;
@@ -181,8 +183,10 @@ Trex.Save = Trex.Class.create({
 			'content': function() {
 				var _contentObj = jsonData.content;
 				if (typeof _contentObj == "string") {
+					
 					return jsonData.content;
 				} else if (_contentObj && _contentObj.nodeType && (_contentObj.nodeType == 1)) {
+				
 					return jsonData.content.value;
 				} else {
 					return '';
