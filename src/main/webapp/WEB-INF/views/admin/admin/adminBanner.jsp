@@ -43,7 +43,7 @@
 					<c:otherwise>
 						<img src="${adImgInfo.bnImg1}" width="153">
 						<br />
-						<input type="button" value="이미지 삭제"  onClick="confirm_process('','이미지를 삭제하시겠습니까? \n\n삭제 후에는 복구가 불가능합니다.','deleteBannerImgProc.do?fieldName=bnImg1&fileName=${adImgInfo.bnImg1}';"   class="Small_Button Gray" />
+						<input type="button" value="이미지 삭제"  onClick="confirm_process('','이미지를 삭제하시겠습니까? \n\n삭제 후에는 복구가 불가능합니다.','deleteBannerImgProc.do?fieldName=bnImg1&fileName=${adImgInfo.bnImg1}');"   class="Small_Button Gray" />
 					</c:otherwise>
 				</c:choose>
 			</td>

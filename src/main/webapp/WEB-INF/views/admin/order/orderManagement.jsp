@@ -88,11 +88,15 @@ function chk_form(f){
 				<td class="total_choice right" colspan="6">
 					총 주문금액 : 
 					<c:forEach items="${odPrdInfo}" var="odPrdInfo">
-						${odPrdInfo.totalPrice}원 +
-						<c:set var="total" value="${total+odPrdInfo.totalPrice}"/>
+						${odPrdInfo.totalPrice}원
+						<c:set var="total" value="${total+odPrdInfo.totalPrice-payList.get(0).payPoint}"/>
 					</c:forEach>
-					<c:if test="${total<=config.buyPrice}">배송비 : ${config.trasferPrice}원<c:set var="total"  value="${total+config.trasferPrice}"/></c:if>
-					<c:if test="${total>config.buyPrice}">배송비 : 0원 </c:if>
+					<c:if test="${total<=config.buyPrice}">
+						+ 배송비 :  <script>SetPriceInput('${config.trasferPrice}');</script>원
+						<c:set var="total" value="${total+config.trasferPrice}"/>
+					</c:if>
+					<c:if test="${total>config.buyPrice}"> + 배송비 : 0원 </c:if>
+					<c:if test="${payList.get(0).payPoint>0}"> - 사용포인트 : ${payList.get(0).payPoint}원 </c:if>
 					= 합계 <strong>${total}</strong>원
 					<input type="hidden" id="sndAmount"  name="sndAmount"  value="${total}" />
 				</td>
@@ -137,8 +141,7 @@ function chk_form(f){
 					</tr>
 				</tbody>
 			</table><br/>
-
-			<h5>포인트 / 결제 현황 / 주문 상태</h5>
+			<h5>주문 상태 / 포인트 / 결제 현황 </h5>
 			<table class="order_tblbox" >
 				<colgroup>
 					<col width="15%"/>
@@ -163,7 +166,7 @@ function chk_form(f){
 								<option value=02 <c:if test="${odInfo.orderStatCd eq '02'}">selected</c:if>>결제완료</option>
 								<option value=07 <c:if test="${odInfo.orderStatCd eq '07'}">selected</c:if>>취소신청</option>
 								<option value=08 <c:if test="${odInfo.orderStatCd eq '08'}">selected</c:if>>취소완료</option>
-								<option value=03 <c:if test="${odInfo.orderStatCd eq '03'}">selected</c:if>>배송분비</option>
+								<option value=03 <c:if test="${odInfo.orderStatCd eq '03'}">selected</c:if>>배송준비</option>
 								<option value=04 <c:if test="${odInfo.orderStatCd eq '04'}">selected</c:if>>배송중</option>
 								<option value=05 <c:if test="${odInfo.orderStatCd eq '05'}">selected</c:if>>배송완료</option>
 								<option value=09 <c:if test="${odInfo.orderStatCd eq '09'}">selected</c:if>>반품신청</option>
@@ -171,14 +174,26 @@ function chk_form(f){
 							</select>
 						</td>
 					</tr>
-					<tr>
-						<th>포인트 사용현황</th>
-						<td class="in_text" colspan="3">${reInfo.reciAdd}</td>
-					</tr>
-					<tr>
-						<th>결제 수단</th>
-						<td class="in_sectext">${reInfo.reciAdd}</td>
-					</tr>
+					<c:if test="${payList.size() != 0}">
+						<c:forEach var="payList" items="${payList}">
+							<tr>
+								<th>사용 적립금/포인트</th>
+								<td class="in_text" colspan="3">${payList.payPoint}</td>
+							</tr>
+							<tr>
+								<th>결제 수단</th>
+								<td class="in_sectext">
+									<c:if test="${payList.payMdCd eq '100000000000'}">신용카드</c:if>
+									<c:if test="${payList.payMdCd eq '010000000000'}">계좌이체</c:if>
+									<c:if test="${payList.payMdCd eq '000100000000'}">복지카드</c:if>
+								</td>
+							</tr>
+							<tr>
+								<th>비고</th>
+								<td class="in_text" colspan="3">${payList.pymtMemo}</td>
+							</tr>
+						</c:forEach>
+					</c:if>
 				</tbody>
 			</table>
 			<div style="margin-top:20px;" class="center">

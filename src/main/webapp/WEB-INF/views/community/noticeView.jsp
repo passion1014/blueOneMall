@@ -41,7 +41,7 @@
 											<td>${brdView.insDt.substring(0,10)}</td>
 										</tr>
 										<tr>
-											<td colspan="4">
+											<td colspan="4" class="h_tdarea">
 											<input type="hidden" name="content"/>
 											${content}
 												<script type="text/javascript">
@@ -71,7 +71,8 @@
 	</div>
 <!--  container 끝   -->	
 
-	<import url="../inc/footer.jsp" />
 </div>
 </body>
-</html>
+</body>
+
+<c:import url="../inc/footer.jsp" />

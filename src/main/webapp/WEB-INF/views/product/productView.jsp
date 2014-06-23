@@ -24,6 +24,11 @@ function chk_shopForm(k){
 		alert("구매 수량이 옳바르지 않습니다");
 		return false;
 	}
+
+	if($("#prdOpColor").val() =='ch_color'){
+		alert("색상을 선택해주세요");
+		return false;
+	}
 	
 	document.getElementById("prdfm").submit() ;
 }
@@ -79,7 +84,7 @@ function SetPriceInput(str)
 					<c:if test="${'' eq pro.ctgSmallName}"><c:out value="없음"/></c:if>
 					<c:if test="${'' ne pro.ctgSmallName}"><c:out value="${pro.ctgSmallName}"/></c:if>
 					<h4>${pro.prdNm}</h4>
-					<div class="view_dbox1">
+					<div class="view_dbox1" style="text-align:center;">
 						<p style="width:378px;height:379px;">
 						<c:forEach items="${imgList}" var="prdImg">
 							<c:if test="${'01' eq prdImg.attImgType}">
@@ -88,25 +93,25 @@ function SetPriceInput(str)
 							</c:if>
 						</c:forEach>
 						</p>
-						<button><img src="<c:url value='/resources/img/common/btn_viewpro.jpg'/>" alt="자세히보기"/></button>
+						<div class="detail_button" ><img src="<c:url value='/resources/img/common/btn_viewpro.jpg'/>" alt="자세히보기" style="cursor:pointer;"/></div>
 						<c:forEach items="${imgList}" var="prdImg">
 							<c:if test="${'02' eq prdImg.attImgType && 1 eq prdImg.attImgSeq}">
-								<span class="mralign"><img src="${prdImg.attFilePath}" alt="상품 작은이미지"  width="87" height="87"></span>
+								<span class="mralign"><img src="${prdImg.attFilePath}" alt="상품 작은이미지"  width="87" height="87" style="cursor:pointer;"></span>
 							</c:if>
 						</c:forEach>
 						<c:forEach items="${imgList}" var="prdImg">
 							<c:if test="${'02' eq prdImg.attImgType && 2 eq prdImg.attImgSeq}">
-								<span class="mralign"><img src="${prdImg.attFilePath}" alt="상품 작은이미지"  width="87" height="87"></span>
+								<span class="mralign"><img src="${prdImg.attFilePath}" alt="상품 작은이미지"  width="87" height="87" style="cursor:pointer;"></span>
 							</c:if>
 						</c:forEach>
 						<c:forEach items="${imgList}" var="prdImg">
 							<c:if test="${'02' eq prdImg.attImgType && 3 eq prdImg.attImgSeq}">
-								<span class="mralign"><img src="${prdImg.attFilePath}" alt="상품 작은이미지"  width="87" height="87"></span>
+								<span class="mralign"><img src="${prdImg.attFilePath}" alt="상품 작은이미지"  width="87" height="87" style="cursor:pointer;"></span>
 							</c:if>
 						</c:forEach>
 						<c:forEach items="${imgList}" var="prdImg">
 							<c:if test="${'02' eq prdImg.attImgType && 4 eq prdImg.attImgSeq}">
-								<span><img src="${prdImg.attFilePath}" alt="상품 작은이미지"  width="87" height="87"></span>
+								<span><img src="${prdImg.attFilePath}" alt="상품 작은이미지"  width="87" height="87" style="cursor:pointer;"></span>
 							</c:if>
 						</c:forEach>
 					</div>
@@ -125,7 +130,7 @@ function SetPriceInput(str)
 								</tr>
 								<tr>
 									<th>판매 가격</th>
-									<td colspan="2"><strong class="stext"><script>SetPriceInput('${pro.prdSellPrc}');</script> 원</strong></td>
+									<td colspan="2"><strong class="stext2"><script>SetPriceInput('${pro.prdSellPrc}');</script> 원</strong></td>
 								</tr>
 								<tr>
 									<th class="bottomline">배송비</th>
@@ -158,7 +163,7 @@ function SetPriceInput(str)
 									<th>색상</th>
 									<td colspan="2" >
 										<select  id="prdOpColor" name="prdOpColor">
-											<option value="">색상을 선택해주세요</option>
+											<option value="ch_color">색상을 선택해주세요</option>
 											<c:forEach var="opKey" items="${pro.optionKey}" begin="0" end="49" varStatus="i">
 												<c:if test="${'01' eq opKey}"> 
 													<option value="${pro.optionValue[i.index]}" >${pro.optionValue[i.index]}</option>
@@ -174,7 +179,7 @@ function SetPriceInput(str)
 									<th>크기</th>
 									<td colspan="2" >
 										<select  id="prdOpSize" name="prdOpSize">
-											<option value="">색상을 선택해주세요</option>
+											<option value="ch_size">크기를을 선택해주세요</option>
 											<c:forEach var="opKey" items="${pro.optionKey}" begin="0" end="49" varStatus="i">
 												<c:if test="${'02' eq opKey}"> 
 													<option value="${pro.optionValue[i.index]}" >${pro.optionValue[i.index]}</option>
@@ -203,8 +208,8 @@ function SetPriceInput(str)
 									</td>
 								</tr>
 								<tr>
-									<th class="bgcolor bottomline">총 합계 금액</th>
-									<td colspan="2" class="bgcolor salign bottomline">
+									<th   class="bgcolor bottomline2">총 합계 금액</th>
+									<td colspan="2" class="bgcolor salign bottomline2">
 										<strong class="stext"><span id="sellPriceView"><script>SetPriceInput('${pro.prdSellPrc}');</script></span> 원</strong>
 									</td>
 								</tr>
@@ -222,8 +227,8 @@ function SetPriceInput(str)
 									<c:when test="${pro.prdStock > 0}">
 										<tr>
 											<td colspan="3" class="btn_box">
-												<input type="button" value="바로 구매하기" class="btn_buy" title="구매하기" onClick="chk_shopForm('direct')"/>
-												<input type="button" value="장바구니" class="btn_buy" title="장바구니" onClick="chk_shopForm('cart')">
+												<input type="button" value="바로 구매하기" class="btn_buy" title="구매하기" onClick="chk_shopForm('direct')" style="cursor:pointer;"/>
+												<input type="button" value="장바구니" class="btn_buy" title="장바구니" onClick="chk_shopForm('cart')" style="cursor:pointer;">
 											</td>
 										</tr>
 									</c:when>
@@ -241,7 +246,7 @@ function SetPriceInput(str)
 				</form>
 				</div>
 				
-				<div class="protextbox"></div>
+				<!-- <div class="protextbox"></div> -->
 				
 				<div id="mark1" class="detail_section">
 					<ul>
@@ -263,7 +268,7 @@ function SetPriceInput(str)
 						<li class="endline">&nbsp;</li>
 					</ul>
 					<p class="image_section">
-						배송/반품/교환정보
+						${pro.prdTransContents}
 					</p>
 				</div>
 
@@ -280,10 +285,6 @@ function SetPriceInput(str)
 							<dl class="review_textbox">
 								<dt>이름</dt>
 								<dd>${customerSession.custNm}</dd>
-								<!-- <dt class="clearfix">첨부</dt>
-								<dd>
-									<input type="file" title="첨부파일"/>
-								</dd> -->
 								<dt class="clearfix textarea">내용</dt>
 								<dd class="textarea">
 									<textarea name="content" style="height:80px;"></textarea>
@@ -350,16 +351,8 @@ function SetPriceInput(str)
 	</div>
 <!--  container 끝   -->	
 
-	<div class="footer">
-		<div class="footer_area">
-			<h2><img src="<c:url value='/resources/img/common/footer_logo.jpg'/>" alt="현대 로고"/></h2>
-			<address>
-				공정거래위원회 고시 제2001-1호에 따른 사업자 등록번호:212-81-86027ㅣ대표이사 : 김화웅<br/>
-				개인정보관리 책임자 법인사업부 법인영업1팀 송선호 부장 l 주소:서울시 강동구 암사동 513-16번지 현대H&S<br/>
-				COPYRIGHT 2012 BY 현대H&S ALL RIGHT RESERVED.
-			</address>
-		</div>
-	</div>
+	
 </div>
-</body>
-</html>
+
+
+<c:import url="../inc/footer.jsp" />

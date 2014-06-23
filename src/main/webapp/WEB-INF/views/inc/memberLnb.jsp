@@ -18,7 +18,7 @@
 			<a href="/user/userPoint.do">사용내역조회</a>
 		</div>
 		-->
-		<li><a href="javascript:void(0)">내정보관리</a></li>
+		<li><a href="/user/userEdit.do">내정보관리</a></li>
 		<div class="onclick_list">
 			<a href="/user/userEdit.do">나의정보</a>
 		</div>

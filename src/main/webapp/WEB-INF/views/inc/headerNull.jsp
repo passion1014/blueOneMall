@@ -45,28 +45,28 @@
 <!--  header 시작 -->
 <div class="top_member">
 	<div class="member_info" >
-		<span style="color:#666; "><b style="color:#3b97cd;">${CUST_NAME}</b>&nbsp;회원님&nbsp;&nbsp;<FONT style="color:#3b97cd;">BLUEONESHOP</font>에 오신것을 환영합니다. </span>
-		<span style="color:#666; "><img src="/resources/img/main/common/icon_point2.png" alt="point" style="margin:0 5px 2px 0;"><b style="color:#3b97cd;">${CUST_POINT}</B>점&nbsp;&nbsp;&nbsp;&nbsp;</span>
+		<span>안녕하세요! 동의 후 이용이 가능합니다</span>
+		<span></span>
 	</div>
 <div>
 <div class="header">
 	<div class="top">
 		<h1><a href="../"><img src="<c:url value='/resources/img/main/common/blueone_logo.png'/>"/></a></h1>
 		<p class="top_img">
-			<a href="<%=AdImgDtl.getBnUrl7()%>"><img src="<%=AdImgDtl.getBnImg7()%>"/></a>
+			<img src="<%=AdImgDtl.getBnImg7()%>"/>
 		</p>
-		<form method="GET" id="topSFrm" name="topSFrm" action="/product/searchProduct.do">
+		<form id="topSFrm" name="topSFrm">
 		<div class="search_area">
 			<span class="search_menu" style="text-align:right;">
-				<a href="/order/cartListView.do" class="menu_site"><img src="/resources/img/main/common/icon_cart.png"  style="margin:0 0px 2px 0;"> 장바구니</a>
-				<a href="/user/orderListView.do" class="menu_site"><img src="/resources/img/main/common/icon_dele.png"  style="margin:0 0px 2px 0;"> 주문배송 조회</a>
-				<a href="/user/userEdit.do"><img src="/resources/img/main/common/icon_mypage.png"  style="margin:0 0px 2px 0;"> 마이페이지</a>
+				<a href="javascript:alert('동의 후 이용이 가능합니다.');" class="menu_site">장바구니</a>
+				<a href="javascript:alert('동의 후 이용이 가능합니다.');" class="menu_site">주문배송 조회</a>
+				<a href="javascript:alert('동의 후 이용이 가능합니다.');">마이페이지</a>
 			</span>
 			<span class="search_box">
 				<input type="text" id="schWord" name="schWord" value="${preSchWord}" title="서치텍스트박스"/>
 				<!--  input type="button" value="검색" onClick="javascript:location.href='/product/searchProduct.do?schWord='+document.getElementById('schWord').value;"/-->
-				<button onClick="topSFrm.submit();" style="cursor:pointer;"></button>
-				<select onChange="document.getElementById('schWord').value = this.value;" >
+				<button onClick="alert('동의 후 이용이 가능합니다.');" style="cursor:pointer;"></button>
+				<select onChange="document.getElementById('schWord').value = this.value;">
 					<c:forEach var="schWordList" items="<%=schWordList%>">
 						<option value="${schWordList.swWord}">${schWordList.swWord}</option>
 					</c:forEach>
@@ -82,10 +82,10 @@
 			<c:forEach begin="0" end="8" step="1" var="largeList" items="<%=largeMenuList%>">
 				<c:choose>
 					<c:when test="${counterNumber == '1'}">
-						<li><a href="/product/productList.do?ctgCode=${largeList.ctgCode}">${largeList.ctgName}</a></li>
+						<li><a href="javascript:alert('동의 후 이용이 가능합니다.');">${largeList.ctgName}</a></li>
 					</c:when>
 					<c:otherwise>
-						<li class="gnb_list"><a href="/product/productList.do?ctgCode=${largeList.ctgCode}">${largeList.ctgName}</a></li>
+						<li class="gnb_list"><a href="javascript:alert('동의 후 이용이 가능합니다.');">${largeList.ctgName}</a></li>
 					</c:otherwise>
 				</c:choose>	
 				<c:set value="${counterNumber+1}" var="counterNumber" />

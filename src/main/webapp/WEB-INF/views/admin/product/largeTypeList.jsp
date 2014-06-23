@@ -24,6 +24,7 @@
 			<col width="8%" />
 			<col width="*" />
 			<col width="15%" />
+			<col width="10%" />
 		</colgroup>
 	
 		<tr>
@@ -31,7 +32,7 @@
 			<th>정렬순위</th>
 			<th>사진</th>
 			<th>분류명</th>
-			<th>수정</th>
+			<th>관리</th>
 		</tr>
 			
 		<c:choose>
@@ -40,11 +41,13 @@
 					<tr>
 						<td style="text-align:center;">${category.idx}</td>
 						<td style="text-align:center;">${category.ctgOrder}</td>
-						<td><img src="${category.largeImgPath}" width="120"></td>
+						<td><img src="${category.largeImgPath}"></td>
 						<td>${category.ctgName}</td>
 						<td style="text-align:center;">
-							<input type="button" value="수정" onClick="openWin('./largeTypeEdit.do?ctgCode=${category.ctgCode}','largeTypeEditForm',600,450,'scrollbars=no');" class="Button Gray">
-							<%-- <input type="button" value="삭제" onClick="confirm_process('','해당 분류를 삭제하시겠습니까?','deleteCategoryInf.do?ctgCode=${category.ctgCode}');"  class="Button Gray"> --%>
+							<input type="button" value="수정" onClick="openWin('./largeTypeEdit.do?ctgCode=${category.ctgCode}','largeTypeEditForm',1000,450,'scrollbars=yes');" class="Button Gray">
+							<c:if test="${category.idx > 324}">
+								<input type="button" value="삭제" onClick="confirm_process('','해당 분류를 삭제하시겠습니까?','deleteCategoryInf.do?ctgCode=${category.ctgCode}');"  class="Button Gray">
+							</c:if>
 						</td>
 					</tr>
 				</c:forEach>
@@ -52,8 +55,8 @@
 			<c:otherwise>
 				<tr>
 					<td colspan="4" height="200"> 등록된 대분류가 없습니다.</td>
-				</tr>			
-		    </c:otherwise>
+				</tr>
+			</c:otherwise>
 		</c:choose>
 			
 	</table>

@@ -126,8 +126,9 @@ function SetPriceInput(str)
 			</script>
 						
 			<dl class="scont1">
-				<dd class="scont_box2"><a href="${AdImgDtl.bnUrl1}"><img src="${AdImgDtl.bnImg1}" width="153" height="153" alt="product image" style="border:1px solid #ccc;"/></a></dd>
+				
 				<dd class="scont_box1"><a href="${AdImgDtl.bnUrl2}"><img src="${AdImgDtl.bnImg2}" width="153" height="303" alt="product image" style="border:1px solid #ccc;"/></a></dd>
+				<dd class="scont_box2"><a href="${AdImgDtl.bnUrl1}"><img src="${AdImgDtl.bnImg1}" width="153" height="153" alt="product image" style="border:1px solid #ccc;"/></a></dd>
 			</dl>
 			
 			<dl class="scont2">
@@ -144,21 +145,24 @@ function SetPriceInput(str)
 					<li><a onClick="tab_view1('hp_area_tab');" class="wpadding2">HEADPHONE</a></li>
 					<li><a onClick="tab_view1('mm_area_tab');" class="wpadding3">MULTMEDIA</a></li>
 				</ul>
-				<div class="product_elist" style="height:580px;">		
+				<!--<div class="product_elist" style="height:580px;">-->
+				<div class="product_elist">
 					<ul class="pro_list">
 						<c:forEach items="${epPrdList}" var="epPrdList" begin="0" end="8" step="1">
 						<li>
 							<a href="../product/productView.do?prdCd=${epPrdList.prdCd}&ctgCode=${epPrdList.prdCtgL}&ctgMiddleCode=${epPrdList.prdCtgM}">
 							<dl class="list_product">
 								<dd><img src="${epPrdList.attFilePath}" width="118" height="118" alt="prouct IMG"/></dd>
-								<dd>${epPrdList.prdBrand}</dd>
-								<dd>${epPrdList.prdNm}</dd>
+								<dd class="pro_listText">${epPrdList.prdNm}</dd>
+								<dd class="pro_listTit">${epPrdList.prdBrand}</dd>
+								
 								<dd>
 									<c:if test="${epPrdList.prdStock>0}">
-										<strong class="textline"><script>SetPriceInput('${epPrdList.prdPrice}');</script></strong>↓<span><script>SetPriceInput('${epPrdList.prdSellPrc}');</script>원</span>
+										<span class="textline"><script>SetPriceInput('${epPrdList.prdPrice}');</script></span>▼
+										<span class="area_span"><script>SetPriceInput('${epPrdList.prdSellPrc}');</script>원</span>
 									</c:if>
 									<c:if test="${epPrdList.prdStock==0}">
-										품절
+										<span>품절</span>
 									</c:if>
 
 								</dd>
@@ -177,22 +181,25 @@ function SetPriceInput(str)
 					<li><a onClick="tab_view1('hp_area_tab');" class="wpadding2 on">HEADPHONE</a></li>
 					<li><a onClick="tab_view1('mm_area_tab');" class="wpadding3">MULTMEDIA</a></li>
 				</ul>
-				<div class="product_elist" style="height:580px;">
+				<div class="product_elist">
 					<ul class="pro_list">
 						<c:forEach items="${hpPrdList}" var="hpPrdList" begin="0" end="8" step="1">
 						<li>
 							<a href="../product/productView.do?prdCd=${hpPrdList.prdCd}&ctgCode=${hpPrdList.prdCtgL}&ctgMiddleCode=${hpPrdList.prdCtgM}">
 							<dl class="list_product">
 								<dd><img src="${hpPrdList.attFilePath}" width="118" height="118" alt="prouct IMG"/></dd>
-								<dd>${hpPrdList.prdBrand}</dd>
-								<dd>${hpPrdList.prdNm}</dd>
+								<dd class="pro_listText">${hpPrdList.prdNm}</dd>
+								<dd class="pro_listTit">${hpPrdList.prdBrand}</dd>
 								<dd>
+
 									<c:if test="${hpPrdList.prdStock>0}">
-										<strong class="textline"><script>SetPriceInput('${hpPrdList.prdPrice}');</script></strong>↓<span><script>SetPriceInput('${hpPrdList.prdSellPrc}');</script>원</span>
+										<span class="textline"><script>SetPriceInput('${hpPrdList.prdPrice}');</script></span>▼
+										<span class="area_span"><script>SetPriceInput('${hpPrdList.prdSellPrc}');</script>원</span>
 									</c:if>
 									<c:if test="${hpPrdList.prdStock==0}">
-										품절
+										<span>품절</span>
 									</c:if>
+								
 								</dd>
 							</dl>
 							</a>
@@ -209,21 +216,22 @@ function SetPriceInput(str)
 					<li><a onClick="tab_view1('hp_area_tab');" class="wpadding2">HEADPHONE</a></li>
 					<li><a onClick="tab_view1('mm_area_tab');" class="wpadding3 on">MULTMEDIA</a></li>
 				</ul>
-				<div class="product_elist" style="height:580px;">
+				<div class="product_elist">
 					<ul class="pro_list">
 						<c:forEach items="${mmPrdList}" var="mmPrdList" begin="0" end="8" step="1">
 						<li>
 							<a href="../product/productView.do?prdCd=${mmPrdList.prdCd}&ctgCode=${mmPrdList.prdCtgL}&ctgMiddleCode=${mmPrdList.prdCtgM}">
 							<dl class="list_product">
 								<dd><img src="${mmPrdList.attFilePath}" width="118" height="118" alt="prouct IMG"/></dd>
-								<dd>${mmPrdList.prdBrand}</dd>
-								<dd>${mmPrdList.prdNm}</dd>
+								<dd class="pro_listText">${mmPrdList.prdNm}</dd>
+								<dd class="pro_listTit">${mmPrdList.prdBrand}</dd>
 								<dd>
 									<c:if test="${mmPrdList.prdStock>0}">
-										<strong class="textline"><script>SetPriceInput('${mmPrdList.prdPrice}');</script></strong>↓<span><script>SetPriceInput('${mmPrdList.prdSellPrc}');</script>원</span>
+										<span class="textline"><script>SetPriceInput('${mmPrdList.prdPrice}');</script></span>▼
+										<span class="area_span"><script>SetPriceInput('${mmPrdList.prdSellPrc}');</script>원</span>
 									</c:if>
 									<c:if test="${mmPrdList.prdStock==0}">
-										품절
+										<span>품절</span>
 									</c:if>
 								</dd>
 							</dl>
@@ -242,21 +250,22 @@ function SetPriceInput(str)
 					<li><a onClick="tab_view2('et_area_tab');" class="wpadding3">ETC</a></li>
 				</ul>
 				
-				<div class="product_elist" style="height:580px;">
+				<div class="product_elist">
 					<ul id="pd_area" class="pro_list">
 						<c:forEach items="${pdSList}" var="pdSList" begin="0" end="8" step="1">
 						<li>
 							<a href="../product/productView.do?prdCd=${pdSList.prdCd}&ctgCode=${pdSList.prdCtgL}&ctgMiddleCode=${pdSList.prdCtgM}">
 							<dl class="list_product">
 								<dd><img src="${pdSList.attFilePath}" width="118" height="118" alt="prouct IMG"/></dd>
-								<dd>${pdSList.prdBrand}</dd>
-								<dd>${pdSList.prdNm}</dd>
+								<dd class="pro_listText">${pdSList.prdNm}</dd>
+								<dd class="pro_listTit">${pdSList.prdBrand}</dd>
 								<dd>
 									<c:if test="${pdSList.prdStock>0}">
-										<strong class="textline"><script>SetPriceInput('${pdSList.prdPrice}');</script></strong>↓<span><script>SetPriceInput('${pdSList.prdSellPrc}');</script>원</span>
+										<span class="textline"><script>SetPriceInput('${pdSList.prdPrice}');</script></span>▼
+										<span class="area_span"><script>SetPriceInput('${pdSList.prdSellPrc}');</script>원</span>
 									</c:if>
 									<c:if test="${pdSList.prdStock==0}">
-											품절
+											<span>품절</span>
 									</c:if>
 								</dd>
 							</dl>
@@ -275,21 +284,22 @@ function SetPriceInput(str)
 					<li><a onClick="tab_view2('et_area_tab');" class="wpadding3">ETC</a></li>
 				</ul>
 				
-				<div class="product_elist" style="height:580px;">	
+				<div class="product_elist">	
 					<ul id="cs_area" class="pro_list">
 						<c:forEach items="${csPrdList}" var="csPrdList" begin="0" end="8" step="1">
 						<li>
 							<a href="../product/productView.do?prdCd=${csPrdList.prdCd}&ctgCode=${csPrdList.prdCtgL}&ctgMiddleCode=${csPrdList.prdCtgM}">
 							<dl class="list_product">
 								<dd><img src="${csPrdList.attFilePath}" width="118" height="118" alt="prouct IMG"/></dd>
-								<dd>${csPrdList.prdBrand}</dd>
-								<dd>${csPrdList.prdNm}</dd>
+								<dd class="pro_listText">${csPrdList.prdNm}</dd>
+								<dd class="pro_listTit">${csPrdList.prdBrand}</dd>
 								<dd>
 									<c:if test="${csPrdList.prdStock>0}">
-										<strong class="textline"><script>SetPriceInput('${csPrdList.prdPrice}');</script></strong>↓<span><script>SetPriceInput('${csPrdList.prdSellPrc}');</script>원</span>
+										<span class="textline"><script>SetPriceInput('${csPrdList.prdPrice}');</script></span>▼
+										<span class="area_span"><script>SetPriceInput('${csPrdList.prdSellPrc}');</script>원</span>
 									</c:if>
 									<c:if test="${csPrdList.prdStock==0}">
-											품절
+											<span>품절</span>
 									</c:if>
 								</dd>
 							</dl>
@@ -308,21 +318,22 @@ function SetPriceInput(str)
 					<li><a onClick="tab_view2('et_area_tab');" class="wpadding3 on">ETC</a></li>
 				</ul>
 				
-				<div class="product_elist" style="height:580px;">
+				<div class="product_elist">
 					<ul id="xt_area" class="pro_list">
 						<c:forEach items="${xtPrdList}" var="xtPrdList" begin="0" end="8" step="1">
 						<li>
 							<a href="../product/productView.do?prdCd=${xtPrdList.prdCd}&ctgCode=${xtPrdList.prdCtgL}&ctgMiddleCode=${xtPrdList.prdCtgM}">
 							<dl class="list_product">
 								<dd><img src="${xtPrdList.attFilePath}" width="118" height="118" alt="prouct IMG"/></dd>
-								<dd>${xtPrdList.prdBrand}</dd>
-								<dd>${xtPrdList.prdNm}</dd>
+								<dd class="pro_listText">${xtPrdList.prdNm}</dd>
+								<dd class="pro_listTit">${xtPrdList.prdBrand}</dd>
 								<dd>
 									<c:if test="${xtPrdList.prdStock>0}">
-										<strong class="textline"><script>SetPriceInput('${xtPrdList.prdPrice}');</script></strong>↓<span><script>SetPriceInput('${xtPrdList.prdSellPrc}');</script>원</span>
+										<span class="textline"><script>SetPriceInput('${xtPrdList.prdPrice}');</script></span>▼
+										<span class="area_span"><script>SetPriceInput('${xtPrdList.prdSellPrc}');</script>원</span>
 									</c:if>
 									<c:if test="${xtPrdList.prdStock==0}">
-											품절
+											<span>품절</span>
 									</c:if>
 								</dd>
 							</dl>
@@ -336,28 +347,32 @@ function SetPriceInput(str)
 		</div>
 		
 		<div class="cont_banner">
-			<a href="${AdImgDtl.bnUrl5}" class="marginright"><img src="${AdImgDtl.bnImg5}" width="494" height="100" alt="main banner image"/></a>
-			<a href="${AdImgDtl.bnUrl6}"><img src="${AdImgDtl.bnImg6}" width="494" height="100" alt="main banner image"/></a>
+				<c:if test="${AdImgDtl.bnImg5 != '' && AdImgDtl.bnImg5 ne NULL}">
+					<a href="${AdImgDtl.bnUrl5}" class="marginright"><img src="${AdImgDtl.bnImg5}" width="494" height="100" alt="main banner image"/></a>
+				</c:if>
+				<c:if test="${AdImgDtl.bnImg6 != '' && AdImgDtl.bnImg6 ne NULL}">
+					<a href="${AdImgDtl.bnUrl6}"><img src="${AdImgDtl.bnImg6}" width="494" height="100" alt="main banner image"/></a>
+				</c:if>
 		</div>
 
 		<div class="cont_bottom">
 			<dl class="cont_botbox1">
-				<dt>입점 브랜드	<span>Sound Brand</span></dt>
+				<dt><B>입점 브랜드	</B><span>Sound Brand</span></dt>
 				<dd>
-					<a href="#" class="mart"><img src="<c:url value='/resources/img/main/main/lglogo.gif'/>" alt="LG전자 logo"/></a>
-					<a href="#" class="mart"><img src="<c:url value='/resources/img/main/main/akglogo.gif'/>" alt="AKG logo"/></a>
-					<a href="#" class="mart"><img src="<c:url value='/resources/img/main/main/harmanlogo.gif'/>" alt="harman logo"/></a>
-					<a href="#"><img src="<c:url value='/resources/img/main/main/ubllogo.gif'/>" alt="UBL logo"/></a>
+					<a href="/product/productList.do?ctgCode=L6161&ctgMiddleCode=M6343" class="mart"><img src="<c:url value='/resources/img/main/main/lglogo.gif'/>" alt="LG전자 logo"/></a>
+					<a href="/product/productList.do?ctgCode=L6161&ctgMiddleCode=M7429" class="mart"><img src="<c:url value='/resources/img/main/main/akglogo.gif'/>" alt="AKG logo"/></a>
+					<a href="/product/productList.do?ctgCode=L6161&ctgMiddleCode=M7429" class="mart"><img src="<c:url value='/resources/img/main/main/harmanlogo.gif'/>" alt="harman logo"/></a>
+					<a href="/product/productList.do?ctgCode=L6161&ctgMiddleCode=M446"><img src="<c:url value='/resources/img/main/main/ubllogo.gif'/>" alt="UBL logo"/></a>
 				</dd>
 		 	</dl>
 		 	<dl class="cont_botbox2">
-				<dt>하만 스토어	<span class="textbox1">진정한 사운드를 좀 더 가까운 곳에서<br/>	느끼실 수 있습니다.</span>
+				<dt><B>하만 스토어	</B><span class="textbox1">진정한 사운드를 좀 더 가까운 곳에서<br/>	느끼실 수 있습니다.</span>
 					<span class="textbox2">서울 특별시 강남구 청담동 85-2 JW빌딩 1층</span>
 				</dt>
 				<dd>
-					<a href="#" class="mart"><img src="<c:url value='/resources/img/main/main/store_img1.jpg'/>" alt="store image"/></a>
-					<a href="#" class="mart"><img src="<c:url value='/resources/img/main/main/store_img2.jpg'/>" alt="store image"/></a>
-					<a href="#"><img src="<c:url value='/resources/img/main/main/store_img3.jpg'/>" alt="store image"/git ></a>
+					<img src="<c:url value='/resources/img/main/main/store_img2.jpg'/>" alt="store image"/>
+					<img src="<c:url value='/resources/img/main/main/store_img1.jpg'/>" alt="store image" style="margin:0 10px; " />
+					<img src="<c:url value='/resources/img/main/main/store_img3.jpg'/>" alt="store image"/>
 				</dd>
 		 	</dl>
 		</div>
@@ -366,16 +381,17 @@ function SetPriceInput(str)
 				<dt class="notice_tit">NEWS & NOTICE</dt>
 				<dd>
 					<c:forEach items="${noticeList}" var="qna">
-						<a class="noticeblet" href="/community/noticeView.do?brdSeq=${qna.brdSeq}">${qna.title}</a><br>
+						<a class="noticeblet" href="/community/noticeView.do?brdSeq=${qna.brdSeq}"><img src="/resources/img/main/common/icon_notice.png" alt="공지" style="margin:0 5px 2px 0;">${qna.title}</a><br>
 					</c:forEach>
 				</dd>
 			</dl>
 			<span class="icon_box">
-				<a href="#" class="icon_malign"><img src="<c:url value='/resources/img/main/main/customer_center.gif'/>" alt="customer center"/></a>
-				<a href="#" class="icon_malign"><img src="<c:url value='/resources/img/main/main/qa_icon.gif'/>" alt="qa icon"/></a>
+				<!--<a href="" class="icon_malign"><img src="<c:url value='/resources/img/main/main/customer_center.gif'/>" alt="customer center"/></a>-->
+				<img src="<c:url value='/resources/img/main/main/customer_center.gif'/>" alt="customer center"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="" class="icon_malign"><img src="<c:url value='/resources/img/main/main/qa_icon.gif'/>" alt="qa icon"/></a>
 				<a href="/community/faqList.do" class="icon_malign"><img src="<c:url value='/resources/img/main/main/faq_icon.gif'/>" alt="faq icon"/></a>
 				<a href="/user/orderListView.do" class="icon_malign"><img src="<c:url value='/resources/img/main/main/order_icon.gif'/>" alt="order icon"/></a>
-				<a href="#"><img src="<c:url value='/resources/img/main/main/customer_icon.gif'/>" alt="customer icon"/></a>
+				<a href=""><img src="<c:url value='/resources/img/main/main/customer_icon.gif'/>" alt="customer icon"/></a>
 			</span>
 		</div>
 	</div>

@@ -7,7 +7,7 @@
 <script type="text/javascript">
 
 	$(document).ready(function() {
-	
+
 		$('#prdCtgL').change(function() {
 			$.getJSON('/admin/categoryListByParent/' + $('#prdCtgL').val(), function(result) {
 //				alert('중분류 size=' + result.length + '    ctgCode=' + result[0].ctgCode);
@@ -41,9 +41,18 @@
 		});
 		
 	});
+
 	function fnAddClick() {
-		var f = tx_editor_form;
+		var f = document.tx_editor_form;
+		var field_names = "" ;
 		
+		for(var i = 0; i < 50; i++){
+			//field_names = eval("document.tx_editor_form.optionValue_"+ i);
+			//field_names.value = escape(field_names.value);
+			//alert(field_names.value) ;
+		}
+
+	
 		f.action = 'manageProductInfProc.do';
 		
 		Editor.save(); // 다음 에디터
@@ -346,8 +355,8 @@
       			<input type="button" value="삭제" onClick="chgOption('del','${i.index}','${prdInfo.optionIdx[i.index]}')">
       			<input type="hidden" id="optionIdx_${i.index}" name="optionIdx" value="${prdInfo.optionIdx[i.index]}" >
       			
-      		</ul>
-      	</c:forEach>
+      			</ul>
+      		</c:forEach>
       	
 		<tr>
 			<th>검색어</th>
@@ -394,12 +403,13 @@
 
 <script language="JavaScript" type="text/JavaScript">
 function chgOption(op,n,Idx){
-	   var targetField = "optionField_" + n ;
-	   if(op == "add"){
-	      document.getElementById(targetField).style.display = "block" ;
-	   }else{
-	      document.getElementById(targetField).style.display = "none" ;
-	      location.href='deletePrdOptionInf.do?idx='+Idx+','+${prdInfo.prdCd};
-	   }
+	var targetField = "optionField_" + n ;
+
+	if(op == "add"){
+		document.getElementById(targetField).style.display = "block" ;
+	}else{
+		document.getElementById(targetField).style.display = "none" ;
+		location.href='deletePrdOptionInf.do?idx='+Idx+',${prdInfo.prdCd}' ;
 	}
+}
 </script>

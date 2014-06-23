@@ -10,7 +10,6 @@
 
 
 <c:import  url="../inc/topSub.jsp" />
-<html>
 <body>
 	<div class="wrap">
 	<!--  header 시작   -->
@@ -24,6 +23,7 @@
 		<div class="sub_content">
 			<form action="userEditProc.do" method="post">
 			<input type="hidden" id="custId" name="custId" value="${customer.custId}">
+			<input type="hidden" id="custNm" name="custNm" value="${customer.custNm}">
 				<div class="mypage_section">
 					<h4>나의 정보</h4>
 					<p class="sub_tit">고객의 기본정보 내역을 확인하실 수 있습니다.</p>

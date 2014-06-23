@@ -25,7 +25,7 @@
 
 <body>
 	<div id="Wrap">
-		<div id="Contents">
+		<div class="cont_popuparea">
 			<h1>커뮤니티 &gt; 공지사항 &gt; <strong>공지사항</strong></h1>
 		
 				
@@ -49,7 +49,7 @@
 						<tr>
 							<th>제목</th>
 							<td>
-								<input type="text" name="title" class="" value="${editBrd.title}" title="제목 입력" />
+								<input type="text" name="title" class="text" value="${editBrd.title}" title="제목 입력" />
 							</td>
 							<th>작성자</th>
 							<td>
@@ -61,7 +61,7 @@
 						<tr>
 							<th>내용</th>
 							<td colspan="3">
-								<textarea name="content"></textarea>
+								<textarea name="content" class="Reply_Text"></textarea>
 							</td>
 						</tr>
 						

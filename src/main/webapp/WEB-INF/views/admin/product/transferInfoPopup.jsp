@@ -51,6 +51,7 @@
 
 <script>
 function openTransferVal(k){
+	
 	var field_name  = "tContents_"+ k ;
 	var field_value = document.getElementById(field_name).value ;
 	

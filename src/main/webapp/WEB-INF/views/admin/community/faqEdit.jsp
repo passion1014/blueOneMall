@@ -25,7 +25,7 @@
 
 <body>
 <div id="Wrap">
-	<div id="Contents">
+	<div class="cont_popuparea">
 	<h1>커뮤니티 &gt; FAQ &gt; <strong>FAQ</strong></h1>
 <form  method="post" action="faqEditProc.do" name="faqEditFm">
 
@@ -44,13 +44,13 @@
 		<tr>
 			<th>질문</th>
 			<td>
-				<input type="text" name="faqQes" class="" title="제목 입력" value="${reFaqInfo.faqQes}"/>
+				<input type="text" name="faqQes" class="text" title="제목 입력" value="${reFaqInfo.faqQes}"/>
 			</td>
 		</tr>
 		<tr>
 			<th>답변</th>
 			<td>
-				<textarea name="faqAns"></textarea>
+				<textarea name="faqAns" class="Reply_Text"></textarea>
 				
 			</td>
 		</tr>

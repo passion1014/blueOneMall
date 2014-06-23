@@ -6,7 +6,7 @@
 <body>
 	<div class="header">
 			<p class="top_errorimg">
-				<img src="<c:url value='/resources/img/common/blueone_logo.png'/>" alt="blueone logo"/>
+				<img src="<c:url value='/resources/img/main/common/blueone_logo2.png'/>" alt="blueone logo"/>
 			</p>
 	</div>
 <!--  header 끝   -->
@@ -15,7 +15,7 @@
 		<div class="error_area">
 			<p class="error_img"><img src="<c:url value='/resources/img/common/error.png'/>" alt="error image"/></p>
 			<p class="error_text">로그인이 잘못되었습니다. 다시 접근해주세요</p>
-			<a href="#" class="error_link">이전페이지</a>
+			<a href="http://gift.e-hyundai.com/static/default/html/index2.html" class="error_link">현대몰</a>
 		</div>
 		
 	</div>

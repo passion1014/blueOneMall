@@ -94,7 +94,8 @@
 	</div>
 <!--  container 끝   -->	
 
-	<import url="../inc/footer.jsp" />
+	
 </div>
 </body>
-</html>
+
+<c:import url="../inc/footer.jsp" />

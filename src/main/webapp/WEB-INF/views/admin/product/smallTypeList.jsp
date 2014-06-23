@@ -49,7 +49,7 @@
 						<td style="text-align:center;">
 							<!--input type="button" value="수정" onClick="openWin('smallTypeEdit.do?ctgCode=${goods.ctgCode}','smallTypeForm',600,450,'scrollbars=no');"  class="Button Gray"-->
 							<input type="button" value="수정" onClick="dialogUpdate('${goods.ctgCode}');" class="Button Gray">
-							<input type="button" value="삭제" onClick="location.href='deleteCategoryInf.do?ctgCode=${goods.ctgCode}';"  class="Button Gray">
+							<input type="button" value="삭제" onClick="location.href='deletesmallCategoryInf.do?ctgCode=${goods.ctgCode}';"  class="Button Gray">
 						</td>
 					</tr>
 				</c:forEach>

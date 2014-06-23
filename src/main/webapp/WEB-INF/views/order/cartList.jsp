@@ -1,11 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 
-
 <c:import  url="../inc/topSub.jsp" />
-<c:import  url="../inc/topMain.jsp" />     
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <script type="text/javascript">
 <!--
@@ -88,15 +84,10 @@ function SetPriceInput(str)
 //-->
 </script>
 
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>###### 현대프로모션몰 ######</title>
-</head>
 <body>
 	<div class="wrap">
 	<c:import url="../inc/header.jsp"/>
-<!--  header 끝   -->
+	<!--  header 끝   -->
 
 	<div class="container">
 		<c:import url="../inc/orderLnb.jsp" />
@@ -143,14 +134,17 @@ function SetPriceInput(str)
 										<input type="checkbox" id="ord_unit_chk" name="ord_unit_chk"  value="${odPrdInfo.cookieKey}" title="상품선택"/>
 									</th>
 									<td class="product_area leftalign">
-										<span>
-										<img src="${odPrdInfo.prdSmallImg}"  alt="상품이미지"  width="71" height="71"></span>
-										<span>
-											${odPrdInfo.prdNm}
-											<c:if test="${'NULL' ne odPrdInfo.prdOpColor}">/${odPrdInfo.prdOpColor}</c:if>
-											<c:if test="${'NULL' ne odPrdInfo.prdOpSize}">/${odPrdInfo.prdOpSize}</c:if>
-											
-										</span>
+										<a href="/product/productView.do?prdCd=${odPrdInfo.prdCd}">
+											<span>
+												<img src="${odPrdInfo.prdSmallImg}"  alt="상품이미지"  width="71" height="71">
+											</span>
+											<span>
+												${odPrdInfo.prdNm}
+												<c:if test="${'NULL' ne odPrdInfo.prdOpColor}">/${odPrdInfo.prdOpColor}</c:if>
+												<c:if test="${'NULL' ne odPrdInfo.prdOpSize}">/${odPrdInfo.prdOpSize}</c:if>
+												
+											</span>
+										</a>
 									</td>
 									<td><script>SetPriceInput('${odPrdInfo.sellPrice}');</script></td>
 									<td>
@@ -166,9 +160,13 @@ function SetPriceInput(str)
 								<tr>
 									<td class="one_choice" colspan="6">
 										<c:set var="totalPrc" value="${odPrdInfo.totalPrice.intValue()}"/>
-										상품가격 : <script>SetPriceInput('${odPrdInfo.totalPrice}');</script>원  + <c:if test="${totalPrc>=config.buyPrice}">배송비 : <script>SetPriceInput('${config.trasferPrice}');</script>원</c:if>
-																			   <c:if test="${totalPrc<config.buyPrice}">배송비 : 0원 </c:if>= 합계
-																			   <script>SetPriceInput('${odPrdInfo.totalPrice}');</script>원
+										상품가격 : <script>SetPriceInput('${odPrdInfo.totalPrice}');</script>원  + 
+										<c:if test="${totalPrc<=config.buyPrice}">
+											배송비 : <script>SetPriceInput('${config.trasferPrice}');</script>원
+											<c:set var="totalPrc" value="${totalPrc+config.trasferPrice}"/>
+										</c:if>
+										<c:if test="${totalPrc>config.buyPrice}">배송비 : 0원 </c:if>= 합계
+										<script>SetPriceInput('${totalPrc}');</script>원
 									 </td>
 								</tr>
 								</c:forEach>
@@ -183,8 +181,11 @@ function SetPriceInput(str)
 										<script>SetPriceInput('${odPrdInfo.totalPrice}');</script>원 +
 										<c:set var="total" value="${total+odPrdInfo.totalPrice}"/>
 										</c:forEach>
-										 <c:if test="${total>=config.buyPrice}">배송비 :  <script>SetPriceInput('${config.trasferPrice}');</script>원</c:if>
-										 <c:if test="${total<config.buyPrice}">배송비 : 0원 </c:if>
+										 <c:if test="${total<=config.buyPrice}">
+											배송비 :  <script>SetPriceInput('${config.trasferPrice}');</script>원
+											<c:set var="total" value="${total+config.trasferPrice}"/>
+										 </c:if>
+										 <c:if test="${total>config.buyPrice}">배송비 : 0원 </c:if>
 										 = 합계 <strong><script>SetPriceInput('${total}');</script></strong>원
 									</td>
 								</tr>

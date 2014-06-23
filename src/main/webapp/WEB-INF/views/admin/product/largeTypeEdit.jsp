@@ -22,8 +22,7 @@
 	<table class="tbl1">
 		<colgroup>
 			<col width="20%" />
-			<col width="50%" />
-			<col width="*" />
+			<col width="80%" />
 		</colgroup>
 
 		<tr>
@@ -47,7 +46,7 @@
 		</tr>
 		<tr>
 			<th>대분류명</th>
-			<td colspan="3" class="left">
+			<td class="left">
 				<input type="text" id="ctgName" name="ctgName" value="${largeTypeObj.ctgName}" class="Text Kor" style="width:90%;">
 			</td>
 		</tr>

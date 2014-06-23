@@ -608,29 +608,29 @@ function SetPriceInput(str)
 							function settlement_change(kk){
 								if(kk=="card"){
 									document.getElementById('pay_method').value='100000000000';
-									document.getElementById('pArea').style.display='block';
-								}else{
-									document.getElementById('pay_method').value='010000000000';
-									document.getElementById('pArea').style.display='none';
-								}
-							}
-
-							
-							function pp_change(kk){
-								if(kk=="y"){
-									document.order_info.site_cd.value = "E6902" ;
-									document.order_info.site_key.value = "14JUn1FLX1gAcSb.DCP9J3d__" ;
-									//document.order_info.site_cd.value = "T0000" ;
-									//document.order_info.quotaopt.value = "80" ;
-									document.order_info.used_card_YN.value = "Y" ;
-									document.order_info.action = "/resources/kcp/pp_ax_hub_p.jsp" ;
-								}else{
+									
 									document.order_info.site_cd.value = "E6513" ;
 									document.order_info.site_key.value = "48xS6dqDIAo9A1rds6UfaxX__" ;
-									//document.order_info.site_cd.value = "T0000" ;
-									//document.order_info.quotaopt.value = "12" ;
 									document.order_info.used_card_YN.value = "N" ;
 									document.order_info.action = "/resources/kcp/pp_ax_hub.jsp" ;
+
+
+								}else if(kk=="bank"){
+									document.getElementById('pay_method').value='010000000000';
+									
+									document.order_info.site_cd.value = "E6513" ;
+									document.order_info.site_key.value = "48xS6dqDIAo9A1rds6UfaxX__" ;
+									document.order_info.used_card_YN.value = "N" ;
+									document.order_info.action = "/resources/kcp/pp_ax_hub.jsp" ;
+
+
+								}else if(kk=="ppoint"){
+									document.getElementById('pay_method').value='100000000000';
+
+									document.order_info.site_cd.value = "E6902" ;
+									document.order_info.site_key.value = "14JUn1FLX1gAcSb.DCP9J3d__" ;
+									document.order_info.used_card_YN.value = "Y" ;
+									document.order_info.action = "/resources/kcp/pp_ax_hub_p.jsp" ;
 								}
 							}
 
@@ -638,8 +638,9 @@ function SetPriceInput(str)
 
 							<span class="payment1">
 								
-								<input type="radio" id="settlement_type" name="settlement_type" onClick="settlement_change('card')" value="100000000000" checked /><label for="credit_card">신용카드</label>
-								<input type="radio" id="settlement_type" name="settlement_type" onClick="settlement_change('bank')" value="010000000000" /><label for="account_transfer">실시간 계좌이체</label>
+								<input type="radio" id="credit_card"      name="settlement_type" onClick="settlement_change('card')"   value="card" checked /><label for="credit_card">신용카드</label>
+								<input type="radio" id="account_transfer" name="settlement_type" onClick="settlement_change('bank')"   value="bank" /><label for="account_transfer">실시간 계좌이체</label>
+								<input type="radio" id="card_point"       name="settlement_type" onClick="settlement_change('ppoint')" value="point" /><label for="card_point">복지카드포인트</label>
 								<input type="hidden" id="pay_method" name="pay_method" value="100000000000">
 								<!--
 								<select name="pay_method">
@@ -649,11 +650,12 @@ function SetPriceInput(str)
 								</select>
 								-->
 							</span>
-							
+							<!--							
 							<span id="pArea" class="payment2">
 								<input type="radio" id="welfare_card" name="payment2" checked onClick="pp_change('n');" /><label for="welfare_card">복지 카드 포인트 사용안함</label>
 								<input type="radio" id="welfare_ncard" name="payment2" onClick="pp_change('y');" /><label for="welfare_ncard">복지 카드 포인트 사용</label>
 							</span>
+							-->
 						</div>
 						<div class="point_employ2">
 							<p class="sub_tit1">적립금/포인트 사용하기</p>

@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div class="lnb">
-	<h3>${largeInf.ctgName}</h3>
+	<h3><a href="productList.do?ctgCode=${largeInf.ctgCode}">${largeInf.ctgName}</a></h3>
 	<ul class="lnb_list">
 	
 		<c:forEach items="${lnbList}" var="lnbList">

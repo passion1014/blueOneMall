@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+
+<c:import  url="../inc/topSub.jsp" />
 
 <script type="text/javascript">
 <!--
@@ -20,21 +21,15 @@ function SetPriceInput(str)
 //-->
 </script>
 
-<c:import  url="../inc/topSub.jsp" />
-<c:import  url="../inc/topMain.jsp" />  
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
 <body>
 	<div class="wrap">
 	<c:import url="../inc/header.jsp"/>
-<!--  header 끝   -->
+	<!--  header 끝   -->
 
 	<div class="container">
+
 		<c:import url="../inc/orderLnb.jsp" />
+
 		<div class="sub_content">
 			<form action="#" method="post">
 				<div class="porder_section">
@@ -75,8 +70,8 @@ function SetPriceInput(str)
 										 
 										<span>
 											${odPrdInfo.prdNm}
-											<c:if test="${'null' ne odPrdInfo.prdOpColor}">/${odPrdInfo.prdOpColor}</c:if>
-											<c:if test="${'null' ne odPrdInfo.prdOpSize}">/${odPrdInfo.prdOpSize}</c:if>
+											<c:if test="${'' ne odPrdInfo.prdOpColor}">/${odPrdInfo.prdOpColor}</c:if>
+											<c:if test="${'' ne odPrdInfo.prdOpSize}">/${odPrdInfo.prdOpSize}</c:if>
 											
 										</span>
 									</td>
@@ -98,11 +93,15 @@ function SetPriceInput(str)
 									<td class="total_choice" colspan="6">
 										총 주문금액 : 
 										<c:forEach items="${odPrdInfo}" var="odPrdInfo">
-										<script>SetPriceInput('${odPrdInfo.totalPrice}');</script>원 +
-										<c:set var="total" value="${total+odPrdInfo.totalPrice}"/>
+										<script>SetPriceInput('${odPrdInfo.totalPrice}');</script>원 
+										<c:set var="total" value="${total+odPrdInfo.totalPrice-payList.get(0).payPoint}"/>
 										</c:forEach>
-										 <c:if test="${total>=config.buyPrice}">배송비 :  <script>SetPriceInput('${config.trasferPrice}');</script>원</c:if>
-										 <c:if test="${total<config.buyPrice}">배송비 : 0원 </c:if>
+										 <c:if test="${total<=config.buyPrice}">
+											+ 배송비 :  <script>SetPriceInput('${config.trasferPrice}');</script>원
+											<c:set var="total" value="${total+config.trasferPrice}"/>
+										 </c:if>
+										 <c:if test="${total>config.buyPrice}"> + 배송비 : 0원 </c:if>
+										 <c:if test="${payList.get(0).payPoint>0}"> - 사용포인트 : ${payList.get(0).payPoint}원 </c:if>
 										 = 합계 <strong><script>SetPriceInput('${total}');</script></strong>원
 										 <input type="hidden" id="sndAmount"  name="sndAmount"  value="${total}" />
 									</td>

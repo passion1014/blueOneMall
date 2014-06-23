@@ -79,7 +79,7 @@ function chk_mem_form(f){
 <body>
 <div class="wrap">
 	<!--  header 시작 -->
-	<c:import url="../inc/header.jsp"/>
+	<c:import url="../inc/headerNull.jsp"/>
 	<!--  header 끝   -->
 
 	<div class="container">
@@ -121,7 +121,7 @@ function chk_mem_form(f){
 					</c:forEach>
 				</div>
 
-				<h5>기본정보 입력</h5>
+				<!--<h5>기본정보 입력</h5>-->
 				<table class="membership_tbl" summary="회원가입양식">
 					<caption>회원가입목록</caption>
 					<colgroup>
@@ -130,10 +130,11 @@ function chk_mem_form(f){
 						<col width="15%"/>
 						<col width="*"/>
 					</colgroup>
+<!--
 					<tbody>
 					<tr>
 						<th>이름</th>
-						<td>${customer.custNm}<!-- <input type="text" id="custNm" name="custNm" title="아이디입력창"/> --></td>
+						<td>${customer.custNm}<!-- <input type="text" id="custNm" name="custNm" title="아이디입력창"/> </td>
 						<th>아이디</th>
 						<td>${customer.custId}</td>
 					</tr>
@@ -226,6 +227,7 @@ function chk_mem_form(f){
 						</td>
 					</tr>
 				</tbody>
+				-->
 				</table>
 				
 				<div class="complet_box">

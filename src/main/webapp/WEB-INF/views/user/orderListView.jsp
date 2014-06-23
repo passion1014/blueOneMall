@@ -9,6 +9,7 @@ $(document).ready(function() {
 	var dates = $("#srchStdDt,#srchEdDt").datepicker({
 		changeYear: true,
 		changeMonth: true,
+		dateFormat: "yy-mm-dd",
 		showMonthAfterYear: true,
 		onSelect: function(selectedDate) {
 			var option = this.id == "srchStdDt" ? "minDate": "maxDate",
@@ -22,7 +23,6 @@ $(document).ready(function() {
 //-->
 </script>
 
-<html>
 <body>
 	<div class="wrap">
 	<!--  header 시작   -->
