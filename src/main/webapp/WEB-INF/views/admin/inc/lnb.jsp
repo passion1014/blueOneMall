@@ -114,6 +114,14 @@
 			<h2>FAQ</h2>
 			<li><a href="faqBoard.do">FAQ</a></li>
 		</ul>
+		<ul>
+			<h2>Q&A</h2>
+			<li><a href="faqBoard.do">Q&A</a></li>
+		</ul>
+		<ul>
+			<h2>Event</h2>
+			<li><a href="eventBoard.do">Event</a></li>
+		</ul>
 	</div>
 	</c:when>		
 	

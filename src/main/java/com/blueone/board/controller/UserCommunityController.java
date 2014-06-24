@@ -77,7 +77,103 @@ public class UserCommunityController {
 
 	}
 	
+	@RequestMapping(value = "/community/event.do", method = RequestMethod.GET)
+	public String event(@ModelAttribute("AdminInfo") AdminInfo adminInfo,BindingResult result, Model model, HttpSession session) {
+		
+		CustomerInfo customerSesstion =(CustomerInfo)session.getAttribute("customerSession");
+		// 세션체크
+		if (customerSesstion == null) {
+			return "user/errorPage";
+		}
+				
+		// 공지사항 페이지
+		int currentPage = adminInfo.getCurrentPage();
+		
+		// ----------------------------------------------------
+		// 공지사항 가져오기
+		// ----------------------------------------------------
+		BoardSrchInfo boardSrchInfo = new BoardSrchInfo();
+		boardSrchInfo.setSrchBrdTyp(11);
+
+		// 페이지정보 셋팅
+		if (currentPage != 0)
+			boardSrchInfo.setCurrentPage(currentPage);
+
+		List<BoardInfo> boardList = boardService.getBrdTypBoardList(boardSrchInfo);
+		boardSrchInfo.setTotalCount(boardService.getBrdTypTotalCount(boardSrchInfo));
+
+		model.addAttribute("noticeList", boardList);
+		model.addAttribute("pageHtml", getPageHtml(boardSrchInfo));
+		
+		return "community/event";
+
+	}
 	
+	@RequestMapping(value = "/community/eventView.do", method = RequestMethod.GET)
+	public String eventView(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BoardInfo brdInfo,BindingResult result, Model model, HttpSession session) {
+		
+		CustomerInfo customerSesstion =(CustomerInfo)session.getAttribute("customerSession");
+		// 세션체크
+		if (customerSesstion == null) {
+			return "user/errorPage";
+		}
+				
+		BoardInfo brdView = boardService.selectBOM_BOARD_TB(brdInfo.getBrdSeq());
+		model.addAttribute("brdView", brdView);
+		
+		// ----------------------------------------------------
+		// 상품댓글 가져오기
+		// ----------------------------------------------------
+		BoardSrchInfo boardSrchInfo = new BoardSrchInfo();
+		boardSrchInfo.setSrchBrdTyp(12);
+		boardSrchInfo.setBrdCodeType("03");
+		boardSrchInfo.setBrdCodeKey("E"+Long.toString(brdInfo.getBrdSeq()));
+
+		/*// 페이지정보 셋팅
+		if (currentPage != 0)
+			boardSrchInfo.setCurrentPage(currentPage);*/
+
+		List<BoardInfo> boardList = boardService
+				.getBrdTypBoardList(boardSrchInfo);
+		boardSrchInfo.setTotalCount(boardService
+				.getBrdTypTotalCount(boardSrchInfo));
+
+		model.addAttribute("qnaList", boardList);
+		//model.addAttribute("pageHtml",	getPageHtml(Long.toString(brdInfo.getBrdSeq()), boardSrchInfo));
+		return "community/eventView";
+
+	}
+	@RequestMapping(value = "/community/writeEvent.do")
+	public String writeQNAByProdCd(String content, String brdSeq,HttpSession session) {
+		CustomerInfo cust = (CustomerInfo) session
+				.getAttribute("customerSession");
+		if (cust == null) { // 세션체크
+		// return "user/errorPage";
+			cust = new CustomerInfo();
+			cust.setCustId("Guest!");
+		}
+		
+		int brdTyp = 12;// 게시판유형 = 12 (event댓글)
+
+		BoardInfo boardInfo = new BoardInfo();
+		boardInfo.setBrdTyp(brdTyp);
+		boardInfo.setInsUser(cust.getCustNm());
+		boardInfo.setContent(content);
+		boardInfo.setSrchBrdTyp(brdTyp);
+		boardInfo.setBrdCodeKey("E"+brdSeq);
+		boardInfo.setBrdCodeType("03"); //
+
+		if (boardService.insertBoard(boardInfo)) {
+			// 글이 등록됐음
+			System.out.println("ok");
+		} else {
+			// 글 등록이 안됐음.
+			System.out.println("fail");
+		}
+
+		String viewName = "redirect:eventView.do?brdSeq=" + brdSeq;
+		return viewName;
+	}
 	@RequestMapping(value = "/community/faqList.do", method = RequestMethod.GET)
 	public String faqList(@ModelAttribute("AdminInfo") AdminInfo adminInfo,
 			BindingResult result, Model model, HttpSession session) {

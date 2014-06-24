@@ -242,15 +242,11 @@
 	<!-- 게시물 수정 -->
 	<update id="updateBOM_BOARD_TB" parameterType="com.blueone.board.domain.BoardInfo">
 		UPDATE BOM_BOARD_TB
-		   SET passwd                      = #{passwd}#
-		      ,title                       = #{title}#
-		      ,content                     = #{content}#
-		      ,proc_st                     = #{procSt}#
-		      ,public_ymd                  = #{publicYmd}#
-		      ,public_nm                   = #{publicNm}#
+		   SET  
+		      <if test="title != null and title != ''">title                       = #{title}#</if>
+		      <if test="content != null and content != ''">,content                     = #{content}#</if>
 		      ,upd_dt                      = NOW()
-		      ,upd_user                    = #{updUser}#
-		      ,notice_yn                   = NVL(#{noticeYn}#, 'F')
+		      <if test="updUser != null and updUser != ''">,upd_user                    = #{updUser}#</if>
 		 WHERE brd_seq = #{brdSeq}#
 	</update>
 	

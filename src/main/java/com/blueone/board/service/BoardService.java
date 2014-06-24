@@ -355,7 +355,7 @@ public class BoardService implements IBoardService {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
 //			sqlMapClient.startTransaction();
-			sqlSession.update("board.updateBOM_BOARD_CMT_TB", boardModel);
+			sqlSession.update("board.updateBOM_BOARD_TB", boardModel);
 //			sqlMapClient.commitTransaction();
 //			sqlMapClient.getCurrentConnection().commit();
 			

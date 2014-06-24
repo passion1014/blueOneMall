@@ -18,7 +18,7 @@
 		<div class="sub_content">
 			<form action="#" method="post">
 				<div class="customer_section">
-					<h4>공지사항</h4>
+					<h4>EVENT</h4>
 					<p class="sub_tit">쇼핑몰의 새로운 소식이나 이벤트를 확인하실 수 있습니다.</p>
 					<div class="notice_area">
 						<ul>
@@ -75,7 +75,7 @@
 									<tbody>
 										<c:forEach items="${noticeList}" var="qna">
 											<tr>
-												<td style="text-align:left; padding-left:15px "><a href="/community/noticeView.do?brdSeq=${qna.brdSeq}">${qna.title}</a></td>
+												<td style="text-align:left; padding-left:15px "><a href="/community/eventView.do?brdSeq=${qna.brdSeq}">${qna.title}</a></td>
 												<td>운영자</td>
 												<td>${qna.insDt.substring(0,10)}</td>												
 												<td>${qna.hit}</td>

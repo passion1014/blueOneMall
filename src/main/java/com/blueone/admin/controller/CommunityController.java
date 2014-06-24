@@ -470,9 +470,9 @@ public class CommunityController {
 		
 		
 		boardService.updateBOM_BOARD_TB_notice(brdInfo);
-		redirectAttributes.addFlashAttribute("reloadVar", "yes");
+		model.addAttribute("eventEditSuccess", "yes");
 		
-		return "redirect:noticeEdit.do?brdSeq="+brdInfo.getBrdSeq();
+		return "redirect:eventEdit.do?brdSeq="+brdInfo.getBrdSeq();
 
 	}
 	/**
