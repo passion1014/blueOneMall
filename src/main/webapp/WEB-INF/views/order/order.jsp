@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c_rt"%> 
 <%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
-
+<%@ page import="java.net.URLEncoder"%>
 <%
     /* ============================================================================== */
     /* =   PAGE : 결제 요청 PAGE                                                    = */
@@ -43,7 +43,12 @@
         }
     /* ============================================================================== */
 %>
-
+<%
+	/* ============================================================================== */
+	/* =   02-1.받는사람 정보                                                = */
+	/* = -------------------------------------------------------------------------- = */
+	String reci_name     = f_get_parm( request.getParameter( "cus.custNm") ); //받는사람 이름
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
 <head>
@@ -387,7 +392,7 @@ function pre_count(){
 			<input type="hidden" id="ord_unit_chk"               name="ord_unit_chk"  value="${orderInfo.ord_unit_chk}">
 			<input type="hidden" id="ordr_idxx"                  name="ordr_idxx" value="${orderInfo.orderNo}">
 			<input type="hidden" id="customerInfo.modifyUserId"  name="customerInfo.modifyUserId"  value="${cus.custId}">
-			<input type="hidden" id="ord_unit_chk" name="ord_unit_chk"  value="${orderInfo.ord_unit_chk}"/>
+
 			<c:if test="${odPrdInfo.size() == 1}"><input type="hidden"  name="good_name"  value="${odPrdInfo[0].prdNm}" /></c:if>
 			<c:if test="${odPrdInfo.size() != 1}"><input type="hidden" id="ordPrd.prdNm"   name="good_name" value="${odPrdInfo[0].prdNm} 외 ${odPrdInfo.size()-1}개" /></c:if>
 
@@ -560,7 +565,7 @@ function pre_count(){
 									</td>
 									<th>받으시는분</th>
 									<td class="in_text">
-										<input type="text" id="reciNm" name="reciNm" value="${cus.custNm}" title="받으시는분 성명 기입"/>
+										<input type="text" id="reciNm" name="reciNm" value="" title="받으시는분 성명 기입"/>
 										<input type="hidden"  id="buyr_name" name="buyr_name" value="${cus.custNm}" />
 									</td>
 								</tr>

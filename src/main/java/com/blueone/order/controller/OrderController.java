@@ -150,9 +150,11 @@ public class OrderController {
 					count += orderProductInfo.getBuyCnt();
 					break;
 				}else if((orderProductInfo.getPrdOpSize()==null || orderProductInfo.getPrdOpSize().isEmpty()) && optionColor.equals(orderProductInfo.getPrdOpColor()) && countExist.equals("y")){
+					orderProductInfo.setPrdOpSize(URLDecoder.decode(orderProductInfo.getPrdOpSize(), "UTF-8"));
 					count += orderProductInfo.getBuyCnt();
 					break;
 				}else if((orderProductInfo.getPrdOpColor()==null || orderProductInfo.getPrdOpColor().isEmpty()) &&(orderProductInfo.getPrdOpSize()==null || orderProductInfo.getPrdOpSize().isEmpty()) && countExist.equals("y") ){ 
+					
 					count += orderProductInfo.getBuyCnt();
 					break;
 				}else if(optionSize.equals(orderProductInfo.getPrdOpSize()) && optionColor.equals(orderProductInfo.getPrdOpColor()) && countExist.equals("y")){
@@ -170,9 +172,11 @@ public class OrderController {
 		}
 			
 		if(orderProductInfo.getPrdOpColor()!=null){
+			orderProductInfo.setPrdOpColor(URLDecoder.decode(orderProductInfo.getPrdOpColor(), "UTF-8"));
 			value+="01="+orderProductInfo.getPrdOpColor()+",";
 		}
 		if(orderProductInfo.getPrdOpSize()!=null){
+			orderProductInfo.setPrdOpSize(URLDecoder.decode(orderProductInfo.getPrdOpSize(), "UTF-8"));
 			value+="02="+orderProductInfo.getPrdOpSize()+",";
 		}
 		if(orderProductInfo.getPrdSmallImg()!=null){
@@ -893,7 +897,9 @@ public class OrderController {
 		orderInfo.setOrderStatCd("03");
 		orderManageService.registOrderInfo(orderInfo);
 	
-				
+		ConfigInfo resConfigInfo = adminManageService.selectConfigInf();
+		
+		model.addAttribute("config", resConfigInfo);
 	
 		return "order/orderComplete";
 	}
@@ -930,6 +936,8 @@ public class OrderController {
 		}
 		
 		BigDecimal total = null;
+		BigDecimal total1 = new BigDecimal(0);
+		
 		OrderProductInfo opRes = new OrderProductInfo();
 		opRes.setOrderNo(orderInfo.getOrderNo());
 		
@@ -992,7 +1000,7 @@ public class OrderController {
 			total = new BigDecimal(prInf.getPrdSellPrc()) ;
 			total=total.multiply(new BigDecimal(odPrdInfo.getBuyCnt()));
 			odPrdInfo.setTotalPrice(total);
-			
+			total1=total1.add(total);
 			//?ъ쭊
 			AttachFileInfo att = new AttachFileInfo();
 			att.setAttCdKey(prInf.getPrdCd());
@@ -1021,31 +1029,35 @@ public class OrderController {
 			productManageService.manageProductInf(productInfo);
 			
 			
-			}
+		}
+
+		//諛곗넚鍮꾧????뺣낫
+		ConfigInfo resConfigInfo = adminManageService.selectConfigInf();
+		
+		model.addAttribute("config", resConfigInfo);
+		
+		if(total1.intValue()<=resConfigInfo.getBuyPrice()){
+			total1=total1.add(new BigDecimal(resConfigInfo.getTrasferPrice()));
+		}
+		
 		//pay
 		PaymentInfo payment = new PaymentInfo();
 		payment.setOrderNo(odNo);
 		payment.setOrderNoSeq(1);
-		payment.setPayPrice(total);
+		payment.setPayPrice(total1);
 		payment.setPayMdCd(use_pay_method2);
 		model.addAttribute("pay",use_pay_method2);
 		payment.setModifyUserId(cus.getCustId());
 		
 		
-		//諛곗넚鍮꾧????뺣낫
-		ConfigInfo resConfigInfo = adminManageService.selectConfigInf();
-
-		if(resConfigInfo.getBuyPrice()<=total.intValue()){
-			total.add(new BigDecimal(resConfigInfo.getTrasferPrice()));
-		}
 		
 		String decMemNm = cus.getCustNm();
 		String decMemNo = cus.getCustId();
 		String decShopEventNo = (String)session.getAttribute("shopEventNo");
-		String decPoint = total.toString();
+		String decPoint = total1.toString();
 		String decOrderNo = odNo;
 		
-		/*// --------------------------------------------
+		// --------------------------------------------
 		// 2. SSO泥섎━瑜??꾪븳 ?뱀꽌鍮꾩뒪 ?몄텧
 		// --------------------------------------------
 		Map<String, String> rstMap = null;
@@ -1077,15 +1089,15 @@ public class OrderController {
 				return "user/loginError";
 			}
 		}
-		*/
-		payment.setPayPoint(total.intValue());
+		
+		payment.setPayPoint(total1.intValue());
 		Map<String, String> map = HMallInterworkUtility.procSearchPoint(cus.getCustNm(), cus.getCustId(),decShopEventNo);
 		customerPoint = (String)map.get("return_point");
 		model.addAttribute("CUST_POINT", customerPoint);
 		session.setAttribute("customerPoint", customerPoint);
 		
 
-		model.addAttribute("usePoint",total);
+		model.addAttribute("usePoint",total1);
 		payment.setPymtMemo("결제완료");
 		orderManageService.registPaymentInfo(payment);
 		model.addAttribute("odPrdInfo",opResInf);
@@ -1094,7 +1106,11 @@ public class OrderController {
 		RecipientInfo re = new RecipientInfo();
 		re=orderInfo.getReciInfo();
 		re.setReciOdNum(odNo);
-		
+		re.setReciNm(URLDecoder.decode(re.getReciNm(), "UTF-8"));
+		re.setReciPh(URLDecoder.decode(re.getReciPh(), "UTF-8"));
+		re.setReciMb(URLDecoder.decode(re.getReciMb(), "UTF-8"));
+		re.setReciAdd(URLDecoder.decode(re.getReciAdd(), "UTF-8"));
+		re.setReciReq(URLDecoder.decode(re.getReciReq(), "UTF-8"));
 		
 		customerManageService.updateCustomerInf(cus);
 		orderManageService.registRecipientInfo(re);

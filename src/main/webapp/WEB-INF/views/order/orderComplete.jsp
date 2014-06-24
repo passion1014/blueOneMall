@@ -167,6 +167,7 @@ function SetPriceInput(str)
 										<c:if test="${pay eq '100000000000'}">신용카드</c:if>
 										<c:if test="${pay eq '010000000000'}">계좌이체</c:if>
 										<c:if test="${pay eq '000100000000'}">복지카드</c:if>
+										<c:if test="${pay eq '000000000001'}">포인트</c:if>
 									</td>
 								</tr>
 							</tbody>

@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:import  url="../inc/topSub.jsp" />
-
+<%@ page import="java.net.URLEncoder"%>
 <script type="text/javascript">
 <!--
 
@@ -29,6 +29,7 @@ function chk_shopForm(k){
 		alert("색상을 선택해주세요");
 		return false;
 	}
+	
 	
 	document.getElementById("prdfm").submit() ;
 }
