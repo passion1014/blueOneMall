@@ -88,7 +88,7 @@ function SetPriceInput(str)
 					<c:choose>
 						<c:when test="${prdList.size() != 0}">
 							<c:forEach var="prdList" items="${prdList}">
-							<li class="mlalign" style="padding:20px 0 20px 0;">
+							<li class="mlalign" style="padding:10px 0 20px 0;">
 								<a href="productView.do?prdCd=${prdList.prdCd}&ctgCode=${largeInf.ctgCode}&ctgMiddleCode=${chkMiddleCode}">
 								<!--<table class="product_Newtbl" summary="상품리스트 새로운 테이블 목록">
 									<caption>상품목록리스트</caption>
@@ -123,7 +123,7 @@ function SetPriceInput(str)
 								</table>-->
 								
 								<dl class="list_product"  >
-									<dd><img src="${prdList.attFilePath}" alt="product image"  width="166" height="166" /></dd>									
+									<dd><img src="${prdList.attFilePath}" alt="product image"  width="178px" height="178px" /></dd>									
 									<dd class="pro_listText" style="margin-top:7px;">${prdList.prdNm}</dd>
 									<dd class="pro_listTit">${prdList.prdBrand}</dd>
 									<dd>

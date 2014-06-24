@@ -101,9 +101,9 @@ function SetPriceInput(str)
 											<script>SetPriceInput('${odPrdInfo.totalPrice}');</script>원
 											<c:set var="total" value="${total+odPrdInfo.totalPrice}"/>
 										</c:forEach>
-										<c:if test="${total>=config.buyPrice}"> + 배송비 :  <script>SetPriceInput('${config.trasferPrice}');</script>원</c:if>
-										<c:if test="${total<config.buyPrice}"> + 배송비 : 0원 </c:if>
-										<c:if test="${usePoint>0}"> - 사용포인트 : <script>SetPriceInput('${usePoint}');</script>원 </c:if>
+										<c:if test="${total<=config.buyPrice}"> + 배송비 :  <script>SetPriceInput('${config.trasferPrice}');</script>원<c:set var="total" value="${total+config.trasferPrice}"/></c:if>
+										<c:if test="${total>config.buyPrice}"> + 배송비 : 0원 </c:if>
+										<c:if test="${usePoint>0}"> - 사용포인트 : <script>SetPriceInput('${usePoint}');</script>원 <c:set var="total" value="${total-usePoint}"/></c:if>
 										= 합계 <strong><script>SetPriceInput('${total}');</script></strong>원
 										<input type="hidden" id="sndAmount"  name="sndAmount"  value="${total}" />
 									</td>

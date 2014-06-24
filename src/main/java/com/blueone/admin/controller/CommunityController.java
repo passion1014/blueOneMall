@@ -451,9 +451,9 @@ public class CommunityController {
 			return "redirect:adminLogin.do";
 		}
 		
-		BoardInfo editBrd = boardService.selectBOM_BOARD_TB(brdInfo.getBrdSeq());
+		BoardInfo editEventBrd = boardService.selectBOM_BOARD_TB(brdInfo.getBrdSeq());
 		
-		model.addAttribute("editBrd", editBrd);
+		model.addAttribute("editBrd", editEventBrd);
 		model.addAttribute("admin", adminSession);
 		return "admin/community/eventEdit";
 

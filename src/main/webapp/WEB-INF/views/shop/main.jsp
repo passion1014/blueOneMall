@@ -152,7 +152,7 @@ function SetPriceInput(str)
 						<li>
 							<a href="../product/productView.do?prdCd=${epPrdList.prdCd}&ctgCode=${epPrdList.prdCtgL}&ctgMiddleCode=${epPrdList.prdCtgM}">
 							<dl class="list_product">
-								<dd><img src="${epPrdList.attFilePath}" width="118" height="118" alt="prouct IMG"/></dd>
+								<dd><img src="${epPrdList.attFilePath}" width="148" height="148" alt="prouct IMG"/></dd>
 								<dd class="pro_listText">${epPrdList.prdNm}</dd>
 								<dd class="pro_listTit">${epPrdList.prdBrand}</dd>
 								
@@ -187,7 +187,7 @@ function SetPriceInput(str)
 						<li>
 							<a href="../product/productView.do?prdCd=${hpPrdList.prdCd}&ctgCode=${hpPrdList.prdCtgL}&ctgMiddleCode=${hpPrdList.prdCtgM}">
 							<dl class="list_product">
-								<dd><img src="${hpPrdList.attFilePath}" width="118" height="118" alt="prouct IMG"/></dd>
+								<dd><img src="${hpPrdList.attFilePath}" width="148" height="148" alt="prouct IMG"/></dd>
 								<dd class="pro_listText">${hpPrdList.prdNm}</dd>
 								<dd class="pro_listTit">${hpPrdList.prdBrand}</dd>
 								<dd>
@@ -222,7 +222,7 @@ function SetPriceInput(str)
 						<li>
 							<a href="../product/productView.do?prdCd=${mmPrdList.prdCd}&ctgCode=${mmPrdList.prdCtgL}&ctgMiddleCode=${mmPrdList.prdCtgM}">
 							<dl class="list_product">
-								<dd><img src="${mmPrdList.attFilePath}" width="118" height="118" alt="prouct IMG"/></dd>
+								<dd><img src="${mmPrdList.attFilePath}" width="148" height="148" alt="prouct IMG"/></dd>
 								<dd class="pro_listText">${mmPrdList.prdNm}</dd>
 								<dd class="pro_listTit">${mmPrdList.prdBrand}</dd>
 								<dd>
@@ -256,7 +256,7 @@ function SetPriceInput(str)
 						<li>
 							<a href="../product/productView.do?prdCd=${pdSList.prdCd}&ctgCode=${pdSList.prdCtgL}&ctgMiddleCode=${pdSList.prdCtgM}">
 							<dl class="list_product">
-								<dd><img src="${pdSList.attFilePath}" width="118" height="118" alt="prouct IMG"/></dd>
+								<dd><img src="${pdSList.attFilePath}" width="148" height="148" alt="prouct IMG"/></dd>
 								<dd class="pro_listText">${pdSList.prdNm}</dd>
 								<dd class="pro_listTit">${pdSList.prdBrand}</dd>
 								<dd>
@@ -290,7 +290,7 @@ function SetPriceInput(str)
 						<li>
 							<a href="../product/productView.do?prdCd=${csPrdList.prdCd}&ctgCode=${csPrdList.prdCtgL}&ctgMiddleCode=${csPrdList.prdCtgM}">
 							<dl class="list_product">
-								<dd><img src="${csPrdList.attFilePath}" width="118" height="118" alt="prouct IMG"/></dd>
+								<dd><img src="${csPrdList.attFilePath}" width="148" height="148" alt="prouct IMG"/></dd>
 								<dd class="pro_listText">${csPrdList.prdNm}</dd>
 								<dd class="pro_listTit">${csPrdList.prdBrand}</dd>
 								<dd>
@@ -324,7 +324,7 @@ function SetPriceInput(str)
 						<li>
 							<a href="../product/productView.do?prdCd=${xtPrdList.prdCd}&ctgCode=${xtPrdList.prdCtgL}&ctgMiddleCode=${xtPrdList.prdCtgM}">
 							<dl class="list_product">
-								<dd><img src="${xtPrdList.attFilePath}" width="118" height="118" alt="prouct IMG"/></dd>
+								<dd><img src="${xtPrdList.attFilePath}" width="148" height="148" alt="prouct IMG"/></dd>
 								<dd class="pro_listText">${xtPrdList.prdNm}</dd>
 								<dd class="pro_listTit">${xtPrdList.prdBrand}</dd>
 								<dd>
@@ -355,17 +355,17 @@ function SetPriceInput(str)
 				</c:if>
 		</div>
 
-		<div class="cont_bottom">
+		<div class="cont_bottom" >
 			<dl class="cont_botbox1">
-				<dt><B>입점 브랜드	</B><span>Sound Brand</span></dt>
+				<dt ><B>입점 브랜드	</B><span>Sound Brand</span></dt>
 				<dd>
 					<a href="/product/productList.do?ctgCode=L6161&ctgMiddleCode=M6343" class="mart"><img src="<c:url value='/resources/img/main/main/lglogo.gif'/>" alt="LG전자 logo"/></a>
 					<a href="/product/productList.do?ctgCode=L6161&ctgMiddleCode=M7429" class="mart"><img src="<c:url value='/resources/img/main/main/akglogo.gif'/>" alt="AKG logo"/></a>
 					<a href="/product/productList.do?ctgCode=L6161&ctgMiddleCode=M7429" class="mart"><img src="<c:url value='/resources/img/main/main/harmanlogo.gif'/>" alt="harman logo"/></a>
-					<a href="/product/productList.do?ctgCode=L6161&ctgMiddleCode=M446"><img src="<c:url value='/resources/img/main/main/ubllogo.gif'/>" alt="UBL logo"/></a>
+					<a href="/product/productList.do?ctgCode=L6161&ctgMiddleCode=M446"  class="mart"><img src="<c:url value='/resources/img/main/main/ubllogo.gif'/>" alt="UBL logo"/></a>
 				</dd>
 		 	</dl>
-		 	<dl class="cont_botbox2">
+		 	<dl class="cont_botbox2" >
 				<dt><B>하만 스토어	</B><span class="textbox1">진정한 사운드를 좀 더 가까운 곳에서<br/>	느끼실 수 있습니다.</span>
 					<span class="textbox2">서울 특별시 강남구 청담동 85-2 JW빌딩 1층</span>
 				</dt>
@@ -376,7 +376,7 @@ function SetPriceInput(str)
 				</dd>
 		 	</dl>
 		</div>
-		<div class="cont_notice">
+		<div class="cont_notice" style="background-color:#e2e2e2">
 			<dl class="notice_box">
 				<dt class="notice_tit">NEWS & NOTICE</dt>
 				<dd>
@@ -387,11 +387,17 @@ function SetPriceInput(str)
 			</dl>
 			<span class="icon_box">
 				<!--<a href="" class="icon_malign"><img src="<c:url value='/resources/img/main/main/customer_center.gif'/>" alt="customer center"/></a>-->
-				<img src="<c:url value='/resources/img/main/main/customer_center.gif'/>" alt="customer center"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<img src="<c:url value='/resources/img/main/main/customer_center.png'/>" alt="customer center"/>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="" class="icon_malign"><img src="<c:url value='/resources/img/main/main/shopinpo2_btn1.gif'/>" alt="qa icon"/></a>
+				<a href="/community/faqList.do" class="icon_malign"><img src="<c:url value='/resources/img/main/main/shopinpo2_btn2.gif'/>" alt="faq icon"/></a>
+				<a href="/user/orderListView.do" class="icon_malign"><img src="<c:url value='/resources/img/main/main/shopinpo2_btn3.gif'/>" alt="order icon"/></a>
+				<a href=""><img src="<c:url value='/resources/img/main/main/shopinpo2_btn4.gif'/>" alt="customer icon"/></a>
+<!-- 
 				<a href="" class="icon_malign"><img src="<c:url value='/resources/img/main/main/qa_icon.gif'/>" alt="qa icon"/></a>
 				<a href="/community/faqList.do" class="icon_malign"><img src="<c:url value='/resources/img/main/main/faq_icon.gif'/>" alt="faq icon"/></a>
 				<a href="/user/orderListView.do" class="icon_malign"><img src="<c:url value='/resources/img/main/main/order_icon.gif'/>" alt="order icon"/></a>
 				<a href=""><img src="<c:url value='/resources/img/main/main/customer_icon.gif'/>" alt="customer icon"/></a>
+ -->
 			</span>
 		</div>
 	</div>

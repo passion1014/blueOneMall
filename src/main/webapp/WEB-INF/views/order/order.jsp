@@ -43,12 +43,7 @@
         }
     /* ============================================================================== */
 %>
-<%
-	/* ============================================================================== */
-	/* =   02-1.받는사람 정보                                                = */
-	/* = -------------------------------------------------------------------------- = */
-	String reci_name     = f_get_parm( request.getParameter( "cus.custNm") ); //받는사람 이름
-%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
 <head>
@@ -114,10 +109,10 @@
 							var Address = document.getElementById("custZip1").value +"-"+ document.getElementById("custZip2").value +" "+ document.getElementById("custAdd").value +" "+ document.getElementById("custAddDetail").value;
 
 
-							document.getElementById("reciInfo.reciNm").value   = document.getElementById("reciNm").value ;
-							document.getElementById("reciInfo.reciPh").value   = document.getElementById("tel1").value + document.getElementById("tel2").value + document.getElementById("tel3").value  ;
-							document.getElementById("reciInfo.reciMb").value   = document.getElementById("hp1").value + document.getElementById("hp2").value + document.getElementById("hp3").value  ;
-							document.getElementById("reciInfo.reciAdd").value  = Address ;
+							document.getElementById("reciInfo.reciNm").value   = encodeURI(document.getElementById("reciNm").value) ;
+							document.getElementById("reciInfo.reciPh").value   =  encodeURI(document.getElementById("tel1").value +","+ document.getElementById("tel2").value+","+ document.getElementById("tel3").value  );
+							document.getElementById("reciInfo.reciMb").value   = document.getElementById("hp1").value +","+  document.getElementById("hp2").value +","+ document.getElementById("hp3").value  ;
+							document.getElementById("reciInfo.reciAdd").value  =  encodeURI(Address) ;
 							document.getElementById("reciInfo.reciReq").value  = document.getElementById("reciReq").value ;
 
 							document.order_info.action = "orderComplete_allPoint.do" ;
@@ -229,7 +224,7 @@
 				function addr_samsam(key){
 					if(key == "basic"){
 
-						document.getElementById("buyr_name").value = document.getElementById("orderName").value ;
+						document.getElementById("buyr_name").value = document.getElementById("orderName").value;
 
 						document.getElementById("buyr_tel1").value = document.getElementById("orderTel1").value + document.getElementById("orderTel2").value + document.getElementById("orderTel3").value  ;
 						document.getElementById("tel1").value      = document.getElementById("orderTel1").value ;
@@ -565,7 +560,7 @@ function pre_count(){
 									</td>
 									<th>받으시는분</th>
 									<td class="in_text">
-										<input type="text" id="reciNm" name="reciNm" value="" title="받으시는분 성명 기입"/>
+										<input type="text" id="reciNm" name="reciNm" value="${cus.custNm}" title="받으시는분 성명 기입"/>
 										<input type="hidden"  id="buyr_name" name="buyr_name" value="${cus.custNm}" />
 									</td>
 								</tr>
@@ -617,8 +612,8 @@ function pre_count(){
 									<td colspan="3" class="in_sectext" style="padding:5px;">
 										<input type="text" title="address text" style="width:60px;" id="custZip1" name="reciAdd1" value="${cus.custZip1}" readonly required hname="우편번호를 입력하여 주십시오" />-
 										<input type="text" title="address text" style="width:60px;" id="custZip2" name="reciAdd2" value="${cus.custZip2}" readonly required hname="우편번호를 입력하여 주십시오" />
-										<input type="button" value="우편번호 찾기" style="width:100px;height:21px;" onClick="openWin('/user/searchZipCode.do?type=userEdit','searchZipuserRegiForm',650,450,'scrollbars=yes');" /><br/>
-										<input type="text" title="address text" style="width:50%;" id="custAdd"       name="reciAdd3" value="${cus.custAdd}" readonly/>
+										<input type="button" value="우편번호 찾기" style="width:100px;height:21px;" onClick="openWin('/user/searchZipCode.do?type=userEdit','searchZipuserRegiForm',650,450,'scrollbars=yes');"  style="paddingm:10px"/><br/>
+										<input type="text" title="address text" style="width:50%;" id="custAdd"       name="reciAdd3" value="${cus.custAdd}" readonly />
 										<input type="text" title="address text" style="width:40%;" id="custAddDetail" name="reciAdd4" value="${cus.custAddDetail}"/>
 									</td>
 								</tr>
@@ -752,10 +747,10 @@ function pre_count(){
 					<div class="complet_area">
 						<span class="btn_complete">
 							<!-- <input type="button" value="결제하기" title="결제버튼" onClick="_pay(document.KSPayWeb);"/> -->
-							<input name="" type="submit" class="submit" value="결제하기" onclick="return jsf__pay(this.form);"/>
+							<input name="" type="submit" style="cursor:pointer; " class="submit" value="결제하기" onclick="return jsf__pay(this.form);"/>
 						</span>
 						<span class="btn_cancle">
-							<input type="reset" value="취소하기" title="취소버튼"/>
+							<input type="reset" value="취소하기" title="취소버튼" style="cursor:pointer; "/>
 						</span>
 					</div>
 				</div>

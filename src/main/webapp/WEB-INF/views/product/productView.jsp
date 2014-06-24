@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:import  url="../inc/topSub.jsp" />
-<%@ page import="java.net.URLEncoder"%>
+
 <script type="text/javascript">
 <!--
 
@@ -29,7 +29,6 @@ function chk_shopForm(k){
 		alert("색상을 선택해주세요");
 		return false;
 	}
-	
 	
 	document.getElementById("prdfm").submit() ;
 }
@@ -120,20 +119,20 @@ function SetPriceInput(str)
 						<table class="detail_tbl" summary="제품에 대한 상세리스트표">
 							<caption>상세리스트 목록</caption>
 							<colgroup>
-								<col width="25%"/>
-								<col width="35%"/>
-								<col width="40%"/>
+								<col width="30%"/>
+								<col width="50%"/>
+								<col width="20%"/>
 							</colgroup>
 							<tbody>
-								<tr>
+								<tr bgcolor="#f8f8f8">
 									<th>소비자 가격</th>
 									<td colspan="2"><span class="textline"><script>SetPriceInput('${pro.prdPrice}');</script> 원</span></td>
-								</tr>
-								<tr>
+								</tr >
+								<tr bgcolor="#f8f8f8">
 									<th>판매 가격</th>
 									<td colspan="2"><strong class="stext2"><script>SetPriceInput('${pro.prdSellPrc}');</script> 원</strong></td>
 								</tr>
-								<tr>
+								<tr bgcolor="#f8f8f8">
 									<th class="bottomline">배송비</th>
 									<td colspan="2" class="bottomline">배송조건 : (조건)</td>
 								</tr>
@@ -160,7 +159,7 @@ function SetPriceInput(str)
 								</tr>
 								
 								<c:if test="${pro.prdColor eq 'y'}">
-								<tr>
+								<tr bgcolor="#f8f8f8">
 									<th>색상</th>
 									<td colspan="2" >
 										<select  id="prdOpColor" name="prdOpColor">
@@ -176,7 +175,7 @@ function SetPriceInput(str)
 								</c:if>
 
 								<c:if test="${pro.prdSize eq 'y'}">
-								<tr>
+								<tr bgcolor="#f8f8f8">
 									<th>크기</th>
 									<td colspan="2" >
 										<select  id="prdOpSize" name="prdOpSize">
@@ -190,7 +189,7 @@ function SetPriceInput(str)
 									</td>
 								</tr>
 								</c:if>
-								<tr>
+								<tr bgcolor="#f8f8f8">
 									<th>수량</th>
 									<td colspan="2">
 										<c:choose>
@@ -228,7 +227,7 @@ function SetPriceInput(str)
 									<c:when test="${pro.prdStock > 0}">
 										<tr>
 											<td colspan="3" class="btn_box">
-												<input type="button" value="바로 구매하기" class="btn_buy" title="구매하기" onClick="chk_shopForm('direct')" style="cursor:pointer;"/>
+												<input type="button" value="구매하기" class="btn_cart" title="구매하기" onClick="chk_shopForm('direct')" style="cursor:pointer;"/>
 												<input type="button" value="장바구니" class="btn_buy" title="장바구니" onClick="chk_shopForm('cart')" style="cursor:pointer;">
 											</td>
 										</tr>

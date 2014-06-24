@@ -32,8 +32,7 @@
 				<li><a href="productList.do?ctgCode=${largeInf.ctgCode}&ctgMiddleCode=${lnbList.ctgCode}"><c:out value="${lnbList.ctgName}"></c:out></a></li>
 			</c:if>			
 		</c:forEach> --%>
-		
-		
+				
 		<%-- <c:forEach items="${lnbList}" var="lnbList">
 			<c:set value="0" var="smallCounter"></c:set>					
 			<c:forEach items="${categoryList}" var="countList">

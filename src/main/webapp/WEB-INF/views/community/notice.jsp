@@ -56,28 +56,29 @@
 								<table class="notice_tbl" summary="문의하기목록표">
 									<caption>문의하기목록</caption>
 									<colgroup>
-										<col width="20%"/>
-										<col width="40%"/>
-										<col width="20%"/>
-										<col width="20%"/>
+										<col width="60%"/>
+										<col width="15%"/>
+										<col width="15%"/>										
+										<col width="10%"/>
 									</colgroup>
 									<thead>
 										<tr>
 											<!-- <th>상담유형</th> -->
-											<th>조회수</th>
+											
 											<th>제목</th>
 											<th>작성자</th>
 											<th>문의일자</th>
+											<th>조회수</th>
 											<!-- <th>처리현황</th> -->
 										</tr>
 									</thead>
 									<tbody>
 										<c:forEach items="${noticeList}" var="qna">
 											<tr>
-												<td>${qna.hit}</td>
-												<td><a href="/community/noticeView.do?brdSeq=${qna.brdSeq}">${qna.title}</a></td>
+												<td style="text-align:left; padding-left:15px "><a href="/community/noticeView.do?brdSeq=${qna.brdSeq}">${qna.title}</a></td>
 												<td>운영자</td>
-												<td>${qna.insDt.substring(0,10)}</td>
+												<td>${qna.insDt.substring(0,10)}</td>												
+												<td>${qna.hit}</td>
 											</tr>
 										</c:forEach>
 									</tbody>

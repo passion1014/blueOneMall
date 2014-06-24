@@ -153,20 +153,21 @@ function SetPriceInput(str)
 									</td>
 									<td><script>SetPriceInput('${odPrdInfo.totalPrice}');</script></td>
 									<td>
-										<input type="button" value="구매하기 "class="btn_choice1" onClick="location.href='orderRegister.do?ord_unit_chk=${odPrdInfo.cookieKey}';"/>
-										<input type="button" value="삭제하기" class="btn_choice2" onClick="confirm_process('','해당 상품을 삭제하시겠습니까?','deleteCartList.do?cookieKey=${odPrdInfo.cookieKey}');" /> 
+										<input type="button" value="구매하기 "class="btn_choice1"  style="cursor:pointer; background:#e93d3d; border:1px solid #d80303; width:60px; line-height:20px; color:#fff; font-family:'NanumGothicBold'; border:0; font-size:11px; cursor:pointer;" onClick="location.href='orderRegister.do?ord_unit_chk=${odPrdInfo.cookieKey}';"/>
+										<input type="button" value="삭제하기" class="btn_choice2"    style="cursor:pointer; background:#666666; border:1px solid #5c5c5c; width:60px; line-height:20px; color:#fff; font-family:'NanumGothicBold'; border:0; font-size:11px; cursor:pointer; margin-top:5px" onClick="confirm_process('','해당 상품을 삭제하시겠습니까?','deleteCartList.do?cookieKey=${odPrdInfo.cookieKey}');" /> 
 									</td>
 								</tr>
 								<tr>
 									<td class="one_choice" colspan="6">
 										<c:set var="totalPrc" value="${odPrdInfo.totalPrice.intValue()}"/>
 										상품가격 : <script>SetPriceInput('${odPrdInfo.totalPrice}');</script>원  + 
-										<c:if test="${totalPrc<=config.buyPrice}">
+										<c:if test="${totalPrc>config.buyPrice}">배송비 : 0원 </c:if>
+										<c:if test="${totalPrc<=config.buyPrice and totalPrc>0}">
 											배송비 : <script>SetPriceInput('${config.trasferPrice}');</script>원
 											<c:set var="totalPrc" value="${totalPrc+config.trasferPrice}"/>
 										</c:if>
-										<c:if test="${totalPrc>config.buyPrice}">배송비 : 0원 </c:if>= 합계
-										<script>SetPriceInput('${totalPrc}');</script>원
+										
+										= 합계 <script>SetPriceInput('${totalPrc}');</script>원
 									 </td>
 								</tr>
 								</c:forEach>
@@ -181,7 +182,7 @@ function SetPriceInput(str)
 										<script>SetPriceInput('${odPrdInfo.totalPrice}');</script>원 +
 										<c:set var="total" value="${total+odPrdInfo.totalPrice}"/>
 										</c:forEach>
-										 <c:if test="${total<=config.buyPrice}">
+										 <c:if test="${total<=config.buyPrice and total>0}">
 											배송비 :  <script>SetPriceInput('${config.trasferPrice}');</script>원
 											<c:set var="total" value="${total+config.trasferPrice}"/>
 										 </c:if>
