@@ -86,11 +86,11 @@ public class UserCommunityController {
 			return "user/errorPage";
 		}
 				
-		// 공지사항 페이지
+		// 이벤트 페이지
 		int currentPage = adminInfo.getCurrentPage();
 		
 		// ----------------------------------------------------
-		// 공지사항 가져오기
+		// 이벤트 가져오기
 		// ----------------------------------------------------
 		BoardSrchInfo boardSrchInfo = new BoardSrchInfo();
 		boardSrchInfo.setSrchBrdTyp(11);
@@ -125,8 +125,8 @@ public class UserCommunityController {
 		// 상품댓글 가져오기
 		// ----------------------------------------------------
 		BoardSrchInfo boardSrchInfo = new BoardSrchInfo();
-		boardSrchInfo.setSrchBrdTyp(12);
-		boardSrchInfo.setBrdCodeType("03");
+		boardSrchInfo.setSrchBrdTyp(10);
+		boardSrchInfo.setBrdCodeType("01");
 		boardSrchInfo.setBrdCodeKey("E"+Long.toString(brdInfo.getBrdSeq()));
 
 		/*// 페이지정보 셋팅
@@ -153,7 +153,7 @@ public class UserCommunityController {
 			cust.setCustId("Guest!");
 		}
 		
-		int brdTyp = 12;// 게시판유형 = 12 (event댓글)
+		int brdTyp = 10;// 게시판유형 = 10 (event댓글)
 
 		BoardInfo boardInfo = new BoardInfo();
 		boardInfo.setBrdTyp(brdTyp);
@@ -161,7 +161,7 @@ public class UserCommunityController {
 		boardInfo.setContent(content);
 		boardInfo.setSrchBrdTyp(brdTyp);
 		boardInfo.setBrdCodeKey("E"+brdSeq);
-		boardInfo.setBrdCodeType("03"); //
+		boardInfo.setBrdCodeType("01"); //
 
 		if (boardService.insertBoard(boardInfo)) {
 			// 글이 등록됐음
