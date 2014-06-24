@@ -411,4 +411,14 @@
 		WHERE
 			BRD_SEQ = #{brdSeq}
 	</update>
+	
+	<update id="updateBOM_BOARD_TB_HIT" parameterType="com.blueone.board.domain.BoardInfo">
+		UPDATE BOM_BOARD_TB
+			SET	
+				HIT = HIT+1
+			WHERE
+				`SW_RANK`= #{swRank}
+	</update>
+	
+	
 </mapper>

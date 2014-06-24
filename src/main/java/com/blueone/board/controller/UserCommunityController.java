@@ -157,7 +157,7 @@ public class UserCommunityController {
 
 		BoardInfo boardInfo = new BoardInfo();
 		boardInfo.setBrdTyp(brdTyp);
-		boardInfo.setInsUser(cust.getCustNm());
+		boardInfo.setInsUser(cust.getCustId()+"_"+cust.getCustNm());
 		boardInfo.setContent(content);
 		boardInfo.setSrchBrdTyp(brdTyp);
 		boardInfo.setBrdCodeKey("E"+brdSeq);
@@ -173,6 +173,20 @@ public class UserCommunityController {
 
 		String viewName = "redirect:eventView.do?brdSeq=" + brdSeq;
 		return viewName;
+	}
+	//event 댓글 삭제
+	@RequestMapping(value = "/community/eventDelete.do", method = RequestMethod.GET)
+	public String eventDelete(@ModelAttribute("AdminInfo") BoardInfo brdInfo,BindingResult result, Model model, HttpSession session,int pageSeq) {
+		CustomerInfo customerSesstion =(CustomerInfo)session.getAttribute("customerSession");
+		// 세션체크
+		if (customerSesstion == null) {
+			return "user/errorPage";
+		}
+		
+		boardService.deleteBoardTBInf(brdInfo);
+		
+		return "redirect:eventView.do?brdSeq=" + pageSeq;
+
 	}
 	@RequestMapping(value = "/community/faqList.do", method = RequestMethod.GET)
 	public String faqList(@ModelAttribute("AdminInfo") AdminInfo adminInfo,

@@ -5,7 +5,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
-
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>###### 현대프로모션몰 ######</title>
@@ -63,16 +62,27 @@
 			<c:forEach items="${qnaList}" var="qna">
 			 <table>
 				<tr>
-					<td class="texalign"><a href="#">${qna.content}</a></td>
-					<td class="bgcolor">${qna.insUser}</td>
-					<td>${qna.insDt}</td>
+					<td class="texalign">${qna.content}</td>
+					<td class="bgcolor">
+						<script type="text/javascript">
+							document.open();
+							var text='${qna.insUser}';
+							var textArray=text.split('_');
+							document.write(textArray[1]);
+							document.close();
+						</script> 
+					</td>
+					<td>${qna.insDt}</td>	
+					<td>
+						<c:set var="custIdNm" value="${customerSession.custId}_${customerSession.custNm}"/>
+						<c:if test="${custIdNm eq qna.insUser}"><input type="button" value="삭제"  onClick="confirm_process('','해당 댓글을 삭제하시겠습니까?','eventDelete.do?brdSeq=${qna.brdSeq}&pageSeq=${brdView.brdSeq}');" class="Button Gray" /></c:if>
+					</td>
 				</tr>
 			 </table>
 			</c:forEach>
 			<form action="/community/writeEvent.do" method="post" name="qnaform">
 				<input type="hidden" name="brdSeq" value="${brdView.brdSeq}" />
 					${customerSession.custNm} <input type="text" name="content" style="height:80px;"> <input type="submit" value="댓글등록">
-					
 			</form>
 		</div>
 	</div>
