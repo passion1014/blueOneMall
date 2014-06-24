@@ -34,7 +34,9 @@ public class UserCommunityController {
 		if (customerSesstion == null) {
 			return "user/errorPage";
 		}
-				
+		model.addAttribute("CUST_NAME", customerSesstion.getCustNm());
+		String customerPoint = (String)session.getAttribute("customerPoint");
+		model.addAttribute("CUST_POINT", customerPoint);
 		// 공지사항 페이지
 		int currentPage = adminInfo.getCurrentPage();
 		
@@ -65,7 +67,9 @@ public class UserCommunityController {
 		if (customerSesstion == null) {
 			return "user/errorPage";
 		}
-				
+		model.addAttribute("CUST_NAME", customerSesstion.getCustNm());
+		String customerPoint = (String)session.getAttribute("customerPoint");
+		model.addAttribute("CUST_POINT", customerPoint);	
 		// 이벤트 페이지
 		int currentPage = adminInfo.getCurrentPage();
 		
@@ -96,7 +100,9 @@ public class UserCommunityController {
 		if (customerSesstion == null) {
 			return "user/errorPage";
 		}
-				
+		model.addAttribute("CUST_NAME", customerSesstion.getCustNm());
+		String customerPoint = (String)session.getAttribute("customerPoint");
+		model.addAttribute("CUST_POINT", customerPoint);	
 		BoardInfo brdView = boardService.selectBOM_BOARD_TB(brdInfo.getBrdSeq());
 		boardService.updateBoardHit(brdInfo);
 		String cnt = brdView.getContent();
@@ -116,7 +122,9 @@ public class UserCommunityController {
 		if (customerSesstion == null) {
 			return "user/errorPage";
 		}
-				
+		model.addAttribute("CUST_NAME", customerSesstion.getCustNm());
+		String customerPoint = (String)session.getAttribute("customerPoint");
+		model.addAttribute("CUST_POINT", customerPoint);		
 		// 이벤트 페이지
 		int currentPage = adminInfo.getCurrentPage();
 		
@@ -148,7 +156,9 @@ public class UserCommunityController {
 		if (customerSesstion == null) {
 			return "user/errorPage";
 		}
-				
+		model.addAttribute("CUST_NAME", customerSesstion.getCustNm());
+		String customerPoint = (String)session.getAttribute("customerPoint");
+		model.addAttribute("CUST_POINT", customerPoint);		
 		// 이벤트 페이지
 		int currentPage = adminInfo.getCurrentPage();
 		
@@ -179,7 +189,9 @@ public class UserCommunityController {
 		if (customerSesstion == null) {
 			return "user/errorPage";
 		}
-				
+		model.addAttribute("CUST_NAME", customerSesstion.getCustNm());
+		String customerPoint = (String)session.getAttribute("customerPoint");
+		model.addAttribute("CUST_POINT", customerPoint);		
 		BoardInfo brdView = boardService.selectBOM_BOARD_TB(brdInfo.getBrdSeq());
 		model.addAttribute("brdView", brdView);
 		boardService.updateBoardHit(brdInfo);
@@ -244,7 +256,9 @@ public class UserCommunityController {
 		if (customerSesstion == null) {
 			return "user/errorPage";
 		}
-		
+		model.addAttribute("CUST_NAME", customerSesstion.getCustNm());
+		String customerPoint = (String)session.getAttribute("customerPoint");
+		model.addAttribute("CUST_POINT", customerPoint);
 		boardService.deleteBoardTBInf(brdInfo);
 		
 		return "redirect:eventView.do?brdSeq=" + pageSeq;
@@ -259,7 +273,9 @@ public class UserCommunityController {
 		if (customerSesstion == null) {
 			return "user/errorPage";
 		}
-				
+		model.addAttribute("CUST_NAME", customerSesstion.getCustNm());
+		String customerPoint = (String)session.getAttribute("customerPoint");
+		model.addAttribute("CUST_POINT", customerPoint);		
 		
 		
 		 List<FaqInfo> faqList=boardService.getFaqInfoList();
@@ -283,7 +299,9 @@ public class UserCommunityController {
 		if (customerSesstion == null) {
 			return "user/errorPage";
 		}
-				
+		model.addAttribute("CUST_NAME", customerSesstion.getCustNm());
+		String customerPoint = (String)session.getAttribute("customerPoint");
+		model.addAttribute("CUST_POINT", customerPoint);		
 		
 		
 		 List<FaqInfo> faqList=boardService.getFaqInfoList(faqInfo);
@@ -307,7 +325,9 @@ public class UserCommunityController {
 		if (customerSesstion == null) {
 			return "user/errorPage";
 		}
-		
+		model.addAttribute("CUST_NAME", customerSesstion.getCustNm());
+		String customerPoint = (String)session.getAttribute("customerPoint");
+		model.addAttribute("CUST_POINT", customerPoint);
 	
 		FaqInfo reFaqInfo = boardService.getFaqInfoByIdx(faq);
 		model.addAttribute("reFaqInfo", reFaqInfo);
