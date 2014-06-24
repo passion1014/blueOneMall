@@ -16,7 +16,7 @@
 	<div class="container">
 		<c:import url="../inc/communityLnb.jsp" />
 		<div class="sub_content">
-			<form action="#" method="post">
+			<form method="GET" id="eventFrc" name="eventFrc" action="/community/eventSeach.do">
 				<div class="customer_section">
 					<h4>EVENT</h4>
 					<p class="sub_tit">쇼핑몰의 새로운 소식이나 이벤트를 확인하실 수 있습니다.</p>
@@ -37,18 +37,20 @@
 											<button>6개월</button>
 										</span>
 									</li> --%>
-									<li class="datebox_search">
-										<span class="tit">검색</span>
-										<span>
-											<select name="schType">
-												<option value="t">전체</option>
-												<option value="q">제목</option>
-												<option value="a">내용</option>
-											</select>
-											<input type="text" id="schWord" name="schWord" title="searchbox" />
-											<button class="btn">조회하기</button>
-										</span>
-									</li>
+									
+										<li class="datebox_search">
+											<span class="tit">검색</span>
+											<span>
+												<select name="schType">
+													<option value="a">전체</option>
+													<option value="t">제목</option>
+													<option value="c">내용</option>
+												</select>
+												<input type="text" id="srchKeyword" name="srchKeyword" title="searchbox" />
+												<button class="btn">조회하기</button>
+											</span>
+										</li>
+									
 								</ol>
 							</li>
 							<li>

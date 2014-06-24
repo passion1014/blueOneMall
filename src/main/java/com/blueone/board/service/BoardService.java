@@ -176,7 +176,29 @@ public class BoardService implements IBoardService {
         
         return rst;
     }
-
+	
+	@Override
+    public int updateBoardHit(BoardInfo boardInfo) {
+        
+        int rst = -1;
+        
+        // -----------------------------------------------
+        // 조회한 결과값이 있으면 DB업데이트
+        // -----------------------------------------------
+        
+            SqlSession sqlSession = sqlSessionFactory.openSession();
+            try {
+                // DB 수행
+                rst = sqlSession.update("board.updateBOM_BOARD_TB_HIT", boardInfo);
+                
+          
+            } finally {
+                sqlSession.close();
+            }
+        
+        
+        return rst;
+    }
 	@Override
 	public List<BoardInfo> getBoardLastList(int[] brdTyps, int size) {
 		valueMap.put("brdTyps", brdTyps);

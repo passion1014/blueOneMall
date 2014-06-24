@@ -57,7 +57,37 @@ public class UserCommunityController {
 		return "community/notice";
 
 	}
-	
+	@RequestMapping(value = "/community/noticeSeach.do")
+	public String noticeSeach(@ModelAttribute("AdminInfo") AdminInfo adminInfo,BoardSrchInfo boardSrchInfo,BindingResult result, Model model, HttpSession session) {
+		
+		CustomerInfo customerSesstion =(CustomerInfo)session.getAttribute("customerSession");
+		// 세션체크
+		if (customerSesstion == null) {
+			return "user/errorPage";
+		}
+				
+		// 이벤트 페이지
+		int currentPage = adminInfo.getCurrentPage();
+		
+		// ----------------------------------------------------
+		// 이벤트 가져오기
+		// ----------------------------------------------------
+		
+		boardSrchInfo.setSrchBrdTyp(11);
+		
+		// 페이지정보 셋팅
+		if (currentPage != 0)
+			boardSrchInfo.setCurrentPage(currentPage);
+
+		List<BoardInfo> boardList = boardService.getBrdTypBoardList(boardSrchInfo);
+		boardSrchInfo.setTotalCount(boardService.getBrdTypTotalCount(boardSrchInfo));
+		
+		model.addAttribute("noticeList", boardList);
+		model.addAttribute("pageHtml", getPageHtml(boardSrchInfo));
+		
+		return "community/notice";
+
+	}
 	@RequestMapping(value = "/community/noticeView.do", method = RequestMethod.GET)
 	public String noticeView(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BoardInfo brdInfo,BindingResult result, Model model, HttpSession session) {
 		
@@ -68,6 +98,7 @@ public class UserCommunityController {
 		}
 				
 		BoardInfo brdView = boardService.selectBOM_BOARD_TB(brdInfo.getBrdSeq());
+		boardService.updateBoardHit(brdInfo);
 		String cnt = brdView.getContent();
 		cnt =cnt.replace("%0A", "<br>");
 		brdView.setContent(cnt);
@@ -101,7 +132,7 @@ public class UserCommunityController {
 
 		List<BoardInfo> boardList = boardService.getBrdTypBoardList(boardSrchInfo);
 		boardSrchInfo.setTotalCount(boardService.getBrdTypTotalCount(boardSrchInfo));
-
+		
 		model.addAttribute("noticeList", boardList);
 		model.addAttribute("pageHtml", getPageHtml(boardSrchInfo));
 		
@@ -109,6 +140,37 @@ public class UserCommunityController {
 
 	}
 	
+	@RequestMapping(value = "/community/eventSeach.do")
+	public String eventSeach(@ModelAttribute("AdminInfo") AdminInfo adminInfo,BoardSrchInfo boardSrchInfo,BindingResult result, Model model, HttpSession session) {
+		
+		CustomerInfo customerSesstion =(CustomerInfo)session.getAttribute("customerSession");
+		// 세션체크
+		if (customerSesstion == null) {
+			return "user/errorPage";
+		}
+				
+		// 이벤트 페이지
+		int currentPage = adminInfo.getCurrentPage();
+		
+		// ----------------------------------------------------
+		// 이벤트 가져오기
+		// ----------------------------------------------------
+		
+		boardSrchInfo.setSrchBrdTyp(11);
+		
+		// 페이지정보 셋팅
+		if (currentPage != 0)
+			boardSrchInfo.setCurrentPage(currentPage);
+
+		List<BoardInfo> boardList = boardService.getBrdTypBoardList(boardSrchInfo);
+		boardSrchInfo.setTotalCount(boardService.getBrdTypTotalCount(boardSrchInfo));
+		
+		model.addAttribute("noticeList", boardList);
+		model.addAttribute("pageHtml", getPageHtml(boardSrchInfo));
+		
+		return "community/event";
+
+	}
 	@RequestMapping(value = "/community/eventView.do", method = RequestMethod.GET)
 	public String eventView(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BoardInfo brdInfo,BindingResult result, Model model, HttpSession session) {
 		
@@ -120,7 +182,7 @@ public class UserCommunityController {
 				
 		BoardInfo brdView = boardService.selectBOM_BOARD_TB(brdInfo.getBrdSeq());
 		model.addAttribute("brdView", brdView);
-		
+		boardService.updateBoardHit(brdInfo);
 		// ----------------------------------------------------
 		// 상품댓글 가져오기
 		// ----------------------------------------------------

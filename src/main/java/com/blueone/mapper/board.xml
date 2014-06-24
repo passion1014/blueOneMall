@@ -55,8 +55,16 @@
 									</foreach>
 		                        </if>
 		                        
-		                        <if test="srchKeyword != null and srchKeyword != ''">
-		                        	AND concat(t1.title LIKE '%', #{srchKeyword}, '%')
+		                        <if test="schType!= null and schType eq 'a'.toString()">
+		                        	AND t1.title LIKE CONCAT('%',#{srchKeyword},'%')
+		                        	AND t1.content LIKE CONCAT('%',#{srchKeyword},'%')
+		                        </if>
+		                        
+		                        <if test="schType!= null and schType eq 't'.toString()">
+		                        	AND t1.title LIKE CONCAT('%',#{srchKeyword},'%')
+		                        </if>
+		                        <if test="schType!= null and schType eq 'c'.toString()">
+		                        	AND t1.content LIKE CONCAT('%',#{srchKeyword},'%')
 		                        </if>
 		                        
 		                   ORDER BY t1.root_seq DESC
@@ -412,12 +420,13 @@
 			BRD_SEQ = #{brdSeq}
 	</update>
 	
+	<!-- 조회수 증가 -->
 	<update id="updateBOM_BOARD_TB_HIT" parameterType="com.blueone.board.domain.BoardInfo">
 		UPDATE BOM_BOARD_TB
 			SET	
 				HIT = HIT+1
 			WHERE
-				`SW_RANK`= #{swRank}
+				brd_seq = #{brdSeq}#
 	</update>
 	
 	

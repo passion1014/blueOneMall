@@ -21,8 +21,16 @@ public class BoardSrchInfo extends BaseInfo {
 	private long[] check;
 	private long[] noticeBrdSeq;
 	private String ordBy;
+	private String schType;
 	
 	
+	
+	public String getSchType() {
+		return schType;
+	}
+	public void setSchType(String schType) {
+		this.schType = schType;
+	}
 	public String getOrdBy() {
 		return ordBy;
 	}

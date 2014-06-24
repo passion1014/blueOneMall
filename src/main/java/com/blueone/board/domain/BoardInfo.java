@@ -43,8 +43,6 @@ public class BoardInfo {
 	private String repreImage;
 	private String[] contImageFile;	// 내용에 추가된 이미지파일
 	private List<BoardAttachFileInfo> attachFiles;
-	
-	
 	public String getInsUserNm() {
 		return insUserNm;
 	}
