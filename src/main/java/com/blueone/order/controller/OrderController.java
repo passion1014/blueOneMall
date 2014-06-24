@@ -172,11 +172,11 @@ public class OrderController {
 		}
 			
 		if(orderProductInfo.getPrdOpColor()!=null){
-			orderProductInfo.setPrdOpColor(URLDecoder.decode(orderProductInfo.getPrdOpColor(), "UTF-8"));
+		
 			value+="01="+orderProductInfo.getPrdOpColor()+",";
 		}
 		if(orderProductInfo.getPrdOpSize()!=null){
-			orderProductInfo.setPrdOpSize(URLDecoder.decode(orderProductInfo.getPrdOpSize(), "UTF-8"));
+			
 			value+="02="+orderProductInfo.getPrdOpSize()+",";
 		}
 		if(orderProductInfo.getPrdSmallImg()!=null){
@@ -309,11 +309,12 @@ public class OrderController {
 
 				if ("01".equals(s.substring(0, 2))) {
 					option += s + ",";
-					odPrdInfo.setPrdOpColor(s.substring(3));
+					odPrdInfo.setPrdOpColor(URLDecoder.decode(s.substring(3), "UTF-8"));
 				}
 				if ("02".equals(s.substring(0, 2))) {
 					option += s + ",";
-					odPrdInfo.setPrdOpSize(s.substring(3));
+					
+					odPrdInfo.setPrdOpSize(URLDecoder.decode(s.substring(3), "UTF-8"));
 				}
 				if("no".equals(s.substring(0, 2))){
 					odPrdInfo.setOrderNo(s.substring(3));
@@ -509,11 +510,12 @@ public class OrderController {
 
 				if ("01".equals(s.substring(0, 2))) {
 					option += s + ",";
-					odPrdInfo.setPrdOpColor(s.substring(3));
+					odPrdInfo.setPrdOpColor(URLDecoder.decode(s.substring(3), "UTF-8"));
 				}
 				if ("02".equals(s.substring(0, 2))) {
 					option += s + ",";
-					odPrdInfo.setPrdOpSize(s.substring(3));
+					
+					odPrdInfo.setPrdOpSize(URLDecoder.decode(s.substring(3), "UTF-8"));
 				}
 				if("no".equals(s.substring(0, 2))){
 					odPrdInfo.setOrderNo(s.substring(3));
@@ -758,11 +760,12 @@ public class OrderController {
 
 				if ("01".equals(s.substring(0, 2))) {
 					option += s + ",";
-					odPrdInfo.setPrdOpColor(s.substring(3));
+					odPrdInfo.setPrdOpColor(URLDecoder.decode(s.substring(3), "UTF-8"));
 				}
 				if ("02".equals(s.substring(0, 2))) {
 					option += s + ",";
-					odPrdInfo.setPrdOpSize(s.substring(3));
+					
+					odPrdInfo.setPrdOpSize(URLDecoder.decode(s.substring(3), "UTF-8"));
 				}
 				if("no".equals(s.substring(0, 2))){
 					odPrdInfo.setOrderNo(s.substring(3));
@@ -977,11 +980,12 @@ public class OrderController {
 
 				if ("01".equals(s.substring(0, 2))) {
 					option += s + ",";
-					odPrdInfo.setPrdOpColor(s.substring(3));
+					odPrdInfo.setPrdOpColor(URLDecoder.decode(s.substring(3), "UTF-8"));
 				}
 				if ("02".equals(s.substring(0, 2))) {
 					option += s + ",";
-					odPrdInfo.setPrdOpSize(s.substring(3));
+					
+					odPrdInfo.setPrdOpSize(URLDecoder.decode(s.substring(3), "UTF-8"));
 				}
 				if("no".equals(s.substring(0, 2))){
 					odPrdInfo.setOrderNo(s.substring(3));
@@ -1233,14 +1237,15 @@ public class OrderController {
 	
 						
 						
-							if ("01".equals(s.substring(0, 2))) {
-								option += s + ",";
-								odPrdInfo.setPrdOpColor(s.substring(3));
-							}
-							if ("02".equals(s.substring(0, 2))) {
-								option += s + ",";
-								odPrdInfo.setPrdOpSize(s.substring(3));
-							}
+						if ("01".equals(s.substring(0, 2))) {
+							option += s + ",";
+							odPrdInfo.setPrdOpColor(URLDecoder.decode(s.substring(3), "UTF-8"));
+						}
+						if ("02".equals(s.substring(0, 2))) {
+							option += s + ",";
+							
+							odPrdInfo.setPrdOpSize(URLDecoder.decode(s.substring(3), "UTF-8"));
+						}
 							/*if("no".equals(s.substring(0, 2))){
 								odPrdInfo.setOrderNo(s.substring(3));
 							}*/

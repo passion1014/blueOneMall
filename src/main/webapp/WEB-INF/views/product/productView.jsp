@@ -25,10 +25,11 @@ function chk_shopForm(k){
 		return false;
 	}
 
-	if($("#prdOpColor").val() =='ch_color'){
+	if($("#prdOpColor_ch").val() =='ch_color'){
 		alert("색상을 선택해주세요");
 		return false;
 	}
+	document.getElementById("prdOpColor").value   = encodeURI(document.getElementById("prdOpColor_ch").value) ;
 	
 	document.getElementById("prdfm").submit() ;
 }
@@ -73,7 +74,7 @@ function SetPriceInput(str)
 				<input type="hidden" id="unitPrice"  name="unitPrice"  value="${pro.prdSellPrc}">
 				<input type="hidden" id="sellPrice"  name="sellPrice"  value="${pro.prdSellPrc}">
 				<input type="hidden" id="buyType"  name="buyType"  value="">
-
+				<input type="hidden" id="prdOpColor"  name="prdOpColor"  value="">
 
 
 
@@ -162,7 +163,7 @@ function SetPriceInput(str)
 								<tr bgcolor="#f8f8f8">
 									<th>색상</th>
 									<td colspan="2" >
-										<select  id="prdOpColor" name="prdOpColor">
+										<select  id="prdOpColor_ch" name="prdOpColor_ch">
 											<option value="ch_color">색상을 선택해주세요</option>
 											<c:forEach var="opKey" items="${pro.optionKey}" begin="0" end="49" varStatus="i">
 												<c:if test="${'01' eq opKey}"> 
