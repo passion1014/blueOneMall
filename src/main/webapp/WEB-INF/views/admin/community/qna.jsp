@@ -12,7 +12,7 @@
 	</c:import>
 	
 	<div id="Contents">
-	<h1>커뮤니티 &gt; Q&A &gt; <strong>Q&A</strong></h1>
+	<h1>커뮤니티 &gt; Q&A &gt; <strong>Q&A목록</strong></h1>
 	<div class="right">
 	</div>
 	<table class="inquire_tbl" summary="제품문의목록표">
@@ -36,11 +36,19 @@
 				<tr>
 
 					<td class="bgcolor">${qna.brdSeq}</td>
-					<td class="texalign"><a href="#">${qna.title}</a></td>
-					<td class="bgcolor">${qna.insUser}</td>
+					<td class="texalign"><a href="javascript:location.href='qnaView.do?brdSeq=${qna.brdSeq}';">${qna.title}</a></td>
+					<td class="bgcolor">
+						<script type="text/javascript">
+							document.open();
+							var text='${qna.insUser}';
+							var textArray=text.split('_');
+							document.write(textArray[1]);
+							document.close();
+						</script> 
+					</td>
 					<td>${qna.insDt.substring(0,10)}</td>
 					<td style="text-align:center;">
-							<input type="button" value="수정"  onClick="openWin('./noticeEdit.do?brdSeq=${qna.brdSeq}','faqEditForm',600,450,'scrollbars=no');" class="Button Gray" />
+							<input type="button" value="수정"  onclick="location.href='qnaEdit.do?brdSeq=${qna.brdSeq}'" class="Button Gray" />
 							<input type="button" value="삭제"  onClick="confirm_process('','해당 Q&A를 삭제하시겠습니까?','qnaDelete.do?brdSeq=${qna.brdSeq}');" class="Button Gray" />
 					</td>
 				</tr>

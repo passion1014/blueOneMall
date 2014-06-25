@@ -355,9 +355,107 @@ public class CommunityController {
 		return "redirect:qnaBoard.do";
 
 	}
+	//qna 수정
+	@RequestMapping(value = "/qnaEdit.do", method = RequestMethod.GET)
+	public String qnaEdit(@ModelAttribute("AdminInfo") BoardInfo brdInfo,BindingResult result, Model model, HttpSession session) {
 	
+		AdminInfo adminSession = (AdminInfo) session.getAttribute("adminSession");
+		
+		if (adminSession == null) {
+			return "redirect:adminLogin.do";
+		}
+		
+		BoardInfo editEventBrd = boardService.selectBOM_BOARD_TB(brdInfo.getBrdSeq());
+		
+		model.addAttribute("editBrd", editEventBrd);
+		model.addAttribute("admin", adminSession);
+		return "admin/community/qnaEdit";
 
+	}
 	
+	@RequestMapping(value = "/qnaEditProc.do", method = RequestMethod.POST)
+	public String qnaEditProc(@ModelAttribute("AdminInfo") BoardInfo brdInfo,RedirectAttributes redirectAttributes,BindingResult result, Model model, HttpSession session) {
+	
+		AdminInfo adminSession = (AdminInfo) session.getAttribute("adminSession");
+		
+		if (adminSession == null) {
+			return "redirect:adminLogin.do";
+		}
+		
+		
+		boardService.updateBOM_BOARD_TB_notice(brdInfo);
+		model.addAttribute("eventEditSuccess", "yes");
+		
+		return "redirect:qnaEdit.do?brdSeq="+brdInfo.getBrdSeq();
+
+	}
+	//Q&A 보기
+	@RequestMapping(value = "/qnaView.do", method = RequestMethod.GET)
+	public String qnaView(@ModelAttribute("AdminInfo") BoardInfo brdInfo,BindingResult result, Model model, HttpSession session) {
+	
+		AdminInfo adminSession = (AdminInfo) session.getAttribute("adminSession");
+		
+		if (adminSession == null) {
+			return "redirect:adminLogin.do";
+		}
+		
+		BoardInfo editEventBrd = boardService.selectBOM_BOARD_TB(brdInfo.getBrdSeq());
+		model.addAttribute("editBrd", editEventBrd);
+		
+		// ----------------------------------------------------
+		// Q&A댓글 가져오기
+		// ----------------------------------------------------
+		BoardSrchInfo boardSrchInfo = new BoardSrchInfo();
+		boardSrchInfo.setSrchBrdTyp(21);
+		boardSrchInfo.setBrdCodeType("01");
+		boardSrchInfo.setBrdCodeKey(Long.toString(brdInfo.getBrdSeq()));
+
+		/*// 페이지정보 셋팅
+		if (currentPage != 0)
+			boardSrchInfo.setCurrentPage(currentPage);*/
+
+		List<BoardInfo> boardList = boardService
+				.getBrdTypBoardList(boardSrchInfo);
+		boardSrchInfo.setTotalCount(boardService
+				.getBrdTypTotalCount(boardSrchInfo));
+
+		model.addAttribute("qnaList", boardList);
+		//model.addAttribute("pageHtml",	getPageHtml(Long.toString(brdInfo.getBrdSeq()), boardSrchInfo));
+		
+		model.addAttribute("admin", adminSession);
+		return "admin/community/qnaView";
+
+	}
+	@RequestMapping(value = "/writeQnA_Answer.do")
+	public String writeQnA_Answer(String content, String brdSeq,HttpSession session) {
+		AdminInfo adminSession = (AdminInfo) session.getAttribute("adminSession");
+		
+		if (adminSession == null) {
+			return "redirect:adminLogin.do";
+		}
+		
+		
+		int brdTyp = 21;// 
+
+		BoardInfo boardInfo = new BoardInfo();
+		boardInfo.setBrdTyp(brdTyp);
+		boardInfo.setInsUser(adminSession.getId());
+		boardInfo.setContent(content);
+		boardInfo.setSrchBrdTyp(brdTyp);
+		boardInfo.setBrdCodeKey(brdSeq);
+		boardInfo.setBrdCodeType("01"); //
+
+		if (boardService.insertBoard(boardInfo)) {
+			// 글이 등록됐음
+			System.out.println("ok");
+		} else {
+			// 글 등록이 안됐음.
+			System.out.println("fail");
+		}
+
+		String viewName = "redirect:qnaView.do?brdSeq=" + brdSeq;
+		return viewName;
+	}
 	//Event 리스트
 	@RequestMapping(value = "/eventBoard.do", method = RequestMethod.GET)
 	public String eventBoard(@ModelAttribute("AdminInfo") AdminInfo adminInfo,BindingResult result, Model model, HttpSession session) {
@@ -470,12 +568,12 @@ public class CommunityController {
 		
 		
 		boardService.updateBOM_BOARD_TB_notice(brdInfo);
-		model.addAttribute("eventEditSuccess", "yes");
 		
+		model.addAttribute("eventEditSuccess", "yes");
 		return "redirect:eventEdit.do?brdSeq="+brdInfo.getBrdSeq();
 
 	}
-	//이벤트 수정
+	//이벤트 보기
 	@RequestMapping(value = "/eventView.do", method = RequestMethod.GET)
 	public String eventView(@ModelAttribute("AdminInfo") BoardInfo brdInfo,BindingResult result, Model model, HttpSession session) {
 	

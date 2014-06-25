@@ -371,9 +371,23 @@ public class UserCommunityController {
 		List<BoardInfo> boardList = boardService.getBrdTypBoardList(boardSrchInfo);
 		boardSrchInfo.setTotalCount(boardService.getBrdTypTotalCount(boardSrchInfo));
 		
-		model.addAttribute("noticeList", boardList);
+		
 		model.addAttribute("pageHtml", getPageHtml(boardSrchInfo));
 		
+		for(BoardInfo each : boardList ){
+			// ----------------------------------------------------
+			// 답변수 가져오기
+			// ----------------------------------------------------
+			BoardSrchInfo boardSrchInfo1 = new BoardSrchInfo();
+			boardSrchInfo1.setSrchBrdTyp(21);
+			boardSrchInfo1.setBrdCodeType("01");
+			boardSrchInfo1.setBrdCodeKey(Long.toString(each.getBrdSeq()));
+	
+			each.setHit(boardService.getBrdTypTotalCount(boardSrchInfo));
+		}
+		
+		model.addAttribute("noticeList", boardList);
+		model.addAttribute("qnaList", boardList);
 		return "community/qnaPage";
 	}
 	//Q&A 등록
@@ -388,7 +402,7 @@ public class UserCommunityController {
 		model.addAttribute("CUST_NAME", customerSesstion.getCustNm());
 		String customerPoint = (String)session.getAttribute("customerPoint");
 		model.addAttribute("CUST_POINT", customerPoint);	
-		
+		model.addAttribute("cust", customerSesstion);	
 		return "community/qnaWrite";
 
 	}
@@ -403,6 +417,8 @@ public class UserCommunityController {
 			return "user/errorPage";
 		}
 		
+		brdInfo.setInsUser(customerSesstion.getCustId()+"_"+customerSesstion.getCustNm());
+		brdInfo.setUpdUser(customerSesstion.getCustId()+"_"+customerSesstion.getCustNm());
 		
 		boardService.insertBoard(brdInfo);
 		redirectAttributes.addFlashAttribute("reloadVar", "yes");
@@ -410,6 +426,94 @@ public class UserCommunityController {
 		return "redirect:qnaList.do";
 
 	}
+	
+	@RequestMapping(value = "/community/qnaView.do", method = RequestMethod.GET)
+	public String qnaView(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BoardInfo brdInfo,BindingResult result, Model model, HttpSession session) {
+		
+
+		CustomerInfo customerSesstion =(CustomerInfo)session.getAttribute("customerSession");
+		// 세션체크
+		if (customerSesstion == null) {
+			return "user/errorPage";
+		}
+		
+		//head.jsp부분 이름과 포인트 보여주기 
+		model.addAttribute("CUST_NAME", customerSesstion.getCustNm());
+		String customerPoint = (String)session.getAttribute("customerPoint");
+		model.addAttribute("CUST_POINT", customerPoint);
+		
+		//이벤트 보여주기
+		BoardInfo brdView = boardService.selectBOM_BOARD_TB(brdInfo.getBrdSeq());
+		model.addAttribute("brdView", brdView);
+		boardService.updateBoardHit(brdInfo);
+		
+		// ----------------------------------------------------
+		// 상품댓글 가져오기
+		// ----------------------------------------------------
+		BoardSrchInfo boardSrchInfo = new BoardSrchInfo();
+		boardSrchInfo.setSrchBrdTyp(21);
+		boardSrchInfo.setBrdCodeType("01");
+		boardSrchInfo.setBrdCodeKey(Long.toString(brdInfo.getBrdSeq()));
+
+		/*// 페이지정보 셋팅
+		if (currentPage != 0)
+			boardSrchInfo.setCurrentPage(currentPage);*/
+
+		List<BoardInfo> boardList = boardService
+				.getBrdTypBoardList(boardSrchInfo);
+		boardSrchInfo.setTotalCount(boardService
+				.getBrdTypTotalCount(boardSrchInfo));
+
+		model.addAttribute("qnaList", boardList);
+		//model.addAttribute("pageHtml",	getPageHtml(Long.toString(brdInfo.getBrdSeq()), boardSrchInfo));
+		
+		 
+		return "community/qnaView";
+
+	}
+	//qna 수정
+	@RequestMapping(value = "/community/qnaEdit.do", method = RequestMethod.GET)
+	public String qnaEdit(@ModelAttribute("AdminInfo") BoardInfo brdInfo,BindingResult result, Model model, HttpSession session) {
+		CustomerInfo customerSesstion =(CustomerInfo)session.getAttribute("customerSession");
+		// 세션체크
+		if (customerSesstion == null) {
+			return "user/errorPage";
+		}
+		
+		//head.jsp부분 이름과 포인트 보여주기 
+		model.addAttribute("CUST_NAME", customerSesstion.getCustNm());
+		String customerPoint = (String)session.getAttribute("customerPoint");
+		model.addAttribute("CUST_POINT", customerPoint);
+		
+		BoardInfo editEventBrd = boardService.selectBOM_BOARD_TB(brdInfo.getBrdSeq());
+		
+		model.addAttribute("editBrd", editEventBrd);
+		
+		return "/community/qnaEdit";
+
+	}
+	
+	@RequestMapping(value = "/community/qnaEditProc.do", method = RequestMethod.POST)
+	public String qnaEditProc(@ModelAttribute("AdminInfo") BoardInfo brdInfo,RedirectAttributes redirectAttributes,BindingResult result, Model model, HttpSession session) {
+	
+		CustomerInfo customerSesstion =(CustomerInfo)session.getAttribute("customerSession");
+		// 세션체크
+		if (customerSesstion == null) {
+			return "user/errorPage";
+		}
+		
+		//head.jsp부분 이름과 포인트 보여주기 
+		model.addAttribute("CUST_NAME", customerSesstion.getCustNm());
+		String customerPoint = (String)session.getAttribute("customerPoint");
+		model.addAttribute("CUST_POINT", customerPoint);
+		
+		boardService.updateBOM_BOARD_TB_notice(brdInfo);
+		
+		
+		return "redirect:qnaView.do?brdSeq="+brdInfo.getBrdSeq();
+
+	}
+
 	/**
 	 * 리스트의 하단 페이지를 돌려주는 메소드
 	 * 

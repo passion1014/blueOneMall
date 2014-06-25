@@ -82,7 +82,7 @@
 									<tbody>
 										<c:forEach items="${noticeList}" var="qna">
 											<tr>
-												<td style="text-align:left; padding-left:15px "><a href="/community/noticeView.do?brdSeq=${qna.brdSeq}">${qna.title}</a></td>
+												<td style="text-align:left; padding-left:15px "><a href="/community/qnaView.do?brdSeq=${qna.brdSeq}">${qna.title}</a></td>
 												<td>${qna.insDt.substring(0,10)}</td>												
 												<td>${qna.hit}</td>
 											</tr>

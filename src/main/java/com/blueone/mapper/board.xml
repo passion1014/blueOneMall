@@ -42,7 +42,7 @@
 	
 		                      WHERE t1.del_yn = 'F'
 		                        AND t1.brd_typ = #{srchBrdTyp}
-								<if test="srchBrdTyp == 10">
+								<if test="srchBrdTyp == 10 or srchBrdTyp == 21">
 									AND BRD_CODE_KEY = #{brdCodeKey}
 									AND BRD_CODE_TYPE = #{brdCodeType}
 								</if>
@@ -85,6 +85,10 @@
  			<if test="srchKeyword != null and srchKeyword != ''">
 		    	AND concat(t1.title LIKE '%', #{srchKeyword}, '%')
 			</if>
+			<if test="srchBrdTyp != null and srchBrdTyp != '' and srchBrdTyp == 21" >
+		    	AND t1.BRD_CODE_KEY = #{brdCodeKey}
+			</if>
+			
 	</select>
 	
 	<!-- 게시판의 최근게시물리스트 -->

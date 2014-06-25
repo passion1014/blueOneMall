@@ -12,11 +12,15 @@
 function fnAddClick() {
 	var f = tx_editor_form;
 	
-	f.action = 'qnaWriteProc.do';
+	f.action = 'qnaEditProc.do';
 
 	Editor.save(); // 다음 에디터
 }
-
+$(document).ready(function() {
+	Editor.modify({
+     	"content":'${editBrd.content}'
+     });
+});
 </script>
 <%@ page import="java.util.Calendar"%>
 <%
@@ -36,7 +40,7 @@ function fnAddClick() {
 	<div class="container">
 		<c:import url="../inc/communityLnb.jsp" />
 		<div class="sub_content">
-			<form action="qnaWriteProc.do" method="post" name="tx_editor_form">
+			<form action="qnaEditProc.do" method="post" name="tx_editor_form">
 				<div class="customer_section">
 					<h4>Q&A</h4>
 					<p class="sub_tit">상품에 대해 문의 하실 수 있습니다.</p>
@@ -46,7 +50,7 @@ function fnAddClick() {
 								
 								<input type="hidden" name="brdTyp" value="20" />
 								<input type="hidden" name="brdCodeType" value="02" />
-								
+								<input type="hidden" name="brdSeq" value="${editBrd.brdSeq}" />
 								
 								
 								<table class="boardNormal" summary="qna 등록">
@@ -72,7 +76,7 @@ function fnAddClick() {
 										<tr>
 											<th>제목</th>
 											<td colspan="3">
-												<input type="text" id="title" name="title" value="" class="text" style="width:100%;" title="제목 입력" />
+												<input type="text" name="title" class="text" value="${editBrd.title}" title="제목 입력" style="width:90%;" />
 											</td>
 										</tr>
 										
@@ -90,13 +94,11 @@ function fnAddClick() {
 				
 								<div style="margin-top:10px;text-align:center;">
 									<input type="button" value="목록으로" class="Button" onClick="location.href='./qnaBoard.do'"> &nbsp;&nbsp;
-									<input type="button" value="등록하기" class="Button Gray" onClick="fnAddClick();">
+									<input type="button" value="수정하기" class="Button Gray" onClick="fnAddClick();">
 								</div>
 							</li>
 						</ul>
-						<div class="evnt_btn">
-							<input type="button" value="목록으로" onClick="location.href='notice.do';">
-						</div>
+						
 						
 					</div>
 				</div>
