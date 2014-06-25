@@ -759,11 +759,11 @@ public class OrderController {
 				String s = st.nextToken();
 
 				if ("01".equals(s.substring(0, 2))) {
-					option += s + ",";
+					option += URLDecoder.decode(s, "UTF-8") + ",";
 					odPrdInfo.setPrdOpColor(URLDecoder.decode(s.substring(3), "UTF-8"));
 				}
 				if ("02".equals(s.substring(0, 2))) {
-					option += s + ",";
+					option += URLDecoder.decode(s, "UTF-8") + ",";
 					
 					odPrdInfo.setPrdOpSize(URLDecoder.decode(s.substring(3), "UTF-8"));
 				}
@@ -841,7 +841,7 @@ public class OrderController {
 			try {
 				rstMap = HMallInterworkUtility.procUsePoint(decMemNm, decMemNo, decShopEventNo, decPoint, decOrderNo);
 			} catch (Exception e) {
-				model.addAttribute("msg", "SSO泥섎━???먮윭諛쒖깮?섏??듬땲??");
+				model.addAttribute("msg", "SSO에러");
 				payment.setPymtMemo("포인트 결제 에러");
 				orderManageService.registPaymentInfo(payment);
 				return "user/loginError";
@@ -851,7 +851,7 @@ public class OrderController {
 			// 3. 泥댄겕 - SSO泥섎━ 寃곌낵瑜??뺤씤?쒕떎.
 			// --------------------------------------------
 			if (rstMap == null) {
-				model.addAttribute("msg", "SSO泥섎━ 寃곌낵媛??놁뒿?덈떎.(1)");
+				model.addAttribute("msg", "SSO에러");
 				payment.setPymtMemo("포인트 결제 에러");
 				orderManageService.registPaymentInfo(payment);
 				
@@ -979,11 +979,12 @@ public class OrderController {
 				String s = st.nextToken();
 
 				if ("01".equals(s.substring(0, 2))) {
-					option += s + ",";
+					option += URLDecoder.decode(s, "UTF-8") + ",";
+					
 					odPrdInfo.setPrdOpColor(URLDecoder.decode(s.substring(3), "UTF-8"));
 				}
 				if ("02".equals(s.substring(0, 2))) {
-					option += s + ",";
+					option += URLDecoder.decode(s, "UTF-8") + ",";
 					
 					odPrdInfo.setPrdOpSize(URLDecoder.decode(s.substring(3), "UTF-8"));
 				}
@@ -1068,7 +1069,7 @@ public class OrderController {
 		try {
 			rstMap = HMallInterworkUtility.procUsePoint(decMemNm, decMemNo, decShopEventNo, decPoint, decOrderNo);
 		} catch (Exception e) {
-			model.addAttribute("msg", "SSO泥섎━???먮윭諛쒖깮?섏??듬땲??");
+			model.addAttribute("msg", "SSO에러");
 			payment.setPymtMemo("포인트 결제 에러");
 			orderManageService.registPaymentInfo(payment);
 			return "user/loginError";
@@ -1078,7 +1079,7 @@ public class OrderController {
 		// 3. 泥댄겕 - SSO泥섎━ 寃곌낵瑜??뺤씤?쒕떎.
 		// --------------------------------------------
 		if (rstMap == null) {
-			model.addAttribute("msg", "SSO泥섎━ 寃곌낵媛??놁뒿?덈떎.(1)");
+			model.addAttribute("msg", "SSO에러");
 			payment.setPymtMemo("포인트 결제 에러");
 			orderManageService.registPaymentInfo(payment);
 			

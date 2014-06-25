@@ -21,9 +21,6 @@
 						<ul>
 							<li>
 								<ol class="datebox">
-									<li class="datebox_day">
-										
-									</li>
 									<li class="datebox_search">
 										<span class="tit">검색</span>
 										<span>

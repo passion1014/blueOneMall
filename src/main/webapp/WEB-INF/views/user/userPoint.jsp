@@ -75,10 +75,11 @@
 											<td>
 												<c:if test="${ordList.paymentInfo.payMdCd eq '100000000000'}">신용카드</c:if>
 												<c:if test="${ordList.paymentInfo.payMdCd eq '010000000000'}">계좌이체</c:if>
-												<c:if test="${ordList.paymentInfo.payMdCd eq '000100000000'}">포인트</c:if>
+												<c:if test="${ordList.paymentInfo.payMdCd eq '000100000000'}">복지포인트카드</c:if>
+												<c:if test="${ordList.paymentInfo.payMdCd eq '000000000001'}">포인트구매</c:if>
 											</td>
 											<td>${ordList.totalOrderPrice}원</td>
-											<td>${ordList.paymentInfo.payPoint}원</td>
+											<td>${ordList.paymentInfo.payPoint} p</td>
 										
 										</tr>
 										

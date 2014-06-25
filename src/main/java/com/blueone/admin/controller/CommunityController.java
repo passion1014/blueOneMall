@@ -475,6 +475,23 @@ public class CommunityController {
 		return "redirect:eventEdit.do?brdSeq="+brdInfo.getBrdSeq();
 
 	}
+	//이벤트 수정
+	@RequestMapping(value = "/eventView.do", method = RequestMethod.GET)
+	public String eventView(@ModelAttribute("AdminInfo") BoardInfo brdInfo,BindingResult result, Model model, HttpSession session) {
+	
+		AdminInfo adminSession = (AdminInfo) session.getAttribute("adminSession");
+		
+		if (adminSession == null) {
+			return "redirect:adminLogin.do";
+		}
+		
+		BoardInfo editEventBrd = boardService.selectBOM_BOARD_TB(brdInfo.getBrdSeq());
+		
+		model.addAttribute("editBrd", editEventBrd);
+		model.addAttribute("admin", adminSession);
+		return "admin/community/eventView";
+
+	}
 	/**
 	 * 리스트의 하단 페이지를 돌려주는 메소드
 	 * 

@@ -17,8 +17,52 @@ function SetPriceInput(str)
 	}
 	document.write(retValue); 
 }
-//-->
+
+function setCookie( name, value, expiredays ) {  
+	var todayDate = new Date();  
+	todayDate.setDate( todayDate.getDate() + expiredays );  
+	document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + todayDate.toGMTString() + ";" 
+}  
+
+function closeWin() {  
+	if (document.notice_form.chkbox.checked){  
+		setCookie( "maindiv", "done" , 1 );  
+	}  
+	document.all['divpop1'].style.display="none"; 
+} 
+//-->   
+</script> 
+<!-- POPUP --> 
+<div id="divpop1" style="position:absolute; left:300px; top:150px; z-index:200;visibility:hidden;"> 
+<form name="notice_form"> 
+<table cellpadding=2 cellspacing=0> 
+	<tr> 
+		<td colspan="2" style="border:1px #548ED8 solid" width="200px" height="100px" align=center bgcolor=white valign="top"> 
+			<a href="http://blueonestore.cafe24.com/community/eventView.do?brdSeq=22"><img src="/resources/img/popup20140624.jpg"></a>
+		</td> 
+	</tr> 
+	
+	<tr> 
+		<td align="left" bgcolor="#548ED8" style="padding:5px;"> 
+		<input type="checkbox" name="chkbox" value="checkbox">&nbsp;&nbsp;<span style="color: rgb(255, 255, 255);"><b>오늘 하루 이 창을 열지 않음</b></span> 
+		</td> 
+		<td align="right" bgcolor="#548ED8" style="padding:5px;"> 
+		<a href="javascript:closeWin();"><span style="color: rgb(255, 255, 255);"><b>[닫기]</B></a> 
+		</td> 
+	</tr>
+
+</table>  
+	</form> 
+</div>   
+<script language="Javascript"> 
+	cookiedata = document.cookie;     
+	if ( cookiedata.indexOf("maindiv=done") < 0 ){       
+		document.all['divpop1'].style.visibility = "visible"; 
+	}else { 
+		document.all['divpop1'].style.display="none"; 
+	} 
 </script>
+
 <body>
 <div class="wrap">
 	
@@ -427,5 +471,4 @@ function tab_view2(field){
 }
 //-->
 </script>
-
 <c:import  url="../inc/bottom.jsp" />

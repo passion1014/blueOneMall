@@ -24,19 +24,6 @@
 						<ul>
 							<li>
 								<ol class="datebox">
-									<%-- <li class="datebox_day">
-										<span class="tit">등록일</span>
-										<span>
-											<input type="text" title="날짜박스" value="2014-02-13"/>
-											<a href=""><img src="<c:url value='/resources/img/common/btn_date.gif'/>"  alt="날짜체크박스"/></a>&nbsp; ~ &nbsp;
-											<input type="text" title="날짜박스" value="2014-02-14"/>
-											<a href=""><img src="<c:url value='/resources/img/common/btn_date.gif'/>"  alt="날짜체크박스"/></a>
-											<span class="titext">당일</span>
-											<button>1개월</button>
-											<button>3개월</button>
-											<button>6개월</button>
-										</span>
-									</li> --%>
 									<li class="datebox_search">
 										<span class="tit">검색</span>
 										<span>
@@ -56,27 +43,24 @@
 								<table class="notice_tbl" summary="문의하기목록표">
 									<caption>문의하기목록</caption>
 									<colgroup>
-										<col width="60%"/>
-										<col width="15%"/>
-										<col width="15%"/>										
-										<col width="10%"/>
+										<col width="8%"/>
+										<col width="*"/>
+										<col width="12%"/>										
+										<col width="8%"/>
 									</colgroup>
 									<thead>
 										<tr>
-											<!-- <th>상담유형</th> -->
-											
-											<th>제목</th>
-											<th>작성자</th>
-											<th>문의일자</th>
-											<th>조회수</th>
-											<!-- <th>처리현황</th> -->
+											<th>No</th>
+											<th>Title</th>
+											<th>Date</th>
+											<th>Hit</th>
 										</tr>
 									</thead>
 									<tbody>
 										<c:forEach items="${noticeList}" var="qna">
 											<tr>
+												<td>${qna.brdSeq}</td>
 												<td style="text-align:left; padding-left:15px "><a href="/community/noticeView.do?brdSeq=${qna.brdSeq}">${qna.title}</a></td>
-												<td>운영자</td>
 												<td>${qna.insDt.substring(0,10)}</td>												
 												<td>${qna.hit}</td>
 											</tr>

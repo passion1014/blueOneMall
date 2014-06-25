@@ -93,23 +93,62 @@ function SetPriceInput(str)
 									<td class="total_choice" colspan="6">
 										총 주문금액 : 
 										<c:forEach items="${odPrdInfo}" var="odPrdInfo">
-										<script>SetPriceInput('${odPrdInfo.totalPrice}');</script>원 
+										<script>SetPriceInput('${odPrdInfo.totalPrice}');</script> 원 
 										<c:set var="total" value="${total+odPrdInfo.totalPrice-payList.get(0).payPoint}"/>
 										</c:forEach>
 										 <c:if test="${total<=config.buyPrice}">
 											+ 배송비 :  <script>SetPriceInput('${config.trasferPrice}');</script>원
 											<c:set var="total" value="${total+config.trasferPrice}"/>
 										 </c:if>
-										 <c:if test="${total>config.buyPrice}"> + 배송비 : 0원 </c:if>
-										 <c:if test="${payList.get(0).payPoint>0}"> - 사용포인트 : ${payList.get(0).payPoint}원 </c:if>
-										 = 합계 <strong><script>SetPriceInput('${total}');</script></strong>원
+										 <c:if test="${total>config.buyPrice}"> + 배송비 : 0 원 </c:if>
+										 <c:if test="${payList.get(0).payPoint>0}"> - 사용포인트 : ${payList.get(0).payPoint} point </c:if>
+										 = 합계 <strong><script>SetPriceInput('${total}');</script></strong> 원
 										 <input type="hidden" id="sndAmount"  name="sndAmount"  value="${total}" />
 									</td>
 								</tr>
 								
 							</tbody>
 						</table>
-						<h5>배송지 현황</h5>
+						<h5>주문 현황</h5>
+						<table class="order_tblbox" summary="주문고객정보표">
+							<caption>고객정보 목록표</caption>
+							<colgroup>
+								<col width="15%"/>
+								<col width="35%"/>
+								<col width="15%"/>
+								<col width="35%"/>
+							</colgroup>
+							<tbody>
+								<c:if test="${payList.size() != 0}">
+									<c:forEach var="payList" items="${payList}">
+										<tr>
+											<th>결제금액</th>
+											<td class="in_text"><strong><script>SetPriceInput('${total}');</script></strong> 원</td>
+											<th>사용 포인트</th>
+											<td class="in_text"><script>SetPriceInput('${payList.payPoint}');</script> point</td>
+										</tr>
+										<tr>
+											<th>주문상태</th>
+											<td class="in_sectext">
+												
+											</td>
+											<th>결제 수단</th>
+											<td class="in_sectext">
+												<c:if test="${payList.payMdCd eq '100000000000'}">신용카드</c:if>
+												<c:if test="${payList.payMdCd eq '010000000000'}">계좌이체</c:if>
+												<c:if test="${payList.payMdCd eq '000100000000'}">복지카드</c:if>
+												<c:if test="${payList.payMdCd eq '000000000001'}">포인트</c:if>
+											</td>
+										</tr>
+										<tr>
+											<th>비고</th>
+											<td class="in_text" colspan="3">${payList.pymtMemo}</td>
+										</tr>
+										</c:forEach>
+								</c:if>
+							</tbody>
+						</table>
+						<h5>배송정보</h5>
 						<table class="order_tblbox" summary="주문고객정보표">
 							<caption>고객정보 목록표</caption>
 							<colgroup>
@@ -145,36 +184,6 @@ function SetPriceInput(str)
 									<th>배송시 요청사항</th>
 									<td colspan="3" class="arrive_box">${reInfo.reciReq}</td>
 								</tr>
-							</tbody>
-						</table>
-						<h5>적립금 및 포인트 / 결제 현황</h5>
-						<table class="order_tblbox" summary="주문고객정보표">
-							<caption>고객정보 목록표</caption>
-							<colgroup>
-								<col width="15%"/>
-								<col width="85%"/>
-							</colgroup>
-							<tbody>
-								<c:if test="${payList.size() != 0}">
-									<c:forEach var="payList" items="${payList}">
-										<tr>
-											<th>사용 적립금/포인트</th>
-											<td class="in_text" colspan="3">${payList.payPoint}</td>
-										</tr>
-										<tr>
-											<th>결제 수단</th>
-											<td class="in_sectext">
-												<c:if test="${payList.payMdCd eq '100000000000'}">신용카드</c:if>
-												<c:if test="${payList.payMdCd eq '010000000000'}">계좌이체</c:if>
-												<c:if test="${payList.payMdCd eq '000100000000'}">복지카드</c:if>
-											</td>
-										</tr>
-										<tr>
-											<th>비고</th>
-											<td class="in_text" colspan="3">${payList.pymtMemo}</td>
-										</tr>
-										</c:forEach>
-								</c:if>
 							</tbody>
 						</table>
 					</div>

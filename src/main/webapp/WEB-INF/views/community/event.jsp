@@ -42,9 +42,9 @@
 											<span class="tit">검색</span>
 											<span>
 												<select name="schType">
-													<option value="a">전체</option>
+													<!--<option value="a">전체</option>-->
 													<option value="t">제목</option>
-													<option value="c">내용</option>
+													<!--<option value="c">내용</option>-->
 												</select>
 												<input type="text" id="srchKeyword" name="srchKeyword" title="searchbox" />
 												<button class="btn">조회하기</button>
@@ -58,29 +58,17 @@
 								<table class="notice_tbl" summary="문의하기목록표">
 									<caption>문의하기목록</caption>
 									<colgroup>
-										<col width="60%"/>
-										<col width="15%"/>
-										<col width="15%"/>										
-										<col width="10%"/>
+										<col width="*"/>
 									</colgroup>
 									<thead>
 										<tr>
-											<!-- <th>상담유형</th> -->
-											
-											<th>제목</th>
-											<th>작성자</th>
-											<th>문의일자</th>
-											<th>조회수</th>
-											<!-- <th>처리현황</th> -->
+											<th>이벤트</th>
 										</tr>
 									</thead>
 									<tbody>
 										<c:forEach items="${noticeList}" var="qna">
 											<tr>
-												<td style="text-align:left; padding-left:15px "><a href="/community/eventView.do?brdSeq=${qna.brdSeq}">${qna.title}</a></td>
-												<td>운영자</td>
-												<td>${qna.insDt.substring(0,10)}</td>												
-												<td>${qna.hit}</td>
+												<td style="text-align:left; padding-left:30px "><a href="/community/eventView.do?brdSeq=${qna.brdSeq}">${qna.title}</a></td>
 											</tr>
 										</c:forEach>
 									</tbody>

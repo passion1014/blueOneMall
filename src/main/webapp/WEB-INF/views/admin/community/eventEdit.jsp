@@ -41,8 +41,8 @@ $(document).ready(function() {
 				
 				<table class="boardNormal" summary="Event 등록">
 					<colgroup>
-						<col width="100" />
-						
+						<col width="15%" />
+						<col width="*" />
 					</colgroup>
 				
 					<tbody>
@@ -50,18 +50,13 @@ $(document).ready(function() {
 						<tr>
 							<th>제목</th>
 							<td>
-								<input type="text" name="title" class="text" value="${editBrd.title}" title="제목 입력" />
+								<input type="text" name="title" class="text" value="${editBrd.title}" title="제목 입력" style="width:90%;" />
 							</td>
-							<th>작성자</th>
-							<td>
-								${admin.name}
-							</td>
-							
 						</tr>
 						
 						<tr>
 							<th>내용</th>
-							<td colspan="3">
+							<td>
 								<jsp:include page="/resources/editor/editor.jsp" />
 							</td>
 						</tr>
@@ -72,8 +67,8 @@ $(document).ready(function() {
 				
 				
 				<div style="margin-top:10px;text-align:center;">
-						<input type="button" value="수정하기" class="Button Gray" onClick="fnAddClick();">
-						<input type="button" value="창닫기" class="Button Gray" onClick="self.close();">
+					<input type="button" value="목록으로" class="Button" onClick="location.href='./eventBoard.do'"> &nbsp;&nbsp;
+					<input type="button" value="수정하기" class="Button Gray" onClick="fnAddClick();">
 				</div>
 			</form>
 		</div>

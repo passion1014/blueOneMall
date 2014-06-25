@@ -360,12 +360,17 @@ function SetPriceInput(str)
 }
 
 function pre_count(){
-	var my_point    = "${userPoint}" ;
-	var total_price = document.getElementById("total_price").value ;
+	var buy_goods_count = document.getElementById("buy_goods_count").value ;
 
-	if(parseInt(total_price) <= parseInt(my_point)){
-		document.getElementById("use_point").value = total_price ;
-		usePointChecker();
+	if(buy_goods_count > 0){
+		var my_point    = "${userPoint}" ;
+		var total_price = document.getElementById("total_price").value ;
+		
+
+		if(parseInt(total_price) <= parseInt(my_point)){
+			document.getElementById("use_point").value = total_price ;
+			usePointChecker();
+		}
 	}
 
 }
@@ -452,7 +457,9 @@ function pre_count(){
 							</thead>
 							<tbody>
 							<c:choose>
+
 								<c:when test="${odPrdInfo.size() != 0}">
+								<!-- 구매할 상품이 있는 경우 시작-->
 									<c:forEach items="${odPrdInfo}" var="odPrdInfo" varStatus="i">
 										<tr>
 											<td class="product_area leftalign">
@@ -474,43 +481,36 @@ function pre_count(){
 											</td>
 											<td><script>SetPriceInput('${odPrdInfo.totalPrice}');</script></td>
 											<td>
-												<input type="button" value="삭제하기"class="btn_choice2" onClick="confirm_process('','해당 상품을 삭제하시겠습니까?','deleteOrderList.do?cookieKey=${odPrdInfo.cookieKey}&ord_unit_chk=${orderInfo.ord_unit_chk}');" />
+												<input type="button" value="삭제하기"class="btn_choice2" onClick="confirm_process('','해당 상품을 삭제하시겠습니까?','deleteOrderList.do?cookieKey=${odPrdInfo.cookieKey}&ord_unit_chk=${orderInfo.ord_unit_chk}');" style="background:#666; border:1px solid #555; width:60px; line-height:20px; color:#fff; font-family:'NanumGothicBold';" />
 											</td>
 										</tr>
 										<tr><td height="1" colspan="6" bgcolor="#E0E0E0"></td></tr>
 									</c:forEach>
 
-								</c:when>
-								</c:choose>
-
-
 									<tr>
-									<c:set var="total"  value="0"/>
-									<td class="total_choice" colspan="6">
-										총 주문금액 : 
-										<c:forEach items="${odPrdInfo}" var="odPrdInfo">
-										<script>SetPriceInput('${odPrdInfo.totalPrice}');</script>원
-										<c:set var="total" value="${total+odPrdInfo.totalPrice}"/>
-										</c:forEach>
-										 <c:if test="${total<=config.buyPrice}">
-											+ 배송비 :  <script>SetPriceInput('${config.trasferPrice}');</script>원
-											<c:set var="total" value="${total+config.trasferPrice}"/>
-										 </c:if>
-										 <c:if test="${total>config.buyPrice}">배송비 : 0원 </c:if>
-										 = 합계 <strong><script>SetPriceInput('${total}');</script></strong>원
+										<c:set var="total"  value="0"/>
+										<td class="total_choice" colspan="6">
+											총 주문금액 : 
+											<c:forEach items="${odPrdInfo}" var="odPrdInfo">
+												<script>SetPriceInput('${odPrdInfo.totalPrice}');</script>원
+												<c:set var="total" value="${total+odPrdInfo.totalPrice}"/>
+											</c:forEach>
+											<c:if test="${total<=config.buyPrice}">
+												+ 배송비 :  <script>SetPriceInput('${config.trasferPrice}');</script>원
+												<c:set var="total" value="${total+config.trasferPrice}"/>
+											</c:if>
+											<c:if test="${total>config.buyPrice}">배송비 : 0원 </c:if>
+											= 합계 <strong><script>SetPriceInput('${total}');</script></strong>원
+											<input type="hidden" id="total_price" name="total_price" value="${total}"/>
+											<input type="hidden" id="good_mny"    name="good_mny"    value="${total}"/>
+											<input type="hidden" id="sndAmount"  name="sndAmount"  value="${total}" /><!-- kst net -->
+											<input type="hidden" id="buy_goods_count" name="buy_goods_count" value="1"/>
+										</td>
+									</tr>
+									</tbody>
+								</table>
 
-
-										 <input type="hidden" id="total_price" name="total_price" value="${total}"/>
-										 <input type="hidden" id="good_mny"    name="good_mny"    value="${total}"/>
-
-										 <input type="hidden" id="sndAmount"  name="sndAmount"  value="${total}" /><!-- kst net -->
-									</td>
-								</tr>
-								
-							</tbody>
-						</table>
-						
-						<h5>주문서 작성 및 결제</h5>
+								<h5>주문서 작성 및 결제</h5>
 						<p class="sub_tit1">주문고객/배송지정보 입력</p>
 						<p class="sub_tit2">< 주문하시는 분 ></p>
 						<table class="order_tblbox" summary="주문고객정보표">
@@ -603,23 +603,23 @@ function pre_count(){
 								</tr>
 								<tr>
 									<th>이메일주소</th>
-									<td colspan="3" class="in_sectext" style="padding:5px;">
+									<td colspan="3" class="in_sectext" style="padding:10px;">
 										<input type="text" title="email text"  name="buyr_mail" id="buyr_mail" value="${cus.custEmail}" style="width:300px;" required hname="이메일을 입력하여 주십시오" />
 									</td>
 								</tr>
 								<tr>
 									<th>배송주소</th>
-									<td colspan="3" class="in_sectext" style="padding:5px;">
+									<td colspan="3" class="in_sectext" style="padding:10px ;">
 										<input type="text" title="address text" style="width:60px;" id="custZip1" name="reciAdd1" value="${cus.custZip1}" readonly required hname="우편번호를 입력하여 주십시오" />-
 										<input type="text" title="address text" style="width:60px;" id="custZip2" name="reciAdd2" value="${cus.custZip2}" readonly required hname="우편번호를 입력하여 주십시오" />
-										<input type="button" value="우편번호 찾기" style="width:100px;height:21px;" onClick="openWin('/user/searchZipCode.do?type=userEdit','searchZipuserRegiForm',650,450,'scrollbars=yes');"  style="paddingm:10px"/><br/>
+										<input type="button" value="우편번호 찾기" style="width:100px;height:21px; background:#548ed8; border:1px solid #4680ca; color:#fff; font-size:11px; font-weight:bold; margin-bottom:5px; " onClick="openWin('/user/searchZipCode.do?type=userEdit','searchZipuserRegiForm',650,450,'scrollbars=yes');"  style="paddingm:10px"/><br/>
 										<input type="text" title="address text" style="width:50%;" id="custAdd"       name="reciAdd3" value="${cus.custAdd}" readonly />
 										<input type="text" title="address text" style="width:40%;" id="custAddDetail" name="reciAdd4" value="${cus.custAddDetail}"/>
 									</td>
 								</tr>
 								<tr>
 									<th>배송시 요청사항</th>
-									<td colspan="3" class="arrive_box" style="padding:5px;">
+									<td colspan="3" class="arrive_box" style="padding:10px;">
 										<textarea id="reciReq" name="reciReq" title="배송시 요청사항 기입" style="width:95%;height:120px;"></textarea>
 									</td>
 								</tr>
@@ -644,7 +644,7 @@ function pre_count(){
 								<tbody>
 									<tr>
 										<th class="rb_line">사용현황</th>
-										<td class="rb_line"><span id="myPointView">${userPoint} P</span></td>
+										<td class="rb_line" style="color:#548ed8; font-weight: bold; "><span id="myPointView">${userPoint} P</span></td>
 										<td class="in_text">
 											<input type="text" id="use_point" name="use_point" value="0" style="width:80%;text-align:right;padding-right:5px;" onBlur="usePointChecker();" onkeypress="numKeyOnly()" /><label>P</label>
 										</td>
@@ -717,15 +717,15 @@ function pre_count(){
 								</colgroup>
 								<thead>
 									<tr>
-										<th class="rb_line">총 주문금액</th>
-										<th colspan="2">${total} 원</th>
+										<th class="rb_line" colspan="2">총 주문금액</th>
+										<th style="text-align:right; padding-right:10px; background:#fff; ">${total} 원</th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr>
 										<th class="tbb_line rb_line">포인트</th>
 										<td class="tbb_line rb_line">사용</td>
-										<td class="tbb_line"><span id="usePointView2">0</span> P</td>
+										<td class="tbb_line"  style="color:#548ed8; font-weight: bold; " ><span id="usePointView2">0</span> P</td>
 									</tr>
 									<tr>
 										<td colspan="2" class="rb_line" style="text-align:center;">할인 및 포인트 차감 후 결제 금액</td>
@@ -754,6 +754,7 @@ function pre_count(){
 						</span>
 					</div>
 				</div>
+
 
 
 
@@ -943,6 +944,47 @@ function pre_count(){
 		</div>
 	</div>
 <!--  container 끝   -->	
+
+
+
+
+
+
+
+								<!-- 구매할 상품이 있는 경우 끝-->
+								</c:when>
+
+								<c:otherwise>
+								<!-- 구매할 상품이 없을 경우 시작-->
+									<tr>
+										<td colspan="6" height="200" align="center">구매할 상품이 없습니다.</td>
+									</tr>
+									<tr><td height="1" colspan="6" bgcolor="#E0E0E0"></td></tr>
+									<tr>
+										<c:set var="total"  value="0"/>
+										<td class="total_choice" colspan="6">
+											총 주문금액 : 0 원
+											<input type="hidden" id="buy_goods_count" name="buy_goods_count" value="0"/>
+										</td>
+									</tr>
+									</tbody>
+								</table>
+
+								</form>
+		</div>
+	</div>
+
+								<!-- 구매할 상품이 없을 경우 끝-->
+								</c:otherwise>
+							</c:choose>
+
+
+							
+						
+						
+
+
+
 
 	<div class="footer">
 		<div class="footer_area">

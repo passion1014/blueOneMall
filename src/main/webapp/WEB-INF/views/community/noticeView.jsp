@@ -28,22 +28,19 @@
 								<table class="noanswer_tbl" summary="공지사항목록">
 									<caption>공지사항목록표</caption>
 									<colgroup>
-										<col width="25%"/>
-										<col width="25%"/>
-										<col width="25%"/>
-										<col width="25%"/>
+										<col width="15%"/>
+										<col width="*"/>
+										<col width="10%"/>
 									</colgroup>
 									<tbody>
 										<tr>
 											<th>제목</th>
 											<td>${brdView.title}</td>
-											<th>날짜</th>
-											<td>${brdView.insDt.substring(0,10)}</td>
+											<td style="text-align:right;padding-right:5px;">${brdView.insDt.substring(0,10)}</td>
 										</tr>
 										<tr>
-											<td colspan="4" class="h_tdarea">
-											<input type="hidden" name="content"/>
-											${content}
+											<td colspan="3" class="h_tdarea" style="padding:5px 10px 5px 10px;">
+											<input type="hidden" name="content"/>	${content}
 												<script type="text/javascript">
 													document.open();
 													var text=unescape('${brdView.content}');
@@ -54,9 +51,12 @@
 											</td>
 										</tr>
 									</tbody>
-								</table>
+								</table>	
 							</li>
 						</ul>
+						<div class="evnt_btn">
+							<input type="button" value="목록으로" onClick="location.href='notice.do';">
+						</div>
 						<%-- <div class="paging2">
 							<a href="#" class="palign1"><img src="<c:url value='/resources/img/common/btn_first.gif'/>"  alt="처음으로"></a>
 							<a href="#" class="palign2"><img src="<c:url value='/resources/img/common/btn_prev.gif'/>"  alt="이전"></a>

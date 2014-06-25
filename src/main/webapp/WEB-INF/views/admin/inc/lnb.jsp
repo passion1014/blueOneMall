@@ -108,19 +108,20 @@
 		<h1>커뮤니티</h1>
 		<ul>
 			<h2>공지사항</h2>
-			<li><a href="noticeBoard.do">공지사항</a></li>
+			<li><a href="noticeBoard.do">공지사항 목록</a></li>
 		</ul>
 		<ul>
 			<h2>FAQ</h2>
-			<li><a href="faqBoard.do">FAQ</a></li>
+			<li><a href="faqBoard.do">FAQ 목록</a></li>
 		</ul>
 		<ul>
 			<h2>Q&A</h2>
-			<li><a href="faqBoard.do">Q&A</a></li>
+			<li><a href="faqBoard.do">Q&A 목록</a> 목록</li>
 		</ul>
 		<ul>
-			<h2>Event</h2>
-			<li><a href="eventBoard.do">Event</a></li>
+			<h2>Event 관리</h2>
+			<li><a href="eventBoard.do">Event 목록</a></li>
+			<li><a href="eventWrite.do">Event 등록</a></li>
 		</ul>
 	</div>
 	</c:when>		
