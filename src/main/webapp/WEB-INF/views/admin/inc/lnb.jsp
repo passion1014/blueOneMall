@@ -116,7 +116,7 @@
 		</ul>
 		<ul>
 			<h2>Q&A</h2>
-			<li><a href="faqBoard.do">Q&A 목록</a> 목록</li>
+			<li><a href="qnaBoard.do">Q&A 목록</a></li>
 		</ul>
 		<ul>
 			<h2>Event 관리</h2>

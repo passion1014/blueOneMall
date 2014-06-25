@@ -31,7 +31,7 @@
 			<c:forEach items="${eventList}" var="event">
 				<tr>
 					<td style="text-align:center;">${event.brdSeq}</td>
-					<td class="texalign"><a href="javascript:location.href='eventEdit.do?brdSeq=${event.brdSeq}';">${event.title}</a></td>
+					<td class="texalign"><a href="javascript:location.href='eventView.do?brdSeq=${event.brdSeq}';">${event.title}</a></td>
 					<td style="text-align:center;">${event.insDt.substring(0,10)}</td>
 					<td style="text-align:center;">
 						<input type="button" value="수정" onclick="location.href='eventEdit.do?brdSeq=${event.brdSeq}'" class="Small_Button Gray" />

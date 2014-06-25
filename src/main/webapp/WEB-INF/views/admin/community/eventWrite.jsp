@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ page import="java.util.Calendar"%>
+<%
+	Calendar calendar = Calendar.getInstance();
+	String today = calendar.get(Calendar.YEAR) + "-" +(calendar.get(Calendar.MONTH )+1) + "-" +calendar.get(Calendar.DATE ); //년도를 구한다
+	
+%>
 
 <c:import  url="../inc/top.jsp" />
 
@@ -50,7 +55,7 @@ function fnAddClick() {
 							</td>
 							<th>작성일</th>
 							<td>
-								${date}
+								<%=today%>
 							</td>
 						</tr>
 

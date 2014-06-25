@@ -19,6 +19,7 @@ import com.blueone.board.domain.FaqInfo;
 import com.blueone.board.service.IBoardService;
 import com.blueone.common.domain.BaseInfo;
 import com.blueone.customer.domain.CustomerInfo;
+import com.blueone.user.domain.UserInfo;
 
 @Controller
 public class UserCommunityController {
@@ -189,12 +190,17 @@ public class UserCommunityController {
 		if (customerSesstion == null) {
 			return "user/errorPage";
 		}
+		
+		//head.jsp부분 이름과 포인트 보여주기 
 		model.addAttribute("CUST_NAME", customerSesstion.getCustNm());
 		String customerPoint = (String)session.getAttribute("customerPoint");
-		model.addAttribute("CUST_POINT", customerPoint);		
+		model.addAttribute("CUST_POINT", customerPoint);
+		
+		//이벤트 보여주기
 		BoardInfo brdView = boardService.selectBOM_BOARD_TB(brdInfo.getBrdSeq());
 		model.addAttribute("brdView", brdView);
 		boardService.updateBoardHit(brdInfo);
+		
 		// ----------------------------------------------------
 		// 상품댓글 가져오기
 		// ----------------------------------------------------
@@ -335,7 +341,20 @@ public class UserCommunityController {
 		return "community/faqView";
 
 	}
-	
+	//1:1문의하기 목록
+	@RequestMapping(value="/community/qnaList.do", method=RequestMethod.GET)
+	public String qnaList(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model,HttpSession session){
+		// CustomerInfo customerSesstion =(CustomerInfo)session.getAttribute("customerSession");
+		CustomerInfo cust = (CustomerInfo) session.getAttribute("customerSession");
+		// �꽭�뀡泥댄겕
+		if (cust == null) {
+			return "user/errorPage";
+		}
+		model.addAttribute("CUST_NAME", cust.getCustNm());
+		String customerPoint = (String)session.getAttribute("customerPoint");
+		model.addAttribute("CUST_POINT", customerPoint);
+		return "community/qnaPage";
+	}
 	/**
 	 * 리스트의 하단 페이지를 돌려주는 메소드
 	 * 

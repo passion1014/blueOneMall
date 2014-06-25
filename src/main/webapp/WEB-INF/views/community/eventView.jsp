@@ -94,10 +94,10 @@ function chk_replyForm(f){
 								document.close();
 							</script> 
 							&nbsp;&nbsp; ${qna.insDt}	&nbsp;&nbsp;
-							<c:set var="custIdNm" value="${customerSession.custId}_${customerSession.custNm}"/>
-							<c:if test="${custIdNm eq qna.insUser}">
+							
+							
 								<input type="button" value="삭제"  onClick="confirm_process('','해당 댓글을 삭제하시겠습니까?','eventDelete.do?brdSeq=${qna.brdSeq}&pageSeq=${brdView.brdSeq}');" />
-							</c:if>
+							
 						</td>
 					</tr>
 					<tr>

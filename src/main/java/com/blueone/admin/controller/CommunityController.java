@@ -19,10 +19,9 @@ import com.blueone.board.controller.BoardController;
 import com.blueone.board.domain.BoardInfo;
 import com.blueone.board.domain.BoardSrchInfo;
 import com.blueone.board.domain.FaqInfo;
-
-
 import com.blueone.board.service.IBoardService;
 import com.blueone.common.domain.BaseInfo;
+import com.blueone.customer.domain.CustomerInfo;
 
 
 @Controller
@@ -317,14 +316,14 @@ public class CommunityController {
 			return "redirect:adminLogin.do";
 		}
 
-		// 공지사항 페이지
+		//Q&A 페이지
 		int currentPage = adminInfo.getCurrentPage();
 
 		// ----------------------------------------------------
-		// 공지사항 가져오기
+		// Q&A  가져오기
 		// ----------------------------------------------------
 		BoardSrchInfo boardSrchInfo = new BoardSrchInfo();
-		boardSrchInfo.setSrchBrdTyp(9);
+		boardSrchInfo.setSrchBrdTyp(20);
 
 		// 페이지정보 셋팅
 		if (currentPage != 0)
@@ -352,6 +351,40 @@ public class CommunityController {
 		
 		
 		boardService.deleteBoardTBInf(brdInfo);
+		
+		return "redirect:qnaBoard.do";
+
+	}
+	//Q&A 등록
+	@RequestMapping(value = "/qnaWrite.do", method = RequestMethod.GET)
+	public String qnaWrite(@ModelAttribute("AdminInfo") AdminInfo adminInfo,BindingResult result, Model model, HttpSession session) {
+	
+		AdminInfo adminSession = (AdminInfo) session.getAttribute("adminSession");
+		
+		if (adminSession == null) {
+			return "redirect:adminLogin.do";
+		}
+		
+		
+		model.addAttribute("admin", adminSession);
+		
+		return "admin/community/qnaWrite";
+
+	}
+	
+	//Q&A 등록 처리
+	@RequestMapping(value = "/qnaWriteProc.do", method = RequestMethod.POST)
+	public String qnaWriteProc(@ModelAttribute("AdminInfo") BoardInfo brdInfo,RedirectAttributes redirectAttributes,BindingResult result, Model model, HttpSession session) {
+	
+		AdminInfo adminSession = (AdminInfo) session.getAttribute("adminSession");
+		
+		if (adminSession == null) {
+			return "redirect:adminLogin.do";
+		}
+		
+		
+		boardService.insertBoard(brdInfo);
+		redirectAttributes.addFlashAttribute("reloadVar", "yes");
 		
 		return "redirect:qnaBoard.do";
 
@@ -408,7 +441,7 @@ public class CommunityController {
 	}
 	//event 등록
 	@RequestMapping(value = "/eventWrite.do", method = RequestMethod.GET)
-	public String qnaWrite(@ModelAttribute("AdminInfo") AdminInfo adminInfo,BindingResult result, Model model, HttpSession session) {
+	public String eventWrite(@ModelAttribute("AdminInfo") AdminInfo adminInfo,BindingResult result, Model model, HttpSession session) {
 	
 		AdminInfo adminSession = (AdminInfo) session.getAttribute("adminSession");
 		
@@ -425,7 +458,7 @@ public class CommunityController {
 	
 	//event 등록 처리
 	@RequestMapping(value = "/eventWriteProc.do", method = RequestMethod.POST)
-	public String qnaWriteProc(@ModelAttribute("AdminInfo") BoardInfo brdInfo,RedirectAttributes redirectAttributes,BindingResult result, Model model, HttpSession session) {
+	public String eventWriteProc(@ModelAttribute("AdminInfo") BoardInfo brdInfo,RedirectAttributes redirectAttributes,BindingResult result, Model model, HttpSession session) {
 	
 		AdminInfo adminSession = (AdminInfo) session.getAttribute("adminSession");
 		
@@ -486,10 +519,44 @@ public class CommunityController {
 		}
 		
 		BoardInfo editEventBrd = boardService.selectBOM_BOARD_TB(brdInfo.getBrdSeq());
-		
 		model.addAttribute("editBrd", editEventBrd);
+		
+		// ----------------------------------------------------
+		// 상품댓글 가져오기
+		// ----------------------------------------------------
+		BoardSrchInfo boardSrchInfo = new BoardSrchInfo();
+		boardSrchInfo.setSrchBrdTyp(10);
+		boardSrchInfo.setBrdCodeType("01");
+		boardSrchInfo.setBrdCodeKey("E"+Long.toString(brdInfo.getBrdSeq()));
+
+		/*// 페이지정보 셋팅
+		if (currentPage != 0)
+			boardSrchInfo.setCurrentPage(currentPage);*/
+
+		List<BoardInfo> boardList = boardService
+				.getBrdTypBoardList(boardSrchInfo);
+		boardSrchInfo.setTotalCount(boardService
+				.getBrdTypTotalCount(boardSrchInfo));
+
+		model.addAttribute("qnaList", boardList);
+		//model.addAttribute("pageHtml",	getPageHtml(Long.toString(brdInfo.getBrdSeq()), boardSrchInfo));
+		
 		model.addAttribute("admin", adminSession);
 		return "admin/community/eventView";
+
+	}
+	//event 댓글 삭제
+	@RequestMapping(value = "/eventReplyDelete.do", method = RequestMethod.GET)
+	public String eventReplyDelete(@ModelAttribute("AdminInfo") BoardInfo brdInfo,BindingResult result, Model model, HttpSession session,int pageSeq) {
+		AdminInfo adminSession = (AdminInfo) session.getAttribute("adminSession");
+		
+		if (adminSession == null) {
+			return "redirect:adminLogin.do";
+		}
+		model.addAttribute("admin", adminSession);
+		boardService.deleteBoardTBInf(brdInfo);
+		
+		return "redirect:/admin/eventView.do?brdSeq=" + pageSeq;
 
 	}
 	/**

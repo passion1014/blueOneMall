@@ -53,10 +53,37 @@
 							</td>
 						</tr>
 						
-							
+						
 					</tbody>
 				</table>
-				
+				<table class="evnt_tbl1" summary="이벤트댓글 목록">
+					<caption>이벤트댓글 목록표</caption>
+						<tbody>
+					
+						<c:forEach items="${qnaList}" var="qna">
+							<tr>
+								<td class="question_bg">
+									<script type="text/javascript">
+										document.open();
+										var text='${qna.insUser}';
+										var textArray=text.split('_');
+										document.write(textArray[1]);
+										document.close();
+									</script> 
+									&nbsp;&nbsp; ${qna.insDt}	&nbsp;&nbsp;
+									
+									
+										<input type="button" value="삭제"  onClick="confirm_process('','해당 댓글을 삭제하시겠습니까?','eventReplyDelete.do?brdSeq=${qna.brdSeq}&pageSeq=${editBrd.brdSeq}');" />
+									
+								</td>
+							</tr>
+							<tr>
+								<td class="answer_bg" style="padding:5px 0 20px 15px;">${qna.content}</td>
+							</tr>
+						</c:forEach>
+		
+						</tbody>
+				</table><br /><br />
 				
 				<div style="margin-top:10px;text-align:center;">
 						<input type="button" value="수정하기" class="Button Gray" onClick="fnAddClick();">

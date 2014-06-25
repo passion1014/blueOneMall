@@ -596,20 +596,7 @@ public class UserController {
 	}
 
 	
-	//1:1문의하기 목록
-	@RequestMapping(value="/user/qnaList.do", method=RequestMethod.GET)
-	public String qnaList(@ModelAttribute("userInfo") UserInfo userInfo,BindingResult result, Model model,HttpSession session){
-		// CustomerInfo customerSesstion =(CustomerInfo)session.getAttribute("customerSession");
-		CustomerInfo cust = (CustomerInfo) session.getAttribute("customerSession");
-		// �꽭�뀡泥댄겕
-		if (cust == null) {
-			return "user/errorPage";
-		}
-		model.addAttribute("CUST_NAME", cust.getCustNm());
-		String customerPoint = (String)session.getAttribute("customerPoint");
-		model.addAttribute("CUST_POINT", customerPoint);
-		return "user/qnaPage";
-	}
+	
 
 	public CustomerInfo useStringToken(String st, String Type,CustomerInfo cus ){
 		
