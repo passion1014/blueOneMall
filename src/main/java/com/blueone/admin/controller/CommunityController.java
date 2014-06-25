@@ -355,40 +355,7 @@ public class CommunityController {
 		return "redirect:qnaBoard.do";
 
 	}
-	//Q&A 등록
-	@RequestMapping(value = "/qnaWrite.do", method = RequestMethod.GET)
-	public String qnaWrite(@ModelAttribute("AdminInfo") AdminInfo adminInfo,BindingResult result, Model model, HttpSession session) {
 	
-		AdminInfo adminSession = (AdminInfo) session.getAttribute("adminSession");
-		
-		if (adminSession == null) {
-			return "redirect:adminLogin.do";
-		}
-		
-		
-		model.addAttribute("admin", adminSession);
-		
-		return "admin/community/qnaWrite";
-
-	}
-	
-	//Q&A 등록 처리
-	@RequestMapping(value = "/qnaWriteProc.do", method = RequestMethod.POST)
-	public String qnaWriteProc(@ModelAttribute("AdminInfo") BoardInfo brdInfo,RedirectAttributes redirectAttributes,BindingResult result, Model model, HttpSession session) {
-	
-		AdminInfo adminSession = (AdminInfo) session.getAttribute("adminSession");
-		
-		if (adminSession == null) {
-			return "redirect:adminLogin.do";
-		}
-		
-		
-		boardService.insertBoard(brdInfo);
-		redirectAttributes.addFlashAttribute("reloadVar", "yes");
-		
-		return "redirect:qnaBoard.do";
-
-	}
 
 	
 	//Event 리스트

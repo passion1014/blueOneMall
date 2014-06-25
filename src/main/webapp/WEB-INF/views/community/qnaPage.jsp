@@ -30,7 +30,7 @@
 								<span class="textbox">전일 17시 이후 ~ 당일 17시 까지 문의해 주신 경우 당일 18시 이내 <br/>
 								당일 17시 이후 문의해 주신 경우 익을 9시 이후에 신속하게 답변처리해 드리겠습니다.</span>
 								<span class="btn">
-								<button>상담하기</button>
+								<input type="button" value="상담하기" onclick="location.href='qnaWrite.do'"/>
 								</span>
 							</li>
 							<li>
@@ -73,29 +73,27 @@
 									</colgroup>
 									<thead>
 										<tr>
-											<th>상담유형</th>
 											<th>제목</th>
 											<th>문의일자</th>
 											<th>처리현황</th>
 										</tr>
 									</thead>
+									
 									<tbody>
-										<tr>
-											<th></th>
-											<td>검색결과가 없습니다.</td>
-											<td></td>
-											<td></td>
-										</tr>
+										<c:forEach items="${noticeList}" var="qna">
+											<tr>
+												<td style="text-align:left; padding-left:15px "><a href="/community/noticeView.do?brdSeq=${qna.brdSeq}">${qna.title}</a></td>
+												<td>${qna.insDt.substring(0,10)}</td>												
+												<td>${qna.hit}</td>
+											</tr>
+										</c:forEach>
 									</tbody>
+									
 								</table>
 							</li>
 						</ul>
 						<div class="paging2">
-							<a href="#" class="palign1"><img src="<c:url value='/resources/img/common/btn_first.gif'/>"  alt="처음으로"></a>
-							<a href="#" class="palign2"><img src="<c:url value='/resources/img/common/btn_prev.gif'/>"  alt="이전"></a>
-							<a href="#" class="on">1</a>
-							<a href="#" class="palign1"><img src="<c:url value='/resources/img/common/btn_next.gif'/>"  alt="다음"></a>
-							<a href="#" class="palign2"><img src="<c:url value='/resources/img/common/btn_end.gif'/>"  alt="끝으로"></a>
+							${pageHtml}
 						</div>
 					</div>
 				</div>

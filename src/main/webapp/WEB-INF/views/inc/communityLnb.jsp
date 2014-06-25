@@ -7,7 +7,7 @@
 		<li><a href="/community/notice.do">공지사항</a></li>
 		<li><a href="/community/event.do">EVENT</a></li>
 		<li><a href="/community/faqList.do">FAQ</a></li>
-		<li><a href="/community/qnaList.do">FAQ</a></li>
+		<li><a href="/community/qnaList.do">Q&A</a></li>
 		<!--<li><a href="#">1:1 문의하기</a></li> -->
 	</ul>
 </div>
