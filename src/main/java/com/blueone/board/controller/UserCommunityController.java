@@ -409,20 +409,10 @@ public class UserCommunityController {
 		
 		model.addAttribute("pageHtml", getPageHtml(boardSrchInfo));
 		
-		for(BoardInfo each : boardList ){
-			// ----------------------------------------------------
-			// 답변수 가져오기
-			// ----------------------------------------------------
-			BoardSrchInfo boardSrchInfo1 = new BoardSrchInfo();
-			boardSrchInfo1.setSrchBrdTyp(21);
-			boardSrchInfo1.setBrdCodeType("01");
-			boardSrchInfo1.setBrdCodeKey(Long.toString(each.getBrdSeq()));
-	
-			each.setHit(boardService.getBrdTypTotalCount(boardSrchInfo));
-		}
+		
 		
 		model.addAttribute("noticeList", boardList);
-		model.addAttribute("qnaList", boardList);
+		
 		return "community/qnaPage";
 	}
 	//Q&A 등록
@@ -546,6 +536,44 @@ public class UserCommunityController {
 		
 		
 		return "redirect:qnaView.do?brdSeq="+brdInfo.getBrdSeq();
+
+	}
+	@RequestMapping(value = "/community/qnaSeach.do")
+	public String qnaSeach(@ModelAttribute("AdminInfo") AdminInfo adminInfo,BoardSrchInfo boardSrchInfo,BindingResult result, Model model, HttpSession session) {
+		
+		CustomerInfo customerSesstion =(CustomerInfo)session.getAttribute("customerSession");
+		// 세션체크
+		if (customerSesstion == null) {
+			return "user/errorPage";
+		}
+		model.addAttribute("CUST_NAME", customerSesstion.getCustNm());
+		String customerPoint = (String)session.getAttribute("customerPoint");
+		model.addAttribute("CUST_POINT", customerPoint);	
+		
+		// 이벤트 페이지
+		int currentPage = adminInfo.getCurrentPage();
+		
+		// ----------------------------------------------------
+		// 이벤트 가져오기
+		// ----------------------------------------------------
+		
+		boardSrchInfo.setSrchBrdTyp(20);
+		boardSrchInfo.setSrchUserNm(customerSesstion.getCustId()+"_"+customerSesstion.getCustNm());
+		// 페이지정보 셋팅
+		if (currentPage != 0)
+			boardSrchInfo.setCurrentPage(currentPage);
+
+		List<BoardInfo> boardList = boardService.getBrdTypBoardList(boardSrchInfo);
+		boardSrchInfo.setTotalCount(boardService.getBrdTypTotalCount(boardSrchInfo));
+		
+		
+		model.addAttribute("pageHtml", getPageHtml(boardSrchInfo));
+		
+		
+		
+		model.addAttribute("noticeList", boardList);
+		
+		return "community/qnaPage";
 
 	}
 

@@ -20,7 +20,7 @@
 	<div class="container">
 		<c:import url="../inc/communityLnb.jsp" />
 		<div class="sub_content">
-			<form action="#" method="post">
+			<form action="qnaSeach.do" method="post">
 				<div class="customer_section">
 					<h4>1:1 문의하기</h4>
 					<p class="sub_tit">쇼핑몰 이용중 의문사항이나 불편한 점을 문의해주세요.</p>
@@ -42,20 +42,19 @@
 											<a href=""><img src="<c:url value='/resources/img/common/btn_date.gif'/>"  alt="날짜체크박스"/></a>&nbsp; ~ &nbsp;
 											<input type="text" title="날짜박스" value="2014-02-14"/>
 											<a href=""><img src="<c:url value='/resources/img/common/btn_date.gif'/>"   alt="날짜체크박스"/></a>
-											<button class="tit">당일</button>
-											<button>1개월</button>
-											<button>3개월</button>
-											<button>6개월</button>
+											
 											<button class="btn">조회하기</button>
 										</span>
 									</li>
 									<li class="datebox_search">
 										<span class="tit">검색</span>
 										<span>
-											<select>
-												<option>전체</option>
-											</select>
-											<input type="text" title="searchbox" />
+											<select name="schType">
+													<!--<option value="a">전체</option>-->
+													<option value="t">제목</option>
+													<!--<option value="c">내용</option>-->
+												</select>
+												<input type="text" id="srchKeyword" name="srchKeyword" title="searchbox" />
 											<button class="btn">조회하기</button>
 										</span>
 									</li>
