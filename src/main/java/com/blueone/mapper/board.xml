@@ -46,7 +46,9 @@
 									AND BRD_CODE_KEY = #{brdCodeKey}
 									AND BRD_CODE_TYPE = #{brdCodeType}
 								</if>
-								
+								<if test="srchBrdTyp == 20">
+									AND t1.ins_user = #{srchUserNm}
+								</if>
 		                        
 		                        <if test="noticeBrdSeq != null and noticeBrdSeq.length != 0">
 		                        AND brd_seq NOT IN

@@ -1,6 +1,8 @@
 package com.blueone.admin.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.net.URLDecoder;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -175,7 +177,7 @@ public class OrderManageController {
 	}
 	
 	@RequestMapping(value="orderManagementProc.do", method=RequestMethod.POST)
-	public String orderManagementProc(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model,HttpSession session) {
+	public String orderManagementProc(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model,HttpSession session) throws UnsupportedEncodingException {
 		
 		
 
@@ -186,11 +188,11 @@ public class OrderManageController {
 			PaymentInfo pay = new PaymentInfo();
 			pay.setOrderNo(orderInfo.getOrderNo());
 			List<PaymentInfo> payList = orderManageService.selectPaymentInfo(pay);
-			
+			cust.setCustNm(URLDecoder.decode(cust.getCustNm(), "UTF-8"));
 			String decMemNm = cust.getCustNm();
 			String decMemNo = cust.getCustId();
 			String decShopEventNo = (String)session.getAttribute("shopEventNo");
-			String decPoint = Integer.toString(payList.get(0).getPayPoint()); //수정해줘야할 부분
+			String decPoint = Integer.toString(payList.get(0).getPayPoint());
 			String decOrderNo = orderInfo.getOrderNo();
 			
 			// --------------------------------------------

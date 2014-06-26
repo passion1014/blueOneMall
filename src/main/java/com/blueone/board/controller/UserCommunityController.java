@@ -27,6 +27,41 @@ public class UserCommunityController {
 	
 	@Autowired IBoardService boardService;
 	
+	@RequestMapping(value = "/community/communityMain.do", method = RequestMethod.GET)
+	public String communityMain(@ModelAttribute("AdminInfo") AdminInfo adminInfo,
+			BindingResult result, Model model, HttpSession session) {
+		
+		CustomerInfo customerSesstion =(CustomerInfo)session.getAttribute("customerSession");
+		// 세션체크
+		if (customerSesstion == null) {
+			return "user/errorPage";
+		}
+		model.addAttribute("CUST_NAME", customerSesstion.getCustNm());
+		String customerPoint = (String)session.getAttribute("customerPoint");
+		model.addAttribute("CUST_POINT", customerPoint);
+		// 공지사항 페이지
+		int currentPage = adminInfo.getCurrentPage();
+		
+		// ----------------------------------------------------
+		// 공지사항 가져오기
+		// ----------------------------------------------------
+		BoardSrchInfo boardSrchInfo = new BoardSrchInfo();
+		boardSrchInfo.setSrchBrdTyp(8);
+
+		// 페이지정보 셋팅
+		if (currentPage != 0)
+			boardSrchInfo.setCurrentPage(currentPage);
+
+		List<BoardInfo> boardList = boardService.getBrdTypBoardList(boardSrchInfo);
+		boardSrchInfo.setTotalCount(boardService.getBrdTypTotalCount(boardSrchInfo));
+
+		model.addAttribute("noticeList", boardList);
+		model.addAttribute("pageHtml", getPageHtml(boardSrchInfo));
+		
+		return "community/notice";
+
+	}
+	
 	@RequestMapping(value = "/community/notice.do", method = RequestMethod.GET)
 	public String notice(@ModelAttribute("AdminInfo") AdminInfo adminInfo,
 			BindingResult result, Model model, HttpSession session) {

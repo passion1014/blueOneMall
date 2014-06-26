@@ -181,7 +181,7 @@ public class OrderController {
 		}
 		if(orderProductInfo.getPrdSmallImg()!=null){
 			value+="cn="+count+",";
-			Cookie cookie =cki.createCookie("BOM"+orderProductInfo.getPrdCd()+"_"+pNum,value,50000);
+			Cookie cookie =cki.createCookie("BOM"+orderProductInfo.getPrdCd()+"_"+pNum,value);
 			response.addCookie(cookie);//
 	
 		
@@ -229,7 +229,7 @@ public class OrderController {
 		
 		String changeValue = CookieUtil.changeProdOption(cookieVal, "cn", String.valueOf(orderProductInfo.getBuyCnt()));
 		
-		Cookie cookie =cki.createCookie(orderProductInfo.getCookieKey(),changeValue, 50000);
+		Cookie cookie =cki.createCookie(orderProductInfo.getCookieKey(),changeValue);
 		response.addCookie(cookie);//
 		
 		return "redirect:cartListView.do";
@@ -360,7 +360,7 @@ public class OrderController {
 
 		}
 
-		Cookie cookie = cki.createCookie("BOM_" + res.getPrdCd(), value, 50000);
+		Cookie cookie = cki.createCookie("BOM_" + res.getPrdCd(), value);
 		response.addCookie(cookie);//
 
 		oPrdList.add(IDX, res);
@@ -692,7 +692,7 @@ public class OrderController {
 	//二쇰Ц?깃났?섏씠吏?
 	@RequestMapping(value="/order/orderComplete.do")
 	public String orderComplete(@ModelAttribute("orderInfo") OrderInfo orderInfo,String use_pay_method,BindingResult result,String card_cd,String good_mny,HttpSession session, Model model,HttpServletRequest request,HttpServletResponse response) throws Exception{
-		CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");
+CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");
 		
 		// ?몄뀡泥댄겕
 		if (cus == null) {
@@ -721,6 +721,8 @@ public class OrderController {
 		}
 		
 		BigDecimal total = null;
+		BigDecimal total1 = new BigDecimal(0);
+		
 		OrderProductInfo opRes = new OrderProductInfo();
 		opRes.setOrderNo(orderInfo.getOrderNo());
 		
@@ -760,6 +762,7 @@ public class OrderController {
 
 				if ("01".equals(s.substring(0, 2))) {
 					option += URLDecoder.decode(s, "UTF-8") + ",";
+					
 					odPrdInfo.setPrdOpColor(URLDecoder.decode(s.substring(3), "UTF-8"));
 				}
 				if ("02".equals(s.substring(0, 2))) {
@@ -784,6 +787,8 @@ public class OrderController {
 			total = new BigDecimal(prInf.getPrdSellPrc()) ;
 			total=total.multiply(new BigDecimal(odPrdInfo.getBuyCnt()));
 			odPrdInfo.setTotalPrice(total);
+			
+			total1=total1.add(total);
 			
 			//?ъ쭊
 			AttachFileInfo att = new AttachFileInfo();
@@ -813,12 +818,22 @@ public class OrderController {
 			productManageService.manageProductInf(productInfo);
 			
 			
-			}
+		}
+
+		//諛곗넚鍮꾧????뺣낫
+		ConfigInfo resConfigInfo = adminManageService.selectConfigInf();
+		
+		model.addAttribute("config", resConfigInfo);
+		
+		if(total1.intValue()<=resConfigInfo.getBuyPrice()){
+			total1=total1.add(new BigDecimal(resConfigInfo.getTrasferPrice()));
+		}
+		
 		//pay
 		PaymentInfo payment = new PaymentInfo();
 		payment.setOrderNo(odNo);
 		payment.setOrderNoSeq(1);
-		payment.setPayPrice(total);
+		
 		payment.setPayMdCd(use_pay_method);
 		model.addAttribute("pay",use_pay_method);
 		payment.setModifyUserId(cus.getCustId());
@@ -826,11 +841,11 @@ public class OrderController {
 		int usePoint =0;
 		
 		//포인트 결제
-		if(!good_mny.equals(total.toString())){
+		if(!good_mny.equals(total1.toString())){
 			String decMemNm = cus.getCustNm();
 			String decMemNo = cus.getCustId();
 			String decShopEventNo = (String)session.getAttribute("shopEventNo");
-			usePoint = total.intValue()-Integer.parseInt(good_mny);
+			usePoint = total1.intValue()-Integer.parseInt(good_mny);
 			String decPoint = Integer.toString(usePoint);
 			String decOrderNo = odNo;
 			
@@ -867,7 +882,7 @@ public class OrderController {
 				}
 			}
 			
-			payment.setPayPoint(total.intValue()-Integer.parseInt(good_mny));
+			payment.setPayPoint(usePoint);
 			Map<String, String> map = HMallInterworkUtility.procSearchPoint(cus.getCustNm(), cus.getCustId(),decShopEventNo);
 			customerPoint = (String)map.get("return_point");
 			model.addAttribute("CUST_POINT", customerPoint);
@@ -876,6 +891,7 @@ public class OrderController {
 		}
 		model.addAttribute("usePoint",usePoint);
 		payment.setPymtMemo("결제완료");
+		payment.setPayPrice(new BigDecimal(total1.intValue()-usePoint));
 		orderManageService.registPaymentInfo(payment);
 		model.addAttribute("odPrdInfo",opResInf);
 		
@@ -900,7 +916,7 @@ public class OrderController {
 		orderInfo.setOrderStatCd("03");
 		orderManageService.registOrderInfo(orderInfo);
 	
-		ConfigInfo resConfigInfo = adminManageService.selectConfigInf();
+		
 		
 		model.addAttribute("config", resConfigInfo);
 	
