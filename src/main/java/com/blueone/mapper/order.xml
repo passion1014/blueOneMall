@@ -130,7 +130,7 @@
 				<if test="customerInfo != null and customerInfo.custId != null and customerInfo.custId != ''"> AND T1.CUST_ID = #{customerInfo.custId}</if>
 				
 				
-		 <if test="startIdx>=0">LIMIT #{startIdx},15</if>
+		<!-- <if test="startIdx>=0">LIMIT #{startIdx},15</if> --> 
 		 	
 	</select >
 

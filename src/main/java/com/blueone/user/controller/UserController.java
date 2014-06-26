@@ -364,9 +364,8 @@ public class UserController {
 
 	//二쇰Ц�궡�뿭由ъ뒪�듃
 	@RequestMapping(value="/user/orderListView.do")
-	public String orderListView(@ModelAttribute("userInfo") UserInfo userInfo,OrderInfo od,BindingResult result, Model model,HttpSession session) {
+	public String orderListView(@ModelAttribute("userInfo") UserInfo userInfo,OrderInfo od,BindingResult result, Model model,HttpSession session,String page) {
 		
-
 		//아이디 셋팅
 		//�븘�씠�뵒 �뀑�똿
 		//OrderInfo od = new OrderInfo();
@@ -382,6 +381,12 @@ public class UserController {
 		String customerPoint = (String)session.getAttribute("customerPoint");
 		model.addAttribute("CUST_POINT", customerPoint);			
 		od.setCustomerInfo(cust);
+
+		OrderInfo os = new OrderInfo();
+		if (StringUtils.isEmpty(page))
+		{page="1";os.setStartIdx(Integer.parseInt(page));}
+			else 
+		os.setStartIdx(Integer.parseInt(page));
 		
 		//�븘�씠�뵒濡� 二쇰Ц�궡�뿭媛��졇�삤湲�
 		List<OrderInfo> odList = orderService.selectOrderInfoList(od);

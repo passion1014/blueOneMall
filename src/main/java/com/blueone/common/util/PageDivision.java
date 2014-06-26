@@ -6,6 +6,7 @@ import java.util.List;
 import com.blueone.admin.domain.AccountInfo;
 import com.blueone.admin.domain.AdminInfo;
 import com.blueone.category.domain.CategoryInfo;
+import com.blueone.order.domain.OrderInfo;
 import com.blueone.product.domain.ProductInfo;
 import com.blueone.product.domain.TransferInfo;
 
@@ -28,7 +29,8 @@ public class PageDivision {
 	List<AccountInfo> accExList;
 	List<AdminInfo> adInfolist;
 	List<AdminInfo> adInfoExlist;
-	
+	List<OrderInfo> orderlist;
+	List<OrderInfo> orderExlist;
 	
 
 	public int getItemNum() {
@@ -151,6 +153,29 @@ public class PageDivision {
 			prdExList.add(prdList.get(i));
 		}
 		return prdExList;
+		
+	}
+	
+	public void setOrderInfoList(List<OrderInfo> orderlist) {
+		this.orderlist = orderlist;
+		orderExlist=new ArrayList<OrderInfo>();
+		
+		if(orderlist.size()%itemNum==0) {
+			endNum=orderlist.size()/itemNum;
+		}
+		else{
+			endNum=orderlist.size()/itemNum+1;
+		}
+	}
+	public List<OrderInfo> getOrderInfoList() {
+		int startIdx=pNum*itemNum-itemNum;
+		
+		int forend=pNum*itemNum-1;
+		
+		for(int i=startIdx; i<=forend && i<orderlist.size(); i++){
+			orderExlist.add(orderlist.get(i));
+		}
+		return orderExlist;
 		
 	}
 	

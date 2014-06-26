@@ -26,6 +26,7 @@ import com.blueone.admin.service.IOrderService;
 import com.blueone.common.domain.AttachFileInfo;
 import com.blueone.common.service.IAttachFileManageService;
 import com.blueone.common.util.HMallInterworkUtility;
+import com.blueone.common.util.PageDivision;
 import com.blueone.customer.domain.CustomerInfo;
 import com.blueone.customer.domain.RecipientInfo;
 import com.blueone.customer.service.ICustomerManageService;
@@ -57,30 +58,25 @@ public class OrderManageController {
 		}
 		
 		
-		OrderInfo os = new OrderInfo();
+		PageDivision pd = new PageDivision();
+
+		
 		if (StringUtils.isEmpty(page))
-			{page="1";os.setStartIdx(Integer.parseInt(page));}
-		else 
-			os.setStartIdx(Integer.parseInt(page));
+			page="1";
+		else
+			pd.pageNum(page);
 		
-		List<OrderInfo> odList =orderManageService.getOrderInfoListByPeriod(os);
-		
-		model.addAttribute("odList",odList);
+		List<OrderInfo> odList =orderManageService.getOrderInfoListByPeriod(new OrderInfo());
+		pd.setItemNum(20);
+		pd.setOrderInfoList(odList);
+		List<OrderInfo> resultList = pd.getOrderInfoList();
+		model.addAttribute("odList",resultList);
 		model.addAttribute("sh","all");
-		OrderSrchInfo orderSrchInfo = new OrderSrchInfo();
-		
-		int endNum;
-		int total= orderManageService.getOrderTypTotalCount(orderSrchInfo);
-		
-		if(total%15==0 || total/15<0 ) {
-			endNum=total/15;
-		}
-		else{
-			endNum=total/15+1;
-			}
+	
 		
 		
-		model.addAttribute("endNum",endNum);
+		
+		model.addAttribute("endNum", pd.getEndPageNum());
 		
 		return "admin/order/orderList";
 	}

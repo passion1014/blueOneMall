@@ -114,11 +114,11 @@ public class LoginController {
 		} else {
 			String returnCode = (String)rstMap.get("return_code");
 			
-			/*if (!"000".equals(returnCode)) {
+			if (!"000".equals(returnCode)) {
 				model.addAttribute("msg", HMallInterworkUtility.getErrorMsgByCode(returnCode));
 				
 				return "user/loginError";
-			}*/
+			}
 		}
 		
 		// --------------------------------------------
@@ -210,13 +210,13 @@ public class LoginController {
 	}
 
 	@RequestMapping(value="/sso/cancelPoint.do", method= RequestMethod.GET)
-	public String cancelPointSample(HttpServletRequest request, Model model, HttpSession session) throws Exception {
+	public String cancelPointSample(HttpServletRequest request, Model model, HttpSession session, String orderNo,String usepoint) throws Exception {
 		
 		String decMemNm = "최동식";
 		String decMemNo = "100001639343";
 		String decShopEventNo = (String)session.getAttribute("shopEventNo");
-		String decPoint = "1000";
-		String decOrderNo = "order00012";
+		String decPoint = usepoint;
+		String decOrderNo = orderNo;
 		
 		// --------------------------------------------
 		// 2. SSO처리를 위한 웹서비스 호출
@@ -244,7 +244,7 @@ public class LoginController {
 			}
 		}
 				
-		return "";
+		return "redirect:/";
 	}
 
 	@RequestMapping(value="/sso/retrievePoint.do", method= RequestMethod.GET)
@@ -252,8 +252,8 @@ public class LoginController {
 		String decMemNm = "최동식";
 		String decMemNo = "100001639343";
 		String decShopEventNo = (String)session.getAttribute("shopEventNo");
-		String decPoint = "1000";
-		String decOrderNo = "order00012";
+		String decPoint = "18000";
+		String decOrderNo = "BOM14M0688513";
 		
 		// --------------------------------------------
 		// 2. SSO처리를 위한 웹서비스 호출
@@ -281,7 +281,7 @@ public class LoginController {
 			}
 		}
 		
-		return "";
+		return "redirect:/";
 	}
 
 		
