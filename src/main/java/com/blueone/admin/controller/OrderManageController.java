@@ -57,27 +57,31 @@ public class OrderManageController {
 			return "redirect:adminLogin.do";
 		}
 		
-		
-		PageDivision pd = new PageDivision();
-
-		
+		OrderInfo os = new OrderInfo();
 		if (StringUtils.isEmpty(page))
-			page="1";
-		else
-			pd.pageNum(page);
+			{page="1";os.setStartIdx(Integer.parseInt(page));}
+		else 
+			os.setStartIdx(Integer.parseInt(page));
 		
-		List<OrderInfo> odList =orderManageService.getOrderInfoListByPeriod(new OrderInfo());
-		pd.setItemNum(20);
-		pd.setOrderInfoList(odList);
-		List<OrderInfo> resultList = pd.getOrderInfoList();
-		model.addAttribute("odList",resultList);
-		model.addAttribute("sh","all");
+		List<OrderInfo> odList =orderManageService.getOrderInfoListByPeriod(os);
+
+		model.addAttribute("odList",odList);
+		OrderSrchInfo orderSrchInfo = new OrderSrchInfo();
 	
 		
+		int endNum;
+		int total= orderManageService.getOrderTypTotalCount(orderSrchInfo);
+		
+		if(total%15==0 || total/15<0 ) {
+			endNum=total/15;
+		}
+		else{
+			endNum=total/15+1;
+			}
 		
 		
-		model.addAttribute("endNum", pd.getEndPageNum());
-		
+		model.addAttribute("endNum",endNum);
+
 		return "admin/order/orderList";
 	}
 	
@@ -181,14 +185,13 @@ public class OrderManageController {
 		CustomerInfo cust = orderInfo.getCustomerInfo();
 		
 		if(orderInfo.getOrderStatCd().equals("08") || orderInfo.getOrderStatCd().equals("10")){
-			PaymentInfo pay = new PaymentInfo();
-			pay.setOrderNo(orderInfo.getOrderNo());
-			List<PaymentInfo> payList = orderManageService.selectPaymentInfo(pay);
-			cust.setCustNm(URLDecoder.decode(cust.getCustNm(), "UTF-8"));
-			String decMemNm = cust.getCustNm();
-			String decMemNo = cust.getCustId();
-			String decShopEventNo = (String)session.getAttribute("shopEventNo");
-			String decPoint = Integer.toString(payList.get(0).getPayPoint());
+			List<OrderInfo> odList = orderService.selectOrderInfoList(orderInfo);
+			String pointInfo= odList.get(0).getUserPointInfo();
+			String[] point = pointInfo.split("_");
+			String decMemNm = point[0];
+			String decMemNo = point[1];
+			String decShopEventNo = point[2];
+			String decPoint = point[3];
 			String decOrderNo = orderInfo.getOrderNo();
 			
 			// --------------------------------------------

@@ -149,10 +149,6 @@ public class OrderController {
 				if((orderProductInfo.getPrdOpColor()==null || orderProductInfo.getPrdOpColor().isEmpty()) && optionSize.equals(orderProductInfo.getPrdOpSize()) && countExist.equals("y")){
 					count += orderProductInfo.getBuyCnt();
 					break;
-				}else if((orderProductInfo.getPrdOpSize()==null || orderProductInfo.getPrdOpSize().isEmpty()) && optionColor.equals(orderProductInfo.getPrdOpColor()) && countExist.equals("y")){
-					orderProductInfo.setPrdOpSize(URLDecoder.decode(orderProductInfo.getPrdOpSize(), "UTF-8"));
-					count += orderProductInfo.getBuyCnt();
-					break;
 				}else if((orderProductInfo.getPrdOpColor()==null || orderProductInfo.getPrdOpColor().isEmpty()) &&(orderProductInfo.getPrdOpSize()==null || orderProductInfo.getPrdOpSize().isEmpty()) && countExist.equals("y") ){ 
 					
 					count += orderProductInfo.getBuyCnt();
@@ -848,7 +844,7 @@ CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");
 			usePoint = total1.intValue()-Integer.parseInt(good_mny);
 			String decPoint = Integer.toString(usePoint);
 			String decOrderNo = odNo;
-			
+			orderInfo.setUserPointInfo(decMemNm+"_"+decMemNo+"_"+decShopEventNo+"_"+decPoint);
 			// --------------------------------------------
 			// 2. SSO泥섎━瑜??꾪븳 ?뱀꽌鍮꾩뒪 ?몄텧
 			// --------------------------------------------
@@ -1077,7 +1073,7 @@ CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");
 		String decShopEventNo = (String)session.getAttribute("shopEventNo");
 		String decPoint = total1.toString();
 		String decOrderNo = odNo;
-		
+		orderInfo.setUserPointInfo(decMemNm+"_"+decMemNo+"_"+decShopEventNo+"_"+decPoint);
 		// --------------------------------------------
 		// 2. SSO泥섎━瑜??꾪븳 ?뱀꽌鍮꾩뒪 ?몄텧
 		// --------------------------------------------
