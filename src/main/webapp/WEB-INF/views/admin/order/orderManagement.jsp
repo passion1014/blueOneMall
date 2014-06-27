@@ -19,10 +19,7 @@ function SetPriceInput(str)
 	document.write(retValue); 
 }
 
-function chk_form(){
-	document.getElementById("customerInfo.custNm").value   = encodeURI(document.getElementById("customerInfo.custNm1").value) ;
-	document.getElementById("sfrm").submit() ;
-}
+
 //-->
 </script>
 
@@ -38,9 +35,8 @@ function chk_form(){
 		<form id="sfrm" name="sfrm" method="post" action="orderManagementProc.do" onSubmit="return chk_form(this);">
 		<input type="hidden" id="orderNo" name="orderNo" value="${odInfo.orderNo}">
 		<input type="hidden" id="customerInfo.custId"  name="customerInfo.custId"  value="${cus.custId}">
-		<input type="hidden" id="customerInfo.custNm1"  name="customerInfo.custNm1"  value="${cus.custNm}">
 		<input type="hidden" id="customerInfo.custNm"  name="customerInfo.custNm"  value="${cus.custNm}">
-		<input type="hidden" id="payPoint"  name="payPoint"  value="${payList.pymtMemo}">
+		
 		
 		<table class="order_tbl" summary="주문상품 리스트">
 			<h5>주문상품 목록표</h5>
@@ -198,7 +194,7 @@ function chk_form(){
 				</tbody>
 			</table>
 			<div style="margin-top:20px;" class="center">
-				<input type="button" value="수정하기" onClick="chk_form()" class="button_green button_medium"> &nbsp; 
+				<input type="submit" value="수정하기" class="button_green button_medium"> &nbsp; 
 				<input type="button" value="취소" class="button_red button_medium" onClick="reset();">
 			</div>
 		</form>

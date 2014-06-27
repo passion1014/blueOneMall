@@ -34,7 +34,7 @@ public class OrderInfo {
 	private String ord_unit_chk; //다중 checkbox
 
 	private PaymentInfo paymentInfo;
-	
+	private String userPointInfo;
 	
 	//검색하기위한 변수
 	private String srchStdDt;
@@ -43,6 +43,12 @@ public class OrderInfo {
 	private int startIdx;
 	
 	
+	public String getUserPointInfo() {
+		return userPointInfo;
+	}
+	public void setUserPointInfo(String userPointInfo) {
+		this.userPointInfo = userPointInfo;
+	}
 	public PaymentInfo getPaymentInfo() {
 		return paymentInfo;
 	}
