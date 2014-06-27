@@ -460,7 +460,7 @@ public class UserController {
 
 	//二쇰Ц痍⑥냼�떊泥�
 	@RequestMapping(value="/user/orderCancel.do", method=RequestMethod.GET)
-	public String orderCancel(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model,HttpSession session) {
+	public String orderCancel(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model,HttpSession session) throws Exception {
 		
 		
 		CustomerInfo cust = (CustomerInfo) session.getAttribute("customerSession");
@@ -473,18 +473,76 @@ public class UserController {
 		model.addAttribute("CUST_POINT", customerPoint);
 		// 주문 테이블의 상태값을 07(주문취소)로 셋팅
 		orderInfo.setCustomerInfo(cust);
-		orderInfo.setOrderStatCd("07");
+		orderInfo.setOrderStatCd("08");
 		orderService.updateOrderInf(orderInfo);
-
 		
-	
+		//포인트 취소
+		List<OrderInfo> odList = orderService.selectOrderInfoList(orderInfo);
+		String pointInfo= odList.get(0).getUserPointInfo();
+		if(pointInfo==null ||  StringUtils.isEmpty(pointInfo) || pointInfo.isEmpty() ){
+			
+			return "redirect:orderListView.do";
+		}
+		
+		String[] point = pointInfo.split("_");
+		String decMemNm = point[0];
+		String decMemNo = point[1];
+		String decShopEventNo = point[2];
+		String decPoint = point[3];
+		String decOrderNo = orderInfo.getOrderNo();
+		
+		// --------------------------------------------
+		// 2. SSO처리를 위한 웹서비스 호출
+		// --------------------------------------------
+		Map<String, String> rstMap = null;
+		try {
+			rstMap = HMallInterworkUtility.procCancelPoint(decMemNm, decMemNo, decShopEventNo, decPoint, decOrderNo);
+		} catch (Exception e) {
+			model.addAttribute("msg", "SSO처리시 에러발생하였습니다.");
+			return "user/loginError";
+		}
+		
+		// --------------------------------------------
+		// 3. 체크 - SSO처리 결과를 확인한다.
+		// --------------------------------------------
+		if (rstMap == null) {
+			model.addAttribute("msg", "SSO처리 결과가 없습니다.(1)");
+			return "user/loginError";
+		} else {
+			String returnCode = (String)rstMap.get("return_code");
+			
+			if (!"000".equals(returnCode)) {
+				model.addAttribute("msg", HMallInterworkUtility.getErrorMsgByCode(returnCode));
+				return "user/loginError";
+			}
+		}
+		
+		//재고증가
+		OrderProductInfo opRes = new OrderProductInfo();
+		opRes.setOrderNo(orderInfo.getOrderNo());
+		List<OrderProductInfo> opResInf = orderManageService.selectOrderPrdInfo(opRes);
+		
+		for(OrderProductInfo each : opResInf){
+			String prdCd = each.getPrdCd();
+			ProductInfo productInfo = new ProductInfo();
+			productInfo.setPrdCd(prdCd);
+			productInfo = productManageService.getProductInfDetail(productInfo);
+			productInfo.setPrdStock(productInfo.getPrdStock()+each.getBuyCnt());
+			productManageService.manageProductInf(productInfo);
+		}
+		
+		Map<String, String> map = HMallInterworkUtility.procSearchPoint(cust.getCustNm(), cust.getCustId(),decShopEventNo);
+		customerPoint = (String)map.get("return_point");
+		
+		
+		session.setAttribute("customerPoint", customerPoint);
 		return "redirect:orderListView.do";
 	}
 
 
 	//諛섑뭹�떊泥�
 	@RequestMapping(value="/user/orderTakeBack.do", method=RequestMethod.GET)
-	public String orderTakeBack(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model,HttpSession session) {
+	public String orderTakeBack(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model,HttpSession session) throws Exception {
 		
 		
 		CustomerInfo cust = (CustomerInfo) session.getAttribute("customerSession");
@@ -498,10 +556,69 @@ public class UserController {
 		model.addAttribute("CUST_POINT", customerPoint);
 		
 		orderInfo.setCustomerInfo(cust);
-		orderInfo.setOrderStatCd("09");
+		orderInfo.setOrderStatCd("10");
 		
 		orderService.updateOrderInf(orderInfo);
-
+		//포인트 취소
+		List<OrderInfo> odList = orderService.selectOrderInfoList(orderInfo);
+		String pointInfo= odList.get(0).getUserPointInfo();
+		if(pointInfo==null ||  StringUtils.isEmpty(pointInfo) || pointInfo.isEmpty() ){
+			
+			return "redirect:orderListView.do";
+		}
+		String[] point = pointInfo.split("_");
+		String decMemNm = point[0];
+		String decMemNo = point[1];
+		String decShopEventNo = point[2];
+		String decPoint = point[3];
+		String decOrderNo = orderInfo.getOrderNo();
+		
+		// --------------------------------------------
+		// 2. SSO처리를 위한 웹서비스 호출
+		// --------------------------------------------
+		Map<String, String> rstMap = null;
+		try {
+			rstMap = HMallInterworkUtility.procCancelPoint(decMemNm, decMemNo, decShopEventNo, decPoint, decOrderNo);
+		} catch (Exception e) {
+			model.addAttribute("msg", "SSO처리시 에러발생하였습니다.");
+			return "user/loginError";
+		}
+		
+		// --------------------------------------------
+		// 3. 체크 - SSO처리 결과를 확인한다.
+		// --------------------------------------------
+		if (rstMap == null) {
+			model.addAttribute("msg", "SSO처리 결과가 없습니다.(1)");
+			return "user/loginError";
+		} else {
+			String returnCode = (String)rstMap.get("return_code");
+			
+			if (!"000".equals(returnCode)) {
+				model.addAttribute("msg", HMallInterworkUtility.getErrorMsgByCode(returnCode));
+				return "user/loginError";
+			}
+		}
+		
+		//재고증가
+		OrderProductInfo opRes = new OrderProductInfo();
+		opRes.setOrderNo(orderInfo.getOrderNo());
+		List<OrderProductInfo> opResInf = orderManageService.selectOrderPrdInfo(opRes);
+		
+		for(OrderProductInfo each : opResInf){
+			String prdCd = each.getPrdCd();
+			ProductInfo productInfo = new ProductInfo();
+			productInfo.setPrdCd(prdCd);
+			productInfo = productManageService.getProductInfDetail(productInfo);
+			productInfo.setPrdStock(productInfo.getPrdStock()+each.getBuyCnt());
+			productManageService.manageProductInf(productInfo);
+		}
+		
+		Map<String, String> map = HMallInterworkUtility.procSearchPoint(cust.getCustNm(), cust.getCustId(),decShopEventNo);
+		customerPoint = (String)map.get("return_point");
+		session.setAttribute("customerPoint", customerPoint);
+	
+		
+	
 		return "redirect:orderListView.do";
 	}
 

@@ -130,8 +130,9 @@
 				 --><if test="orderStatCd != null and orderStatCd != ''">AND T1.ORDER_STAT_CD= #{orderStatCd} </if>
 				<if test="customerInfo != null and customerInfo.custId != null and customerInfo.custId != ''"> AND T1.CUST_ID = #{customerInfo.custId}</if>
 				
-				
+		ORDER BY T1.REG_DATE DESC		
 		<if test="startIdx>=0">LIMIT #{startIdx},15</if>   
+		
 		 	
 	</select >
 
@@ -166,7 +167,7 @@
 			<if test="orderNo != null and orderNo != ''"> AND T1.ORDER_NO = #{orderNo}</if>
 			<if test="srchStdDt != null and srchStdDt != '' and srchEdDt != null and srchEdDt != ''"> AND T1.REG_DATE BETWEEN  #{srchStdDt} AND #{srchEdDt}</if>
 			
-			
+		ORDER BY T1.REG_DATE DESC		
 	</select >
 	
 	<select id="selectListBomOrderTb0003" resultType="orderInfo" resultMap="OrderInfoMap" parameterType="orderSrchInfo">

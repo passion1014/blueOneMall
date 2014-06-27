@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.blueone.admin.domain.AdminInfo;
 import com.blueone.admin.domain.ConfigInfo;
@@ -177,7 +178,7 @@ public class OrderManageController {
 	}
 	
 	@RequestMapping(value="orderManagementProc.do", method=RequestMethod.POST)
-	public String orderManagementProc(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model,HttpSession session) throws UnsupportedEncodingException {
+	public String orderManagementProc(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model,HttpSession session,RedirectAttributes redirectAttributes) throws UnsupportedEncodingException {
 		
 		
 
@@ -187,6 +188,10 @@ public class OrderManageController {
 		if(orderInfo.getOrderStatCd().equals("08") || orderInfo.getOrderStatCd().equals("10")){
 			List<OrderInfo> odList = orderService.selectOrderInfoList(orderInfo);
 			String pointInfo= odList.get(0).getUserPointInfo();
+			if(pointInfo==null ||  StringUtils.isEmpty(pointInfo) || pointInfo.isEmpty() ){
+				redirectAttributes.addFlashAttribute("orderSucess", "yes");
+				return "redirect:orderManagement.do?orderNo="+orderInfo.getOrderNo()+"&custId="+cust.getCustId();
+			}
 			String[] point = pointInfo.split("_");
 			String decMemNm = point[0];
 			String decMemNo = point[1];
