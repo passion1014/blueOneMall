@@ -23,7 +23,7 @@ public interface IProductManageService {
 	
 	
 	
-	//사용자 페이지
+
 	public List<ProductInfo> shopProductInfList(ProductInfo productInfo);
 	public int deleteProductInf(ProductInfo productInfo);
 	public int manageProductInf(ProductInfo productInfo);
@@ -38,5 +38,6 @@ public interface IProductManageService {
 	public List<ProductInfo> getAdminProductSearchList(ProductInfo prdInfo);
 	public int manageProductOptionInf(ProductInfo productInfo);
 	public List<ProductInfo> oderByBuyCountList();
+	public int updateProductHit(ProductInfo productInfo);
 	
 }

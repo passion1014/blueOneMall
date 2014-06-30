@@ -1016,6 +1016,13 @@ public class ProductController {
 		model.addAttribute("CUST_NAME", cust.getCustNm());
 		String customerPoint = (String)session.getAttribute("customerPoint");
 		model.addAttribute("CUST_POINT", customerPoint);
+		
+		// ----------------------------------------------------------
+		//  HIT 수 증가
+		// ----------------------------------------------------------
+		productManageService.updateProductHit(productInfo);
+		
+		
 		// ----------------------------------------------------------
 		// 변수선언
 		// ----------------------------------------------------------

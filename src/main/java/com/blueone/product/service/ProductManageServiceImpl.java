@@ -398,6 +398,25 @@ public class ProductManageServiceImpl implements IProductManageService {
         
         return rst;
     }
+    //상품 hit 증가
+    @Override
+    public int updateProductHit(ProductInfo productInfo) {
+        
+        int rst = -1;
+        
+        
+            SqlSession sqlSession = sqlSessionFactory.openSession();
+            try {
+                // DB 수행
+                rst = sqlSession.update("product.updateBOM_PRODUCT_TB_HIT", productInfo);
+             
+            } finally {
+                sqlSession.close();
+            }
+       
+        
+        return rst;
+    }
     
     
 
