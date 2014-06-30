@@ -130,7 +130,7 @@
 							
 						</td>
 						<td>
-							${odList.customerInfo.custId} / ${odList.customerInfo.custNm}
+							${odList.customerInfo.custId} / ${odList.customerInfo.custNm}  / ${odList.ordPrd.prdNm} / ${odList.paymentInfo.payPrice} 
 						</td>
 						
 						<td><input type="button" value="관리"class="Small_Button Gray"onClick="location.href='orderManagement.do?orderNo=${odList.orderNo}&custId=${odList.customerInfo.custId}'"></td>

@@ -420,18 +420,12 @@ public class UserController {
 						
 					}
 					
-					//�닔�웾 諛� 湲덉븸
-	
-					BigDecimal total=null;
-					BigDecimal realTotal=new BigDecimal(0);
 					
-					for(OrderProductInfo odp:opResInf){
-						odp.setSellPrice(new BigDecimal(prInf.getPrdSellPrc()));
-						total = new BigDecimal(prInf.getPrdSellPrc()) ;
-						total=total.multiply(new BigDecimal(odp.getBuyCnt()));
-						realTotal=realTotal.add(total);
-					}
-					each.setTotalOrderPrice(realTotal);
+					PaymentInfo pay = new PaymentInfo();
+					pay.setOrderNo(odNo);
+					List<PaymentInfo> payList = orderManageService.selectPaymentInfo(pay);
+					
+					each.setTotalOrderPrice(payList.get(0).getPayPrice());
 					
 					}
 					else{
