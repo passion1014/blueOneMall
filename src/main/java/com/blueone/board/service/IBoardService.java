@@ -55,6 +55,7 @@ public interface IBoardService {
 	public int deleteBoardTBInf(BoardInfo boardModel);
 	public boolean updateBOM_BOARD_TB_notice(BoardInfo boardModel);
 	public int updateBoardHit(BoardInfo boardInfo);
+	public List<BoardInfo> getBrdTypBoardList1(BoardSrchInfo boardSrchInfo);
 	
 
 /*	//공지사항

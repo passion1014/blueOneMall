@@ -56,7 +56,30 @@ public class BoardService implements IBoardService {
 		return boards;
 	}
 	
+	@Override
+	public List<BoardInfo> getBrdTypBoardList1(BoardSrchInfo boardSrchInfo) {
+		List<BoardInfo> boards = new ArrayList<BoardInfo>();
+		BoardInfo board = null;
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			boards = sqlSession.selectList("board.getBrdTypBoardList1", boardSrchInfo);
+			
+			if (boards != null && boards.size() > 0) {
+				for (int i = 0; i < boards.size(); i++) {
+					board = boards.get(i);
+					// 게시판의 첨부파일 정보
+//					board.setAttachFiles(selectBOM_ATTACHFILE_TB(board.getBrdSeq()));
+				}
+			}
+			
+		} finally {
+			sqlSession.close();
+		}
 
+		
+		return boards;
+	}
 	@Override
 	public List<FaqInfo> getFaqInfoList(FaqInfo faqInfo) {
 		List<FaqInfo> boards = new ArrayList<FaqInfo>();

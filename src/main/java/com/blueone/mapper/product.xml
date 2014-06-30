@@ -29,6 +29,10 @@
 		<result property="admMemo" column="ADMIN_MEMO" javaType="java.lang.String"/>
 		<result property="modifyUserId" column="MODIFY_USER_ID" javaType="java.lang.String"/>
 		<result property="prdStock" column="PRD_STOCK" javaType="int"/>
+		<result property="prdMainNm" column="PRD_MAIN_NM" javaType="java.lang.String"/>
+		<result property="prdHit" column="PRD_HIT" javaType="int"/>
+		<result property="prdBuyCount" column="PRD_BUY_COUNT" javaType="int"/>
+	
 		
 		<result property="ctgLargeCode"  column="t2ctgCode"    javaType="java.lang.String"/>
 		<result property="ctgLargeName"  column="t2ctgName"    javaType="java.lang.String"/>
@@ -209,7 +213,9 @@
 			
 			
 	</select >
+	
 		
+	
 	<select id="orderByListBomProductTb0003" resultMap="ProductBaseDtlMap">
 		SELECT  
 			T1.PRD_CD, 
@@ -304,10 +310,7 @@
 		WHERE
 			PRD_DISPLAY_YN = 'y'
 		ORDER BY T1.PRD_BRAND
-	
-				
-			
-			
+		
 	</select >
 	
 	<select id="selectListBomProductTb0005" parameterType="productInfo" resultMap="ProductBaseDtlMap">
@@ -373,6 +376,53 @@
 			<if test="schWord != null and schWord != ''"> AND T1.SEARCH_WORD LIKE CONCAT('%',#{schWord},'%') </if>
 			
 			
+	</select >
+	<select id="orderByListBomProductTb0006" resultMap="ProductBaseDtlMap">
+		SELECT  
+			T1.PRD_CD, 
+			T1.PRD_DISPLAY_YN, 
+			T1.PRD_ORDER,
+			T1.PRD_NM ,
+			T1.PRD_CTG_L, 
+			T1.PRD_CTG_M ,
+			T1.PRD_CTG_S ,
+			T1.PRD_SPECAL_1, 
+			T1.PRD_SPECAL_2 ,
+			T1.SEARCH_WORD ,
+			T1.FROM_DATE ,
+			T1.TO_DATE ,
+			T1.REG_DATE ,
+			T1.LAST_DATE ,
+			T1.MODIFY_USER_ID, 
+			T1.PRD_PRICE, 
+			T1.PRD_SELL_PRICE, 
+			T1.PRD_MODEL ,
+			T1.PRD_MODEL_NO, 
+			T1.PRD_BRAND ,
+			T1.PRD_LIST_CMT, 
+			T1.PRD_CONTENTS, 
+			T1.PRD_TRANSFOR_INF, 
+			T1.ADMIN_MEMO,
+			T1.MODIFY_USER_ID,
+			T1.PRD_STOCK,
+			T2.CTG_CODE       AS t2ctgCode,
+			T2.CTG_NAME       AS t2ctgName,
+			T3.CTG_CODE       AS t3ctgCode,
+			T3.CTG_NAME       AS t3ctgName,
+			T4.CTG_CODE       AS t4ctgCode,
+			T4.CTG_NAME       AS t4ctgName
+			
+		FROM BOM_PRODUCT_TB AS T1
+				LEFT JOIN BOM_CATEGORY_TB T2
+					ON ( T1.PRD_CTG_L = T2.CTG_CODE)
+				LEFT JOIN BOM_CATEGORY_TB T3 
+					ON ( T1.PRD_CTG_M = T3.CTG_CODE )
+				LEFT JOIN BOM_CATEGORY_TB T4 
+					ON ( T1.PRD_CTG_S = T4.CTG_CODE )
+		WHERE
+			PRD_DISPLAY_YN = 'y'
+		ORDER BY T1.PRD_HIT DESC
+		
 	</select >
 	
 	<select id="selectListBomShopProductTb0001" parameterType="productInfo" resultMap="ProductBaseDtlMap">
@@ -447,7 +497,9 @@
 			T1.PRD_CONTENTS, 
 			T1.PRD_TRANSFOR_INF, 
 			T1.ADMIN_MEMO,
-			T1.MODIFY_USER_ID,
+			T1.PRD_MAIN_NM,
+			T1.PRD_HIT,
+			T1.PRD_BUY_COUNT,
 			T1.PRD_STOCK,
 			T2.CTG_CODE       AS t2ctgCode,
 			T2.CTG_NAME       AS t2ctgName,
@@ -504,12 +556,13 @@
 			(`PRD_CD`,`PRD_DISPLAY_YN`,`PRD_ORDER`,`PRD_NM`,`PRD_CTG_L`,`PRD_CTG_M`,`PRD_CTG_S`,
 			`PRD_SPECAL_1`,`SEARCH_WORD`,`PRD_SPECAL_2`,`FROM_DATE`,`TO_DATE`,`REG_DATE`,
 			`LAST_DATE`,`PRD_PRICE`,`PRD_SELL_PRICE`,`PRD_MODEL`,`PRD_MODEL_NO`,`PRD_BRAND`,
-			`PRD_LIST_CMT`,`PRD_CONTENTS`,`PRD_TRANSFOR_INF`,`ADMIN_MEMO`,`MODIFY_USER_ID`,`PRD_STOCK`)
+			`PRD_LIST_CMT`,`PRD_CONTENTS`,`PRD_TRANSFOR_INF`,`ADMIN_MEMO`,`MODIFY_USER_ID`,`PRD_STOCK`, 
+			`PRD_MAIN_NM`, `PRD_HIT`,`PRD_BUY_COUNT`)
 			VALUES
 			(#{prdCd},#{prdDp},#{prdOrd}, #{prdNm}, #{prdCtgL}, #{prdCtgM},#{prdCtgS}, 
 			#{prdSpe1}, #{schWord},#{prdSpe2}, #{fromDate}, #{toDate}, sysdate(), sysdate(), 
 			#{prdPrice},#{prdSellPrc},#{prdModel}, #{prdModelNo},#{prdBrand},
-			#{prdListCmt},#{prdConts},#{prdTransInf},#{admMemo}, 'default',#{prdStock})
+			#{prdListCmt},#{prdConts},#{prdTransInf},#{admMemo}, 'default',#{prdStock},#{prdMainNm},#{prdHit},#{prdBuyCount})
 	</insert>
 	
 
@@ -544,6 +597,7 @@
 				<if test="prdDp != null and prdDp != ''">,`PRD_DISPLAY_YN` = #{prdDp}</if>
 				<if test="prdOrd != null and prdOrd != ''">,`PRD_ORDER` = #{prdOrd}</if>
 				<if test="prdNm != null and prdNm != ''">,`PRD_NM` = #{prdNm}</if>
+				<if test="prdMainNm != null and prdMainNm != ''">,`PRD_MAIN_NM` = #{prdMainNm}</if>
 				<if test="prdCtgL != null and prdCtgL != ''">,`PRD_CTG_L` = #{prdCtgL}</if>
 				<if test="prdCtgM != null and prdCtgM != ''">,`PRD_CTG_M` = #{prdCtgM}</if>
 				<if test="prdCtgS != null and prdCtgS != ''">,`PRD_CTG_S` = #{prdCtgS}</if>
@@ -561,6 +615,8 @@
 				<if test="toDate != null and toDate != ''">,`TO_DATE` = #{toDate}</if>
 				<if test="prdStock != null and prdStock >=0">,`PRD_STOCK` = #{prdStock}</if>
 				<if test="prdTransInf != null and prdTransInf >=0">,`PRD_TRANSFOR_INF` = #{prdTransInf}</if>
+				<if test="prdHit != null and prdHit >=0">,`PRD_HIT` = #{prdHit}</if>
+				<if test="prdBuyCount != null and prdBuyCount >=0">,`PRD_BUY_COUNT` = #{prdBuyCount}</if>
 				
 				
 				
@@ -579,6 +635,13 @@
 			`PROP_IDX`= #{propIdx}
 	</update>
 
-
+	<!-- 조회수 증가 -->
+	<update id="updateBOM_PRODUCT_TB_HIT" parameterType="productInfo">
+		UPDATE BOM_PRODUCT_TB
+			SET	
+				PRD_HIT = PRD_HIT+1
+			WHERE
+				`PRD_CD`= #{prdCd}
+	</update>
 	
 </mapper>

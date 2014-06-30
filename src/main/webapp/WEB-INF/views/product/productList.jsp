@@ -79,6 +79,7 @@ function SetPriceInput(str)
 				<div class="product_section">
 					<p class="pro_total">총&nbsp;<span>${total}&nbsp;개</p>
 					<span class="pro_class">
+						<a href="productList.do?orderBy=hit&ctgCode=${largeInf.ctgCode}&ctgMiddleCode=${chkMiddleCode}&prdCtgS=${prdCtgS}" class="rightline">인기 상품</a>
 						<a href="productList.do?orderBy=low&ctgCode=${largeInf.ctgCode}&ctgMiddleCode=${chkMiddleCode}&prdCtgS=${prdCtgS}" class="rightline">낮은 가격</a>
 						<a href="productList.do?orderBy=high&ctgCode=${largeInf.ctgCode}&ctgMiddleCode=${chkMiddleCode}&prdCtgS=${prdCtgS}" class="rightline">높은 가격</a>
 						<a href="productList.do?orderBy=name&ctgCode=${largeInf.ctgCode}&ctgMiddleCode=${chkMiddleCode}&prdCtgS=${prdCtgS}" class="rightline">제품명</a>

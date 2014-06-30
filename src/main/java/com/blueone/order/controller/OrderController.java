@@ -835,7 +835,7 @@ CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");
 		payment.setModifyUserId(cus.getCustId());
 		
 		int usePoint =0;
-		
+		orderInfo.setUserPointInfo("");
 		//포인트 결제
 		if(!good_mny.equals(total1.toString())){
 			String decMemNm = cus.getCustNm();

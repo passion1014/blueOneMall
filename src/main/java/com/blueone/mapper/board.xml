@@ -77,7 +77,76 @@
 		 WHERE rnum BETWEEN ((#{currentPage} - 1) * #{rowsPerPage} + 1) AND (((#{currentPage} - 1) * #{rowsPerPage} + 1) + #{rowsPerPage} - 1)
 		ORDER BY rnum 
 	</select>
+	<!-- 특정게시판의 게시물리스트 -->
+	<select id="getBrdTypBoardList1" parameterType="boardSrchInfo" resultType="boardInfo">
+		SELECT s2.*
+		      ,s2.brd_seq as brdSeq
+		      ,DATE_FORMAT(s2.ins_dt, '%Y.%m.%d') AS insDt
+		      ,DATE_FORMAT(s2.ins_dt, '%Y.%m.%d') AS insDtTyp1
+		      ,case DATE_FORMAT(s2.ins_dt,'%Y%m%d') when date_format(now(),'%Y%m%d') then 'T' else 'F' end AS todayYn
+/*		      ,(SELECT ct1.save_filename
+				  FROM BOM_ATTACHFILE_TB ct1
+				 WHERE ct1.brd_seq = s2.brd_seq
+				   AND ct1.atta_knd = 'MI'
+				   limit 1 ) as repreImage */
+		      ,(SELECT COUNT(ct1.brd_seq)
+                  FROM BOM_BOARD_CMT_TB ct1
+                 WHERE ct1.brd_seq = s2.brd_seq
+                   AND ct1.del_yn = 'F') as commCnt
+		  FROM    (SELECT @rownum := @rownum + 1 AS rnum
+		                 ,s1.*
+		             FROM (SELECT   t1.brd_seq
+		                           ,t1.root_seq AS rootSeq
+		                           ,t1.ref_seq AS refSeq
+		                           ,t1.DEPTH
+		                           ,t1.passwd
+		                           ,t1.title
+		                           ,t1.notice_yn as noticeYn
+		                           ,t1.ins_user as insUser
+		                           ,t1.user_nm as userNm
+		                           ,t1.ins_dt
+		                           ,t1.hit
+		                           ,DATE_FORMAT(DATE_FORMAT(t1.public_ymd, '%Y%m%d'), '%Y.%m.%d') as publicYmd
+		                           ,t1.public_nm as publicNm
+		                           ,t1.content
+		                       FROM BOM_BOARD_TB t1
+		          			   
 	
+		                      WHERE t1.del_yn = 'F'
+		                        AND t1.brd_typ = #{srchBrdTyp}
+								<if test="srchBrdTyp == 10 or srchBrdTyp == 21">
+									AND BRD_CODE_KEY = #{brdCodeKey}
+									AND BRD_CODE_TYPE = #{brdCodeType}
+								</if>
+								
+		                        
+		                        <if test="noticeBrdSeq != null and noticeBrdSeq.length != 0">
+		                        AND brd_seq NOT IN
+			                        <foreach item="noticeBrdSeq" index="index" collection="noticeBrdSeq" open=" (" close= ")" separator=",">
+										#{noticeBrdSeq}
+									</foreach>
+		                        </if>
+		                        
+		                        <if test="schType!= null and schType eq 'a'.toString()">
+		                        	AND t1.title LIKE CONCAT('%',#{srchKeyword},'%')
+		                        	AND t1.content LIKE CONCAT('%',#{srchKeyword},'%')
+		                        </if>
+		                        
+		                        <if test="schType!= null and schType eq 't'.toString()">
+		                        	AND t1.title LIKE CONCAT('%',#{srchKeyword},'%')
+		                        </if>
+		                        <if test="schType!= null and schType eq 'c'.toString()">
+		                        	AND t1.content LIKE CONCAT('%',#{srchKeyword},'%')
+		                        </if>
+		                        
+		                   ORDER BY t1.root_seq DESC
+		                           ,t1.ref_seq 
+		                           ,t1.DEPTH<if test="ordBy != null and ordBy eq 'n'.toString()">, t1.upd_Dt LIMIT 3</if>) s1,
+		                           (select @rownum := 0)R ) s2
+		                          
+		 WHERE rnum BETWEEN ((#{currentPage} - 1) * #{rowsPerPage} + 1) AND (((#{currentPage} - 1) * #{rowsPerPage} + 1) + #{rowsPerPage} - 1)
+		ORDER BY rnum 
+	</select>
 	<!-- 특정게시판의 게시물전체갯수 -->
 	<select id="getBrdTypTotalCount" parameterType="com.blueone.board.domain.BoardSrchInfo" resultType="int">
 		SELECT COUNT(t1.brd_seq)

@@ -38,6 +38,36 @@
 	});
 	function fnAddClick() {
 		var f = tx_editor_form;
+
+		if(f.prdNm.value == ""){
+			alert("상품명을 입력하여 주십시오");
+			f.prdNm.focus();
+			return false;
+		}
+
+		if(f.prdPrice.value == ""){
+			alert("소비자가를 입력하여 주십시오");
+			f.prdPrice.focus();
+			return false;
+		}
+
+		if(f.prdSellPrc.value == ""){
+			alert("판매가를 입력하여 주십시오");
+			f.prdSellPrc.focus();
+			return false;
+		}
+
+		if(f.prdBrand.value == ""){
+			alert("제조사를 입력하여 주십시오");
+			f.prdBrand.focus();
+			return false;
+		}
+
+		if(f.prdStock.value == ""){
+			alert("재고량을 입력하여 주십시오");
+			f.prdStock.focus();
+			return false;
+		}
 		
 		f.action = 'productRegisterProc.do';
 
@@ -129,7 +159,14 @@
 		<tr>
 			<th>상품명</th>
 			<td colspan="3" class="left">
-				<input type="text" id="prdNm" name="prdNm" style="width:80%;" required hname=" 상품명을 입력하여 주십시오">
+				<input type="text" id="prdNm" name="prdNm" style="width:80%;">
+			</td>
+		</tr>
+		
+		<tr>
+			<th>메인추출 상품명</th>
+			<td colspan="3" class="left">
+				<input type="text" id="prdMainNm" name="prdMainNm" style="width:80%;">
 			</td>
 		</tr>
 	</table>
@@ -142,43 +179,48 @@
 			<col width="15%">
 			<col width="*">
 		</colgroup>
-		
+
 		<tr>
 			<th>소비자가</th>
 			<td style="text-align:left;">
-				<input type="text" id="prdPrice" name="prdPrice" style="width:70%;text-align:right;padding-right:10px;"> 원
+				<input type="text" id="prdPrice" name="prdPrice" value="" style="width:50%;text-align:right;padding-right:10px;"> 원
 			</td>
 			<th>판매가</th>
 			<td style="text-align:left;">
-				<input type="text" id="prdSellPrc" name="prdSellPrc" style="width:70%;text-align:right;padding-right:10px;""> 원
+				<input type="text" id="prdSellPrc" name="prdSellPrc"  value="" style="width:50%;text-align:right;padding-right:10px;"> 원
 			</td>		
 		</tr>
-		
+
 		<tr>
 			<th>모델명</th>
-			<td colspan="3" class="left">
-				<input type="text" id="prdModel" name="prdModel" style="width:80%;" required hname=" 상품명을 입력하여 주십시오">
+			<td class="left">
+				<input type="text" id="prdModel" name="prdModel" style="width:80%;" value="">
 			</td>
-		</tr>
-		<tr>
 			<th>모델번호</th>
-			<td colspan="3" class="left">
-				<input type="text" id="prdModelNo" name="prdModelNo" style="width:80%;" required hname=" 상품명을 입력하여 주십시오">
+			<td class="left">
+				<input type="text" id="prdModelNo" name="prdModelNo" value="" style="width:80%;">
 			</td>
 		</tr>
 		<tr>
 			<th>제조사</th>
-			<td colspan="3" class="left">
-				<input type="text" id="prdBrand" name="prdBrand" style="width:80%;" required hname=" 상품명을 입력하여 주십시오">
+			<td class="left">
+				<input type="text" id="prdBrand" name="prdBrand" value="" style="width:80%;">
+			</td>
+			<th>재고량</th>
+			<td class="left">
+				<input type="text" id="prdStock" name="prdStock" value="" style="width:30%;text-align:right;padding-right:10px;">
 			</td>
 		</tr>
 		<tr>
-			<th>재고량</th>
-			<td colspan="3" class="left">
-				<input type="text" id="prdStock" name="prdStock" style="width:80%;" required hname=" 상품명을 입력하여 주십시오">
+			<th>조회수</th>
+			<td class="left">
+				<input type="text" id="prdHit" name="prdHit" value="0" style="width:80%;">
+			</td>
+			<th>판매수</th>
+			<td class="left">
+				<input type="text" id="prdBuyCount" name="prdBuyCount" value="0" style="width:30%;text-align:right;padding-right:10px;">
 			</td>
 		</tr>
-		
 		<tr>
 			<th>리스트 이미지</th>
 			<td colspan="3" class="left">
@@ -247,46 +289,7 @@
       	<input type="button" value="삭제" onClick="chgOption('del','${i}')">
       	</ul>
       	</c:forEach>
-      	<!--  
-      	<ul id="optionField_2" style="display:none;">
-      	<select id="optionKey_2" name="optionKey_2">
-      		<option value="color">색상</option>
-      		<option value="szie">크기</option>
-      	</select>
-      	<input type="text" id="optionValue_2" name="optionValue_2" value="">
-      	<input type="button" value="추가" onClick="chgOption('add','3')">
-      	<input type="button" value="삭제" onClick="chgOption('del','2')">
-      	</ul>
-      	
-      	<ul id="optionField_3" style="display:none;">
-      	<select id="optionKey_3" name="optionKey_3">
-      		<option value="color">색상</option>
-      		<option value="szie">크기</option>
-      	</select>
-      	<input type="text" id="optionValue_3" name="optionValue_3" value="">
-      	<input type="button" value="추가" onClick="chgOption('add','4')">
-      	<input type="button" value="삭제" onClick="chgOption('del','3')">
-      	</ul>
-      	
-      	<ul id="optionField_4" style="display:none;">
-      	<select id="optionKey_4" name="optionKey_4">
-      		<option value="color">색상</option>
-      		<option value="szie">크기</option>
-      	</select>
-      	<input type="text" id="optionValue_4" name="optionValue_4" value="">
-      	<input type="button" value="추가" onClick="chgOption('add','5')">
-      	<input type="button" value="삭제" onClick="chgOption('del','4')">
-      	</ul>
-      	
-      	<ul id="optionField_5" style="display:none;">
-      	<select id="optionKey_5" name="optionKey_5">
-      		<option value="color">색상</option>
-      		<option value="szie">크기</option>
-      	</select>
-      	<input type="text" id="optionValue_5" name="optionValue_5" value="">
-      	<input type="button" value="삭제" onClick="chgOption('del','5')">
-      	</ul>       
-         -->
+      
       </td>
    </tr>
 		<tr>

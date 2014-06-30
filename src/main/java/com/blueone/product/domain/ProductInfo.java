@@ -36,6 +36,9 @@ public class ProductInfo {
 	private int prdStock;
 	private String searchWord;
 	private int schType;
+	private String prdMainNm;
+	private int prdHit;
+	private int prdBuyCount;
 	
 	
 	
@@ -77,6 +80,24 @@ public class ProductInfo {
 
 	
 	
+	public String getPrdMainNm() {
+		return prdMainNm;
+	}
+	public void setPrdMainNm(String prdMainNm) {
+		this.prdMainNm = prdMainNm;
+	}
+	public int getPrdHit() {
+		return prdHit;
+	}
+	public void setPrdHit(int prdHit) {
+		this.prdHit = prdHit;
+	}
+	public int getPrdBuyCount() {
+		return prdBuyCount;
+	}
+	public void setPrdBuyCount(int prdBuyCount) {
+		this.prdBuyCount = prdBuyCount;
+	}
 	public String getPrdTransContents() {
 		return prdTransContents;
 	}

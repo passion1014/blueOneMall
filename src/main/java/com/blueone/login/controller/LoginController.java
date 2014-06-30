@@ -114,11 +114,11 @@ public class LoginController {
 		} else {
 			String returnCode = (String)rstMap.get("return_code");
 			
-			if (!"000".equals(returnCode)) {
+			/*if (!"000".equals(returnCode)) {
 				model.addAttribute("msg", HMallInterworkUtility.getErrorMsgByCode(returnCode));
 				
 				return "user/loginError";
-			}
+			}*/
 		}
 		
 		// --------------------------------------------

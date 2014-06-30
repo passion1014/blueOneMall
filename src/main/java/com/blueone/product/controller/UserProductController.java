@@ -122,7 +122,9 @@ public class UserProductController {
 		if (orderBy.equals("brd")) {
 			productList = productManageService.oderByBrdPriceList();
 		}
-
+		if (orderBy.equals("hit")) {
+			productList = productManageService.oderByBuyCountList();
+		}
 		// List<ProductInfo> productList =
 		// productManageService.getProductInfList(searchProdInfo);
 

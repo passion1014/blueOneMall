@@ -329,7 +329,7 @@ public class CommunityController {
 		if (currentPage != 0)
 			boardSrchInfo.setCurrentPage(currentPage);
 
-		List<BoardInfo> boardList = boardService.getBrdTypBoardList(boardSrchInfo);
+		List<BoardInfo> boardList = boardService.getBrdTypBoardList1(boardSrchInfo);
 		boardSrchInfo.setTotalCount(boardService.getBrdTypTotalCount(boardSrchInfo));
 
 		model.addAttribute("qnaList", boardList);

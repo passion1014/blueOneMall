@@ -45,6 +45,37 @@
 	function fnAddClick() {
 		var f = document.tx_editor_form;
 		var field_names = "" ;
+
+		if(f.prdPrice.value == ""){
+			alert("소비자가를 입력하여 주십시오");
+			f.prdPrice.focus();
+			return false;
+		}
+
+		if(f.prdSellPrc.value == ""){
+			alert("판매가를 입력하여 주십시오");
+			f.prdSellPrc.focus();
+			return false;
+		}
+
+
+		if(f.prdNm.value == ""){
+			alert("상품명을 입력하여 주십시오");
+			f.prdNm.focus();
+			return false;
+		}
+
+		if(f.prdBrand.value == ""){
+			alert("제조사를 입력하여 주십시오");
+			f.prdBrand.focus();
+			return false;
+		}
+
+		if(f.prdStock.value == ""){
+			alert("재고량을 입력하여 주십시오");
+			f.prdStock.focus();
+			return false;
+		}
 		
 		for(var i = 0; i < 50; i++){
 			//field_names = eval("document.tx_editor_form.optionValue_"+ i);
@@ -156,6 +187,13 @@
 				<input type="text" id="prdNm" name="prdNm" style="width:80%;" value="${prdInfo.prdNm}" required hname=" 상품명을 입력하여 주십시오">
 			</td>
 		</tr>
+
+		<tr>
+			<th>메인추출 상품명</th>
+			<td colspan="3" class="left">
+				<input type="text" id="prdMainNm" name="prdMainNm" style="width:80%;" value="${prdInfo.prdMainNm}" required hname=" 상품명을 입력하여 주십시오">
+			</td>
+		</tr>
 	</table>
 
 	<div style="padding:10px 5px 2px 5px;"><b>상품 추가정보</b></div>
@@ -170,40 +208,44 @@
 		<tr>
 			<th>소비자가</th>
 			<td style="text-align:left;">
-				<input type="text" id="prdPrice" name="prdPrice" value="${prdInfo.prdPrice}" style="width:70%;text-align:right;padding-right:10px;"> 원
+				<input type="text" id="prdPrice" name="prdPrice" value="${prdInfo.prdPrice}" style="width:50%;text-align:right;padding-right:10px;"> 원
 			</td>
 			<th>판매가</th>
 			<td style="text-align:left;">
-				<input type="text" id="prdSellPrc" name="prdSellPrc"  value="${prdInfo.prdSellPrc}" style="width:70%;text-align:right;padding-right:10px;""> 원
+				<input type="text" id="prdSellPrc" name="prdSellPrc"  value="${prdInfo.prdSellPrc}" style="width:50%;text-align:right;padding-right:10px;"> 원
 			</td>		
 		</tr>
-		
+
 		<tr>
 			<th>모델명</th>
-			<td colspan="3" class="left">
-				<input type="text" id="prdModel" name="prdModel" style="width:80%;" value="${prdInfo.prdModel}" required hname=" 상품명을 입력하여 주십시오">
+			<td class="left">
+				<input type="text" id="prdModel" name="prdModel" style="width:80%;" value="${prdInfo.prdModel}">
 			</td>
-		</tr>
-		<tr>
 			<th>모델번호</th>
-			<td colspan="3" class="left">
-				<input type="text" id="prdModelNo" name="prdModelNo" value="${prdInfo.prdModelNo}" style="width:80%;" required hname=" 상품명을 입력하여 주십시오">
+			<td class="left">
+				<input type="text" id="prdModelNo" name="prdModelNo" value="${prdInfo.prdModelNo}" style="width:80%;">
 			</td>
 		</tr>
 		<tr>
 			<th>제조사</th>
-			<td colspan="3" class="left">
-				<input type="text" id="prdBrand" name="prdBrand" value="${prdInfo.prdBrand}" style="width:80%;" required hname=" 상품명을 입력하여 주십시오">
+			<td class="left">
+				<input type="text" id="prdBrand" name="prdBrand" value="${prdInfo.prdBrand}" style="width:80%;">
 			</td>
-		</tr>
-
-		<tr>
 			<th>재고량</th>
-			<td colspan="3" class="left">
-				<input type="text" id="prdStock" name="prdStock" value="${prdInfo.prdStock}" style="width:80%;" required hname=" 상품명을 입력하여 주십시오">
+			<td class="left">
+				<input type="text" id="prdStock" name="prdStock" value="${prdInfo.prdStock}" style="width:30%;text-align:right;padding-right:10px;">
 			</td>
 		</tr>
-	
+		<tr>
+			<th>조회수</th>
+			<td class="left">
+				<input type="text" id="prdHit" name="prdHit" value="${prdInfo.prdHit}" style="width:80%;">
+			</td>
+			<th>판매수</th>
+			<td class="left">
+				<input type="text" id="prdBuyCount" name="prdBuyCount" value="${prdInfo.prdBuyCount}" style="width:30%;text-align:right;padding-right:10px;">
+			</td>
+		</tr>
 		<tr>
 			<th>리스트 이미지</th>
 			<td colspan="3" class="left">
@@ -214,7 +256,7 @@
 					<c:if test="${'01' eq prdImg.attImgType}">
 						<c:set var="listImageViewVal" value="Y"/>
 						<img src="${prdImg.attFilePath}" width="119">
-						<input type="button" value="삭제" onClick="confirm_process('','해당 사진을 삭제하시겠습니까?','manageProductImgDelProc.do?idx=${prdImg.idx},${prdInfo.prdCd}');"  class="Button Gray">
+						<input type="button" value="삭제" onClick="confirm_process('','해당 사진을 삭제하시겠습니까? \n삭제를 계속 진행하시면 현재 저장하지 않은 \n상품의 수정된 정보는 이전으로 되돌아 갑니다.\n삭제하시겠습니까?','manageProductImgDelProc.do?idx=${prdImg.idx},${prdInfo.prdCd}');"  class="Button Gray">
 					</c:if>
 				</c:forEach>
 				
@@ -235,7 +277,7 @@
 					<c:if test="${'02' eq prdImg.attImgType && 1 eq prdImg.attImgSeq}">
 						<c:set var="listImageViewVal" value="Y"/>
 						<img src="${prdImg.attFilePath}" width="379">
-						<input type="button" value="삭제" onClick="confirm_process('','해당 사진을 삭제하시겠습니까?','manageProductImgDelProc.do?idx=${prdImg.idx},${prdInfo.prdCd}');"  class="Button Gray">
+						<input type="button" value="삭제" onClick="confirm_process('','해당 사진을 삭제하시겠습니까? \n삭제를 계속 진행하시면 현재 저장하지 않은 \n상품의 수정된 정보는 이전으로 되돌아 갑니다.\n삭제하시겠습니까?','manageProductImgDelProc.do?idx=${prdImg.idx},${prdInfo.prdCd}');"  class="Button Gray">
 					</c:if>
 				</c:forEach>
 				
@@ -256,7 +298,7 @@
 					<c:if test="${'02' eq prdImg.attImgType && 2 eq prdImg.attImgSeq}">
 						<c:set var="listImageViewVal" value="Y"/>
 						<img src="${prdImg.attFilePath}">
-						<input type="button" value="삭제" onClick="confirm_process('','해당 사진을 삭제하시겠습니까?','manageProductImgDelProc.do?idx=${prdImg.idx},${prdInfo.prdCd}');"  class="Button Gray">
+						<input type="button" value="삭제" onClick="confirm_process('','해당 사진을 삭제하시겠습니까? \n삭제를 계속 진행하시면 현재 저장하지 않은 \n상품의 수정된 정보는 이전으로 되돌아 갑니다.\n삭제하시겠습니까?','manageProductImgDelProc.do?idx=${prdImg.idx},${prdInfo.prdCd}');"  class="Button Gray">
 					</c:if>
 				</c:forEach>
 				
@@ -276,7 +318,7 @@
 					<c:if test="${'02' eq prdImg.attImgType && 3 eq prdImg.attImgSeq}">
 						<c:set var="listImageViewVal" value="Y"/>
 						<img src="${prdImg.attFilePath}">
-						<input type="button" value="삭제" onClick="confirm_process('','해당 사진을 삭제하시겠습니까?','manageProductImgDelProc.do?idx=${prdImg.idx},${prdInfo.prdCd}');"  class="Button Gray">
+						<input type="button" value="삭제" onClick="confirm_process('','해당 사진을 삭제하시겠습니까? \n삭제를 계속 진행하시면 현재 저장하지 않은 \n상품의 수정된 정보는 이전으로 되돌아 갑니다.\n삭제하시겠습니까?','manageProductImgDelProc.do?idx=${prdImg.idx},${prdInfo.prdCd}');"  class="Button Gray">
 					</c:if>
 				</c:forEach>
 				
@@ -297,7 +339,7 @@
 					<c:if test="${'02' eq prdImg.attImgType && 4 eq prdImg.attImgSeq}">
 						<c:set var="listImageViewVal" value="Y"/>
 						<img src="${prdImg.attFilePath}">
-						<input type="button" value="삭제" onClick="confirm_process('','해당 사진을 삭제하시겠습니까?','manageProductImgDelProc.do?idx=${prdImg.idx},${prdInfo.prdCd}');"  class="Button Gray">
+						<input type="button" value="삭제" onClick="confirm_process('','해당 사진을 삭제하시겠습니까? \n삭제를 계속 진행하시면 현재 저장하지 않은 \n상품의 수정된 정보는 이전으로 되돌아 갑니다.\n삭제하시겠습니까?','manageProductImgDelProc.do?idx=${prdImg.idx},${prdInfo.prdCd}');"  class="Button Gray">
 					</c:if>
 				</c:forEach>
 				

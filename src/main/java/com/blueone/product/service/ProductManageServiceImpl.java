@@ -243,7 +243,33 @@ public class ProductManageServiceImpl implements IProductManageService {
         
         return productList;
     }
+    //상품 구매수순 정렬
+    @Override
+    public List<ProductInfo> oderByBuyCountList() {
+        
+        List<ProductInfo> productList = new ArrayList<ProductInfo>();
+        
+//        String srchSqlTp = "";
+//        if (StringUtils.isNotEmpty(searchProdInfo.getProdNm())) {
+//            
+//        }
+        
+        // -----------------------------------------------
+        // DB Insert 수행
+        // -----------------------------------------------
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        try {
+            
+            // DB 수행
+            productList = sqlSession.selectList("product.orderByListBomProductTb0006");
+        } finally {
+            sqlSession.close();
+        }
+        
+        return productList;
+    }
 
+        
         
     
     @Override

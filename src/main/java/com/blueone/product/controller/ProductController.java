@@ -35,7 +35,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.blueone.admin.domain.AdImgInfo;
 import com.blueone.admin.domain.AdminInfo;
+import com.blueone.admin.domain.ConfigInfo;
 import com.blueone.admin.domain.SchWordInfo;
+import com.blueone.admin.service.IAdminManageService;
 import com.blueone.admin.service.ISearchWordService;
 import com.blueone.board.controller.BoardController;
 import com.blueone.board.domain.BoardInfo;
@@ -75,7 +77,7 @@ public class ProductController {
 	ITransferService transferService;
 	@Autowired
 	IBoardService boardService;
-
+	@Autowired IAdminManageService adminManageService;
 	BoardController boardController = new BoardController();
 
 	/*
@@ -996,6 +998,8 @@ public class ProductController {
 		model.addAttribute("middleCode", middleCode);
 		model.addAttribute("lMenuDetail", categoryInfo);
 		model.addAttribute("chkMiddleCode", chkMiddleCode);
+		
+		
 		return "admin/product/adminProductView";
 	}
 
@@ -1118,6 +1122,10 @@ public class ProductController {
 		model.addAttribute("middleCode", middleCode);
 		model.addAttribute("lMenuDetail", categoryInfo);
 		model.addAttribute("chkMiddleCode", chkMiddleCode);
+		
+		ConfigInfo resConfigInfo = adminManageService.selectConfigInf();
+		
+		model.addAttribute("config", resConfigInfo);
 		return "product/productView";
 	}
 
