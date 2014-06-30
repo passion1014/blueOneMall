@@ -1151,7 +1151,7 @@ public class ProductController {
 
 		BoardInfo boardInfo = new BoardInfo();
 		boardInfo.setBrdTyp(brdTyp);
-		boardInfo.setInsUser(cust.getCustId());
+		boardInfo.setInsUser(cust.getCustId()+"_"+cust.getCustNm());
 		boardInfo.setContent(content);
 		boardInfo.setSrchBrdTyp(brdTyp);
 		boardInfo.setBrdCodeKey(prdCd);

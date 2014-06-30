@@ -133,11 +133,16 @@ function SetPriceInput(str)
 									<th>판매 가격</th>
 									<td colspan="2"><strong class="stext2"><script>SetPriceInput('${pro.prdSellPrc}');</script> 원</strong></td>
 								</tr>
+								<!--
 								<tr bgcolor="#f8f8f8">
 									<th class="bottomline">배송비</th>
-									<td colspan="2" class="bottomline">배송조건 : (조건)</td>
+									<td colspan="2" class="bottomline"><script>SetPriceInput('${config.buyPrice}');</script>원 이하 구매 시 <script>SetPriceInput('${config.trasferPrice}');</script>원 추가</td>
 								</tr>
-
+								-->
+								<tr bgcolor="#f8f8f8">
+									<th class="bottomline">배송비</th>
+									<td colspan="2" class="bottomline">무료배송</td>
+								</tr>
 								<tr>
 									<th>상품코드</th>
 									<td colspan="2">${pro.prdCd}</td>
@@ -316,7 +321,15 @@ function SetPriceInput(str)
 								<tr>
 									<td class="bgcolor">${qna.brdSeq}</td>
 									<td class="texalign"><a href="#">${qna.content}</a></td>
-									<td class="bgcolor">${qna.insUser}</td>
+									<td class="bgcolor">
+										<script type="text/javascript">
+											document.open();
+											var text='${qna.insUser}';
+											var textArray=text.split('_');
+											document.write(textArray[1]);
+											document.close();
+										</script> 
+									</td>
 									<td>${qna.insDt}</td>
 									<%-- <td class="bgcolor">
 										<img src="<c:url value='/resources/img/common/bullet_sstar.png'/>" alt="작은별 이미지"/>
