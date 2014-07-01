@@ -341,6 +341,9 @@
 			T1.ADMIN_MEMO,
 			T1.MODIFY_USER_ID,
 			T1.PRD_STOCK,
+			T1.PRD_MAIN_NM,
+			T1.PRD_HIT,
+			T1.PRD_BUY_COUNT,
 			T2.CTG_CODE       AS t2ctgCode,
 			T2.CTG_NAME       AS t2ctgName,
 			T3.CTG_CODE       AS t3ctgCode,
@@ -374,8 +377,8 @@
 			<if test="prdCtgM != null and prdCtgM != ''"> AND T1.PRD_CTG_M LIKE CONCAT('%',#{prdCtgM},'%') </if>
 			<if test="prdCtgS != null and prdCtgS != ''"> AND T1.PRD_CTG_S LIKE CONCAT('%',#{prdCtgS},'%') </if>
 			<if test="schWord != null and schWord != ''"> AND T1.SEARCH_WORD LIKE CONCAT('%',#{schWord},'%') </if>
-			
-			
+		
+		ORDER BY T1.PRD_ORDER ,T1.PRD_BUY_COUNT DESC, T1.PRD_HIT DESC, T1.REG_DATE DESC
 	</select >
 	<select id="orderByListBomProductTb0006" resultMap="ProductBaseDtlMap">
 		SELECT  
@@ -617,8 +620,7 @@
 				<if test="prdTransInf != null and prdTransInf >=0">,`PRD_TRANSFOR_INF` = #{prdTransInf}</if>
 				<if test="prdHit != null and prdHit >=0">,`PRD_HIT` = #{prdHit}</if>
 				<if test="prdBuyCount != null and prdBuyCount >=0">,`PRD_BUY_COUNT` = #{prdBuyCount}</if>
-				
-				
+				<if test="schWord != null and schWord != ''">,`SEARCH_WORD` = #{schWord}</if>
 				
 		WHERE
 			`PRD_CD`= #{prdCd}

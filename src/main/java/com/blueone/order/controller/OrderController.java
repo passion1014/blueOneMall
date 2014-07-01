@@ -53,6 +53,7 @@ import com.blueone.user.domain.UserInfo;
 import com.jidesoft.converter.BigDecimalConverter;
 import com.oreilly.servlet.Base64Encoder;
 
+
 @Controller
 public class OrderController {
 	
@@ -149,7 +150,10 @@ public class OrderController {
 				if((orderProductInfo.getPrdOpColor()==null || orderProductInfo.getPrdOpColor().isEmpty()) && optionSize.equals(orderProductInfo.getPrdOpSize()) && countExist.equals("y")){
 					count += orderProductInfo.getBuyCnt();
 					break;
-				}else if((orderProductInfo.getPrdOpColor()==null || orderProductInfo.getPrdOpColor().isEmpty()) &&(orderProductInfo.getPrdOpSize()==null || orderProductInfo.getPrdOpSize().isEmpty()) && countExist.equals("y") ){ 
+				}else if((orderProductInfo.getPrdOpSize()==null || orderProductInfo.getPrdOpSize().isEmpty()) && optionColor.equals(orderProductInfo.getPrdOpColor()) && countExist.equals("y")){
+					count += orderProductInfo.getBuyCnt();
+					break;
+				}else if((orderProductInfo.getPrdOpColor()==null || orderProductInfo.getPrdOpColor().isEmpty()) && (orderProductInfo.getPrdOpSize()==null || orderProductInfo.getPrdOpSize().isEmpty()) && countExist.equals("y") ){ 
 					
 					count += orderProductInfo.getBuyCnt();
 					break;

@@ -266,8 +266,8 @@
 			</span>
 			<span class="f_right">
 			<c:forEach var="i" begin="1" end="${endNum}">
-		<input type="button" value="${i}" onClick="javascript:location.href='productList.do?page=${i}'">				
-	</c:forEach>
+				<input type="button" value="${i}" onClick="javascript:location.href='productList.do?page=${i}'">				
+			</c:forEach>
 	
 			</span>
 		</div>

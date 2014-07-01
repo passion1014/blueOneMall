@@ -1,5 +1,6 @@
 package com.blueone.admin.controller;
 
+import java.io.FileOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.net.URLDecoder;
@@ -10,6 +11,12 @@ import java.util.StringTokenizer;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.util.HSSFColor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +24,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -79,6 +87,89 @@ public class OrderManageController {
 	
 		model.addAttribute("endNum", pd.getEndPageNum());
 
+		return "admin/order/orderList";
+	}
+	
+	@RequestMapping(value="/orderListToExel.do", method= RequestMethod.GET)
+	public String orderListToExel(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model,HttpSession session,String page){
+
+		 String filepath = "C:/Users/Administrator/Documents/write.xls";
+
+
+		    try {
+
+		        String[] cell_value = {"자카르타","프로젝트","www.jakartaproject.com"};
+
+
+		        HSSFWorkbook workbook = new HSSFWorkbook();
+
+
+		        HSSFSheet sheet = workbook.createSheet();
+		       // workbook.setSheetName(0 , "한글명" ,HSSFWorkbook.ENCODING_UTF_16);
+
+
+		        HSSFCellStyle style = workbook.createCellStyle();
+		        style.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+		        style.setBottomBorderColor(HSSFColor.BLACK.index);
+		        style.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+		        style.setLeftBorderColor(HSSFColor.GREEN.index);
+		        style.setBorderRight(HSSFCellStyle.BORDER_THIN);
+		        style.setRightBorderColor(HSSFColor.BLUE.index);
+		        style.setBorderTop(HSSFCellStyle.BORDER_MEDIUM_DASHED);
+		        style.setTopBorderColor(HSSFColor.BLACK.index);           
+
+
+		        HSSFRow row = sheet.createRow(0);
+		        HSSFRow row1 = sheet.createRow(1);
+		  
+	            HSSFCell cell = row.createCell((short)0);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("No");     
+	            cell = row.createCell((short)1);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("주문번호");            
+	            cell = row.createCell((short)2);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("상태");            
+	            cell = row.createCell((short)3);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("주문자");            
+	            cell = row.createCell((short)4);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("상품명");            
+	            cell = row.createCell((short)5);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("구매금액");            
+	            cell = row.createCell((short)6);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("No");            
+	            
+	           
+	            cell.setCellStyle(style);
+	            cell.setCellValue("No");            
+			            
+		        for (int i = 0 ; i < cell_value.length; i++){
+		            HSSFCell cell1 = row1.createCell((short)i);
+		           // cell.setEncoding(HSSFCell.ENCODING_UTF_16); 
+		            cell1.setCellStyle(style);
+		            cell1.setCellValue(cell_value[i]);            
+		        }
+		        FileOutputStream fs = null;
+		        try { 
+		            fs = new FileOutputStream(filepath);
+		            workbook.write(fs);
+		            
+		        } catch (Exception e) {
+		        } finally {
+		            if (fs != null) fs.close();
+		        }
+		        
+		    } catch (Exception e) {
+	
+		        
+		        e.printStackTrace();
+		    }    
+		    
 		return "admin/order/orderList";
 	}
 	

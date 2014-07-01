@@ -84,6 +84,7 @@
 						<input type="text" id="keyword" name="keyword" class="Text" value="">
 						<input type="submit" value="검색"   class="Small_Button Gray">&nbsp;&nbsp;
 						<input type="button" value="초기화" class="Small_Button Gray" onClick="location.href='./admin.member.php?slot=member&type=member_list'">&nbsp;&nbsp;
+						<input type="button" value="엑셀파일로 만들기" class="Small_Button Gray" onClick="location.href=''">&nbsp;&nbsp;
 					</div>
 				</td>
 			</tr>
