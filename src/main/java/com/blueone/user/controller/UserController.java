@@ -48,6 +48,7 @@ import com.blueone.common.domain.AttachFileInfo;
 import com.blueone.common.domain.SearchAddress;
 import com.blueone.common.service.IAttachFileManageService;
 import com.blueone.common.util.HMallInterworkUtility;
+import com.blueone.common.util.PageDivision;
 import com.blueone.common.util.Utility;
 import com.blueone.customer.domain.CustomerInfo;
 import com.blueone.customer.domain.RecipientInfo;
@@ -383,10 +384,16 @@ public class UserController {
 		od.setCustomerInfo(cust);
 
 		OrderInfo os = new OrderInfo();
-		if (StringUtils.isEmpty(page))
-		{page="1";os.setStartIdx(Integer.parseInt(page));}
-			else 
-		os.setStartIdx(Integer.parseInt(page));
+		PageDivision pd = new PageDivision();
+		
+		if (StringUtils.isEmpty(page)){
+			pd.pageNum("1");
+			page="1";
+		}
+		else
+			pd.pageNum(page);
+		pd.setItemNum(10);
+		
 		
 		//�븘�씠�뵒濡� 二쇰Ц�궡�뿭媛��졇�삤湲�
 		List<OrderInfo> odList = orderService.selectOrderInfoList(od);
@@ -447,8 +454,10 @@ public class UserController {
 		}else{
 			
 		}
-	
-		model.addAttribute("ordList", odList);
+		pd.setOrderInfoList(odList);
+		model.addAttribute("ordList",pd.getOrderInfoList());
+		model.addAttribute("nowPage", page);
+		model.addAttribute("endNum", pd.getEndPageNum());
 		return "user/orderListView";
 	}
 

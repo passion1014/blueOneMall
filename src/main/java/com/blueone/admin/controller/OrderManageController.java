@@ -59,29 +59,25 @@ public class OrderManageController {
 		}
 		
 		OrderInfo os = new OrderInfo();
-		if (StringUtils.isEmpty(page))
-			{page="1";os.setStartIdx(Integer.parseInt(page));}
-		else 
-			os.setStartIdx(Integer.parseInt(page));
+		
 		
 		List<OrderInfo> odList =orderManageService.getOrderInfoListByPeriod(os);
-
-		model.addAttribute("odList",odList);
-		OrderSrchInfo orderSrchInfo = new OrderSrchInfo();
+		PageDivision pd = new PageDivision();
+		
+		if (StringUtils.isEmpty(page)){
+			pd.pageNum("1");
+			page="1";
+		}	
+		else
+			pd.pageNum(page);
+		pd.setItemNum(10);
+		pd.setOrderInfoList(odList);
+		
+		
+		model.addAttribute("odList",pd.getOrderInfoList());
+		model.addAttribute("nowPage", page);
 	
-		
-		int endNum;
-		int total= orderManageService.getOrderTypTotalCount(orderSrchInfo);
-		
-		if(total%15==0 || total/15<0 ) {
-			endNum=total/15;
-		}
-		else{
-			endNum=total/15+1;
-			}
-		
-		
-		model.addAttribute("endNum",endNum);
+		model.addAttribute("endNum", pd.getEndPageNum());
 
 		return "admin/order/orderList";
 	}
