@@ -284,14 +284,15 @@ public class ProductController {
 	
 		            cell = row.createCell((short)1);
 		            String prdState ="";
-		            if(each.getPrdDp().equals("y"))prdState="진열";
-		            else if(each.getPrdDp().equals("n"))prdState="대기";
+		            if(each.getPrdDp()!=null && each.getPrdDp().equals("y"))prdState="진열";
+		            else if(each.getPrdDp()!=null && each.getPrdDp().equals("n"))prdState="대기";
 		            cell.setCellValue(prdState);     
 		            
 		            cell = row.createCell((short)2);
 		            String special = "";
-		            if(each.getPrdSpe1()!= null && each.getPrdSpe1().equals("y"))special+="베스트";
-		            if(each.getPrdSpe2()!= null && each.getPrdSpe2().equals("y"))special+="행사품목";
+		            if(each.getPrdSpe1()!= null && each.getPrdSpe1().equals("y"))special+="/베스트";
+		            if(each.getPrdSpe2()!= null && each.getPrdSpe2().equals("y"))special+="/행사품목";
+		            cell.setCellValue(special);  
 		            
 		            cell = row.createCell((short)3);
 		            cell.setCellValue(each.getCtgLargeName());  

@@ -368,7 +368,7 @@
 				
 			</if>
 			<if test="prdDp != null and prdDp eq 'y'.toString()"> AND T1.PRD_DISPLAY_YN = 'y' </if>
-			<if test="prdDp != null and prdDp eq 'n'.toString()"> AND T1.PRD_DISPLAcY_YN = 'n' </if>
+			<if test="prdDp != null and prdDp eq 'n'.toString()"> AND T1.PRD_DISPLAY_YN = 'n' </if>
 			<if test="prdNm != null and prdNm != ''"> AND T1.PRD_NM LIKE CONCAT('%',#{prdNm},'%') </if>
 			<if test="prdBrand != null and prdBrand != ''"> AND T1.PRD_BRAND LIKE CONCAT('%',#{prdBrand},'%') </if>
 			<if test="prdSpe1 != null and prdSpe1 eq 'y'.toString()"> AND T1.PRD_SPECAL_1 = 'y' </if>
