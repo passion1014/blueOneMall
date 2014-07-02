@@ -443,9 +443,6 @@ public class OrderManageController {
 		}
 
 		
-		
-		
-		
 		if (StringUtils.isEmpty(page))
 			{page="1";orderInfo.setStartIdx(Integer.parseInt(page));}
 		else 
@@ -453,22 +450,23 @@ public class OrderManageController {
 		
 		List<OrderInfo> odList =orderManageService.getOrderInfoListBySchInfo(orderInfo);
 		
-		model.addAttribute("odList",odList);
-		model.addAttribute("sh","search");
+		PageDivision pd = new PageDivision();
+		
+		if (StringUtils.isEmpty(page)){
+			pd.pageNum("1");
+			page="1";
+		}	
+		else
+			pd.pageNum(page);
+		pd.setItemNum(10);
+		pd.setOrderInfoList(odList);
+		
+		
+		model.addAttribute("odList",pd.getOrderInfoList());
+		model.addAttribute("nowPage", page);
 	
-		int endNum;
-		int total= orderManageService.getOrderTypTotalCount(orderInfo);
-		
-		if(total%15==0 || total/15<0  || total/15>0 ) {
-			endNum=total/15;
-		}
-		else{
-			endNum=total/15+1;
-		}
-		
-		
-		model.addAttribute("endNum",endNum);
-		
+		model.addAttribute("endNum", pd.getEndPageNum());
+		model.addAttribute("orderSrchInfo", orderInfo);
 		return "admin/order/orderList";
 	}
 	
