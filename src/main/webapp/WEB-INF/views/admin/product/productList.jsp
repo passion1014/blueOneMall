@@ -102,7 +102,7 @@
 	<div id="Contents">
 		<h1>제품관리 &gt; 상품관리 &gt; <strong>상품목록</strong></h1>
 
-		<form name="sfrm" method="post" action="searchProductList.do" onsubmit="return chkForm(this);">
+		<form name="sfrm" method="get" action="searchProductList.do" onsubmit="return chkForm(this);">
 		<input id="slot" name="slot" value="product" type="hidden">
 		<input id="type" name="type" value="goods_list" type="hidden">
 		<table>
@@ -113,21 +113,21 @@
 						<select id="prdCtgL" name="prdCtgL">
 							<option value="">전체보기</option>	
 							<c:forEach items="${ctgLList}" var="largeTypeObj">
-								<option value="<c:out value="${largeTypeObj.ctgCode}"></c:out>"><c:out value="${largeTypeObj.ctgName}"></c:out></option>
+								<option value="<c:out value="${largeTypeObj.ctgCode}"></c:out>" <c:if test="${searchProdInfo.prdCtgL eq largeTypeObj.ctgCode}">selected</c:if>><c:out value="${largeTypeObj.ctgName}"></c:out></option>
 							</c:forEach>							
 						</select>&nbsp;
 						중분류&nbsp;:&nbsp;	
 						<select id="prdCtgM" name="prdCtgM">
 							<option value="">전체보기</option>	
 							<c:forEach items="${ctgList2}" var="middleTypeObj">
-								<option value="<c:out value="${middleTypeObj.ctgCode}"></c:out>"><c:out value="${middleTypeObj.ctgName}"></c:out></option>
+								<option value="<c:out value="${middleTypeObj.ctgCode}"></c:out>" <c:if test="${searchProdInfo.prdCtgM eq middleTypeObj.ctgCode}">selected</c:if>><c:out value="${middleTypeObj.ctgName}"></c:out></option>
 							</c:forEach>							
 						</select>&nbsp;		
 						소분류&nbsp;:&nbsp;	
 						<select id="prdCtgS" name="prdCtgS">
 							<option value="">전체보기</option>
 							<c:forEach items="${ctgList3}" var="smallTypeObj">
-								<option value="<c:out value="${smallTypeObj.ctgCode}"></c:out>"><c:out value="${smallTypeObj.ctgName}"></c:out></option>
+								<option value="<c:out value="${smallTypeObj.ctgCode}"></c:out>" <c:if test="${searchProdInfo.prdCtgS eq smallTypeObj.ctgCode}">selected</c:if>><c:out value="${smallTypeObj.ctgName}"></c:out></option>
 							</c:forEach>	
 						</select> &nbsp;
 					</div>
@@ -135,18 +135,19 @@
 						<b>진열상태</b>
 						<select name="prdDp">
 							<option value="">전체</option>
-							<option value="y">진열</option>
-							<option value="n">대기</option>
+							<option value="y" <c:if test="${searchProdInfo.prdDp eq 'y'}">selected</c:if>>진열</option>
+							<option value="n" <c:if test="${searchProdInfo.prdDp eq 'n'}">selected</c:if>>대기</option>
 						</select> &nbsp;
-							<input type="checkbox" name="prdSpe1" value="y"> 베스트 &nbsp;
-							<input type="checkbox" name="prdSpe2" value="y"> 행사품목 &nbsp; &nbsp;&nbsp;
+							<input type="checkbox" name="prdSpe1" value="y" <c:if test="${searchProdInfo.prdSpe1 eq 'y'}">checked</c:if>> 베스트 &nbsp;
+							<input type="checkbox" name="prdSpe2" value="y" <c:if test="${searchProdInfo.prdSpe2 eq 'y'}">checked</c:if>> 행사품목 &nbsp; &nbsp;&nbsp;
 						<select name="schType" id="schType">
-							<option value="2" selected>상품명</option>
-							<option value="1">검색단어</option>
+							<option value="2" <c:if test="${searchProdInfo.schType == 2}">selected</c:if>>상품명</option>
+							<option value="1" <c:if test="${searchProdInfo.schType == 1}">selected</c:if>>검색단어</option>
 						</select> &nbsp;
-						<input name="searchWord" id="searchWord" value="" type="text"> &nbsp;
+						<input name="searchWord" id="searchWord" value="${searchProdInfo.searchWord}" type="text"> &nbsp;
 						<input value="검색" class="Small_Button Gray" type="submit">
 						<input value="초기화" class="Small_Button Gray" title="초기하기" onclick="#" type="button">
+						<input type="button" value="엑셀로 만들기" class="Small_Button Gray" onClick="location.href='/admin/productListToExel.do'">&nbsp;&nbsp;
 					</div>
 				</td>
 			</tr>
@@ -266,9 +267,10 @@
 			</span>
 			<span class="f_right">
 			<c:forEach var="i" begin="1" end="${endNum}">
-				<input type="button" value="${i}" onClick="javascript:location.href='productList.do?page=${i}'">				
+				<c:if test="${searchProdInfo == null}"><input type="button" value="${i}" onClick="javascript:location.href='productList.do?page=${i}'"></c:if>			
+				<c:if test="${searchProdInfo != null}"><input type="button" value="${i}" onClick="javascript:location.href='searchProductList.do?prdCtgL=${searchProdInfo.prdCtgL}&prdCtgM=${searchProdInfo.prdCtgM}&prdCtgS=${searchProdInfo.prdCtgS}&prdDp=${searchProdInfo.prdDp}&schType=2&searchWord=${searchProdInfo.searchWord}&prdSpe1=${searchProdInfo.prdSpe1}&prdSpe2=${searchProdInfo.prdSpe2}&page=${i}'"></c:if>
 			</c:forEach>
-	
+
 			</span>
 		</div>
 		</form>
