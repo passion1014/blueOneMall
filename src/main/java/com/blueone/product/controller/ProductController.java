@@ -30,6 +30,7 @@ import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.util.HSSFColor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -166,13 +167,13 @@ public class ProductController {
 		return "admin/product/productList";
 	}
 	
-	@RequestMapping(value="/productListToExel.do", method= RequestMethod.GET)
-	public String orderListToExel(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model,HttpSession session,String page,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+	@RequestMapping(value="/admin/productListToExel.do", method= RequestMethod.GET)
+	public String productListToExel(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model,HttpSession session,String page,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		 //------------------------------
 		 //엑셀파일 생성
 		 //------------------------------
 		 //String filepath = "C:/Users/Administrator/Documents/write.xls"; //개발
-		 String filepath = "/home/hosting_users/blueonestore/tomcat/webapps/ROOT/resources/upload/"+DateUtil.getDate("yyyyMMdd")+"order.xls"; //운영
+		 String filepath = "/home/hosting_users/blueonestore/tomcat/webapps/ROOT/resources/upload/"+DateUtil.getDate("yyyyMMdd")+"product.xls"; //운영
 	
 	
 		    try {
@@ -185,14 +186,14 @@ public class ProductController {
 	
 	
 		       HSSFCellStyle style = workbook.createCellStyle();
-		       /*   style.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+		        style.setBorderBottom(HSSFCellStyle.BORDER_THIN);
 		        style.setBottomBorderColor(HSSFColor.BLACK.index);
 		        style.setBorderLeft(HSSFCellStyle.BORDER_THIN);
 		        style.setLeftBorderColor(HSSFColor.GREEN.index);
 		        style.setBorderRight(HSSFCellStyle.BORDER_THIN);
 		        style.setRightBorderColor(HSSFColor.BLUE.index);
 		        style.setBorderTop(HSSFCellStyle.BORDER_MEDIUM_DASHED);
-		        style.setTopBorderColor(HSSFColor.BLACK.index);           */
+		        style.setTopBorderColor(HSSFColor.BLACK.index);           
 	
 	
 		        HSSFRow row = sheet.createRow(0);
@@ -253,17 +254,21 @@ public class ProductController {
 	            
 	            cell = row.createCell((short)13);
 	            cell.setCellStyle(style);
-	            cell.setCellValue("조회수");   
+	            cell.setCellValue("재고량");   
 	            
 	            cell = row.createCell((short)14);
 	            cell.setCellStyle(style);
-	            cell.setCellValue("판매수");   
+	            cell.setCellValue("조회수");   
 	            
 	            cell = row.createCell((short)15);
 	            cell.setCellStyle(style);
-	            cell.setCellValue("검색어");  
+	            cell.setCellValue("판매수");   
 	            
 	            cell = row.createCell((short)16);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("검색어");  
+	            
+	            cell = row.createCell((short)17);
 	            cell.setCellStyle(style);
 	            cell.setCellValue("관리 참고사항");   
 	            
@@ -274,54 +279,64 @@ public class ProductController {
 	            for (ProductInfo each : list){
 	            	row = sheet.createRow(i);
 		            cell = row.createCell((short)0);
-		           // cell.setEncoding(HSSFCell.ENCODING_UTF_16); 
-		           
-		            cell.setCellValue(each.getOrderDate());
+		            cell.setCellValue(each.getPrdCd());
 		            
 	
 		            cell = row.createCell((short)1);
-		           
-		            cell.setCellValue(each.getOrderNo());     
-		            
+		            String prdState ="";
+		            if(each.getPrdDp().equals("y"))prdState="진열";
+		            else if(each.getPrdDp().equals("n"))prdState="대기";
+		            cell.setCellValue(prdState);     
 		            
 		            cell = row.createCell((short)2);
-		            
-		            String orderState = "";
-		            if(each.getOrderStatCd().equals("01"))orderState="신청대기";
-					else if(each.getOrderStatCd().equals("02"))orderState="주문완료";
-					else if(each.getOrderStatCd().equals("07"))orderState="취소신청";
-					else if(each.getOrderStatCd().equals("08"))orderState="취소완료";
-					else if(each.getOrderStatCd().equals("03"))orderState="배송준비";
-					else if(each.getOrderStatCd().equals("04"))orderState="배송중";
-					else if(each.getOrderStatCd().equals("05"))orderState="배송완료";
-					else if(each.getOrderStatCd().equals("09"))orderState="반품신청";
-					else if(each.getOrderStatCd().equals("10"))orderState="반품신청완료";
-		            cell.setCellValue(orderState);  
+		            String special = "";
+		            if(each.getPrdSpe1()!= null && each.getPrdSpe1().equals("y"))special+="베스트";
+		            if(each.getPrdSpe2()!= null && each.getPrdSpe2().equals("y"))special+="행사품목";
 		            
 		            cell = row.createCell((short)3);
-		            
-		            cell.setCellValue(each.getCustomerInfo().getCustNm()); 
+		            cell.setCellValue(each.getCtgLargeName());  
 		            
 		            cell = row.createCell((short)4);
-		           
-		            cell.setCellValue(each.getCustomerInfo().getCustId()); 
+		            cell.setCellValue(each.getCtgMiddleName()); 
 		            
 		            cell = row.createCell((short)5);
-		           
-		            cell.setCellValue(each.getOrdPrd().getPrdNm());  
+		            cell.setCellValue(each.getCtgSmallName()); 
 		            
 		            cell = row.createCell((short)6);
-		           
-		            cell.setCellValue(each.getPaymentInfo().getPayPrice().toString());   
+		            cell.setCellValue(each.getPrdNm());   
 		            
 		            cell = row.createCell((short)7);
+		            cell.setCellValue(each.getPrdMainNm());   
 		            
-		            String payment="";
-		            if(each.getPaymentInfo().getPayMdCd()!=null && each.getPaymentInfo().getPayMdCd().equals("100000000000"))     payment="신용카드";
-		            else if(each.getPaymentInfo().getPayMdCd()!=null && each.getPaymentInfo().getPayMdCd().equals("010000000000"))payment="계좌이체";
-		            else if(each.getPaymentInfo().getPayMdCd()!=null && each.getPaymentInfo().getPayMdCd().equals("000100000000"))payment="복지카드";
-		            else if(each.getPaymentInfo().getPayMdCd()!=null && each.getPaymentInfo().getPayMdCd().equals("000000000001"))payment="포인트";
-		            cell.setCellValue(payment);   
+		            cell = row.createCell((short)8);
+		            cell.setCellValue(each.getPrdPrice());   
+		            
+		            cell = row.createCell((short)9);
+		            cell.setCellValue(each.getPrdSellPrc());   
+		            
+		            cell = row.createCell((short)10);
+		            cell.setCellValue(each.getPrdModel());   
+		            
+		            cell = row.createCell((short)11);
+		            cell.setCellValue(each.getPrdModelNo());   
+		            
+		            cell = row.createCell((short)12);
+		            cell.setCellValue(each.getPrdBrand());   
+		            
+		            cell = row.createCell((short)13);
+		            cell.setCellValue(each.getPrdStock());   
+		            
+		            cell = row.createCell((short)14);
+		            cell.setCellValue(each.getPrdHit());   
+		            
+		            cell = row.createCell((short)15);
+		            cell.setCellValue(each.getPrdBuyCount());   
+		            
+		            cell = row.createCell((short)16);
+		            cell.setCellValue(each.getSchWord());   
+		            
+		            cell = row.createCell((short)17);
+		            cell.setCellValue(each.getAdmMemo());
 		            
 		            i++;
 		        }
@@ -340,7 +355,7 @@ public class ProductController {
 		        
 		        e.printStackTrace();
 		    }    
-	    
+	   
 		 //------------------------------
 		 //파일 다운로드
 		 //------------------------------
@@ -362,8 +377,12 @@ public class ProductController {
 		 //------------------------------
 		  file.delete();
 		  
-		return "redirect:/orderList.do";
+		return "redirect:/admin/productList.do";
 	}
+	
+	
+	
+	
 	/*
 	 * 상품등록 폼 구성
 	 */
@@ -1652,7 +1671,7 @@ public class ProductController {
 	}
 	
 	
-public static void download(HttpServletRequest request, HttpServletResponse response, InputStream is,
+		public static void download(HttpServletRequest request, HttpServletResponse response, InputStream is,
 	      String filename, long filesize, String mimetype) throws ServletException, IOException {
 	    String mime = mimetype;
 	 
