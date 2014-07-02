@@ -237,6 +237,7 @@ public class UserProductController {
 		model.addAttribute("productInfo", productInfo);
 		
 		model.addAttribute("endNum", pd.getEndPageNum());
+		model.addAttribute("orderBy", orderBy);
 		
 		return "product/productList";
 

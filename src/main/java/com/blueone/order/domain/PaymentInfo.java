@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public class PaymentInfo {
 	private int idx;
-	private String payMdCd;			// 금종코드 (01:신용카드, 02:실시간이체, 03:핸드폰결제, 04:포인트)
+	private String payMdCd;			// 금종코드
 	private String orderNo;		// 등록일
 	private int orderNoSeq;		// 등록일
 	private String payDate;		// 등록일

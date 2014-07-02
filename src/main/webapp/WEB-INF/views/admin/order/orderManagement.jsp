@@ -183,6 +183,7 @@ function SetPriceInput(str)
 									<c:if test="${payList.payMdCd eq '100000000000'}">신용카드</c:if>
 									<c:if test="${payList.payMdCd eq '010000000000'}">계좌이체</c:if>
 									<c:if test="${payList.payMdCd eq '000100000000'}">복지카드</c:if>
+									
 								</td>
 							</tr>
 							<tr>

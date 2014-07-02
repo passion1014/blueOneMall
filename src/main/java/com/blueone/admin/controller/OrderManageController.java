@@ -1,14 +1,25 @@
 package com.blueone.admin.controller;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
+import java.io.InputStream;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import java.io.FileInputStream;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -34,6 +45,7 @@ import com.blueone.admin.service.IAdminManageService;
 import com.blueone.admin.service.IOrderService;
 import com.blueone.common.domain.AttachFileInfo;
 import com.blueone.common.service.IAttachFileManageService;
+import com.blueone.common.util.DateUtil;
 import com.blueone.common.util.HMallInterworkUtility;
 import com.blueone.common.util.PageDivision;
 import com.blueone.customer.domain.CustomerInfo;
@@ -47,6 +59,8 @@ import com.blueone.order.service.IOrderManageService;
 import com.blueone.product.domain.ProductInfo;
 import com.blueone.product.service.IProductManageService;
 
+import java.io.File;
+
 @Controller
 @RequestMapping(value = "/admin")
 public class OrderManageController {
@@ -57,6 +71,11 @@ public class OrderManageController {
 	@Autowired ICustomerManageService customerManageService;
 	@Autowired IAdminManageService adminManageService;
 	
+	 /** 다운로드 버퍼 크기 */
+	  private static final int BUFFER_SIZE = 8192; // 8kb
+	 
+	  /** 문자 인코딩 */
+	  private static final String CHARSET = "UTF-8";
 	@RequestMapping(value="/orderList.do", method= RequestMethod.GET)
 	public String orderList(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model,HttpSession session,String page){
 
@@ -91,68 +110,127 @@ public class OrderManageController {
 	}
 	
 	@RequestMapping(value="/orderListToExel.do", method= RequestMethod.GET)
-	public String orderListToExel(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model,HttpSession session,String page){
-
-		 String filepath = "C:/Users/Administrator/Documents/write.xls";
-
-
+	public String orderListToExel(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model,HttpSession session,String page,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		 //------------------------------
+		 //엑셀파일 생성
+		 //------------------------------
+		 //String filepath = "C:/Users/Administrator/Documents/write.xls"; //개발
+		 String filepath = "/home/hosting_users/blueonestore/tomcat/webapps/ROOT/resources/upload/"+DateUtil.getDate("yyyyMMdd")+"order.xls"; //운영
+	
+	
 		    try {
-
-		        String[] cell_value = {"자카르타","프로젝트","www.jakartaproject.com"};
-
-
+		    	
 		        HSSFWorkbook workbook = new HSSFWorkbook();
-
-
+	
+	
 		        HSSFSheet sheet = workbook.createSheet();
 		       // workbook.setSheetName(0 , "한글명" ,HSSFWorkbook.ENCODING_UTF_16);
-
-
-		        HSSFCellStyle style = workbook.createCellStyle();
-		        style.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+	
+	
+		       HSSFCellStyle style = workbook.createCellStyle();
+		       /*   style.setBorderBottom(HSSFCellStyle.BORDER_THIN);
 		        style.setBottomBorderColor(HSSFColor.BLACK.index);
 		        style.setBorderLeft(HSSFCellStyle.BORDER_THIN);
 		        style.setLeftBorderColor(HSSFColor.GREEN.index);
 		        style.setBorderRight(HSSFCellStyle.BORDER_THIN);
 		        style.setRightBorderColor(HSSFColor.BLUE.index);
 		        style.setBorderTop(HSSFCellStyle.BORDER_MEDIUM_DASHED);
-		        style.setTopBorderColor(HSSFColor.BLACK.index);           
-
-
+		        style.setTopBorderColor(HSSFColor.BLACK.index);           */
+	
+	
 		        HSSFRow row = sheet.createRow(0);
-		        HSSFRow row1 = sheet.createRow(1);
+		       
 		  
 	            HSSFCell cell = row.createCell((short)0);
 	            cell.setCellStyle(style);
-	            cell.setCellValue("No");     
+	            cell.setCellValue("주문일");     
+	            
 	            cell = row.createCell((short)1);
 	            cell.setCellStyle(style);
-	            cell.setCellValue("주문번호");            
+	            cell.setCellValue("주문번호");     
+	            
 	            cell = row.createCell((short)2);
 	            cell.setCellStyle(style);
-	            cell.setCellValue("상태");            
+	            cell.setCellValue("주문상태");  
+	            
 	            cell = row.createCell((short)3);
 	            cell.setCellStyle(style);
-	            cell.setCellValue("주문자");            
+	            cell.setCellValue("주문자"); 
+	            
 	            cell = row.createCell((short)4);
 	            cell.setCellStyle(style);
-	            cell.setCellValue("상품명");            
+	            cell.setCellValue("주문자ID"); 
+	            
 	            cell = row.createCell((short)5);
 	            cell.setCellStyle(style);
-	            cell.setCellValue("구매금액");            
+	            cell.setCellValue("주문명");  
+	            
 	            cell = row.createCell((short)6);
 	            cell.setCellStyle(style);
-	            cell.setCellValue("No");            
+	            cell.setCellValue("결제금");   
+	            
+	            cell = row.createCell((short)7);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("수단");   
+	            
+	          
 	            
 	           
-	            cell.setCellStyle(style);
-	            cell.setCellValue("No");            
-			            
-		        for (int i = 0 ; i < cell_value.length; i++){
-		            HSSFCell cell1 = row1.createCell((short)i);
+	            List<OrderInfo> odList =orderManageService.getOrderInfoListByPeriod(new OrderInfo());
+		        int i=1;
+	            for (OrderInfo each : odList){
+	            	row = sheet.createRow(i);
+		            cell = row.createCell((short)0);
 		           // cell.setEncoding(HSSFCell.ENCODING_UTF_16); 
-		            cell1.setCellStyle(style);
-		            cell1.setCellValue(cell_value[i]);            
+		           
+		            cell.setCellValue(each.getOrderDate());
+		            
+	
+		            cell = row.createCell((short)1);
+		           
+		            cell.setCellValue(each.getOrderNo());     
+		            
+		            
+		            cell = row.createCell((short)2);
+		            
+		            String orderState = "";
+		            if(each.getOrderStatCd().equals("01"))orderState="신청대기";
+					else if(each.getOrderStatCd().equals("02"))orderState="주문완료";
+					else if(each.getOrderStatCd().equals("07"))orderState="취소신청";
+					else if(each.getOrderStatCd().equals("08"))orderState="취소완료";
+					else if(each.getOrderStatCd().equals("03"))orderState="배송준비";
+					else if(each.getOrderStatCd().equals("04"))orderState="배송중";
+					else if(each.getOrderStatCd().equals("05"))orderState="배송완료";
+					else if(each.getOrderStatCd().equals("09"))orderState="반품신청";
+					else if(each.getOrderStatCd().equals("10"))orderState="반품신청완료";
+		            cell.setCellValue(orderState);  
+		            
+		            cell = row.createCell((short)3);
+		            
+		            cell.setCellValue(each.getCustomerInfo().getCustNm()); 
+		            
+		            cell = row.createCell((short)4);
+		           
+		            cell.setCellValue(each.getCustomerInfo().getCustId()); 
+		            
+		            cell = row.createCell((short)5);
+		           
+		            cell.setCellValue(each.getOrdPrd().getPrdNm());  
+		            
+		            cell = row.createCell((short)6);
+		           
+		            cell.setCellValue(each.getPaymentInfo().getPayPrice().toString());   
+		            
+		            cell = row.createCell((short)7);
+		            
+		            String payment="";
+		            if(each.getPaymentInfo().getPayMdCd()!=null && each.getPaymentInfo().getPayMdCd().equals("100000000000"))     payment="신용카드";
+		            else if(each.getPaymentInfo().getPayMdCd()!=null && each.getPaymentInfo().getPayMdCd().equals("010000000000"))payment="계좌이체";
+		            else if(each.getPaymentInfo().getPayMdCd()!=null && each.getPaymentInfo().getPayMdCd().equals("000100000000"))payment="복지카드";
+		            else if(each.getPaymentInfo().getPayMdCd()!=null && each.getPaymentInfo().getPayMdCd().equals("000000000001"))payment="포인트";
+		            cell.setCellValue(payment);   
+		            
+		            i++;
 		        }
 		        FileOutputStream fs = null;
 		        try { 
@@ -169,8 +247,29 @@ public class OrderManageController {
 		        
 		        e.printStackTrace();
 		    }    
-		    
-		return "admin/order/orderList";
+	    
+		 //------------------------------
+		 //파일 다운로드
+		 //------------------------------
+		  File file = new File(filepath);
+		  String mimetype = request.getSession().getServletContext().getMimeType(file.getName());
+		  InputStream is = null;
+		  
+		  try {
+			  is = new FileInputStream(file);
+			  download(request, response, is, file.getName(), file.length(), mimetype);
+		  } finally {
+			  try {
+				  	is.close();
+			  } catch (Exception ex) {
+			  }
+		  }
+		//------------------------------
+		 //파일 삭제
+		 //------------------------------
+		  file.delete();
+		  
+		return "redirect:/orderList.do";
 	}
 	
 	//관리 페이지
@@ -739,7 +838,65 @@ public class OrderManageController {
 
 			
 		
-
+	public static void download(HttpServletRequest request, HttpServletResponse response, InputStream is,
+		      String filename, long filesize, String mimetype) throws ServletException, IOException {
+		    String mime = mimetype;
+		 
+		    if (mimetype == null || mimetype.length() == 0) {
+		      mime = "application/octet-stream;";
+		    }
+		 
+		 
+		    byte[] buffer = new byte[BUFFER_SIZE];
+		 
+		    response.setContentType(mime + "; charset=" + CHARSET);
+		 
+		    // 아래 부분에서 euc-kr 을 utf-8 로 바꾸거나 URLEncoding을 안하거나 등의 테스트를
+		    // 해서 한글이 정상적으로 다운로드 되는 것으로 지정한다.
+		    String userAgent = request.getHeader("User-Agent");
+		 
+		    // attachment; 가 붙으면 IE의 경우 무조건 다운로드창이 뜬다. 상황에 따라 써야한다.
+		    if (userAgent != null && userAgent.indexOf("MSIE 5.5") > -1) { // MS IE 5.5 이하
+		      response.setHeader("Content-Disposition", "filename=" + URLEncoder.encode(filename, "UTF-8") + ";");
+		    } else if (userAgent != null && userAgent.indexOf("MSIE") > -1) { // MS IE (보통은 6.x 이상 가정)
+		      response.setHeader("Content-Disposition", "attachment; filename="
+		          + java.net.URLEncoder.encode(filename, "UTF-8") + ";");
+		    } else { // 모질라나 오페라
+		      response.setHeader("Content-Disposition", "attachment; filename="
+		          + new String(filename.getBytes(CHARSET), "latin1") + ";");
+		    }
+		 
+		    // 파일 사이즈가 정확하지 않을때는 아예 지정하지 않는다.
+		    if (filesize > 0) {
+		      response.setHeader("Content-Length", "" + filesize);
+		    }
+		 
+		    BufferedInputStream fin = null;
+		    BufferedOutputStream outs = null;
+		 
+		    try {
+		      fin = new BufferedInputStream(is);
+		      outs = new BufferedOutputStream(response.getOutputStream());
+		      int read = 0;
+		 
+		      while ((read = fin.read(buffer)) != -1) {
+		        outs.write(buffer, 0, read);
+		      }
+		    } catch (IOException ex) {
+		        // Tomcat ClientAbortException을 잡아서 무시하도록 처리해주는게 좋다.
+		    } finally {
+		      try {
+		        outs.close();
+		      } catch (Exception ex1) {
+		      }
+		 
+		      try {
+		        fin.close();
+		      } catch (Exception ex2) {
+		 
+		      }
+		    } // end of try/catch
+		  }
 		
 		
 			

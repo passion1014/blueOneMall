@@ -36,6 +36,7 @@
 		<id property="userPointInfo" column="USER_POINT_INFO" javaType="java.lang.String"/>
 		<id property="ordPrd.prdNm" column="join_prdNm" javaType="java.lang.String"/>
 		<id property="paymentInfo.payPrice" column="join_payPrice" javaType="bigdecimal"/>
+		<id property="paymentInfo.payMdCd" column="join_payMdCd" javaType="java.lang.String"/>
 	
 		
 		<!-- 고객정보 셋팅 -->
@@ -95,7 +96,7 @@
 			T2.IDX AS payIdx,
 			T2.ORDER_NO AS payOrdNo,
 			T2.ORDER_NO_SEQ AS payOrdNoSeq,
-			T2.PYMT_PAY_CD AS payCd,
+			T2.PYMT_PAY_CD AS payMdCd,
 			T2.PYMT_AMOUNT AS payAmount,
 			T2.PYMT_DATE AS payDate,
 			T2.REG_DATE AS payRegDate,
@@ -111,7 +112,7 @@
 			T4.PRD_CTG_S AS prdCtgS,
 			T4.FROM_DATE AS prdFromDate,
 			T4.TO_DATE AS prdToDate,
-			T5.PYMT_PAY_CD,
+			T5.PYMT_PAY_CD AS join_payMdCd,
 			T5.PYMT_AMOUNT AS join_payPrice,
 			T5.PYMT_POINT,
 			T5.PYMT_DATE,
