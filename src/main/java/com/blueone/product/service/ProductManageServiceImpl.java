@@ -418,6 +418,25 @@ public class ProductManageServiceImpl implements IProductManageService {
         return rst;
     }
     
+    //상품 구매수 증가
+    @Override
+    public int updateProductBuyCount(ProductInfo productInfo) {
+        
+        int rst = -1;
+        
+        
+            SqlSession sqlSession = sqlSessionFactory.openSession();
+            try {
+                // DB 수행
+                rst = sqlSession.update("product.updateBOM_PRODUCT_TB_BUY_COUNT", productInfo);
+             
+            } finally {
+                sqlSession.close();
+            }
+       
+        
+        return rst;
+    }
     
 
     @Override

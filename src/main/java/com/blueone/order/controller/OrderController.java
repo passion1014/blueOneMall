@@ -774,6 +774,7 @@ CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");
 					odPrdInfo.setOrderNo(s.substring(3));
 				}
 				if ("cn".equals(s.substring(0, 2))) {
+					
 					odPrdInfo.setBuyCnt(Integer.parseInt(s.substring(3)));
 					total = new BigDecimal(prInf.getPrdSellPrc());
 					total = total.multiply(new BigDecimal(odPrdInfo.getBuyCnt()));
@@ -817,6 +818,9 @@ CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");
 			productInfo.setPrdStock(productInfo.getPrdStock()-odPrdInfo.getBuyCnt());
 			productManageService.manageProductInf(productInfo);
 			
+			//구매 수 증가
+			productInfo.setPrdBuyCount(odPrdInfo.getBuyCnt());
+			productManageService.updateProductBuyCount(productInfo);
 			
 		}
 
@@ -1049,7 +1053,9 @@ CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");
 			productInfo.setPrdStock(productInfo.getPrdStock()-odPrdInfo.getBuyCnt());
 			productManageService.manageProductInf(productInfo);
 			
-			
+			//구매 수 증가
+			productInfo.setPrdBuyCount(odPrdInfo.getBuyCnt());
+			productManageService.updateProductBuyCount(productInfo);
 		}
 
 		//諛곗넚鍮꾧????뺣낫

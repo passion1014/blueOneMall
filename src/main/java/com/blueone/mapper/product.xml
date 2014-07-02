@@ -646,4 +646,12 @@
 				`PRD_CD`= #{prdCd}
 	</update>
 	
+	<!-- 판매수 증가 -->
+	<update id="updateBOM_PRODUCT_TB_BUY_COUNT" parameterType="productInfo">
+		UPDATE BOM_PRODUCT_TB
+			SET	
+				PRD_BUY_COUNT = PRD_BUY_COUNT+#{prdBuyCount}
+			WHERE
+				`PRD_CD`= #{prdCd}
+	</update>
 </mapper>

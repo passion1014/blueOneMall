@@ -11,6 +11,7 @@ public class SearchProdInfo {
 	private String schWord;
 	private String schType;
 	
+	
 	public String getSchType() {
 		return schType;
 	}

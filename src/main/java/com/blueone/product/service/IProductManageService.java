@@ -39,5 +39,6 @@ public interface IProductManageService {
 	public int manageProductOptionInf(ProductInfo productInfo);
 	public List<ProductInfo> oderByBuyCountList();
 	public int updateProductHit(ProductInfo productInfo);
+	public int updateProductBuyCount(ProductInfo productInfo);
 	
 }
