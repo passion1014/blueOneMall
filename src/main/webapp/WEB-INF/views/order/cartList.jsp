@@ -127,7 +127,7 @@ function SetPriceInput(str)
 							<tbody>
 								<c:choose>
 									<c:when test="${odPrdInfo.size() != 0}">
-										<c:forEach items="${odPrdInfo}" var="odPrdInfo">
+										<c:forEach items="${odPrdInfo}" var="odPrdInfo" varStatus="i">
 										 
 								<tr>
 									<th>
@@ -148,8 +148,8 @@ function SetPriceInput(str)
 									</td>
 									<td><script>SetPriceInput('${odPrdInfo.sellPrice}');</script></td>
 									<td>
-										<span class="input_text"><input type="text" value="${odPrdInfo.buyCnt}" id="buyCnt" nam="buyCnt" title="수량기입"><!-- <button class="btn_triangle1" ></button> --></span>
-										<span class="input_btn"><input type="button" value="수정" title="수정" onClick="location.href='editBuyCnt.do?cookieKey=${odPrdInfo.cookieKey}&buyCnt='+document.getElementById('buyCnt').value;"><!-- <button class="btn_triangle2"></button> --></span>
+										<span class="input_text"><input type="text" value="${odPrdInfo.buyCnt}" id="buyCnt_${i.index}" name="buyCnt" title="수량기입"><!-- <button class="btn_triangle1" ></button> --></span>
+										<span class="input_btn"><input type="button" value="수정" title="수정" onClick="location.href='editBuyCnt.do?cookieKey=${odPrdInfo.cookieKey}&buyCnt='+document.getElementById('buyCnt_${i.index}').value;"><!-- <button class="btn_triangle2"></button> --></span>
 									</td>
 									<td><script>SetPriceInput('${odPrdInfo.totalPrice}');</script></td>
 									<td>
@@ -157,6 +157,10 @@ function SetPriceInput(str)
 										<input type="button" value="삭제하기" class="btn_choice2"    style="cursor:pointer; background:#666666; border:1px solid #5c5c5c; width:60px; line-height:20px; color:#fff; font-family:'NanumGothicBold'; border:0; font-size:11px; cursor:pointer; margin-top:5px" onClick="confirm_process('','해당 상품을 삭제하시겠습니까?','deleteCartList.do?cookieKey=${odPrdInfo.cookieKey}');" /> 
 									</td>
 								</tr>
+								<tr>
+									<td class="one_choice" colspan="6"></td>
+								</tr>
+								<!--
 								<tr>
 									<td class="one_choice" colspan="6">
 										<c:set var="totalPrc" value="${odPrdInfo.totalPrice.intValue()}"/>
@@ -170,6 +174,7 @@ function SetPriceInput(str)
 										= 합계 <script>SetPriceInput('${totalPrc}');</script>원
 									 </td>
 								</tr>
+								-->
 								</c:forEach>
 								</c:when>
 								<c:otherwise><tr><td colspan="6" height="100">장바구니에 상품이 없습니다.</td></tr></c:otherwise>
@@ -179,15 +184,15 @@ function SetPriceInput(str)
 									<td class="total_choice" colspan="6">
 										총 주문금액 : 
 										<c:forEach items="${odPrdInfo}" var="odPrdInfo">
-										<script>SetPriceInput('${odPrdInfo.totalPrice}');</script>원 +
-										<c:set var="total" value="${total+odPrdInfo.totalPrice}"/>
+											<script>SetPriceInput('${odPrdInfo.totalPrice}');</script>원 +
+											<c:set var="total" value="${total+odPrdInfo.totalPrice}"/>
 										</c:forEach>
-										 <c:if test="${total<=config.buyPrice and total>0}">
-											배송비 :  <script>SetPriceInput('${config.trasferPrice}');</script>원
+										<c:if test="${total<=config.buyPrice and total>0}">
+											배송비 <!--<script>SetPriceInput('${config.trasferPrice}');</script>원-->무료
 											<c:set var="total" value="${total+config.trasferPrice}"/>
-										 </c:if>
-										 <c:if test="${total>config.buyPrice}">배송비 : 0원 </c:if>
-										 = 합계 <strong><script>SetPriceInput('${total}');</script></strong>원
+										</c:if>
+										<c:if test="${total>config.buyPrice}">배송비 무료</c:if>
+										= 합계 <strong><script>SetPriceInput('${total}');</script></strong>원
 									</td>
 								</tr>
 								
