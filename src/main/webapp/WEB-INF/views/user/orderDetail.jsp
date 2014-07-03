@@ -93,15 +93,15 @@ function SetPriceInput(str)
 									<td class="total_choice" colspan="6">
 										총 주문금액 : 
 										<c:forEach items="${odPrdInfo}" var="odPrdInfo">
-										<script>SetPriceInput('${odPrdInfo.totalPrice}');</script> 원 
-										<c:set var="total" value="${total+odPrdInfo.totalPrice-payList.get(0).payPoint}"/>
+										<script>SetPriceInput('${odPrdInfo.totalPrice}');</script> 원 + 
+										<c:set var="total" value="${total+odPrdInfo.totalPrice}"/>
 										</c:forEach>
 										 <c:if test="${total<=config.buyPrice}">
-											+ 배송비 :  <script>SetPriceInput('${config.trasferPrice}');</script>원
+											 배송비 :  <script>SetPriceInput('${config.trasferPrice}');</script>원
 											<c:set var="total" value="${total+config.trasferPrice}"/>
 										 </c:if>
-										 <c:if test="${total>config.buyPrice}"> + 배송비 : 0 원 </c:if>
-										 <c:if test="${payList.get(0).payPoint>0}"> - 사용포인트 : ${payList.get(0).payPoint} point </c:if>
+										 <c:if test="${total>config.buyPrice}">  배송비 : 0 원 </c:if>
+										 <c:if test="${payList.get(0).payPoint>0}"> - 사용포인트 : ${payList.get(0).payPoint} point<c:set var="total" value="${total-payList.get(0).payPoint}"/> </c:if>
 										 = 합계 <strong><script>SetPriceInput('${total}');</script></strong> 원
 										 <input type="hidden" id="sndAmount"  name="sndAmount"  value="${total}" />
 									</td>
@@ -130,7 +130,15 @@ function SetPriceInput(str)
 										<tr>
 											<th>주문상태</th>
 											<td class="in_sectext">
-												
+												<c:if test="${odInfo.orderStatCd eq '01'}">신청대기</c:if>
+												<c:if test="${odInfo.orderStatCd eq '02'}">결제완료</c:if>
+												<c:if test="${odInfo.orderStatCd eq '07'}">취소신청</c:if>
+												<c:if test="${odInfo.orderStatCd eq '08'}">취소완료</c:if>
+												<c:if test="${odInfo.orderStatCd eq '03'}">배송준비</c:if>
+												<c:if test="${odInfo.orderStatCd eq '04'}">배송중</c:if>
+												<c:if test="${odInfo.orderStatCd eq '05'}">배송완료</c:if>
+												<c:if test="${odInfo.orderStatCd eq '09'}">반품신청</c:if>
+												<c:if test="${odInfo.orderStatCd eq '10'}">반품신청완료</c:if>
 											</td>
 											<th>결제 수단</th>
 											<td class="in_sectext">
@@ -188,8 +196,8 @@ function SetPriceInput(str)
 						</table>
 					</div>
 					<div class="complet_box">
-						<c:if test="${odInfo.orderStatCd eq '01' or odInfo.orderStatCd eq '02'}"><a href="orderCancel.do?orderNo=${odInfo.orderNo}&" class="btn_success">주문취소</a></c:if>
-						<c:if test="${odInfo.orderStatCd eq '03' or odInfo.orderStatCd eq '04'}"><a href="orderTakeBack.do?orderNo=${odInfo.orderNo}" class="btn_continue">반품신청</a></c:if>
+						<c:if test="${odInfo.orderStatCd eq '01' or odInfo.orderStatCd eq '03'}"><a href="orderCancel.do?orderNo=${odInfo.orderNo}&" class="btn_success">주문취소</a></c:if>
+						<c:if test="${odInfo.orderStatCd eq '04'}"><a href="orderTakeBack.do?orderNo=${odInfo.orderNo}" class="btn_continue">반품신청</a></c:if>
 					</div>
 				</div>
 			</form>

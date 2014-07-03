@@ -90,6 +90,10 @@
 	}
 	
 	$(document).ready(function() {
+		var i = 't6wKUMA/3xAWd6g6xpw8pG+Nbemg9Pv0S64vj+2+muoHEJi1scaqsHtXpuAlkflP61CTFOQZETR2HldIGd+czg==';
+		alert(i);
+		alert(encodeURI(i));
+		
 		Editor.modify({
 	     	"content":'${prdInfo.content}'
 	     });
@@ -438,6 +442,8 @@
 	
 
 </div>
+
+
 </body>
 
 <c:import url="../inc/footer.jsp" />

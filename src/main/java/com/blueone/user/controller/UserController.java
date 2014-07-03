@@ -476,7 +476,7 @@ public class UserController {
 		model.addAttribute("CUST_POINT", customerPoint);
 		// 주문 테이블의 상태값을 07(주문취소)로 셋팅
 		orderInfo.setCustomerInfo(cust);
-		orderInfo.setOrderStatCd("08");
+		orderInfo.setOrderStatCd("07");
 		orderService.updateOrderInf(orderInfo);
 		
 		//포인트 취소
@@ -494,7 +494,7 @@ public class UserController {
 		String decPoint = point[3];
 		String decOrderNo = orderInfo.getOrderNo();
 		
-		// --------------------------------------------
+		/*// --------------------------------------------
 		// 2. SSO처리를 위한 웹서비스 호출
 		// --------------------------------------------
 		Map<String, String> rstMap = null;
@@ -518,7 +518,7 @@ public class UserController {
 				model.addAttribute("msg", HMallInterworkUtility.getErrorMsgByCode(returnCode));
 				return "user/loginError";
 			}
-		}
+		}*/
 		
 		//재고증가
 		OrderProductInfo opRes = new OrderProductInfo();
