@@ -25,7 +25,7 @@
  -->
 	<resultMap id="OrderInfoMap" type="orderInfo">
 		<id property="ordIdx" column="IDX" javaType="int"/>
-		<id property="orderNo" column="ORDER_NO" javaType="java.lang.String"/>
+		<id property="orderNo" column="ORDER_NO" javaType="java.lang.String"/> 
 		<id property="orderStatCd" column="ORDER_STAT_CD" javaType="java.lang.String"/>
 		<id property="orderDate" column="ORDER_DATE" javaType="java.lang.String"/>
 		<id property="regDate" column="REG_DATE" javaType="java.lang.String"/>
@@ -51,6 +51,9 @@
 		<!-- 결제내역 셋팅 -->
 		<association property="paymentInfo" column="orderNo" select="order.selectListBomPaymentTb0001"></association>
 		
+		<!-- 수취인 셋팅 -->
+		<association property="reciInfo" column="reciOdNum" select="recipient.selectListBomRecipientTb0001"></association>
+				
 	
 		<!-- 주문상품정보 셋팅 -->
 		<collection property="orderProductList" ofType="orderProductInfo" resultMap="OrdProductInfo"></collection>
@@ -61,6 +64,7 @@
 	<resultMap id="CustomerInfoMap" type="customerInfo">
 		<id property="custId" column="ordCustId" javaType="java.lang.String"/>
 	</resultMap>
+	
 
 	<resultMap id="OrdProductInfo" type="orderProductInfo">
 		<id property="orderNo" column="ORDER_NO" javaType="java.lang.String"/>
@@ -101,15 +105,15 @@
 			T2.IDX AS payIdx,
 			T2.ORDER_NO AS payOrdNo,
 			T2.ORDER_NO_SEQ AS payOrdNoSeq,
-			T2.PYMT_PAY_CD AS payMdCd,
-			T2.PYMT_AMOUNT AS payAmount,
+			T2.PYMT_PAY_CD AS join_payMdCd,
+			T2.PYMT_AMOUNT AS join_payPrice,
 			T2.PYMT_DATE AS payDate,
 			T2.REG_DATE AS payRegDate,
 			T2.LAST_DATE AS payLastDate,
 			T2.MODIFY_USER_ID AS payModifyUserId,
 			T3.IDX AS pordIdx,
 			T3.ORDER_NO AS pordOrdNo,
-			T3.PRD_CD AS pordPrdCd, 
+			T3.PRD_CD , 
 			T4.PRD_CD AS prdCd,
 			T4.PRD_NM AS join_prdNm,
 			T4.PRD_CTG_L AS prdCtgL,
@@ -117,11 +121,14 @@
 			T4.PRD_CTG_S AS prdCtgS,
 			T4.FROM_DATE AS prdFromDate,
 			T4.TO_DATE AS prdToDate,
-			T5.PYMT_PAY_CD AS join_payMdCd,
-			T5.PYMT_AMOUNT AS join_payPrice,
-			T5.PYMT_POINT,
-			T5.PYMT_DATE,
-			T5.PYMT_MEMO
+			T6.RECI_ORDER_NUM AS reciOdNum,
+			T6.RECI_NAME,
+			T6.RECI_PHONE,
+			T6.RECI_MOBILE,
+			T6.RECI_ADDRESS,
+			T6.RECI_REQUEST_MEMO
+			
+			
 		FROM 
 				BOM_ORDER_TB T1
 			LEFT OUTER JOIN 
@@ -130,8 +137,10 @@
 				BOM_ORD_PRD_TB T3 ON T1.ORDER_NO = T3.ORDER_NO
 			JOIN 
 				BOM_PRODUCT_TB T4 ON T3.PRD_CD = T4.PRD_CD
+			<!-- JOIN 
+				BOM_PAYMENT_TB T5 ON T1.ORDER_NO = T5.ORDER_NO	 -->
 			JOIN 
-				BOM_PAYMENT_TB T5 ON T1.ORDER_NO = T5.ORDER_NO	
+				BOM_RECIPIENT_TB T6 ON T1.ORDER_NO = T6.RECI_ORDER_NUM	
 		WHERE
 			(1 = 1)
 				<!-- <if test="srchStdDt != null and srchStdDt != '' and srchEdDt != null and srchEdDt != ''">AND T1.ORDER_DATE BETWEEN #{srchStdDt} AND #{srchEdDt} </if>
@@ -143,7 +152,7 @@
 		
 		 	
 	</select >
-
+	
 	
 	
 	<select id="selectListBomOrderPrdTb0001" resultType="orderProductInfo" resultMap="OrdProductInfo" parameterType="orderProductInfo">

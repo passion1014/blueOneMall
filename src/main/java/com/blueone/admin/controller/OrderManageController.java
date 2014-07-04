@@ -114,8 +114,8 @@ public class OrderManageController {
 		 //------------------------------
 		 //엑셀파일 생성
 		 //------------------------------
-		 //String filepath = "C:/Users/Administrator/Documents/write.xls"; //개발
-		 String filepath = "/home/hosting_users/blueonestore/tomcat/webapps/ROOT/resources/upload/"+DateUtil.getDate("yyyyMMdd")+"order.xls"; //운영
+		 String filepath = "C:/Users/Administrator/Documents/write.xls"; //개발
+		 //String filepath = "/home/hosting_users/blueonestore/tomcat/webapps/ROOT/resources/upload/"+DateUtil.getDate("yyyyMMdd")+"order.xls"; //운영
 	
 	
 		    try {
@@ -143,55 +143,125 @@ public class OrderManageController {
 		  
 	            HSSFCell cell = row.createCell((short)0);
 	            cell.setCellStyle(style);
-	            cell.setCellValue("주문일");     
+	            cell.setCellValue("주문번호(주문일)");     
 	            
 	            cell = row.createCell((short)1);
 	            cell.setCellStyle(style);
-	            cell.setCellValue("주문번호");     
+	            cell.setCellValue("주문금액");     
 	            
 	            cell = row.createCell((short)2);
 	            cell.setCellStyle(style);
-	            cell.setCellValue("주문상태");  
+	            cell.setCellValue("주소");  
 	            
 	            cell = row.createCell((short)3);
 	            cell.setCellStyle(style);
-	            cell.setCellValue("주문자"); 
+	            cell.setCellValue("주문인"); 
 	            
 	            cell = row.createCell((short)4);
 	            cell.setCellStyle(style);
-	            cell.setCellValue("주문자ID"); 
+	            cell.setCellValue("연락처(주문인)"); 
 	            
 	            cell = row.createCell((short)5);
 	            cell.setCellStyle(style);
-	            cell.setCellValue("주문명");  
+	            cell.setCellValue("수취인");  
 	            
 	            cell = row.createCell((short)6);
 	            cell.setCellStyle(style);
-	            cell.setCellValue("결제금");   
+	            cell.setCellValue("전화번호(수취인)");   
 	            
 	            cell = row.createCell((short)7);
 	            cell.setCellStyle(style);
-	            cell.setCellValue("수단");   
+	            cell.setCellValue("핸드폰(수취인)");   
 	            
-	          
+	            cell = row.createCell((short)8);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("상품코드");   
+	            
+	            cell = row.createCell((short)9);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("상품명");   
+	            
+	            cell = row.createCell((short)10);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("옵션");   
+	            
+	            cell = row.createCell((short)11);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("수량");   
+	           
+	            cell = row.createCell((short)12);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("배송메세지");   
+	            
+	            cell = row.createCell((short)13);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("입금일자");   
+	           
+	            cell = row.createCell((short)14);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("발송일자");   
+	            
+	            cell = row.createCell((short)15);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("송장번호");   
+	           
+	            cell = row.createCell((short)16);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("결제방법");   
+	            
+	            cell = row.createCell((short)17);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("택배사");   
+	           
+	            cell = row.createCell((short)18);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("정산예정금액");   
+	            
 	            
 	           
-	            List<OrderInfo> odList =orderManageService.getOrderInfoListByPeriod(new OrderInfo());
+	            
+	            OrderInfo ord = new OrderInfo();
+	            ord.setReciInfo(new RecipientInfo());
+	
+	            List<OrderInfo> odList =orderManageService.getOrderInfoListByPeriod(ord);
+	            
 		        int i=1;
 	            for (OrderInfo each : odList){
+	            	System.out.println(each.getReciInfo().getReciNm());
 	            	row = sheet.createRow(i);
+	            	
+	            	//주문번호(주문일)
 		            cell = row.createCell((short)0);
-		           // cell.setEncoding(HSSFCell.ENCODING_UTF_16); 
-		           
-		            cell.setCellValue(each.getOrderDate());
+		            cell.setCellValue(each.getOrderNo()+"("+each.getOrderDate()+")");     
 		            
-	
+		            //주문금액
 		            cell = row.createCell((short)1);
-		           
-		            cell.setCellValue(each.getOrderNo());     
-		            
-		            
+			        cell.setCellValue(each.getPaymentInfo().getPayPrice().toString());   
+			        
+			        //주소
 		            cell = row.createCell((short)2);
+		            cell.setCellValue(each.getReciInfo().getReciAdd()); 
+		            
+		            //주문인
+		            cell = row.createCell((short)3);
+		            cell.setCellValue(each.getCustomerInfo().getCustNm()); 
+		            
+		            //주문인(연락처)
+		            cell = row.createCell((short)4);
+		            cell.setCellValue(each.getCustomerInfo().getCustMb()); 
+		            
+		            //수취인
+		            cell = row.createCell((short)5);
+		            cell.setCellValue(each.getReciInfo().getReciNm()); 
+		            
+		            //수취인(전화번호)
+		            cell = row.createCell((short)6);
+		            cell.setCellValue(each.getReciInfo().getReciPh()); 
+		            
+		            //수취인(핸드폰)
+		            cell = row.createCell((short)7);
+		            cell.setCellValue(each.getReciInfo().getReciMb()); 
+		            
 		            
 		            String orderState = "";
 		            if(each.getOrderStatCd().equals("01"))orderState="신청대기";

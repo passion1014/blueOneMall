@@ -2,7 +2,39 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:import  url="../inc/top.jsp" />
- 
+ <script type="text/javascript">
+<!--
+function SetPriceInput(str)
+{
+	str=str.replace(/,/g,'');
+	var retValue = "";
+	for(i=1; i<=str.length; i++)
+	{
+		if(i > 1 && (i%3)==1) 
+			  retValue = str.charAt(str.length - i) + "," + retValue;
+		else 
+			  retValue = str.charAt(str.length - i) + retValue;    
+	}
+	document.write(retValue); 
+}
+
+$(document).ready(function() {
+	var dates = $("#srchStdDt,#srchEdDt").datepicker({
+		changeYear: true,
+		changeMonth: true,
+		dateFormat: "yy-mm-dd",
+		showMonthAfterYear: true,
+		onSelect: function(selectedDate) {
+			var option = this.id == "srchStdDt" ? "minDate": "maxDate",
+			instance = $(this).data("datepicker"),
+			date = $.datepicker.parseDate(instance.settings.dateFormat || $.datepicker._defaults.dateFormat, selectedDate, instance.settings);
+			dates.not(this).datepicker("option", option, date);
+		}
+	});
+
+});
+//-->
+</script>
 <body>
 <div id="Wrap">
 
@@ -64,8 +96,8 @@
 				<td class="left">
 					<div style="margin-top:5px;">
 						<b>주문날짜검색</b> <input type="checkbox" id="schChkDate" name="schChkDate" value="Y" onClick="dateDisable();" checked/> &nbsp;&nbsp;
-							<input type="text" id="srchStdDt" name="srchStdDt" value="${srchStdDt}" class="Text Kor" style="width:65px;" /> 일 부터
-							<input type="text" id="srchEdDt" name="srchEdDt" value="${srchEdDt}" class="Text Kor" style="width:65px;" />일 까지 &nbsp;&nbsp;
+							<input type="text" id="srchStdDt" name="srchStdDt" value="${orderSrchInfo.srchStdDt}" class="Text Kor" style="width:65px;" /> 일 부터
+							<input type="text" id="srchEdDt" name="srchEdDt" value="${orderSrchInfo.srchEdDt}" class="Text Kor" style="width:65px;" />일 까지 &nbsp;&nbsp;
 					</div>
 		
 					<div style="margin-top:5px;">
@@ -78,23 +110,22 @@
 						</select> -->
 						
 						<select id="keyfield" name="keyfield">
-							<option value="1" selected>주문번호</option>
-							<option value="2">주문자</option>
+							<option value="1" <c:if test="${orderSrchInfo.keyfield == 1}">selected</c:if>>주문번호</option>
+							<option value="2" <c:if test="${orderSrchInfo.keyfield == 2}">selected</c:if>>주문자</option>
 						</select>
-						<input type="text" id="keyword" name="keyword" class="Text" value="">
+						<input type="text" id="keyword" name="keyword" class="Text" value="${orderSrchInfo.keyword}">
 						<input type="submit" value="검색"   class="Small_Button Gray">&nbsp;&nbsp;
-						<input type="button" value="초기화" class="Small_Button Gray" onClick="location.href='./admin.member.php?slot=member&type=member_list'">&nbsp;&nbsp;
-						<input type="button" value="엑셀파일로 만들기" class="Small_Button Gray" onClick="location.href=''">&nbsp;&nbsp;
+						<input type="button" value="초기화" class="Small_Button Gray" onClick="">&nbsp;&nbsp;
+						<input type="button" value="엑셀로 만들기" class="Small_Button Gray" onClick="location.href='/admin/orderListToExel.do'">&nbsp;&nbsp;
 					</div>
 				</td>
 			</tr>
 		</table>
 		</form>    
 	    
-	<form id="ordListFrm" name="ordListFrm" method="get" action="orderStateEdit.do">
+	
 	<table>
 		<colgroup>
-			<col width="5%" />
 			<col width="10%" />
 			<col width="10%" />
 			<col width="10%" />
@@ -102,7 +133,6 @@
 			<col width="12%" />
 		</colgroup>
 		<tr>
-			<th><input type="checkbox" name="ord_multi_chk" onClick="allChk(this);" title="전체상품선택"/></th>
 			<th>주문일</th>
 			<th>주문번호</th>
 			<th>상태</th>
@@ -114,9 +144,6 @@
 			<c:when test="${odList.size() != 0}">
 				<c:forEach items="${odList}" var="odList">
 					<tr>
-						<th>
-							<input type="checkbox" id="ord_unit_chk" name="ord_unit_chk"  value="${odList.orderNo}" title="상품선택"/>
-						</th>
 						<td>
 							${odList.orderDate.substring(0,10)}
 						</td>
@@ -136,7 +163,7 @@
 							
 						</td>
 						<td>
-							${odList.customerInfo.custId} / ${odList.customerInfo.custNm}  / ${odList.ordPrd.prdNm} / ${odList.paymentInfo.payPrice} 
+							${odList.customerInfo.custId} / ${odList.customerInfo.custNm}  / ${odList.ordPrd.prdNm} / <script>SetPriceInput('${odList.paymentInfo.payPrice}');</script> 원
 						</td>
 						
 						<td><input type="button" value="관리"class="Small_Button Gray"onClick="location.href='orderManagement.do?orderNo=${odList.orderNo}&custId=${odList.customerInfo.custId}'"></td>
@@ -144,94 +171,28 @@
 						
 				</c:forEach>
 			</c:when>
-			<c:otherwise><tr><td colspan="6" height="100">주문이 없습니다.</td></tr></c:otherwise>
+			<c:otherwise><tr><td colspan="5" height="100">주문이 없습니다.</td></tr></c:otherwise>
 		</c:choose>
 	
 	</table>
-	주문상태 : <select name=orderStatCd>
-					<option value=01>신청대기</option>
-					<option value=02>결제완료</option>
-					<option value=07>취소신청</option>
-					<option value=08>취소완료</option>
-					<option value=03>배송준비</option>
-					<option value=04>배송중</option>
-					<option value=05>배송완료</option>
-					<option value=09>반품신청</option>
-					<option value=10>반품신청완료</option>
-			   </select>
-	<input type="button" value="일괄변경"class="Small_Button Gray"onClick="list_Submit();">
+
 	<div align="center" style="padding-top:10px;">
 		<c:forEach var="i" begin="1" end="${endNum}">
-				<input type="button" value="${i}" onClick="javascript:location.href='${ordUrl}?page=${i}'">				
+			<c:if test="${orderSrchInfo == null}"><input type="button" value="${i}" onClick="javascript:location.href='${ordUrl}?page=${i}'"></c:if>			
+			<c:if test="${orderSrchInfo != null}"><input type="button" value="${i}"
+			onClick="javascript:location.href='/admin/orderSearchList.do?srchStdDt=${orderSrchInfo.srchStdDt}&srchEdDt=${orderSrchInfo.srchEdDt}&keyfield=${orderSrchInfo.keyfield}&keyword=${orderSrchInfo.keyword}&page=${i}'"
+			/></c:if>			
 		</c:forEach>
 	</div>
 	
-	</form>
+	
 </div>
 	
 
 </div>
 </body>
 
-<script language="JavaScript" type="text/JavaScript">
-<!--
-$(document).ready(function() {
-	var dates = $("#srchStdDt,#srchEdDt").datepicker({
-		changeYear: true,
-		changeMonth: true,
-		showMonthAfterYear: true,
-		onSelect: function(selectedDate) {
-			var option = this.id == "srchStdDt" ? "minDate": "maxDate",
-			instance = $(this).data("datepicker"),
-			date = $.datepicker.parseDate(instance.settings.dateFormat || $.datepicker._defaults.dateFormat, selectedDate, instance.settings);
-			dates.not(this).datepicker("option", option, date);
-		}
-	});
 
-});
-function allChk(obj){
-    var chkObj = document.getElementsByName("ord_unit_chk");
-    var rowCnt = chkObj.length - 1;
-    var check = obj.checked;
-    
-    if (check) {﻿
-        for (var i=0; i<=rowCnt; i++){
-         if(chkObj[i].type == "checkbox")
-             chkObj[i].checked = true; 
-        }
-    } else {
-        for (var i=0; i<=rowCnt; i++) {
-         if(chkObj[i].type == "checkbox"){
-             chkObj[i].checked = false; 
-         }
-        }
-    }
-} 
-function list_Submit(){
-	msg = "선택하신 주문을 일괄 변경 하시겠습니까?" ;
-	
-	document.getElementById("ordListFrm").action = "orderStateEdit.do" ;
-	
-	var chk_num = document.ordListFrm.elements.length;
-	
-	for(var i = 0; i < chk_num; i++){
-		var checkbox_obj = eval("document.ordListFrm.elements["+i+"]");
-		if(checkbox_obj.checked == true)	break;
-	}
-
-	if(i == chk_num) {
-		alert("먼저 주문을 선택하여 주십시오");
-		return false;
-	} else {
-		if(confirm(msg)){
-			document.getElementById("ordListFrm").submit() ;
-			return false;
-		}
-	}
-
-}
-//-->
-</script>
 
 <c:import url="../inc/footer.jsp" />
 
