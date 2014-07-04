@@ -431,6 +431,80 @@ public class OrderManageController {
 		
 		return "redirect:orderManagement.do?orderNo="+orderInfo.getOrderNo()+"&custId="+cust.getCustId();
 	}
+	@RequestMapping(value="/orderStateEdit.do", method= RequestMethod.GET)
+	public String orderStateEdit(@ModelAttribute("orderInfo") OrderInfo ordInfo,BindingResult result, Model model,HttpSession session,RedirectAttributes redirectAttributes) throws UnsupportedEncodingException {
+		
+		StringTokenizer st = new StringTokenizer(ordInfo.getOrd_unit_chk(), ",");
+		
+		while(st.hasMoreElements()){
+			String ordNo = st.nextToken();
+			OrderInfo orderInfo = new OrderInfo();
+			orderInfo.setOrderNo(ordNo);
+			orderInfo.setCustomerInfo(new CustomerInfo());
+			orderInfo.setOrderStatCd(ordInfo.getOrderStatCd());
+			orderService.updateOrderInf(orderInfo);
+			
+			
+			if(ordInfo.getOrderStatCd().equals("08") || ordInfo.getOrderStatCd().equals("10")){
+				List<OrderInfo> odList = orderService.selectOrderInfoList(orderInfo);
+				String pointInfo= odList.get(0).getUserPointInfo();
+				if(pointInfo==null ||  StringUtils.isEmpty(pointInfo) || pointInfo.isEmpty() ){
+					redirectAttributes.addFlashAttribute("orderSucess", "yes");
+					return "redirect:orderList.do";
+				}
+				String[] point = pointInfo.split("_");
+				String decMemNm = point[0];
+				String decMemNo = point[1];
+				String decShopEventNo = point[2];
+				String decPoint = point[3];
+				String decOrderNo = orderInfo.getOrderNo();
+				
+				// --------------------------------------------
+				// 2. SSO처리를 위한 웹서비스 호출
+				// --------------------------------------------
+				Map<String, String> rstMap = null;
+				try {
+					rstMap = HMallInterworkUtility.procCancelPoint(decMemNm, decMemNo, decShopEventNo, decPoint, decOrderNo);
+				} catch (Exception e) {
+					model.addAttribute("msg", "SSO처리시 에러발생하였습니다.");
+					return "user/loginError";
+				}
+				
+				// --------------------------------------------
+				// 3. 체크 - SSO처리 결과를 확인한다.
+				// --------------------------------------------
+				if (rstMap == null) {
+					model.addAttribute("msg", "SSO처리 결과가 없습니다.(1)");
+					return "user/loginError";
+				} else {
+					String returnCode = (String)rstMap.get("return_code");
+					
+					if (!"000".equals(returnCode)) {
+						model.addAttribute("msg", HMallInterworkUtility.getErrorMsgByCode(returnCode));
+						return "user/loginError";
+					}
+				}
+				
+				//재고증가
+				OrderProductInfo opRes = new OrderProductInfo();
+				opRes.setOrderNo(orderInfo.getOrderNo());
+				List<OrderProductInfo> opResInf = orderManageService.selectOrderPrdInfo(opRes);
+				
+				for(OrderProductInfo each : opResInf){
+					String prdCd = each.getPrdCd();
+					ProductInfo productInfo = new ProductInfo();
+					productInfo.setPrdCd(prdCd);
+					productInfo = productManageService.getProductInfDetail(productInfo);
+					productInfo.setPrdStock(productInfo.getPrdStock()+each.getBuyCnt());
+					productManageService.manageProductInf(productInfo);
+				}
+				
+			}
+			
+		
+		}
+		return "redirect:orderList.do";
+	}
 
 	//주문검색
 	@RequestMapping(value="/orderSearchList.do", method= RequestMethod.GET)

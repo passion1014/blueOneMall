@@ -41,7 +41,10 @@
 		
 		<!-- 고객정보 셋팅 -->
 		<!-- <association property="customerInfo" column="custId" javaType="customerInfo" resultMap="CustomerInfoMap"/> -->
+		
+		
 		<association property="customerInfo" column="custId" select="customer.selectDtlBomCustTb0002"></association>
+		
 		
 		<!-- 결제내역 셋팅 -->
 		<association property="paymentInfo" column="orderNo" select="order.selectListBomPaymentTb0001"></association>
