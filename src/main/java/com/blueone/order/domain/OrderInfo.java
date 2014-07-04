@@ -30,7 +30,9 @@ public class OrderInfo {
 	private String lastDate;	// 최종수정일
 	private String modifyUserId;// 최종수정자
 	private String prdCD;
-
+	private String ordTransNo;
+	private String ordTranUrl;
+	
 	private String ord_unit_chk; //다중 checkbox
 
 	private PaymentInfo paymentInfo;
@@ -43,6 +45,18 @@ public class OrderInfo {
 	private int startIdx;
 	
 	
+	public String getOrdTransNo() {
+		return ordTransNo;
+	}
+	public void setOrdTransNo(String ordTransNo) {
+		this.ordTransNo = ordTransNo;
+	}
+	public String getOrdTranUrl() {
+		return ordTranUrl;
+	}
+	public void setOrdTranUrl(String ordTranUrl) {
+		this.ordTranUrl = ordTranUrl;
+	}
 	public String getUserPointInfo() {
 		return userPointInfo;
 	}

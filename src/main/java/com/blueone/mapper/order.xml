@@ -34,6 +34,8 @@
 		<id property="srchStdDt" column="srchStdDt" javaType="java.lang.String"/>
 		<id property="srchEdDt" column="srchEdDt" javaType="java.lang.String"/>
 		<id property="userPointInfo" column="USER_POINT_INFO" javaType="java.lang.String"/>
+		<id property="ordTransNo" column="ORDER_TRANSFER_NO" javaType="java.lang.String"/>
+		<id property="ordTranUrl" column="ORDER_TRANSFER_URL" javaType="java.lang.String"/>
 		<id property="ordPrd.prdNm" column="join_prdNm" javaType="java.lang.String"/>
 		<id property="paymentInfo.payPrice" column="join_payPrice" javaType="bigdecimal"/>
 		<id property="paymentInfo.payMdCd" column="join_payMdCd" javaType="java.lang.String"/>
@@ -164,7 +166,10 @@
 			T1.ORDER_STAT_CD,
 			T1.ORDER_DATE,
 			T1.REG_DATE,
-			T1.USER_POINT_INFO
+			T1.USER_POINT_INFO,
+			T1.ORDER_TRANSFER_NO,
+			T1.ORDER_TRANSFER_URL
+			
 		FROM 
 				BOM_ORDER_TB T1
 		WHERE
@@ -283,6 +288,8 @@
 				<if test="orderNo != null and orderNo != ''">,`ORDER_NO` = #{orderNo}</if>
 				<if test="customerInfo.custId != null and customerInfo.custId != ''">,`CUST_ID` = #{customerInfo.custId},`MODIFY_USER_ID` = #{customerInfo.custId}</if>
 				<if test="orderStatCd != null and orderStatCd != ''">,`ORDER_STAT_CD` = #{orderStatCd}</if>
+				<if test="ordTransNo != null and ordTransNo != ''">,`ORDER_TRANSFER_NO` = #{ordTransNo}</if>
+				<if test="ordTranUrl != null and ordTranUrl != ''">,`ORDER_TRANSFER_URL` = #{ordTranUrl}</if>
 				
 		WHERE
 			`ORDER_NO`= #{orderNo}

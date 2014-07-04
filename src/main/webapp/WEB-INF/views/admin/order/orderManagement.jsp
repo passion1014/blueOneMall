@@ -169,7 +169,13 @@ function SetPriceInput(str)
 								<option value=09 <c:if test="${odInfo.orderStatCd eq '09'}">selected</c:if>>반품신청</option>
 								<option value=10 <c:if test="${odInfo.orderStatCd eq '10'}">selected</c:if>>반품신청완료</option>
 							</select>
-						</td>
+							&nbsp;&nbsp;
+							송장번호 :&nbsp; 
+							<input type="text" id="ordTransNo" name="ordTransNo" value="${odInfo.ordTransNo}" style="width:10%;padding-right:10px;">
+							<%-- &nbsp;&nbsp;
+							배송추적 URL :&nbsp; 
+							<input type="text" id="ordTranUrl" name="ordTranUrl" value="${odInfo.ordTranUrl}" style="width:10%;padding-right:10px;">
+						 --%></td>
 					</tr>
 					<c:if test="${payList.size() != 0}">
 						<c:forEach var="payList" items="${payList}">
