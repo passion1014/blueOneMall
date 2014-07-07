@@ -538,7 +538,7 @@ public class OrderManageController {
 		
 		return "redirect:orderManagement.do?orderNo="+orderInfo.getOrderNo()+"&custId="+cust.getCustId();
 	}
-	@RequestMapping(value="/orderStateEdit.do", method= RequestMethod.GET)
+	@RequestMapping(value="/orderStateEdit.do")
 	public String orderStateEdit(@ModelAttribute("orderInfo") OrderInfo ordInfo,BindingResult result, Model model,HttpSession session,RedirectAttributes redirectAttributes) throws UnsupportedEncodingException {
 		
 		StringTokenizer st = new StringTokenizer(ordInfo.getOrd_unit_chk(), ",");
