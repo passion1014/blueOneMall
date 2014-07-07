@@ -25,6 +25,7 @@ public interface IOrderManageService {
 	public int getOrderTypTotalCount(OrderSrchInfo orderSrchInfo);
 	public int registPaymentInfo(PaymentInfo paymentInfo);
 	public List<PaymentInfo> selectPaymentInfo(PaymentInfo paymentInfo);
+	public List<OrderInfo> selectListBomOrderTbToExel0001(OrderInfo orderInfo);
 	
 	
 }

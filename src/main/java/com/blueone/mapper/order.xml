@@ -37,8 +37,13 @@
 		<id property="ordTransNo" column="ORDER_TRANSFER_NO" javaType="java.lang.String"/>
 		<id property="ordTranUrl" column="ORDER_TRANSFER_URL" javaType="java.lang.String"/>
 		<id property="ordPrd.prdNm" column="join_prdNm" javaType="java.lang.String"/>
+		<id property="ordPrd.prdCd" column="join_prdCd" javaType="java.lang.String"/>
+		<id property="ordPrd.prdOpColor" column="join_prdOpColor" javaType="java.lang.String"/>
+		<id property="ordPrd.buyCnt" column="join_buyCnt" javaType="int"/>
+		<id property="ordPrd.sellPrice" column="join_sellPrice" javaType="bigdecimal"/>
 		<id property="paymentInfo.payPrice" column="join_payPrice" javaType="bigdecimal"/>
 		<id property="paymentInfo.payMdCd" column="join_payMdCd" javaType="java.lang.String"/>
+		<id property="paymentInfo.payDate" column="join_payDate" javaType="java.lang.String"/>
 	
 		
 		<!-- 고객정보 셋팅 -->
@@ -48,12 +53,14 @@
 		<association property="customerInfo" column="custId" select="customer.selectDtlBomCustTb0002"></association>
 		
 		
-		<!-- 결제내역 셋팅 -->
-		<association property="paymentInfo" column="orderNo" select="order.selectListBomPaymentTb0001"></association>
+		
+		<!-- <association property="paymentInfo" column="orderNo" select="order.selectListBomPaymentTb0001"></association> -->
 		
 		<!-- 수취인 셋팅 -->
 		<association property="reciInfo" column="reciOdNum" select="recipient.selectListBomRecipientTb0001"></association>
 				
+	
+		
 	
 		<!-- 주문상품정보 셋팅 -->
 		<collection property="orderProductList" ofType="orderProductInfo" resultMap="OrdProductInfo"></collection>
@@ -64,7 +71,7 @@
 	<resultMap id="CustomerInfoMap" type="customerInfo">
 		<id property="custId" column="ordCustId" javaType="java.lang.String"/>
 	</resultMap>
-	
+	 
 
 	<resultMap id="OrdProductInfo" type="orderProductInfo">
 		<id property="orderNo" column="ORDER_NO" javaType="java.lang.String"/>
@@ -152,7 +159,70 @@
 		
 		 	
 	</select >
-	
+	<select id="selectListBomOrderTbToExel0001" resultType="orderInfo" resultMap="OrderInfoMap" parameterType="orderInfo">
+		SELECT
+			T1.IDX ,
+			T1.ORDER_NO ,
+			T1.CUST_ID AS custId ,
+			T1.ORDER_STAT_CD,
+			T1.ORDER_DATE ,
+			T1.REG_DATE ,
+			T1.LAST_DATE ,
+			T1.MODIFY_USER_ID,
+			T1.USER_POINT_INFO,
+			T1.ORDER_TRANSFER_NO,
+			T2.IDX AS payIdx,
+			T2.ORDER_NO ,
+			T2.ORDER_NO_SEQ AS payOrdNoSeq,
+			T2.PYMT_PAY_CD AS join_payMdCd,
+			T2.PYMT_AMOUNT AS join_payPrice,
+			T2.PYMT_DATE AS join_payDate,
+			T2.REG_DATE AS payRegDate,
+			T2.LAST_DATE AS payLastDate,
+			T2.MODIFY_USER_ID AS payModifyUserId,
+			T3.IDX AS pordIdx,
+			T3.ORDER_NO AS join_,
+			T3.PRD_CD , 
+			T3.PRD_OPTION AS join_prdOpColor,
+			T3.BUY_COUNT AS join_buyCnt,
+			T4.PRD_CD AS join_prdCd,
+			T4.PRD_NM AS join_prdNm,
+			T4.PRD_CTG_L AS join_prdCtgL,
+			T4.PRD_CTG_M AS join_prdCtgM,
+			T4.PRD_CTG_S AS join_prdCtgS,
+			T4.PRD_SELL_PRICE AS join_sellPrice,
+			T6.RECI_ORDER_NUM AS reciOdNum,
+			T6.RECI_NAME,
+			T6.RECI_PHONE,
+			T6.RECI_MOBILE,
+			T6.RECI_ADDRESS,
+			T6.RECI_REQUEST_MEMO
+			
+			
+		FROM 
+		 	BOM_ORD_PRD_TB T3	
+			LEFT OUTER JOIN 
+				BOM_PAYMENT_TB T2 ON T3.ORDER_NO = T2.ORDER_NO
+			JOIN 
+				BOM_ORDER_TB T1 ON T3.ORDER_NO = T1.ORDER_NO
+			JOIN 
+				BOM_PRODUCT_TB T4 ON T3.PRD_CD = T4.PRD_CD
+			<!-- JOIN 
+				BOM_PAYMENT_TB T5 ON T1.ORDER_NO = T5.ORDER_NO	 -->
+			JOIN 
+				BOM_RECIPIENT_TB T6 ON T3.ORDER_NO = T6.RECI_ORDER_NUM	
+		WHERE
+			(1 = 1)
+				<!-- <if test="srchStdDt != null and srchStdDt != '' and srchEdDt != null and srchEdDt != ''">AND T1.ORDER_DATE BETWEEN #{srchStdDt} AND #{srchEdDt} </if>
+				 --><if test="orderStatCd != null and orderStatCd != ''">AND T1.ORDER_STAT_CD= #{orderStatCd} </if>
+				<if test="customerInfo != null and customerInfo.custId != null and customerInfo.custId != ''"> AND T1.CUST_ID = #{customerInfo.custId}</if>
+				
+		ORDER BY T1.REG_DATE DESC		
+		
+		
+		 	
+	</select >
+		
 	
 	
 	<select id="selectListBomOrderPrdTb0001" resultType="orderProductInfo" resultMap="OrdProductInfo" parameterType="orderProductInfo">
@@ -256,7 +326,6 @@
 			T1.REG_DATE,
 			T1.LAST_DATE,
 			T1.MODIFY_USER_ID,
-			
 			T1.PYMT_MEMO
 			
 		FROM 

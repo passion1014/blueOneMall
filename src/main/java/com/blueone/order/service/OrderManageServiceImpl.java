@@ -73,7 +73,43 @@ public class OrderManageServiceImpl implements IOrderManageService{
 		
 		return orderList;
 	}
-	
+	@Override
+	public List<OrderInfo> selectListBomOrderTbToExel0001(OrderInfo orderInfo) {
+		List<OrderInfo> orderList;
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			
+			// 기간에 따른 주문목록 조회
+			orderList = sqlSession.selectList("order.selectListBomOrderTbToExel0001", orderInfo);
+			
+			/*
+			for (OrderInfo orderInfo : orderList) {
+				if (orderInfo.getCustomerInfo() != null ) {
+					CustomerSrchInfo srchInfo = new CustomerSrchInfo();
+					srchInfo.setCustId(orderInfo.getCustomerInfo().getCustId());
+					
+					// 고객정보 셋팅
+					CustomerInfo customerInfo = customerManageService.getCustomerInfo(srchInfo);
+					if (customerInfo != null) {
+						orderInfo.setCustomerInfo(customerInfo);
+
+						// 기본 주소정보 셋팅
+						List<CustomerContactInfo> contactList = customerInfo.getCustomerContactList();
+						if (contactList != null) {
+							orderInfo.setCustomerContactInfo(getDefaultContactInfo(contactList));
+						}
+					}
+				}
+				
+				
+			}*/
+		} finally {
+			sqlSession.close();
+		}
+		
+		return orderList;
+	}
 	@Override
 	public List<OrderInfo> getOrderInfoListBySchInfo(OrderSrchInfo orderSrchInfo) {
 		List<OrderInfo> orderList;

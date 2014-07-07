@@ -105,12 +105,12 @@ public class OrderManageController {
 		model.addAttribute("nowPage", page);
 	
 		model.addAttribute("endNum", pd.getEndPageNum());
-
+		model.addAttribute("orderStatCd","");
 		return "admin/order/orderList";
 	}
 	
 	@RequestMapping(value="/orderListToExel.do", method= RequestMethod.GET)
-	public String orderListToExel(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result, Model model,HttpSession session,String page,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+	public String orderListToExel(@ModelAttribute("AdminInfo") AdminInfo adminInfo, OrderInfo orderInfo,BindingResult result, Model model,HttpSession session,String page,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		 //------------------------------
 		 //엑셀파일 생성
 		 //------------------------------
@@ -215,15 +215,23 @@ public class OrderManageController {
 	           
 	            cell = row.createCell((short)18);
 	            cell.setCellStyle(style);
+	            cell.setCellValue("주문상태"); 
+	            
+	            cell = row.createCell((short)19);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("상품금액");   
+	            
+	            cell = row.createCell((short)20);
+	            cell.setCellStyle(style);
 	            cell.setCellValue("정산예정금액");   
 	            
 	            
 	           
 	            
-	            OrderInfo ord = new OrderInfo();
-	            ord.setReciInfo(new RecipientInfo());
+	            
+	            orderInfo.setReciInfo(new RecipientInfo());
 	
-	            List<OrderInfo> odList =orderManageService.getOrderInfoListByPeriod(ord);
+	            List<OrderInfo> odList =orderManageService.selectListBomOrderTbToExel0001(orderInfo);
 	            
 		        int i=1;
 	            for (OrderInfo each : odList){
@@ -262,7 +270,54 @@ public class OrderManageController {
 		            cell = row.createCell((short)7);
 		            cell.setCellValue(each.getReciInfo().getReciMb()); 
 		            
+		            //상품코드
+		            cell = row.createCell((short)8);
+		            cell.setCellValue(each.getOrdPrd().getPrdCd()); 
 		            
+		            //상품명
+		            cell = row.createCell((short)9);
+		            cell.setCellValue(each.getOrdPrd().getPrdNm()); 
+		            
+		            //옵션
+		            cell = row.createCell((short)10);
+		            if(each.getOrdPrd() != null && each.getOrdPrd().getPrdOpColor() !=null && !each.getOrdPrd().getPrdOpColor().isEmpty()) cell.setCellValue(each.getOrdPrd().getPrdOpColor().substring(3));
+		            else cell.setCellValue("");
+		            
+		            //수량
+		            cell = row.createCell((short)11);
+		            cell.setCellValue(each.getOrdPrd().getBuyCnt());
+		            
+		            //배송메세지
+		            cell = row.createCell((short)12);
+		            cell.setCellValue(each.getReciInfo().getReciReq());
+		            
+		            //입금일자
+		            cell = row.createCell((short)13);
+		            cell.setCellValue(each.getPaymentInfo().getPayDate());
+		            
+		            //발송일자
+		            cell = row.createCell((short)14);
+		            cell.setCellValue("");
+		            
+		            //송장번호
+		            cell = row.createCell((short)15);
+		            cell.setCellValue(each.getOrdTransNo());
+		            
+		            //결제방법
+		            cell = row.createCell((short)16);
+		            String payment="";
+		            if(each.getPaymentInfo().getPayMdCd()!=null && each.getPaymentInfo().getPayMdCd().equals("100000000000"))     payment="신용카드";
+		            else if(each.getPaymentInfo().getPayMdCd()!=null && each.getPaymentInfo().getPayMdCd().equals("010000000000"))payment="계좌이체";
+		            else if(each.getPaymentInfo().getPayMdCd()!=null && each.getPaymentInfo().getPayMdCd().equals("000100000000"))payment="복지카드";
+		            else if(each.getPaymentInfo().getPayMdCd()!=null && each.getPaymentInfo().getPayMdCd().equals("000000000001"))payment="포인트";
+		            cell.setCellValue(payment);   
+		            
+		            //택배사
+		            cell = row.createCell((short)17);
+		            cell.setCellValue("");
+		 
+		            //주문상태
+		            cell = row.createCell((short)18);
 		            String orderState = "";
 		            if(each.getOrderStatCd().equals("01"))orderState="신청대기";
 					else if(each.getOrderStatCd().equals("02"))orderState="주문완료";
@@ -275,30 +330,12 @@ public class OrderManageController {
 					else if(each.getOrderStatCd().equals("10"))orderState="반품신청완료";
 		            cell.setCellValue(orderState);  
 		            
-		            cell = row.createCell((short)3);
-		            
-		            cell.setCellValue(each.getCustomerInfo().getCustNm()); 
-		            
-		            cell = row.createCell((short)4);
-		           
-		            cell.setCellValue(each.getCustomerInfo().getCustId()); 
-		            
-		            cell = row.createCell((short)5);
-		           
-		            cell.setCellValue(each.getOrdPrd().getPrdNm());  
-		            
-		            cell = row.createCell((short)6);
-		           
-		            cell.setCellValue(each.getPaymentInfo().getPayPrice().toString());   
-		            
-		            cell = row.createCell((short)7);
-		            
-		            String payment="";
-		            if(each.getPaymentInfo().getPayMdCd()!=null && each.getPaymentInfo().getPayMdCd().equals("100000000000"))     payment="신용카드";
-		            else if(each.getPaymentInfo().getPayMdCd()!=null && each.getPaymentInfo().getPayMdCd().equals("010000000000"))payment="계좌이체";
-		            else if(each.getPaymentInfo().getPayMdCd()!=null && each.getPaymentInfo().getPayMdCd().equals("000100000000"))payment="복지카드";
-		            else if(each.getPaymentInfo().getPayMdCd()!=null && each.getPaymentInfo().getPayMdCd().equals("000000000001"))payment="포인트";
-		            cell.setCellValue(payment);   
+		            //상품금액
+		            cell = row.createCell((short)19);
+		            cell.setCellValue(each.getOrdPrd().getSellPrice().toString());
+		            //정산예정금액
+		            cell = row.createCell((short)20);
+		            cell.setCellValue(each.getPaymentInfo().getPayPrice().toString());
 		            
 		            i++;
 		        }
@@ -653,7 +690,7 @@ public class OrderManageController {
 		
 		
 		model.addAttribute("endNum",endNum);
-		
+		model.addAttribute("orderStatCd","01");
 		
 		return "admin/order/orderList";
 	}
@@ -696,7 +733,7 @@ public class OrderManageController {
 		
 		
 		model.addAttribute("endNum",endNum);
-		
+		model.addAttribute("orderStatCd","02");
 		
 		return "admin/order/orderList";
 	}
@@ -740,7 +777,7 @@ public class OrderManageController {
 		
 		model.addAttribute("endNum",endNum);
 	
-		
+		model.addAttribute("orderStatCd","04");
 		
 		return "admin/order/orderList";
 	}
@@ -782,7 +819,7 @@ public class OrderManageController {
 		
 		model.addAttribute("endNum",endNum);
 	
-
+		model.addAttribute("orderStatCd","03");
 		return "admin/order/orderList";
 	}
 	// 주문취소신청
@@ -822,7 +859,7 @@ public class OrderManageController {
 		
 		
 		model.addAttribute("endNum",endNum);
-
+		model.addAttribute("orderStatCd","07");
 
 		return "admin/order/orderList";
 	}
@@ -860,7 +897,7 @@ public class OrderManageController {
 			endNum=total/15+1;
 			}
 		
-		
+		model.addAttribute("orderStatCd","08");
 		model.addAttribute("endNum",endNum);
 
 
@@ -902,7 +939,7 @@ public class OrderManageController {
 		
 		
 		model.addAttribute("endNum",endNum);
-
+		model.addAttribute("orderStatCd","09");
 
 		return "admin/order/orderList";
 	}
@@ -941,7 +978,7 @@ public class OrderManageController {
 			endNum=total/15+1;
 			}
 		
-		
+		model.addAttribute("orderStatCd","10");
 		model.addAttribute("endNum",endNum);
 
 
