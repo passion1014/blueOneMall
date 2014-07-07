@@ -33,6 +33,47 @@ $(document).ready(function() {
 	});
 
 });
+function allChk(obj){
+    var chkObj = document.getElementsByName("ord_unit_chk");
+    var rowCnt = chkObj.length - 1;
+    var check = obj.checked;
+    
+    if (check) {﻿
+        for (var i=0; i<=rowCnt; i++){
+         if(chkObj[i].type == "checkbox")
+             chkObj[i].checked = true; 
+        }
+    } else {
+        for (var i=0; i<=rowCnt; i++) {
+         if(chkObj[i].type == "checkbox"){
+             chkObj[i].checked = false; 
+         }
+        }
+    }
+} 
+function list_Submit(){
+	msg = "선택하신 주문을 일괄 변경 하시겠습니까?" ;
+	
+	document.getElementById("ordListFrm").action = "orderStateEdit.do" ;
+	
+	var chk_num = document.ordListFrm.elements.length;
+	
+	for(var i = 0; i < chk_num; i++){
+		var checkbox_obj = eval("document.ordListFrm.elements["+i+"]");
+		if(checkbox_obj.checked == true)	break;
+	}
+
+	if(i == chk_num) {
+		alert("먼저 주문을 선택하여 주십시오");
+		return false;
+	} else {
+		if(confirm(msg)){
+			document.getElementById("ordListFrm").submit() ;
+			return false;
+		}
+	}
+
+}
 //-->
 </script>
 <body>
@@ -88,7 +129,7 @@ $(document).ready(function() {
 				
 	</c:choose>
 	</h1>
-	<form id="sfrm" name="sfrm" method="get" action="orderSearchList.do">
+	<form id="ordListFrm" name="ordListFrm" method="get" action="orderStateEdit.do">
 		<input type="hidden" id="slot" name="slot" value="member">
 		<input type="hidden" id="type" name="type" value="member_list">
 		<table>
@@ -116,7 +157,7 @@ $(document).ready(function() {
 						<input type="text" id="keyword" name="keyword" class="Text" value="${orderSrchInfo.keyword}">
 						<input type="submit" value="검색"   class="Small_Button Gray">&nbsp;&nbsp;
 						<input type="button" value="초기화" class="Small_Button Gray" onClick="">&nbsp;&nbsp;
-						<input type="button" value="엑셀로 만들기" class="Small_Button Gray" onClick="location.href='/admin/orderListToExel.do'">&nbsp;&nbsp;
+						<input type="button" value="엑셀로 만들기" class="Small_Button Gray" onClick="location.href='/admin/orderListToExel.do?orderStatCd=${orderStatCd}'">&nbsp;&nbsp;
 					</div>
 				</td>
 			</tr>
@@ -126,6 +167,7 @@ $(document).ready(function() {
 	
 	<table>
 		<colgroup>
+			<col width="5%" />
 			<col width="10%" />
 			<col width="10%" />
 			<col width="10%" />
@@ -133,6 +175,7 @@ $(document).ready(function() {
 			<col width="12%" />
 		</colgroup>
 		<tr>
+			<th><input type="checkbox" name="ord_multi_chk" onClick="allChk(this);" title="전체상품선택"/></th>
 			<th>주문일</th>
 			<th>주문번호</th>
 			<th>상태</th>
@@ -144,6 +187,9 @@ $(document).ready(function() {
 			<c:when test="${odList.size() != 0}">
 				<c:forEach items="${odList}" var="odList">
 					<tr>
+						<th>
+							<input type="checkbox" id="ord_unit_chk" name="ord_unit_chk"  value="${odList.orderNo}" title="상품선택"/>
+						</th>
 						<td>
 							${odList.orderDate.substring(0,10)}
 						</td>
@@ -171,11 +217,23 @@ $(document).ready(function() {
 						
 				</c:forEach>
 			</c:when>
-			<c:otherwise><tr><td colspan="5" height="100">주문이 없습니다.</td></tr></c:otherwise>
+			<c:otherwise><tr><td colspan="6" height="100">주문이 없습니다.</td></tr></c:otherwise>
 		</c:choose>
 	
 	</table>
-
+	주문상태 : <select name=orderStatCd>
+					<option value=01>신청대기</option>
+					<option value=02>결제완료</option>
+					<option value=07>취소신청</option>
+					<option value=08>취소완료</option>
+					<option value=03>배송준비</option>
+					<option value=04>배송중</option>
+					<option value=05>배송완료</option>
+					<option value=09>반품신청</option>
+					<option value=10>반품신청완료</option>
+			   </select>
+	<input type="button" value="일괄변경"class="Small_Button Gray"onClick="list_Submit();">
+	<div align="center" style="padding-top:10px;">
 	<div align="center" style="padding-top:10px;">
 		<c:forEach var="i" begin="1" end="${endNum}">
 			<c:if test="${orderSrchInfo == null}"><input type="button" value="${i}" onClick="javascript:location.href='${ordUrl}?page=${i}'"></c:if>			
@@ -184,10 +242,9 @@ $(document).ready(function() {
 			/></c:if>			
 		</c:forEach>
 	</div>
-	
-	
+		</form>
 </div>
-	
+
 
 </div>
 </body>
