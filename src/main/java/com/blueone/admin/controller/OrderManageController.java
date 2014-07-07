@@ -9,6 +9,7 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -986,32 +987,128 @@ public class OrderManageController {
 	}
 	// 월별 거래내역조회
 	@RequestMapping(value = "/monthTradeList.do", method = RequestMethod.GET)
-	public String monthTradeList(@ModelAttribute("AdminInfo") AdminInfo adminInfo,BindingResult result, Model model, HttpSession session) {
+	public String monthTradeList(@ModelAttribute("AdminInfo") AdminInfo adminInfo,BindingResult result,String page, Model model, HttpSession session) {
 		
-		 AdminInfo adminSession = (AdminInfo) session .getAttribute("adminSession");
-		  
-		  if (adminSession == null) { return "redirect:adminLogin.do"; }
+		AdminInfo adminSession = (AdminInfo) session .getAttribute("adminSession");
+		if (adminSession == null) { return "redirect:adminLogin.do"; }
 		 
-
+		OrderInfo os = new OrderInfo();
+		Calendar calendar = Calendar.getInstance();
+		String year = Integer.toString(calendar.get(Calendar.YEAR)); //년도를 구한다
+		String month = Integer.toString(calendar.get(Calendar.MONTH)); //월을 구한다
+		os.setSrchStdDt(year+"-"+month);
+		os.setSrchEdDt(year+"-"+month);
 		
-		model.addAttribute("sh", "month");
+		List<OrderInfo> odList =orderManageService.getOrderInfoListByPeriod(os);
+		PageDivision pd = new PageDivision();
+		
+		if (StringUtils.isEmpty(page)){
+			pd.pageNum("1");
+			page="1";
+		}	
+		else
+			pd.pageNum(page);
+		pd.setItemNum(20);
+		pd.setOrderInfoList(odList);
+		
+		List<OrderInfo> odResultList =  pd.getOrderInfoList();
+		
+		
+		//총 결제금액 계산 및 주문명
+		for(OrderInfo each : odResultList ){
+			OrderProductInfo ordPrd = new OrderProductInfo();
+			ordPrd.setOrderNo(each.getOrderNo());
+			List<OrderProductInfo> ordPrdList= orderManageService.selectOrderPrdInfo(ordPrd);
+			
+			BigDecimal total = new BigDecimal(0);
+			for(OrderProductInfo each1 : ordPrdList ){
+				if(each1!=null && each1.getSellPrice() != null)
+				total = total.add(each1.getSellPrice());
+			}
+			
+			each.setTotalOrderPrice(total);
+			
+			if(ordPrdList.size()>1) {
+				OrderProductInfo prd = new OrderProductInfo();
+				prd.setPrdNm(each.getOrdPrd().getPrdNm()+"외 "+(ordPrdList.size()-1));
+			}
+			
+		}
+		model.addAttribute("odList", odResultList);
+		model.addAttribute("nowPage", page);
+	
+		model.addAttribute("endNum", pd.getEndPageNum());
+		model.addAttribute("orderStatCd","");
+		  
 
-		return "admin/order/orderTrade";
+		 return "admin/order/orderMonthTrade";
 	}
+	
+	// 월별 거래내역조회
+	@RequestMapping(value = "/monthTradeSeachList.do", method = RequestMethod.GET)
+	public String monthTradeSeachList(@ModelAttribute("AdminInfo") AdminInfo adminInfo,OrderInfo os,BindingResult result,String page, Model model, HttpSession session) {
+		
+		AdminInfo adminSession = (AdminInfo) session .getAttribute("adminSession");
+		if (adminSession == null) { return "redirect:adminLogin.do"; }
+		 
+		
+		Calendar calendar = Calendar.getInstance();
+		String year = Integer.toString(calendar.get(Calendar.YEAR)); //년도를 구한다
+		String month = Integer.toString(calendar.get(Calendar.MONTH)); //월을 구한다
+		os.setSrchStdDt(year+"-"+month);
+		os.setSrchEdDt(year+"-"+month);
+		
+		List<OrderInfo> odList =orderManageService.getOrderInfoListByPeriod(os);
+		PageDivision pd = new PageDivision();
+		
+		if (StringUtils.isEmpty(page)){
+			pd.pageNum("1");
+			page="1";
+		}	
+		else
+			pd.pageNum(page);
+		pd.setItemNum(20);
+		pd.setOrderInfoList(odList);
+		
+		List<OrderInfo> odResultList =  pd.getOrderInfoList();
+		
+		
+		//총 결제금액 계산 및 주문명
+		for(OrderInfo each : odResultList ){
+			OrderProductInfo ordPrd = new OrderProductInfo();
+			ordPrd.setOrderNo(each.getOrderNo());
+			List<OrderProductInfo> ordPrdList= orderManageService.selectOrderPrdInfo(ordPrd);
+			
+			BigDecimal total = new BigDecimal(0);
+			for(OrderProductInfo each1 : ordPrdList ){
+				if(each1!=null && each1.getSellPrice() != null)
+				total = total.add(each1.getSellPrice());
+			}
+			
+			each.setTotalOrderPrice(total);
+			
+			if(ordPrdList.size()>1) {
+				OrderProductInfo prd = new OrderProductInfo();
+				prd.setPrdNm(each.getOrdPrd().getPrdNm()+"외 "+(ordPrdList.size()-1));
+			}
+			
+		}
+		model.addAttribute("odList", odResultList);
+		model.addAttribute("nowPage", page);
+		model.addAttribute("schOrdInfo", os);
+		model.addAttribute("endNum", pd.getEndPageNum());
+		model.addAttribute("orderStatCd","");
+		  
 
+		 return "admin/order/orderMonthTrade";
+	}
 	// 상품별 거래내역조회
 	@RequestMapping(value = "/productTradeList.do", method = RequestMethod.GET)
 	public String productTradeList(@ModelAttribute("AdminInfo") AdminInfo adminInfo,BindingResult result, Model model, HttpSession session) {
-		/*
-		 * AdminInfo adminSession = (AdminInfo) session
-		 * .getAttribute("adminSession");
-		 * 
-		 * if (adminSession == null) { return "redirect:adminLogin.do"; }
-		 */
+		AdminInfo adminSession = (AdminInfo) session .getAttribute("adminSession");
+		if (adminSession == null) { return "redirect:adminLogin.do"; }
 
-		
-		model.addAttribute("sh", "product");
-
+	
 		return "admin/order/orderTrade";
 	}
 

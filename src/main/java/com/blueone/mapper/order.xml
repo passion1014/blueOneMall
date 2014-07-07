@@ -44,6 +44,7 @@
 		<id property="paymentInfo.payPrice" column="join_payPrice" javaType="bigdecimal"/>
 		<id property="paymentInfo.payMdCd" column="join_payMdCd" javaType="java.lang.String"/>
 		<id property="paymentInfo.payDate" column="join_payDate" javaType="java.lang.String"/>
+		<id property="paymentInfo.payPoint" column="join_payPoint" javaType="int"/>
 	
 		
 		<!-- 고객정보 셋팅 -->
@@ -81,6 +82,7 @@
 		<id property="modiUser" column="MODIFY_USER_ID" javaType="java.lang.String"/>
 		<id property="prdOption" column="PRD_OPTION" javaType="java.lang.String"/>
 		<id property="buyCnt" column="BUY_COUNT" javaType="int"/>
+		<id property="sellPrice" column="join_sellPrice" javaType="bigdecimal"/>
 	</resultMap>
 
 	<resultMap id="PaymentInfoMap" type="paymentInfo">
@@ -114,6 +116,7 @@
 			T2.ORDER_NO_SEQ AS payOrdNoSeq,
 			T2.PYMT_PAY_CD AS join_payMdCd,
 			T2.PYMT_AMOUNT AS join_payPrice,
+			T2.PYMT_POINT AS join_payPoint,
 			T2.PYMT_DATE AS payDate,
 			T2.REG_DATE AS payRegDate,
 			T2.LAST_DATE AS payLastDate,
@@ -121,11 +124,11 @@
 			T3.IDX AS pordIdx,
 			T3.ORDER_NO AS pordOrdNo,
 			T3.PRD_CD , 
-			T4.PRD_CD AS prdCd,
+			T4.PRD_CD AS join_prdCd,
 			T4.PRD_NM AS join_prdNm,
 			T4.PRD_CTG_L AS prdCtgL,
 			T4.PRD_CTG_M AS prdCtgM,
-			T4.PRD_CTG_S AS prdCtgS,
+			T4.PRD_CTG_S AS prdCtgS, 
 			T4.FROM_DATE AS prdFromDate,
 			T4.TO_DATE AS prdToDate,
 			T6.RECI_ORDER_NUM AS reciOdNum,
@@ -153,9 +156,10 @@
 				<!-- <if test="srchStdDt != null and srchStdDt != '' and srchEdDt != null and srchEdDt != ''">AND T1.ORDER_DATE BETWEEN #{srchStdDt} AND #{srchEdDt} </if>
 				 --><if test="orderStatCd != null and orderStatCd != ''">AND T1.ORDER_STAT_CD= #{orderStatCd} </if>
 				<if test="customerInfo != null and customerInfo.custId != null and customerInfo.custId != ''"> AND T1.CUST_ID = #{customerInfo.custId}</if>
-				
+				<if test="srchStdDt != null and srchStdDt != '' and srchEdDt != null and srchEdDt != ''"> AND T1.REG_DATE BETWEEN  #{srchStdDt} AND #{srchEdDt}</if>
+		
 		ORDER BY T1.REG_DATE DESC		
-		<if test="startIdx>=0">LIMIT #{startIdx},15</if>   
+		
 		
 		 	
 	</select >
@@ -173,6 +177,7 @@
 			T1.ORDER_TRANSFER_NO,
 			T2.IDX AS payIdx,
 			T2.ORDER_NO ,
+			T2.PYMT_POINT AS join_payPoint,
 			T2.ORDER_NO_SEQ AS payOrdNoSeq,
 			T2.PYMT_PAY_CD AS join_payMdCd,
 			T2.PYMT_AMOUNT AS join_payPrice,
@@ -216,7 +221,6 @@
 				<!-- <if test="srchStdDt != null and srchStdDt != '' and srchEdDt != null and srchEdDt != ''">AND T1.ORDER_DATE BETWEEN #{srchStdDt} AND #{srchEdDt} </if>
 				 --><if test="orderStatCd != null and orderStatCd != ''">AND T1.ORDER_STAT_CD= #{orderStatCd} </if>
 				<if test="customerInfo != null and customerInfo.custId != null and customerInfo.custId != ''"> AND T1.CUST_ID = #{customerInfo.custId}</if>
-				
 		ORDER BY T1.REG_DATE DESC		
 		
 		
@@ -230,10 +234,12 @@
 			T1.ORDER_NO,
 			T1.PRD_CD,
 			T1.PRD_OPTION,
-			T1.BUY_COUNT
-			
+			T1.BUY_COUNT,
+			T2.PRD_SELL_PRICE AS join_sellPrice
 		FROM 
 				BOM_ORD_PRD_TB T1
+				LEFT OUTER JOIN 
+				BOM_PRODUCT_TB T2 ON T1.PRD_CD = T2.PRD_CD
 		WHERE
 			T1.ORDER_NO = #{orderNo}
 	</select >

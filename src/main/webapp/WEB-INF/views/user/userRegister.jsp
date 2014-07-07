@@ -240,7 +240,7 @@ function chk_mem_form(f){
 		</div>
 	</div>
 	<!--  container 끝   -->	
-
+</div>
 	<c:import url="../inc/footer.jsp"/>
 </body>
 </html>
