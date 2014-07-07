@@ -9,8 +9,11 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.StringTokenizer;
 import java.io.InputStream;
@@ -993,11 +996,12 @@ public class OrderManageController {
 		if (adminSession == null) { return "redirect:adminLogin.do"; }
 		 
 		OrderInfo os = new OrderInfo();
-		Calendar calendar = Calendar.getInstance();
-		String year = Integer.toString(calendar.get(Calendar.YEAR)); //년도를 구한다
-		String month = Integer.toString(calendar.get(Calendar.MONTH)); //월을 구한다
-		os.setSrchStdDt(year+"-"+month);
-		os.setSrchEdDt(year+"-"+month);
+		SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
+		Date currentTime = new Date ( );
+		String mTime = mSimpleDateFormat.format ( currentTime );
+		
+		os.setSrchStdDt(mTime.substring(0,7) +"-01");
+		os.setSrchEdDt(mTime);
 		
 		List<OrderInfo> odList =orderManageService.getOrderInfoListByPeriod(os);
 		PageDivision pd = new PageDivision();
@@ -1052,11 +1056,7 @@ public class OrderManageController {
 		if (adminSession == null) { return "redirect:adminLogin.do"; }
 		 
 		
-		Calendar calendar = Calendar.getInstance();
-		String year = Integer.toString(calendar.get(Calendar.YEAR)); //년도를 구한다
-		String month = Integer.toString(calendar.get(Calendar.MONTH)); //월을 구한다
-		os.setSrchStdDt(year+"-"+month);
-		os.setSrchEdDt(year+"-"+month);
+		
 		
 		List<OrderInfo> odList =orderManageService.getOrderInfoListByPeriod(os);
 		PageDivision pd = new PageDivision();
