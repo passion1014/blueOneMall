@@ -32,6 +32,7 @@ import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import com.blueone.common.domain.HMallProcAdjustmentInfo;
 import com.oreilly.servlet.Base64Decoder;
 import com.oreilly.servlet.Base64Encoder;
 
@@ -44,6 +45,10 @@ public class HMallInterworkUtility {
 	// SSO을 위해 호출할 웹서비스 도메인정보
 	private static final String URL = "https://giftdev.e-hyundai.com:1443/hb2efront_new/pointOpenAPI.do?";	// 개발서버
 	//private static final String URL = "https://gift.e-hyundai.com:1443/hb2efront_new/pointOpenAPI.do?";	// 운영서버 
+
+	// 정산을 위해 호출할 웹서비스 도메인정보
+	private static final String ADJUSTMENT_URL = "https://giftdev.e-hyundai.com:1443/hb2efront_new/pointOpenAPIMagam.do?";	// 개발서버
+	//private static final String ADJUSTMENT_URL = "https://gift.e-hyundai.com:1443/hb2efront_new/pointOpenAPIMagam.do?";	// 운영서버 
 
 	/**
 	 * 포인트 사용시 호출하는 함수
@@ -189,6 +194,56 @@ public class HMallInterworkUtility {
 		return rstMap;
 	}
 	
+	/**
+	 * 정산처리
+	 * @return
+	 */
+	public static Map<String, String> procAdjustment(HMallProcAdjustmentInfo info) throws Exception {
+		// --------------------------------------------
+		// 호출할 URL을 만든다.
+		//  - 안에 들어가는 모든 변수는 암호화된 정보여야 한다.
+		// --------------------------------------------
+		StringBuilder sBuilder = new StringBuilder();
+		sBuilder.append(ADJUSTMENT_URL);
+		sBuilder.append("ORDER_NO=").append(convertEnc(info.getOrderNo()));			// 주문번호(17자리)
+		sBuilder.append("&ITEM_CD=").append(convertEnc(info.getItemCd()));			// 상품번호(8자리)
+		sBuilder.append("&ORDER_GB=").append(convertEnc(info.getOrderGb()));		// 주문구분(10:사용, 20:취소)
+		sBuilder.append("&ORDER_DM=").append(convertEnc(info.getOrderDm()));		// 주문일자(고객사와 데이터 정합성을 맞추기 위한 값(yyyyMMdd) 8자리)
+		sBuilder.append("&SHOP_NO=").append(convertEnc(info.getShopNo()));			// 상점번호
+		sBuilder.append("&SHOPEVENT_NO=").append(convertEnc(info.getShopEventNo()));// 행사번호
+		sBuilder.append("&MEM_NO=").append(convertEnc(info.getMemNo()));			// 고객번호
+		sBuilder.append("&TAX_GB=").append(convertEnc(info.getTaxGb()));			// 과세여부(1:과세, 2:비과세)
+		sBuilder.append("&SALEPRICE=").append(convertEnc(info.getSalePrice()));		// 판매금액
+		sBuilder.append("&POINT_AMT=").append(convertEnc(info.getPointAmt()));		// 기본금
+		sBuilder.append("&ETC_AMT=").append(convertEnc(info.getEtcAmt()));			// 기타결제
+		sBuilder.append("&MEDIA_CD=").append(MEDIA_CD);								// 매체구분
+		
+		sBuilder.append("&DELI_AMT=").append(convertEnc(info.getDeliAmt()));		// 배송비
+		sBuilder.append("&ITEM_NM=").append(convertEnc(info.getItemNm()));			// 상품명
+		sBuilder.append("&ITEM_PRICE=").append(convertEnc(info.getItemPrice()));	// 단품가격
+		sBuilder.append("&ORDER_QTY=").append(convertEnc(info.getOrderQty()));		// 주문수량
+		sBuilder.append("&DC_PRICE=").append(convertEnc(info.getDcPrice()));		// 할인금액
+		
+		// --------------------------------------------
+		// SSO처리를 위한 웹서비스 호출
+		// --------------------------------------------
+		String rstXml = "";					// 웹서비스 호출 결과
+		Map<String, String> rstMap = null;	// XML을 파싱하여 필요한 데이터를 추출한 맵정보
+		try {
+			rstXml = invokeRemote(sBuilder.toString());
+			rstMap = parsingXML(rstXml);
+			
+		} catch (Exception e) {
+			return null;
+			
+		} finally {
+			System.out.println("[정산 서비스 URL] = " + sBuilder.toString());
+			System.out.println("[호출결과] = " + rstXml);
+		}
+		
+		return rstMap;
+	}
+	
 	public static String makeInvokeUrl(String encMemNm, String encMemNo, String encShopEventNo, String encProcCd, String encPoint, String encOrderNo) {
 		// --------------------------------------------
 		// 호출할 URL을 만든다.
@@ -295,6 +350,8 @@ public class HMallInterworkUtility {
 	 * @throws IOException
 	 */
 	public static String convertEnc(String str) throws IOException {
+		if (StringUtils.isEmpty(str)) return "";
+		
 		String rtn = HCDESUtil.encoding(Base64Encoder.encode(str.getBytes(ENC_TYPE)), HCDES_KEY);
 		return rtn;
 	}
