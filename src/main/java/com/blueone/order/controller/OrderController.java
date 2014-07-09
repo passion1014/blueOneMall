@@ -1005,7 +1005,6 @@ CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");
 				}
 				if ("02".equals(s.substring(0, 2))) {
 					option += URLDecoder.decode(s, "UTF-8") + ",";
-					
 					odPrdInfo.setPrdOpSize(URLDecoder.decode(s.substring(3), "UTF-8"));
 				}
 				if("no".equals(s.substring(0, 2))){

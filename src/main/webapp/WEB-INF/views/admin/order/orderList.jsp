@@ -8,7 +8,7 @@ function SetPriceInput(str)
 {
 	str=str.replace(/,/g,'');
 	var retValue = "";
-	for(i=1; i<=str.length; i++)
+	for(var i=1; i<=str.length; i++)
 	{
 		if(i > 1 && (i%3)==1) 
 			  retValue = str.charAt(str.length - i) + "," + retValue;
@@ -33,6 +33,7 @@ $(document).ready(function() {
 	});
 
 });
+
 function allChk(obj){
     var chkObj = document.getElementsByName("ord_unit_chk");
     var rowCnt = chkObj.length - 1;
@@ -40,8 +41,9 @@ function allChk(obj){
     
     if (check) {﻿
         for (var i=0; i<=rowCnt; i++){
-         if(chkObj[i].type == "checkbox")
+         if(chkObj[i].type == "checkbox"){
              chkObj[i].checked = true; 
+         }
         }
     } else {
         for (var i=0; i<=rowCnt; i++) {
@@ -74,6 +76,7 @@ function list_Submit(){
 	}
 
 }
+
 //-->
 </script>
 <body>
@@ -162,8 +165,7 @@ function list_Submit(){
 				</td>
 			</tr>
 		</table>
-		</form>    
-	    
+		
 	
 	<table>
 		<colgroup>
@@ -233,7 +235,7 @@ function list_Submit(){
 					<option value=10>반품신청완료</option>
 			   </select>
 	<input type="button" value="일괄변경"class="Small_Button Gray"onClick="list_Submit();">
-	<div align="center" style="padding-top:10px;">
+	
 	<div align="center" style="padding-top:10px;">
 		<c:forEach var="i" begin="1" end="${endNum}">
 			<c:if test="${orderSrchInfo == null}"><input type="button" value="${i}" onClick="javascript:location.href='${ordUrl}?page=${i}'"></c:if>			
@@ -242,9 +244,15 @@ function list_Submit(){
 			/></c:if>			
 		</c:forEach>
 	</div>
-		</form>
+</form>
 </div>
 
+	<div align="right" style="padding-top:10px;">
+	<form name="exelFrm" method="post" enctype="multipart/form-data" action="exelUpload.do">
+		엑셀 파일 : <input type="file" id="main1Up" name="main1Up" >&nbsp;&nbsp;
+		<input type="submit" value="엑셀 파일 올리기" class="Small_Button Gray" >&nbsp;&nbsp;
+	</form>
+	</div>	
 
 </div>
 </body>

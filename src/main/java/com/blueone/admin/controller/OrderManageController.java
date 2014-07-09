@@ -36,13 +36,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.blueone.admin.domain.AdImgInfo;
 import com.blueone.admin.domain.AdminInfo;
 import com.blueone.admin.domain.ConfigInfo;
 import com.blueone.admin.service.IAdminManageService;
@@ -50,6 +54,7 @@ import com.blueone.admin.service.IOrderService;
 import com.blueone.common.domain.AttachFileInfo;
 import com.blueone.common.service.IAttachFileManageService;
 import com.blueone.common.util.DateUtil;
+import com.blueone.common.util.FileUploadUtility;
 import com.blueone.common.util.HMallInterworkUtility;
 import com.blueone.common.util.PageDivision;
 import com.blueone.customer.domain.CustomerInfo;
@@ -284,7 +289,12 @@ public class OrderManageController {
 		            
 		            //옵션
 		            cell = row.createCell((short)10);
-		            if(each.getOrdPrd() != null && each.getOrdPrd().getPrdOpColor() !=null && !each.getOrdPrd().getPrdOpColor().isEmpty()) cell.setCellValue(each.getOrdPrd().getPrdOpColor().substring(3));
+		            if(each.getOrdPrd() != null && each.getOrdPrd().getPrdOpColor() !=null && !each.getOrdPrd().getPrdOpColor().isEmpty()) {
+		            	String option = each.getOrdPrd().getPrdOpColor();
+		            	option.replaceAll("01=", "색상:");
+		            	option.replaceAll("02=", "크기:");
+		            	cell.setCellValue(option);
+		            }
 		            else cell.setCellValue("");
 		            
 		            //수량
@@ -1104,16 +1114,101 @@ public class OrderManageController {
 	}
 	// 상품별 거래내역조회
 	@RequestMapping(value = "/productTradeList.do", method = RequestMethod.GET)
-	public String productTradeList(@ModelAttribute("AdminInfo") AdminInfo adminInfo,BindingResult result, Model model, HttpSession session) {
+	public String productTradeList(@ModelAttribute("AdminInfo") AdminInfo adminInfo,String page,BindingResult result, Model model, HttpSession session) {
 		AdminInfo adminSession = (AdminInfo) session .getAttribute("adminSession");
 		if (adminSession == null) { return "redirect:adminLogin.do"; }
+		 
+		OrderInfo os = new OrderInfo();
+		os.setReciInfo(new RecipientInfo());
+		
+		List<OrderInfo> odList =orderManageService.selectListBomOrderTbToExel0001(os);
+		PageDivision pd = new PageDivision();
+		
+		if (StringUtils.isEmpty(page)){
+			pd.pageNum("1");
+			page="1";
+		}	
+		else
+			pd.pageNum(page);
+		pd.setItemNum(20);
+		pd.setOrderInfoList(odList);
+	
+		
+		model.addAttribute("odList", pd.getOrderInfoList());
+		model.addAttribute("nowPage", page);
+	
+		model.addAttribute("endNum", pd.getEndPageNum());
+		model.addAttribute("orderStatCd","");
+		  
 
 	
-		return "admin/order/orderTrade";
+		return "admin/order/orderProductTrade";
 	}
 
-			
+	//상품별 거래내역 주문검색
+	@RequestMapping(value="/orderSearchProdcutList.do", method= RequestMethod.GET)
+	public String orderSearchProdcutList(@ModelAttribute("AdminInfo") AdminInfo adminInfo,OrderSrchInfo orderInfo, String page,BindingResult result, Model model,HttpSession session){
+
+		AdminInfo adminSession = (AdminInfo) session.getAttribute("adminSession");
+
+		if (adminSession == null) {
+			return "redirect:adminLogin.do";
+		}
+
 		
+		if (StringUtils.isEmpty(page))
+			{page="1";orderInfo.setStartIdx(Integer.parseInt(page));}
+		else 
+			orderInfo.setStartIdx(Integer.parseInt(page));
+		
+		
+		List<OrderInfo> odList =orderManageService.getOrderInfoListBySchInfo2(orderInfo);
+		
+		PageDivision pd = new PageDivision();
+		
+		if (StringUtils.isEmpty(page)){
+			pd.pageNum("1");
+			page="1";
+		}	
+		else
+			pd.pageNum(page);
+		pd.setItemNum(10);
+		pd.setOrderInfoList(odList);
+		
+		
+		model.addAttribute("odList",pd.getOrderInfoList());
+		model.addAttribute("nowPage", page);
+	
+		model.addAttribute("endNum", pd.getEndPageNum());
+		model.addAttribute("orderSrchInfo", orderInfo);
+		return "admin/order/orderProductTrade";
+	}
+	/**
+	 * 엑셀파일 등록 처리
+	 * 
+	 * @throws IOException
+	 * @throws FileNotFoundException
+	 */
+	@RequestMapping(value = "/exelUpload.do")
+	public String exelUpload(BindingResult result, Model model,@ModelAttribute("adImgInfo") AdImgInfo adImgInfo){
+		System.out.println("===========================");
+		System.out.println("입장");
+		System.out.println("===========================");
+		
+		try {
+			if(adImgInfo.getMain1Up() != null && !adImgInfo.getMain1Up().isEmpty()) {
+			AttachFileInfo contImg = FileUploadUtility.doFileUpload(7, adImgInfo.getMain1Up(), false);
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return "redirect:/orderList.do";
+	}
 	public static void download(HttpServletRequest request, HttpServletResponse response, InputStream is,
 		      String filename, long filesize, String mimetype) throws ServletException, IOException {
 		    String mime = mimetype;

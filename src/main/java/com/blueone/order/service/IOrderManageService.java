@@ -26,6 +26,7 @@ public interface IOrderManageService {
 	public int registPaymentInfo(PaymentInfo paymentInfo);
 	public List<PaymentInfo> selectPaymentInfo(PaymentInfo paymentInfo);
 	public List<OrderInfo> selectListBomOrderTbToExel0001(OrderInfo orderInfo);
+	public List<OrderInfo> getOrderInfoListBySchInfo2(OrderSrchInfo orderSrchInfo);
 	
 	
 }
