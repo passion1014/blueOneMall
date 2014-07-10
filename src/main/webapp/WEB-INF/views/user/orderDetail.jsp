@@ -197,7 +197,11 @@ function SetPriceInput(str)
 					</div>
 					<div class="complet_box">
 						<c:if test="${odInfo.orderStatCd eq '01' or odInfo.orderStatCd eq '03'}"><a href="orderCancel.do?orderNo=${odInfo.orderNo}&" class="btn_success">주문취소</a></c:if>
-						<c:if test="${odInfo.orderStatCd eq '04'}"><a href="orderTakeBack.do?orderNo=${odInfo.orderNo}" class="btn_continue">반품신청</a></c:if>
+						<c:if test="${odInfo.orderStatCd eq '04'}">
+							<a href="orderTakeBack.do?orderNo=${odInfo.orderNo}" class="btn_continue">반품신청</a>
+							<a href="orderComplete.do?orderNo=${odInfo.orderNo}" class="btn_continue">구매확정</a>
+						</c:if>
+						
 					</div>
 				</div>
 			</form>

@@ -299,8 +299,8 @@ public class OrderManageController {
 		            cell = row.createCell((short)10);
 		            if(each.getOrdPrd() != null && each.getOrdPrd().getPrdOpColor() !=null && !each.getOrdPrd().getPrdOpColor().isEmpty()) {
 		            	String option = each.getOrdPrd().getPrdOpColor();
-		            	option.replaceAll("01=", "색상:");
-		            	option.replaceAll("02=", "크기:");
+		            	option = option.replaceAll("01=", "색상:");
+		            	option = option.replaceAll("02=", "크기:");
 		            	cell.setCellValue(option);
 		            }
 		            else cell.setCellValue("");
@@ -503,10 +503,12 @@ public class OrderManageController {
 		if(orderInfo.getOrderStatCd().equals("08") || orderInfo.getOrderStatCd().equals("10")){
 			List<OrderInfo> odList = orderService.selectOrderInfoList(orderInfo);
 			String pointInfo= odList.get(0).getUserPointInfo();
+			
 			if(pointInfo==null ||  StringUtils.isEmpty(pointInfo) || pointInfo.isEmpty() ){
 				redirectAttributes.addFlashAttribute("orderSucess", "yes");
 				return "redirect:orderManagement.do?orderNo="+orderInfo.getOrderNo()+"&custId="+cust.getCustId();
 			}
+			
 			String[] point = pointInfo.split("_");
 			String decMemNm = point[0];
 			String decMemNo = point[1];

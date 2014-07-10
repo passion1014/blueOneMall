@@ -34,9 +34,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.blueone.admin.domain.ConfigInfo;
 import com.blueone.admin.service.IAdminManageService;
 import com.blueone.common.domain.AttachFileInfo;
+import com.blueone.common.domain.HMallProcAdjustmentInfo;
 import com.blueone.common.service.IAttachFileManageService;
 import com.blueone.common.util.CookieBox;
 import com.blueone.common.util.CookieUtil;
+import com.blueone.common.util.DateUtil;
 import com.blueone.common.util.HMallInterworkUtility;
 import com.blueone.customer.domain.CustomerContactInfo;
 import com.blueone.customer.domain.CustomerInfo;
@@ -828,9 +830,10 @@ CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");
 		ConfigInfo resConfigInfo = adminManageService.selectConfigInf();
 		
 		model.addAttribute("config", resConfigInfo);
-		
+		String deliAmt="0";
 		if(total1.intValue()<=resConfigInfo.getBuyPrice()){
 			total1=total1.add(new BigDecimal(resConfigInfo.getTrasferPrice()));
+			deliAmt=Integer.toString(resConfigInfo.getTrasferPrice());
 		}
 		
 		//pay
@@ -843,7 +846,7 @@ CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");
 		payment.setModifyUserId(cus.getCustId());
 		
 		int usePoint =0;
-		orderInfo.setUserPointInfo("");
+		orderInfo.setUserPointInfo((String)session.getAttribute("shopNo"));
 		//포인트 결제
 		if(!good_mny.equals(total1.toString())){
 			String decMemNm = cus.getCustNm();
@@ -852,7 +855,8 @@ CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");
 			usePoint = total1.intValue()-Integer.parseInt(good_mny);
 			String decPoint = Integer.toString(usePoint);
 			String decOrderNo = odNo;
-			orderInfo.setUserPointInfo(decMemNm+"_"+decMemNo+"_"+decShopEventNo+"_"+decPoint);
+			orderInfo.setUserPointInfo(decMemNm+"_"+decMemNo+"_"+decShopEventNo+"_"+decPoint+"_"+(String)session.getAttribute("shopNo"));
+			
 			// --------------------------------------------
 			// 2. SSO泥섎━瑜??꾪븳 ?뱀꽌鍮꾩뒪 ?몄텧
 			// --------------------------------------------
@@ -923,6 +927,9 @@ CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");
 		
 		
 		model.addAttribute("config", resConfigInfo);
+		
+		
+			
 	
 		return "order/orderComplete";
 	}
@@ -1082,7 +1089,7 @@ CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");
 		String decShopEventNo = (String)session.getAttribute("shopEventNo");
 		String decPoint = total1.toString();
 		String decOrderNo = odNo;
-		orderInfo.setUserPointInfo(decMemNm+"_"+decMemNo+"_"+decShopEventNo+"_"+decPoint);
+		orderInfo.setUserPointInfo(decMemNm+"_"+decMemNo+"_"+decShopEventNo+"_"+decPoint+"_"+(String)session.getAttribute("shopNo"));
 		// --------------------------------------------
 		// 2. SSO泥섎━瑜??꾪븳 ?뱀꽌鍮꾩뒪 ?몄텧
 		// --------------------------------------------

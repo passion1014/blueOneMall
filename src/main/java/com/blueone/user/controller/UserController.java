@@ -45,8 +45,10 @@ import com.blueone.admin.service.IAdminManageService;
 import com.blueone.board.domain.FaqInfo;
 import com.blueone.board.service.IBoardService;
 import com.blueone.common.domain.AttachFileInfo;
+import com.blueone.common.domain.HMallProcAdjustmentInfo;
 import com.blueone.common.domain.SearchAddress;
 import com.blueone.common.service.IAttachFileManageService;
+import com.blueone.common.util.DateUtil;
 import com.blueone.common.util.HMallInterworkUtility;
 import com.blueone.common.util.PageDivision;
 import com.blueone.common.util.Utility;
@@ -55,6 +57,7 @@ import com.blueone.customer.domain.RecipientInfo;
 import com.blueone.customer.service.ICustomerManageService;
 import com.blueone.order.domain.OrderInfo;
 import com.blueone.order.domain.OrderProductInfo;
+import com.blueone.order.domain.OrderSrchInfo;
 import com.blueone.order.domain.PaymentInfo;
 import com.blueone.order.service.IOrderManageService;
 import com.blueone.product.domain.ProductInfo;
@@ -720,7 +723,78 @@ public class UserController {
 		return "user/orderDetail";
 	}
 
+	//諛섑뭹�떊泥�
+	@RequestMapping(value="/user/orderComplete.do", method=RequestMethod.GET)
+	public String orderComplete(@ModelAttribute("orderInfo") OrderInfo orderInfo,BindingResult result, Model model,HttpSession session) throws Exception {
+		
+		
+		CustomerInfo cust = (CustomerInfo) session.getAttribute("customerSession");
+
+		// 세션체크
+		if (cust == null) {
+			return "user/errorPage";
+		}
+		model.addAttribute("CUST_NAME", cust.getCustNm());
+		String customerPoint = (String)session.getAttribute("customerPoint");
+		model.addAttribute("CUST_POINT", customerPoint);
+		
+		orderInfo.setCustomerInfo(cust);
+		orderInfo.setOrderStatCd("05");
+		
+		orderService.updateOrderInf(orderInfo);
+		
+		
+		List<OrderInfo> orderList = orderService.selectListBomOrderTbToExel0001(orderInfo);
+		
+		for(OrderInfo each : orderList){
+			Map<String, String> rstMap = null;
+			try {
+				// --------------------------------------------
+				// 1. 정산 처리 
+				// --------------------------------------------
+				HMallProcAdjustmentInfo adjustment = new HMallProcAdjustmentInfo();
+				adjustment.setOrderNo(orderInfo.getOrderNo());
+				adjustment.setItemCd(each.getOrdPrd().getPrdCd());
+				adjustment.setOrderGb("10");
+				adjustment.setOrderDm(DateUtil.getDate("yyyyMMdd"));
+				adjustment.setShopNo((String)session.getAttribute("shopNo"));
+				adjustment.setShopEventNo((String)session.getAttribute("shopEventNo"));
+				adjustment.setMemNo(cust.getCustId());
+				adjustment.setTaxGb("1");
+				adjustment.setSalePrice(each.getOrdPrd().getSellPrice().multiply(new BigDecimal(each.getOrdPrd().getBuyCnt())).toString());
+				adjustment.setPointAmt(Integer.toString(each.getPaymentInfo().getPayPoint()));
+				adjustment.setEtcAmt(each.getPaymentInfo().getPayPrice().toString());
+				adjustment.setDeliAmt("0");
+				String option = each.getOrdPrd().getPrdOpColor();
+	        	adjustment.setItemNm(each.getOrdPrd().getPrdNm()+option.substring(3, option.indexOf(",")));
+	        	adjustment.setItemPrice(each.getOrdPrd().getSellPrice().toString());
+	        	adjustment.setOrderQty(Integer.toString(each.getOrdPrd().getBuyCnt()));
+	        	adjustment.setDcPrice("0");
+	        	
+	        	rstMap = HMallInterworkUtility.procAdjustment(adjustment);
+			} catch (Exception e) {
+				model.addAttribute("msg", "정산 처리시 에러발생하였습니다.");
+				return "user/loginError";
+			}
+			
+			// --------------------------------------------
+			// 3. 체크 - SSO처리 결과를 확인한다.
+			// --------------------------------------------
+			if (rstMap == null) {
+				model.addAttribute("msg", "SSO처리 결과가 없습니다.(1)");
+				return "user/loginError";
+			} else {
+				String returnCode = (String)rstMap.get("return_code");
+				
+				if (!"000".equals(returnCode)) {
+					model.addAttribute("msg", HMallInterworkUtility.getErrorMsgByCode(returnCode));
+				}
+			}
+		}
 	
+		return "redirect:orderListView.do";
+	}
+		
 	
 
 	public CustomerInfo useStringToken(String st, String Type,CustomerInfo cus ){
