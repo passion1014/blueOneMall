@@ -249,8 +249,8 @@ function list_Submit(){
 
 	<div align="right" style="padding-top:10px;">
 	<form name="exelFrm" method="post" enctype="multipart/form-data" action="exelUpload.do">
-		엑셀 파일 : <input type="file" id="main1Up" name="main1Up" >&nbsp;&nbsp;
-		<input type="submit" value="엑셀 파일 올리기" class="Small_Button Gray" >&nbsp;&nbsp;
+		엑셀 파일 선택: <input type="file" id="exelFile" name="exelFile" />&nbsp;&nbsp;
+		<input type="submit" value="엑셀 파일 올리기" class="Small_Button Gray" />&nbsp;&nbsp;
 	</form>
 	</div>	
 

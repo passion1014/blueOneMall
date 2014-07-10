@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.StringTokenizer;
+import java.util.Vector;
 import java.io.InputStream;
 
 import javax.servlet.ServletException;
@@ -25,6 +26,8 @@ import javax.servlet.http.HttpSession;
 
 import java.io.FileInputStream;
 
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.commons.lang.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
@@ -69,6 +72,11 @@ import com.blueone.product.domain.ProductInfo;
 import com.blueone.product.service.IProductManageService;
 
 import java.io.File;
+
+import jxl.Cell;
+import jxl.Sheet;
+import jxl.Workbook;
+import jxl.read.biff.BiffException;
 
 @Controller
 @RequestMapping(value = "/admin")
@@ -1185,20 +1193,59 @@ public class OrderManageController {
 	}
 	/**
 	 * 엑셀파일 등록 처리
+	 * @throws BiffException 
 	 * 
 	 * @throws IOException
 	 * @throws FileNotFoundException
 	 */
-	@RequestMapping(value = "/exelUpload.do")
-	public String exelUpload(BindingResult result, Model model,@ModelAttribute("adImgInfo") AdImgInfo adImgInfo){
-		System.out.println("===========================");
-		System.out.println("입장");
-		System.out.println("===========================");
-		
+	@RequestMapping(value="/exelUpload.do")
+	public String exelUpload(Model model,HttpSession session, MultipartFile exelFile) throws BiffException{
 		try {
-			if(adImgInfo.getMain1Up() != null && !adImgInfo.getMain1Up().isEmpty()) {
-			AttachFileInfo contImg = FileUploadUtility.doFileUpload(7, adImgInfo.getMain1Up(), false);
+			
+			//엑셀파일 업로드
+			AttachFileInfo contImg = new AttachFileInfo();
+			if(exelFile != null && !exelFile.isEmpty()) {
+				contImg = FileUploadUtility.doFileUpload(7,exelFile, false);
 			}
+			
+			//엑셀파일 읽기
+			File file = new File("D:/upload/"+contImg.getAttSaveFileNm());
+			//File file = new File("/home/hosting_users/blueonestore/tomcat/webapps/ROOT/resources/upload/"+contImg.getAttSaveFileNm());
+			
+			Workbook workBook = Workbook.getWorkbook(file);
+			
+			Sheet sheet = workBook.getSheet(0);
+			
+			for(int i=1; i<sheet.getRows(); i++) {// 행 구분
+				
+				Cell cell1 = null;
+				Cell cell2 = null;
+				String transferNo = new String();
+				String transfer = new String();
+				
+				if((Cell) sheet.getCell(15,i) != null){
+					cell1 = (Cell) sheet.getCell(15,i);
+					transferNo = cell1.getContents();
+				}
+				
+				if((Cell) sheet.getCell(17,i) != null){
+					cell2 = (Cell) sheet.getCell(17,i);
+					transfer   = cell2.getContents();
+					
+				}
+				
+				OrderInfo upOrdInfo = new OrderInfo();
+				upOrdInfo.setCustomerInfo(new CustomerInfo());
+				upOrdInfo.setOrderNo(sheet.getCell(0,i).getContents());
+				upOrdInfo.setOrdTransNo(transferNo);
+				upOrdInfo.setOrdTrans(transfer);
+				orderService.updateOrderInf(upOrdInfo);
+				
+				
+			}
+			
+			file.delete();
+	        
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1207,7 +1254,12 @@ public class OrderManageController {
 			e.printStackTrace();
 		}
 		
-		return "redirect:/orderList.do";
+		//------------------------------
+		 //파일 삭제
+		 //------------------------------
+		 
+		
+		return "redirect:/admin/orderList.do";
 	}
 	public static void download(HttpServletRequest request, HttpServletResponse response, InputStream is,
 		      String filename, long filesize, String mimetype) throws ServletException, IOException {

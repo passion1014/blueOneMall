@@ -31,7 +31,7 @@ public class OrderInfo {
 	private String modifyUserId;// 최종수정자
 	private String prdCD;
 	private String ordTransNo;
-	private String ordTranUrl;
+	private String ordTrans;
 	
 	private String ord_unit_chk; //다중 checkbox
 
@@ -51,11 +51,12 @@ public class OrderInfo {
 	public void setOrdTransNo(String ordTransNo) {
 		this.ordTransNo = ordTransNo;
 	}
-	public String getOrdTranUrl() {
-		return ordTranUrl;
+	
+	public String getOrdTrans() {
+		return ordTrans;
 	}
-	public void setOrdTranUrl(String ordTranUrl) {
-		this.ordTranUrl = ordTranUrl;
+	public void setOrdTrans(String ordTrans) {
+		this.ordTrans = ordTrans;
 	}
 	public String getUserPointInfo() {
 		return userPointInfo;
