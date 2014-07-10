@@ -42,6 +42,7 @@ import org.xml.sax.SAXException;
 
 import com.blueone.admin.domain.AgreementInfo;
 import com.blueone.admin.service.IAdminManageService;
+import com.blueone.common.domain.HMallProcAdjustmentInfo;
 import com.blueone.common.util.HMallInterworkUtility;
 import com.blueone.customer.domain.CustomerInfo;
 import com.blueone.customer.domain.CustomerSrchInfo;
@@ -126,9 +127,9 @@ public class LoginController {
 		// --------------------------------------------
 		String decMemNo = HMallInterworkUtility.convertDec(encMemNo);
 		String decMemNm = HMallInterworkUtility.convertDec(encMemNm);
-//		String decShopNo = HMallInterworkUtility.convert(encShopNo);
+		String decShopNo = HMallInterworkUtility.convertDec(encShopNo);
 		String decShopEventNo = HMallInterworkUtility.convertDec(encShopEventNo);
-//\		String decEntrNo = HMallInterworkUtility.convert(encEntrNo);
+//		String decEntrNo = HMallInterworkUtility.convert(encEntrNo);
 //		String decProcCd = HMallInterworkUtility.convert(encProcCd);
 		
 		
@@ -142,8 +143,9 @@ public class LoginController {
 		CustomerInfo result = customerManageService.getCustomerInfo2(cust);
 		
 		if(result!=null){
-			// 포인트 연동을 위한 이벤트번호 세션에 함께 셋팅한다.
+			// 포인트 연동을 위한 이벤트번호, 상점번호 세션에 함께 셋팅한다.
 			session.setAttribute("shopEventNo", decShopEventNo);
+			session.setAttribute("shopNo", decShopNo);
 			
 			//포인트 세션에 저장
 			Map<String, String> map = HMallInterworkUtility.procSearchPoint(result.getCustNm(), result.getCustId(),decShopEventNo);
@@ -156,8 +158,9 @@ public class LoginController {
 			
 			return "redirect:/";
 		}else{
-			// 포인트 연동을 위한 이벤트번호 세션에 함께 셋팅한다.
+			// 포인트 연동을 위한 이벤트번호, 상점번호 세션에 함께 셋팅한다.
 			session.setAttribute("shopEventNo", decShopEventNo);
+			session.setAttribute("shopNo", decShopNo);
 			
 			
 			// 회원가입시 ID, 이름은 받은 값으로 셋팅하여 화면에 표시한다.
@@ -172,13 +175,13 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value="/sso/usePoint.do", method= RequestMethod.GET)
-	public String usePointSample(HttpServletRequest request, Model model, HttpSession session) throws Exception {
+	public String usePointSample(HttpServletRequest request, Model model, HttpSession session, String orderNo, String usepoint) throws Exception {
 		
 		String decMemNm = "최동식";
 		String decMemNo = "100001639343";
 		String decShopEventNo = (String)session.getAttribute("shopEventNo");
-		String decPoint = "1000";
-		String decOrderNo = "order00012";
+		String decPoint = usepoint;
+		String decOrderNo = orderNo;
 		
 		// --------------------------------------------
 		// 2. SSO처리를 위한 웹서비스 호출
@@ -284,6 +287,58 @@ public class LoginController {
 		return "redirect:/";
 	}
 
+	@RequestMapping(value="/sso/sendAdjustmentSample.do", method= RequestMethod.GET)
+	public String sendAdjustmentSample(HttpServletRequest request, Model model, HttpSession session, String orderNo, String usepoint) throws Exception {
+		
+		String decMemNm = "최동식";
+		String decMemNo = "100001639343";
+		String decShopEventNo = (String)session.getAttribute("shopEventNo");
+		
+		// --------------------------------------------
+		// 2. SSO처리를 위한 웹서비스 호출
+		// --------------------------------------------
+		Map<String, String> rstMap = null;
+		try {
+			HMallProcAdjustmentInfo info = new HMallProcAdjustmentInfo();
+			info.setOrderNo(orderNo);
+			info.setItemCd("PRD0001");
+			info.setOrderGb("10");
+			info.setOrderDm("20140709");
+//			info.setShopNo(shopNo);
+			info.setShopEventNo(decShopEventNo);
+			info.setMemNo(decMemNo);
+			info.setTaxGb("1");
+			info.setSalePrice("123000");
+			info.setPointAmt("100000");
+			info.setEtcAmt("20000");
+//			info.setDeliAmt("3000");
+//			info.setItemNm("");
+//			info.setItemPrice(itemPrice);
+//			info.setOrderQty(orderQty);
+//			info.setDcPrice(dcPrice);
+			
+			rstMap = HMallInterworkUtility.procAdjustment(info);
+		} catch (Exception e) {
+			model.addAttribute("msg", "정산 처리시 에러발생하였습니다.");
+			return "user/loginError";
+		}
+		
+		// --------------------------------------------
+		// 3. 체크 - SSO처리 결과를 확인한다.
+		// --------------------------------------------
+		if (rstMap == null) {
+			model.addAttribute("msg", "SSO처리 결과가 없습니다.(1)");
+			return "user/loginError";
+		} else {
+			String returnCode = (String)rstMap.get("return_code");
+			
+			if (!"000".equals(returnCode)) {
+				model.addAttribute("msg", HMallInterworkUtility.getErrorMsgByCode(returnCode));
+			}
+		}
+				
+		return "user/loginError";
+	}
 		
 		
 //	/**
