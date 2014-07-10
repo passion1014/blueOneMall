@@ -5,6 +5,7 @@ package com.blueone.common.domain;
  * @author daniel
  */
 public class HMallProcAdjustmentInfo {
+	
 	private String orderNo;			// 주문번호
 	private String itemCd;			// 상품번호
 	private String orderGb;			// 주문구분

@@ -1209,8 +1209,8 @@ public class OrderManageController {
 			}
 			
 			//엑셀파일 읽기
-			File file = new File("D:/upload/"+contImg.getAttSaveFileNm());
-			//File file = new File("/home/hosting_users/blueonestore/tomcat/webapps/ROOT/resources/upload/"+contImg.getAttSaveFileNm());
+			//File file = new File("D:/upload/"+contImg.getAttSaveFileNm());
+			File file = new File("/home/hosting_users/blueonestore/tomcat/webapps/ROOT/resources/upload/"+contImg.getAttSaveFileNm());
 			
 			Workbook workBook = Workbook.getWorkbook(file);
 			
@@ -1236,14 +1236,18 @@ public class OrderManageController {
 				
 				OrderInfo upOrdInfo = new OrderInfo();
 				upOrdInfo.setCustomerInfo(new CustomerInfo());
-				upOrdInfo.setOrderNo(sheet.getCell(0,i).getContents());
+				String ordNo=sheet.getCell(0,i).getContents();
+				upOrdInfo.setOrderNo(ordNo.substring(0, ordNo.indexOf("(")));
 				upOrdInfo.setOrdTransNo(transferNo);
 				upOrdInfo.setOrdTrans(transfer);
 				orderService.updateOrderInf(upOrdInfo);
 				
 				
 			}
-			
+			//------------------------------
+			 //파일 삭제
+			 //------------------------------
+			 
 			file.delete();
 	        
 		} catch (FileNotFoundException e) {
@@ -1254,10 +1258,7 @@ public class OrderManageController {
 			e.printStackTrace();
 		}
 		
-		//------------------------------
-		 //파일 삭제
-		 //------------------------------
-		 
+		
 		
 		return "redirect:/admin/orderList.do";
 	}
