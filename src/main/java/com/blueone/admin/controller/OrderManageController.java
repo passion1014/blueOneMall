@@ -1533,6 +1533,240 @@ public class OrderManageController {
 		
 		return "redirect:/admin/orderList.do";
 	}
+	@RequestMapping(value="/orderHMListToExel.do", method= RequestMethod.GET)
+	public String orderHMListToExel(@ModelAttribute("AdminInfo") AdminInfo adminInfo, OrderInfo orderInfo,BindingResult result, Model model,HttpSession session,String page,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		 //------------------------------
+		 //엑셀파일 생성
+		 //------------------------------
+		 //String filepath = "C:/Users/Administrator/Documents/write.xls"; //개발
+		 String filepath = "/home/hosting_users/blueonestore/tomcat/webapps/ROOT/resources/upload/"+DateUtil.getDate("yyyyMMdd")+"HM_LIST.xls"; //운영
+	
+	
+		    try {
+		    	
+		        HSSFWorkbook workbook = new HSSFWorkbook();
+	
+	
+		        HSSFSheet sheet = workbook.createSheet();
+		       // workbook.setSheetName(0 , "한글명" ,HSSFWorkbook.ENCODING_UTF_16);
+	
+	
+		       HSSFCellStyle style = workbook.createCellStyle();
+		       /*   style.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+		        style.setBottomBorderColor(HSSFColor.BLACK.index);
+		        style.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+		        style.setLeftBorderColor(HSSFColor.GREEN.index);
+		        style.setBorderRight(HSSFCellStyle.BORDER_THIN);
+		        style.setRightBorderColor(HSSFColor.BLUE.index);
+		        style.setBorderTop(HSSFCellStyle.BORDER_MEDIUM_DASHED);
+		        style.setTopBorderColor(HSSFColor.BLACK.index);           */
+	
+	
+		        HSSFRow row = sheet.createRow(0);
+		       
+		  
+	            HSSFCell cell = row.createCell((short)0);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("주문번호");     
+	            
+	            cell = row.createCell((short)1);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("상품번호");     
+	            
+	            cell = row.createCell((short)2);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("주문구분");  
+	            
+	            cell = row.createCell((short)3);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("주문일자"); 
+	            
+	            cell = row.createCell((short)4);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("상점번호"); 
+	            
+	            cell = row.createCell((short)5);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("행사번호");  
+	            
+	            cell = row.createCell((short)6);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("고객번호");   
+	            
+	            cell = row.createCell((short)7);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("과세여부");   
+	            
+	            cell = row.createCell((short)8);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("판매금액");   
+	            
+	            cell = row.createCell((short)9);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("기본금");   
+	            
+	            cell = row.createCell((short)10);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("기타결제");   
+	            
+	            cell = row.createCell((short)11);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("매체구분");   
+	           
+	            cell = row.createCell((short)12);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("배송비");   
+	            
+	            cell = row.createCell((short)13);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("상품명");   
+	           
+	            cell = row.createCell((short)14);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("단품가격");   
+	            
+	            cell = row.createCell((short)15);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("주문수량");   
+	           
+	            cell = row.createCell((short)16);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("할인금액");   
+	            
+	            cell = row.createCell((short)17);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("리턴코드");   
+	           
+	            
+	
+	            List<HMallProcAdjustmentInfo> odList =orderManageService.selectListBomHMTb0001();
+	            
+		        int i=1;
+	            for (HMallProcAdjustmentInfo each : odList){
+	            	
+	            	row = sheet.createRow(i);
+	            	
+	            
+		            cell = row.createCell((short)0);
+		            cell.setCellValue(each.getOrderNo());     
+		            
+		           
+		            cell = row.createCell((short)1);
+			        cell.setCellValue(each.getItemCd());   
+			        
+			       
+		            cell = row.createCell((short)2);
+		            String orderGb ="";
+		            if(each.getOrderGb().equals("10")) {
+		            	orderGb = "주문";
+		            }
+		            if(each.getOrderGb().equals("20")) {
+		            	orderGb = "취소";
+		            }
+		            orderGb +="("+each.getOrderGb()+")";
+		            cell.setCellValue(orderGb); 
+		            
+		            
+		            cell = row.createCell((short)3);
+		            cell.setCellValue(each.getOrderDm()); 
+		            
+		        
+		            cell = row.createCell((short)4);
+		            cell.setCellValue(each.getShopNo()); 
+		            
+		            
+		            cell = row.createCell((short)5);
+		            cell.setCellValue(each.getShopEventNo()); 
+		          
+		            cell = row.createCell((short)6);
+		            cell.setCellValue(each.getMemNo()); 
+
+		            cell = row.createCell((short)7);
+		            String tax ="";
+		            if(each.getTaxGb().equals("1")) {
+		            	tax = "과세";
+		            }
+		            if(each.getTaxGb().equals("2")) {
+		            	tax = "비과세";
+		            }
+		            tax+="("+each.getTaxGb()+")";
+		            cell.setCellValue(tax); 
+		            
+		  
+		            cell = row.createCell((short)8);
+		            cell.setCellValue(each.getSalePrice()); 
+		            
+		   
+		            cell = row.createCell((short)9);
+		            cell.setCellValue(each.getPointAmt()); 
+		            
+		            cell = row.createCell((short)10);
+		            cell.setCellValue(each.getEtcAmt());
+		            
+		           
+		            cell = row.createCell((short)11);
+		            cell.setCellValue(each.getMediaCd());
+		            
+		            
+		            cell = row.createCell((short)12);
+		            cell.setCellValue(each.getDeliAmt());
+		            
+		            cell = row.createCell((short)13);
+		            cell.setCellValue(each.getItemNm());
+		            
+		            cell = row.createCell((short)14);
+		            cell.setCellValue(each.getItemPrice());
+		            
+		            cell = row.createCell((short)15);
+		            cell.setCellValue(each.getOrderQty());
+		            
+		            cell = row.createCell((short)16);
+		            cell.setCellValue(each.getDcPrice());
+		            
+		            cell = row.createCell((short)17);
+		            cell.setCellValue(each.getReturnCode());
+		            
+		            i++;
+		        }
+		        FileOutputStream fs = null;
+		        try { 
+		            fs = new FileOutputStream(filepath);
+		            workbook.write(fs);
+		            
+		        } catch (Exception e) {
+		        } finally {
+		            if (fs != null) fs.close();
+		        }
+		        
+		    } catch (Exception e) {
+	
+		        
+		        e.printStackTrace();
+		    }    
+	    
+		 //------------------------------
+		 //파일 다운로드
+		 //------------------------------
+		  File file = new File(filepath);
+		  String mimetype = request.getSession().getServletContext().getMimeType(file.getName());
+		  InputStream is = null;
+		  
+		  try {
+			  is = new FileInputStream(file);
+			  download(request, response, is, file.getName(), file.length(), mimetype);
+		  } finally {
+			  try {
+				  	is.close();
+			  } catch (Exception ex) {
+			  }
+		  }
+		//------------------------------
+		 //파일 삭제
+		 //------------------------------
+		  file.delete();
+		  
+		return "redirect:/orderHMList.do";
+	}
 	public static void download(HttpServletRequest request, HttpServletResponse response, InputStream is,
 		      String filename, long filesize, String mimetype) throws ServletException, IOException {
 		    String mime = mimetype;
