@@ -149,14 +149,14 @@ public class OrderManageServiceImpl implements IOrderManageService{
 		return orderList;
 	}
 	@Override
-	public List<HMallProcAdjustmentInfo> selectListBomHMTb0001() {
+	public List<HMallProcAdjustmentInfo> selectListBomHMTb0001(HMallProcAdjustmentInfo hminfo) {
 		List<HMallProcAdjustmentInfo> HMlist;
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
 			
 			// 기간에 따른 주문목록 조회
-			HMlist = sqlSession.selectList("order.selectListBomHMTb0001");
+			HMlist = sqlSession.selectList("order.selectListBomHMTb0001", hminfo);
 			
 			/*
 			for (OrderInfo orderInfo : orderList) {

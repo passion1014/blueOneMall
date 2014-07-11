@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:import  url="../inc/top.jsp" />
+<script type="text/javascript">
 <!--
 function SetPriceInput(str)
 {
@@ -18,6 +19,7 @@ function SetPriceInput(str)
 }
 
 //-->
+</script>
 <body>
 <div id="Wrap">
 
@@ -27,7 +29,16 @@ function SetPriceInput(str)
 	</c:import>
  <div id="Contents">
 	<h1>주문관리 &gt;거래내역조회&gt;<strong>현대몰 정산 내역</strong></h1>
-	
+	<form id="sfrm" name="sfrm" method="get" action="orderHMList.do">
+	<div style="margin-top:5px;">
+		<b>주문날짜검색</b> <input type="checkbox" id="schChkDate" name="schChkDate" value="Y" onClick="dateDisable();" /> &nbsp;&nbsp;
+			<input type="text" name="srchStdDt" id="srchStdDt" readonly value="${hminfo.srchStdDt}" class="Text Kor" style="width:65px;" /> 일 부터
+			<input type="text" name="srchEdDt" id="srchEdDt" readonly value="${hminfo.srchEdDt}" class="Text Kor" style="width:65px;" />일 까지 &nbsp;&nbsp;
+			<input type="submit" value="검색"   class="Small_Button Gray">&nbsp;&nbsp;
+			<!--<input type="button" value="엑셀로 만들기" class="Small_Button Gray" onClick="location.href='/admin/orderListToExel.do?orderStatCd=${orderStatCd}'">&nbsp;&nbsp;-->
+	</div>
+	<div class="right"><input type="button" value="엑셀로 만들기" class="Small_Button Gray" onClick="location.href='/admin/orderHMListToExel.do?srchStdDt=${hminfo.srchStdDt}&srchEdDt=${hminfo.srchEdDt}'"/></div>
+	</form>	
 	    
 
 	<table>
@@ -51,12 +62,12 @@ function SetPriceInput(str)
 		</colgroup>
 		<tr>
 			<th>주문번호</th>
-			<th>상품번호</th>
-			<th>주문구분</th>
+			<th>상품<br>번호</th>
+			<th>주문<br>구분</th>
 			<th>주문일자</th>
 			<th>행사번호</th>
 			<th>고객번호</th>
-			<th>과세여부</th>
+			<th>과세<br>여부</th>
 			<th>판매금액</th>
 			<th>기본금</th>
 			<th>기타결제</th>
@@ -95,7 +106,9 @@ function SetPriceInput(str)
 						
 						
 						<td>
-							 ${odList.taxGb}
+							<c:if test="${odList.taxGb eq '1'}">과세</c:if>
+							<c:if test="${odList.taxGb eq '2'}">비과세</c:if>
+							(${odList.taxGb})
 						</td>
 						<td>
 							 <script>SetPriceInput('${odList.salePrice}');</script> 원
@@ -132,13 +145,16 @@ function SetPriceInput(str)
 						
 				</c:forEach>
 			</c:when>
-			<c:otherwise><tr><th colspan="8" height="100">주문이 없습니다.</th></tr></c:otherwise>
+			<c:otherwise><tr><th colspan="16" height="100">주문이 없습니다.</th></tr></c:otherwise>
 		</c:choose>
 	
 	</table>
 	<div align="center" style="padding-top:10px;">
 		<c:forEach var="i" begin="1" end="${endNum}">
-			<input type="button" value="${i}" onClick="javascript:location.href='/admin/orderHMList.do?page=${i}'">	
+			<c:if test="${hminfo == null}"><input type="button" value="${i}" onClick="javascript:location.href='orderHMList.do?page=${i}'"></c:if>			
+			<c:if test="${hminfo != null}"><input type="button" value="${i}"
+			onClick="javascript:location.href='/admin/orderHMList.do?srchStdDt=${orderSrchInfo.srchStdDt}&srchEdDt=${orderSrchInfo.srchEdDt}&page=${i}'"
+			/></c:if>	
 		</c:forEach>
 	</div>
 	

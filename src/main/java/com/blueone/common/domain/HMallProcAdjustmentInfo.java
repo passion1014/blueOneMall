@@ -25,6 +25,23 @@ public class HMallProcAdjustmentInfo {
 	private String dcPrice;			// 할인금액
 	private String returnCode;		// 리턴코드
 	
+	//검색하기위한 변수
+	private String srchStdDt;
+	private String srchEdDt;
+	
+	
+	public String getSrchStdDt() {
+		return srchStdDt;
+	}
+	public void setSrchStdDt(String srchStdDt) {
+		this.srchStdDt = srchStdDt;
+	}
+	public String getSrchEdDt() {
+		return srchEdDt;
+	}
+	public void setSrchEdDt(String srchEdDt) {
+		this.srchEdDt = srchEdDt;
+	}
 	public String getOrderNo() {
 		return orderNo;
 	}

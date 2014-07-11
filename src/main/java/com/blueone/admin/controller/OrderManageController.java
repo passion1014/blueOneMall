@@ -643,7 +643,9 @@ public class OrderManageController {
 					adjustment.setTaxGb("1");
 					adjustment.setSalePrice(each.getOrdPrd().getSellPrice().multiply(new BigDecimal(each.getOrdPrd().getBuyCnt())).toString());
 					adjustment.setPointAmt(Integer.toString(each.getPaymentInfo().getPayPoint()));
-					adjustment.setEtcAmt(each.getPaymentInfo().getPayPrice().toString());
+					BigDecimal etc = each.getPaymentInfo().getPayPrice();
+					etc =etc .subtract(new BigDecimal(each.getPaymentInfo().getPayPoint()));
+					adjustment.setEtcAmt(etc.toString());
 					adjustment.setDeliAmt("0");
 					String option = each.getOrdPrd().getPrdOpColor();
 		        	adjustment.setItemNm(each.getOrdPrd().getPrdNm()+option.substring(3, option.indexOf(",")));
@@ -836,13 +838,16 @@ public class OrderManageController {
 						adjustment.setTaxGb("1");
 						adjustment.setSalePrice(each.getOrdPrd().getSellPrice().multiply(new BigDecimal(each.getOrdPrd().getBuyCnt())).toString());
 						adjustment.setPointAmt(Integer.toString(each.getPaymentInfo().getPayPoint()));
-						adjustment.setEtcAmt(each.getPaymentInfo().getPayPrice().toString());
+						BigDecimal etc = each.getPaymentInfo().getPayPrice();
+						etc =etc .subtract(new BigDecimal(each.getPaymentInfo().getPayPoint()));
+						adjustment.setEtcAmt(etc.toString());
 						adjustment.setDeliAmt("0");
 						String option = each.getOrdPrd().getPrdOpColor();
 			        	adjustment.setItemNm(each.getOrdPrd().getPrdNm()+option.substring(3, option.indexOf(",")));
 			        	adjustment.setItemPrice(each.getOrdPrd().getSellPrice().toString());
 			        	adjustment.setOrderQty(Integer.toString(each.getOrdPrd().getBuyCnt()));
 			        	adjustment.setDcPrice("0");
+			        	
 			        	
 			        	rstMap = HMallInterworkUtility.procAdjustment(adjustment);
 			        	
@@ -1433,7 +1438,7 @@ public class OrderManageController {
 	}
 	//현대몰 정산
 	@RequestMapping(value="/orderHMList.do", method= RequestMethod.GET)
-	public String orderHMList(String page, Model model,HttpSession session){
+	public String orderHMList(String page, Model model,HttpSession session,HMallProcAdjustmentInfo hminfo ){
 
 		AdminInfo adminSession = (AdminInfo) session.getAttribute("adminSession");
 
@@ -1442,7 +1447,7 @@ public class OrderManageController {
 		}
 
 		
-		List<HMallProcAdjustmentInfo> odList =orderManageService.selectListBomHMTb0001();
+		List<HMallProcAdjustmentInfo> odList =orderManageService.selectListBomHMTb0001(hminfo);
 		
 		PageDivision pd = new PageDivision();
 		
@@ -1458,7 +1463,8 @@ public class OrderManageController {
 		
 		model.addAttribute("odList",pd.getHMInfoList());
 		model.addAttribute("nowPage", page);
-	
+		model.addAttribute("hminfo", hminfo);
+		
 		model.addAttribute("endNum", pd.getEndPageNum());
 		return "admin/order/orderHMList";
 	}
@@ -1534,7 +1540,7 @@ public class OrderManageController {
 		return "redirect:/admin/orderList.do";
 	}
 	@RequestMapping(value="/orderHMListToExel.do", method= RequestMethod.GET)
-	public String orderHMListToExel(@ModelAttribute("AdminInfo") AdminInfo adminInfo, OrderInfo orderInfo,BindingResult result, Model model,HttpSession session,String page,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+	public String orderHMListToExel( Model model,HttpSession session,HttpServletRequest request, HttpServletResponse response,HMallProcAdjustmentInfo hmInfo) throws ServletException, IOException{
 		 //------------------------------
 		 //엑셀파일 생성
 		 //------------------------------
@@ -1639,7 +1645,7 @@ public class OrderManageController {
 	           
 	            
 	
-	            List<HMallProcAdjustmentInfo> odList =orderManageService.selectListBomHMTb0001();
+	            List<HMallProcAdjustmentInfo> odList =orderManageService.selectListBomHMTb0001(hmInfo);
 	            
 		        int i=1;
 	            for (HMallProcAdjustmentInfo each : odList){

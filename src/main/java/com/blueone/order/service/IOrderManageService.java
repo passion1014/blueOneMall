@@ -29,7 +29,7 @@ public interface IOrderManageService {
 	public List<OrderInfo> selectListBomOrderTbToExel0001(OrderInfo orderInfo);
 	public List<OrderInfo> getOrderInfoListBySchInfo2(OrderSrchInfo orderSrchInfo);
 	public int insertBomHMTb0001(HMallProcAdjustmentInfo hmInfo);
-	public List<HMallProcAdjustmentInfo> selectListBomHMTb0001();
+	public List<HMallProcAdjustmentInfo> selectListBomHMTb0001(HMallProcAdjustmentInfo hmInfo );
 	
 	
 }

@@ -426,7 +426,7 @@
 			
 	</select>
 	
-	<select id="selectListBomHMTb0001" resultType="com.blueone.common.domain.HMallProcAdjustmentInfo" resultMap="HMInfoMap">
+	<select id="selectListBomHMTb0001" resultType="com.blueone.common.domain.HMallProcAdjustmentInfo" resultMap="HMInfoMap" parameterType="com.blueone.common.domain.HMallProcAdjustmentInfo">
 		SELECT
 			T1.HM_ORDER_NO,
 			T1.HM_ITEM_CD,
@@ -450,7 +450,9 @@
 		FROM 
 			BOM_HM_TB T1
 		WHERE
-			(1 = 1)	
+			(1 = 1)
+			<if test="srchStdDt != null and srchStdDt != '' and srchEdDt != null and srchEdDt != ''"> AND T1.HM_ORDER_DM BETWEEN  #{srchStdDt} AND #{srchEdDt}</if>
+			
 		ORDER BY T1.HM_ORDER_DM DESC	
 	</select>
 	

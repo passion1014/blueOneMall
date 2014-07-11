@@ -764,7 +764,8 @@ public class UserController {
 				adjustment.setTaxGb("1");
 				adjustment.setSalePrice(each.getOrdPrd().getSellPrice().multiply(new BigDecimal(each.getOrdPrd().getBuyCnt())).toString());
 				adjustment.setPointAmt(Integer.toString(each.getPaymentInfo().getPayPoint()));
-				adjustment.setEtcAmt(each.getPaymentInfo().getPayPrice().toString());
+				BigDecimal etc = each.getPaymentInfo().getPayPrice();
+				etc =etc .subtract(new BigDecimal(each.getPaymentInfo().getPayPoint()));
 				adjustment.setDeliAmt("0");
 				String option = each.getOrdPrd().getPrdOpColor();
 	        	adjustment.setItemNm(each.getOrdPrd().getPrdNm()+option.substring(3, option.indexOf(",")));
