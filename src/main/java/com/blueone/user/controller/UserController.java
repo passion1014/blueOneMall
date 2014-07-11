@@ -739,7 +739,7 @@ public class UserController {
 		model.addAttribute("CUST_POINT", customerPoint);
 		
 		orderInfo.setCustomerInfo(cust);
-		orderInfo.setOrderStatCd("05");
+		orderInfo.setOrderStatCd("06");
 		
 		orderService.updateOrderInf(orderInfo);
 		
