@@ -41,11 +41,13 @@ function SetPriceInput(str)
 			<col width="5%" />
 			<col width="5%" />
 			<col width="5%" />
+			<col width="5%" />
+			<col width="5%" />
 			<col width="*" />
 			<col width="5%" />
-			<col width="5%" />
-			<col width="5%" />
-			<col width="5%" />
+			<col width="3%" />
+			<col width="3%" />
+			<col width="3%" />
 		</colgroup>
 		<tr>
 			<th>주문번호</th>
@@ -77,14 +79,21 @@ function SetPriceInput(str)
 							${odList.itemCd}
 						</td>
 						<td class="center">
-							${odList.orderGb}
+							<c:if test="${odList.orderGb eq '10'}">주문</c:if>
+							<c:if test="${odList.orderGb eq '20'}">취소</c:if>
+							(${odList.orderGb})
 						</td>
 						<td class="center">
 							${odList.orderDm}
 						</td>
 						<td class="center">
+							${odList.shopEventNo}
+						</td>
+						<td class="center">
 							${odList.memNo}
 						</td>
+						
+						
 						<td>
 							 ${odList.taxGb}
 						</td>

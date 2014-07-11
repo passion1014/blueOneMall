@@ -426,7 +426,7 @@
 			
 	</select>
 	
-	<select id="selectListBomHMTb0001" resultType="com.blueone.common.domain.HMallProcAdjustmentInfo" resultMap="PaymentInfoMap">
+	<select id="selectListBomHMTb0001" resultType="com.blueone.common.domain.HMallProcAdjustmentInfo" resultMap="HMInfoMap">
 		SELECT
 			T1.HM_ORDER_NO,
 			T1.HM_ITEM_CD,

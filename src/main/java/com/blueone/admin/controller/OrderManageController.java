@@ -639,7 +639,7 @@ public class OrderManageController {
 					adjustment.setOrderDm(DateUtil.getDate("yyyyMMdd"));
 					adjustment.setShopNo( point[4]);
 					adjustment.setShopEventNo( point[2]);
-					adjustment.setMemNo(point[0]);
+					adjustment.setMemNo(point[1]);
 					adjustment.setTaxGb("1");
 					adjustment.setSalePrice(each.getOrdPrd().getSellPrice().multiply(new BigDecimal(each.getOrdPrd().getBuyCnt())).toString());
 					adjustment.setPointAmt(Integer.toString(each.getPaymentInfo().getPayPoint()));
@@ -832,7 +832,7 @@ public class OrderManageController {
 						adjustment.setOrderDm(DateUtil.getDate("yyyyMMdd"));
 						adjustment.setShopNo( point[4]);
 						adjustment.setShopEventNo( point[2]);
-						adjustment.setMemNo(point[0]);
+						adjustment.setMemNo(point[1]);
 						adjustment.setTaxGb("1");
 						adjustment.setSalePrice(each.getOrdPrd().getSellPrice().multiply(new BigDecimal(each.getOrdPrd().getBuyCnt())).toString());
 						adjustment.setPointAmt(Integer.toString(each.getPaymentInfo().getPayPoint()));
