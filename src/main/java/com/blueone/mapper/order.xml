@@ -439,7 +439,7 @@
 			T1.HM_SALE_PRICE,
 			T1.HM_POINT_AMT,
 			T1.HM_ETC_AMT,
-			T1.HM_MEDIA_CD4,
+			T1.HM_MEDIA_CD,
 			T1.HM_DELI_AMT,
 			T1.HM_ITEM_NM,
 			T1.HM_ITEM_PRICE,
@@ -470,8 +470,8 @@
 
 			VALUES
 			(#{orderNo}, #{itemCd}, #{orderGb}, #{orderDm}, 
-			 #{shopNo}, #{shopEventNo}, #{memNo}, #{taxGb}
-			 #{salePrice}, #{pointAmt}, #{etcAmt}, #{mediaCd},#{deliAmt} 
+			 #{shopNo}, #{shopEventNo}, #{memNo}, #{taxGb},
+			 #{salePrice}, #{pointAmt}, #{etcAmt}, #{mediaCd},#{deliAmt} ,
 			 #{itemNm}, #{itemPrice}, #{orderQty}, #{dcPrice}, #{returnCode})
 			 
 	</insert>

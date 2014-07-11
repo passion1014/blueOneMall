@@ -667,6 +667,7 @@ public class OrderManageController {
 				} else {
 					
 					String returnCode = (String)rstMap.get("return_code");
+					
 					adjustment.setReturnCode(returnCode);
 					orderService.insertBomHMTb0001(adjustment);
 					
@@ -807,7 +808,7 @@ public class OrderManageController {
 			
 			}
 			
-			if(orderInfo.getOrderStatCd().equals("06") && orderInfo.getOrderStatCd().equals("02")){
+			if(orderInfo.getOrderStatCd().equals("06") || orderInfo.getOrderStatCd().equals("02")){
 				List<OrderInfo> orderList = orderService.selectListBomOrderTbToExel0001(orderInfo);
 				
 				for(OrderInfo each : orderList){
@@ -1432,7 +1433,7 @@ public class OrderManageController {
 	}
 	//현대몰 정산
 	@RequestMapping(value="/orderHMList.do", method= RequestMethod.GET)
-	public String orderHMList(String page,BindingResult result, Model model,HttpSession session){
+	public String orderHMList(String page, Model model,HttpSession session){
 
 		AdminInfo adminSession = (AdminInfo) session.getAttribute("adminSession");
 
