@@ -99,7 +99,29 @@
 		<id property="pymtMemo" column="PYMT_MEMO" javaType="java.lang.String"/>
 	</resultMap>
 
-
+	<resultMap id="HMInfoMap" type="com.blueone.common.domain.HMallProcAdjustmentInfo">
+		<id property="orderNo" column="HM_ORDER_NO" javaType="java.lang.String"/>
+		<id property="itemCd" column="HM_ITEM_CD" javaType="java.lang.String"/>
+		<id property="orderGb" column="HM_ORDER_GB" javaType="java.lang.String"/>
+		<id property="orderDm" column="HM_ORDER_DM" javaType="java.lang.String"/>
+		<id property="shopNo" column="HM_SHOP_NO" javaType="java.lang.String"/>
+		<id property="shopEventNo" column="HM_SHOP_EVENT_NO" javaType="java.lang.String"/>
+		<id property="memNo" column="HM_MEM_NO" javaType="java.lang.String"/>
+		<id property="taxGb" column="HM_TAX_GB" javaType="java.lang.String"/>
+		<id property="salePrice" column="HM_SALE_PRICE" javaType="java.lang.String"/>
+		<id property="pointAmt" column="HM_POINT_AMT" javaType="java.lang.String"/>
+		<id property="etcAmt" column="HM_ETC_AMT" javaType="java.lang.String"/>
+		<id property="mediaCd" column="HM_MEDIA_CD" javaType="java.lang.String"/>
+		<id property="deliAmt" column="HM_DELI_AMT" javaType="java.lang.String"/>
+		<id property="itemNm" column="HM_ITEM_NM" javaType="java.lang.String"/>
+		<id property="itemPrice" column="HM_ITEM_PRICE" javaType="java.lang.String"/>
+		<id property="orderQty" column="HM_ORDER_QTY" javaType="java.lang.String"/>
+		<id property="dcPrice" column="HM_DC_PRICE" javaType="java.lang.String"/>
+		<id property="returnCode" column="HM_RETURN_CODE" javaType="java.lang.String"/>
+		
+		
+	</resultMap>
+	
 	<select id="selectListBomOrderTb0001" resultType="orderInfo" resultMap="OrderInfoMap" parameterType="orderInfo">
 		SELECT
 			T1.IDX ,
@@ -153,9 +175,8 @@
 				BOM_RECIPIENT_TB T6 ON T1.ORDER_NO = T6.RECI_ORDER_NUM	
 		WHERE
 			(1 = 1)
-				<!-- <if test="srchStdDt != null and srchStdDt != '' and srchEdDt != null and srchEdDt != ''">AND T1.ORDER_DATE BETWEEN #{srchStdDt} AND #{srchEdDt} </if>
-				 --><if test="orderStatCd != null and orderStatCd != ''">AND T1.ORDER_STAT_CD= #{orderStatCd} </if>
-				<if test="customerInfo != null and customerInfo.custId != null and customerInfo.custId != ''"> AND T1.CUST_ID = #{customerInfo.custId}</if>
+				<if test="srchStdDt != null and srchStdDt != '' and srchEdDt != null and srchEdDt != ''">AND T1.ORDER_DATE BETWEEN #{srchStdDt} AND #{srchEdDt} </if>
+				<if test="orderStatCd != null and orderStatCd != ''">AND T1.ORDER_STAT_CD= #{orderStatCd} </if>
 				<if test="customerInfo != null and customerInfo.custId != null and customerInfo.custId != ''"> AND T1.CUST_ID = #{customerInfo.custId}</if>
 				
 		ORDER BY T1.REG_DATE DESC		
@@ -379,7 +400,7 @@
 			<if test="keyfield!= null and keyfield != '' and keyfield==2"> AND T1.CUST_ID LIKE CONCAT('%',#{keyword},'%') </if>
 			<if test="keyfield!= null and keyfield != '' and keyfield==1"> AND T1.ORDER_NO LIKE CONCAT('%',#{keyword},'%')</if>
 			<if test="srchStdDt != null and srchStdDt != '' and srchEdDt != null and srchEdDt != ''"> AND T1.REG_DATE BETWEEN  #{srchStdDt} AND #{srchEdDt}</if>
-		
+			ORDER BY T1.REG_DATE DESC		
 			
 	</select>
 	<select id="selectListBomPaymentTb0001" resultType="paymentInfo" resultMap="PaymentInfoMap" parameterType="paymentInfo">
@@ -403,7 +424,35 @@
 			<if test="modifyUserId != null and modifyUserId != ''"> AND T1.MODIFY_USER_ID = #{modifyUserId}</if>
 			<if test="orderNo != null and orderNo != ''"> AND T1.ORDER_NO = #{orderNo}</if>
 			
-	</select >
+	</select>
+	
+	<select id="selectListBomHMTb0001" resultType="com.blueone.common.domain.HMallProcAdjustmentInfo" resultMap="PaymentInfoMap">
+		SELECT
+			T1.HM_ORDER_NO,
+			T1.HM_ITEM_CD,
+			T1.HM_ORDER_GB,
+			T1.HM_ORDER_DM,
+			T1.HM_SHOP_NO,
+			T1.HM_SHOP_EVENT_NO,
+			T1.HM_MEM_NO,
+			T1.HM_TAX_GB,
+			T1.HM_SALE_PRICE,
+			T1.HM_POINT_AMT,
+			T1.HM_ETC_AMT,
+			T1.HM_MEDIA_CD4,
+			T1.HM_DELI_AMT,
+			T1.HM_ITEM_NM,
+			T1.HM_ITEM_PRICE,
+			T1.HM_ORDER_QTY,
+			T1.HM_DC_PRICE,
+			T1.HM_RETURN_CODE
+			
+		FROM 
+			BOM_HM_TB T1
+		WHERE
+			(1 = 1)	
+		ORDER BY T1.HM_ORDER_DM DESC	
+	</select>
 	
 	<insert id="insertBomOrderPrdTb0001" parameterType="orderProductInfo" >
 		INSERT BOM_ORD_PRD_TB
@@ -412,7 +461,20 @@
 			(#{orderNo}, #{prdCd}, sysdate(), sysdate(), #{modiUser}, #{prdOption},#{buyCnt})
 	</insert>
 	
+	<insert id="insertBomHMTb0001" parameterType="com.blueone.common.domain.HMallProcAdjustmentInfo" >
+		INSERT BOM_HM_TB
+			( `HM_ORDER_NO`,`HM_ITEM_CD`,`HM_ORDER_GB`,`HM_ORDER_DM`,
+			  `HM_SHOP_NO`,`HM_SHOP_EVENT_NO`,`HM_MEM_NO`,`HM_TAX_GB` ,
+			  `HM_SALE_PRICE`,`HM_POINT_AMT`,`HM_ETC_AMT` ,`HM_MEDIA_CD` ,`HM_DELI_AMT` ,
+			  `HM_ITEM_NM` ,`HM_ITEM_PRICE`,`HM_ORDER_QTY`,`HM_DC_PRICE`,`HM_RETURN_CODE`)
 
+			VALUES
+			(#{orderNo}, #{itemCd}, #{orderGb}, #{orderDm}, 
+			 #{shopNo}, #{shopEventNo}, #{memNo}, #{taxGb}
+			 #{salePrice}, #{pointAmt}, #{etcAmt}, #{mediaCd},#{deliAmt} 
+			 #{itemNm}, #{itemPrice}, #{orderQty}, #{dcPrice}, #{returnCode})
+			 
+	</insert>
 	<insert id="insertBomOrderTb0001" parameterType="orderInfo" >
 		INSERT BOM_ORDER_TB
 			(`ORDER_NO`,`CUST_ID`,`ORDER_STAT_CD`,`ORDER_DATE`,`REG_DATE`,`LAST_DATE`,`MODIFY_USER_ID`,`USER_POINT_INFO`)

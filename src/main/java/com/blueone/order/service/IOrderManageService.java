@@ -2,6 +2,7 @@ package com.blueone.order.service;
 
 import java.util.List;
 
+import com.blueone.common.domain.HMallProcAdjustmentInfo;
 import com.blueone.customer.domain.RecipientInfo;
 import com.blueone.order.domain.OrderInfo;
 import com.blueone.order.domain.OrderProductInfo;
@@ -27,6 +28,8 @@ public interface IOrderManageService {
 	public List<PaymentInfo> selectPaymentInfo(PaymentInfo paymentInfo);
 	public List<OrderInfo> selectListBomOrderTbToExel0001(OrderInfo orderInfo);
 	public List<OrderInfo> getOrderInfoListBySchInfo2(OrderSrchInfo orderSrchInfo);
+	public int insertBomHMTb0001(HMallProcAdjustmentInfo hmInfo);
+	public List<HMallProcAdjustmentInfo> selectListBomHMTb0001();
 	
 	
 }

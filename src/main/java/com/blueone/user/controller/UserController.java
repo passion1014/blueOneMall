@@ -748,11 +748,12 @@ public class UserController {
 		
 		for(OrderInfo each : orderList){
 			Map<String, String> rstMap = null;
+			HMallProcAdjustmentInfo adjustment = new HMallProcAdjustmentInfo();
 			try {
 				// --------------------------------------------
 				// 1. 정산 처리 
 				// --------------------------------------------
-				HMallProcAdjustmentInfo adjustment = new HMallProcAdjustmentInfo();
+				
 				adjustment.setOrderNo(orderInfo.getOrderNo());
 				adjustment.setItemCd(each.getOrdPrd().getPrdCd());
 				adjustment.setOrderGb("10");
@@ -772,6 +773,7 @@ public class UserController {
 	        	adjustment.setDcPrice("0");
 	        	
 	        	rstMap = HMallInterworkUtility.procAdjustment(adjustment);
+	        	
 			} catch (Exception e) {
 				model.addAttribute("msg", "정산 처리시 에러발생하였습니다.");
 				return "user/loginError";
@@ -785,7 +787,8 @@ public class UserController {
 				return "user/loginError";
 			} else {
 				String returnCode = (String)rstMap.get("return_code");
-				
+				adjustment.setReturnCode(returnCode);
+				orderService.insertBomHMTb0001(adjustment);
 				if (!"000".equals(returnCode)) {
 					model.addAttribute("msg", HMallInterworkUtility.getErrorMsgByCode(returnCode));
 				}

@@ -17,7 +17,7 @@ public class HMallProcAdjustmentInfo {
 	private String salePrice;		// 판매금액
 	private String pointAmt;		// 기본금
 	private String etcAmt;			// 기타결제
-	private String mediaCd;			// 매체구분
+	private String mediaCd="HM";	// 매체구분
 	private String deliAmt;			// 배송비
 	private String itemNm;			// 상품명
 	private String itemPrice;		// 단품 가격

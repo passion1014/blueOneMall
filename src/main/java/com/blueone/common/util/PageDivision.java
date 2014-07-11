@@ -6,6 +6,7 @@ import java.util.List;
 import com.blueone.admin.domain.AccountInfo;
 import com.blueone.admin.domain.AdminInfo;
 import com.blueone.category.domain.CategoryInfo;
+import com.blueone.common.domain.HMallProcAdjustmentInfo;
 import com.blueone.order.domain.OrderInfo;
 import com.blueone.product.domain.ProductInfo;
 import com.blueone.product.domain.TransferInfo;
@@ -31,6 +32,8 @@ public class PageDivision {
 	List<AdminInfo> adInfoExlist;
 	List<OrderInfo> orderlist;
 	List<OrderInfo> orderExlist;
+	List<HMallProcAdjustmentInfo> hmlist;
+	List<HMallProcAdjustmentInfo> hmExlist;
 	
 
 	public int getItemNum() {
@@ -176,6 +179,29 @@ public class PageDivision {
 			orderExlist.add(orderlist.get(i));
 		}
 		return orderExlist;
+		
+	}
+	
+	public void setHMInfoList(List<HMallProcAdjustmentInfo> hmlist) {
+		this.hmlist = hmlist;
+		hmExlist=new ArrayList<HMallProcAdjustmentInfo>();
+		
+		if(hmlist.size()%itemNum==0) {
+			endNum=hmlist.size()/itemNum;
+		}
+		else{
+			endNum=hmlist.size()/itemNum+1;
+		}
+	}
+	public List<HMallProcAdjustmentInfo> getHMInfoList() {
+		int startIdx=pNum*itemNum-itemNum;
+		
+		int forend=pNum*itemNum-1;
+		
+		for(int i=startIdx; i<=forend && i<hmlist.size(); i++){
+			hmExlist.add(hmlist.get(i));
+		}
+		return hmExlist;
 		
 	}
 	

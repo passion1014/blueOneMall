@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.blueone.board.domain.BoardSrchInfo;
 import com.blueone.common.domain.AttachFileInfo;
+import com.blueone.common.domain.HMallProcAdjustmentInfo;
 import com.blueone.common.domain.ResultInfo;
 import com.blueone.common.service.IAttachFileManageService;
 import com.blueone.customer.domain.CustomerContactInfo;
@@ -148,6 +149,43 @@ public class OrderManageServiceImpl implements IOrderManageService{
 		return orderList;
 	}
 	@Override
+	public List<HMallProcAdjustmentInfo> selectListBomHMTb0001() {
+		List<HMallProcAdjustmentInfo> HMlist;
+		
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			
+			// 기간에 따른 주문목록 조회
+			HMlist = sqlSession.selectList("order.selectListBomHMTb0001");
+			
+			/*
+			for (OrderInfo orderInfo : orderList) {
+				if (orderInfo.getCustomerInfo() != null ) {
+					CustomerSrchInfo srchInfo = new CustomerSrchInfo();
+					srchInfo.setCustId(orderInfo.getCustomerInfo().getCustId());
+					
+					// 고객정보 셋팅
+					CustomerInfo customerInfo = customerManageService.getCustomerInfo(srchInfo);
+					if (customerInfo != null) {
+						orderInfo.setCustomerInfo(customerInfo);
+
+						// 기본 주소정보 셋팅
+						List<CustomerContactInfo> contactList = customerInfo.getCustomerContactList();
+						if (contactList != null) {
+							orderInfo.setCustomerContactInfo(getDefaultContactInfo(contactList));
+						}
+					}
+				}
+				
+				
+			}*/
+		} finally {
+			sqlSession.close();
+		}
+		
+		return HMlist;
+	}
+	@Override
 	public List<OrderInfo> getOrderInfoListBySchInfo2(OrderSrchInfo orderSrchInfo) {
 		List<OrderInfo> orderList;
 		
@@ -196,7 +234,29 @@ public class OrderManageServiceImpl implements IOrderManageService{
 		
 		return null;
 	}
-	
+	//주문-상품-등록
+	@Override
+	public int insertBomHMTb0001(HMallProcAdjustmentInfo hmInfo) {
+		
+		
+		int rst=0;
+		// -----------------------------------------------
+		// DB Insert 수행
+		// -----------------------------------------------
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			
+			
+			rst = sqlSession.insert("order.insertBomHMTb0001", hmInfo);
+			
+			
+			
+		} finally {
+			sqlSession.close();
+		}
+		
+		return rst;
+	}
 	//주문-상품-등록
 	@Override
 	public int registOrderProductInfo(OrderProductInfo odPrdInfo) {

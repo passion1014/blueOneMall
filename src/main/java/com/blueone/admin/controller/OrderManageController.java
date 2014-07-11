@@ -615,7 +615,7 @@ public class OrderManageController {
 			*/
 		}
 		
-		if(orderInfo.getOrderStatCd().equals("06") && orderInfo.getOrderStatCd().equals("02")){
+		if(orderInfo.getOrderStatCd().equals("06") ){
 			List<OrderInfo> orderList = orderService.selectListBomOrderTbToExel0001(orderInfo);
 			
 			for(OrderInfo each : orderList){
@@ -627,11 +627,12 @@ public class OrderManageController {
 				}
 				String[] point = pointInfo.split("_");
 				Map<String, String> rstMap = null;
+				HMallProcAdjustmentInfo adjustment = new HMallProcAdjustmentInfo();
 				try {
 					// --------------------------------------------
 					// 1. 정산 처리 
 					// --------------------------------------------
-					HMallProcAdjustmentInfo adjustment = new HMallProcAdjustmentInfo();
+					
 					adjustment.setOrderNo(orderInfo.getOrderNo());
 					adjustment.setItemCd(each.getOrdPrd().getPrdCd());
 					adjustment.setOrderGb("10");
@@ -651,6 +652,7 @@ public class OrderManageController {
 		        	adjustment.setDcPrice("0");
 		        	
 		        	rstMap = HMallInterworkUtility.procAdjustment(adjustment);
+		        	
 				} catch (Exception e) {
 					model.addAttribute("msg", "정산 처리시 에러발생하였습니다.");
 					return "user/loginError";
@@ -663,7 +665,10 @@ public class OrderManageController {
 					model.addAttribute("msg", "SSO처리 결과가 없습니다.(1)");
 					return "user/loginError";
 				} else {
+					
 					String returnCode = (String)rstMap.get("return_code");
+					adjustment.setReturnCode(returnCode);
+					orderService.insertBomHMTb0001(adjustment);
 					
 					if (!"000".equals(returnCode)) {
 						model.addAttribute("msg", HMallInterworkUtility.getErrorMsgByCode(returnCode));
@@ -814,11 +819,12 @@ public class OrderManageController {
 					}
 					String[] point = pointInfo.split("_");
 					Map<String, String> rstMap = null;
+					HMallProcAdjustmentInfo adjustment = new HMallProcAdjustmentInfo();
 					try {
 						// --------------------------------------------
 						// 1. 정산 처리 
 						// --------------------------------------------
-						HMallProcAdjustmentInfo adjustment = new HMallProcAdjustmentInfo();
+						
 						adjustment.setOrderNo(orderInfo.getOrderNo());
 						adjustment.setItemCd(each.getOrdPrd().getPrdCd());
 						adjustment.setOrderGb("10");
@@ -838,6 +844,7 @@ public class OrderManageController {
 			        	adjustment.setDcPrice("0");
 			        	
 			        	rstMap = HMallInterworkUtility.procAdjustment(adjustment);
+			        	
 					} catch (Exception e) {
 						model.addAttribute("msg", "정산 처리시 에러발생하였습니다.");
 						return "user/loginError";
@@ -851,7 +858,8 @@ public class OrderManageController {
 						return "user/loginError";
 					} else {
 						String returnCode = (String)rstMap.get("return_code");
-						
+						adjustment.setReturnCode(returnCode);
+						orderService.insertBomHMTb0001(adjustment);
 						if (!"000".equals(returnCode)) {
 							model.addAttribute("msg", HMallInterworkUtility.getErrorMsgByCode(returnCode));
 						}
@@ -1421,6 +1429,37 @@ public class OrderManageController {
 		model.addAttribute("endNum", pd.getEndPageNum());
 		model.addAttribute("orderSrchInfo", orderInfo);
 		return "admin/order/orderProductTrade";
+	}
+	//현대몰 정산
+	@RequestMapping(value="/orderHMList.do", method= RequestMethod.GET)
+	public String orderHMList(String page,BindingResult result, Model model,HttpSession session){
+
+		AdminInfo adminSession = (AdminInfo) session.getAttribute("adminSession");
+
+		if (adminSession == null) {
+			return "redirect:adminLogin.do";
+		}
+
+		
+		List<HMallProcAdjustmentInfo> odList =orderManageService.selectListBomHMTb0001();
+		
+		PageDivision pd = new PageDivision();
+		
+		if (StringUtils.isEmpty(page)){
+			pd.pageNum("1");
+			page="1";
+		}	
+		else
+			pd.pageNum(page);
+		pd.setItemNum(10);
+		pd.setHMInfoList(odList);
+		
+		
+		model.addAttribute("odList",pd.getHMInfoList());
+		model.addAttribute("nowPage", page);
+	
+		model.addAttribute("endNum", pd.getEndPageNum());
+		return "admin/order/orderHMList";
 	}
 	/**
 	 * 엑셀파일 등록 처리
