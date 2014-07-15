@@ -53,26 +53,34 @@ function allChk(obj){
         }
     }
 } 
-function list_Submit(){
-	msg = "선택하신 주문을 일괄 변경 하시겠습니까?" ;
-	
-	document.getElementById("ordListFrm").action = "orderStateEdit.do" ;
-	
-	var chk_num = document.ordListFrm.elements.length;
-	
-	for(var i = 0; i < chk_num; i++){
-		var checkbox_obj = eval("document.ordListFrm.elements["+i+"]");
-		if(checkbox_obj.checked == true)	break;
-	}
-
-	if(i == chk_num) {
-		alert("먼저 주문을 선택하여 주십시오");
-		return false;
-	} else {
-		if(confirm(msg)){
-			document.getElementById("ordListFrm").submit() ;
-			return false;
+function list_Submit(k){
+	if(k == "state"){
+		msg = "선택하신 주문을 일괄 변경 하시겠습니까?" ;
+		
+		
+			document.getElementById("ordListFrm").action = "orderStateEdit.do" ;
+		
+		var chk_num = document.ordListFrm.elements.length;
+		
+		for(var i = 0; i < chk_num; i++){
+			var checkbox_obj = eval("document.ordListFrm.elements["+i+"]");
+			if(checkbox_obj.checked == true)	break;
 		}
+	
+		if(i == chk_num) {
+			alert("먼저 주문상태를 선택하여 주십시오");
+			return false;
+		} else {
+			if(confirm(msg)){
+				document.getElementById("ordListFrm").submit() ;
+				return false;
+			}
+		}
+	}
+	if(k == "search"){
+		document.getElementById("ordListFrm").action = "orderSearchList.do" ;
+		document.getElementById("keyword").value   = encodeURI(document.getElementById("word").value) ;
+		document.getElementById("ordListFrm").submit() ;
 	}
 
 }
@@ -132,7 +140,7 @@ function list_Submit(){
 				
 	</c:choose>
 	</h1>
-	<form id="ordListFrm" name="ordListFrm" method="get" action="orderStateEdit.do">
+	<form id="ordListFrm" name="ordListFrm" method="get" action="orderSearchList.do">
 		<input type="hidden" id="slot" name="slot" value="member">
 		<input type="hidden" id="type" name="type" value="member_list">
 		<table>
@@ -157,8 +165,10 @@ function list_Submit(){
 							<option value="1" <c:if test="${orderSrchInfo.keyfield == 1}">selected</c:if>>주문번호</option>
 							<option value="2" <c:if test="${orderSrchInfo.keyfield == 2}">selected</c:if>>주문자</option>
 						</select>
-						<input type="text" id="keyword" name="keyword" class="Text" value="${orderSrchInfo.keyword}">
-						<input type="submit" value="검색"   class="Small_Button Gray">&nbsp;&nbsp;
+						<input type="text" id="word" name="word" class="Text" value="${orderSrchInfo.keyword}">
+						<input type="hidden" id="keyword" name="keyword" class="Text" value="">
+						
+						<input type="button" value="검색"   class="Small_Button Gray" onClick="list_Submit('search');">&nbsp;&nbsp;
 						<input type="button" value="초기화" class="Small_Button Gray" onClick="">&nbsp;&nbsp;
 						<input type="button" value="엑셀로 만들기" class="Small_Button Gray" onClick="location.href='/admin/orderListToExel.do?orderStatCd=${orderStatCd}'">&nbsp;&nbsp;
 					</div>
@@ -234,7 +244,7 @@ function list_Submit(){
 					<option value=09>반품신청</option>
 					<option value=10>반품신청완료</option>
 			   </select>
-	<input type="button" value="일괄변경"class="Small_Button Gray"onClick="list_Submit();">
+	<input type="button" value="일괄변경"class="Small_Button Gray"onClick="list_Submit('state');">
 	
 	<div align="center" style="padding-top:10px;">
 		<c:forEach var="i" begin="1" end="${endNum}">

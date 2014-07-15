@@ -557,7 +557,7 @@ public class OrderManageController {
 				productManageService.manageProductInf(productInfo);
 			}
 			
-			/*
+			
 			List<OrderInfo> orderList = orderService.selectListBomOrderTbToExel0001(orderInfo);
 			
 			for(OrderInfo each : orderList){
@@ -612,7 +612,7 @@ public class OrderManageController {
 					}
 				}
 			}
-			*/
+			
 		}
 		
 		if(orderInfo.getOrderStatCd().equals("06") ){
@@ -751,7 +751,7 @@ public class OrderManageController {
 					productManageService.manageProductInf(productInfo);
 				}
 				
-				/*
+				
 				List<OrderInfo> orderList = orderService.selectListBomOrderTbToExel0001(orderInfo);
 				
 				for(OrderInfo each : orderList){
@@ -806,7 +806,7 @@ public class OrderManageController {
 						}
 					}
 				}
-			*/	
+			
 			
 			}
 			
@@ -882,7 +882,7 @@ public class OrderManageController {
 
 	//주문검색
 	@RequestMapping(value="/orderSearchList.do", method= RequestMethod.GET)
-	public String orderSearchList(@ModelAttribute("AdminInfo") AdminInfo adminInfo,OrderSrchInfo orderInfo, String page,BindingResult result, Model model,HttpSession session){
+	public String orderSearchList(@ModelAttribute("AdminInfo") AdminInfo adminInfo,OrderSrchInfo orderInfo, String page,BindingResult result, Model model,HttpSession session) throws UnsupportedEncodingException{
 
 		AdminInfo adminSession = (AdminInfo) session.getAttribute("adminSession");
 
@@ -895,6 +895,9 @@ public class OrderManageController {
 			{page="1";orderInfo.setStartIdx(Integer.parseInt(page));}
 		else 
 			orderInfo.setStartIdx(Integer.parseInt(page));
+		
+		if(orderInfo.getKeyword()!=null && !orderInfo.getKeyword().isEmpty() && !StringUtils.isEmpty(orderInfo.getKeyword()))
+			orderInfo.setKeyword(URLDecoder.decode(orderInfo.getKeyword(), "UTF-8"));
 		
 		List<OrderInfo> odList =orderManageService.getOrderInfoListBySchInfo(orderInfo);
 		

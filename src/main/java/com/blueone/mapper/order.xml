@@ -45,6 +45,7 @@
 		<id property="paymentInfo.payMdCd" column="join_payMdCd" javaType="java.lang.String"/>
 		<id property="paymentInfo.payDate" column="join_payDate" javaType="java.lang.String"/>
 		<id property="paymentInfo.payPoint" column="join_payPoint" javaType="int"/>
+		<id property="customerInfo.custNm" column="join_custNm" javaType="java.lang.String"/>
 	
 		
 		<!-- 고객정보 셋팅 -->
@@ -293,7 +294,7 @@
 		SELECT
 			T1.IDX ,
 			T1.ORDER_NO ,
-			T1.CUST_ID AS custId ,
+			T1.CUST_ID AS custId,
 			T1.ORDER_STAT_CD,
 			T1.ORDER_DATE ,
 			T1.REG_DATE ,
@@ -334,9 +335,12 @@
 				BOM_PRODUCT_TB T4 ON T3.PRD_CD = T4.PRD_CD
 			JOIN 
 				BOM_PAYMENT_TB T5 ON T1.ORDER_NO = T5.ORDER_NO	
+			JOIN 
+				BOM_CUST_TB T6 ON T1.CUST_ID = T6.CUST_ID	
+				
 		WHERE
 			(1 = 1)
-			<if test="keyfield!= null and keyfield != '' and keyfield==2"> AND T1.CUST_ID LIKE CONCAT('%',#{keyword},'%') </if>
+			<if test="keyfield!= null and keyfield != '' and keyfield==2"> AND T6.CUST_NM LIKE CONCAT('%',#{keyword},'%') OR T1.CUST_ID LIKE CONCAT('%',#{keyword},'%')</if>
 			<if test="keyfield!= null and keyfield != '' and keyfield==1"> AND T1.ORDER_NO LIKE CONCAT('%',#{keyword},'%')</if>
 			<if test="srchStdDt != null and srchStdDt != '' and srchEdDt != null and srchEdDt != ''"> AND T1.REG_DATE BETWEEN  #{srchStdDt} AND #{srchEdDt}</if>
 		
