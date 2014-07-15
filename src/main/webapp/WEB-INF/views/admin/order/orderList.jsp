@@ -210,7 +210,7 @@ function list_Submit(k){
 						</td>
 						<td class="center">
 							<c:if test="${odList.orderStatCd eq '01'}">신청대기</c:if>
-							<c:if test="${odList.orderStatCd eq '02'}">주문완료</c:if>
+							<c:if test="${odList.orderStatCd eq '02'}">결제완료</c:if>
 							<c:if test="${odList.orderStatCd eq '07'}">취소신청</c:if>
 							<c:if test="${odList.orderStatCd eq '08'}">취소완료</c:if>
 							<c:if test="${odList.orderStatCd eq '03'}">배송준비</c:if>

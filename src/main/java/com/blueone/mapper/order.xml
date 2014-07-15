@@ -520,14 +520,6 @@
 			`HM_ORDER_NO`= #{orderNo}
 	</update> -->
 	
-	<update id="updateBomOrderTb0001" parameterType="orderInfo">
-		UPDATE BOM_ORDER_TB
-			SET
-				`LAST_DATE` = sysdate()
-		WHERE
-			`ORDER_NO`= #{orderNo}
-	</update>
-	
 	
 	<select id="getOrderTypTotalCount" parameterType="orderSrchInfo" resultType="int">
 		SELECT COUNT(T1.ORDER_NO)

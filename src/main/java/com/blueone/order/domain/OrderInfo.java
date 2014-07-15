@@ -13,7 +13,7 @@ public class OrderInfo {
 	private int ordIdx;
 	
 	private String orderNo;				// 주문번호
-	private String orderStatCd;			// 주문상태 (01:신청대기, 02:결제완료, 03:배송준비중, 04:배송중, 05:배송완료, 06:고객확인, 07: 취소신청,
+	private String orderStatCd;			// 주문상태 (01:신청대기, 02:결제완료후 신청대기, 03:배송준비중, 04:배송중, 05:배송완료, 06:고객확인, 07: 취소신청,
 										//           08: 취소신청완료,09: 반품신청,10: 반품신청완료)
 	private String orderDate;			// 주문발생일
 	private BigDecimal totalOrderPrice;	// 총주문금액

@@ -387,7 +387,9 @@ function pre_count(){
 		<div class="sub_content">
 			
 			<!-- 주문정보 입력 form : order_info -->
-			<form name="order_info" method="post" action="/resources/kcp/pp_ax_hub.jsp" >
+<!-- 			<form name="order_info" method="post" action="/resources/kcp/pp_ax_hub.jsp" > -->
+			<form name="order_info" method="post" action="orderRegisterProc.do" >
+			
 			<input type="hidden" id="customerInfo.custId"        name="customerInfo.custId"  value="${cus.custId}">
 			<input type="hidden" id="ord_unit_chk"               name="ord_unit_chk"  value="${orderInfo.ord_unit_chk}">
 			<input type="hidden" id="ordr_idxx"                  name="ordr_idxx" value="${orderInfo.orderNo}">
@@ -747,7 +749,9 @@ function pre_count(){
 					<div class="complet_area">
 						<span class="btn_complete">
 							<!-- <input type="button" value="결제하기" title="결제버튼" onClick="_pay(document.KSPayWeb);"/> -->
-							<input name="" type="submit" style="cursor:pointer; " class="submit" value="결제하기" onclick="return jsf__pay(this.form);"/>
+							<!-- <input name="" type="submit" style="cursor:pointer; " class="submit" value="결제하기" onclick="return jsf__pay(this.form);"/> -->
+							<input name="" type="submit" style="cursor:pointer; " class="submit" value="결제하기" />
+							
 						</span>
 						<span class="btn_cancle">
 							<input type="reset" value="취소하기" title="취소버튼" style="cursor:pointer; "/>

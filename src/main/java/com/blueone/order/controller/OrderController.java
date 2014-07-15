@@ -562,91 +562,15 @@ public class OrderController {
 	
 	//寃곗젣?섏씠吏?泥섎━
 	@RequestMapping(value="/order/orderRegisterProc.do")
-	public String orderRegisteProc(@ModelAttribute("orderInfo") OrderInfo orderInfo,HttpSession session,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
-		/*String rcid		= request.getParameter("reWHCid"		);
-		String rctype	= request.getParameter("reWHCtype"		);
-		String rhash	= request.getParameter("reWHHash"			);
-
-		String	authyn =  "";
-		String	trno   =  "";
-		String	trddt  =  "";
-		String	trdtm  =  "";
-		String	amt    =  "";
-		String	authno =  "";
-		String	msg1   =  "";
-		String	msg2   =  "";
-		String	ordno  =  "";
-		String	isscd  =  "";
-		String	aqucd  =  "";
-		String	temp_v =  "";
-		String	res =  "";
-		String	halbu  =  "";
-		String	cbtrno =  "";
-		String	cbauthno =  "";
-		String	resultcd =  "";
-
-		//?낆껜?먯꽌 異붽??섏떊 ?몄옄媛믪쓣 諛쏅뒗 遺?텇?낅땲??
-		String	a =  request.getParameter("a"); 
-		String	b =  request.getParameter("b"); 
-		String	c =  request.getParameter("c"); 
-		String	d =  request.getParameter("d");
-
-		com.blueone.common.util.KSPayWebHostBean ipg = new com.blueone.common.util.KSPayWebHostBean(rcid);
-		if (ipg.kspay_send_msg("1"))		//KSNET 寃곗젣寃곌낵 以??꾨옒???섑??섏? ?딆? ??ぉ???꾩슂??寃쎌슦 Null ??떊 ?꾩슂????ぉ紐낆쓣 ?ㅼ젙?????덉뒿?덈떎.
-		{
-			authyn	 = ipg.kspay_get_value("authyn");
-			trno	 = ipg.kspay_get_value("trno"  );
-			trddt	 = ipg.kspay_get_value("trddt" );
-			trdtm	 = ipg.kspay_get_value("trdtm" );
-			amt		 = ipg.kspay_get_value("amt"   );
-			authno	 = ipg.kspay_get_value("authno");
-			msg1	 = ipg.kspay_get_value("msg1"  );
-			msg2	 = ipg.kspay_get_value("msg2"  );
-			ordno	 = ipg.kspay_get_value("ordno" );
-			isscd	 = ipg.kspay_get_value("isscd" );
-			aqucd	 = ipg.kspay_get_value("aqucd" );
-			temp_v	 = "";
-			res	 = ipg.kspay_get_value("result");
-			halbu	 = ipg.kspay_get_value("halbu");
-			cbtrno	 = ipg.kspay_get_value("cbtrno");
-			cbauthno	 = ipg.kspay_get_value("cbauthno");
-			
-			if (null != authyn && 1 == authyn.length())
-			{
-				if (authyn.equals("O"))
-				{
-					resultcd = "0000";
-				}else
-				{
-					resultcd = authno.trim();
-				}
-
-				//ipg.kspay_send_msg("3");		// ?뺤긽泥섎━媛??꾨즺?섏뿀??寃쎌슦 ?몄텧?⑸땲??(??怨쇱젙???놁쑝硫??쇱떆?곸쑝濡?kspay_send_msg("1")???몄텧?섏뿬 嫄곕옒?댁뿭 議고쉶媛?媛?뒫?⑸땲??)
-			}
-		}*/
+	public void orderRegisteProc(@ModelAttribute("orderInfo") OrderInfo orderInfo,HttpSession session,BindingResult result, Model model,HttpServletRequest request,HttpServletResponse response) throws IOException{
+		
 		CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");	
-		// ?몄뀡泥댄겕
+		/*// ?몄뀡泥댄겕
 		if (cus == null) {
 			return "user/errorPage";
 		}	
-		
-		
-		
-	/*	CustomerInfo cus =new CustomerInfo();
-		cus.setCustId("100001639343");
-		cus=customerService.getCustomerInfo2(cus);
-		
-		String birth = cus.getCustBirth();
-//		cus = useStringToken(birth,"b",cus);
-		
-		String phone = cus.getCustPh();
-		cus = useStringToken(phone,"p",cus);
-		
-		String mobile = cus.getCustMb();
-		cus = useStringToken(mobile,"m",cus);*/
-		
-		
-		//二쇰Ц踰덊샇
+		*/
+	
 		String orderNum=orderInfo.getOrderNo();
 		
 		List<OrderProductInfo> ord  = orderInfo.getOrderProductList();
@@ -668,23 +592,7 @@ public class OrderController {
 		orderInfo1.setCustomerInfo(cus);
 		orderInfo1.setModifyUserId(cus.getCustId());
 		orderManageService.registOrderInfo(orderInfo1);
-		StringTokenizer st = new StringTokenizer(orderInfo.getOrd_unit_chk(),",");
 	
-		
-		CookieBox cki = new CookieBox(request);
-		
-		
-		
-
-		
-		RecipientInfo re = new RecipientInfo();
-		re=orderInfo.getReciInfo();
-		re.setReciOdNum(orderNum);
-		cus.setCustAdd(re.getAdd1());
-		customerManageService.updateCustomerInf(cus);
-		orderManageService.registRecipientInfo(re);
-		
-		return "redirect:orderComplete.do?orderNo="+orderNum;
 }
 
 
@@ -919,8 +827,8 @@ CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");
 		orderInfo.setCustomerInfo(cus);
 		orderInfo.setModifyUserId(cus.getCustId());
 		orderInfo.setOrderStatCd("03");
-		orderManageService.registOrderInfo(orderInfo);
-	
+		orderManageService.updateOrderInf(orderInfo);
+	//orderManageService.registOrderInfo(orderInfo);
 		
 		
 		model.addAttribute("config", resConfigInfo);

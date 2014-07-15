@@ -939,7 +939,7 @@ public class OrderManageController {
 		return "admin/order/orderList";
 	}
 	
-	//신청중
+	//신청대기
 	@RequestMapping(value="/orderingList.do", method= RequestMethod.GET)
 	public String orderingList(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result,String page, Model model,HttpSession session){
 
@@ -952,7 +952,7 @@ public class OrderManageController {
 		
 	
 		OrderInfo os = new OrderInfo();
-		os.setOrderStatCd("01");
+		os.setOrderStatCd("02");
 		if (StringUtils.isEmpty(page))
 			{page="1";os.setStartIdx(Integer.parseInt(page));}
 		else 
@@ -964,7 +964,7 @@ public class OrderManageController {
 		model.addAttribute("sh","ordering");
 		OrderSrchInfo orderSrchInfo = new OrderSrchInfo();
 		orderSrchInfo.setKeyfield(3);
-		orderSrchInfo.setKeyword("01");
+		orderSrchInfo.setKeyword("02");
 		
 		int endNum;
 		int total= orderManageService.getOrderTypTotalCount(orderSrchInfo);
@@ -983,7 +983,7 @@ public class OrderManageController {
 		return "admin/order/orderList";
 	}
 	
-	//주문완료
+	//구매확정
 	@RequestMapping(value="/orderCompleteList.do", method= RequestMethod.GET)
 	public String orderCompleteList(@ModelAttribute("AdminInfo") AdminInfo adminInfo, BindingResult result,String page, Model model,HttpSession session){
 
@@ -995,7 +995,7 @@ public class OrderManageController {
 
 		
 		OrderInfo os = new OrderInfo();
-		os.setOrderStatCd("02");
+		os.setOrderStatCd("06");
 		if (StringUtils.isEmpty(page))
 			{page="1";os.setStartIdx(Integer.parseInt(page));}
 		else 
@@ -1007,7 +1007,7 @@ public class OrderManageController {
 		model.addAttribute("sh","orderComplete");
 		OrderSrchInfo orderSrchInfo = new OrderSrchInfo();
 		orderSrchInfo.setKeyfield(3);
-		orderSrchInfo.setKeyword("02");
+		orderSrchInfo.setKeyword("06");
 		
 		int endNum;
 		int total= orderManageService.getOrderTypTotalCount(orderSrchInfo);
