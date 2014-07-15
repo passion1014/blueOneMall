@@ -106,7 +106,62 @@ public class OrderManageController {
 		OrderInfo os = new OrderInfo();
 		
 		
-		List<OrderInfo> odList =orderManageService.getOrderInfoListByPeriod(os);
+		//List<OrderInfo> odList =orderManageService.getOrderInfoListByPeriod(os);
+		os.setCustomerInfo(new CustomerInfo());
+		List<OrderInfo> odList = orderManageService.selectOrderInfoList(os);
+		
+		if(odList!=null && odList.size()>0){
+			
+		//二쇰Ц肄붾뱶濡� 二쇰Ц�긽�뭹 �젙蹂� 媛��졇�삤湲�
+		for(OrderInfo each : odList){
+			
+			String odNo = each.getOrderNo();
+			OrderProductInfo odPrd = new OrderProductInfo();
+			odPrd.setOrderNo(odNo);
+			List<OrderProductInfo> opResInf = orderService.selectOrderPrdInfo(odPrd);
+			
+			if(opResInf!=null && opResInf.size()>0){
+				odPrd=opResInf.get(0);
+				String prdCd = odPrd.getPrdCd();
+				ProductInfo prInf = new ProductInfo();
+				prInf.setPrdCd(prdCd);
+				prInf=productManageService.getProductInfDetail(prInf);
+				
+				if(prInf !=null){
+				//�긽�뭹 �씠由�
+					if(opResInf.size()>1){
+						odPrd.setPrdNm(prInf.getPrdNm()+"외 "+(opResInf.size()-1)+"개");
+						
+						
+					}else{
+						odPrd.setPrdNm(prInf.getPrdNm());
+						
+						
+					}
+					
+					
+					PaymentInfo pay = new PaymentInfo();
+					pay.setOrderNo(odNo);
+					List<PaymentInfo> payList = orderManageService.selectPaymentInfo(pay);
+					if(payList.size()>0)
+						each.setPaymentInfo(payList.get(0));
+					
+					}
+					
+					
+					each.setOrdPrd(odPrd);
+				
+				
+				
+					
+					
+					String reg = each.getRegDate();
+					int a = reg.indexOf(" ");
+					reg= reg.substring(0, a);
+					each.setRegDate(reg);
+				}
+			}
+		}
 		PageDivision pd = new PageDivision();
 		
 		if (StringUtils.isEmpty(page)){
@@ -584,9 +639,9 @@ public class OrderManageController {
 					adjustment.setMemNo(point[1]);
 					adjustment.setTaxGb("1");
 					adjustment.setSalePrice(each.getOrdPrd().getSellPrice().multiply(new BigDecimal(each.getOrdPrd().getBuyCnt())).toString());
-					adjustment.setPointAmt(Integer.toString(each.getPaymentInfo().getPayPoint()));
-					BigDecimal etc = each.getPaymentInfo().getPayPrice();
-					etc =etc .subtract(new BigDecimal(each.getPaymentInfo().getPayPoint()));
+					adjustment.setPointAmt(Integer.toString(each.getPaymentInfo().getPayPoint()/orderList.size()));
+					BigDecimal etc = each.getOrdPrd().getSellPrice();
+					etc =etc.subtract(new BigDecimal(each.getPaymentInfo().getPayPoint()/orderList.size()));
 					adjustment.setEtcAmt(etc.toString());
 					adjustment.setDeliAmt("0");
 					String option = each.getOrdPrd().getPrdOpColor();
@@ -787,9 +842,9 @@ public class OrderManageController {
 						adjustment.setMemNo(point[1]);
 						adjustment.setTaxGb("1");
 						adjustment.setSalePrice(each.getOrdPrd().getSellPrice().multiply(new BigDecimal(each.getOrdPrd().getBuyCnt())).toString());
-						adjustment.setPointAmt(Integer.toString(each.getPaymentInfo().getPayPoint()));
-						BigDecimal etc = each.getPaymentInfo().getPayPrice();
-						etc =etc .subtract(new BigDecimal(each.getPaymentInfo().getPayPoint()));
+						adjustment.setPointAmt(Integer.toString(each.getPaymentInfo().getPayPoint()/orderList.size()));
+						BigDecimal etc = each.getOrdPrd().getSellPrice();
+						etc =etc.subtract(new BigDecimal(each.getPaymentInfo().getPayPoint()/orderList.size()));
 						adjustment.setEtcAmt(etc.toString());
 						adjustment.setDeliAmt("0");
 						String option = each.getOrdPrd().getPrdOpColor();

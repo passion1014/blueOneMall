@@ -271,7 +271,7 @@
 	<select id="selectListBomOrderTb0002" resultType="orderInfo" resultMap="OrderInfoMap" parameterType="orderInfo">
 		SELECT
 			T1.ORDER_NO,
-			T1.CUST_ID,
+			T1.CUST_ID AS custId ,
 			T1.ORDER_STAT_CD,
 			T1.ORDER_DATE,
 			T1.REG_DATE,

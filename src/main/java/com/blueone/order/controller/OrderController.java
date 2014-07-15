@@ -827,14 +827,73 @@ CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");
 		orderInfo.setCustomerInfo(cus);
 		orderInfo.setModifyUserId(cus.getCustId());
 		orderInfo.setOrderStatCd("03");
-		orderManageService.updateOrderInf(orderInfo);
-	//orderManageService.registOrderInfo(orderInfo);
+		//orderManageService.updateOrderInf(orderInfo);
+	    orderManageService.registOrderInfo(orderInfo);
 		
 		
 		model.addAttribute("config", resConfigInfo);
 		
 		
+		List<OrderInfo> orderList = orderManageService.selectListBomOrderTbToExel0001(orderInfo);
+		
+		for(OrderInfo each : orderList){
+			String pointInfo= each.getUserPointInfo();
 			
+			String[] point = pointInfo.split("_");
+			Map<String, String> rstMap = null;
+			HMallProcAdjustmentInfo adjustment = new HMallProcAdjustmentInfo();
+			try {
+				// --------------------------------------------
+				// 1. 정산 처리 
+				// --------------------------------------------
+				
+				adjustment.setOrderNo(orderInfo.getOrderNo());
+				adjustment.setItemCd(each.getOrdPrd().getPrdCd());
+				adjustment.setOrderGb("10");
+				adjustment.setOrderDm(DateUtil.getDate("yyyyMMdd"));
+				adjustment.setShopNo( point[4]);
+				adjustment.setShopEventNo( point[2]);
+				adjustment.setMemNo(point[1]);
+				adjustment.setTaxGb("1");
+				adjustment.setSalePrice(each.getOrdPrd().getSellPrice().multiply(new BigDecimal(each.getOrdPrd().getBuyCnt())).toString());
+				adjustment.setPointAmt(Integer.toString(each.getPaymentInfo().getPayPoint()/orderList.size()));
+				BigDecimal etc = each.getOrdPrd().getSellPrice();
+				etc =etc.subtract(new BigDecimal(each.getPaymentInfo().getPayPoint()/orderList.size()));
+				adjustment.setEtcAmt(etc.toString());
+				adjustment.setDeliAmt("0");
+				String option = each.getOrdPrd().getPrdOpColor();
+	        	adjustment.setItemNm(each.getOrdPrd().getPrdNm()+option.substring(3, option.indexOf(",")));
+	        	adjustment.setItemPrice(each.getOrdPrd().getSellPrice().toString());
+	        	adjustment.setOrderQty(Integer.toString(each.getOrdPrd().getBuyCnt()));
+	        	adjustment.setDcPrice("0");
+	        	
+	        	
+	        	rstMap = HMallInterworkUtility.procAdjustment(adjustment);
+	        	
+			} catch (Exception e) {
+				model.addAttribute("msg", "정산 처리시 에러발생하였습니다.");
+				return "user/loginError";
+			}
+			
+			// --------------------------------------------
+			// 3. 체크 - SSO처리 결과를 확인한다.
+			// --------------------------------------------
+			if (rstMap == null) {
+				model.addAttribute("msg", "SSO처리 결과가 없습니다.(1)");
+				return "user/loginError";
+			} else {
+				String returnCode = (String)rstMap.get("return_code");
+				String date = adjustment.getOrderDm()+"("+DateUtil.getDate("h:mm a")+")";
+				adjustment.setOrderDm(date);
+				adjustment.setReturnCode(returnCode);
+				orderManageService.insertBomHMTb0001(adjustment);
+				if (!"000".equals(returnCode)) {
+					model.addAttribute("msg", HMallInterworkUtility.getErrorMsgByCode(returnCode));
+				}
+			}
+		}
+		
+	
 	
 		return "order/orderComplete";
 	}
@@ -1060,7 +1119,67 @@ CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");
 		orderInfo.setOrderStatCd("03");
 		orderManageService.registOrderInfo(orderInfo);
 	
+		List<OrderInfo> orderList = orderManageService.selectListBomOrderTbToExel0001(orderInfo);
+		
+		for(OrderInfo each : orderList){
+			String pointInfo= each.getUserPointInfo();
+			
+			String[] point = pointInfo.split("_");
+			rstMap = null;
+			HMallProcAdjustmentInfo adjustment = new HMallProcAdjustmentInfo();
+			try {
+				// --------------------------------------------
+				// 1. 정산 처리 
+				// --------------------------------------------
 				
+				adjustment.setOrderNo(orderInfo.getOrderNo());
+				adjustment.setItemCd(each.getOrdPrd().getPrdCd());
+				adjustment.setOrderGb("10");
+				adjustment.setOrderDm(DateUtil.getDate("yyyyMMdd"));
+				adjustment.setShopNo( point[4]);
+				adjustment.setShopEventNo( point[2]);
+				adjustment.setMemNo(point[1]);
+				adjustment.setTaxGb("1");
+				adjustment.setSalePrice(each.getOrdPrd().getSellPrice().multiply(new BigDecimal(each.getOrdPrd().getBuyCnt())).toString());
+				adjustment.setPointAmt(each.getOrdPrd().getSellPrice().multiply(new BigDecimal(each.getOrdPrd().getBuyCnt())).toString());
+				adjustment.setEtcAmt("0");
+				adjustment.setDeliAmt("0");
+				String option = each.getOrdPrd().getPrdOpColor();
+	        	adjustment.setItemNm(each.getOrdPrd().getPrdNm()+option.substring(3, option.indexOf(",")));
+	        	adjustment.setItemPrice(each.getOrdPrd().getSellPrice().toString());
+	        	adjustment.setOrderQty(Integer.toString(each.getOrdPrd().getBuyCnt()));
+	        	adjustment.setDcPrice("0");
+	        	
+	        	
+	        	rstMap = HMallInterworkUtility.procAdjustment(adjustment);
+	        	
+			} catch (Exception e) {
+				model.addAttribute("msg", "정산 처리시 에러발생하였습니다.");
+				return "user/loginError";
+			}
+			
+			// --------------------------------------------
+			// 3. 체크 - SSO처리 결과를 확인한다.
+			// --------------------------------------------
+			if (rstMap == null) {
+				model.addAttribute("msg", "SSO처리 결과가 없습니다.(1)");
+				return "user/loginError";
+			} else {
+				String returnCode = (String)rstMap.get("return_code");
+				String date = adjustment.getOrderDm()+"("+DateUtil.getDate("h:mm a")+")";
+				adjustment.setOrderDm(date);
+				adjustment.setReturnCode(returnCode);
+				orderManageService.insertBomHMTb0001(adjustment);
+				if (!"000".equals(returnCode)) {
+					model.addAttribute("msg", HMallInterworkUtility.getErrorMsgByCode(returnCode));
+				}
+			}
+		}
+		
+	
+	
+		
+		
 	
 		return "order/orderComplete";
 	}
