@@ -569,28 +569,32 @@ public class OrderManageController {
 				}
 				point = pointInfo.split("_");
 				rstMap = null;
+				HMallProcAdjustmentInfo adjustment = new HMallProcAdjustmentInfo();
 				try {
 					// --------------------------------------------
 					// 1. 정산 처리 
 					// --------------------------------------------
-					HMallProcAdjustmentInfo adjustment = new HMallProcAdjustmentInfo();
+					
 					adjustment.setOrderNo(orderInfo.getOrderNo());
 					adjustment.setItemCd(each.getOrdPrd().getPrdCd());
 					adjustment.setOrderGb("20");
 					adjustment.setOrderDm(DateUtil.getDate("yyyyMMdd"));
 					adjustment.setShopNo( point[4]);
 					adjustment.setShopEventNo( point[2]);
-					adjustment.setMemNo(point[0]);
+					adjustment.setMemNo(point[1]);
 					adjustment.setTaxGb("1");
 					adjustment.setSalePrice(each.getOrdPrd().getSellPrice().multiply(new BigDecimal(each.getOrdPrd().getBuyCnt())).toString());
 					adjustment.setPointAmt(Integer.toString(each.getPaymentInfo().getPayPoint()));
-					adjustment.setEtcAmt(each.getPaymentInfo().getPayPrice().toString());
+					BigDecimal etc = each.getPaymentInfo().getPayPrice();
+					etc =etc .subtract(new BigDecimal(each.getPaymentInfo().getPayPoint()));
+					adjustment.setEtcAmt(etc.toString());
 					adjustment.setDeliAmt("0");
 					String option = each.getOrdPrd().getPrdOpColor();
 		        	adjustment.setItemNm(each.getOrdPrd().getPrdNm()+option.substring(3, option.indexOf(",")));
 		        	adjustment.setItemPrice(each.getOrdPrd().getSellPrice().toString());
 		        	adjustment.setOrderQty(Integer.toString(each.getOrdPrd().getBuyCnt()));
 		        	adjustment.setDcPrice("0");
+		        	
 		        	
 		        	rstMap = HMallInterworkUtility.procAdjustment(adjustment);
 				} catch (Exception e) {
@@ -606,6 +610,10 @@ public class OrderManageController {
 					return "user/loginError";
 				} else {
 					String returnCode = (String)rstMap.get("return_code");
+					String date = adjustment.getOrderDm()+"("+DateUtil.getDate("h:mm a")+")";
+					adjustment.setOrderDm(date);
+					adjustment.setReturnCode(returnCode);
+					orderService.insertBomHMTb0001(adjustment);
 					
 					if (!"000".equals(returnCode)) {
 						model.addAttribute("msg", HMallInterworkUtility.getErrorMsgByCode(returnCode));
@@ -614,7 +622,7 @@ public class OrderManageController {
 			}
 			
 		}
-		
+		/*
 		if(orderInfo.getOrderStatCd().equals("06") ){
 			List<OrderInfo> orderList = orderService.selectListBomOrderTbToExel0001(orderInfo);
 			
@@ -669,7 +677,8 @@ public class OrderManageController {
 				} else {
 					
 					String returnCode = (String)rstMap.get("return_code");
-					
+					String date = adjustment.getOrderDm()+"("+DateUtil.getDate("h:mm a")+")";
+					adjustment.setOrderDm(date);
 					adjustment.setReturnCode(returnCode);
 					orderService.insertBomHMTb0001(adjustment);
 					
@@ -680,7 +689,7 @@ public class OrderManageController {
 			}
 			
 		}
-		
+		*/
 		return "redirect:orderManagement.do?orderNo="+orderInfo.getOrderNo()+"&custId="+cust.getCustId();
 	}
 	@RequestMapping(value="/orderStateEdit.do")
@@ -763,28 +772,32 @@ public class OrderManageController {
 					}
 					point = pointInfo.split("_");
 					rstMap = null;
+					HMallProcAdjustmentInfo adjustment = new HMallProcAdjustmentInfo();
 					try {
 						// --------------------------------------------
 						// 1. 정산 처리 
 						// --------------------------------------------
-						HMallProcAdjustmentInfo adjustment = new HMallProcAdjustmentInfo();
+						
 						adjustment.setOrderNo(orderInfo.getOrderNo());
 						adjustment.setItemCd(each.getOrdPrd().getPrdCd());
 						adjustment.setOrderGb("20");
 						adjustment.setOrderDm(DateUtil.getDate("yyyyMMdd"));
 						adjustment.setShopNo( point[4]);
 						adjustment.setShopEventNo( point[2]);
-						adjustment.setMemNo(point[0]);
+						adjustment.setMemNo(point[1]);
 						adjustment.setTaxGb("1");
 						adjustment.setSalePrice(each.getOrdPrd().getSellPrice().multiply(new BigDecimal(each.getOrdPrd().getBuyCnt())).toString());
 						adjustment.setPointAmt(Integer.toString(each.getPaymentInfo().getPayPoint()));
-						adjustment.setEtcAmt(each.getPaymentInfo().getPayPrice().toString());
+						BigDecimal etc = each.getPaymentInfo().getPayPrice();
+						etc =etc .subtract(new BigDecimal(each.getPaymentInfo().getPayPoint()));
+						adjustment.setEtcAmt(etc.toString());
 						adjustment.setDeliAmt("0");
 						String option = each.getOrdPrd().getPrdOpColor();
 			        	adjustment.setItemNm(each.getOrdPrd().getPrdNm()+option.substring(3, option.indexOf(",")));
 			        	adjustment.setItemPrice(each.getOrdPrd().getSellPrice().toString());
 			        	adjustment.setOrderQty(Integer.toString(each.getOrdPrd().getBuyCnt()));
 			        	adjustment.setDcPrice("0");
+			        	
 			        	
 			        	rstMap = HMallInterworkUtility.procAdjustment(adjustment);
 					} catch (Exception e) {
@@ -800,7 +813,10 @@ public class OrderManageController {
 						return "user/loginError";
 					} else {
 						String returnCode = (String)rstMap.get("return_code");
-						
+						String date = adjustment.getOrderDm()+"("+DateUtil.getDate("h:mm a")+")";
+						adjustment.setOrderDm(date);
+						adjustment.setReturnCode(returnCode);
+						orderService.insertBomHMTb0001(adjustment);
 						if (!"000".equals(returnCode)) {
 							model.addAttribute("msg", HMallInterworkUtility.getErrorMsgByCode(returnCode));
 						}
@@ -809,7 +825,7 @@ public class OrderManageController {
 			
 			
 			}
-			
+			/*
 			if(orderInfo.getOrderStatCd().equals("06") || orderInfo.getOrderStatCd().equals("02")){
 				List<OrderInfo> orderList = orderService.selectListBomOrderTbToExel0001(orderInfo);
 				
@@ -864,6 +880,8 @@ public class OrderManageController {
 						return "user/loginError";
 					} else {
 						String returnCode = (String)rstMap.get("return_code");
+						String date = adjustment.getOrderDm()+"("+DateUtil.getDate("h:mm a")+")";
+						adjustment.setOrderDm(date);
 						adjustment.setReturnCode(returnCode);
 						orderService.insertBomHMTb0001(adjustment);
 						if (!"000".equals(returnCode)) {
@@ -874,7 +892,7 @@ public class OrderManageController {
 				
 			}
 			
-			
+			*/
 		
 		}
 		return "redirect:orderList.do";

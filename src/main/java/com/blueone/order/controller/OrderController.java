@@ -674,10 +674,7 @@ public class OrderController {
 		CookieBox cki = new CookieBox(request);
 		
 		
-		while(st.hasMoreTokens()){ // 諛섑솢???좏겙???덈뒗媛? true/false;
-			Cookie cookie =cki.createCookie(st.nextToken(),"null",-1);
-			response.addCookie(cookie);
-		}
+		
 
 		
 		RecipientInfo re = new RecipientInfo();
