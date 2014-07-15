@@ -49,7 +49,7 @@ function fnAddClick() {
 								
 								
 								
-								<table class="boardNormal" summary="qna 등록">
+								<table class="qa_tbl" summary="qna 등록">
 									<colgroup>
 										<col width="15%" />
 										<col width="35%" />
@@ -72,7 +72,7 @@ function fnAddClick() {
 										<tr>
 											<th>제목</th>
 											<td colspan="3">
-												<input type="text" id="title" name="title" value="" class="text" style="width:100%;" title="제목 입력" />
+												<input type="text" id="title" name="title" value="" class="text"  title="제목 입력" />
 											</td>
 										</tr>
 										
@@ -88,15 +88,12 @@ function fnAddClick() {
 								</table>
 							
 				
-								<div style="margin-top:10px;text-align:center;">
-									<input type="button" value="목록으로" class="Button" onClick="location.href='./qnaBoard.do'"> &nbsp;&nbsp;
-									<input type="button" value="등록하기" class="Button Gray" onClick="fnAddClick();">
+								<div class="btn_qarea">
+									<input type="button" value="목록으로" class="btn01" onClick="location.href='./qnaBoard.do'"> &nbsp;&nbsp;
+									<input type="button" value="등록하기" class="btn02" onClick="fnAddClick();">
 								</div>
 							</li>
 						</ul>
-						<div class="evnt_btn">
-							<input type="button" value="목록으로" onClick="location.href='notice.do';">
-						</div>
 						
 					</div>
 				</div>

@@ -110,9 +110,8 @@
 
 	<div style="margin-top:10px;text-align:center;">
 		<input type="submit" value="수정하기" class="Button Gray">
-		<input type="button" value="창닫기" class="Button Gray" onClick="closeDialog();">
-	</div>
-	</form>
-	</div>
+		</div>
+		</form>
+		</div>
+		</div>
 		
-</div>

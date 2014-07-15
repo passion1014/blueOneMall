@@ -137,6 +137,7 @@ function SetPriceInput(str)
 												<c:if test="${odInfo.orderStatCd eq '03'}">배송준비</c:if>
 												<c:if test="${odInfo.orderStatCd eq '04'}">배송중</c:if>
 												<c:if test="${odInfo.orderStatCd eq '05'}">배송완료</c:if>
+												<c:if test="${odInfo.orderStatCd eq '06'}">구매확정</c:if>
 												<c:if test="${odInfo.orderStatCd eq '09'}">반품신청</c:if>
 												<c:if test="${odInfo.orderStatCd eq '10'}">반품신청완료</c:if>
 											</td>
@@ -199,7 +200,7 @@ function SetPriceInput(str)
 						<c:if test="${odInfo.orderStatCd eq '01' or odInfo.orderStatCd eq '03'}"><a href="orderCancel.do?orderNo=${odInfo.orderNo}&" class="btn_success">주문취소</a></c:if>
 						<c:if test="${odInfo.orderStatCd eq '04'}">
 							<a href="orderTakeBack.do?orderNo=${odInfo.orderNo}" class="btn_continue">반품신청</a>
-							<a href="orderComplete.do?orderNo=${odInfo.orderNo}" class="btn_continue">구매확정</a>
+							<a href="orderComplete.do?orderNo=${odInfo.orderNo}" class="btn_success">구매확정</a>
 						</c:if>
 						
 					</div>

@@ -43,11 +43,11 @@ function closeWin() {
 	</tr> 
 	
 	<tr> 
-		<td align="left" bgcolor="#548ED8" style="padding:5px;"> 
-		<input type="checkbox" name="chkbox" value="checkbox">&nbsp;&nbsp;<span style="color: rgb(255, 255, 255);"><b>오늘 하루 이 창을 열지 않음</b></span> 
+		<td align="left" bgcolor="#444444" style="padding:0px 15px;" height="20"> 
+		<input type="checkbox" name="chkbox" value="checkbox" >&nbsp;&nbsp;<span style="color: #fff;" ><b >오늘 하루 이 창을 열지 않음</b></span> 
 		</td> 
-		<td align="right" bgcolor="#548ED8" style="padding:5px;"> 
-		<a href="javascript:closeWin();"><span style="color: rgb(255, 255, 255);"><b>[닫기]</B></a> 
+		<td align="right" bgcolor="#444444" style="padding:5px;"> 
+		<a href="javascript:closeWin();"><span style="color:#fff;"><b>[닫기]</B></a> 
 		</td> 
 	</tr>
 
@@ -197,7 +197,7 @@ function closeWin() {
 							<a href="../product/productView.do?prdCd=${epPrdList.prdCd}&ctgCode=${epPrdList.prdCtgL}&ctgMiddleCode=${epPrdList.prdCtgM}">
 							<dl class="list_product">
 								<dd><img src="${epPrdList.attFilePath}" width="148" height="148" alt="prouct IMG"/></dd>
-								<dd class="pro_listText">${epPrdList.prdNm}</dd>
+								<dd class="pro_listText">${epPrdList.prdMainNm}</dd>
 								<dd class="pro_listTit">${epPrdList.prdBrand}</dd>
 								
 								<dd>
@@ -232,7 +232,7 @@ function closeWin() {
 							<a href="../product/productView.do?prdCd=${hpPrdList.prdCd}&ctgCode=${hpPrdList.prdCtgL}&ctgMiddleCode=${hpPrdList.prdCtgM}">
 							<dl class="list_product">
 								<dd><img src="${hpPrdList.attFilePath}" width="148" height="148" alt="prouct IMG"/></dd>
-								<dd class="pro_listText">${hpPrdList.prdNm}</dd>
+								<dd class="pro_listText">${hpPrdList.prdMainNm}</dd>
 								<dd class="pro_listTit">${hpPrdList.prdBrand}</dd>
 								<dd>
 
@@ -267,7 +267,7 @@ function closeWin() {
 							<a href="../product/productView.do?prdCd=${mmPrdList.prdCd}&ctgCode=${mmPrdList.prdCtgL}&ctgMiddleCode=${mmPrdList.prdCtgM}">
 							<dl class="list_product">
 								<dd><img src="${mmPrdList.attFilePath}" width="148" height="148" alt="prouct IMG"/></dd>
-								<dd class="pro_listText">${mmPrdList.prdNm}</dd>
+								<dd class="pro_listText">${mmPrdList.prdMainNm}</dd>
 								<dd class="pro_listTit">${mmPrdList.prdBrand}</dd>
 								<dd>
 									<c:if test="${mmPrdList.prdStock>0}">
@@ -301,7 +301,7 @@ function closeWin() {
 							<a href="../product/productView.do?prdCd=${pdSList.prdCd}&ctgCode=${pdSList.prdCtgL}&ctgMiddleCode=${pdSList.prdCtgM}">
 							<dl class="list_product">
 								<dd><img src="${pdSList.attFilePath}" width="148" height="148" alt="prouct IMG"/></dd>
-								<dd class="pro_listText">${pdSList.prdNm}</dd>
+								<dd class="pro_listText">${pdSList.prdMainNm}</dd>
 								<dd class="pro_listTit">${pdSList.prdBrand}</dd>
 								<dd>
 									<c:if test="${pdSList.prdStock>0}">
@@ -335,7 +335,7 @@ function closeWin() {
 							<a href="../product/productView.do?prdCd=${csPrdList.prdCd}&ctgCode=${csPrdList.prdCtgL}&ctgMiddleCode=${csPrdList.prdCtgM}">
 							<dl class="list_product">
 								<dd><img src="${csPrdList.attFilePath}" width="148" height="148" alt="prouct IMG"/></dd>
-								<dd class="pro_listText">${csPrdList.prdNm}</dd>
+								<dd class="pro_listText">${csPrdList.prdMainNm}</dd>
 								<dd class="pro_listTit">${csPrdList.prdBrand}</dd>
 								<dd>
 									<c:if test="${csPrdList.prdStock>0}">
@@ -369,7 +369,7 @@ function closeWin() {
 							<a href="../product/productView.do?prdCd=${xtPrdList.prdCd}&ctgCode=${xtPrdList.prdCtgL}&ctgMiddleCode=${xtPrdList.prdCtgM}">
 							<dl class="list_product">
 								<dd><img src="${xtPrdList.attFilePath}" width="148" height="148" alt="prouct IMG"/></dd>
-								<dd class="pro_listText">${xtPrdList.prdNm}</dd>
+								<dd class="pro_listText">${xtPrdList.prdMainNm}</dd>
 								<dd class="pro_listTit">${xtPrdList.prdBrand}</dd>
 								<dd>
 									<c:if test="${xtPrdList.prdStock>0}">
@@ -403,10 +403,10 @@ function closeWin() {
 			<dl class="cont_botbox1">
 				<dt ><B>입점 브랜드	</B><span>Sound Brand</span></dt>
 				<dd>
-					<a href="/product/productList.do?ctgCode=L6161&ctgMiddleCode=M6343" class="mart"><img src="<c:url value='/resources/img/main/main/lglogo.gif'/>" alt="LG전자 logo"/></a>
-					<a href="/product/productList.do?ctgCode=L6161&ctgMiddleCode=M7429" class="mart"><img src="<c:url value='/resources/img/main/main/akglogo.gif'/>" alt="AKG logo"/></a>
-					<a href="/product/productList.do?ctgCode=L6161&ctgMiddleCode=M7429" class="mart"><img src="<c:url value='/resources/img/main/main/harmanlogo.gif'/>" alt="harman logo"/></a>
-					<a href="/product/productList.do?ctgCode=L6161&ctgMiddleCode=M446"  class="mart"><img src="<c:url value='/resources/img/main/main/ubllogo.gif'/>" alt="UBL logo"/></a>
+					<a href="/product/searchProduct.do?schWord=LG" class="mart"><img src="<c:url value='/resources/img/main/main/lglogo.gif'/>" alt="LG전자 logo"/></a>
+					<a href="/product/searchProduct.do?schWord=AKG" class="mart"><img src="<c:url value='/resources/img/main/main/akglogo.gif'/>" alt="AKG logo"/></a>
+					<a href="/product/searchProduct.do?schWord=harman" class="mart"><img src="<c:url value='/resources/img/main/main/harmanlogo.gif'/>" alt="harman logo"/></a>
+					<a href="/product/searchProduct.do?schWord=JBL"  class="mart"><img src="<c:url value='/resources/img/main/main/ubllogo.gif'/>" alt="UBL logo"/></a>
 				</dd>
 		 	</dl>
 		 	<dl class="cont_botbox2" >
@@ -432,10 +432,10 @@ function closeWin() {
 			<span class="icon_box">
 				<!--<a href="" class="icon_malign"><img src="<c:url value='/resources/img/main/main/customer_center.gif'/>" alt="customer center"/></a>-->
 				<img src="<c:url value='/resources/img/main/main/customer_center.png'/>" alt="customer center"/>&nbsp;&nbsp;&nbsp;&nbsp;
-				<a href="" class="icon_malign"><img src="<c:url value='/resources/img/main/main/shopinpo2_btn1.gif'/>" alt="qa icon"/></a>
+				<a href="/community/qnaList.do" class="icon_malign"><img src="<c:url value='/resources/img/main/main/shopinpo2_btn1.gif'/>" alt="qa icon"/></a>
 				<a href="/community/faqList.do" class="icon_malign"><img src="<c:url value='/resources/img/main/main/shopinpo2_btn2.gif'/>" alt="faq icon"/></a>
 				<a href="/user/orderListView.do" class="icon_malign"><img src="<c:url value='/resources/img/main/main/shopinpo2_btn3.gif'/>" alt="order icon"/></a>
-				<a href=""><img src="<c:url value='/resources/img/main/main/shopinpo2_btn4.gif'/>" alt="customer icon"/></a>
+				<a href="/community/qnaList.do"><img src="<c:url value='/resources/img/main/main/shopinpo2_btn4.gif'/>" alt="customer icon"/></a>
 <!-- 
 				<a href="" class="icon_malign"><img src="<c:url value='/resources/img/main/main/qa_icon.gif'/>" alt="qa icon"/></a>
 				<a href="/community/faqList.do" class="icon_malign"><img src="<c:url value='/resources/img/main/main/faq_icon.gif'/>" alt="faq icon"/></a>
@@ -471,4 +471,3 @@ function tab_view2(field){
 }
 //-->
 </script>
-<c:import  url="../inc/bottom.jsp" />

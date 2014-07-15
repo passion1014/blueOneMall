@@ -154,7 +154,8 @@ function SetPriceInput(str)
 							<c:if test="${odInfo.orderStatCd eq '08'}">취소완료</c:if>
 							<c:if test="${odInfo.orderStatCd eq '03'}">배송준비</c:if>
 							<c:if test="${odInfo.orderStatCd eq '04'}">배송중</c:if>
-							<c:if test="${odInfo.orderStatCd eq '05'}">배송완료</c:if>
+							<!--<c:if test="${odInfo.orderStatCd eq '05'}">배송완료</c:if>-->
+							<c:if test="${odInfo.orderStatCd eq '06'}">구매확정</c:if>
 							<c:if test="${odInfo.orderStatCd eq '09'}">반품신청</c:if>
 							<c:if test="${odInfo.orderStatCd eq '10'}">반품신청완료</c:if>
 							&nbsp;&nbsp;
@@ -165,7 +166,8 @@ function SetPriceInput(str)
 								<option value=08 <c:if test="${odInfo.orderStatCd eq '08'}">selected</c:if>>취소완료</option>
 								<option value=03 <c:if test="${odInfo.orderStatCd eq '03'}">selected</c:if>>배송준비</option>
 								<option value=04 <c:if test="${odInfo.orderStatCd eq '04'}">selected</c:if>>배송중</option>
-								<option value=05 <c:if test="${odInfo.orderStatCd eq '05'}">selected</c:if>>배송완료</option>
+								<!--<option value=05 <c:if test="${odInfo.orderStatCd eq '05'}">selected</c:if>>배송완료</option>-->
+								<option value=06 <c:if test="${odInfo.orderStatCd eq '06'}">selected</c:if>>구매확정</option>
 								<option value=09 <c:if test="${odInfo.orderStatCd eq '09'}">selected</c:if>>반품신청</option>
 								<option value=10 <c:if test="${odInfo.orderStatCd eq '10'}">selected</c:if>>반품신청완료</option>
 							</select>

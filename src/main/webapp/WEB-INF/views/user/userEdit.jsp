@@ -1,15 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ page import="java.util.Calendar"%>
-<c:if test="${succcess=='Y'}"><script>alert("정보가 수정되었습니다");</script></c:if>
 <%
 	Calendar calendar = Calendar.getInstance();
 	String year = Integer.toString(calendar.get(Calendar.YEAR)); //년도를 구한다
 	int y = Integer.parseInt(year);
 %>
 
+<c:if test="${succcess=='Y'}"><script>alert("정보가 수정되었습니다");</script></c:if>
 
 <c:import  url="../inc/topSub.jsp" />
+
 <body>
 	<div class="wrap">
 	<!--  header 시작   -->

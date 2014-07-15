@@ -30,12 +30,12 @@
 	<div style="padding:10px;">
 	<div> 상품관리 > 상품분류 > 소분류 등록	</div>
 	<form name="frm" method="post" action="smallTypeRegisterProc.do">
-	<input type="text" id="ctgCode"     name="ctgCode" value="${ctgCode}">
-	<input type="text" id="ctgCodeType"  name="ctgCodeType"  value="03">
-	<input type="text" id="ctgDesc"      name="ctgDesc"      value="">
-	<input type="text" id="fromDate"     name="fromDate" value="1900-01-01">
-	<input type="text" id="toDate"       name="toDate" value="9999-12-31">
-	<input type="text" id="modifyUserId" name="modifyUserId" value="${adminSession.id}">
+	<input type="hidden" id="ctgCode"     name="ctgCode" value="${ctgCode}">
+	<input type="hidden" id="ctgCodeType"  name="ctgCodeType"  value="03">
+	<input type="hidden" id="ctgDesc"      name="ctgDesc"      value="">
+	<input type="hidden" id="fromDate"     name="fromDate" value="1900-01-01">
+	<input type="hidden" id="toDate"       name="toDate" value="9999-12-31">
+	<input type="hidden" id="modifyUserId" name="modifyUserId" value="${adminSession.id}">
 	
 	<table class="tbl1">
 		<colgroup>

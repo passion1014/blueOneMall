@@ -13,7 +13,7 @@
 		<c:import url="../inc/communityLnb.jsp" />
 		<div class="sub_content">
 			<div class="customer_section">
-				<h4>Event</h4>
+				<h4>묻고답하기</h4>
 				<p class="sub_tit">Q&A 질문과 답변을 볼 수 있습니다.</p>
 				<div class="notice_area">
 					<ul class="no_answer">

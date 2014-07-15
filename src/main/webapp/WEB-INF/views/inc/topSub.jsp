@@ -11,7 +11,7 @@
 <meta http-equiv="Expires" content="0" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="imagetoolbar" content="no" />
-<title>###### 현대프로모션몰 ######</title>
+<title>하만,LG 음향 전문 쇼핑몰</title>
 <link type="text/css" rel="stylesheet" href="<c:url value='/resources/css/common.css'/>" />
 <link type="text/css" rel="stylesheet" href="<c:url value='/resources/css/sub.css'/>" />
 <link type="text/css" rel="stylesheet" href="<c:url value='/resources/css/custom-theme/jquery-ui-1.8.16.custom.css'/>" />

@@ -15,6 +15,7 @@
 	    <h1>환경설정 &gt; 운영 관리 &gt; <strong>운영 설정</strong></h1>
 
 			<form name="frm" method="post" action="configEditProc.do" onSubmit="return chk_admin_form(this);" style="display:inline;" >
+			<input type="hidden" id="transferOffice" name="transferOffice" value="${config.transferOffice}"/>
 			<table>
 				<colgroup>
 					<col width="15%" />
@@ -61,6 +62,7 @@
 						<input type="text" id="buyPrice" name="buyPrice" value="${config.buyPrice}"/>원 이하 &nbsp;&nbsp; 배송비&nbsp;<input type="text" id="trasferPrice" name="trasferPrice" value="${config.trasferPrice}"/>원 추가
 					</td>
 				</tr>
+				<!--
 				<tr>
 					<th>배송업체</th>
 					<td class="left">
@@ -71,6 +73,7 @@
 					</select>
 					</td>
 				</tr>
+				-->
 			</table>
 		
 			<div style="margin-top:20px;" class="center">

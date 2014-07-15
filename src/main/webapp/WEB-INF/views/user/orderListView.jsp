@@ -96,6 +96,7 @@ $(document).ready(function() {
 												<c:if test="${ordList.orderStatCd eq '03'}">배송준비</c:if>
 												<c:if test="${ordList.orderStatCd eq '04'}">배송중</c:if>
 												<c:if test="${ordList.orderStatCd eq '05'}">배송완료</c:if>
+												<c:if test="${ordList.orderStatCd eq '06'}">구매확정</c:if>
 												<c:if test="${ordList.orderStatCd eq '09'}">반품신청</c:if>
 												<c:if test="${ordList.orderStatCd eq '10'}">반품신청완료</c:if>
 												
@@ -110,11 +111,13 @@ $(document).ready(function() {
 								</table>
 							</li>
 							<li class="paging2">
-								<a href="#" class="palign1"><img src="<c:url value='/resources/img/common/btn_first.gif'/>" alt="처음으로"></a>
-								<a href="#" class="palign2"><img src="<c:url value='/resources/img/common/btn_prev.gif'/>" alt="이전"></a>
-								<a href="#" class="on">1</a>
-								<a href="#" class="palign1"><img src="<c:url value='/resources/img/common/btn_next.gif'/>" alt="다음"></a>
-								<a href="#" class="palign2"><img src="<c:url value='/resources/img/common/btn_end.gif'/>" alt="끝으로"></a>
+								<a href="orderListView.do?page=1" class="palign1"><img src="<c:url value='/resources/img/common/btn_first.gif'/>" alt="처음으로"></a>
+								<a href="orderListView.do?page=${nowPage-1}" class="palign2"><img src="<c:url value='/resources/img/common/btn_prev.gif'/>" alt="이전"></a>
+								<c:forEach var="i" begin="1" end="${endNum}">
+									<a href="orderListView.do?page=${i}" class="on">${i}</a>
+								</c:forEach>
+								<a href="orderListView.do?page=${nowPage+1}" class="palign1"><img src="<c:url value='/resources/img/common/btn_next.gif'/>" alt="다음"></a>
+								<a href="orderListView.do?page=${endNum}" class="palign2"><img src="<c:url value='/resources/img/common/btn_end.gif'/>" alt="끝으로"></a>
 							</li>
 							</c:when>
 							 <c:otherwise>

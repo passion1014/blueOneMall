@@ -632,10 +632,10 @@ public class OrderController {
 		
 		
 		
-		/*CustomerInfo cus =new CustomerInfo();
+	/*	CustomerInfo cus =new CustomerInfo();
 		cus.setCustId("100001639343");
 		cus=customerService.getCustomerInfo2(cus);
-		*/
+		
 		String birth = cus.getCustBirth();
 //		cus = useStringToken(birth,"b",cus);
 		
@@ -643,7 +643,7 @@ public class OrderController {
 		cus = useStringToken(phone,"p",cus);
 		
 		String mobile = cus.getCustMb();
-		cus = useStringToken(mobile,"m",cus);
+		cus = useStringToken(mobile,"m",cus);*/
 		
 		
 		//二쇰Ц踰덊샇

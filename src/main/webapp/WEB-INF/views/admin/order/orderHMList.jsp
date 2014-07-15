@@ -17,7 +17,21 @@ function SetPriceInput(str)
 	}
 	document.write(retValue); 
 }
+$(document).ready(function() {
+	var dates = $("#srchStdDt,#srchEdDt").datepicker({
+		changeYear: true,
+		changeMonth: true,
+		dateFormat: "yymmdd",
+		showMonthAfterYear: true,
+		onSelect: function(selectedDate) {
+			var option = this.id == "srchStdDt" ? "minDate": "maxDate",
+			instance = $(this).data("datepicker"),
+			date = $.datepicker.parseDate(instance.settings.dateFormat || $.datepicker._defaults.dateFormat, selectedDate, instance.settings);
+			dates.not(this).datepicker("option", option, date);
+		}
+	});
 
+});
 //-->
 </script>
 <body>

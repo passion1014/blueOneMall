@@ -90,10 +90,6 @@
 	}
 	
 	$(document).ready(function() {
-		var i = 't6wKUMA/3xAWd6g6xpw8pG+Nbemg9Pv0S64vj+2+muoHEJi1scaqsHtXpuAlkflP61CTFOQZETR2HldIGd+czg==';
-		alert(i);
-		alert(encodeURI(i));
-		
 		Editor.modify({
 	     	"content":'${prdInfo.content}'
 	     });
@@ -407,7 +403,8 @@
 		<tr>
 			<th>검색어</th>
 			<td colspan="3" style="text-align:left;">
-				<textarea name="schWord" id="schWord"  class="Text Kor" style="width:97%;height:80px;">${prdInfo.schWord}</textarea>
+				<textarea name="schWord" id="schWord"  class="Text Kor" style="width:97%;height:80px;">${prdInfo.schWord}
+				</textarea>
 				<div style="margin-top:5px;">※ , 로 구분하여 입력하여 주십시오</div>
 			</td>
 		</tr>
@@ -442,8 +439,6 @@
 	
 
 </div>
-
-
 </body>
 
 <c:import url="../inc/footer.jsp" />

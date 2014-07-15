@@ -25,22 +25,35 @@ function chk_shopForm(k){
 		return false;
 	}
 
-	if($("#prdOpColor_ch").val() =='ch_color'){
-		alert("색상을 선택해주세요");
-		return false;
+	if(${pro.prdColor eq 'y'}){
+
+		if($("#prdOpColor_ch").val() =='ch_color'){
+			alert("색상을 선택해주세요");
+			return false;
+		}
+
+		document.getElementById("prdOpColor").value   = encodeURI(document.getElementById("prdOpColor_ch").value) ;	
+
 	}
-	document.getElementById("prdOpColor").value   = encodeURI(document.getElementById("prdOpColor_ch").value) ;
+
 	
+	if(${pro.prdSize eq 'y'}){
+	
+		if($("prdOpSize_ch").val() =='ch_size'){
+			alert("크기를 선택해주세요");
+			return false;
+		}
+
+		document.getElementById("prdOpSize").value   = encodeURI(document.getElementById("prdOpSize_ch").value) ;	
+
+	}
+	
+
+
+
 	document.getElementById("prdfm").submit() ;
 }
 
-function sumPrice(n){
-	price = $("#unitPrice").val();
-	sell_price = parseInt( price * n ) ;
-
-	$("#sellPrice").val(sell_price);
-	document.getElementById("sellPriceView").innerHTML= sell_price 
-}
 function SetPriceInput(str)
 {
 	str=str.replace(/,/g,'');
@@ -54,6 +67,42 @@ function SetPriceInput(str)
 	}
 	document.write(retValue); 
 }
+
+function SetPriceView(str)
+{
+	str=str.replace(/,/g,'');
+	var retValue = "";
+	for(i=1; i<=str.length; i++)
+	{
+		if(i > 1 && (i%3)==1) 
+			  retValue = str.charAt(str.length - i) + "," + retValue;
+		else 
+			  retValue = str.charAt(str.length - i) + retValue;    
+	}
+	return retValue ; 
+}
+
+function sumPrice(n){
+	price = $("#unitPrice").val();
+	sell_price = parseInt( price * n ) ;
+
+	$("#sellPrice").val(sell_price);
+
+	var resultPrice = SetPriceView(""+sell_price) ;
+
+	document.getElementById("sellPriceView").innerHTML= resultPrice ;
+}
+
+function writeUserName(val){
+	var nameObj = val.split('_');
+	document.write(nameObj[1]);
+}
+
+function chgImage(ref){
+	$("#MainImg").attr("src",ref);
+	$("#prdLayerImg").val(ref) ;
+}
+
 //-->
 </script>
 
@@ -75,7 +124,8 @@ function SetPriceInput(str)
 				<input type="hidden" id="sellPrice"  name="sellPrice"  value="${pro.prdSellPrc}">
 				<input type="hidden" id="buyType"  name="buyType"  value="">
 				<input type="hidden" id="prdOpColor"  name="prdOpColor"  value="">
-
+				<input type="hidden" id="prdOpSize"  name="prdOpSize"  value="">
+				
 
 
 					<span class="locat_box">Home&nbsp;>&nbsp;${pro.ctgLargeName}&nbsp;>&nbsp;
@@ -89,30 +139,31 @@ function SetPriceInput(str)
 						<p style="width:378px;height:379px;">
 						<c:forEach items="${imgList}" var="prdImg">
 							<c:if test="${'01' eq prdImg.attImgType}">
-								<img src="${prdImg.attFilePath}"  width="378" height="379">
+								<img id="MainImg" src="${prdImg.attFilePath}"  width="378" height="379">
 								<input type="hidden" id="prdSmallImg"  name="prdSmallImg"  value="${prdImg.attFilePath}">
+								<input type="hidden" id="prdLayerImg"  name="prdLayerImg"  value="${prdImg.attFilePath}">
 							</c:if>
 						</c:forEach>
 						</p>
-						<div class="detail_button" ><img src="<c:url value='/resources/img/common/btn_viewpro.jpg'/>" alt="자세히보기" style="cursor:pointer;"/></div>
+						<div class="detail_button" ><img src="<c:url value='/resources/img/common/btn_viewpro.jpg'/>" alt="자세히보기" onClick="dialogImageForm(document.getElementById('prdLayerImg').value);" style="cursor:pointer;"/></div>
 						<c:forEach items="${imgList}" var="prdImg">
 							<c:if test="${'02' eq prdImg.attImgType && 1 eq prdImg.attImgSeq}">
-								<span class="mralign"><img src="${prdImg.attFilePath}" alt="상품 작은이미지"  width="87" height="87" style="cursor:pointer;"></span>
+								<span class="mralign"><img src="${prdImg.attFilePath}" alt="상품 작은이미지"  width="87" height="87" style="cursor:pointer;" onMouseOver="chgImage('${prdImg.attFilePath}');"></span>
 							</c:if>
 						</c:forEach>
 						<c:forEach items="${imgList}" var="prdImg">
 							<c:if test="${'02' eq prdImg.attImgType && 2 eq prdImg.attImgSeq}">
-								<span class="mralign"><img src="${prdImg.attFilePath}" alt="상품 작은이미지"  width="87" height="87" style="cursor:pointer;"></span>
+								<span class="mralign"><img src="${prdImg.attFilePath}" alt="상품 작은이미지"  width="87" height="87" style="cursor:pointer;" onMouseOver="chgImage('${prdImg.attFilePath}');"></span>
 							</c:if>
 						</c:forEach>
 						<c:forEach items="${imgList}" var="prdImg">
 							<c:if test="${'02' eq prdImg.attImgType && 3 eq prdImg.attImgSeq}">
-								<span class="mralign"><img src="${prdImg.attFilePath}" alt="상품 작은이미지"  width="87" height="87" style="cursor:pointer;"></span>
+								<span class="mralign"><img src="${prdImg.attFilePath}" alt="상품 작은이미지"  width="87" height="87" style="cursor:pointer;" onMouseOver="chgImage('${prdImg.attFilePath}');"></span>
 							</c:if>
 						</c:forEach>
 						<c:forEach items="${imgList}" var="prdImg">
 							<c:if test="${'02' eq prdImg.attImgType && 4 eq prdImg.attImgSeq}">
-								<span><img src="${prdImg.attFilePath}" alt="상품 작은이미지"  width="87" height="87" style="cursor:pointer;"></span>
+								<span><img src="${prdImg.attFilePath}" alt="상품 작은이미지"  width="87" height="87" style="cursor:pointer;" onMouseOver="chgImage('${prdImg.attFilePath}');"></span>
 							</c:if>
 						</c:forEach>
 					</div>
@@ -173,9 +224,9 @@ function SetPriceInput(str)
 											<c:forEach var="opKey" items="${pro.optionKey}" begin="0" end="49" varStatus="i">
 												<c:if test="${'01' eq opKey}"> 
 													<option value="${pro.optionValue[i.index]}" >${pro.optionValue[i.index]}</option>
-      											</c:if>
-      										</c:forEach>
-      									</select>
+      									</c:if>
+      								</c:forEach>
+      							</select>
 									</td>
 								</tr>
 								</c:if>
@@ -184,14 +235,14 @@ function SetPriceInput(str)
 								<tr bgcolor="#f8f8f8">
 									<th>크기</th>
 									<td colspan="2" >
-										<select  id="prdOpSize" name="prdOpSize">
+										<select id="prdOpSize_ch" name="prdOpSize_ch">
 											<option value="ch_size">크기를을 선택해주세요</option>
 											<c:forEach var="opKey" items="${pro.optionKey}" begin="0" end="49" varStatus="i">
 												<c:if test="${'02' eq opKey}"> 
 													<option value="${pro.optionValue[i.index]}" >${pro.optionValue[i.index]}</option>
-      											</c:if>
-      										</c:forEach>
-      									</select>
+												</c:if>
+											</c:forEach>
+										</select>
 									</td>
 								</tr>
 								</c:if>
@@ -199,12 +250,15 @@ function SetPriceInput(str)
 									<th>수량</th>
 									<td colspan="2">
 										<c:choose>
-											<c:when test="${pro.prdStock > 0}"> (재고수량 : ${pro.prdStock} ) 
+											<c:when test="${pro.prdStock > 0}"> (재고수량 : ${pro.prdStock} ) &nbsp;
+												<!--
 												<select id="buyCnt" name="buyCnt" onChange="sumPrice(this.value);">
 													<c:forEach var="i" begin="1" end="50" step="1">
 														<option value="<c:out value="${i}"></c:out>" <c:if test="${i==1 }">selected</c:if>><c:out value="${i}"></c:out></option>
 													</c:forEach>
 												</select>
+												-->
+												<input type="text" id="buyCnt" name="buyCnt" value="1" style="border:2px solid #f00;width:30px;text-align:right;padding-right:10px;" onBlur="sumPrice(this.value);" onkeypress="numKeyOnly();">
 											</c:when>
 											<c:otherwise>
 												품절
@@ -259,7 +313,7 @@ function SetPriceInput(str)
 						<li class="leftline on">상세정보</li>
 						<li class="leftline" onClick="location.href='#mark2';">배송/반품/교환정보</li>
 						<li class="leftline" onClick="location.href='#mark3';">제품후기</li>
-						<li class="endline">&nbsp;</li>
+						<li class="endline" onClick="location.href='/community/qnaWrite.do';">상품문의</li>
 					</ul>
 					<p class="image_section">
 						${pro.prdConts}
@@ -271,7 +325,7 @@ function SetPriceInput(str)
 						<li class="leftline" onClick="location.href='#mark1';">상세정보</li>
 						<li class="leftline on">배송/반품/교환정보</li>
 						<li class="leftline" onClick="location.href='#mark3';">제품후기</li>
-						<li class="endline">&nbsp;</li>
+						<li class="endline" onClick="location.href='/community/qnaWrite.do';">상품문의</li>
 					</ul>
 					<p class="image_section">
 						${pro.prdTransContents}
@@ -283,7 +337,7 @@ function SetPriceInput(str)
 						<li class="leftline" onClick="location.href='#mark1';">상세정보</li>
 						<li class="leftline" onClick="location.href='#mark2';">배송/반품/교환정보</li>
 						<li class="leftline on">제품후기</li>
-						<li class="endline">&nbsp;</li>
+						<li class="endline" onClick="location.href='/community/qnaWrite.do';">상품문의</li>
 					</ul>
 					<div class="review_section">
 						<form action="/product/writeQnA.do" method="post" name="qnaform">
@@ -314,30 +368,17 @@ function SetPriceInput(str)
 								<th class="bgcolor">내용</th>
 								<th class="bgcolor">작성자</th>
 								<th class="bgcolor">작성일</th>
-								<!-- <th class="bgcolor">평가</th> -->
 							</thead>
 							<tbody>
 							<c:forEach items="${qnaList}" var="qna">
 								<tr>
 									<td class="bgcolor">${qna.brdSeq}</td>
 									<td class="texalign"><a href="#">${qna.content}</a></td>
-									<td class="bgcolor">
-										<script type="text/javascript">
-											document.open();
-											var text='${qna.insUser}';
-											var textArray=text.split('_');
-											document.write(textArray[1]);
-											document.close();
-										</script> 
-									</td>
+									<td class="bgcolor"><script>writeUserName('${qna.insUser}');</script></td>
 									<td>${qna.insDt}</td>
-									<%-- <td class="bgcolor">
-										<img src="<c:url value='/resources/img/common/bullet_sstar.png'/>" alt="작은별 이미지"/>
-										<img src="<c:url value='/resources/img/common/bullet_sstar.png'/>" alt="작은별 이미지"/>
-										<img src="<c:url value='/resources/img/common/bullet_sstar.png'/>" alt="작은별 이미지"/>
-										<img src="<c:url value='/resources/img/common/bullet_sstar.png'/>" alt="작은별 이미지"/>
-										<img src="<c:url value='/resources/img/common/bullet_sstar.png'/>" alt="작은별 이미지"/>
-									</td> --%>
+								</tr>
+								<tr id="line_${qna.brdSeq}" style="display:none">
+									<td colspan="4" style="text-align:left;padding:5px; 5px; 12px; 5px;">${qna.content}</td>
 								</tr>
 							</c:forEach>
 							</tbody>
@@ -368,5 +409,45 @@ function SetPriceInput(str)
 	
 </div>
 
+<div id="dialog-image-form"><img id="layerImage" src="${prdImg.attFilePath}"></div>
 
 <c:import url="../inc/footer.jsp" />
+
+
+<script language="JavaScript" type="text/JavaScript">
+<!--
+$(document).ready(function() {
+
+	$("#dialog-image-form").dialog({
+		autoOpen: false,
+		closeOnEscape: false,
+		draggable: false,
+		modal: true,
+		resizable: false,
+		show: 'fade',
+		hide: 'fade',
+		title: '',
+		width: 'auto',
+		create: function(event, ui) {},
+		open: function(event, ui) {},
+		close: function(event, ui) {}
+	});
+
+});
+
+
+function openImageDialog() {
+	$("#dialog-image-form").dialog("open");
+}
+
+function closeImageDialog() {
+	$("#dialog-image-form").dialog("close");
+}
+
+function dialogImageForm(imgUrl) {
+	$("#layerImage").attr("src",imgUrl);
+	openImageDialog();
+}
+
+//-->
+</script>

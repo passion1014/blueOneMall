@@ -88,7 +88,7 @@
 						<li class="gnb_list"><a href="javascript:alert('동의 후 이용이 가능합니다.');">${largeList.ctgName}</a></li>
 					</c:otherwise>
 				</c:choose>	
-				<c:set value="${counterNumber+1}" var="counterNumber" />
+				<c:set value="${counterNumber+1}" var="counterNumbe" />
 			</c:forEach>
 		</ul>
 	</div>

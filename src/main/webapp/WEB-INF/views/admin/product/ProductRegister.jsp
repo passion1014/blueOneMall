@@ -119,7 +119,7 @@
 				&nbsp;&nbsp;<b>정렬</b> :
 				<select id="prdOrd" name="prdOrd">
 				<c:forEach var="i" begin="1" end="50" step="1">
-					<option value="<c:out value="${i}"></c:out>"><c:out value="${i}"></c:out></option>
+					<option value="<c:out value="${i}"></c:out>" <c:if test="${i == 15}">selected</c:if>><c:out value="${i}"></c:out></option>
 				</c:forEach>							
 				</select>
 			</td>

@@ -14,8 +14,8 @@
 	<div class="container">
 		<div class="error_area">
 			<p class="error_img"><img src="<c:url value='/resources/img/common/error.png'/>" alt="error image"/></p>
-			<p class="error_text">로그인이 잘못되었습니다. 다시 접근해주세요</p>
-			<a href="http://gift.e-hyundai.com/static/default/html/index2.html" class="error_link">현대몰</a>
+			<p class="error_text">로그 세션이 만료되었습니다.<br /><br />다시 로그인 해주세요.</p>
+			<a href="http://gift.e-hyundai.com/static/mall/html/1067115796.html" class="error_link">현대몰</a>
 		</div>
 		
 	</div>

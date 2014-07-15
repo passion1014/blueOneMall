@@ -30,7 +30,7 @@ html{background-color:#93d1e0;}
 		</p>
 		<p class="company">
 			<span class="company_tit">Blue One Mall</span><br>
-			<span class="company_tit">E-MAIL : 1</span>
+			<!--<span class="company_tit">E-MAIL : 1</span>-->
 		</p>
 		</div>
 	</div>

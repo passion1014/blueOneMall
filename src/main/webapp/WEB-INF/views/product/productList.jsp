@@ -34,7 +34,7 @@ function SetPriceInput(str)
 			
 			<div class="cont_section">
 				<ul class="cont_list">
-					<c:choose>					
+					<!--<c:choose>					
 						<c:when test="${chkMiddleCode != null}">
 							<c:set var="whenCount" value="1"></c:set>
 							<c:forEach items="${lnbSList}" var="lnbSList">
@@ -73,7 +73,9 @@ function SetPriceInput(str)
 							</c:forEach>
 						</c:otherwise>
 								 
-					</c:choose>
+					</c:choose>-->
+						<c:if test="${prdList.size() != 0}"> ${prdList.get(0).ctgLargeName} > ${prdList.get(0).ctgMiddleName}</c:if>
+
 				</ul>
 				
 				<div class="product_section">
@@ -149,7 +151,7 @@ function SetPriceInput(str)
 						<a href="javascript:void(0);" class="palign1"><img src="<c:url value='/resources/img/common/btn_first.gif'/>" alt="처음으로"></a>
 						<a href="javascript:void(0);" class="palign2"><img src="<c:url value='/resources/img/common/btn_prev.gif'/>" alt="이전"></a>
 						<c:forEach var="i" begin="1" end="${endNum}">
-							<a href="productList.do?ctgCode=${categoryInfo.ctgCode}&ctgMiddleCode=${categoryInfo.ctgMiddleCode}&prdCtgS=${productInfo.prdCtgS}&page=${i}">${i}</a>
+							<a href="productList.do?ctgCode=${categoryInfo.ctgCode}&ctgMiddleCode=${categoryInfo.ctgMiddleCode}&prdCtgS=${productInfo.prdCtgS}&page=${i}&orderBy=${orderBy}">${i}</a>
 						</c:forEach>
 						<a href="javascript:void(0);" class="palign1"><img src="<c:url value='/resources/img/common/btn_next.gif'/>" alt="다음"></a>
 						<a href="javascript:void(0);" class="palign2"><img src="<c:url value='/resources/img/common/btn_end.gif'/>" alt="끝으로"></a>
