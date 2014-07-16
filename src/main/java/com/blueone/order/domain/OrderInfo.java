@@ -30,9 +30,9 @@ public class OrderInfo {
 	private String lastDate;	// 최종수정일
 	private String modifyUserId;// 최종수정자
 	private String prdCD;
-	private String ordTransNo;
-	private String ordTrans;
-	
+	private String ordTransNo; //송장번호
+	private String ordTrans; //송장이름
+	private String tno; // KCP 거래번호
 	private String ord_unit_chk; //다중 checkbox
 
 	private PaymentInfo paymentInfo;
@@ -45,6 +45,12 @@ public class OrderInfo {
 	private int startIdx;
 	
 	
+	public String getTno() {
+		return tno;
+	}
+	public void setTno(String tno) {
+		this.tno = tno;
+	}
 	public String getOrdTransNo() {
 		return ordTransNo;
 	}

@@ -1615,6 +1615,14 @@ public class OrderManageController {
 		
 		return "redirect:/admin/orderList.do";
 	}
+	
+	@RequestMapping(value="/orderCancel.do")
+	public String orderCancel(Model model,HttpSession session){
+		
+		
+		
+		return "admin/order/cancel";
+	}
 	@RequestMapping(value="/orderHMListToExel.do", method= RequestMethod.GET)
 	public String orderHMListToExel( Model model,HttpSession session,HttpServletRequest request, HttpServletResponse response,HMallProcAdjustmentInfo hmInfo) throws ServletException, IOException{
 		 //------------------------------

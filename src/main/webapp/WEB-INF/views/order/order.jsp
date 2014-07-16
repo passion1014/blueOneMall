@@ -387,8 +387,8 @@ function pre_count(){
 		<div class="sub_content">
 			
 			<!-- 주문정보 입력 form : order_info -->
-<!-- 			<form name="order_info" method="post" action="/resources/kcp/pp_ax_hub.jsp" > -->
-			<form name="order_info" method="post" action="orderRegisterProc.do" >
+ 			<form name="order_info" method="post" action="/resources/kcp/pp_ax_hub.jsp" >
+			<!-- <form name="order_info" method="post" action="orderRegisterProc.do" > -->
 			
 			<input type="hidden" id="customerInfo.custId"        name="customerInfo.custId"  value="${cus.custId}">
 			<input type="hidden" id="ord_unit_chk"               name="ord_unit_chk"  value="${orderInfo.ord_unit_chk}">

@@ -33,6 +33,7 @@
 		<id property="modifyUserId" column="MODIFY_USER_ID" javaType="java.lang.String"/>
 		<id property="srchStdDt" column="srchStdDt" javaType="java.lang.String"/>
 		<id property="srchEdDt" column="srchEdDt" javaType="java.lang.String"/>
+		<id property="tno" column="ORDER_TNO" javaType="java.lang.String"/>
 		<id property="userPointInfo" column="USER_POINT_INFO" javaType="java.lang.String"/>
 		<id property="ordTransNo" column="ORDER_TRANSFER_NO" javaType="java.lang.String"/>
 		<id property="ordTrans" column="ORDER_TRANSFER" javaType="java.lang.String"/>
@@ -133,6 +134,7 @@
 			T1.REG_DATE ,
 			T1.LAST_DATE ,
 			T1.MODIFY_USER_ID,
+			T1.ORDER_TNO,
 			T1.USER_POINT_INFO,
 			T2.IDX AS payIdx,
 			T2.ORDER_NO AS payOrdNo,
@@ -193,6 +195,7 @@
 			T1.ORDER_STAT_CD,
 			T1.ORDER_DATE ,
 			T1.REG_DATE ,
+			T1.ORDER_TNO,
 			T1.LAST_DATE ,
 			T1.MODIFY_USER_ID,
 			T1.USER_POINT_INFO,
@@ -271,6 +274,7 @@
 	<select id="selectListBomOrderTb0002" resultType="orderInfo" resultMap="OrderInfoMap" parameterType="orderInfo">
 		SELECT
 			T1.ORDER_NO,
+			T1.ORDER_TNO,
 			T1.CUST_ID AS custId ,
 			T1.ORDER_STAT_CD,
 			T1.ORDER_DATE,
@@ -294,6 +298,7 @@
 		SELECT
 			T1.IDX ,
 			T1.ORDER_NO ,
+			T1.ORDER_TNO,
 			T1.CUST_ID AS custId,
 			T1.ORDER_STAT_CD,
 			T1.ORDER_DATE ,
@@ -350,6 +355,7 @@
 		SELECT
 			T1.IDX ,
 			T1.ORDER_NO ,
+			T1.ORDER_TNO,
 			T1.CUST_ID AS custId ,
 			T1.ORDER_STAT_CD,
 			T1.ORDER_DATE ,
@@ -483,9 +489,9 @@
 	</insert>
 	<insert id="insertBomOrderTb0001" parameterType="orderInfo" >
 		INSERT BOM_ORDER_TB
-			(`ORDER_NO`,`CUST_ID`,`ORDER_STAT_CD`,`ORDER_DATE`,`REG_DATE`,`LAST_DATE`,`MODIFY_USER_ID`,`USER_POINT_INFO`)
+			(`ORDER_NO`,`CUST_ID`,`ORDER_STAT_CD`,`ORDER_DATE`,`REG_DATE`,`LAST_DATE`,`MODIFY_USER_ID`,`USER_POINT_INFO`,`ORDER_TNO`)
 			VALUES
-			(#{orderNo}, #{customerInfo.custId},#{orderStatCd},sysdate(), sysdate(), sysdate(),#{modifyUserId},#{userPointInfo})
+			(#{orderNo}, #{customerInfo.custId},#{orderStatCd},sysdate(), sysdate(), sysdate(),#{modifyUserId},#{userPointInfo}, #{tno})
 	</insert>
 	
 	<insert id="insertBomPaymentTb0001" parameterType="paymentInfo" >
