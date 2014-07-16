@@ -128,6 +128,12 @@
  	String reci_req     = f_get_parm( request.getParameter( "reciReq"      ) ); //받는사람 요청사항 
  	String ord_unit_chk     = f_get_parm( request.getParameter( "ord_unit_chk"      ) ); //
  	
+ 	/* ============================================================================== */
+    /* =   02-2. 결제 취소 후 돌아갈 페이지에 보내야되는 정보                                                = */
+    /* = -------------------------------------------------------------------------- = */
+ 	String custId     = f_get_parm( request.getParameter( "custId"      ) ); //
+ 	
+ 	
  	
  	
  	
@@ -353,6 +359,9 @@
 				panc_rem_mny = c_PayPlus.mf_get_res( "panc_rem_mny" ); // 부분취소 가능금액
 			}
 		}
+        
+      
+        
 	}
 	/* = -------------------------------------------------------------------------- = */
     /* =   06. 승인 결과 처리 END                                                   = */
@@ -474,6 +483,8 @@
 	/* ============================================================================== */
     /* =   09. 폼 구성 및 결과페이지 호출                                           = */
     /* -----------------------------------------------------------------------------= */
+    
+    
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -534,50 +545,51 @@
 
 		<input type="hidden" name="app_time"        value="<%= app_time			%>">	<!-- 승인시간 -->
 		<!-- 신용카드 정보 -->
-        <input type="hidden" name="card_cd"         value="<%= card_cd			%>">    <!-- 카드코드 -->
-        <input type="hidden" name="card_name"       value="<%= card_name		%>">    <!-- 카드이름 -->
-        <input type="hidden" name="app_no"          value="<%= app_no			%>">    <!-- 승인번호 -->
-		<input type="hidden" name="noinf"			value="<%= noinf			%>">    <!-- 무이자여부 -->
-        <input type="hidden" name="quota"           value="<%= quota			%>">    <!-- 할부개월 -->
-        <input type="hidden" name="partcanc_yn"     value="<%= partcanc_yn      %>">    <!-- 부분취소가능유무 -->
-        <input type="hidden" name="card_bin_type_01" value="<%= card_bin_type_01 %>">   <!-- 카드구분1 -->
-        <input type="hidden" name="card_bin_type_02" value="<%= card_bin_type_02 %>">   <!-- 카드구분2 -->
+        <input type="hidden" name="card_cd"         value="<%= card_cd			%>"/>    <!-- 카드코드 -->
+        <input type="hidden" name="card_name"       value="<%= card_name		%>"/>    <!-- 카드이름 -->
+        <input type="hidden" name="app_no"          value="<%= app_no			%>"/>    <!-- 승인번호 -->
+		<input type="hidden" name="noinf"			value="<%= noinf			%>"/>    <!-- 무이자여부 -->
+        <input type="hidden" name="quota"           value="<%= quota			%>"/>    <!-- 할부개월 -->
+        <input type="hidden" name="partcanc_yn"     value="<%= partcanc_yn      %>"/>    <!-- 부분취소가능유무 -->
+        <input type="hidden" name="card_bin_type_01" value="<%= card_bin_type_01 %>"/>   <!-- 카드구분1 -->
+        <input type="hidden" name="card_bin_type_02" value="<%= card_bin_type_02 %>"/>   <!-- 카드구분2 -->
 		<!-- 계좌이체 정보 -->
-        <input type="hidden" name="bank_name"       value="<%= bank_name		%>">    <!-- 은행명 -->
-        <input type="hidden" name="bank_code"       value="<%= bank_code		%>">    <!-- 은행코드 -->
+        <input type="hidden" name="bank_name"       value="<%= bank_name		%>"/>    <!-- 은행명 -->
+        <input type="hidden" name="bank_code"       value="<%= bank_code		%>"/>    <!-- 은행코드 -->
 		<!-- 가상계좌 정보 -->
-        <input type="hidden" name="bankname"        value="<%= bankname			%>">    <!-- 입금 은행 -->
-        <input type="hidden" name="depositor"       value="<%= depositor		%>">    <!-- 입금계좌 예금주 -->
-        <input type="hidden" name="account"         value="<%= account			%>">    <!-- 입금계좌 번호 -->
-		<input type="hidden" name="va_date"         value="<%= va_date			%>">    <!-- 가상계좌 입금마감시간 -->
+        <input type="hidden" name="bankname"        value="<%= bankname			%>"/>    <!-- 입금 은행 -->
+        <input type="hidden" name="depositor"       value="<%= depositor		%>"/>    <!-- 입금계좌 예금주 -->
+        <input type="hidden" name="account"         value="<%= account			%>"/>    <!-- 입금계좌 번호 -->
+		<input type="hidden" name="va_date"         value="<%= va_date			%>"/>    <!-- 가상계좌 입금마감시간 -->
 		<!-- 포인트 정보 -->
-		<input type="hidden" name="pnt_issue"		value="<%= pnt_issue		%>">	<!-- 포인트 서비스사 -->
-		<input type="hidden" name="pnt_app_time"	value="<%= pnt_app_time		%>">	<!-- 승인시간 -->
-        <input type="hidden" name="pnt_app_no"      value="<%= pnt_app_no		%>">	<!-- 승인번호 -->
-        <input type="hidden" name="pnt_amount"      value="<%= pnt_amount		%>">	<!-- 적립금액 or 사용금액 -->
-        <input type="hidden" name="add_pnt"         value="<%= add_pnt			%>">	<!-- 발생 포인트 -->
-        <input type="hidden" name="use_pnt"         value="<%= use_pnt			%>">	<!-- 사용가능 포인트 -->
-        <input type="hidden" name="rsv_pnt"         value="<%= rsv_pnt			%>">	<!-- 총 누적 포인트 -->
+		<input type="hidden" name="pnt_issue"		value="<%= pnt_issue		%>"/>	<!-- 포인트 서비스사 -->
+		<input type="hidden" name="pnt_app_time"	value="<%= pnt_app_time		%>"/>	<!-- 승인시간 -->
+        <input type="hidden" name="pnt_app_no"      value="<%= pnt_app_no		%>"/>	<!-- 승인번호 -->
+        <input type="hidden" name="pnt_amount"      value="<%= pnt_amount		%>"/>	<!-- 적립금액 or 사용금액 -->
+        <input type="hidden" name="add_pnt"         value="<%= add_pnt			%>"/>	<!-- 발생 포인트 -->
+        <input type="hidden" name="use_pnt"         value="<%= use_pnt			%>"/>	<!-- 사용가능 포인트 -->
+        <input type="hidden" name="rsv_pnt"         value="<%= rsv_pnt			%>"/>	<!-- 총 누적 포인트 -->
 		<!-- 휴대폰 정보 -->
-        <input type="hidden" name="commid"          value="<%= commid			%>">	<!-- 통신사 코드 -->
-        <input type="hidden" name="mobile_no"       value="<%= mobile_no		%>">	<!-- 휴대폰 번호 -->
+        <input type="hidden" name="commid"          value="<%= commid			%>"/>	<!-- 통신사 코드 -->
+        <input type="hidden" name="mobile_no"       value="<%= mobile_no		%>"/>	<!-- 휴대폰 번호 -->
         <!-- 상품권 정보 -->
-        <input type="hidden" name="tk_van_code"     value="<%= tk_van_code		%>">	<!-- 발급사 코드 -->
-        <input type="hidden" name="tk_app_no"       value="<%= tk_app_no		%>">	<!-- 승인 번호 -->
+        <input type="hidden" name="tk_van_code"     value="<%= tk_van_code		%>"/>	<!-- 발급사 코드 -->
+        <input type="hidden" name="tk_app_no"       value="<%= tk_app_no		%>"/>	<!-- 승인 번호 -->
         <!-- 현금영수증 정보 -->
-        <input type="hidden" name="cash_yn"         value="<%= cash_yn			%>">	<!-- 현금영수증 등록 여부 -->
-        <input type="hidden" name="cash_authno"     value="<%= cash_authno		%>">	<!-- 현금 영수증 승인 번호 -->
-        <input type="hidden" name="cash_tr_code"    value="<%= cash_tr_code		%>">	<!-- 현금 영수증 발행 구분 -->
-        <input type="hidden" name="cash_id_info"    value="<%= cash_id_info		%>">	<!-- 현금 영수증 등록 번호 -->
+        <input type="hidden" name="cash_yn"         value="<%= cash_yn			%>"/>	<!-- 현금영수증 등록 여부 -->
+        <input type="hidden" name="cash_authno"     value="<%= cash_authno		%>"/>	<!-- 현금 영수증 승인 번호 -->
+        <input type="hidden" name="cash_tr_code"    value="<%= cash_tr_code		%>"/>	<!-- 현금 영수증 발행 구분 -->
+        <input type="hidden" name="cash_id_info"    value="<%= cash_id_info		%>"/>	<!-- 현금 영수증 등록 번호 -->
         <!-- 받는사람 정보 -->
-        <input type="hidden" name="reciInfo.reciNm"  value="<%= URLEncoder.encode(reci_name, "UTF-8") %>">    <!-- 이름 -->
-        <input type="hidden" name="reciInfo.reciPh"  value="<%= URLEncoder.encode(reci_ph, "UTF-8")	 %>">    <!-- 전화번호 -->
-        <input type="hidden" name="reciInfo.reciMb"  value="<%= URLEncoder.encode(reci_mb, "UTF-8")	 %>">    <!-- 핸드폰번호-->
-        <input type="hidden" name="reciInfo.reciAdd" value="<%= URLEncoder.encode(reci_add, "UTF-8") %>">    <!-- 주소 -->
-        <input type="hidden" name="reciInfo.reciReq" value="<%= URLEncoder.encode(reci_req, "UTF-8") %>">    <!-- 요청사항 -->
-        <input type="hidden" name="reciInfo.reciNmb" value="<%= URLEncoder.encode(reci_req, "UTF-8") %>">    <!-- 요청사항 -->
+        <input type="hidden" name="reciInfo.reciNm"  value="<%= URLEncoder.encode(reci_name, "UTF-8") %>"/>    <!-- 이름 -->
+        <input type="hidden" name="reciInfo.reciPh"  value="<%= URLEncoder.encode(reci_ph, "UTF-8")	 %>"/>    <!-- 전화번호 -->
+        <input type="hidden" name="reciInfo.reciMb"  value="<%= URLEncoder.encode(reci_mb, "UTF-8")	 %>"/>    <!-- 핸드폰번호-->
+        <input type="hidden" name="reciInfo.reciAdd" value="<%= URLEncoder.encode(reci_add, "UTF-8") %>"/>    <!-- 주소 -->
+        <input type="hidden" name="reciInfo.reciReq" value="<%= URLEncoder.encode(reci_req, "UTF-8") %>"/>    <!-- 요청사항 -->
+        <input type="hidden" name="reciInfo.reciNmb" value="<%= URLEncoder.encode(reci_req, "UTF-8") %>"/>    <!-- 요청사항 -->
+		<!-- 결제 취소 후 돌아갈 페이지에 보내야되는 정보 -->        
+		<input type="hidden" name="customerInfo.custId"    value="<%= custId		%>"/>	<!-- 현금 영수증 등록 번호 -->
         
-
 <%
 /*
 System.out.println("========================pp_ax_hub================================");

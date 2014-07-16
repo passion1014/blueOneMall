@@ -598,8 +598,13 @@ public class OrderController {
 
 	//二쇰Ц?깃났?섏씠吏?
 	@RequestMapping(value="/order/orderComplete.do")
-	public String orderComplete(@ModelAttribute("orderInfo") OrderInfo orderInfo,String use_pay_method,BindingResult result,String card_cd,String good_mny,HttpSession session, Model model,HttpServletRequest request,HttpServletResponse response) throws Exception{
-CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");
+	public String orderComplete(@ModelAttribute("orderInfo") OrderInfo orderInfo,String use_pay_method,BindingResult result,String card_cd,String good_mny,HttpSession session, Model model,HttpServletRequest request,HttpServletResponse response, String req_tx) throws Exception{
+		
+
+		if(req_tx!=null && !req_tx.isEmpty() && !StringUtils.isEmpty(req_tx)){
+			if( req_tx.equals("mod")) return "redirect:/admin/orderManagement.do?orderNo="+orderInfo.getOrderNo()+"&custId="+orderInfo.getCustomerInfo().getCustId();
+		}
+		CustomerInfo cus= (CustomerInfo)session.getAttribute("customerSession");
 		
 		// ?몄뀡泥댄겕
 		if (cus == null) {

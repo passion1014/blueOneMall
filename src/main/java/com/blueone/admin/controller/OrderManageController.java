@@ -559,45 +559,42 @@ public class OrderManageController {
 		if(orderInfo.getOrderStatCd().equals("08") || orderInfo.getOrderStatCd().equals("10")){
 			List<OrderInfo> odList = orderService.selectOrderInfoList(orderInfo);
 			String pointInfo= odList.get(0).getUserPointInfo();
-			
-			if(pointInfo==null ||  StringUtils.isEmpty(pointInfo) || pointInfo.isEmpty() ){
-				redirectAttributes.addFlashAttribute("orderSucess", "yes");
-				return "redirect:orderManagement.do?orderNo="+orderInfo.getOrderNo()+"&custId="+cust.getCustId();
-			}
-			
 			String[] point = pointInfo.split("_");
-			String decMemNm = point[0];
-			String decMemNo = point[1];
-			String decShopEventNo = point[2];
-			String decPoint = point[3];
-			String decOrderNo = orderInfo.getOrderNo();
 			
-			// --------------------------------------------
-			// 2. SSO처리를 위한 웹서비스 호출
-			// --------------------------------------------
-			Map<String, String> rstMap = null;
-			try {
-				rstMap = HMallInterworkUtility.procCancelPoint(decMemNm, decMemNo, decShopEventNo, decPoint, decOrderNo);
-			} catch (Exception e) {
-				model.addAttribute("msg", "SSO처리시 에러발생하였습니다.");
-				return "user/loginError";
-			}
-			
-			// --------------------------------------------
-			// 3. 체크 - SSO처리 결과를 확인한다.
-			// --------------------------------------------
-			if (rstMap == null) {
-				model.addAttribute("msg", "SSO처리 결과가 없습니다.(1)");
-				return "user/loginError";
-			} else {
-				String returnCode = (String)rstMap.get("return_code");
+			if(point[1]!=null ||  !StringUtils.isEmpty(point[1]) || !point[1].isEmpty() ){
+					
+				String decMemNm = point[0];
+				String decMemNo = point[1];
+				String decShopEventNo = point[2];
+				String decPoint = point[3];
+				String decOrderNo = orderInfo.getOrderNo();
 				
-				if (!"000".equals(returnCode)) {
-					model.addAttribute("msg", HMallInterworkUtility.getErrorMsgByCode(returnCode));
+				// --------------------------------------------
+				// 2. SSO처리를 위한 웹서비스 호출
+				// --------------------------------------------
+				Map<String, String> rstMap = null;
+				try {
+					rstMap = HMallInterworkUtility.procCancelPoint(decMemNm, decMemNo, decShopEventNo, decPoint, decOrderNo);
+				} catch (Exception e) {
+					model.addAttribute("msg", "SSO처리시 에러발생하였습니다.");
 					return "user/loginError";
 				}
+				
+				// --------------------------------------------
+				// 3. 체크 - SSO처리 결과를 확인한다.
+				// --------------------------------------------
+				if (rstMap == null) {
+					model.addAttribute("msg", "SSO처리 결과가 없습니다.(1)");
+					return "user/loginError";
+				} else {
+					String returnCode = (String)rstMap.get("return_code");
+					
+					if (!"000".equals(returnCode)) {
+						model.addAttribute("msg", HMallInterworkUtility.getErrorMsgByCode(returnCode));
+						return "user/loginError";
+					}
+				}
 			}
-			
 			//재고증가
 			OrderProductInfo opRes = new OrderProductInfo();
 			opRes.setOrderNo(orderInfo.getOrderNo());
@@ -622,8 +619,8 @@ public class OrderManageController {
 					redirectAttributes.addFlashAttribute("orderSucess", "yes");
 					return "redirect:orderList.do";
 				}
-				point = pointInfo.split("_");
-				rstMap = null;
+				point  = pointInfo.split("_");
+				Map<String, String> rstMap = null;
 				HMallProcAdjustmentInfo adjustment = new HMallProcAdjustmentInfo();
 				try {
 					// --------------------------------------------
@@ -675,6 +672,15 @@ public class OrderManageController {
 					}
 				}
 			}
+			
+			//결제 자동취소
+			if(!odList.get(0).getTno().equals(" ")){
+				model.addAttribute("req_tx","mod");
+				model.addAttribute("tno",odList.get(0).getTno());
+				model.addAttribute("orderInfo",orderInfo);
+			}
+			return "admin/order/cancel";
+			
 			
 		}
 		/*
@@ -764,43 +770,42 @@ public class OrderManageController {
 			if(ordInfo.getOrderStatCd().equals("08") || ordInfo.getOrderStatCd().equals("10")){
 				List<OrderInfo> odList = orderService.selectOrderInfoList(orderInfo);
 				String pointInfo= odList.get(0).getUserPointInfo();
-				if(pointInfo==null ||  StringUtils.isEmpty(pointInfo) || pointInfo.isEmpty() ){
-					redirectAttributes.addFlashAttribute("orderSucess", "yes");
-					return "redirect:orderList.do";
-				}
 				String[] point = pointInfo.split("_");
-				String decMemNm = point[0];
-				String decMemNo = point[1];
-				String decShopEventNo = point[2];
-				String decPoint = point[3];
-				String decOrderNo = orderInfo.getOrderNo();
 				
-				// --------------------------------------------
-				// 2. SSO처리를 위한 웹서비스 호출
-				// --------------------------------------------
-				Map<String, String> rstMap = null;
-				try {
-					rstMap = HMallInterworkUtility.procCancelPoint(decMemNm, decMemNo, decShopEventNo, decPoint, decOrderNo);
-				} catch (Exception e) {
-					model.addAttribute("msg", "SSO처리시 에러발생하였습니다.");
-					return "user/loginError";
-				}
-				
-				// --------------------------------------------
-				// 3. 체크 - SSO처리 결과를 확인한다.
-				// --------------------------------------------
-				if (rstMap == null) {
-					model.addAttribute("msg", "SSO처리 결과가 없습니다.(1)");
-					return "user/loginError";
-				} else {
-					String returnCode = (String)rstMap.get("return_code");
+				//포인트 취소
+				if(point[1]!=null ||  !StringUtils.isEmpty(point[1]) || !point[1].isEmpty() ){
+					String decMemNm = point[0];
+					String decMemNo = point[1];
+					String decShopEventNo = point[2];
+					String decPoint = point[3];
+					String decOrderNo = orderInfo.getOrderNo();
 					
-					if (!"000".equals(returnCode)) {
-						model.addAttribute("msg", HMallInterworkUtility.getErrorMsgByCode(returnCode));
+					// --------------------------------------------
+					// 2. SSO처리를 위한 웹서비스 호출
+					// --------------------------------------------
+					Map<String, String> rstMap = null;
+					try {
+						rstMap = HMallInterworkUtility.procCancelPoint(decMemNm, decMemNo, decShopEventNo, decPoint, decOrderNo);
+					} catch (Exception e) {
+						model.addAttribute("msg", "SSO처리시 에러발생하였습니다.");
 						return "user/loginError";
 					}
+					
+					// --------------------------------------------
+					// 3. 체크 - SSO처리 결과를 확인한다.
+					// --------------------------------------------
+					if (rstMap == null) {
+						model.addAttribute("msg", "SSO처리 결과가 없습니다.(1)");
+						return "user/loginError";
+					} else {
+						String returnCode = (String)rstMap.get("return_code");
+						
+						if (!"000".equals(returnCode)) {
+							model.addAttribute("msg", HMallInterworkUtility.getErrorMsgByCode(returnCode));
+							return "user/loginError";
+						}
+					}
 				}
-				
 				//재고증가
 				OrderProductInfo opRes = new OrderProductInfo();
 				opRes.setOrderNo(orderInfo.getOrderNo());
@@ -826,7 +831,7 @@ public class OrderManageController {
 						return "redirect:orderList.do";
 					}
 					point = pointInfo.split("_");
-					rstMap = null;
+					Map<String, String> rstMap = null;
 					HMallProcAdjustmentInfo adjustment = new HMallProcAdjustmentInfo();
 					try {
 						// --------------------------------------------
@@ -878,7 +883,9 @@ public class OrderManageController {
 					}
 				}
 			
-			
+				
+				
+				return "admin/order/cancel";
 			}
 			/*
 			if(orderInfo.getOrderStatCd().equals("06") || orderInfo.getOrderStatCd().equals("02")){
@@ -1857,6 +1864,7 @@ public class OrderManageController {
 		  
 		return "redirect:/orderHMList.do";
 	}
+	
 	public static void download(HttpServletRequest request, HttpServletResponse response, InputStream is,
 		      String filename, long filesize, String mimetype) throws ServletException, IOException {
 		    String mime = mimetype;
