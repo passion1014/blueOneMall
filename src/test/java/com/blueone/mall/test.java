@@ -4,8 +4,12 @@ public class test {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		String ordNo = "01=(C014)LG Mobile_차량용 1200mA,";
-		System.out.println(ordNo.substring(3, ordNo.indexOf(",")));
+		String ordNo = "02=1";
+		
+		if(!ordNo.substring(3).isEmpty())
+			System.out.println("X");
+		else System.out.println("Y");
+		 
 	}
 
 }

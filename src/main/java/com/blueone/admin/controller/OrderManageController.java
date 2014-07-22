@@ -187,8 +187,9 @@ public class OrderManageController {
 		 //------------------------------
 		 //엑셀파일 생성
 		 //------------------------------
-		 //String filepath = "C:/Users/Administrator/Documents/write.xls"; //개발
-		 String filepath = "/home/hosting_users/blueonestore/tomcat/webapps/ROOT/resources/upload/"+DateUtil.getDate("yyyyMMdd")+"order.xls"; //운영
+		 String filepath = "D:/BlueOne/write.xls"; //개발
+		
+		 //String filepath = "/home/hosting_users/blueonestore/tomcat/webapps/ROOT/resources/upload/"+DateUtil.getDate("yyyyMMdd")+"order.xls"; //운영
 	
 	
 		    try {
@@ -224,77 +225,81 @@ public class OrderManageController {
 	            
 	            cell = row.createCell((short)2);
 	            cell.setCellStyle(style);
-	            cell.setCellValue("주소");  
+	            cell.setCellValue("우편번호");  
 	            
 	            cell = row.createCell((short)3);
 	            cell.setCellStyle(style);
-	            cell.setCellValue("주문인"); 
+	            cell.setCellValue("주소");  
 	            
 	            cell = row.createCell((short)4);
 	            cell.setCellStyle(style);
-	            cell.setCellValue("연락처(주문인)"); 
+	            cell.setCellValue("주문인"); 
 	            
 	            cell = row.createCell((short)5);
 	            cell.setCellStyle(style);
-	            cell.setCellValue("수취인");  
+	            cell.setCellValue("연락처(주문인)"); 
 	            
 	            cell = row.createCell((short)6);
 	            cell.setCellStyle(style);
-	            cell.setCellValue("전화번호(수취인)");   
+	            cell.setCellValue("수취인");  
 	            
 	            cell = row.createCell((short)7);
 	            cell.setCellStyle(style);
-	            cell.setCellValue("핸드폰(수취인)");   
+	            cell.setCellValue("전화번호(수취인)");   
 	            
 	            cell = row.createCell((short)8);
 	            cell.setCellStyle(style);
-	            cell.setCellValue("상품코드");   
+	            cell.setCellValue("핸드폰(수취인)");   
 	            
 	            cell = row.createCell((short)9);
 	            cell.setCellStyle(style);
-	            cell.setCellValue("상품명");   
+	            cell.setCellValue("상품코드");   
 	            
 	            cell = row.createCell((short)10);
 	            cell.setCellStyle(style);
-	            cell.setCellValue("옵션");   
+	            cell.setCellValue("상품명");   
 	            
 	            cell = row.createCell((short)11);
 	            cell.setCellStyle(style);
+	            cell.setCellValue("옵션");   
+	            
+	            cell = row.createCell((short)12);
+	            cell.setCellStyle(style);
 	            cell.setCellValue("수량");   
 	           
-	            cell = row.createCell((short)12);
+	            cell = row.createCell((short)13);
 	            cell.setCellStyle(style);
 	            cell.setCellValue("배송메세지");   
 	            
-	            cell = row.createCell((short)13);
+	            cell = row.createCell((short)14);
 	            cell.setCellStyle(style);
 	            cell.setCellValue("입금일자");   
 	           
-	            cell = row.createCell((short)14);
+	            cell = row.createCell((short)15);
 	            cell.setCellStyle(style);
 	            cell.setCellValue("발송일자");   
 	            
-	            cell = row.createCell((short)15);
+	            cell = row.createCell((short)16);
 	            cell.setCellStyle(style);
 	            cell.setCellValue("송장번호");   
 	           
-	            cell = row.createCell((short)16);
+	            cell = row.createCell((short)17);
 	            cell.setCellStyle(style);
 	            cell.setCellValue("결제방법");   
 	            
-	            cell = row.createCell((short)17);
+	            cell = row.createCell((short)18);
 	            cell.setCellStyle(style);
 	            cell.setCellValue("택배사");   
 	           
-	            cell = row.createCell((short)18);
+	            cell = row.createCell((short)19);
 	            cell.setCellStyle(style);
 	            cell.setCellValue("주문상태"); 
 	            
-	            cell = row.createCell((short)19);
+	            cell = row.createCell((short)20);
 	            cell.setCellStyle(style);
 	            cell.setCellValue("상품금액");   
 	            
-	            cell = row.createCell((short)20);
+	            cell = row.createCell((short)21);
 	            cell.setCellStyle(style);
 	            cell.setCellValue("정산예정금액");   
 	            
@@ -319,40 +324,44 @@ public class OrderManageController {
 		            cell = row.createCell((short)1);
 			        cell.setCellValue(each.getPaymentInfo().getPayPrice().toString());   
 			        
-			        //주소
+			        //우편번호
 		            cell = row.createCell((short)2);
-		            cell.setCellValue(each.getReciInfo().getReciAdd()); 
+		            cell.setCellValue(each.getReciInfo().getReciAdd().substring(0,7)); 
+		            
+		            //주소
+		            cell = row.createCell((short)3);
+		            cell.setCellValue(each.getReciInfo().getReciAdd().substring(8)); 
 		            
 		            //주문인
-		            cell = row.createCell((short)3);
+		            cell = row.createCell((short)4);
 		            cell.setCellValue(each.getCustomerInfo().getCustNm()); 
 		            
 		            //주문인(연락처)
-		            cell = row.createCell((short)4);
+		            cell = row.createCell((short)5);
 		            cell.setCellValue(each.getCustomerInfo().getCustMb()); 
 		            
 		            //수취인
-		            cell = row.createCell((short)5);
+		            cell = row.createCell((short)6);
 		            cell.setCellValue(each.getReciInfo().getReciNm()); 
 		            
 		            //수취인(전화번호)
-		            cell = row.createCell((short)6);
+		            cell = row.createCell((short)7);
 		            cell.setCellValue(each.getReciInfo().getReciPh()); 
 		            
 		            //수취인(핸드폰)
-		            cell = row.createCell((short)7);
+		            cell = row.createCell((short)8);
 		            cell.setCellValue(each.getReciInfo().getReciMb()); 
 		            
 		            //상품코드
-		            cell = row.createCell((short)8);
+		            cell = row.createCell((short)9);
 		            cell.setCellValue(each.getOrdPrd().getPrdCd()); 
 		            
 		            //상품명
-		            cell = row.createCell((short)9);
+		            cell = row.createCell((short)10);
 		            cell.setCellValue(each.getOrdPrd().getPrdNm()); 
 		            
 		            //옵션
-		            cell = row.createCell((short)10);
+		            cell = row.createCell((short)11);
 		            if(each.getOrdPrd() != null && each.getOrdPrd().getPrdOpColor() !=null && !each.getOrdPrd().getPrdOpColor().isEmpty()) {
 		            	String option = each.getOrdPrd().getPrdOpColor();
 		            	option = option.replaceAll("01=", "색상:");
@@ -362,27 +371,27 @@ public class OrderManageController {
 		            else cell.setCellValue("");
 		            
 		            //수량
-		            cell = row.createCell((short)11);
+		            cell = row.createCell((short)12);
 		            cell.setCellValue(each.getOrdPrd().getBuyCnt());
 		            
 		            //배송메세지
-		            cell = row.createCell((short)12);
+		            cell = row.createCell((short)13);
 		            cell.setCellValue(each.getReciInfo().getReciReq());
 		            
 		            //입금일자
-		            cell = row.createCell((short)13);
+		            cell = row.createCell((short)14);
 		            cell.setCellValue(each.getPaymentInfo().getPayDate());
 		            
 		            //발송일자
-		            cell = row.createCell((short)14);
+		            cell = row.createCell((short)15);
 		            cell.setCellValue("");
 		            
 		            //송장번호
-		            cell = row.createCell((short)15);
+		            cell = row.createCell((short)16);
 		            cell.setCellValue(each.getOrdTransNo());
 		            
 		            //결제방법
-		            cell = row.createCell((short)16);
+		            cell = row.createCell((short)17);
 		            String payment="";
 		            if(each.getPaymentInfo().getPayMdCd()!=null && each.getPaymentInfo().getPayMdCd().equals("100000000000"))     payment="신용카드";
 		            else if(each.getPaymentInfo().getPayMdCd()!=null && each.getPaymentInfo().getPayMdCd().equals("010000000000"))payment="계좌이체";
@@ -391,11 +400,11 @@ public class OrderManageController {
 		            cell.setCellValue(payment);   
 		            
 		            //택배사
-		            cell = row.createCell((short)17);
+		            cell = row.createCell((short)18);
 		            cell.setCellValue("");
 		 
 		            //주문상태
-		            cell = row.createCell((short)18);
+		            cell = row.createCell((short)19);
 		            String orderState = "";
 		            if(each.getOrderStatCd().equals("01"))orderState="신청대기";
 					else if(each.getOrderStatCd().equals("02"))orderState="주문완료";
@@ -409,10 +418,10 @@ public class OrderManageController {
 		            cell.setCellValue(orderState);  
 		            
 		            //상품금액
-		            cell = row.createCell((short)19);
+		            cell = row.createCell((short)20);
 		            cell.setCellValue(each.getOrdPrd().getSellPrice().toString());
 		            //정산예정금액
-		            cell = row.createCell((short)20);
+		            cell = row.createCell((short)21);
 		            cell.setCellValue(each.getPaymentInfo().getPayPrice().toString());
 		            
 		            i++;
@@ -561,37 +570,39 @@ public class OrderManageController {
 			String pointInfo= odList.get(0).getUserPointInfo();
 			String[] point = pointInfo.split("_");
 			
-			if(point[1]!=null ||  !StringUtils.isEmpty(point[1]) || !point[1].isEmpty() ){
+			if(point.length>1){
+				if(point[1]!=null ||  !StringUtils.isEmpty(point[1]) || !point[1].isEmpty() ){
+						
+					String decMemNm = point[0];
+					String decMemNo = point[1];
+					String decShopEventNo = point[2];
+					String decPoint = point[3];
+					String decOrderNo = orderInfo.getOrderNo();
 					
-				String decMemNm = point[0];
-				String decMemNo = point[1];
-				String decShopEventNo = point[2];
-				String decPoint = point[3];
-				String decOrderNo = orderInfo.getOrderNo();
-				
-				// --------------------------------------------
-				// 2. SSO처리를 위한 웹서비스 호출
-				// --------------------------------------------
-				Map<String, String> rstMap = null;
-				try {
-					rstMap = HMallInterworkUtility.procCancelPoint(decMemNm, decMemNo, decShopEventNo, decPoint, decOrderNo);
-				} catch (Exception e) {
-					model.addAttribute("msg", "SSO처리시 에러발생하였습니다.");
-					return "user/loginError";
-				}
-				
-				// --------------------------------------------
-				// 3. 체크 - SSO처리 결과를 확인한다.
-				// --------------------------------------------
-				if (rstMap == null) {
-					model.addAttribute("msg", "SSO처리 결과가 없습니다.(1)");
-					return "user/loginError";
-				} else {
-					String returnCode = (String)rstMap.get("return_code");
-					
-					if (!"000".equals(returnCode)) {
-						model.addAttribute("msg", HMallInterworkUtility.getErrorMsgByCode(returnCode));
+					// --------------------------------------------
+					// 2. SSO처리를 위한 웹서비스 호출
+					// --------------------------------------------
+					Map<String, String> rstMap = null;
+					try {
+						rstMap = HMallInterworkUtility.procCancelPoint(decMemNm, decMemNo, decShopEventNo, decPoint, decOrderNo);
+					} catch (Exception e) {
+						model.addAttribute("msg", "SSO처리시 에러발생하였습니다.");
 						return "user/loginError";
+					}
+					
+					// --------------------------------------------
+					// 3. 체크 - SSO처리 결과를 확인한다.
+					// --------------------------------------------
+					if (rstMap == null) {
+						model.addAttribute("msg", "SSO처리 결과가 없습니다.(1)");
+						return "user/loginError";
+					} else {
+						String returnCode = (String)rstMap.get("return_code");
+						
+						if (!"000".equals(returnCode)) {
+							model.addAttribute("msg", HMallInterworkUtility.getErrorMsgByCode(returnCode));
+							return "user/loginError";
+						}
 					}
 				}
 			}

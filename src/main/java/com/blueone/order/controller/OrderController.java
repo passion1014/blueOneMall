@@ -975,13 +975,18 @@ public class OrderController {
 				String s = st.nextToken();
 
 				if ("01".equals(s.substring(0, 2))) {
-					option += URLDecoder.decode(s, "UTF-8") + ",";
-					
-					odPrdInfo.setPrdOpColor(URLDecoder.decode(s.substring(3), "UTF-8"));
+					if(!s.substring(3).isEmpty()){
+						option += URLDecoder.decode(s, "UTF-8") + ",";
+						
+						odPrdInfo.setPrdOpColor(URLDecoder.decode(s.substring(3), "UTF-8"));
+					}
 				}
 				if ("02".equals(s.substring(0, 2))) {
-					option += URLDecoder.decode(s, "UTF-8") + ",";
-					odPrdInfo.setPrdOpSize(URLDecoder.decode(s.substring(3), "UTF-8"));
+				
+					if(!s.substring(3).isEmpty()){
+						option += URLDecoder.decode(s, "UTF-8") + ",";
+						odPrdInfo.setPrdOpSize(URLDecoder.decode(s.substring(3), "UTF-8"));
+					}
 				}
 				if("no".equals(s.substring(0, 2))){
 					odPrdInfo.setOrderNo(s.substring(3));
