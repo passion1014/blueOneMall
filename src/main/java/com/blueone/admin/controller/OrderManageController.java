@@ -187,9 +187,9 @@ public class OrderManageController {
 		 //------------------------------
 		 //엑셀파일 생성
 		 //------------------------------
-		 String filepath = "D:/BlueOne/write.xls"; //개발
+		 //String filepath = "D:/BlueOne/write.xls"; //개발
 		
-		 //String filepath = "/home/hosting_users/blueonestore/tomcat/webapps/ROOT/resources/upload/"+DateUtil.getDate("yyyyMMdd")+"order.xls"; //운영
+		 String filepath = "/home/hosting_users/blueonestore/tomcat/webapps/ROOT/resources/upload/"+DateUtil.getDate("yyyyMMdd")+"order.xls"; //운영
 	
 	
 		    try {
@@ -1874,6 +1874,386 @@ public class OrderManageController {
 		  file.delete();
 		  
 		return "redirect:/orderHMList.do";
+	}
+	
+	@RequestMapping(value="/orderMonthListToExel.do")
+	public String orderMonthListToExel(@ModelAttribute("AdminInfo") AdminInfo adminInfo, OrderInfo orderInfo,BindingResult result, Model model,HttpSession session,String page,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		 //------------------------------
+		 //엑셀파일 생성
+		 //------------------------------
+		 //String filepath = "D:/BlueOne/write.xls"; //개발
+		 String filepath = "/home/hosting_users/blueonestore/tomcat/webapps/ROOT/resources/upload/"+DateUtil.getDate("yyyyMMdd")+"orderMonth.xls"; //운영
+	
+	
+		    try {
+		    	
+		        HSSFWorkbook workbook = new HSSFWorkbook();
+	
+	
+		        HSSFSheet sheet = workbook.createSheet();
+		     
+	
+	
+		       HSSFCellStyle style = workbook.createCellStyle();
+		       /*   style.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+		        style.setBottomBorderColor(HSSFColor.BLACK.index);
+		        style.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+		        style.setLeftBorderColor(HSSFColor.GREEN.index);
+		        style.setBorderRight(HSSFCellStyle.BORDER_THIN);
+		        style.setRightBorderColor(HSSFColor.BLUE.index);
+		        style.setBorderTop(HSSFCellStyle.BORDER_MEDIUM_DASHED);
+		        style.setTopBorderColor(HSSFColor.BLACK.index);           */
+	
+	
+		        HSSFRow row = sheet.createRow(0);
+		       
+		  
+	            HSSFCell cell = row.createCell((short)0);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("사이트명");     
+	            
+	            cell = row.createCell((short)1);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("정산일");     
+	            
+	            cell = row.createCell((short)2);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("정산기준일");  
+	            
+	            cell = row.createCell((short)3);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("주문번호");  
+	            
+	            cell = row.createCell((short)4);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("주문일"); 
+	            
+	            cell = row.createCell((short)5);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("취소일"); 
+	            
+	            cell = row.createCell((short)6);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("주문상태");  
+	            
+	            cell = row.createCell((short)7);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("상품번호");   
+	            
+	            cell = row.createCell((short)8);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("모델명");   
+	            
+	            cell = row.createCell((short)9);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("상품명");   
+	            
+	            cell = row.createCell((short)10);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("수량");   
+	            
+	            cell = row.createCell((short)11);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("과세타입");   
+	           
+	            cell = row.createCell((short)12);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("상품금액");   
+	            
+	            cell = row.createCell((short)13);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("고객명");   
+	           
+	            cell = row.createCell((short)14);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("사번");   
+	            
+	            cell = row.createCell((short)15);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("배송비");   
+	           
+	            cell = row.createCell((short)16);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("결제금액");   
+	            
+	            cell = row.createCell((short)17);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("신용카드결제금액");   
+	           
+	            cell = row.createCell((short)18);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("계좌이체결제금액"); 
+	            
+	            cell = row.createCell((short)19);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("복지카드 결제금액");   
+	            
+	            cell = row.createCell((short)20);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("외부포인트결제금액");   
+	            
+	            cell = row.createCell((short)21);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("신용카드 결제금액취소");   
+	            
+	            cell = row.createCell((short)22);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("계좌이체 결제금액취소");   
+	            
+	            cell = row.createCell((short)23);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("복지카드 결제금액취소");   
+	            
+	            cell = row.createCell((short)24);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("외부포인트 결제금액취소");   
+	            
+	            cell = row.createCell((short)25);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("행사코드");   
+	            
+	            cell = row.createCell((short)26);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("상점코드");   
+	            
+	            cell = row.createCell((short)27);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("상품코드");   
+	            
+	            cell = row.createCell((short)28);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("단품코드");   
+	            
+	            cell = row.createCell((short)29);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("OP코드");   
+	            
+	            cell = row.createCell((short)30);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("마진율");   
+	            
+	            orderInfo.setReciInfo(new RecipientInfo());
+	
+	            List<OrderInfo> odList =orderManageService.selectListBomOrderTbToExel0001(orderInfo);
+	            
+		        int i=1;
+	            for (OrderInfo each : odList){
+	            	System.out.println(each.getReciInfo().getReciNm());
+	            	row = sheet.createRow(i);
+	            	
+	            	//사이트명
+		            cell = row.createCell((short)0);
+		            cell.setCellValue("BlueOneImall");     
+		            
+		            //정산일
+		            cell = row.createCell((short)1);
+			        cell.setCellValue(each.getOrderDate().substring(0,10));   
+			        
+			        //정산기준일
+		            cell = row.createCell((short)2);
+		            cell.setCellValue("매월 25일"); 
+		            
+		            //주문번호
+		            cell = row.createCell((short)3);
+		            cell.setCellValue(each.getOrderNo()); 
+		            
+		            //주문일
+		            cell = row.createCell((short)4);
+		            if(each.getOrderStatCd().equals("07") || each.getOrderStatCd().equals("08") ||
+		               each.getOrderStatCd().equals("09") || each.getOrderStatCd().equals("10"))
+		            	 cell.setCellValue(""); 
+		            else cell.setCellValue(each.getOrderDate().substring(0,10)); 
+		            
+		            //취소일
+		            cell = row.createCell((short)5);
+		            if(each.getOrderStatCd().equals("07") || each.getOrderStatCd().equals("08") ||
+				        each.getOrderStatCd().equals("09") || each.getOrderStatCd().equals("10"))
+		            	 cell.setCellValue(each.getOrderDate().substring(0,10)); 
+		            else cell.setCellValue(""); 
+		            
+		            //주문상태
+		            cell = row.createCell((short)6);
+		            String orderState = "";
+		            if(each.getOrderStatCd().equals("01"))orderState="신청대기";
+					else if(each.getOrderStatCd().equals("02"))orderState="주문완료";
+					else if(each.getOrderStatCd().equals("07"))orderState="취소신청";
+					else if(each.getOrderStatCd().equals("08"))orderState="취소완료";
+					else if(each.getOrderStatCd().equals("03"))orderState="배송준비";
+					else if(each.getOrderStatCd().equals("04"))orderState="배송중";
+					else if(each.getOrderStatCd().equals("05"))orderState="배송완료";
+					else if(each.getOrderStatCd().equals("09"))orderState="반품신청";
+					else if(each.getOrderStatCd().equals("10"))orderState="반품신청완료";
+		            cell.setCellValue(orderState);  
+		            
+		            //상품번호
+		            cell = row.createCell((short)7);
+		            cell.setCellValue(each.getOrdPrd().getPrdCd()); 
+		            
+		            //모델명
+		            cell = row.createCell((short)8);
+		            cell.setCellValue(each.getOrdPrd().getPrdModel()); 
+		            
+		            //상품명
+		            cell = row.createCell((short)9);
+		            cell.setCellValue(each.getOrdPrd().getPrdNm()); 
+		           
+		            //수량
+		            cell = row.createCell((short)10);
+		            cell.setCellValue(each.getOrdPrd().getBuyCnt());
+		           
+		            //과세타입
+		            cell = row.createCell((short)11);
+		            cell.setCellValue("과세");
+		           
+		            //상품금액
+		            cell = row.createCell((short)12);
+		            cell.setCellValue(each.getOrdPrd().getSellPrice().toString());
+		            
+		            //고객명
+		            cell = row.createCell((short)13);
+		            cell.setCellValue(each.getCustomerInfo().getCustNm());
+		            
+		            //사번
+		            cell = row.createCell((short)14);
+		            cell.setCellValue(each.getCustomerInfo().getCustId());
+		            
+		            //배송비
+		            cell = row.createCell((short)15);
+		            cell.setCellValue("0");
+		            
+		            //결제금액
+		            cell = row.createCell((short)16);
+		            cell.setCellValue(each.getPaymentInfo().getPayPrice().toString());
+		            
+		            if(each.getPaymentInfo().getPayMdCd()!=null && each.getPaymentInfo().getPayMdCd().equals("100000000000")){
+		            	//신용카드 결제금액
+			            cell = row.createCell((short)17);
+			            cell.setCellValue(each.getPaymentInfo().getPayPrice().toString());
+		            }
+		            else if(each.getPaymentInfo().getPayMdCd()!=null && each.getPaymentInfo().getPayMdCd().equals("010000000000")){
+		            	//계좌이체 결제금액
+			            cell = row.createCell((short)18);
+			            cell.setCellValue(each.getPaymentInfo().getPayPrice().toString());
+		            }
+		            else if(each.getPaymentInfo().getPayMdCd()!=null && each.getPaymentInfo().getPayMdCd().equals("000100000000")){
+		            	//복지카드 결제금액
+			            cell = row.createCell((short)19);
+			            cell.setCellValue(each.getPaymentInfo().getPayPrice().toString());
+		            }
+		            if(each.getPaymentInfo().getPayMdCd()!=null && each.getPaymentInfo().getPayMdCd().equals("000000000001")){
+		            	//외부포인트 결제금액 
+			            cell = row.createCell((short)20);
+			            cell.setCellValue(each.getPaymentInfo().getPayPrice().toString());
+		            }else {
+		            	//외부포인트 결제금액(포인트 일부분 사용)
+			            cell = row.createCell((short)20);
+			            BigDecimal usePoint = each.getOrdPrd().getSellPrice().subtract(each.getPaymentInfo().getPayPrice());
+			            cell.setCellValue(usePoint.toString());
+		            }
+		            
+		            if(each.getOrderStatCd().equals("08") || each.getOrderStatCd().equals("10")){
+		            	if(each.getPaymentInfo().getPayMdCd()!=null && each.getPaymentInfo().getPayMdCd().equals("100000000000")){
+			            	//신용카드 결제금액
+				            cell = row.createCell((short)21);
+				            cell.setCellValue(each.getPaymentInfo().getPayPrice().toString());
+				            cell = row.createCell((short)22);
+				            cell.setCellValue(0);
+				            cell = row.createCell((short)23);
+				            cell.setCellValue(0);
+			            }
+			            else if(each.getPaymentInfo().getPayMdCd()!=null && each.getPaymentInfo().getPayMdCd().equals("010000000000")){
+			            	//계좌이체 결제금액
+				            cell = row.createCell((short)22);
+				            cell.setCellValue(each.getPaymentInfo().getPayPrice().toString());
+				            cell = row.createCell((short)21);
+				            cell.setCellValue(0);
+				            cell = row.createCell((short)23);
+				            cell.setCellValue(0);
+				            
+			            }
+			            else if(each.getPaymentInfo().getPayMdCd()!=null && each.getPaymentInfo().getPayMdCd().equals("000100000000")){
+			            	//복지카드 결제금액
+				            cell = row.createCell((short)23);
+				            cell.setCellValue(each.getPaymentInfo().getPayPrice().toString());
+				            cell = row.createCell((short)22);
+				            cell.setCellValue(0);
+				            cell = row.createCell((short)21);
+				            cell.setCellValue(0);
+			            }
+			            if(each.getPaymentInfo().getPayMdCd()!=null && each.getPaymentInfo().getPayMdCd().equals("000000000001")){
+			            	//외부포인트 결제금액 
+				            cell = row.createCell((short)24);
+				            cell.setCellValue(each.getPaymentInfo().getPayPrice().toString());
+			            }else {
+			            	//외부포인트 결제금액(포인트 일부분 사용)
+				            cell = row.createCell((short)24);
+				            BigDecimal usePoint = each.getOrdPrd().getSellPrice().subtract(each.getPaymentInfo().getPayPrice());
+				            cell.setCellValue(usePoint.toString());
+			            }
+		            }else{
+		            	cell = row.createCell((short)21);
+			            cell.setCellValue(0);
+			            cell = row.createCell((short)22);
+			            cell.setCellValue(0);
+			            cell = row.createCell((short)23);
+			            cell.setCellValue(0);
+			            cell = row.createCell((short)24);
+			            cell.setCellValue(0);
+			            
+		            }
+		            String pointInfo= odList.get(0).getUserPointInfo();
+					String[] point = pointInfo.split("_");
+					
+					cell = row.createCell((short)25);
+		            cell.setCellValue(point[2]);
+		            
+		            cell = row.createCell((short)26);
+		            cell.setCellValue(point[4]);
+		            
+		            cell = row.createCell((short)27);
+		            cell.setCellValue( each.getOrdPrd().getPrdCd());
+		            
+		            
+		            i++;
+		        }
+		        FileOutputStream fs = null;
+		        try { 
+		            fs = new FileOutputStream(filepath);
+		            workbook.write(fs);
+		            
+		        } catch (Exception e) {
+		        } finally {
+		            if (fs != null) fs.close();
+		        }
+		        
+		    } catch (Exception e) {
+	
+		        
+		        e.printStackTrace();
+		    }    
+	    
+		 //------------------------------
+		 //파일 다운로드
+		 //------------------------------
+		  File file = new File(filepath);
+		  String mimetype = request.getSession().getServletContext().getMimeType(file.getName());
+		  InputStream is = null;
+		  
+		  try {
+			  is = new FileInputStream(file);
+			  download(request, response, is, file.getName(), file.length(), mimetype);
+		  } finally {
+			  try {
+				  	is.close();
+			  } catch (Exception ex) {
+			  }
+		  }
+		//------------------------------
+		 //파일 삭제
+		 //------------------------------
+		  file.delete();
+		  
+		return "redirect:/orderList.do";
 	}
 	
 	public static void download(HttpServletRequest request, HttpServletResponse response, InputStream is,

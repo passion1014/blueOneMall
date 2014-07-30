@@ -19,15 +19,21 @@ public class OrderProductInfo {
 	private String toDate;			// 적용종료일
 	private String regDate;			// 등록일
 	private String lastDate;		// 최종수정일
-	private String modiUser;	// 최종수정자
+	private String modiUser;	    // 최종수정자
 	private String prdOpColor;		// 옵션-색상
 	private String prdOpSize;		// 옵션-크기
 	private String prdOption;
 	private String oderDelete;
-	
+	private String prdModel;
 	private String cookieKey;
 	
 	
+	public String getPrdModel() {
+		return prdModel;
+	}
+	public void setPrdModel(String prdModel) {
+		this.prdModel = prdModel;
+	}
 	public String getCookieKey() {
 		return cookieKey;
 	}

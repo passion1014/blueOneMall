@@ -42,6 +42,7 @@
 		<id property="ordPrd.prdOpColor" column="join_prdOpColor" javaType="java.lang.String"/>
 		<id property="ordPrd.buyCnt" column="join_buyCnt" javaType="int"/>
 		<id property="ordPrd.sellPrice" column="join_sellPrice" javaType="bigdecimal"/>
+		<id property="ordPrd.prdModel" column="join_model" javaType="java.lang.String"/>
 		<id property="paymentInfo.payPrice" column="join_payPrice" javaType="bigdecimal"/>
 		<id property="paymentInfo.payMdCd" column="join_payMdCd" javaType="java.lang.String"/>
 		<id property="paymentInfo.payDate" column="join_payDate" javaType="java.lang.String"/>
@@ -212,7 +213,7 @@
 			T2.MODIFY_USER_ID AS payModifyUserId,
 			T3.IDX AS pordIdx,
 			T3.ORDER_NO AS join_,
-			T3.PRD_CD , 
+			T3.PRD_CD, 
 			T3.PRD_OPTION AS join_prdOpColor,
 			T3.BUY_COUNT AS join_buyCnt,
 			T4.PRD_CD AS join_prdCd,
@@ -221,6 +222,7 @@
 			T4.PRD_CTG_M AS join_prdCtgM,
 			T4.PRD_CTG_S AS join_prdCtgS,
 			T4.PRD_SELL_PRICE AS join_sellPrice,
+			T4.PRD_MODEL AS join_model,
 			T6.RECI_ORDER_NUM AS reciOdNum,
 			T6.RECI_NAME,
 			T6.RECI_PHONE,

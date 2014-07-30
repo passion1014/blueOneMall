@@ -58,7 +58,7 @@ $(document).ready(function() {
 							<input type="text" name="srchEdDt" id="srchEdDt" readonly value="${schOrdInfo.srchEdDt}" class="Text Kor" style="width:65px;" />일 까지 &nbsp;&nbsp;
 							<input type="submit" value="검색"   class="Small_Button Gray">&nbsp;&nbsp;
 							<input type="button" value="초기화" class="Small_Button Gray" onClick="location.href='./admin.member.php?slot=member&type=member_list'">&nbsp;&nbsp;
-							<!--<input type="button" value="엑셀로 만들기" class="Small_Button Gray" onClick="location.href='/admin/orderListToExel.do?orderStatCd=${orderStatCd}'">&nbsp;&nbsp;-->
+							<input type="button" value="엑셀로 만들기" class="Small_Button Gray" onClick="location.href='/admin/orderMonthListToExel.do'">
 					</div>
 				</td>
 			</tr>
