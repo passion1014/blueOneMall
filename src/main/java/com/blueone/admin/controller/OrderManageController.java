@@ -187,9 +187,8 @@ public class OrderManageController {
 		 //------------------------------
 		 //엑셀파일 생성
 		 //------------------------------
-		 //String filepath = "D:/BlueOne/write.xls"; //개발
-		
-		 String filepath = "/home/hosting_users/blueonestore/tomcat/webapps/ROOT/resources/upload/"+DateUtil.getDate("yyyyMMdd")+"order.xls"; //운영
+		//String filepath = "Y:/Documents/write.xls"; //개발
+		 String filepath = "/home/hosting_users/blueonestore/tomcat/webapps/ROOT/resources/upload/"+DateUtil.getDate("yyyyMMdd")+"HM_LIST.xls"; //운영
 	
 	
 		    try {
@@ -313,7 +312,7 @@ public class OrderManageController {
 	            
 		        int i=1;
 	            for (OrderInfo each : odList){
-	            	System.out.println(each.getReciInfo().getReciNm());
+	           
 	            	row = sheet.createRow(i);
 	            	
 	            	//주문번호(주문일)
@@ -326,11 +325,16 @@ public class OrderManageController {
 			        
 			        //우편번호
 		            cell = row.createCell((short)2);
-		            cell.setCellValue(each.getReciInfo().getReciAdd().substring(0,7)); 
-		            
+		            if(each.getReciInfo().getReciAdd().length()>6)
+		            	cell.setCellValue(each.getReciInfo().getReciAdd().substring(0,7)); 
+		            else
+		            	cell.setCellValue(""); 
 		            //주소
 		            cell = row.createCell((short)3);
-		            cell.setCellValue(each.getReciInfo().getReciAdd().substring(8)); 
+		            if(each.getReciInfo().getReciAdd().length()>6)
+		            	cell.setCellValue(each.getReciInfo().getReciAdd().substring(8)); 
+		            else
+		            	cell.setCellValue(""); 
 		            
 		            //주문인
 		            cell = row.createCell((short)4);
@@ -463,7 +467,7 @@ public class OrderManageController {
 		 //------------------------------
 		  file.delete();
 		  
-		return "redirect:/orderList.do";
+		return "redirect:orderList.do";
 	}
 	
 	//관리 페이지
@@ -1873,7 +1877,7 @@ public class OrderManageController {
 		 //------------------------------
 		  file.delete();
 		  
-		return "redirect:/orderHMList.do";
+		return "redirect:orderHMList.do";
 	}
 	
 	@RequestMapping(value="/orderMonthListToExel.do")
@@ -1881,8 +1885,8 @@ public class OrderManageController {
 		 //------------------------------
 		 //엑셀파일 생성
 		 //------------------------------
-		 //String filepath = "D:/BlueOne/write.xls"; //개발
-		 String filepath = "/home/hosting_users/blueonestore/tomcat/webapps/ROOT/resources/upload/"+DateUtil.getDate("yyyyMMdd")+"orderMonth.xls"; //운영
+		//String filepath = "Y:/Documents/write.xls"; //개발
+	String filepath = "/home/hosting_users/blueonestore/tomcat/webapps/ROOT/resources/upload/"+DateUtil.getDate("yyyyMMdd")+"HM_LIST.xls"; //운영
 	
 	
 		    try {
@@ -2032,13 +2036,21 @@ public class OrderManageController {
 	            cell.setCellStyle(style);
 	            cell.setCellValue("마진율");   
 	            
-	            orderInfo.setReciInfo(new RecipientInfo());
-	
-	            List<OrderInfo> odList =orderManageService.selectListBomOrderTbToExel0001(orderInfo);
+	            
+	            
+	    		OrderInfo os = new OrderInfo();
+	    		SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
+	    		Date currentTime = new Date ( );
+	    		String mTime = mSimpleDateFormat.format ( currentTime );
+	    		
+	    		os.setSrchStdDt(mTime.substring(0,7) +"-01");
+	    		os.setSrchEdDt(mTime);
+	    		os.setReciInfo(new RecipientInfo());
+	            List<OrderInfo> odList =orderManageService.selectListBomOrderTbToExel0001(os);
 	            
 		        int i=1;
 	            for (OrderInfo each : odList){
-	            	System.out.println(each.getReciInfo().getReciNm());
+	            	
 	            	row = sheet.createRow(i);
 	            	
 	            	//사이트명
@@ -2061,7 +2073,7 @@ public class OrderManageController {
 		            cell = row.createCell((short)4);
 		            if(each.getOrderStatCd().equals("07") || each.getOrderStatCd().equals("08") ||
 		               each.getOrderStatCd().equals("09") || each.getOrderStatCd().equals("10"))
-		            	 cell.setCellValue(""); 
+		            	 cell.setCellValue(each.getOrderDate().substring(0,10)); 
 		            else cell.setCellValue(each.getOrderDate().substring(0,10)); 
 		            
 		            //취소일
@@ -2201,17 +2213,23 @@ public class OrderManageController {
 			            cell.setCellValue(0);
 			            
 		            }
-		            String pointInfo= odList.get(0).getUserPointInfo();
-					String[] point = pointInfo.split("_");
-					
-					cell = row.createCell((short)25);
-		            cell.setCellValue(point[2]);
 		            
-		            cell = row.createCell((short)26);
-		            cell.setCellValue(point[4]);
+					cell = row.createCell((short)26);
+		            cell.setCellValue(each.getShopno());
+		            
+		            cell = row.createCell((short)25);
+		            cell.setCellValue(each.getShopevent());
 		            
 		            cell = row.createCell((short)27);
 		            cell.setCellValue( each.getOrdPrd().getPrdCd());
+		            
+		            cell = row.createCell((short)28);
+		            cell.setCellValue("");
+		            
+		            cell = row.createCell((short)29);
+		            cell.setCellValue("");
+		            cell = row.createCell((short)30);
+		            cell.setCellValue("");
 		            
 		            
 		            i++;
@@ -2253,7 +2271,7 @@ public class OrderManageController {
 		 //------------------------------
 		  file.delete();
 		  
-		return "redirect:/orderList.do";
+		return "redirect:monthTradeList.do";
 	}
 	
 	public static void download(HttpServletRequest request, HttpServletResponse response, InputStream is,

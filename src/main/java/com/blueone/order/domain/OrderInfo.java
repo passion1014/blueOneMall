@@ -44,9 +44,24 @@ public class OrderInfo {
 	
 	private int startIdx;
 	
+	private String shopno;
+	private String shopevent;
+	
 	
 	public String getTno() {
 		return tno;
+	}
+	public String getShopno() {
+		return shopno;
+	}
+	public void setShopno(String shopno) {
+		this.shopno = shopno;
+	}
+	public String getShopevent() {
+		return shopevent;
+	}
+	public void setShopevent(String shopevent) {
+		this.shopevent = shopevent;
 	}
 	public void setTno(String tno) {
 		this.tno = tno;
