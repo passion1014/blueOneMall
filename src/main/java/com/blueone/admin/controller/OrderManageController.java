@@ -187,8 +187,8 @@ public class OrderManageController {
 		 //------------------------------
 		 //엑셀파일 생성
 		 //------------------------------
-		//String filepath = "Y:/Documents/write.xls"; //개발
-		 String filepath = "/home/hosting_users/blueonestore/tomcat/webapps/ROOT/resources/upload/"+DateUtil.getDate("yyyyMMdd")+"HM_LIST.xls"; //운영
+		String filepath = "Y:/Documents/write.xls"; //개발
+		// String filepath = "/home/hosting_users/blueonestore/tomcat/webapps/ROOT/resources/upload/"+DateUtil.getDate("yyyyMMdd")+"HM_LIST.xls"; //운영
 	
 	
 		    try {
@@ -685,6 +685,8 @@ public class OrderManageController {
 					if (!"000".equals(returnCode)) {
 						model.addAttribute("msg", HMallInterworkUtility.getErrorMsgByCode(returnCode));
 					}
+					orderService.insertBomHMTb0001(adjustment);
+					
 				}
 			}
 			
@@ -891,10 +893,10 @@ public class OrderManageController {
 						String date = adjustment.getOrderDm()+"("+DateUtil.getDate("h:mm a")+")";
 						adjustment.setOrderDm(date);
 						adjustment.setReturnCode(returnCode);
-						orderService.insertBomHMTb0001(adjustment);
 						if (!"000".equals(returnCode)) {
 							model.addAttribute("msg", HMallInterworkUtility.getErrorMsgByCode(returnCode));
 						}
+						orderService.insertBomHMTb0001(adjustment);
 					}
 				}
 			
