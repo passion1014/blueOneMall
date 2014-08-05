@@ -187,7 +187,7 @@ public class OrderManageController {
 		 //------------------------------
 		 //엑셀파일 생성
 		 //------------------------------
-		String filepath = "Y:/Documents/write.xls"; //개발
+		String filepath = "D:/BlueOne/write.xls"; //개발
 		// String filepath = "/home/hosting_users/blueonestore/tomcat/webapps/ROOT/resources/upload/"+DateUtil.getDate("yyyyMMdd")+"HM_LIST.xls"; //운영
 	
 	
@@ -685,7 +685,7 @@ public class OrderManageController {
 					if (!"000".equals(returnCode)) {
 						model.addAttribute("msg", HMallInterworkUtility.getErrorMsgByCode(returnCode));
 					}
-					orderService.insertBomHMTb0001(adjustment);
+		
 					
 				}
 			}
@@ -1887,8 +1887,8 @@ public class OrderManageController {
 		 //------------------------------
 		 //엑셀파일 생성
 		 //------------------------------
-		//String filepath = "Y:/Documents/write.xls"; //개발
-	String filepath = "/home/hosting_users/blueonestore/tomcat/webapps/ROOT/resources/upload/"+DateUtil.getDate("yyyyMMdd")+"HM_LIST.xls"; //운영
+		String filepath = "D:/Documents/write.xls"; //개발
+	//String filepath = "/home/hosting_users/blueonestore/tomcat/webapps/ROOT/resources/upload/"+DateUtil.getDate("yyyyMMdd")+"HM_LIST.xls"; //운영
 	
 	
 		    try {
@@ -2048,7 +2048,7 @@ public class OrderManageController {
 	    		os.setSrchStdDt(mTime.substring(0,7) +"-01");
 	    		os.setSrchEdDt(mTime);
 	    		os.setReciInfo(new RecipientInfo());
-	            List<OrderInfo> odList =orderManageService.selectListBomOrderTbToExel0001(os);
+	            List<OrderInfo> odList =orderManageService.selectListBomOrderTbToExel0002(os);
 	            
 		        int i=1;
 	            for (OrderInfo each : odList){
@@ -2217,10 +2217,10 @@ public class OrderManageController {
 		            }
 		            
 					cell = row.createCell((short)26);
-		            cell.setCellValue(each.getShopno());
+		            cell.setCellValue("");
 		            
 		            cell = row.createCell((short)25);
-		            cell.setCellValue(each.getShopevent());
+		            cell.setCellValue("");
 		            
 		            cell = row.createCell((short)27);
 		            cell.setCellValue( each.getOrdPrd().getPrdCd());

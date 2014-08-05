@@ -1179,10 +1179,13 @@ public class OrderController {
 				String date = adjustment.getOrderDm()+"("+DateUtil.getDate("h:mm a")+")";
 				adjustment.setOrderDm(date);
 				adjustment.setReturnCode(returnCode);
+				orderManageService.insertBomHMTb0001(adjustment);
+				
 				if (!"000".equals(returnCode)) {
 					model.addAttribute("msg", HMallInterworkUtility.getErrorMsgByCode(returnCode));
 				}
-				orderManageService.insertBomHMTb0001(adjustment);
+				
+				
 			}
 		}
 		
