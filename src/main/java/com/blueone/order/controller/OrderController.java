@@ -756,16 +756,19 @@ public class OrderController {
 		payment.setModifyUserId(cus.getCustId());
 		
 		int usePoint =0;
-		orderInfo.setUserPointInfo((String)session.getAttribute("shopNo"));
+		String decMemNo = cus.getCustId();
+		String decShopEventNo = (String)session.getAttribute("shopEventNo");
+		String decShopNo = (String)session.getAttribute("shopNo");
+		orderInfo.setUserPointInfo(decShopNo);
 		//포인트 결제
 		if(!good_mny.equals(total1.toString())){
 			String decMemNm = cus.getCustNm();
-			String decMemNo = cus.getCustId();
-			String decShopEventNo = (String)session.getAttribute("shopEventNo");
+			decMemNo = cus.getCustId();
+			decShopEventNo = (String)session.getAttribute("shopEventNo");
 			usePoint = total1.intValue()-Integer.parseInt(good_mny);
 			String decPoint = Integer.toString(usePoint);
 			String decOrderNo = odNo;
-			orderInfo.setUserPointInfo(decMemNm+"_"+decMemNo+"_"+decShopEventNo+"_"+decPoint+"_"+(String)session.getAttribute("shopNo"));
+			orderInfo.setUserPointInfo(decMemNm+"_"+decMemNo+"_"+decShopEventNo+"_"+decPoint+"_"+decShopNo);
 			
 			// --------------------------------------------
 			// 2. SSO泥섎━瑜??꾪븳 ?뱀꽌鍮꾩뒪 ?몄텧
@@ -856,9 +859,9 @@ public class OrderController {
 				adjustment.setItemCd(each.getOrdPrd().getPrdCd());
 				adjustment.setOrderGb("10");
 				adjustment.setOrderDm(DateUtil.getDate("yyyyMMdd"));
-				adjustment.setShopNo( point[4]);
-				adjustment.setShopEventNo( point[2]);
-				adjustment.setMemNo(point[1]);
+				adjustment.setShopNo( decShopNo);
+				adjustment.setShopEventNo(decShopEventNo);
+				adjustment.setMemNo(cus.getCustId());
 				adjustment.setTaxGb("1");
 				adjustment.setSalePrice(each.getOrdPrd().getSellPrice().multiply(new BigDecimal(each.getOrdPrd().getBuyCnt())).toString());
 				adjustment.setPointAmt(Integer.toString(each.getPaymentInfo().getPayPoint()/orderList.size()));
@@ -867,7 +870,8 @@ public class OrderController {
 				adjustment.setEtcAmt(etc.toString());
 				adjustment.setDeliAmt("0");
 				String option = each.getOrdPrd().getPrdOpColor();
-	        	adjustment.setItemNm(each.getOrdPrd().getPrdNm()+option.substring(3, option.indexOf(",")));
+				if(option == null || option.isEmpty()) adjustment.setItemNm(each.getOrdPrd().getPrdNm());
+				else adjustment.setItemNm(each.getOrdPrd().getPrdNm()+option.substring(3, option.indexOf(",")));
 	        	adjustment.setItemPrice(each.getOrdPrd().getSellPrice().toString());
 	        	adjustment.setOrderQty(Integer.toString(each.getOrdPrd().getBuyCnt()));
 	        	adjustment.setDcPrice("0");
@@ -1061,9 +1065,10 @@ public class OrderController {
 		String decMemNm = cus.getCustNm();
 		String decMemNo = cus.getCustId();
 		String decShopEventNo = (String)session.getAttribute("shopEventNo");
+		String decShopNo = (String)session.getAttribute("shopNo");
 		String decPoint = total1.toString();
 		String decOrderNo = odNo;
-		orderInfo.setUserPointInfo(decMemNm+"_"+decMemNo+"_"+decShopEventNo+"_"+decPoint+"_"+(String)session.getAttribute("shopNo"));
+		orderInfo.setUserPointInfo(decMemNm+"_"+decMemNo+"_"+decShopEventNo+"_"+decPoint+"_"+decShopNo);
 		// --------------------------------------------
 		// 2. SSO泥섎━瑜??꾪븳 ?뱀꽌鍮꾩뒪 ?몄텧
 		// --------------------------------------------
@@ -1132,9 +1137,7 @@ public class OrderController {
 		List<OrderInfo> orderList = orderManageService.selectListBomOrderTbToExel0001(orderInfo);
 		
 		for(OrderInfo each : orderList){
-			String pointInfo= each.getUserPointInfo();
 			
-			String[] point = pointInfo.split("_");
 			rstMap = null;
 			HMallProcAdjustmentInfo adjustment = new HMallProcAdjustmentInfo();
 			try {
@@ -1142,20 +1145,21 @@ public class OrderController {
 				// 1. 정산 처리 
 				// --------------------------------------------
 				
-				adjustment.setOrderNo(orderInfo.getOrderNo());
+				adjustment.setOrderNo(odNo);
 				adjustment.setItemCd(each.getOrdPrd().getPrdCd());
 				adjustment.setOrderGb("10");
 				adjustment.setOrderDm(DateUtil.getDate("yyyyMMdd"));
-				adjustment.setShopNo( point[4]);
-				adjustment.setShopEventNo( point[2]);
-				adjustment.setMemNo(point[1]);
+				adjustment.setShopNo( decShopNo);
+				adjustment.setShopEventNo(decShopEventNo);
+				adjustment.setMemNo(cus.getCustId());
 				adjustment.setTaxGb("1");
 				adjustment.setSalePrice(each.getOrdPrd().getSellPrice().multiply(new BigDecimal(each.getOrdPrd().getBuyCnt())).toString());
 				adjustment.setPointAmt(each.getOrdPrd().getSellPrice().multiply(new BigDecimal(each.getOrdPrd().getBuyCnt())).toString());
 				adjustment.setEtcAmt("0");
 				adjustment.setDeliAmt("0");
 				String option = each.getOrdPrd().getPrdOpColor();
-	        	adjustment.setItemNm(each.getOrdPrd().getPrdNm()+option.substring(3, option.indexOf(",")));
+				if(option == null || option.isEmpty()) adjustment.setItemNm(each.getOrdPrd().getPrdNm());
+				else adjustment.setItemNm(each.getOrdPrd().getPrdNm()+option.substring(3, option.indexOf(",")));
 	        	adjustment.setItemPrice(each.getOrdPrd().getSellPrice().toString());
 	        	adjustment.setOrderQty(Integer.toString(each.getOrdPrd().getBuyCnt()));
 	        	adjustment.setDcPrice("0");

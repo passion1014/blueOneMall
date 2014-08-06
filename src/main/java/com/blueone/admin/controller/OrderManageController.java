@@ -187,8 +187,8 @@ public class OrderManageController {
 		 //------------------------------
 		 //엑셀파일 생성
 		 //------------------------------
-		String filepath = "D:/BlueOne/write.xls"; //개발
-		// String filepath = "/home/hosting_users/blueonestore/tomcat/webapps/ROOT/resources/upload/"+DateUtil.getDate("yyyyMMdd")+"HM_LIST.xls"; //운영
+		//String filepath = "D:/BlueOne/write.xls"; //개발
+		 String filepath = "/home/hosting_users/blueonestore/tomcat/webapps/ROOT/resources/upload/"+DateUtil.getDate("yyyyMMddHHmmss")+"HM_LIST.xls"; //운영
 	
 	
 		    try {
@@ -625,16 +625,14 @@ public class OrderManageController {
 			}
 			
 			
-			List<OrderInfo> orderList = orderService.selectListBomOrderTbToExel0001(orderInfo);
+			List<OrderInfo> orderList = orderService.selectListBomOrderTbToExel0002(orderInfo);
 			
 			for(OrderInfo each : orderList){
-				pointInfo= each.getUserPointInfo();
 				
 				if(pointInfo==null ||  StringUtils.isEmpty(pointInfo) || pointInfo.isEmpty() ){
 					redirectAttributes.addFlashAttribute("orderSucess", "yes");
 					return "redirect:orderList.do";
 				}
-				point  = pointInfo.split("_");
 				Map<String, String> rstMap = null;
 				HMallProcAdjustmentInfo adjustment = new HMallProcAdjustmentInfo();
 				try {
@@ -646,9 +644,9 @@ public class OrderManageController {
 					adjustment.setItemCd(each.getOrdPrd().getPrdCd());
 					adjustment.setOrderGb("20");
 					adjustment.setOrderDm(DateUtil.getDate("yyyyMMdd"));
-					adjustment.setShopNo( point[4]);
-					adjustment.setShopEventNo( point[2]);
-					adjustment.setMemNo(point[1]);
+					adjustment.setShopNo(each.getShopno());
+					adjustment.setShopEventNo(each.getShopevent());
+					adjustment.setMemNo(each.getCustomerInfo().getCustId());
 					adjustment.setTaxGb("1");
 					adjustment.setSalePrice(each.getOrdPrd().getSellPrice().multiply(new BigDecimal(each.getOrdPrd().getBuyCnt())).toString());
 					adjustment.setPointAmt(Integer.toString(each.getPaymentInfo().getPayPoint()/orderList.size()));
@@ -657,7 +655,8 @@ public class OrderManageController {
 					adjustment.setEtcAmt(etc.toString());
 					adjustment.setDeliAmt("0");
 					String option = each.getOrdPrd().getPrdOpColor();
-		        	adjustment.setItemNm(each.getOrdPrd().getPrdNm()+option.substring(3, option.indexOf(",")));
+					if(option == null || option.isEmpty()) adjustment.setItemNm(each.getOrdPrd().getPrdNm());
+					else adjustment.setItemNm(each.getOrdPrd().getPrdNm()+option.substring(3, option.indexOf(",")));
 		        	adjustment.setItemPrice(each.getOrdPrd().getSellPrice().toString());
 		        	adjustment.setOrderQty(Integer.toString(each.getOrdPrd().getBuyCnt()));
 		        	adjustment.setDcPrice("0");
@@ -841,13 +840,12 @@ public class OrderManageController {
 				List<OrderInfo> orderList = orderService.selectListBomOrderTbToExel0001(orderInfo);
 				
 				for(OrderInfo each : orderList){
-					pointInfo= each.getUserPointInfo();
 					
 					if(pointInfo==null ||  StringUtils.isEmpty(pointInfo) || pointInfo.isEmpty() ){
 						redirectAttributes.addFlashAttribute("orderSucess", "yes");
 						return "redirect:orderList.do";
 					}
-					point = pointInfo.split("_");
+
 					Map<String, String> rstMap = null;
 					HMallProcAdjustmentInfo adjustment = new HMallProcAdjustmentInfo();
 					try {
@@ -859,9 +857,9 @@ public class OrderManageController {
 						adjustment.setItemCd(each.getOrdPrd().getPrdCd());
 						adjustment.setOrderGb("20");
 						adjustment.setOrderDm(DateUtil.getDate("yyyyMMdd"));
-						adjustment.setShopNo( point[4]);
-						adjustment.setShopEventNo( point[2]);
-						adjustment.setMemNo(point[1]);
+						adjustment.setShopNo(each.getShopno());
+						adjustment.setShopEventNo(each.getShopevent());
+						adjustment.setMemNo(each.getCustomerInfo().getCustId());
 						adjustment.setTaxGb("1");
 						adjustment.setSalePrice(each.getOrdPrd().getSellPrice().multiply(new BigDecimal(each.getOrdPrd().getBuyCnt())).toString());
 						adjustment.setPointAmt(Integer.toString(each.getPaymentInfo().getPayPoint()/orderList.size()));
@@ -870,7 +868,8 @@ public class OrderManageController {
 						adjustment.setEtcAmt(etc.toString());
 						adjustment.setDeliAmt("0");
 						String option = each.getOrdPrd().getPrdOpColor();
-			        	adjustment.setItemNm(each.getOrdPrd().getPrdNm()+option.substring(3, option.indexOf(",")));
+						if(option == null || option.isEmpty()) adjustment.setItemNm(each.getOrdPrd().getPrdNm());
+						else adjustment.setItemNm(each.getOrdPrd().getPrdNm()+option.substring(3, option.indexOf(",")));
 			        	adjustment.setItemPrice(each.getOrdPrd().getSellPrice().toString());
 			        	adjustment.setOrderQty(Integer.toString(each.getOrdPrd().getBuyCnt()));
 			        	adjustment.setDcPrice("0");
@@ -1652,8 +1651,8 @@ public class OrderManageController {
 		 //------------------------------
 		 //엑셀파일 생성
 		 //------------------------------
-		 //String filepath = "C:/Users/Administrator/Documents/write.xls"; //개발
-		 String filepath = "/home/hosting_users/blueonestore/tomcat/webapps/ROOT/resources/upload/"+DateUtil.getDate("yyyyMMdd")+"HM_LIST.xls"; //운영
+		// String filepath = "C:/Users/Administrator/Documents/"+DateUtil.getDate("yyyyMMddHHmmss")+"HM_LIST.xls"; //개발
+		 String filepath = "/home/hosting_users/blueonestore/tomcat/webapps/ROOT/resources/upload/"+DateUtil.getDate("yyyyMMddHHmmss")+"HM_LIST.xls"; //운영
 	
 	
 		    try {
@@ -1887,8 +1886,8 @@ public class OrderManageController {
 		 //------------------------------
 		 //엑셀파일 생성
 		 //------------------------------
-		String filepath = "D:/Documents/write.xls"; //개발
-	//String filepath = "/home/hosting_users/blueonestore/tomcat/webapps/ROOT/resources/upload/"+DateUtil.getDate("yyyyMMdd")+"HM_LIST.xls"; //운영
+		//String filepath = "D:/Documents/write.xls"; //개발
+	String filepath = "/home/hosting_users/blueonestore/tomcat/webapps/ROOT/resources/upload/"+DateUtil.getDate("yyyyMMddHHmmss")+"HM_LIST.xls"; //운영
 	
 	
 		    try {

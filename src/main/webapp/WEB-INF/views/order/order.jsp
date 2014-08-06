@@ -104,7 +104,7 @@
 							return false;
 						}
 
-						if(parseInt(document.getElementById("good_mny").value) == 0){
+						//if(parseInt(document.getElementById("good_mny").value) == 0){
 
 							var Address = document.getElementById("custZip1").value +"-"+ document.getElementById("custZip2").value +" "+ document.getElementById("custAdd").value +" "+ document.getElementById("custAddDetail").value;
 
@@ -113,13 +113,13 @@
 							document.getElementById("reciInfo.reciPh").value   =  encodeURI(document.getElementById("tel1").value +","+ document.getElementById("tel2").value+","+ document.getElementById("tel3").value  );
 							document.getElementById("reciInfo.reciMb").value   = document.getElementById("hp1").value +","+  document.getElementById("hp2").value +","+ document.getElementById("hp3").value  ;
 							document.getElementById("reciInfo.reciAdd").value  =  encodeURI(Address) ;
-							document.getElementById("reciInfo.reciReq").value  = document.getElementById("reciReq").value ;
+							document.getElementById("reciInfo.reciReq").value  = encodeURI(document.getElementById("reciReq").value);
 
 							document.order_info.action = "orderComplete_allPoint.do" ;
 							document.order_info.submit();
 							return false ;
 
-						}
+						//}
 						/* 고객 데이터 세팅 끝 */
 
 
@@ -387,9 +387,7 @@ function pre_count(){
 		<div class="sub_content">
 			
 			<!-- 주문정보 입력 form : order_info -->
- 			<form name="order_info" method="post" action="/resources/kcp/pp_ax_hub.jsp" >
-			<!-- <form name="order_info" method="post" action="orderRegisterProc.do" > -->
-			
+			<form name="order_info" method="post" action="/resources/kcp/pp_ax_hub.jsp" >
 			<input type="hidden" id="customerInfo.custId"        name="customerInfo.custId"  value="${cus.custId}">
 			<input type="hidden" id="ord_unit_chk"               name="ord_unit_chk"  value="${orderInfo.ord_unit_chk}">
 			<input type="hidden" id="ordr_idxx"                  name="ordr_idxx" value="${orderInfo.orderNo}">
@@ -749,9 +747,7 @@ function pre_count(){
 					<div class="complet_area">
 						<span class="btn_complete">
 							<!-- <input type="button" value="결제하기" title="결제버튼" onClick="_pay(document.KSPayWeb);"/> -->
-							<!-- <input name="" type="submit" style="cursor:pointer; " class="submit" value="결제하기" onclick="return jsf__pay(this.form);"/> -->
-							<input name="" type="submit" style="cursor:pointer; " class="submit" value="결제하기" />
-							
+							<input name="" type="submit" style="cursor:pointer; " class="submit" value="결제하기" onclick="return jsf__pay(this.form);"/>
 						</span>
 						<span class="btn_cancle">
 							<input type="reset" value="취소하기" title="취소버튼" style="cursor:pointer; "/>
