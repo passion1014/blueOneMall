@@ -226,6 +226,7 @@ public class AdminController {
 		
 		model.addAttribute("list", pd.getAdInfolist());
 		model.addAttribute("endNum",pd.getEndPageNum());
+		model.addAttribute("page",page);
 	    
 	    mav.setViewName("admin/admin/adminList");
 	    
@@ -280,6 +281,7 @@ public class AdminController {
 		
 		model.addAttribute("list", pd.getAccList());
 		model.addAttribute("endNum",pd.getEndPageNum());
+		model.addAttribute("page",page);
 		
 		
 		return "admin/admin/accountList";

@@ -170,7 +170,7 @@ function list_Submit(k){
 						
 						<input type="button" value="검색"   class="Small_Button Gray" onClick="list_Submit('search');">&nbsp;&nbsp;
 						<input type="button" value="초기화" class="Small_Button Gray" onClick="">&nbsp;&nbsp;
-						<input type="button" value="엑셀로 만들기" class="Small_Button Gray" onClick="location.href='/admin/orderListToExel.do?orderStatCd=${orderStatCd}'">&nbsp;&nbsp;
+						<input type="button" value="엑셀로 만들기"  onClick="location.href='/admin/orderListToExel.do?orderStatCd=${orderStatCd}'">&nbsp;&nbsp;
 					</div>
 				</td>
 			</tr>

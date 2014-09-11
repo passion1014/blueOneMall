@@ -12,11 +12,6 @@
 		      ,DATE_FORMAT(s2.ins_dt, '%Y.%m.%d') AS insDt
 		      ,DATE_FORMAT(s2.ins_dt, '%Y.%m.%d') AS insDtTyp1
 		      ,case DATE_FORMAT(s2.ins_dt,'%Y%m%d') when date_format(now(),'%Y%m%d') then 'T' else 'F' end AS todayYn
-/*		      ,(SELECT ct1.save_filename
-				  FROM BOM_ATTACHFILE_TB ct1
-				 WHERE ct1.brd_seq = s2.brd_seq
-				   AND ct1.atta_knd = 'MI'
-				   limit 1 ) as repreImage */
 		      ,(SELECT COUNT(ct1.brd_seq)
                   FROM BOM_BOARD_CMT_TB ct1
                  WHERE ct1.brd_seq = s2.brd_seq
@@ -27,7 +22,7 @@
 		                           ,t1.root_seq AS rootSeq
 		                           ,t1.ref_seq AS refSeq
 		                           ,t1.DEPTH
-		                           ,t1.passwd
+		                           ,t1.passwd	
 		                           ,t1.title
 		                           ,t1.notice_yn as noticeYn
 		                           ,t1.ins_user as insUser
@@ -77,6 +72,7 @@
 		 WHERE rnum BETWEEN ((#{currentPage} - 1) * #{rowsPerPage} + 1) AND (((#{currentPage} - 1) * #{rowsPerPage} + 1) + #{rowsPerPage} - 1)
 		ORDER BY rnum 
 	</select>
+	
 	<!-- 특정게시판의 게시물리스트 -->
 	<select id="getBrdTypBoardList1" parameterType="boardSrchInfo" resultType="boardInfo">
 		SELECT s2.*
@@ -147,6 +143,7 @@
 		 WHERE rnum BETWEEN ((#{currentPage} - 1) * #{rowsPerPage} + 1) AND (((#{currentPage} - 1) * #{rowsPerPage} + 1) + #{rowsPerPage} - 1)
 		ORDER BY rnum 
 	</select>
+	
 	<!-- 특정게시판의 게시물전체갯수 -->
 	<select id="getBrdTypTotalCount" parameterType="com.blueone.board.domain.BoardSrchInfo" resultType="int">
 		SELECT COUNT(t1.brd_seq)

@@ -6,6 +6,7 @@ import com.blueone.common.domain.BaseInfo;
 
 
 public class BoardSrchInfo extends BaseInfo {
+	
 	private long brdSeq;
 	private long srchBrdSeq;
 	private int srchBrdTyp;				// 게시판유형

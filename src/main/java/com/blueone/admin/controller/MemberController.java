@@ -77,6 +77,8 @@ public class MemberController {
 	
 	
 		model.addAttribute("endNum",endNum);
+		model.addAttribute("page",page);
+		
 		model.addAttribute("custURL","memberList.do");
 		return "admin/member/memberList";
 	}

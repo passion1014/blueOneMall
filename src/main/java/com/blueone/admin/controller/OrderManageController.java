@@ -187,7 +187,7 @@ public class OrderManageController {
 		 //------------------------------
 		 //엑셀파일 생성
 		 //------------------------------
-		//String filepath = "D:/BlueOne/write.xls"; //개발
+		 //String filepath = "D:/BlueOne/"+DateUtil.getDate("yyyyMMddHHmmss")+"HM_LIST.xls"; //개발
 		 String filepath = "/home/hosting_users/blueonestore/tomcat/webapps/ROOT/resources/upload/"+DateUtil.getDate("yyyyMMddHHmmss")+"HM_LIST.xls"; //운영
 	
 	
@@ -306,7 +306,7 @@ public class OrderManageController {
 	           
 	            
 	            
-	            orderInfo.setReciInfo(new RecipientInfo());
+	           // orderInfo.setReciInfo(new RecipientInfo());
 	
 	            List<OrderInfo> odList =orderManageService.selectListBomOrderTbToExel0001(orderInfo);
 	            
