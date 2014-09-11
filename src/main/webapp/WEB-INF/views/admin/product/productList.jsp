@@ -265,16 +265,27 @@
 				<input type="button" value="선택삭제" class="Small_Button Gray" onClick="list_Submit('del')"/>
 				
 			</span>
-			<span class="f_right">
-			<c:forEach var="i" begin="1" end="${endNum}">
-				<c:if test="${searchProdInfo == null}"><input type="button" value="${i}" onClick="javascript:location.href='productList.do?page=${i}'"></c:if>			
-				<c:if test="${searchProdInfo != null}"><input type="button" value="${i}" onClick="javascript:location.href='searchProductList.do?prdCtgL=${searchProdInfo.prdCtgL}&prdCtgM=${searchProdInfo.prdCtgM}&prdCtgS=${searchProdInfo.prdCtgS}&prdDp=${searchProdInfo.prdDp}&schType=2&searchWord=${searchProdInfo.searchWord}&prdSpe1=${searchProdInfo.prdSpe1}&prdSpe2=${searchProdInfo.prdSpe2}&page=${i}'"></c:if>
-			</c:forEach>
-
-			</span>
+			
 		</div>
 		</form>
-		
+		<!-- page -->
+		<div id="Paser">
+			<a class="palign1" href="productList.do?page=1"><img src='/resources/img/common/btn_first.gif' alt='첫 페이지로 이동' /></a>
+			
+			<c:set var="prePage" value="${page-1}"/>
+			<c:if test="${prePage < 1 }"><c:set var="prePage" value="1"/></c:if>
+			<a class="palign2" href="productList.do?page=${prePage}"><img src='/resources/img/common/btn_prev.gif' alt='이전 페이지로 이동' /></a>
+			
+			<c:forEach var="i" begin="1" end="${endNum}">
+				<a href="productList.do?page=${i}" <c:if test="${i == page}">class="on"</c:if>>${i}</a>
+			</c:forEach>
+			
+			<c:set var="nextPage" value="${page+1}"/>
+			<c:if test="${nextPage > endNum }"><c:set var="nextPage" value="${endNum}"/></c:if>
+			<a class="palign1" href="productList.do?page=${nextPage}"><img src='/resources/img/common/btn_next.gif' alt='다음 페이지로 이동' /></a>
+			
+			<a class="palign2" href="productList.do?page=${endNum}"><img src='/resources/img/common/btn_end.gif' alt='마지막 페이지로 이동' /></a>
+		</div>
 	</div>
 	
 </div>

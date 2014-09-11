@@ -184,6 +184,7 @@
 
 	</table>
 
+	<!-- page -->
 	<div id="Paser">
 		<a class="palign1" href="adminList.do?page=1"><img src='/resources/img/common/btn_first.gif' alt='첫 페이지로 이동' /></a>
 		

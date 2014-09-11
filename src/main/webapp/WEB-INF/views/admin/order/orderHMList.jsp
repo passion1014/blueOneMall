@@ -59,19 +59,19 @@ $(document).ready(function() {
 		<colgroup>
 			<col width="5%" />
 			<col width="5%" />
-			<col width="3%" />
+			<col width="5%" />
+			<col width="6%" />
 			<col width="5%" />
 			<col width="5%" />
 			<col width="5%" />
-			<col width="5%" />
-			<col width="5%" />
-			<col width="5%" />
-			<col width="5%" />
-			<col width="5%" />
+			<col width="6%" />
+			<col width="6%" />
+			<col width="6%" />
+			<col width="4%" />
 			<col width="*" />
-			<col width="5%" />
+			<col width="6%" />
 			<col width="3%" />
-			<col width="3%" />
+			<col width="4%" />
 			<col width="3%" />
 		</colgroup>
 		<tr>
@@ -82,12 +82,12 @@ $(document).ready(function() {
 			<th>행사번호</th>
 			<th>고객번호</th>
 			<th>과세<br>여부</th>
-			<th>판매금액</th>
+			<th>판매<br>금액</th>
 			<th>기본금</th>
-			<th>기타결제</th>
-			<th>배송비</th>
+			<th>기타<br>결제</th>
+			<th>배<br>송<br>비</th>
 			<th>상품명</th>
-			<th>단품가격</th>
+			<th>단품<br>가격</th>
 			<th>주문수량</th>
 			<th>할인금액</th>
 			<th>리턴코드</th>
@@ -109,7 +109,7 @@ $(document).ready(function() {
 							(${odList.orderGb})
 						</td>
 						<td class="center">
-							${odList.orderDm}
+							${odList.orderDm.substring(0,8)}<br>${odList.orderDm.substring(8)}
 						</td>
 						<td class="center">
 							${odList.shopEventNo}
@@ -163,15 +163,25 @@ $(document).ready(function() {
 		</c:choose>
 	
 	</table>
-	<div align="center" style="padding-top:10px;">
+
+	<!-- page -->
+	<div id="Paser">
+		<a class="palign1" href="orderHMList.do?page=1"><img src='/resources/img/common/btn_first.gif' alt='첫 페이지로 이동' /></a>
+		
+		<c:set var="prePage" value="${page-1}"/>
+		<c:if test="${prePage < 1 }"><c:set var="prePage" value="1"/></c:if>
+		<a class="palign2" href="orderHMList.do?page=${prePage}"><img src='/resources/img/common/btn_prev.gif' alt='이전 페이지로 이동' /></a>
+		
 		<c:forEach var="i" begin="1" end="${endNum}">
-			<c:if test="${hminfo == null}"><input type="button" value="${i}" onClick="javascript:location.href='orderHMList.do?page=${i}'"></c:if>			
-			<c:if test="${hminfo != null}"><input type="button" value="${i}"
-			onClick="javascript:location.href='/admin/orderHMList.do?srchStdDt=${orderSrchInfo.srchStdDt}&srchEdDt=${orderSrchInfo.srchEdDt}&page=${i}'"
-			/></c:if>	
+			<a href="orderHMList.do?page=${i}" <c:if test="${i == page}">class="on"</c:if>>${i}</a>
 		</c:forEach>
+		
+		<c:set var="nextPage" value="${page+1}"/>
+		<c:if test="${nextPage > endNum }"><c:set var="nextPage" value="${endNum}"/></c:if>
+		<a class="palign1" href="orderHMList.do?page=${nextPage}"><img src='/resources/img/common/btn_next.gif' alt='다음 페이지로 이동' /></a>
+		
+		<a class="palign2" href="orderHMList.do?page=${endNum}"><img src='/resources/img/common/btn_end.gif' alt='마지막 페이지로 이동' /></a>
 	</div>
-	
 	
 </div>
 	

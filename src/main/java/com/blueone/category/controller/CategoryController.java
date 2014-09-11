@@ -284,7 +284,9 @@ public class CategoryController {
 		model.addAttribute("list", pd.getCtList());
 		
 		model.addAttribute("endNum",pd.getEndPageNum());
+		model.addAttribute("page",page);
 
+		
 		return "admin/product/middleTypeList";
 			
 	}
@@ -408,6 +410,7 @@ public class CategoryController {
 		model.addAttribute("list", pd.getCtList());
 		
 		model.addAttribute("endNum",pd.getEndPageNum());
+		model.addAttribute("page",page);
 		
 		return "admin/product/smallTypeList";
 			

@@ -85,6 +85,7 @@
 
 	</table>
 
+	<!-- page -->
 	<div id="Paser">
 		<a class="palign1" href="memberList.do?page=1"><img src='/resources/img/common/btn_first.gif' alt='첫 페이지로 이동' /></a>
 		
@@ -92,7 +93,9 @@
 		<c:if test="${prePage < 1 }"><c:set var="prePage" value="1"/></c:if>
 		<a class="palign2" href="memberList.do?page=${prePage}"><img src='/resources/img/common/btn_prev.gif' alt='이전 페이지로 이동' /></a>
 		
-		<c:forEach var="i" begin="1" end="${endNum}">
+		<c:set var="stI" value="1"/>
+		<c:set var="edI" value="10"/>
+		<c:forEach var="${stI}" begin="1" end="${edI}">
 			<a href="memberList.do?page=${i}" <c:if test="${i == page}">class="on"</c:if>>${i}</a>
 		</c:forEach>
 		

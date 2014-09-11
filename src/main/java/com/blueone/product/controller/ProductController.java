@@ -141,6 +141,7 @@ public class ProductController {
 		model.addAttribute("list", resultList);
 
 		model.addAttribute("endNum", pd.getEndPageNum());
+		model.addAttribute("page",page);
 
 		// -----------------------------------------------------------------
 		// 2. 상품등록을 위한 카테고리(대분류) 리스트를 넘긴다.
@@ -994,6 +995,8 @@ public class ProductController {
 
 		model.addAttribute("transferList",pd.getTrList());
 		model.addAttribute("endNum", pd.getEndPageNum());
+		model.addAttribute("page",page);
+
 		return "admin/product/transferList";
 	}
 

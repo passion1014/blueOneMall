@@ -175,7 +175,7 @@ public class OrderManageController {
 		
 		
 		model.addAttribute("odList",pd.getOrderInfoList());
-		model.addAttribute("nowPage", page);
+		model.addAttribute("page", page);
 	
 		model.addAttribute("endNum", pd.getEndPageNum());
 		model.addAttribute("orderStatCd","");
@@ -1401,7 +1401,7 @@ public class OrderManageController {
 			
 		}
 		model.addAttribute("odList", odResultList);
-		model.addAttribute("nowPage", page);
+		model.addAttribute("page", page);
 	
 		model.addAttribute("endNum", pd.getEndPageNum());
 		model.addAttribute("orderStatCd","");
@@ -1487,7 +1487,7 @@ public class OrderManageController {
 	
 		
 		model.addAttribute("odList", pd.getOrderInfoList());
-		model.addAttribute("nowPage", page);
+		model.addAttribute("page", page);
 	
 		model.addAttribute("endNum", pd.getEndPageNum());
 		model.addAttribute("orderStatCd","");
@@ -1561,7 +1561,7 @@ public class OrderManageController {
 		
 		
 		model.addAttribute("odList",pd.getHMInfoList());
-		model.addAttribute("nowPage", page);
+		model.addAttribute("page", page);
 		model.addAttribute("hminfo", hminfo);
 		
 		model.addAttribute("endNum", pd.getEndPageNum());

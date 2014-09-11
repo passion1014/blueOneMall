@@ -135,15 +135,25 @@ $(document).ready(function() {
 		</c:choose>
 	
 	</table>
-	<div align="center" style="padding-top:10px;">
+
+	<!-- page -->
+	<div id="Paser">
+		<a class="palign1" href="productTradeList.do?page=1"><img src='/resources/img/common/btn_first.gif' alt='첫 페이지로 이동' /></a>
+		
+		<c:set var="prePage" value="${page-1}"/>
+		<c:if test="${prePage < 1 }"><c:set var="prePage" value="1"/></c:if>
+		<a class="palign2" href="productTradeList.do?page=${prePage}"><img src='/resources/img/common/btn_prev.gif' alt='이전 페이지로 이동' /></a>
+		
 		<c:forEach var="i" begin="1" end="${endNum}">
-			<c:if test="${orderSrchInfo == null}"><input type="button" value="${i}" onClick="javascript:location.href='${ordUrl}?page=${i}'"></c:if>			
-			<c:if test="${orderSrchInfo != null}"><input type="button" value="${i}"
-			onClick="javascript:location.href='/admin/orderSearchList.do?srchStdDt=${orderSrchInfo.srchStdDt}&srchEdDt=${orderSrchInfo.srchEdDt}&keyfield=${orderSrchInfo.keyfield}&keyword=${orderSrchInfo.keyword}&page=${i}'"
-			/></c:if>			
+			<a href="productTradeList.do?page=${i}" <c:if test="${i == page}">class="on"</c:if>>${i}</a>
 		</c:forEach>
+		
+		<c:set var="nextPage" value="${page+1}"/>
+		<c:if test="${nextPage > endNum }"><c:set var="nextPage" value="${endNum}"/></c:if>
+		<a class="palign1" href="productTradeList.do?page=${nextPage}"><img src='/resources/img/common/btn_next.gif' alt='다음 페이지로 이동' /></a>
+		
+		<a class="palign2" href="productTradeList.do?page=${endNum}"><img src='/resources/img/common/btn_end.gif' alt='마지막 페이지로 이동' /></a>
 	</div>
-	
 	
 </div>
 	

@@ -225,6 +225,7 @@ public class AdminController {
 		
 		
 		model.addAttribute("list", pd.getAdInfolist());
+		
 		model.addAttribute("endNum",pd.getEndPageNum());
 		model.addAttribute("page",page);
 	    

@@ -102,7 +102,7 @@ function list_Submit(k){
 			<c:set var="ordUrl" value="orderList.do"/>
 		</c:when>
 		<c:when test="${sh eq 'ordering'}"> 
-			<strong>신청중</strong>
+			<strong>신청대기</strong>
 			<c:set var="ordUrl" value="orderingList.do"/>
 		</c:when>
 		<c:when test="${sh eq 'orderComplete'}"> 
@@ -170,7 +170,7 @@ function list_Submit(k){
 						
 						<input type="button" value="검색"   class="Small_Button Gray" onClick="list_Submit('search');">&nbsp;&nbsp;
 						<input type="button" value="초기화" class="Small_Button Gray" onClick="">&nbsp;&nbsp;
-						<input type="button" value="엑셀로 만들기"  onClick="location.href='/admin/orderListToExel.do?orderStatCd=${orderStatCd}'">&nbsp;&nbsp;
+						<input type="button" value="엑셀로 만들기" class="Small_Button Gray" onClick="location.href='/admin/orderListToExel.do?orderStatCd=${orderStatCd}'">&nbsp;&nbsp;
 					</div>
 				</td>
 			</tr>
@@ -210,7 +210,7 @@ function list_Submit(k){
 						</td>
 						<td class="center">
 							<c:if test="${odList.orderStatCd eq '01'}">신청대기</c:if>
-							<c:if test="${odList.orderStatCd eq '02'}">결제완료</c:if>
+							<c:if test="${odList.orderStatCd eq '02'}">신청대기</c:if>
 							<c:if test="${odList.orderStatCd eq '07'}">취소신청</c:if>
 							<c:if test="${odList.orderStatCd eq '08'}">취소완료</c:if>
 							<c:if test="${odList.orderStatCd eq '03'}">배송준비</c:if>
@@ -234,27 +234,37 @@ function list_Submit(k){
 	
 	</table>
 	주문상태 : <select name=orderStatCd>
-					<option value=01>신청대기</option>
-					<option value=02>결제완료</option>
+					<option value=02>신청대기</option>
 					<option value=07>취소신청</option>
-					<option value=08>취소완료</option>
+					<!-- <option value=08>취소완료</option>-->
 					<option value=03>배송준비</option>
 					<option value=04>배송중</option>
+					<option value=06>구매확정</option>
 					<option value=05>배송완료</option>
 					<option value=09>반품신청</option>
-					<option value=10>반품신청완료</option>
+					<!-- <option value=10>반품신청완료</option>-->
 			   </select>
 	<input type="button" value="일괄변경"class="Small_Button Gray"onClick="list_Submit('state');">
-	
-	<div align="center" style="padding-top:10px;">
-		<c:forEach var="i" begin="1" end="${endNum}">
-			<c:if test="${orderSrchInfo == null}"><input type="button" value="${i}" onClick="javascript:location.href='${ordUrl}?page=${i}'"></c:if>			
-			<c:if test="${orderSrchInfo != null}"><input type="button" value="${i}"
-			onClick="javascript:location.href='/admin/orderSearchList.do?srchStdDt=${orderSrchInfo.srchStdDt}&srchEdDt=${orderSrchInfo.srchEdDt}&keyfield=${orderSrchInfo.keyfield}&keyword=${orderSrchInfo.keyword}&page=${i}'"
-			/></c:if>			
-		</c:forEach>
-	</div>
 </form>
+	<!-- page -->
+	<div id="Paser">
+		<a class="palign1" href="orderList.do?page=1"><img src='/resources/img/common/btn_first.gif' alt='첫 페이지로 이동' /></a>
+		
+		<c:set var="prePage" value="${page-1}"/>
+		<c:if test="${prePage < 1 }"><c:set var="prePage" value="1"/></c:if>
+		<a class="palign2" href="orderList.do?page=${prePage}"><img src='/resources/img/common/btn_prev.gif' alt='이전 페이지로 이동' /></a>
+		
+		<c:forEach var="i" begin="1" end="${endNum}">
+			<a href="orderList.do?page=${i}" <c:if test="${i == page}">class="on"</c:if>>${i}</a>
+		</c:forEach>
+		
+		<c:set var="nextPage" value="${page+1}"/>
+		<c:if test="${nextPage > endNum }"><c:set var="nextPage" value="${endNum}"/></c:if>
+		<a class="palign1" href="orderList.do?page=${nextPage}"><img src='/resources/img/common/btn_next.gif' alt='다음 페이지로 이동' /></a>
+		
+		<a class="palign2" href="orderList.do?page=${endNum}"><img src='/resources/img/common/btn_end.gif' alt='마지막 페이지로 이동' /></a>
+	</div>
+
 </div>
 
 	<div align="right" style="padding-top:10px;">

@@ -76,6 +76,7 @@ public class MemberController {
 			}
 	
 	
+		//페이징
 		model.addAttribute("endNum",endNum);
 		model.addAttribute("page",page);
 		
