@@ -31,7 +31,7 @@
 				</td>
 			</tr>
 		</table>
-		</form>    
+		
 	    
 	<div class="left" style="margin-top:15px;"><b>회원 리스트</b> ( 검색 인원 : ${cust.size()} 명 )</div>
 	
@@ -91,25 +91,54 @@
 		
 		<c:set var="prePage" value="${page-1}"/>
 		<c:if test="${prePage < 1 }"><c:set var="prePage" value="1"/></c:if>
-		<a class="palign2" href="memberList.do?page=${prePage}"><img src='/resources/img/common/btn_prev.gif' alt='이전 페이지로 이동' /></a>
+		<a class="palign2" href="memberList.do?page=${prePage}"><img src='/resources/img/common/btn_prev.gif' alt='이전 페이지로 이동'/></a>
 		
-		<c:set var="stI" value="1"/>
-		<c:set var="edI" value="10"/>
-		<c:forEach var="${stI}" begin="1" end="${edI}">
-			<a href="memberList.do?page=${i}" <c:if test="${i == page}">class="on"</c:if>>${i}</a>
-		</c:forEach>
 		
+		<div id="forPage" class="inblock"></div>
+		
+
+
 		<c:set var="nextPage" value="${page+1}"/>
 		<c:if test="${nextPage > endNum }"><c:set var="nextPage" value="${endNum}"/></c:if>
-		<a class="palign1" href="memberList.do?page=${nextPage}"><img src='/resources/img/common/btn_next.gif' alt='다음 페이지로 이동' /></a>
+		<a class="palign1" href="memberList.do?page=${nextPage}"><img src='/resources/img/common/btn_next.gif'  /></a>
 		
 		<a class="palign2" href="memberList.do?page=${endNum}"><img src='/resources/img/common/btn_end.gif' alt='마지막 페이지로 이동' /></a>
 	</div>
+
+</form>    
 	
 </div>
 	
 
 </div>
+<script type="text/javascript" language="JavaScript">
+<!--
+$(document).ready(function() {
+	var str = '';
+	
+	if(${page+9 >= endNum}){
+	
+		
+		str +=  "<c:forEach var='i' begin='${page}' end='${endNum}'>";
+		str +=  "<a href='memberList.do?page=${i}'>&nbsp;${i}</a>";
+		str += "&nbsp;</c:forEach>";
+
+	}else{
+	
+		
+		str +=  "<c:forEach var='i' begin='${page}' end='${page+9}'>";
+		str +=  "<a href='memberList.do?page=${i}'>&nbsp;${i}</a>";
+		str += "&nbsp;</c:forEach>";
+
+	}
+	
+	document.getElementById("forPage").innerHTML = str;
+	
+});
+
+-->
+</script>
+
 </body>
 
 <c:import url="../inc/footer.jsp" />

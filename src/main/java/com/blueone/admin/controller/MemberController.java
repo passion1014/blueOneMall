@@ -182,10 +182,12 @@ public class MemberController {
 		
 		String mail=cus.getCustEmail();
 		int a = mail.indexOf("@");
-		String mail1= mail.substring(0, a);
-		String mail2= mail.substring(a+1);
-		cus.seteMail1(mail1);
-		cus.seteMail2(mail2);
+		if(a != -1){
+			String mail1= mail.substring(0, a);
+			String mail2= mail.substring(a+1);
+			cus.seteMail1(mail1);
+			cus.seteMail2(mail2);
+		}
 		model.addAttribute("customer", cus);
 		
 		return "admin/member/memberEdit";
@@ -355,42 +357,43 @@ public class MemberController {
 		String birth = result.getCustBirth();
 		StringTokenizer stTk = new StringTokenizer(st,"-");
 		
-		int i=1;
-		while(stTk.hasMoreElements()){
-			switch(i){
-			case 1:
-				if(Type.equals("b")){
-					result.setBirthY(Integer.parseInt(stTk.nextToken()));i++;
-				}else if(Type.equals("m")){
-					result.setHpNo1(stTk.nextToken());i++;
-				}else if(Type.equals("p")){
-					result.setTelNo1(stTk.nextToken());i++;
+		if(st != null || !st.isEmpty() || !!st.equals("")){
+			int i=1;
+			while(stTk.hasMoreElements()){
+				switch(i){
+				case 1:
+					if(Type.equals("b")){
+						result.setBirthY(Integer.parseInt(stTk.nextToken()));i++;
+					}else if(Type.equals("m")){
+						result.setHpNo1(stTk.nextToken());i++;
+					}else if(Type.equals("p")){
+						result.setTelNo1(stTk.nextToken());i++;
+					}
+					break;
+				case 2:
+					if(Type.equals("b")){
+						result.setBirthM(Integer.parseInt(stTk.nextToken()));i++;
+					}else if(Type.equals("m")){
+						result.setHpNo2(stTk.nextToken());i++;
+					}else if(Type.equals("p")){
+						result.setTelNo2(stTk.nextToken());i++;
+					}
+					break;
+				case 3:
+					if(Type.equals("b")){
+						String day = stTk.nextToken();
+						day=day.substring(0, 2);
+						result.setBirthD(Integer.parseInt(day));i++;
+					}else if(Type.equals("m")){
+						result.setHpNo3(stTk.nextToken());i++;
+					}else if(Type.equals("p")){
+						result.setTelNo3(stTk.nextToken());i++;
+					}
+					break;
+					
 				}
-				break;
-			case 2:
-				if(Type.equals("b")){
-					result.setBirthM(Integer.parseInt(stTk.nextToken()));i++;
-				}else if(Type.equals("m")){
-					result.setHpNo2(stTk.nextToken());i++;
-				}else if(Type.equals("p")){
-					result.setTelNo2(stTk.nextToken());i++;
-				}
-				break;
-			case 3:
-				if(Type.equals("b")){
-					String day = stTk.nextToken();
-					day=day.substring(0, 2);
-					result.setBirthD(Integer.parseInt(day));i++;
-				}else if(Type.equals("m")){
-					result.setHpNo3(stTk.nextToken());i++;
-				}else if(Type.equals("p")){
-					result.setTelNo3(stTk.nextToken());i++;
-				}
-				break;
-				
 			}
 		}
-		
 		return result;
 	
 

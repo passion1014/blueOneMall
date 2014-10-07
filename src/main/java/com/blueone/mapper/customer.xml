@@ -130,7 +130,12 @@
 			T1.REG_DATE
 		FROM
 			BOM_CUST_TB T1
+		
+		ORDER BY T1.REG_DATE DESC
+
 		<if test="startIdx>=0">LIMIT #{startIdx},15</if>
+
+
 	</select >
 	<select id="selectDtlBomCustTb0004" resultType="customerInfo" resultMap="CustomerInfoMap" parameterType="customerInfo">
 		SELECT

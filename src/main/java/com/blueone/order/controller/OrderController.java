@@ -598,7 +598,7 @@ public class OrderController {
 
 	//二쇰Ц?깃났?섏씠吏?
 	@RequestMapping(value="/order/orderComplete.do")
-	public String orderComplete(@ModelAttribute("orderInfo") OrderInfo orderInfo,String use_pay_method,BindingResult result,String card_cd,String good_mny,HttpSession session, Model model,HttpServletRequest request,HttpServletResponse response, String req_tx) throws Exception{
+	public String orderComplete(@ModelAttribute("orderInfo") OrderInfo orderInfo,String use_pay_method,BindingResult result,String card_cd,String good_mny,HttpSession session, Model model,HttpServletRequest request,HttpServletResponse response, String req_tx,String bSucc,String res_cd) throws Exception{
 		
 
 		if(req_tx!=null && !req_tx.isEmpty() && !StringUtils.isEmpty(req_tx)){
@@ -811,7 +811,16 @@ public class OrderController {
 			
 		}
 		model.addAttribute("usePoint",usePoint);
-		payment.setPymtMemo("결제완료");
+		if(res_cd.equals("0000"))
+			payment.setPymtMemo("결제완료");
+		else
+			payment.setPymtMemo("결제실패");
+		
+		if(bSucc.equals("false"))
+			payment.setPymtMemo("결제실패(PG사 디비오류)");
+		else
+			payment.setPymtMemo("결제완료");
+		
 		payment.setPayPrice(new BigDecimal(total1.intValue()-usePoint));
 		orderManageService.registPaymentInfo(payment);
 		model.addAttribute("odPrdInfo",opResInf);
