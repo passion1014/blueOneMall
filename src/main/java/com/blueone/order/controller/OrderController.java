@@ -182,11 +182,11 @@ public class OrderController {
 			value+="02="+orderProductInfo.getPrdOpSize()+",";
 		}
 		if(orderProductInfo.getPrdSmallImg()!=null){
+			
 			value+="cn="+count+",";
 			Cookie cookie =cki.createCookie("BOM"+orderProductInfo.getPrdCd()+"_"+pNum,value);
 			response.addCookie(cookie);//
 	
-		
 		}
 		
 		
@@ -598,7 +598,8 @@ public class OrderController {
 
 	//二쇰Ц?깃났?섏씠吏?
 	@RequestMapping(value="/order/orderComplete.do")
-	public String orderComplete(@ModelAttribute("orderInfo") OrderInfo orderInfo,String use_pay_method,BindingResult result,String card_cd,String good_mny,HttpSession session, Model model,HttpServletRequest request,HttpServletResponse response, String req_tx,String bSucc,String res_cd) throws Exception{
+	public String orderComplete(@ModelAttribute("orderInfo") OrderInfo orderInfo,String use_pay_method,BindingResult result,String card_cd,String good_mny,HttpSession session, Model model,
+			HttpServletRequest request,HttpServletResponse response, String req_tx,String bSucc,String res_cd,String app_no,String card_name) throws Exception{
 		
 
 		if(req_tx!=null && !req_tx.isEmpty() && !StringUtils.isEmpty(req_tx)){
@@ -612,6 +613,23 @@ public class OrderController {
 		}	
 		model.addAttribute("CUST_NAME", cus.getCustNm());
 	
+		if(res_cd != null || !res_cd.isEmpty()){
+		
+			if(!res_cd.equals("0000"))
+				return "order/orderError";
+			
+		}
+		
+		if(bSucc != null || !bSucc.isEmpty()){
+			
+			if(bSucc.equals("false"))
+				return "order/orderError";
+			
+		}
+		
+			
+		
+		
 		String customerPoint = (String)session.getAttribute("customerPoint");
 		model.addAttribute("CUST_POINT", customerPoint);
 		
@@ -843,7 +861,10 @@ public class OrderController {
 		//Order ??옣
 		orderInfo.setCustomerInfo(cus);
 		orderInfo.setModifyUserId(cus.getCustId());
-		orderInfo.setOrderStatCd("03");
+		orderInfo.setOrderStatCd("02");
+		if(app_no != null || !app_no.isEmpty()) orderInfo.setCardInfo1(app_no);
+		//if(card_name != null || !card_name.isEmpty()) orderInfo.setCardInfo2(URLDecoder.decode(card_name, "UTF-8"));
+		//if(card_name != null || !card_name.isEmpty()) orderInfo.setCardInfo2(card_name);
 		//orderManageService.updateOrderInf(orderInfo);
 	    orderManageService.registOrderInfo(orderInfo);
 		

@@ -2066,7 +2066,7 @@ public final class Utility
 		List<SearchAddress> result = new ArrayList<SearchAddress>();
 		
 		NodeList nodeDOC;
-		String query="http://udml.co.kr/api_hwi/zipcode/get_address_xml.php?query=";
+		String query="http://openapi.epost.go.kr/postal/retrieveLotNumberAdressService/retrieveLotNumberAdressService/getDetailList?searchSe=dong&encoding=utf-8&serviceKey=2pXecQ0GG7JN2FdHHovPj3V4uXER4yPJpflSp0NBmoCwSkEtR6EDp%2FNGAnZ5UKO2RwwsjkYhj%2BNguwxsPuO8GA%3D%3D&srchwrd=";
 		
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		DocumentBuilder docBuilder = dbf.newDocumentBuilder(); 
@@ -2081,7 +2081,7 @@ public final class Utility
 		
 		
 		if( doc != null ){
-			nodeDOC=doc.getElementsByTagName("item");
+			nodeDOC=doc.getElementsByTagName("NewAddresList");
 
 			for (int temp = 0; temp < nodeDOC.getLength(); temp++) {
 				Node nNode = nodeDOC.item(temp);
@@ -2089,11 +2089,11 @@ public final class Utility
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 
 				Element eElement = (Element) nNode;
-				String zip = eElement.getElementsByTagName("postcd").item(0).getFirstChild().getNodeValue();
+				String zip = eElement.getElementsByTagName("zipNo").item(0).getFirstChild().getNodeValue();
 				zip= zip.substring(0, 3)+"-"+zip.substring(3);
 				
 				re.setZipCode(zip);
-				re.setAddress( eElement.getElementsByTagName("address").item(0).getFirstChild().getNodeValue());
+				re.setAddress( eElement.getElementsByTagName("adres").item(0).getFirstChild().getNodeValue());
 				result.add(re);
 			  }
 			}
@@ -2101,11 +2101,5 @@ public final class Utility
 		return result;
 	}
 	
-	public static void main(String[] args) throws Exception {
-//		GregorianCalendar gc = new GregorianCalendar();
-//		System.out.println("==>" + gc.get(Calendar.DATE));
 		
-		// 주소조회 테스트
-		Utility.searchAdd("응안동");
-	}
 }

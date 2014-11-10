@@ -20,6 +20,11 @@ public class OrderInfo {
 	private BigDecimal deliveryPrice;	// 배송금액
 	private String useWellfarePointYn;	// 복지카드포인트 사용여부
 
+	private String cardInfo1;
+	private String cardInfo2;
+	private String cardInfo3;
+	
+	
 	private CustomerInfo customerInfo;	// 고객정보
 	private CustomerContactInfo customerContactInfo;	// 고객배송지+연락처정보
 	private RecipientInfo reciInfo;
@@ -48,6 +53,24 @@ public class OrderInfo {
 	private String shopevent;
 	
 	
+	public String getCardInfo1() {
+		return cardInfo1;
+	}
+	public void setCardInfo1(String cardInfo1) {
+		this.cardInfo1 = cardInfo1;
+	}
+	public String getCardInfo2() {
+		return cardInfo2;
+	}
+	public void setCardInfo2(String cardInfo2) {
+		this.cardInfo2 = cardInfo2;
+	}
+	public String getCardInfo3() {
+		return cardInfo3;
+	}
+	public void setCardInfo3(String cardInfo3) {
+		this.cardInfo3 = cardInfo3;
+	}
 	public String getTno() {
 		return tno;
 	}

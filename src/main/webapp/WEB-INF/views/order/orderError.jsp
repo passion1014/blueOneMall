@@ -20,7 +20,8 @@
 	<div class="container">
 		<c:import url="../inc/orderLnb.jsp" />
 		<div class="sub_content">
-			결제실패페이지입니다.
+			<h1>결제가 실패되었습니다.</h1>
+			<h3>다시 시도해 주시기 바랍니다.</h3> 
 		</div>
 	</div>
 <!--  container 끝   -->	

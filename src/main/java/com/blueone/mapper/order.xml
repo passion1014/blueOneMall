@@ -50,6 +50,9 @@
 		<id property="customerInfo.custNm" column="join_custNm" javaType="java.lang.String"/>
 		<id property="shopno" column="shopno" javaType="java.lang.String"/>
 		<id property="shopevent" column="shopevent" javaType="java.lang.String"/>
+	  	<id property="cardInfo1" column="CARD_INFO1" javaType="java.lang.String"/>
+	  	<id property="cardInfo2" column="CARD_INFO2" javaType="java.lang.String"/>
+	  	<id property="cardInfo3" column="CARD_INFO3" javaType="java.lang.String"/>
 	  
 		
 		<!-- 고객정보 셋팅 -->
@@ -139,6 +142,10 @@
 			T1.MODIFY_USER_ID,
 			T1.ORDER_TNO,
 			T1.USER_POINT_INFO,
+			T1.CARD_INFO1,
+			T1.CARD_INFO2,
+			T1.CARD_INFO3,
+			
 			T2.IDX AS payIdx,
 			T2.ORDER_NO AS payOrdNo,
 			T2.ORDER_NO_SEQ AS payOrdNoSeq,
@@ -149,9 +156,11 @@
 			T2.REG_DATE AS payRegDate,
 			T2.LAST_DATE AS payLastDate,
 			T2.MODIFY_USER_ID AS payModifyUserId,
+			
 			T3.IDX AS pordIdx,
 			T3.ORDER_NO AS pordOrdNo,
 			T3.PRD_CD , 
+			
 			T4.PRD_CD AS join_prdCd,
 			T4.PRD_NM AS join_prdNm,
 			T4.PRD_CTG_L AS prdCtgL,
@@ -159,6 +168,7 @@
 			T4.PRD_CTG_S AS prdCtgS, 
 			T4.FROM_DATE AS prdFromDate,
 			T4.TO_DATE AS prdToDate,
+			
 			T6.RECI_ORDER_NUM AS reciOdNum,
 			T6.RECI_NAME,
 			T6.RECI_PHONE,
@@ -203,6 +213,9 @@
 			T1.MODIFY_USER_ID,
 			T1.USER_POINT_INFO,
 			T1.ORDER_TRANSFER_NO,
+			T1.CARD_INFO1,
+			T1.CARD_INFO2,
+			T1.CARD_INFO3,
 			T2.IDX AS payIdx,
 			T2.ORDER_NO ,
 			T2.PYMT_POINT AS join_payPoint,
@@ -275,6 +288,9 @@
 			T1.MODIFY_USER_ID,
 			T1.USER_POINT_INFO,
 			T1.ORDER_TRANSFER_NO,
+			T1.CARD_INFO1,
+			T1.CARD_INFO2,
+			T1.CARD_INFO3,
 			T2.IDX AS payIdx,
 			T2.ORDER_NO ,
 			T2.PYMT_POINT AS join_payPoint,
@@ -363,7 +379,11 @@
 			T1.REG_DATE,
 			T1.USER_POINT_INFO,
 			T1.ORDER_TRANSFER_NO,
-			T1.ORDER_TRANSFER
+			T1.ORDER_TRANSFER,
+			T1.CARD_INFO1,
+			T1.CARD_INFO2,
+			T1.CARD_INFO3
+			
 			
 		FROM 
 				BOM_ORDER_TB T1
@@ -388,6 +408,9 @@
 			T1.LAST_DATE ,
 			T1.MODIFY_USER_ID,
 			T1.USER_POINT_INFO,
+			T1.CARD_INFO1,
+			T1.CARD_INFO2,
+			T1.CARD_INFO3,
 			T2.IDX AS payIdx,
 			T2.ORDER_NO AS payOrdNo,
 			T2.ORDER_NO_SEQ AS payOrdNoSeq,
@@ -446,6 +469,9 @@
 			T1.MODIFY_USER_ID,
 			T1.USER_POINT_INFO,
 			T1.ORDER_TRANSFER_NO,
+			T1.CARD_INFO1,
+			T1.CARD_INFO2,
+			T1.CARD_INFO3,
 			T2.IDX AS payIdx,
 			T2.ORDER_NO ,
 			T2.PYMT_POINT AS join_payPoint,
@@ -509,8 +535,10 @@
 			T1.MODIFY_USER_ID,
 			T1.PYMT_MEMO
 			
+			
 		FROM 
 			BOM_PAYMENT_TB T1
+			
 		WHERE
 			(1 = 1)
 			<if test="modifyUserId != null and modifyUserId != ''"> AND T1.MODIFY_USER_ID = #{modifyUserId}</if>
@@ -571,9 +599,11 @@
 	</insert>
 	<insert id="insertBomOrderTb0001" parameterType="orderInfo" >
 		INSERT BOM_ORDER_TB
-			(`ORDER_NO`,`CUST_ID`,`ORDER_STAT_CD`,`ORDER_DATE`,`REG_DATE`,`LAST_DATE`,`MODIFY_USER_ID`,`USER_POINT_INFO`,`ORDER_TNO`)
+			(`ORDER_NO`,`CUST_ID`,`ORDER_STAT_CD`,`ORDER_DATE`,`REG_DATE`,`LAST_DATE`,`MODIFY_USER_ID`,`USER_POINT_INFO`,`ORDER_TNO`,
+			 `CARD_INFO1`,`CARD_INFO2`,`CARD_INFO3`
+			)
 			VALUES
-			(#{orderNo}, #{customerInfo.custId},#{orderStatCd},sysdate(), sysdate(), sysdate(),#{modifyUserId},#{userPointInfo}, #{tno})
+			(#{orderNo}, #{customerInfo.custId},#{orderStatCd},sysdate(), sysdate(), sysdate(),#{modifyUserId},#{userPointInfo}, #{tno}, #{cardInfo1}, #{cardInfo2}, #{cardInfo3})
 	</insert>
 	
 	<insert id="insertBomPaymentTb0001" parameterType="paymentInfo" >

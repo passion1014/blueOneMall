@@ -121,6 +121,7 @@ public class OrderManageController {
 			List<OrderProductInfo> opResInf = orderService.selectOrderPrdInfo(odPrd);
 			
 			if(opResInf!=null && opResInf.size()>0){
+				
 				odPrd=opResInf.get(0);
 				String prdCd = odPrd.getPrdCd();
 				ProductInfo prInf = new ProductInfo();
@@ -302,6 +303,10 @@ public class OrderManageController {
 	            cell.setCellStyle(style);
 	            cell.setCellValue("정산예정금액");   
 	            
+	            cell = row.createCell((short)22);
+	            cell.setCellStyle(style);
+	            cell.setCellValue("승인번호");   
+	            
 	            
 	           
 	            
@@ -427,6 +432,10 @@ public class OrderManageController {
 		            //정산예정금액
 		            cell = row.createCell((short)21);
 		            cell.setCellValue(each.getPaymentInfo().getPayPrice().toString());
+		            
+		          //정산예정금액
+		            cell = row.createCell((short)21);
+		            cell.setCellValue(each.getCardInfo1());
 		            
 		            i++;
 		        }
